@@ -1,6 +1,6 @@
 #include <stdio.h>
 
-#include "graphics/cursor.hpp"
+#include "gui/cursor.hpp"
 
 namespace qrw
 {

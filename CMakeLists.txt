@@ -15,8 +15,8 @@ set(SOURCE
 	src/engine/unit.cpp
 	src/gui/guihandler.cpp
 	src/gui/mainwindow.cpp
-	src/graphics/boardrenderer.cpp
-	src/graphics/cursor.cpp
+	src/gui/boardrenderer.cpp
+	src/gui/cursor.cpp
 )
 
 include_directories(

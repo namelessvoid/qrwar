@@ -6,8 +6,8 @@
 #include <iostream>
 #include <stdio.h>
 
-#include "graphics/boardrenderer.hpp"
-#include "graphics/cursor.hpp"
+#include "gui/boardrenderer.hpp"
+#include "gui/cursor.hpp"
 
 namespace qrw
 {

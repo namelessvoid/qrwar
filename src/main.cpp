@@ -2,10 +2,10 @@
 #include <SFML/Graphics/RectangleShape.hpp>
 
 #include "gui/guihandler.hpp"
-#include "graphics/cursor.hpp"
+#include "gui/cursor.hpp"
 #include "engine/engine.hpp"
 
-#include "graphics/boardrenderer.hpp"
+#include "gui/boardrenderer.hpp"
 #include "engine/terrain.hpp"
 
 
