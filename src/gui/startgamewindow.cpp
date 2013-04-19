@@ -4,12 +4,13 @@
 #include <SFGUI/SpinButton.hpp>
 
 #include "gui/startgamewindow.hpp"
+#include "engine/unit.hpp"
 
 namespace qrw
 {
-	StartGameWindow::Ptr StartGameWindow::Create()
+	StartGameWindow::Ptr StartGameWindow::Create(Engine* engine)
 	{
-		Ptr window(new StartGameWindow());
+		Ptr window(new StartGameWindow(engine));
 		window->SetTitle("Start new game");
 
 		sfg::Label::Ptr playeronelabel = sfg::Label::Create("Player 1");
@@ -55,9 +56,15 @@ namespace qrw
 		return window;
 	}
 
-	StartGameWindow::StartGameWindow(int style)
-	: Window(style)
+	StartGameWindow::StartGameWindow(Engine* engine, int style)
+	: Window(style),
+	  engine(engine)
 	{}
+
+	void StartGameWindow::startGame()
+	{
+		hide();
+	}
 
 	void StartGameWindow::hide()
 	{

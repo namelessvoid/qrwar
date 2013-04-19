@@ -16,7 +16,7 @@ namespace qrw
 		  windowsize(windowsize)
 	{
 		windows[MAINWINDOW] = MainWindow::Create(this);
-		windows[STARTGAMEWINDOW] = StartGameWindow::Create();
+		windows[STARTGAMEWINDOW] = StartGameWindow::Create(engine);
 		windows[LOADGANEWINDO] = sfg::Window::Create();
 		windows[SETTINGSWINDOW] = sfg::Window::Create();
 		windows[CREDITSWINDOW] = sfg::Window::Create();

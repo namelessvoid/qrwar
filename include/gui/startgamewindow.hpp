@@ -4,6 +4,8 @@
 #include <SFGUI/Window.hpp>
 #include <SFGUI/SharedPtr.hpp>
 
+#include "engine/engine.hpp"
+
 namespace qrw
 {
 	class StartGameWindow : public sfg::Window
@@ -12,12 +14,17 @@ namespace qrw
 			typedef sfg::SharedPtr<StartGameWindow> Ptr;
 			typedef sfg::SharedPtr<const StartGameWindow> PtrConst;
 
-			static Ptr Create();
+			static Ptr Create(Engine* engine);
 
-			void hide();
-		
 		protected:
-			StartGameWindow(int style = BACKGROUND);
+			StartGameWindow(Engine* engine, int style = BACKGROUND);
+
+		private:
+			void hide();
+			void startGame();
+			Engine* engine;
+
+
 	};
 }
 
