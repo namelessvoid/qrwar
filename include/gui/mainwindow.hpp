@@ -14,10 +14,10 @@ namespace qrw
 			typedef sfg::SharedPtr<MainWindow> Ptr;
 			typedef sfg::SharedPtr<const MainWindow> PtrConst;
 
-			static Ptr Create(GuiHandler* guihandler, int style = BACKGROUND);
+			static Ptr Create(GuiHandler* guihandler);
 		
 		protected:
-			MainWindow(GuiHandler* guihandler, int style = TITLEBAR | BACKGROUND);
+			MainWindow(GuiHandler* guihandler, int style = BACKGROUND);
 
 		private:
 			GuiHandler* guihandler;

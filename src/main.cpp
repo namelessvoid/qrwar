@@ -24,9 +24,10 @@ void moveUnit(qrw::Cursor* cursor, qrw::Engine* engine)
 
 int main(int argc, char const *argv[])
 {
+	sf::Vector2f windowsize(800, 600);
 	qrw::Engine engine;
-	engine.init(10, 10);
-	qrw::GuiHandler guihandler(&engine);
+	engine.init(10, 4);
+	qrw::GuiHandler guihandler(&engine, windowsize);
 
 	
 // Setup random board for test dings
@@ -41,6 +42,10 @@ boardrenderer.setBoard(board);
 
 qrw::Cursor::getCursor()->setBoard(board);
 
+	int playeroneunits[] = {2, 2, 2};
+	int playertwounits[] = {1, 2, 3};
+	engine.setUnits(playeroneunits, playertwounits);
+
 	engine.startGame();
 
 qrw::Unit* unit = new qrw::Unit(qrw::EUT_SWORDMAN, 2, 1, 1, 2, &engine.getCurrentPlayer());
@@ -48,8 +53,8 @@ board->getSquare(0, 0)->setUnit(unit);
 qrw::Unit *unit2 = new qrw::Unit(qrw::EUT_SWORDMAN, 2, 1, 1, 2, &engine.getCurrentPlayer());
 board->getSquare(0, 3)->setUnit(unit2);
 
-	sf::RenderWindow renderwindow(sf::VideoMode(800, 600), "Quad-Ruled War", sf::Style::Default);
-	sf::View camera(sf::FloatRect(0.0f, 0.0f, 800.0f, 600.0f));
+	sf::RenderWindow renderwindow(sf::VideoMode(windowsize.x, windowsize.y), "Quad-Ruled War", sf::Style::Default);
+	sf::View camera(sf::FloatRect(0.0f, 0.0f, windowsize.x, windowsize.y));
 	renderwindow.setView(camera);
 
 	sf::RectangleShape rect(sf::Vector2f(10.0f, 10.0f));

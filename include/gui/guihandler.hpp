@@ -6,6 +6,7 @@
 #include <SFGUI/Window.hpp>
 
 #include "engine/engine.hpp"
+#include "gui/ingamewindow.hpp"
 
 namespace qrw
 {
@@ -15,7 +16,7 @@ namespace qrw
 	enum EW_WINDOWIDS
 	{
 		MAINWINDOW = 0,
-		NEWGAMEWINDOW,
+		STARTGAMEWINDOW,
 		LOADGANEWINDO,
 		SETTINGSWINDOW,
 		CREDITSWINDOW,
@@ -30,7 +31,7 @@ namespace qrw
 	class GuiHandler : public sfg::Desktop
 	{
 		public:
-			GuiHandler(qrw::Engine* engine);
+			GuiHandler(qrw::Engine* engine, sf::Vector2f windowsize);
 			~GuiHandler();
 
 			void display(sf::RenderTarget& rendertarget);
@@ -43,6 +44,8 @@ namespace qrw
 			inline void setQuit(bool quit) { this->quit = quit; };
 			inline void doQuit() { this->quit = true; };
 
+			void showStartGameWindow();
+
 			sfg::Window::Ptr getWindowById(int id);
 
 			void HandleEvent(const sf::Event& event);
@@ -50,8 +53,11 @@ namespace qrw
 		private:
 			qrw::Engine* engine;
 
+			sf::Vector2f windowsize;
+			
 			sfg::Window::Ptr windows[NUMEROFWINDOWS];
 			bool visiblestats[NUMEROFWINDOWS];
+			IngameWindow::Ptr ingamewindow;
 
 			sfg::SFGUI sfgui;
 			bool visible;

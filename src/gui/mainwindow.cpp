@@ -4,9 +4,9 @@
 
 namespace qrw
 {
-	MainWindow::Ptr MainWindow::Create(GuiHandler* guihandler, int style)
+	MainWindow::Ptr MainWindow::Create(GuiHandler* guihandler)
 	{
-		MainWindow::Ptr window(new MainWindow(guihandler, style));
+		MainWindow::Ptr window(new MainWindow(guihandler));
 		window->SetTitle("Main Menu");
 
 		// Create buttons
@@ -14,6 +14,7 @@ namespace qrw
 		quitbutton->GetSignal(sfg::Button::OnLeftClick).Connect(&GuiHandler::doQuit, guihandler);
 
 		sfg::Button::Ptr startbutton = sfg::Button::Create("New Game");
+		startbutton->GetSignal(sfg::Button::OnLeftClick).Connect(&GuiHandler::showStartGameWindow, guihandler);
 
 		sfg::Button::Ptr savegamebutton = sfg::Button::Create("Savegames");
 

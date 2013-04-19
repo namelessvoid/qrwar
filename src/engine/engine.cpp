@@ -21,6 +21,29 @@ namespace qrw
  		currentplayer = 0;
  	}
 
+ 	bool Engine::setUnits(int playeroneunits[EUT_NUMBEROFUNITTYPES],
+		int playertwounits[EUT_NUMBEROFUNITTYPES])
+ 	{
+ 		if(status != EES_PREPARE)
+ 			return false;
+ 		setPlayerUnits(0, playeroneunits);
+ 		setPlayerUnits(1, playertwounits);
+ 		return true;
+ 	}
+
+ 	void Engine::setPlayerUnits(int id, int unitnumbers[EUT_NUMBEROFUNITTYPES])
+ 	{
+ 		Player* player = getPlayer(id);
+ 		std::vector<Unit*> units = player->getUnits();
+ 		int i;
+ 		for(i = 0; i < unitnumbers[EUT_SWORDMAN]; ++i)
+ 			units.push_back(new Unit(EUT_SWORDMAN, 2, 1, 1, 3, player));
+ 		for(i = 0; i < unitnumbers[EUT_ARCHER]; ++i)
+ 			units.push_back(new Unit(EUT_ARCHER, 2, 1, 3, 2, player));
+ 		for(i = 0; i < unitnumbers[EUT_SPEARMAN]; ++i)
+ 			units.push_back(new Unit(EUT_SPEARMAN, 2, 1, 2, 2, player));
+ 	}
+
  	Board* Engine::getBoard()
  	{
  		return board;
@@ -31,10 +54,10 @@ namespace qrw
  		return players[currentplayer];
  	}
 
- 	Player& Engine::changePlayer()
+ 	void Engine::endTurn()
  	{
  		currentplayer = (currentplayer + 1) % 2;
- 		return getCurrentPlayer();
+ 		// return getCurrentPlayer();
  	}
 
 	/**
@@ -67,6 +90,13 @@ namespace qrw
  		unit->setCurrentMovement(unit->getCurrentMovement() - distance);
  		orsquare->setUnit(0);
  		destsquare->setUnit(unit);
+ 		return 0;
+ 	}
+
+ 	Player* Engine::getPlayer(int id)
+ 	{
+ 		if(id == 0 || id == 1)
+ 			return &players[id];
  		return 0;
  	}
  }

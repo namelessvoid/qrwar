@@ -2,11 +2,12 @@
 #define QRW_UNIT_HPP
 
 #include <string>
-
-#include "engine/player.hpp"
+// #include "engine/player.hpp"
 
 namespace qrw
 {
+	class Player;
+	
 	enum UNITTYPES
 	{
 		EUT_SWORDMAN,

@@ -24,8 +24,11 @@ namespace qrw
 			void init(int boardwidth, int boardheight);
 			void startGame();
 
+			bool setUnits(int playeornoeunits[EUT_NUMBEROFUNITTYPES],
+				int playertwounits[EUT_NUMBEROFUNITTYPES]);
+
 			Player& getCurrentPlayer();
-			Player& changePlayer();
+			void endTurn();
 
 			Board* getBoard();
 			/**
@@ -35,7 +38,11 @@ namespace qrw
 			 */
 			int moveUnit(int orx, int ory, int destx, int desty);
 
+			Player* getPlayer(int id);
+
 		private:
+			void setPlayerUnits(int id, int unitnumbers[EUT_NUMBEROFUNITTYPES]);
+
 			Board* board;
 			int currentplayer;
 			Player players[2];

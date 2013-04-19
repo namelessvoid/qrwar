@@ -2,23 +2,28 @@
 
 #include "gui/guihandler.hpp"
 #include "gui/mainwindow.hpp"
+#include "gui/startgamewindow.hpp"
+#include "gui/ingamewindow.hpp"
 #include "gui/cursor.hpp"
 
 namespace qrw
 {
-	GuiHandler::GuiHandler(qrw::Engine* engine)
+	GuiHandler::GuiHandler(qrw::Engine* engine, sf::Vector2f windowsize)
 		: engine(engine),
 		  sfgui(sfg::SFGUI()),
 		  visible(true),
-		  quit(false)
+		  quit(false),
+		  windowsize(windowsize)
 	{
 		windows[MAINWINDOW] = MainWindow::Create(this);
-		windows[NEWGAMEWINDOW] = sfg::Window::Create();
+		windows[STARTGAMEWINDOW] = StartGameWindow::Create();
 		windows[LOADGANEWINDO] = sfg::Window::Create();
 		windows[SETTINGSWINDOW] = sfg::Window::Create();
 		windows[CREDITSWINDOW] = sfg::Window::Create();
+		ingamewindow = IngameWindow::Create(engine, windowsize);
+		this->Add(ingamewindow);
 		this->Add(windows[MAINWINDOW]);
-		// this->Add(windows[NEWGAMEWINDOW]);
+		this->Add(windows[STARTGAMEWINDOW]);
 	}
 
 	GuiHandler::~GuiHandler()
@@ -46,6 +51,11 @@ namespace qrw
 		visible = !visible;
 	}
 
+	void GuiHandler::showStartGameWindow()
+	{
+		windows[STARTGAMEWINDOW]->Show(true);
+	}
+
 	sfg::Window::Ptr GuiHandler::getWindowById(int id)
 	{
 		if(id < 0 || id > NUMEROFWINDOWS)
@@ -64,6 +74,7 @@ namespace qrw
 				sfg::Desktop::HandleEvent(event);
 			else
 			{
+				ingamewindow->HandleEvent(event);
 				if(event.type == sf::Event::KeyPressed)
 				{
 					qrw::Cursor* cursor = qrw::Cursor::getCursor();
