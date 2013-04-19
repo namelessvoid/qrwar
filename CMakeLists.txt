@@ -30,6 +30,7 @@ target_link_libraries(qrwar ${LIBS})
 # Unittest target
 set(UNITTEST_SOURCE
 	test/engine/boardtest.cpp
+	test/engine/squaretest.cpp
 )
 
 add_executable(test test/main.cpp ${SOURCE} ${UNITTEST_SOURCE})
