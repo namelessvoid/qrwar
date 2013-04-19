@@ -7,20 +7,40 @@
 
 namespace qrw
 {
+	enum UNITTYPES
+	{
+		EUT_SWORDMAN,
+		EUT_ARCHER,
+		EUT_SPEARMAN,
+		EUT_NUMBEROFUNITTYPES
+	};
+
 	class Unit
 	{
 		public:
-			Unit(std::string name, int attack, int defense,
-				int range, Player* player);
+			Unit(UNITTYPES type, int attack, int defense,
+				int range, int movement, Player* player);
 			~Unit();
 
 			Player* getPlayer();
+			UNITTYPES getType();
+			int getAttack();
+			int getDefense();
+			int getRange();
+			int getHP();
+			// void setHitpoints();
+			int getMovement();
+			int getCurrentMovement();
+			void setCurrentMovement(int movement);
 
 		private:
-			std::string name;
+			UNITTYPES type;
 			int attack;
 			int defense;
+			int hp;
 			int range;
+			int movement;
+			int currentmovement;
 			Player* player;
 
 	};

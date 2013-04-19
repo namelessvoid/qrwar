@@ -57,6 +57,11 @@ namespace qrw
 		return true;
 	}
 
+	bool Cursor::setPosition(sf::Vector2i pos)
+	{
+		return setPosition(pos.x, pos.y);
+	}
+
 	Cursor* Cursor::spawnChild()
 	{
 		if(child != 0)

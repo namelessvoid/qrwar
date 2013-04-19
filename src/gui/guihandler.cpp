@@ -1,12 +1,14 @@
-#include <iostream>
+#include <stdio.h>
 
 #include "gui/guihandler.hpp"
 #include "gui/mainwindow.hpp"
+#include "gui/cursor.hpp"
 
 namespace qrw
 {
-	GuiHandler::GuiHandler()
-		: sfgui(sfg::SFGUI()),
+	GuiHandler::GuiHandler(qrw::Engine* engine)
+		: engine(engine),
+		  sfgui(sfg::SFGUI()),
 		  visible(true),
 		  quit(false)
 	{
@@ -49,5 +51,53 @@ namespace qrw
 		if(id < 0 || id > NUMEROFWINDOWS)
 			throw NoSuchWindowException();
 		return windows[id];
+	}
+
+	void GuiHandler::HandleEvent(const sf::Event& event)
+	{
+			// Toggle gui
+			if(event.type == sf::Event::KeyPressed)
+				if(event.key.code == sf::Keyboard::F1)
+					toggleGui();
+			// Let the gui handle the event
+			if(guiVisible())
+				sfg::Desktop::HandleEvent(event);
+			else
+			{
+				if(event.type == sf::Event::KeyPressed)
+				{
+					qrw::Cursor* cursor = qrw::Cursor::getCursor();
+					qrw::Cursor* childcursor = cursor->getChild();
+
+					if(event.key.code == sf::Keyboard::Up)
+						cursor->move(0, -1);
+					else if(event.key.code == sf::Keyboard::Down)
+						cursor->move(0, 1);
+					else if(event.key.code == sf::Keyboard::Right)
+						cursor->move(1, 0);
+					else if(event.key.code == sf::Keyboard::Left)
+						cursor->move(-1, 0);
+					else if(event.key.code == sf::Keyboard::Escape)
+						cursor->despawnChild();
+					else if(event.key.code == sf::Keyboard::Return)
+					{
+						if(childcursor == 0)
+						{
+							cursor->spawnChild();
+						}
+						else if(childcursor != 0)
+						{
+							printf("cursor@%i,%i|child@%i,%i\n", cursor->getPosition().x, cursor->getPosition().y,
+								childcursor->getPosition().x, childcursor->getPosition().y);
+							if(engine->moveUnit(cursor->getPosition().x, cursor->getPosition().y,
+								childcursor->getPosition().x, childcursor->getPosition().y) == 0)
+							{
+								cursor->setPosition(childcursor->getPosition());
+								cursor->despawnChild();
+							}
+						}
+					}
+				}
+			}
 	}
 }

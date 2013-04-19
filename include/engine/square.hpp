@@ -18,9 +18,15 @@ namespace qrw
 			void setUnit(Unit* unit);
 			Unit* getUnit();
 
+			void setPosition(int x, int y);
+			int getDistance(Square* suqare);
+			int getXPosition();
+			int getYPosition();
+
 		private:
 			Terrain* terrain;
 			Unit* unit;
+			int xpos, ypos;
 	};
 }
 

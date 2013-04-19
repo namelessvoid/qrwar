@@ -22,6 +22,7 @@ namespace qrw
 			 */
 			bool move(int dx, int dy);
 			bool setPosition(int x, int y);
+			bool setPosition(sf::Vector2i pos);
 
 			Cursor* spawnChild();
 			Cursor* getChild();

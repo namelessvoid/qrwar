@@ -5,6 +5,8 @@
 #include <SFGUI/Desktop.hpp>
 #include <SFGUI/Window.hpp>
 
+#include "engine/engine.hpp"
+
 namespace qrw
 {
 	/**
@@ -28,7 +30,7 @@ namespace qrw
 	class GuiHandler : public sfg::Desktop
 	{
 		public:
-			GuiHandler();
+			GuiHandler(qrw::Engine* engine);
 			~GuiHandler();
 
 			void display(sf::RenderTarget& rendertarget);
@@ -43,7 +45,11 @@ namespace qrw
 
 			sfg::Window::Ptr getWindowById(int id);
 
+			void HandleEvent(const sf::Event& event);
+
 		private:
+			qrw::Engine* engine;
+
 			sfg::Window::Ptr windows[NUMEROFWINDOWS];
 			bool visiblestats[NUMEROFWINDOWS];
 

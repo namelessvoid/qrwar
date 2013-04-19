@@ -10,6 +10,9 @@ namespace qrw
 	{
 		int arraysize = height * width;
 		squares = new Square[arraysize];
+		for(int i = 0; i < width; ++i)
+			for(int j = 0; j < height; ++j)
+				getSquare(i, j)->setPosition(i, j);
 		// squares = new Square[arraysize];
 		// printf("Array size (height*widht): %i\n", arraysize);
 		// printf("array pointer: %i", squares);

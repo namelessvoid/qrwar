@@ -10,8 +10,21 @@ namespace qrw
 	Engine::~Engine()
 	{}
  
- 	void Engine::init(int x, int y)
- 	{}
+ 	void Engine::init(int boardwidth, int boardheight)
+ 	{
+ 		delete board;
+ 		board = new Board(boardwidth, boardheight);
+ 	}
+
+ 	void Engine::startGame()
+ 	{
+ 		currentplayer = 0;
+ 	}
+
+ 	Board* Engine::getBoard()
+ 	{
+ 		return board;
+ 	}
 
  	Player& Engine::getCurrentPlayer()
  	{
@@ -27,7 +40,7 @@ namespace qrw
 	/**
 	 * @Return: 0 - success, -1 - wrong player, -2 origin empty,
 	 * 			-3 destination not empty, -4 or out of range,
-	 *			-5 dest out of ranage
+	 *			-5 dest out of ranage, -6 not enough movement
 	 */
  	int Engine::moveUnit(int orx, int ory, int destx, int desty)
  	{
@@ -47,6 +60,11 @@ namespace qrw
  		if(unit->getPlayer() != &getCurrentPlayer())
  			return -1;
 
+ 		int distance = orsquare->getDistance(destsquare);
+ 		if(distance > unit->getCurrentMovement())
+ 			return -6;
+
+ 		unit->setCurrentMovement(unit->getCurrentMovement() - distance);
  		orsquare->setUnit(0);
  		destsquare->setUnit(unit);
  		return 0;

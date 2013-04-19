@@ -22,10 +22,12 @@ namespace qrw
 			~Engine();
 
 			void init(int boardwidth, int boardheight);
+			void startGame();
 
 			Player& getCurrentPlayer();
 			Player& changePlayer();
 
+			Board* getBoard();
 			/**
 			 * @Return: 0 - success, -1 - wrong player, -2 origin empty,
 			 * 			-3 destination not empty, -4 or out of range,

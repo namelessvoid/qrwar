@@ -25,7 +25,8 @@ namespace qrw
 			TextureManager& texturemanager;
 
 			sf::Sprite* plainsquare;
-			sf::Sprite* terrainsprites[];
+			sf::Sprite* terrainsprites[ET_NUMBEROFTERRAINTYPES];
+			sf::Sprite* unitsprites[EUT_NUMBEROFUNITTYPES];
 	};
 }
 

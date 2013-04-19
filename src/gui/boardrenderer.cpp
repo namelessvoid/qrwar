@@ -19,7 +19,7 @@ namespace qrw
 		// plain square
 		texturemanager.loadTexture("plainsquare", "./res/img/plainsquare.png");
 		// units
-		texturemanager.loadTexture("swordsman", "./res/img/units/swordsman.png");
+		texturemanager.loadTexture("swordman", "./res/img/units/swordman.png");
 		texturemanager.loadTexture("archer", "./res/img/units/archer.png");
 		texturemanager.loadTexture("spearman", "./res/img/units/spearman.png");
 		// terrain
@@ -27,8 +27,9 @@ namespace qrw
 		texturemanager.loadTexture("hill", "./res/img/terrain/hill.png");
 
 		plainsquare = new sf::Sprite(*texturemanager.getTexture("plainsquare"));
-		terrainsprites[0] = new sf::Sprite(*texturemanager.getTexture("wood"));
-		terrainsprites[1] = new sf::Sprite(*texturemanager.getTexture("hill"));
+		terrainsprites[ET_WOOD] = new sf::Sprite(*texturemanager.getTexture("wood"));
+		terrainsprites[ET_HILL] = new sf::Sprite(*texturemanager.getTexture("hill"));
+		unitsprites[EUT_SWORDMAN] = new sf::Sprite(*texturemanager.getTexture("swordman"));
 	}
 
 	BoardRenderer::~BoardRenderer()
@@ -89,6 +90,7 @@ namespace qrw
 
 				square = board->getSquare(i, j);
 				terrain = square->getTerrain();
+				unit = square->getUnit();
 				// Render selection
 				if(cursorpos.x == i && cursorpos.y == j)
 				{
@@ -130,6 +132,15 @@ namespace qrw
 					}
 				}
 				// Render Units
+				if(unit != 0)
+				{
+					if(unit->getType() == EUT_SWORDMAN)
+					{
+						unitsprites[EUT_SWORDMAN]->setPosition(currpos);
+						unitsprites[EUT_SWORDMAN]->setScale(spritescale);
+						target.draw(*unitsprites[EUT_SWORDMAN]);
+					}
+				}
 			}
 		}
 	}

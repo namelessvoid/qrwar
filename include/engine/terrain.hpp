@@ -13,7 +13,7 @@ namespace qrw
 	{
 		ET_WOOD,
 		ET_HILL,
-
+		ET_NUMBEROFTERRAINTYPES
 	};
 
 	class Terrain

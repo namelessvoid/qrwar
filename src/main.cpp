@@ -6,7 +6,9 @@
 #include "engine/engine.hpp"
 
 #include "gui/boardrenderer.hpp"
+
 #include "engine/terrain.hpp"
+#include "engine/unit.hpp"
 
 
 void moveUnit(qrw::Cursor* cursor, qrw::Engine* engine)
@@ -22,20 +24,29 @@ void moveUnit(qrw::Cursor* cursor, qrw::Engine* engine)
 
 int main(int argc, char const *argv[])
 {
-	qrw::GuiHandler guihandler;
-
 	qrw::Engine engine;
+	engine.init(10, 10);
+	qrw::GuiHandler guihandler(&engine);
+
+	
 // Setup random board for test dings
-qrw::Board board(25, 18);
+qrw::Board* board = engine.getBoard();
 qrw::Terrain terrain1(qrw::ET_WOOD, 0, 0);
-board.getSquare(0, 0)->setTerrain(&terrain1);
+board->getSquare(0, 0)->setTerrain(&terrain1);
 qrw::Terrain terrain2(qrw::ET_HILL, 0, 0);
-board.getSquare(1, 2)->setTerrain(&terrain2);
+board->getSquare(1, 2)->setTerrain(&terrain2);
 
 qrw::BoardRenderer boardrenderer;
-boardrenderer.setBoard(&board);
+boardrenderer.setBoard(board);
 
-qrw::Cursor::getCursor()->setBoard(&board);
+qrw::Cursor::getCursor()->setBoard(board);
+
+	engine.startGame();
+
+qrw::Unit* unit = new qrw::Unit(qrw::EUT_SWORDMAN, 2, 1, 1, 2, &engine.getCurrentPlayer());
+board->getSquare(0, 0)->setUnit(unit);
+qrw::Unit *unit2 = new qrw::Unit(qrw::EUT_SWORDMAN, 2, 1, 1, 2, &engine.getCurrentPlayer());
+board->getSquare(0, 3)->setUnit(unit2);
 
 	sf::RenderWindow renderwindow(sf::VideoMode(800, 600), "Quad-Ruled War", sf::Style::Default);
 	sf::View camera(sf::FloatRect(0.0f, 0.0f, 800.0f, 600.0f));
@@ -53,37 +64,7 @@ qrw::Cursor::getCursor()->setBoard(&board);
 		// Event handling
 		sf::Event event;
 		while(renderwindow.pollEvent(event))
-		{
-			// Toggle gui
-			if(event.type == sf::Event::KeyPressed)
-				if(event.key.code == sf::Keyboard::F1)
-					guihandler.toggleGui();
-			// Let the gui handle the event
-			if(guihandler.guiVisible())
-				guihandler.HandleEvent(event);
-			else
-			{
-				if(event.type == sf::Event::KeyPressed)
-				{
-					qrw::Cursor* cursor = qrw::Cursor::getCursor();
-					if(event.key.code == sf::Keyboard::Up)
-						cursor->move(0, -1);
-					else if(event.key.code == sf::Keyboard::Down)
-						cursor->move(0, 1);
-					else if(event.key.code == sf::Keyboard::Right)
-						cursor->move(1, 0);
-					else if(event.key.code == sf::Keyboard::Left)
-						cursor->move(-1, 0);
-					else if(event.key.code == sf::Keyboard::Return)
-						cursor->spawnChild();
-					else if(event.key.code == sf::Keyboard::Escape)
-						cursor->despawnChild();
-					else if(event.key.code == sf::Keyboard::Return)
-						if(cursor->getChild() != 0)
-							moveUnit(cursor, &engine);
-				}
-			}
-		}
+			guihandler.HandleEvent(event);
 
 		// Rendering
 		renderwindow.clear(sf::Color::Black);
