@@ -13,8 +13,11 @@ set(SOURCE
 	src/engine/square.cpp
 	src/engine/terrain.cpp
 	src/engine/unit.cpp
+	src/engine/player.cpp
 	src/gui/guihandler.cpp
 	src/gui/mainwindow.cpp
+	src/gui/startgamewindow.cpp
+	src/gui/ingamewindow.cpp
 	src/gui/boardrenderer.cpp
 	src/gui/cursor.cpp
 )
