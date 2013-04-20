@@ -1,7 +1,10 @@
+#include <iostream>
+
 #include <SFGUI/Button.hpp>
 #include <SFGUI/Label.hpp>
 #include <SFGUI/Table.hpp>
 #include <SFGUI/SpinButton.hpp>
+#include <SFGUI/Image.hpp>
 
 #include "gui/startgamewindow.hpp"
 #include "engine/unit.hpp"
@@ -13,28 +16,47 @@ namespace qrw
 		Ptr window(new StartGameWindow(engine));
 		window->SetTitle("Start new game");
 
+		sf::Image img;
+		img.loadFromFile("./res/img/units/swordman.png");
+		sfg::Image::Ptr swordsmanimg = sfg::Image::Create(img);
+		img.loadFromFile("./res/img/units/archer.png");
+		sfg::Image::Ptr archerimg = sfg::Image::Create(img);
+		img.loadFromFile("./res/img/units/spearman.png");
+		sfg::Image::Ptr spearmanimg = sfg::Image::Create(img);
+
 		sfg::Label::Ptr playeronelabel = sfg::Label::Create("Player 1");
 		sfg::Label::Ptr playertwolabel = sfg::Label::Create("Player 2");
 
 		sfg::SpinButton::Ptr p1swordspin = sfg::SpinButton::Create(0, 100, 1);
 		p1swordspin->SetValue(0);
+		p1swordspin->SetId("p1swordspin");
 		sfg::SpinButton::Ptr p1archspin  = sfg::SpinButton::Create(0, 100, 1);
 		p1archspin->SetValue(0);
+		p1archspin->SetId("p1archspin");
 		sfg::SpinButton::Ptr p1spearspin = sfg::SpinButton::Create(0, 100, 1);
 		p1spearspin->SetValue(0);
+		p1spearspin->SetId("p1spearspin");
 		sfg::SpinButton::Ptr p2swordspin = sfg::SpinButton::Create(0, 100, 1);
 		p2swordspin->SetValue(0);
+		p2swordspin->SetId("p2swordspin");
 		sfg::SpinButton::Ptr p2archspin  = sfg::SpinButton::Create(0, 100, 1);
 		p2archspin->SetValue(0);
+		p2archspin->SetId("p2archspin");
 		sfg::SpinButton::Ptr p2spearspin = sfg::SpinButton::Create(0, 100, 1);
 		p2spearspin->SetValue(0);
+		p2spearspin->SetId("p2spearspin");
 
 		sfg::Button::Ptr closebutton = sfg::Button::Create("Close");
 		closebutton->GetSignal(sfg::Button::OnLeftClick).Connect(&StartGameWindow::hide, &(*window));
 		sfg::Button::Ptr startbutton = sfg::Button::Create("Start game");
+		startbutton->GetSignal(sfg::Button::OnLeftClick).Connect(&StartGameWindow::startGame, &(*window));
 
 		sfg::Table::Ptr maincontainer = sfg::Table::Create();
 		int options = sfg::Table::FILL | sfg::Table::EXPAND;
+		// Images
+		maincontainer->Attach(swordsmanimg, sf::Rect<sf::Uint32>(0, 1, 1, 1));
+		maincontainer->Attach(archerimg, sf::Rect<sf::Uint32>(0, 2, 1, 1));
+		maincontainer->Attach(spearmanimg, sf::Rect<sf::Uint32>(0, 3, 1, 1));
 		// Player 1 stuff
 		maincontainer->Attach(playeronelabel, sf::Rect<sf::Uint32>(1, 0, 1, 1), options, options);
 		maincontainer->Attach(p1swordspin, sf::Rect<sf::Uint32>(1, 1, 1, 1), options, options);
@@ -63,6 +85,19 @@ namespace qrw
 
 	void StartGameWindow::startGame()
 	{
+		// Create unit arrays for engine.
+		int p1units[EUT_NUMBEROFUNITTYPES];
+		p1units[EUT_SWORDMAN] = sfg::DynamicPointerCast<sfg::SpinButton>(sfg::Widget::GetWidgetById("p1swordspin"))->GetValue();
+		p1units[EUT_ARCHER] = sfg::DynamicPointerCast<sfg::SpinButton>(sfg::Widget::GetWidgetById("p1archspin"))->GetValue();
+		p1units[EUT_SPEARMAN] = sfg::DynamicPointerCast<sfg::SpinButton>(sfg::Widget::GetWidgetById("p1spearspin"))->GetValue();
+
+		int p2units[EUT_NUMBEROFUNITTYPES];
+		p2units[EUT_SWORDMAN] = sfg::DynamicPointerCast<sfg::SpinButton>(sfg::Widget::GetWidgetById("p2swordspin"))->GetValue();
+		p2units[EUT_ARCHER] = sfg::DynamicPointerCast<sfg::SpinButton>(sfg::Widget::GetWidgetById("p2archspin"))->GetValue();
+		p2units[EUT_SPEARMAN] = sfg::DynamicPointerCast<sfg::SpinButton>(sfg::Widget::GetWidgetById("p2spearspin"))->GetValue();
+
+		// printf("in StartGameWindow::startGame(): swordsman p1: %i\n", sfg::)
+		engine->setUnits(p1units, p2units);
 		hide();
 	}
 
