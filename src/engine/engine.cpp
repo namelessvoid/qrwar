@@ -1,3 +1,5 @@
+#include <stdio.h>
+
 #include "engine/engine.hpp"
 
 namespace qrw
@@ -14,6 +16,7 @@ namespace qrw
  	{
  		delete board;
  		board = new Board(boardwidth, boardheight);
+ 		status = EES_PREPARE;
  	}
 
  	void Engine::startGame()
