@@ -2,6 +2,7 @@
 #define QRW_SQUARESELECTION_HPP
 
 #include <SFML/System/Vector2.hpp>
+#include <SFML/Graphics/Drawable.hpp>
 
 #include "engine/board.hpp"
 
@@ -27,6 +28,13 @@ namespace qrw
 			Cursor* spawnChild();
 			Cursor* getChild();
 			void despawnChild();
+
+			/**
+			 * @argument position Position on the screen (pixles)
+			 * @argument size Size of the cursor on the screen in pixles.
+			 */
+			void draw(sf::RenderTarget& target, sf::Vector2f position, float size);
+			void drawChild(sf::RenderTarget& target, sf::Vector2f position, float size);
 
 		private:
 			Cursor();

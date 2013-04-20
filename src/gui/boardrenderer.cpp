@@ -92,30 +92,12 @@ namespace qrw
 				square = board->getSquare(i, j);
 				terrain = square->getTerrain();
 				unit = square->getUnit();
-				// Render selection
+				// Render cursor
 				if(cursorpos.x == i && cursorpos.y == j)
-				{
-					sf::Color col(218, 0, 0, 120);
-					// Change color if child is present
-					if(Cursor::getCursor()->getChild() == 0)
-						col += sf::Color(0, 218, 0, 0);
-					sf::VertexArray quad(sf::Quads);
-					quad.append(sf::Vertex(currpos, col));
-					quad.append(sf::Vertex(sf::Vector2f(currpos.x + spritedimensions, currpos.y), col));
-					quad.append(sf::Vertex(sf::Vector2f(currpos.x + spritedimensions, currpos.y + spritedimensions), col));
-					quad.append(sf::Vertex(sf::Vector2f(currpos.x, currpos.y + spritedimensions), col));
-					target.draw(quad);
-				}
+					Cursor::getCursor()->draw(target, currpos, spritedimensions);
 				if(childcursorpos.x == i && childcursorpos.y == j)
-				{
-					sf::Color col(218, 218, 0, 120);
-					sf::VertexArray quad(sf::Quads);
-					quad.append(sf::Vertex(currpos, col));
-					quad.append(sf::Vertex(sf::Vector2f(currpos.x + spritedimensions, currpos.y), col));
-					quad.append(sf::Vertex(sf::Vector2f(currpos.x + spritedimensions, currpos.y + spritedimensions), col));
-					quad.append(sf::Vertex(sf::Vector2f(currpos.x, currpos.y + spritedimensions), col));
-					target.draw(quad);
-				}
+					Cursor::getCursor()->drawChild(target, currpos, spritedimensions);
+
 				// Render Terrain
 				if(terrain != 0)
 				{
