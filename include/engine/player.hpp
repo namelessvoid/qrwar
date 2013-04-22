@@ -2,6 +2,7 @@
 #define QRW_PLAYER_HPP
 
 #include <vector>
+#include <string>
 
 #include "engine/unit.hpp"
 
@@ -13,11 +14,13 @@ namespace qrw
 			Player();
 			~Player();
 
+			std::string getName();
+			void setName(std::string name);
 			std::vector<Unit*>& getUnits();
 
 		private:
+			std::string name;
 			std::vector<Unit*> units;
-
 	};
 }
 

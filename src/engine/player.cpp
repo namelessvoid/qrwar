@@ -3,6 +3,7 @@
 namespace qrw
 {
 	Player::Player()
+	:	name("Player")
 	{}
 
 	Player::~Player()
@@ -15,6 +16,16 @@ namespace qrw
 		}
 	}
 
+	std::string Player::getName()
+	{
+		return name;
+	}
+
+	void Player::setName(std::string name)
+	{
+		this->name = name;
+	}
+	
 	std::vector<Unit*>& Player::getUnits()
 	{
 		return units;
