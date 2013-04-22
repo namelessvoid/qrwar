@@ -15,6 +15,7 @@ namespace qrw
 		  quit(false),
 		  windowsize(windowsize)
 	{
+		boardrenderer.setBoard(engine->getBoard());
 		windows[MAINWINDOW] = MainWindow::Create(this);
 		windows[STARTGAMEWINDOW] = StartGameWindow::Create(engine);
 		windows[LOADGANEWINDO] = sfg::Window::Create();
@@ -32,6 +33,7 @@ namespace qrw
 
 	void GuiHandler::display(sf::RenderTarget& rendertarget)
 	{
+		rendertarget.draw(boardrenderer);
 		sfgui.Display(rendertarget);
 	}
 

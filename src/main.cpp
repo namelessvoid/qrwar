@@ -37,21 +37,9 @@ board->getSquare(0, 0)->setTerrain(&terrain1);
 qrw::Terrain terrain2(qrw::ET_HILL, 0, 0);
 board->getSquare(1, 2)->setTerrain(&terrain2);
 
-qrw::BoardRenderer boardrenderer;
-boardrenderer.setBoard(board);
-
-qrw::Cursor::getCursor()->setBoard(board);
-
-	int playeroneunits[] = {2, 2, 2};
-	int playertwounits[] = {1, 2, 3};
-	engine.setUnits(playeroneunits, playertwounits);
+	qrw::Cursor::getCursor()->setBoard(engine.getBoard());
 
 	engine.startGame();
-
-qrw::Unit* unit = new qrw::Unit(qrw::EUT_SWORDMAN, 2, 1, 1, 2, &engine.getCurrentPlayer());
-board->getSquare(0, 0)->setUnit(unit);
-qrw::Unit *unit2 = new qrw::Unit(qrw::EUT_SWORDMAN, 2, 1, 1, 2, &engine.getCurrentPlayer());
-board->getSquare(0, 3)->setUnit(unit2);
 
 	sf::RenderWindow renderwindow(sf::VideoMode(windowsize.x, windowsize.y), "Quad-Ruled War", sf::Style::Default);
 	sf::View camera(sf::FloatRect(0.0f, 0.0f, windowsize.x, windowsize.y));
@@ -74,7 +62,7 @@ board->getSquare(0, 3)->setUnit(unit2);
 		// Rendering
 		renderwindow.clear(sf::Color::Black);
 		renderwindow.draw(rect);
-renderwindow.draw(boardrenderer);
+
 		guihandler.Update(elapsedtime);
 		guihandler.display(renderwindow);
 		renderwindow.display();

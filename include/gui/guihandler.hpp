@@ -7,6 +7,7 @@
 
 #include "engine/engine.hpp"
 #include "gui/ingamewindow.hpp"
+#include "gui/boardrenderer.hpp"
 
 namespace qrw
 {
@@ -52,6 +53,7 @@ namespace qrw
 
 		private:
 			qrw::Engine* engine;
+			BoardRenderer boardrenderer;
 
 			sf::Vector2f windowsize;
 			
