@@ -24,6 +24,8 @@ namespace qrw
 			void init(int boardwidth, int boardheight);
 			void startGame();
 
+			ENGINSTATES getStatus();
+			
 			bool setUnits(int playeornoeunits[EUT_NUMBEROFUNITTYPES],
 				int playertwounits[EUT_NUMBEROFUNITTYPES]);
 
@@ -31,12 +33,20 @@ namespace qrw
 			void endTurn();
 
 			Board* getBoard();
+
 			/**
 			 * @Return: 0 - success, -1 - wrong player, -2 origin empty,
 			 * 			-3 destination not empty, -4 or out of range,
-			 *			-5 dest out of ranage
+			 *			-5 dest out of ranage, -6 not enough movement,
+			 *			-7 status != EES_RUNNING
 			 */
 			int moveUnit(int orx, int ory, int destx, int desty);
+
+			/**
+			 * Place a unit on the board.
+			 * @Return: False if status != EES_PREPRARE
+			 */
+			bool placeUnit(int x, int y, Unit* unit);
 
 			Player* getPlayer(int id);
 

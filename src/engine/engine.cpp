@@ -7,7 +7,10 @@ namespace qrw
 	Engine::Engine()
 	:	board(0),
 		status(EES_UNDEFINED)
-	{}
+	{
+		players[0].setName("Player The First");
+		players[1].setName("Player The Second");
+	}
 
 	Engine::~Engine()
 	{}
@@ -16,12 +19,19 @@ namespace qrw
  	{
  		delete board;
  		board = new Board(boardwidth, boardheight);
+ 		currentplayer = 0;
  		status = EES_PREPARE;
  	}
 
  	void Engine::startGame()
  	{
  		currentplayer = 0;
+ 		status = EES_RUNNING;
+ 	}
+
+ 	ENGINSTATES Engine::getStatus()
+ 	{
+ 		return status;
  	}
 
  	bool Engine::setUnits(int playeroneunits[EUT_NUMBEROFUNITTYPES],
@@ -66,10 +76,14 @@ namespace qrw
 	/**
 	 * @Return: 0 - success, -1 - wrong player, -2 origin empty,
 	 * 			-3 destination not empty, -4 or out of range,
-	 *			-5 dest out of ranage, -6 not enough movement
+	 *			-5 dest out of ranage, -6 not enough movement,
+	 *			-7 game not running
 	 */
  	int Engine::moveUnit(int orx, int ory, int destx, int desty)
  	{
+ 		if(status != EES_RUNNING)
+ 			return -7;
+
  		Square* orsquare = board->getSquare(orx, ory);
  		if(orsquare == 0)
  			return -4;
@@ -94,6 +108,22 @@ namespace qrw
  		orsquare->setUnit(0);
  		destsquare->setUnit(unit);
  		return 0;
+ 	}
+
+ 	bool Engine::placeUnit(int x, int y, Unit* unit)
+ 	{
+ 		if(status != EES_PREPARE)
+ 			return false;
+ 		Square* square = board->getSquare(x, y);
+
+ 		if(square == 0)
+ 			return false;
+
+ 		if(square->getUnit() != 0)
+ 			return false;
+
+ 		square->setUnit(unit);
+ 		return true;
  	}
 
  	Player* Engine::getPlayer(int id)
