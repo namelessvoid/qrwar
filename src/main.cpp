@@ -11,17 +11,6 @@
 #include "engine/unit.hpp"
 
 
-void moveUnit(qrw::Cursor* cursor, qrw::Engine* engine)
-{
-	int orx = cursor->getPosition().x;
-	int ory = cursor->getPosition().y;
-	int destx = cursor->getChild()->getPosition().x;
-	int desty = cursor->getChild()->getPosition().y;
-	if(engine->moveUnit(orx, ory, destx, desty) == 0)
-		cursor->despawnChild();
-}
-
-
 int main(int argc, char const *argv[])
 {
 	sf::Vector2f windowsize(800, 600);
