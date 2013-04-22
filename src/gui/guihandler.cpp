@@ -15,7 +15,10 @@ namespace qrw
 		  quit(false),
 		  windowsize(windowsize)
 	{
+		// Set up objects that need reference on board instance.
 		boardrenderer.setBoard(engine->getBoard());
+		Cursor::getCursor()->setBoard(engine->getBoard());
+
 		windows[MAINWINDOW] = MainWindow::Create(this);
 		windows[STARTGAMEWINDOW] = StartGameWindow::Create(engine);
 		windows[LOADGANEWINDO] = sfg::Window::Create();

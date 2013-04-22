@@ -37,8 +37,6 @@ board->getSquare(0, 0)->setTerrain(&terrain1);
 qrw::Terrain terrain2(qrw::ET_HILL, 0, 0);
 board->getSquare(1, 2)->setTerrain(&terrain2);
 
-	qrw::Cursor::getCursor()->setBoard(engine.getBoard());
-
 	engine.startGame();
 
 	sf::RenderWindow renderwindow(sf::VideoMode(windowsize.x, windowsize.y), "Quad-Ruled War", sf::Style::Default);
