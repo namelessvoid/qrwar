@@ -45,7 +45,7 @@ namespace qrw
 	void BoardRenderer::draw(sf::RenderTarget &target, sf::RenderStates states) const
 	{
 		sf::Vector2f targetsize = target.getView().getSize();
-		targetsize.x -= 100.0;
+		targetsize.x -= 180.0;
 		int width = board->getWidth();
 		int height = board->getHeight();
 		float spritedimensions;

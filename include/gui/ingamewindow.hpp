@@ -19,10 +19,15 @@ namespace qrw
 
 			sf::Vector2f getSize();
 
+			void update();
+
 		protected:
 			IngameWindow(Engine* engine);
 
 		private:
+			void changeplayerbuttonClicked();
+			void startgamebuttonClicked();
+
 			Engine* engine;
 	};
 }

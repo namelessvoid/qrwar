@@ -18,13 +18,13 @@ namespace qrw
 		// Set up objects that need reference on board instance.
 		boardrenderer.setBoard(engine->getBoard());
 		Cursor::getCursor()->setBoard(engine->getBoard());
-
+		ingamewindow = IngameWindow::Create(engine, windowsize);
+		
 		windows[MAINWINDOW] = MainWindow::Create(this);
-		windows[STARTGAMEWINDOW] = StartGameWindow::Create(engine);
+		windows[STARTGAMEWINDOW] = StartGameWindow::Create(engine, ingamewindow);
 		windows[LOADGANEWINDO] = sfg::Window::Create();
 		windows[SETTINGSWINDOW] = sfg::Window::Create();
 		windows[CREDITSWINDOW] = sfg::Window::Create();
-		ingamewindow = IngameWindow::Create(engine, windowsize);
 		this->Add(ingamewindow);
 		this->Add(windows[MAINWINDOW]);
 		this->Add(windows[STARTGAMEWINDOW]);
@@ -97,14 +97,17 @@ namespace qrw
 						cursor->despawnChild();
 					else if(event.key.code == sf::Keyboard::Return)
 					{
-						if(childcursor == 0)
+						if(engine->getStatus() == EES_PREPARE)
+						{
+							// place unit
+						}
+						else if(childcursor == 0)
 						{
 							cursor->spawnChild();
 						}
 						else if(childcursor != 0)
 						{
-							printf("cursor@%i,%i|child@%i,%i\n", cursor->getPosition().x, cursor->getPosition().y,
-								childcursor->getPosition().x, childcursor->getPosition().y);
+							// Move a unit
 							if(engine->moveUnit(cursor->getPosition().x, cursor->getPosition().y,
 								childcursor->getPosition().x, childcursor->getPosition().y) == 0)
 							{
