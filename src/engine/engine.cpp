@@ -9,7 +9,9 @@ namespace qrw
 		status(EES_UNDEFINED)
 	{
 		players[0].setName("Player The First");
+		players[0].setId(0);
 		players[1].setName("Player The Second");
+		players[1].setId(1);
 	}
 
 	Engine::~Engine()
