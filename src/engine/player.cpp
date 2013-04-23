@@ -29,7 +29,7 @@ namespace qrw
 		this->name = name;
 	}
 	
-	std::vector<Unit*>& Player::getUnits()
+	std::vector<Unit*> Player::getUnits()
 	{
 		return units;
 	}

@@ -16,7 +16,11 @@ namespace qrw
 
 			std::string getName();
 			void setName(std::string name);
-			std::vector<Unit*>& getUnits();
+
+			/**
+			 * @Return A copy of the list of the units of the player.
+			 */
+			std::vector<Unit*> getUnits();
 			void addUnit(Unit* unit);
 
 		private:
