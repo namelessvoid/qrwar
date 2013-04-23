@@ -30,6 +30,8 @@ namespace qrw
 		terrainsprites[ET_WOOD] = new sf::Sprite(*texturemanager.getTexture("wood"));
 		terrainsprites[ET_HILL] = new sf::Sprite(*texturemanager.getTexture("hill"));
 		unitsprites[EUT_SWORDMAN] = new sf::Sprite(*texturemanager.getTexture("swordman"));
+		unitsprites[EUT_ARCHER] = new sf::Sprite(*texturemanager.getTexture("archer"));
+		unitsprites[EUT_SPEARMAN] = new sf::Sprite(*texturemanager.getTexture("spearman"));
 	}
 
 	BoardRenderer::~BoardRenderer()
@@ -123,6 +125,19 @@ namespace qrw
 						unitsprites[EUT_SWORDMAN]->setScale(spritescale);
 						target.draw(*unitsprites[EUT_SWORDMAN]);
 					}
+					else if(unit->getType() == EUT_ARCHER)
+					{
+						unitsprites[EUT_ARCHER]->setPosition(currpos);
+						unitsprites[EUT_ARCHER]->setScale(spritescale);
+						target.draw(*unitsprites[EUT_ARCHER]);
+					}
+					else if(unit->getType() == EUT_SPEARMAN)
+					{
+						unitsprites[EUT_SPEARMAN]->setPosition(currpos);
+						unitsprites[EUT_SPEARMAN]->setScale(spritescale);
+						target.draw(*unitsprites[EUT_SPEARMAN]);
+					}
+
 				}
 			}
 		}
