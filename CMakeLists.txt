@@ -6,7 +6,7 @@ find_package(SFML REQUIRED)
 find_package(SFGUI REQUIRED)
 set(LIBS ${LIBS} sfml-graphics sfml-system sfml-window sfml-audio sfgui)
 
-set(SOURCE
+set(COMMON_SOURCE
 	src/texturemanager.cpp
 	src/engine/engine.cpp
 	src/engine/board.cpp
@@ -14,10 +14,14 @@ set(SOURCE
 	src/engine/terrain.cpp
 	src/engine/unit.cpp
 	src/engine/player.cpp
+)
+
+set(GUI_SOURCE
 	src/gui/guihandler.cpp
 	src/gui/mainwindow.cpp
 	src/gui/startgamewindow.cpp
 	src/gui/ingamewindow.cpp
+	src/gui/placeunitwindow.cpp
 	src/gui/boardrenderer.cpp
 	src/gui/cursor.cpp
 )
@@ -27,7 +31,7 @@ include_directories(
 )
 
 set(EXECUTABLE_OUTPUT_PATH ./bin)
-add_executable(qrwar src/main.cpp ${SOURCE})
+add_executable(qrwar src/main.cpp ${COMMON_SOURCE} ${GUI_SOURCE})
 target_link_libraries(qrwar ${LIBS})
 
 # Unittest target
@@ -36,5 +40,5 @@ set(UNITTEST_SOURCE
 	test/engine/squaretest.cpp
 )
 
-add_executable(test test/main.cpp ${SOURCE} ${UNITTEST_SOURCE})
+add_executable(test test/main.cpp ${COMMON_SOURCE} ${UNITTEST_SOURCE})
 target_link_libraries(test ${LIBS} cppunit)
