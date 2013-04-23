@@ -16,6 +16,8 @@ namespace qrw
 
 			std::string getName();
 			void setName(std::string name);
+			int getId();
+			void setId(int id);
 
 			/**
 			 * @Return A copy of the list of the units of the player.
@@ -27,6 +29,7 @@ namespace qrw
 
 		private:
 			std::string name;
+			int id;
 			std::vector<Unit*> units;
 			int numberofunits[EUT_NUMBEROFUNITTYPES];
 	};

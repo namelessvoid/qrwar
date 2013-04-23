@@ -26,6 +26,15 @@ namespace qrw
 		this->name = name;
 	}
 	
+	int Player::getId()
+	{
+		return id;
+	}
+
+	void Player::setId(int id)
+	{
+		this->id = id;
+	}
 	std::vector<Unit*> Player::getUnits()
 	{
 		return units;
