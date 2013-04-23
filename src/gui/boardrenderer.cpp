@@ -103,43 +103,31 @@ namespace qrw
 				// Render Terrain
 				if(terrain != 0)
 				{
-					if(terrain->getType() == ET_WOOD)
-					{
-						terrainsprites[ET_WOOD]->setPosition(currpos);
-						terrainsprites[ET_WOOD]->setScale(spritescale);
-						target.draw(*terrainsprites[ET_WOOD]);
-					}
-					else if(terrain->getType() == ET_HILL)
-					{
-						terrainsprites[ET_HILL]->setPosition(currpos);
-						terrainsprites[ET_HILL]->setScale(spritescale);
-						target.draw(*terrainsprites[ET_HILL]);
-					}
+					drawTerrain(target, terrain->getType(), currpos, spritescale);
 				}
 				// Render Units
 				if(unit != 0)
 				{
-					if(unit->getType() == EUT_SWORDMAN)
-					{
-						unitsprites[EUT_SWORDMAN]->setPosition(currpos);
-						unitsprites[EUT_SWORDMAN]->setScale(spritescale);
-						target.draw(*unitsprites[EUT_SWORDMAN]);
-					}
-					else if(unit->getType() == EUT_ARCHER)
-					{
-						unitsprites[EUT_ARCHER]->setPosition(currpos);
-						unitsprites[EUT_ARCHER]->setScale(spritescale);
-						target.draw(*unitsprites[EUT_ARCHER]);
-					}
-					else if(unit->getType() == EUT_SPEARMAN)
-					{
-						unitsprites[EUT_SPEARMAN]->setPosition(currpos);
-						unitsprites[EUT_SPEARMAN]->setScale(spritescale);
-						target.draw(*unitsprites[EUT_SPEARMAN]);
-					}
-
+					// TODO playerid!
+					drawUnit(target, 0, unit->getType(), currpos, spritescale);
 				}
 			}
 		}
+	}
+
+	void BoardRenderer::drawTerrain(sf::RenderTarget& target, 
+		TERRAINTYPES terraintype, sf::Vector2f position, sf::Vector2f scale) const
+	{
+		terrainsprites[terraintype]->setPosition(position);
+		terrainsprites[terraintype]->setScale(scale);
+		target.draw(*terrainsprites[terraintype]);
+	}
+
+	void BoardRenderer::drawUnit(sf::RenderTarget& target, int playerid,
+		UNITTYPES unittype, sf::Vector2f position, sf::Vector2f scale) const
+	{
+		unitsprites[unittype]->setPosition(position);
+		unitsprites[unittype]->setScale(scale);
+		target.draw(*unitsprites[unittype]);
 	}
 }
