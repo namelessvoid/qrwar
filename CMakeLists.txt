@@ -17,6 +17,7 @@ set(COMMON_SOURCE
 )
 
 set(GUI_SOURCE
+	src/tostring.cpp
 	src/gui/guihandler.cpp
 	src/gui/mainwindow.cpp
 	src/gui/startgamewindow.cpp
