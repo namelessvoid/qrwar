@@ -47,14 +47,14 @@ namespace qrw
  	void Engine::setPlayerUnits(int id, int unitnumbers[EUT_NUMBEROFUNITTYPES])
  	{
  		Player* player = getPlayer(id);
- 		std::vector<Unit*> units = player->getUnits();
+ 		// std::vector<Unit*> units = player->getUnits();
  		int i;
  		for(i = 0; i < unitnumbers[EUT_SWORDMAN]; ++i)
- 			units.push_back(new Unit(EUT_SWORDMAN, 2, 1, 1, 3, player));
+ 			player->addUnit(new Unit(EUT_SWORDMAN, 2, 1, 1, 3, player));
  		for(i = 0; i < unitnumbers[EUT_ARCHER]; ++i)
- 			units.push_back(new Unit(EUT_ARCHER, 2, 1, 3, 2, player));
+ 			player->addUnit(new Unit(EUT_ARCHER, 2, 1, 3, 2, player));
  		for(i = 0; i < unitnumbers[EUT_SPEARMAN]; ++i)
- 			units.push_back(new Unit(EUT_SPEARMAN, 2, 1, 2, 2, player));
+ 			player->addUnit(new Unit(EUT_SPEARMAN, 2, 1, 2, 2, player));
  	}
 
  	Board* Engine::getBoard()
