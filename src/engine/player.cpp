@@ -1,3 +1,5 @@
+#include <stdio.h>
+
 #include "engine/player.hpp"
 
 namespace qrw
@@ -11,12 +13,7 @@ namespace qrw
 
 	Player::~Player()
 	{
-		for(std::vector<Unit*>::iterator i = units.begin();
-			i != units.end(); ++i)
-		{
-			delete *i;
-			units.erase(i);
-		}
+		clearUnits();
 	}
 
 	std::string Player::getName()
@@ -39,5 +36,24 @@ namespace qrw
 		unit->setPlayer(this);
 		units.push_back(unit);
 		++numberofunits[unit->getType()];
+	}
+
+	int* Player::getNumberOfUnits()
+	{
+		return numberofunits;
+	}
+
+	void Player::clearUnits()
+	{
+		for(int i = 0; i < EUT_NUMBEROFUNITTYPES; ++i)
+			numberofunits[i] = 0;
+
+		for(std::vector<Unit*>::iterator i = units.begin();
+			i != units.end(); ++i)
+		{
+			delete *i;
+			// units.erase(i);
+		}
+		units.clear();
 	}
 }

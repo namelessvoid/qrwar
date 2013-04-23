@@ -22,6 +22,8 @@ namespace qrw
 			 */
 			std::vector<Unit*> getUnits();
 			void addUnit(Unit* unit);
+			int* getNumberOfUnits();
+			void clearUnits();
 
 		private:
 			std::string name;
