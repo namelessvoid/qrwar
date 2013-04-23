@@ -4,7 +4,10 @@ namespace qrw
 {
 	Player::Player()
 	:	name("Player")
-	{}
+	{
+		for(int i = 0; i < EUT_NUMBEROFUNITTYPES; ++i)
+			numberofunits[i] = 0;
+	}
 
 	Player::~Player()
 	{
@@ -29,5 +32,12 @@ namespace qrw
 	std::vector<Unit*>& Player::getUnits()
 	{
 		return units;
+	}
+
+	void Player::addUnit(Unit* unit)
+	{
+		unit->setPlayer(this);
+		units.push_back(unit);
+		++numberofunits[unit->getType()];
 	}
 }

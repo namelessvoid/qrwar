@@ -17,10 +17,12 @@ namespace qrw
 			std::string getName();
 			void setName(std::string name);
 			std::vector<Unit*>& getUnits();
+			void addUnit(Unit* unit);
 
 		private:
 			std::string name;
 			std::vector<Unit*> units;
+			int numberofunits[EUT_NUMBEROFUNITTYPES];
 	};
 }
 
