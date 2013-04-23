@@ -24,6 +24,7 @@ namespace qrw
 			~Unit();
 
 			Player* getPlayer();
+			void setPlayer(Player* player);
 			UNITTYPES getType();
 			int getAttack();
 			int getDefense();

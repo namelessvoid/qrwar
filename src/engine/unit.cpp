@@ -20,6 +20,10 @@ namespace qrw
 	{
 		return player;
 	}
+	void Unit::setPlayer(Player* player)
+	{
+		this->player = player;
+	}
 	UNITTYPES Unit::getType()
 	{
 		return type;
