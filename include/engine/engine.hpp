@@ -26,8 +26,8 @@ namespace qrw
 
 			ENGINSTATES getStatus();
 			
-			bool setUnits(int playeornoeunits[EUT_NUMBEROFUNITTYPES],
-				int playertwounits[EUT_NUMBEROFUNITTYPES]);
+			// bool setUnits(int playeornoeunits[EUT_NUMBEROFUNITTYPES],
+			// 	int playertwounits[EUT_NUMBEROFUNITTYPES]);
 
 			Player& getCurrentPlayer();
 			void endTurn();
@@ -46,12 +46,12 @@ namespace qrw
 			 * Place a unit on the board.
 			 * @Return: False if status != EES_PREPRARE
 			 */
-			bool placeUnit(int x, int y, Unit* unit);
+			bool placeUnit(int x, int y, int playerid, UNITTYPES unittype);
 
 			Player* getPlayer(int id);
 
 		private:
-			void setPlayerUnits(int id, int unitnumbers[EUT_NUMBEROFUNITTYPES]);
+			// void setPlayerUnits(int id, int unitnumbers[EUT_NUMBEROFUNITTYPES]);
 
 			Board* board;
 			int currentplayer;

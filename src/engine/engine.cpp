@@ -34,28 +34,31 @@ namespace qrw
  		return status;
  	}
 
- 	bool Engine::setUnits(int playeroneunits[EUT_NUMBEROFUNITTYPES],
-		int playertwounits[EUT_NUMBEROFUNITTYPES])
- 	{
- 		if(status != EES_PREPARE)
- 			return false;
- 		setPlayerUnits(0, playeroneunits);
- 		setPlayerUnits(1, playertwounits);
- 		return true;
- 	}
+ 	// bool Engine::setUnits(int playeroneunits[EUT_NUMBEROFUNITTYPES],
+		// int playertwounits[EUT_NUMBEROFUNITTYPES])
+ 	// {
+ 	// 	players[0].clearUnits();
+ 	// 	players[1].clearUnits();
+ 		
+ 	// 	if(status != EES_PREPARE)
+ 	// 		return false;
+ 	// 	setPlayerUnits(0, playeroneunits);
+ 	// 	setPlayerUnits(1, playertwounits);
+ 	// 	return true;
+ 	// }
 
- 	void Engine::setPlayerUnits(int id, int unitnumbers[EUT_NUMBEROFUNITTYPES])
- 	{
- 		Player* player = getPlayer(id);
- 		// std::vector<Unit*> units = player->getUnits();
- 		int i;
- 		for(i = 0; i < unitnumbers[EUT_SWORDMAN]; ++i)
- 			player->addUnit(new Unit(EUT_SWORDMAN, 2, 1, 1, 3, player));
- 		for(i = 0; i < unitnumbers[EUT_ARCHER]; ++i)
- 			player->addUnit(new Unit(EUT_ARCHER, 2, 1, 3, 2, player));
- 		for(i = 0; i < unitnumbers[EUT_SPEARMAN]; ++i)
- 			player->addUnit(new Unit(EUT_SPEARMAN, 2, 1, 2, 2, player));
- 	}
+ 	// void Engine::setPlayerUnits(int id, int unitnumbers[EUT_NUMBEROFUNITTYPES])
+ 	// {
+ 	// 	Player* player = getPlayer(id);
+ 	// 	int i;
+ 	// 	// Attention! player is "overwritten" in the method Player::addUnit(...).
+ 	// 	for(i = 0; i < unitnumbers[EUT_SWORDMAN]; ++i)
+ 	// 		player->addUnit(new Unit(EUT_SWORDMAN, 2, 1, 1, 3, player));
+ 	// 	for(i = 0; i < unitnumbers[EUT_ARCHER]; ++i)
+ 	// 		player->addUnit(new Unit(EUT_ARCHER, 2, 1, 3, 2, player));
+ 	// 	for(i = 0; i < unitnumbers[EUT_SPEARMAN]; ++i)
+ 	// 		player->addUnit(new Unit(EUT_SPEARMAN, 2, 1, 2, 2, player));
+ 	// }
 
  	Board* Engine::getBoard()
  	{
@@ -110,7 +113,7 @@ namespace qrw
  		return 0;
  	}
 
- 	bool Engine::placeUnit(int x, int y, Unit* unit)
+ 	bool Engine::placeUnit(int x, int y, int playerid, UNITTYPES unittype)
  	{
  		if(status != EES_PREPARE)
  			return false;
@@ -122,6 +125,18 @@ namespace qrw
  		if(square->getUnit() != 0)
  			return false;
 
+ 		Player* player = getPlayer(playerid);
+ 		Unit* unit;
+ 		switch(unittype)
+ 		{
+ 			case EUT_SWORDMAN:  unit = new Unit(EUT_SWORDMAN, 2, 1, 1, 3, player);
+ 								break;
+ 			case EUT_ARCHER:	unit = new Unit(EUT_ARCHER, 2, 1, 3, 2, player);
+ 								break;
+ 			default:			unit = new Unit(EUT_SPEARMAN, 2, 1, 2, 2, player);
+ 								break;
+ 		}
+ 		player->addUnit(unit);
  		square->setUnit(unit);
  		return true;
  	}
