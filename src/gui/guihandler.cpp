@@ -19,13 +19,16 @@ namespace qrw
 		boardrenderer.setBoard(engine->getBoard());
 		Cursor::getCursor()->setBoard(engine->getBoard());
 		ingamewindow = IngameWindow::Create(engine, windowsize);
+		placeunitwindow = PlaceUnitWindow::Create(engine);
 		
 		windows[MAINWINDOW] = MainWindow::Create(this);
-		windows[STARTGAMEWINDOW] = StartGameWindow::Create(engine, ingamewindow);
+		windows[STARTGAMEWINDOW] = StartGameWindow::Create(engine, ingamewindow,
+			placeunitwindow, this);
 		windows[LOADGANEWINDO] = sfg::Window::Create();
 		windows[SETTINGSWINDOW] = sfg::Window::Create();
 		windows[CREDITSWINDOW] = sfg::Window::Create();
 		this->Add(ingamewindow);
+		this->Add(placeunitwindow);
 		this->Add(windows[MAINWINDOW]);
 		this->Add(windows[STARTGAMEWINDOW]);
 	}
@@ -80,6 +83,7 @@ namespace qrw
 			else
 			{
 				ingamewindow->HandleEvent(event);
+				placeunitwindow->HandleEvent(event);
 				if(event.type == sf::Event::KeyPressed)
 				{
 					qrw::Cursor* cursor = qrw::Cursor::getCursor();
@@ -99,7 +103,7 @@ namespace qrw
 					{
 						if(engine->getStatus() == EES_PREPARE)
 						{
-							// place unit
+							placeunitwindow->placeUnitAtCursor();
 						}
 						else if(childcursor == 0)
 						{

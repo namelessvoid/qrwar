@@ -11,9 +11,12 @@
 
 namespace qrw
 {
-	StartGameWindow::Ptr StartGameWindow::Create(Engine* engine, IngameWindow::Ptr ingamewindow)
+	StartGameWindow::Ptr StartGameWindow::Create(Engine* engine,
+		IngameWindow::Ptr ingamewindow, PlaceUnitWindow::Ptr placeunitwindow,
+		GuiHandler* guihandler)
 	{
-		Ptr window(new StartGameWindow(engine, ingamewindow));
+		Ptr window(new StartGameWindow(engine, ingamewindow,
+			placeunitwindow, guihandler));
 		window->SetTitle("Start new game");
 
 		sf::Image img;
@@ -93,10 +96,13 @@ namespace qrw
 		return window;
 	}
 
-	StartGameWindow::StartGameWindow(Engine* engine, IngameWindow::Ptr ingamewindow, int style)
+	StartGameWindow::StartGameWindow(Engine* engine, IngameWindow::Ptr ingamewindow,
+		PlaceUnitWindow::Ptr placeunitwindow, GuiHandler* guihandler, int style)
 	: Window(style),
 	  engine(engine),
-	  ingamewindow(ingamewindow)
+	  guihandler(guihandler),
+	  ingamewindow(ingamewindow),
+	  placeunitwindow(placeunitwindow)
 	{}
 
 	void StartGameWindow::startGame()
@@ -117,8 +123,13 @@ namespace qrw
 		p2units[EUT_ARCHER] = sfg::DynamicPointerCast<sfg::SpinButton>(sfg::Widget::GetWidgetById("p2archspin"))->GetValue();
 		p2units[EUT_SPEARMAN] = sfg::DynamicPointerCast<sfg::SpinButton>(sfg::Widget::GetWidgetById("p2spearspin"))->GetValue();
 
-		engine->setUnits(p1units, p2units);
+		// engine->setUnits(p1units, p2units);
 		ingamewindow->update();
+		placeunitwindow->reset();
+		placeunitwindow->setPlayerUnits(p1units, p2units);
+		placeunitwindow->update();
+		placeunitwindow->Show(true);
+		guihandler->toggleGui();
 		hide();
 	}
 

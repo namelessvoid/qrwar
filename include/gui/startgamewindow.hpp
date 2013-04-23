@@ -5,7 +5,9 @@
 #include <SFGUI/SharedPtr.hpp>
 
 #include "engine/engine.hpp"
+#include "gui/guihandler.hpp"
 #include "gui/ingamewindow.hpp"
+#include "gui/placeunitwindow.hpp"
 
 namespace qrw
 {
@@ -15,16 +17,21 @@ namespace qrw
 			typedef sfg::SharedPtr<StartGameWindow> Ptr;
 			typedef sfg::SharedPtr<const StartGameWindow> PtrConst;
 
-			static Ptr Create(Engine* engine, IngameWindow::Ptr ingamewindow);
+			static Ptr Create(Engine* engine, IngameWindow::Ptr ingamewindow,
+				PlaceUnitWindow::Ptr placeunitwindow, GuiHandler* guihandler);
 
 		protected:
-			StartGameWindow(Engine* engine, IngameWindow::Ptr ingamewindow, int style = BACKGROUND);
+			StartGameWindow(Engine* engine, IngameWindow::Ptr ingamewindow,
+				PlaceUnitWindow::Ptr placeunitwindow, GuiHandler* guihandler,
+				int style = BACKGROUND);
 
 		private:
 			void hide();
 			void startGame();
 			Engine* engine;
+			GuiHandler* guihandler;
 			IngameWindow::Ptr ingamewindow;
+			PlaceUnitWindow::Ptr placeunitwindow;
 	};
 }
 
