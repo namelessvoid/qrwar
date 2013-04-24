@@ -15,7 +15,6 @@ namespace qrw
 
 			static Ptr Create(Engine* engine);
 
-			void reset();
 			void update();
 			void setPlayerUnits(int p1units[], int p2units[]);
 

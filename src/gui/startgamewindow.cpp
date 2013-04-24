@@ -125,7 +125,6 @@ namespace qrw
 
 		// engine->setUnits(p1units, p2units);
 		ingamewindow->update();
-		placeunitwindow->reset();
 		placeunitwindow->setPlayerUnits(p1units, p2units);
 		placeunitwindow->update();
 		placeunitwindow->Show(true);

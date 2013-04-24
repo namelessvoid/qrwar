@@ -112,12 +112,6 @@ namespace qrw
 		update();
 	}
 
-	void PlaceUnitWindow::reset()
-	{
-		// p1units = engine->getPlayer(0)->getNumberOfUnits();
-		// p2units = engine->getPlayer(1)->getNumberOfUnits();
-	}
-
 	void PlaceUnitWindow::setPlayerUnits(int p1units[], int p2units[])
 	{
 		for(int i = 0; i < ET_NUMBEROFTERRAINTYPES; ++i)
