@@ -6,6 +6,7 @@
 #include <iostream>
 #include <stdio.h>
 
+#include "engine/player.hpp"
 #include "gui/boardrenderer.hpp"
 #include "gui/cursor.hpp"
 
@@ -108,8 +109,8 @@ namespace qrw
 				// Render Units
 				if(unit != 0)
 				{
-					// TODO playerid!
-					drawUnit(target, 0, unit->getType(), currpos, spritescale);
+					drawUnit(target, unit->getPlayer()->getId(), unit->getType(),
+						currpos, spritescale);
 				}
 			}
 		}
