@@ -93,16 +93,21 @@ namespace qrw
 
 	void PlaceUnitWindow::placeUnitAtCursor()
 	{
+		// Get playerid and unittype
+		int playerid = getSelectedPlayerId();
+		Player* player = engine->getPlayer(playerid);
+		UNITTYPES unittype = (UNITTYPES)getSelectedUnitType();
+
+		// Check if all units of this type have been placed.
+		if(playerid == 0 && p1units[unittype] <= player->getNumberOfUnits()[unittype])
+			return;
+		else if(playerid == 1 && p2units[unittype] <= player->getNumberOfUnits()[unittype])
+			return;
+
 		Cursor* cursor = Cursor::getCursor();
 		int x = cursor->getPosition().x;
 		int y = cursor->getPosition().y;
-
-		// Get playerid and unittype
-		int playerid = getSelectedPlayerId();
-		UNITTYPES unittype = (UNITTYPES)getSelectedUnitType();
 		engine->placeUnit(x, y, playerid, unittype);
-
-		printf("player %i placed unit type %i at %i/%i\n", playerid, unittype, x, y);
 
 		update();
 	}
@@ -138,11 +143,11 @@ namespace qrw
 				case EUT_ARCHER:	unitboxtext = "Archer"; break;
 				default:			unitboxtext = "Spearman"; break;
 			}
+			unitboxtext += " (" + intToString(engine->getPlayer(playerid)->getNumberOfUnits()[i]) + "/";
 			if(playerid == 0)
-				unitboxtext += " (" + intToString(p1units[i]);
+				unitboxtext += intToString(p1units[i]) + ")";
 			else
-				unitboxtext += " (" + intToString(p2units[i]);
-			unitboxtext += "/" + intToString(engine->getPlayer(playerid)->getNumberOfUnits()[i]) + ")";
+				unitboxtext += intToString(p2units[i]) + ")";
 			unitbox->ChangeItem(i, unitboxtext);
 		}
 	}
