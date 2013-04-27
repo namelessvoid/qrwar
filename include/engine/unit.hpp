@@ -19,7 +19,7 @@ namespace qrw
 	class Unit
 	{
 		public:
-			Unit(UNITTYPES type, int attack, int defense,
+			Unit(UNITTYPES type, int hp, int attack, int defense,
 				int range, int movement, Player* player);
 			~Unit();
 
@@ -30,15 +30,26 @@ namespace qrw
 			int getDefense();
 			int getRange();
 			int getHP();
-			// void setHitpoints();
+			void setHP(int hp);
 			int getMovement();
 			int getCurrentMovement();
 			void setCurrentMovement(int movement);
 
+			void attack(Unit* enemy);
+
 		private:
+			/**
+			 * Calculate the result of a battle round as
+			 * the number of hitpoints left of the enemy.
+			 *
+			 * @return: The number of hitpoints the enemy has
+			 * left after the battle.
+			 */
+			int battleHPResult(Unit* enemy);
+
 			UNITTYPES type;
-			int attack;
-			int defense;
+			int attackvalue;
+			int defensevalue;
 			int hp;
 			int range;
 			int movement;

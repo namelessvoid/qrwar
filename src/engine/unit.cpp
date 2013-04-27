@@ -1,12 +1,15 @@
+#include <stdio.h>
+
 #include "engine/unit.hpp"
 
 namespace qrw
 {
-	Unit::Unit(UNITTYPES type, int attack, int defense,
+	Unit::Unit(UNITTYPES type, int hp, int attack, int defense,
 				int range, int movement, Player* player)
 	:	type(type),
-		attack(attack),
-		defense(defense),
+		hp(hp),
+		attackvalue(attack),
+		defensevalue(defense),
 		range(range),
 		movement(movement),
 		currentmovement(movement),
@@ -31,15 +34,19 @@ namespace qrw
 
 	int Unit::getAttack()
 	{
-		return attack;
+		return attackvalue;
 	}
 	int Unit::getDefense()
 	{
-		return defense;
+		return defensevalue;
 	}
 	int Unit::getHP()
 	{
 		return hp;
+	}
+	void Unit::setHP(int hp)
+	{
+		this->hp = hp;
 	}
 	int Unit::getRange()
 	{
@@ -61,6 +68,27 @@ namespace qrw
 			currentmovement = this->movement;
 		else
 			currentmovement = movement;
+	}
+
+	void Unit::attack(Unit* enemy)
+	{
+		printf("before attack: a(%i), d(%i)\n", getHP(), enemy->getHP());
+		// Attacker attacks first
+		enemy->setHP(battleHPResult(enemy));
+		// Enemy attacks if he's still alive
+		if(enemy->getHP() > 0)
+			setHP(enemy->battleHPResult(this));
+		printf("after attack: a(%i), d(%i)\n", getHP(), enemy->getHP());
+	}
+
+	int Unit::battleHPResult(Unit* enemy)
+	{
+		// Calculate effect on enemy
+		int damage = getAttack() - enemy->getDefense();
+		if(damage < 0)
+			damage = 0;
+		int newhp = enemy->getHP() - damage;
+		return newhp < 0 ? 0 : newhp;
 	}
 	// void Unit::move(int distance)
 	// {
