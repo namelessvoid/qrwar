@@ -114,7 +114,7 @@ namespace qrw
 
 	void PlaceUnitWindow::setPlayerUnits(int p1units[], int p2units[])
 	{
-		for(int i = 0; i < ET_NUMBEROFTERRAINTYPES; ++i)
+		for(int i = 0; i < EUT_NUMBEROFUNITTYPES; ++i)
 		{
 			this->p1units[i] = p1units[i];
 			this->p2units[i] = p2units[i];
