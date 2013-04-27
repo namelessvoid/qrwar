@@ -74,44 +74,74 @@ namespace qrw
 
  	void Engine::endTurn()
  	{
+ 		// Reset movement of current players units.
+ 		std::vector<Unit*> playerunits = getCurrentPlayer().getUnits();
+ 		for(std::vector<Unit*>::iterator it = playerunits.begin();
+ 			it != playerunits.end(); ++it)
+ 		{
+ 			(*it)->setCurrentMovement((*it)->getMovement());
+ 		}
  		currentplayer = (currentplayer + 1) % 2;
  		// return getCurrentPlayer();
  	}
 
 	/**
 	 * @Return: 0 - success, -1 - wrong player, -2 origin empty,
-	 * 			-3 destination not empty, -4 or out of range,
+	 * 			-3 on destination is unit of same player, -4 or out of range,
 	 *			-5 dest out of ranage, -6 not enough movement,
-	 *			-7 game not running
+	 *			-7 game not running, -8 unit on origin died, -9 enemy unit
+	 *			was not defeated
 	 */
  	int Engine::moveUnit(int orx, int ory, int destx, int desty)
  	{
+ 		// Game is not running
  		if(status != EES_RUNNING)
  			return -7;
 
  		Square* orsquare = board->getSquare(orx, ory);
+ 		// index out of range
  		if(orsquare == 0)
  			return -4;
+ 		// no unit on this square
  		if(orsquare->getUnit() == 0)
  			return -2;
 
  		Square* destsquare = board->getSquare(destx, desty);
+ 		// index out of range
  		if(destsquare == 0)
  			return -5;
- 		if(destsquare->getUnit() != 0)
- 			return -3;
 
- 		Unit *unit = orsquare->getUnit();
- 		if(unit->getPlayer() != &getCurrentPlayer())
+ 		Unit* srcunit = orsquare->getUnit();
+ 		// Unit does not belong to current player
+ 		if(srcunit->getPlayer() != &getCurrentPlayer())
  			return -1;
 
  		int distance = orsquare->getDistance(destsquare);
- 		if(distance > unit->getCurrentMovement())
+ 		// Distance is too far
+ 		if(distance > srcunit->getCurrentMovement())
  			return -6;
 
- 		unit->setCurrentMovement(unit->getCurrentMovement() - distance);
+ 		Unit* destunit = destsquare->getUnit();
+ 		if(destunit != 0)
+ 		{
+	 		// unit on destination belongs to same player
+ 			if(destunit->getPlayer() == srcunit->getPlayer())
+ 				return -3;
+ 			// otherwise battle
+ 			srcunit->attack(destunit);
+ 			srcunit->setCurrentMovement(0);
+ 			if(srcunit->getHP() == 0)
+ 			{
+ 				orsquare->setUnit(0);
+ 				return -8;
+ 			}
+ 			if(destunit->getHP() > 0)
+ 				return -9;
+		}
+
+ 		srcunit->setCurrentMovement(srcunit->getCurrentMovement() - distance);
  		orsquare->setUnit(0);
- 		destsquare->setUnit(unit);
+ 		destsquare->setUnit(srcunit);
  		return 0;
  	}
 
@@ -131,11 +161,11 @@ namespace qrw
  		Unit* unit;
  		switch(unittype)
  		{
- 			case EUT_SWORDMAN:  unit = new Unit(EUT_SWORDMAN, 2, 1, 1, 3, player);
+ 			case EUT_SWORDMAN:  unit = new Unit(EUT_SWORDMAN, 5, 2, 1, 1, 3, player);
  								break;
- 			case EUT_ARCHER:	unit = new Unit(EUT_ARCHER, 2, 1, 3, 2, player);
+ 			case EUT_ARCHER:	unit = new Unit(EUT_ARCHER, 5, 2, 1, 3, 2, player);
  								break;
- 			default:			unit = new Unit(EUT_SPEARMAN, 2, 1, 2, 2, player);
+ 			default:			unit = new Unit(EUT_SPEARMAN, 5, 2, 1, 2, 2, player);
  								break;
  		}
  		player->addUnit(unit);
