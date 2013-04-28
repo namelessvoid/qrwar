@@ -13,16 +13,25 @@
 #include "engine/unit.hpp"
 
 #include "gui/imagemanager.hpp"
+#include "gui/texturemanager.hpp"
 
 
 int main(int argc, char const *argv[])
 {
-	// Preload resources.
+	// Preload image resources.
 	qrw::ImageManager* imgmgr = qrw::ImageManager::getInstance();
-
 	imgmgr->loadImage("swordman", "./res/img/units/swordman.png");
 	imgmgr->loadImage("archer", "./res/img/units/archer.png");
 	imgmgr->loadImage("spearman", "./res/img/units/spearman.png");
+	// Preload texture resources.
+	qrw::TextureManager* texturemanager = qrw::TextureManager::getInstance();
+	texturemanager->loadTexture("plainsquare", "./res/img/plainsquare.png");
+	texturemanager->loadTexture("swordman", "./res/img/units/swordman.png");
+	texturemanager->loadTexture("archer", "./res/img/units/archer.png");
+	texturemanager->loadTexture("spearman", "./res/img/units/spearman.png");
+	texturemanager->loadTexture("wood", "./res/img/terrain/wood.png");
+	texturemanager->loadTexture("hill", "./res/img/terrain/hill.png");
+
 
 	sf::Vector2f windowsize(800, 600);
 	qrw::Engine engine;

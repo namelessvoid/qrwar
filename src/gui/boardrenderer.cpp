@@ -15,17 +15,8 @@ namespace qrw
 	BoardRenderer::BoardRenderer()
 	:	board(0)
 	{	
-		// Load all required textures
-		// plain square
+		// Create required sprites.
 		TextureManager* texturemanager = TextureManager::getInstance();
-		texturemanager->loadTexture("plainsquare", "./res/img/plainsquare.png");
-		// units
-		texturemanager->loadTexture("swordman", "./res/img/units/swordman.png");
-		texturemanager->loadTexture("archer", "./res/img/units/archer.png");
-		texturemanager->loadTexture("spearman", "./res/img/units/spearman.png");
-		// terrain
-		texturemanager->loadTexture("wood", "./res/img/terrain/wood.png");
-		texturemanager->loadTexture("hill", "./res/img/terrain/hill.png");
 
 		plainsquare = new sf::Sprite(*texturemanager->getTexture("plainsquare"));
 		terrainsprites[ET_WOOD] = new sf::Sprite(*texturemanager->getTexture("wood"));
