@@ -6,7 +6,7 @@
 #include <SFML/Graphics/Texture.hpp>
 
 #include "engine/board.hpp"
-#include "texturemanager.hpp"
+#include "gui/texturemanager.hpp"
 
 namespace qrw
 {

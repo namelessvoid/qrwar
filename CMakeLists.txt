@@ -7,13 +7,13 @@ find_package(SFGUI REQUIRED)
 set(LIBS ${LIBS} sfml-graphics sfml-system sfml-window sfml-audio sfgui)
 
 set(COMMON_SOURCE
-	src/texturemanager.cpp
 	src/engine/engine.cpp
 	src/engine/board.cpp
 	src/engine/square.cpp
 	src/engine/terrain.cpp
 	src/engine/unit.cpp
 	src/engine/player.cpp
+	src/gui/texturemanager.cpp
 )
 
 set(GUI_SOURCE

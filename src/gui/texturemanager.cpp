@@ -1,6 +1,6 @@
 #include <iostream>
 
-#include "texturemanager.hpp"
+#include "gui/texturemanager.hpp"
 
 namespace qrw
 {
