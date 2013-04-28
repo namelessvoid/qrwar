@@ -135,12 +135,7 @@ namespace qrw
 		std::string unitboxtext;
 		for(int i = 0; i < EUT_NUMBEROFUNITTYPES; ++i)
 		{
-			switch(i)
-			{
-				case EUT_SWORDMAN:	unitboxtext = "Swordman"; break;
-				case EUT_ARCHER:	unitboxtext = "Archer"; break;
-				default:			unitboxtext = "Spearman"; break;
-			}
+			unitboxtext = Unit::UNITNAMES[i];
 			unitboxtext += " (" + intToString(engine->getPlayer(playerid)->getNumberOfUnits()[i]) + "/";
 			if(playerid == 0)
 				unitboxtext += intToString(p1units[i]) + ")";
