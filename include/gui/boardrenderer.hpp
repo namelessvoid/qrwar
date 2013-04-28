@@ -27,7 +27,6 @@ namespace qrw
 				sf::Vector2f position, sf::Vector2f scale) const;
 
 			Board* board;
-			TextureManager& texturemanager;
 
 			sf::Sprite* plainsquare;
 			sf::Sprite* terrainsprites[ET_NUMBEROFTERRAINTYPES];

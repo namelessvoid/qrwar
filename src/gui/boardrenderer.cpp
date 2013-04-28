@@ -13,26 +13,26 @@
 namespace qrw
 {
 	BoardRenderer::BoardRenderer()
-	:	board(0),
-		texturemanager(TextureManager::getInstance())
+	:	board(0)
 	{	
 		// Load all required textures
 		// plain square
-		texturemanager.loadTexture("plainsquare", "./res/img/plainsquare.png");
+		TextureManager* texturemanager = TextureManager::getInstance();
+		texturemanager->loadTexture("plainsquare", "./res/img/plainsquare.png");
 		// units
-		texturemanager.loadTexture("swordman", "./res/img/units/swordman.png");
-		texturemanager.loadTexture("archer", "./res/img/units/archer.png");
-		texturemanager.loadTexture("spearman", "./res/img/units/spearman.png");
+		texturemanager->loadTexture("swordman", "./res/img/units/swordman.png");
+		texturemanager->loadTexture("archer", "./res/img/units/archer.png");
+		texturemanager->loadTexture("spearman", "./res/img/units/spearman.png");
 		// terrain
-		texturemanager.loadTexture("wood", "./res/img/terrain/wood.png");
-		texturemanager.loadTexture("hill", "./res/img/terrain/hill.png");
+		texturemanager->loadTexture("wood", "./res/img/terrain/wood.png");
+		texturemanager->loadTexture("hill", "./res/img/terrain/hill.png");
 
-		plainsquare = new sf::Sprite(*texturemanager.getTexture("plainsquare"));
-		terrainsprites[ET_WOOD] = new sf::Sprite(*texturemanager.getTexture("wood"));
-		terrainsprites[ET_HILL] = new sf::Sprite(*texturemanager.getTexture("hill"));
-		unitsprites[EUT_SWORDMAN] = new sf::Sprite(*texturemanager.getTexture("swordman"));
-		unitsprites[EUT_ARCHER] = new sf::Sprite(*texturemanager.getTexture("archer"));
-		unitsprites[EUT_SPEARMAN] = new sf::Sprite(*texturemanager.getTexture("spearman"));
+		plainsquare = new sf::Sprite(*texturemanager->getTexture("plainsquare"));
+		terrainsprites[ET_WOOD] = new sf::Sprite(*texturemanager->getTexture("wood"));
+		terrainsprites[ET_HILL] = new sf::Sprite(*texturemanager->getTexture("hill"));
+		unitsprites[EUT_SWORDMAN] = new sf::Sprite(*texturemanager->getTexture("swordman"));
+		unitsprites[EUT_ARCHER] = new sf::Sprite(*texturemanager->getTexture("archer"));
+		unitsprites[EUT_SPEARMAN] = new sf::Sprite(*texturemanager->getTexture("spearman"));
 	}
 
 	BoardRenderer::~BoardRenderer()

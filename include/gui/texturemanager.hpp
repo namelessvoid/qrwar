@@ -25,7 +25,7 @@ namespace qrw
 			/**
 			 * Get the TextureManager instance.
 			 */
-			static TextureManager& getInstance();
+			static TextureManager* getInstance();
 
 			/**
 			 * @brief Loads a texture from disk.

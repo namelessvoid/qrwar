@@ -20,11 +20,11 @@ namespace qrw
 		}
 	}
 
-	TextureManager& TextureManager::getInstance()
+	TextureManager* TextureManager::getInstance()
 	{
 		if(texturemanager == NULL)
 			texturemanager = new TextureManager();
-		return *texturemanager;
+		return texturemanager;
 	}
 
 	bool TextureManager::loadTexture(const std::string texname,
