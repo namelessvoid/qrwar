@@ -68,6 +68,9 @@ namespace qrw
 
 		sfg::Label::Ptr advicelabel = sfg::Label::Create("Select player and unit.\nPlace cursor via arrow keys and\nhit return to deploy unit.");
 
+		sfg::Button::Ptr startgamebutton = sfg::Button::Create("Start game");
+		startgamebutton->GetSignal(sfg::Button::OnLeftClick).Connect(&PlaceUnitWindow::startgamebuttonClicked, &(*window));
+
 		sfg::Table::Ptr maincontainer = sfg::Table::Create();
 		int options = sfg::Table::FILL | sfg::Table::EXPAND;
 		// maincontainer->Attach(p1label, sf::Rect<sf::Uint32>(0, 0, 1, 1), options, options);
@@ -83,6 +86,7 @@ namespace qrw
 		maincontainer->Attach(advicelabel, sf::Rect<sf::Uint32>(0, 0, 1, 1), options, options);
 		maincontainer->Attach(playerbox, sf::Rect<sf::Uint32>(0, 1, 1, 1), options, options);
 		maincontainer->Attach(unitbox, sf::Rect<sf::Uint32>(2, 1, 1, 1), options, options);
+		maincontainer->Attach(startgamebutton, sf::Rect<sf::Uint32>(2, 2, 1, 1));
 
 		window->SetTitle("Deploy your units!");
 		window->Add(maincontainer);
@@ -154,5 +158,16 @@ namespace qrw
 	int PlaceUnitWindow::getSelectedUnitType()
 	{
 		return (sfg::DynamicPointerCast<sfg::ComboBox>(sfg::Widget::GetWidgetById("unitbox")))->GetSelectedItem();
+	}
+
+	void PlaceUnitWindow::startgamebuttonClicked()
+	{
+		if(engine->getStatus() == EES_PREPARE)
+		{
+			printf("PlaceUnitWindow: starting game\n");
+			engine->startGame();
+			Show(false);
+			update();
+		}
 	}
 }

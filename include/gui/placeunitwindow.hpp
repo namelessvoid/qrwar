@@ -26,6 +26,8 @@ namespace qrw
 		private:
 			int getSelectedPlayerId();
 			int getSelectedUnitType();
+
+			void startgamebuttonClicked();
 			
 			Engine* engine;
 			// Arrays of player units

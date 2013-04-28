@@ -26,7 +26,6 @@ namespace qrw
 
 		private:
 			void changeplayerbuttonClicked();
-			void startgamebuttonClicked();
 
 			Engine* engine;
 	};
