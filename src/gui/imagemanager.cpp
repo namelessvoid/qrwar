@@ -6,6 +6,7 @@ namespace qrw
 {
 	ImageManager* ImageManager::imagemanager = NULL;
 
+
 	ImageManager::ImageManager()
 	{
 	}
@@ -18,13 +19,14 @@ namespace qrw
 			delete iter->second;
 			images.erase(iter);
 		}
+		imagemanager = NULL;
 	}
 
-	ImageManager& ImageManager::getInstance()
+	ImageManager* ImageManager::getInstance()
 	{
-		if(imagemanager == NULL)
+		if(imagemanager == false)
 			imagemanager = new ImageManager();
-		return *imagemanager;
+		return imagemanager;
 	}
 
 	bool ImageManager::loadImage(const std::string imgname,

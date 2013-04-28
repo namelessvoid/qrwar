@@ -14,7 +14,7 @@ namespace qrw
 		public:
 			~ImageManager();
 
-			static ImageManager& getInstance();
+			static ImageManager* getInstance();
 			bool loadImage(const std::string texname, const std::string filepath);
 			const sf::Image* getImage(const std::string imgname);
 
