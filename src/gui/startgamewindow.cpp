@@ -7,6 +7,7 @@
 #include <SFGUI/Image.hpp>
 
 #include "gui/startgamewindow.hpp"
+#include "gui/imagemanager.hpp"
 #include "engine/unit.hpp"
 
 namespace qrw
@@ -19,13 +20,14 @@ namespace qrw
 			placeunitwindow, guihandler));
 		window->SetTitle("Start new game");
 
-		sf::Image img;
-		img.loadFromFile("./res/img/units/swordman.png");
-		sfg::Image::Ptr swordsmanimg = sfg::Image::Create(img);
-		img.loadFromFile("./res/img/units/archer.png");
-		sfg::Image::Ptr archerimg = sfg::Image::Create(img);
-		img.loadFromFile("./res/img/units/spearman.png");
-		sfg::Image::Ptr spearmanimg = sfg::Image::Create(img);
+		ImageManager* imgmgr = ImageManager::getInstance();
+
+		sfg::Image::Ptr swordsmanimg = sfg::Image::Create(
+			*imgmgr->getImage("swordman"));
+		sfg::Image::Ptr archerimg = sfg::Image::Create(
+			*imgmgr->getImage("archer"));
+		sfg::Image::Ptr spearmanimg = sfg::Image::Create(
+			*imgmgr->getImage("spearman"));
 
 		sfg::Label::Ptr playeronelabel = sfg::Label::Create("Player 1");
 		sfg::Label::Ptr playertwolabel = sfg::Label::Create("Player 2");
