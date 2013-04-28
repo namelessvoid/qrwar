@@ -4,6 +4,11 @@
 
 namespace qrw
 {
+	std::string Unit::UNITNAMES[] =
+	{
+		"Swordman", "Archer", "Spearman"
+	};
+
 	Unit::Unit(UNITTYPES type, int hp, int attack, int defense,
 				int range, int movement, Player* player)
 	:	type(type),
@@ -14,7 +19,8 @@ namespace qrw
 		movement(movement),
 		currentmovement(movement),
 		player(player)
-	{}
+	{
+	}
 
 	Unit::~Unit()
 	{}
@@ -60,6 +66,11 @@ namespace qrw
 	{
 		return currentmovement;
 	}
+	std::string Unit::getName()
+	{
+		return UNITNAMES[type];
+	}
+
 	void Unit::setCurrentMovement(int movement)
 	{
 		if(movement < 0)

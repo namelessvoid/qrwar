@@ -34,8 +34,11 @@ namespace qrw
 			int getMovement();
 			int getCurrentMovement();
 			void setCurrentMovement(int movement);
+			std::string getName();
 
 			void attack(Unit* enemy);
+
+			static 	std::string UNITNAMES[EUT_NUMBEROFUNITTYPES];
 
 		private:
 			/**
