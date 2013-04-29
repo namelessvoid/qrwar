@@ -30,7 +30,8 @@ namespace qrw
 
 			sf::Sprite* plainsquare;
 			sf::Sprite* terrainsprites[ET_NUMBEROFTERRAINTYPES];
-			sf::Sprite* unitsprites[EUT_NUMBEROFUNITTYPES];
+			sf::Sprite* p1unitsprites[EUT_NUMBEROFUNITTYPES];
+			sf::Sprite* p2unitsprites[EUT_NUMBEROFUNITTYPES];
 	};
 }
 

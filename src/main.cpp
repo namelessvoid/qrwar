@@ -20,15 +20,22 @@ int main(int argc, char const *argv[])
 {
 	// Preload image resources.
 	qrw::ImageManager* imgmgr = qrw::ImageManager::getInstance();
-	imgmgr->loadImage("swordman", "./res/img/units/swordman.png");
-	imgmgr->loadImage("archer", "./res/img/units/archer.png");
-	imgmgr->loadImage("spearman", "./res/img/units/spearman.png");
+	imgmgr->loadImage("p1swordman", "./res/img/units/p1swordman.png");
+	imgmgr->loadImage("p1archer", "./res/img/units/p1archer.png");
+	imgmgr->loadImage("p1spearman", "./res/img/units/p1spearman.png");
+	imgmgr->loadImage("p2swordman", "./res/img/units/p2swordman.png");
+	imgmgr->loadImage("p2archer", "./res/img/units/p2archer.png");
+	imgmgr->loadImage("p2spearman", "./res/img/units/p2spearman.png");
+	imgmgr->loadImage("plainsquare", "./res/img/plainsquare.png");
 	// Preload texture resources.
 	qrw::TextureManager* texturemanager = qrw::TextureManager::getInstance();
 	texturemanager->loadTexture("plainsquare", "./res/img/plainsquare.png");
-	texturemanager->loadTexture("swordman", "./res/img/units/swordman.png");
-	texturemanager->loadTexture("archer", "./res/img/units/archer.png");
-	texturemanager->loadTexture("spearman", "./res/img/units/spearman.png");
+	texturemanager->loadTexture("p1swordman", "./res/img/units/p1swordman.png");
+	texturemanager->loadTexture("p1archer", "./res/img/units/p1archer.png");
+	texturemanager->loadTexture("p1spearman", "./res/img/units/p1spearman.png");
+	texturemanager->loadTexture("p2swordman", "./res/img/units/p2swordman.png");
+	texturemanager->loadTexture("p2archer", "./res/img/units/p2archer.png");
+	texturemanager->loadTexture("p2spearman", "./res/img/units/p2spearman.png");
 	texturemanager->loadTexture("wood", "./res/img/terrain/wood.png");
 	texturemanager->loadTexture("hill", "./res/img/terrain/hill.png");
 

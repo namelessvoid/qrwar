@@ -21,9 +21,13 @@ namespace qrw
 		plainsquare = new sf::Sprite(*texturemanager->getTexture("plainsquare"));
 		terrainsprites[ET_WOOD] = new sf::Sprite(*texturemanager->getTexture("wood"));
 		terrainsprites[ET_HILL] = new sf::Sprite(*texturemanager->getTexture("hill"));
-		unitsprites[EUT_SWORDMAN] = new sf::Sprite(*texturemanager->getTexture("swordman"));
-		unitsprites[EUT_ARCHER] = new sf::Sprite(*texturemanager->getTexture("archer"));
-		unitsprites[EUT_SPEARMAN] = new sf::Sprite(*texturemanager->getTexture("spearman"));
+		p1unitsprites[EUT_SWORDMAN] = new sf::Sprite(*texturemanager->getTexture("p1swordman"));
+		p1unitsprites[EUT_ARCHER] = new sf::Sprite(*texturemanager->getTexture("p1archer"));
+		p1unitsprites[EUT_SPEARMAN] = new sf::Sprite(*texturemanager->getTexture("p1spearman"));
+		p2unitsprites[EUT_SWORDMAN] = new sf::Sprite(*texturemanager->getTexture("p2swordman"));
+		p2unitsprites[EUT_ARCHER] = new sf::Sprite(*texturemanager->getTexture("p2archer"));
+		p2unitsprites[EUT_SPEARMAN] = new sf::Sprite(*texturemanager->getTexture("p2spearman"));
+
 	}
 
 	BoardRenderer::~BoardRenderer()
@@ -118,8 +122,13 @@ namespace qrw
 	void BoardRenderer::drawUnit(sf::RenderTarget& target, int playerid,
 		UNITTYPES unittype, sf::Vector2f position, sf::Vector2f scale) const
 	{
-		unitsprites[unittype]->setPosition(position);
-		unitsprites[unittype]->setScale(scale);
-		target.draw(*unitsprites[unittype]);
+		sf::Sprite* unitsprite = 0;
+		if(playerid == 0)
+			unitsprite = p1unitsprites[unittype];
+		else
+			unitsprite = p2unitsprites[unittype];
+		unitsprite->setPosition(position);
+		unitsprite->setScale(scale);
+		target.draw(*unitsprite);
 	}
 }
