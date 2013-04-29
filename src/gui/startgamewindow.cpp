@@ -13,21 +13,21 @@
 namespace qrw
 {
 	StartGameWindow::Ptr StartGameWindow::Create(Engine* engine,
-		IngameWindow::Ptr ingamewindow, PlaceUnitWindow::Ptr placeunitwindow,
-		GuiHandler* guihandler)
+		IngameWindow* ingamewindow, PlaceUnitWindow::Ptr placeunitwindow,
+		BoardRenderer* boardrenderer, GuiHandler* guihandler)
 	{
 		Ptr window(new StartGameWindow(engine, ingamewindow,
-			placeunitwindow, guihandler));
+			placeunitwindow, boardrenderer, guihandler));
 		window->SetTitle("Start new game");
 
 		ImageManager* imgmgr = ImageManager::getInstance();
 
 		sfg::Image::Ptr swordsmanimg = sfg::Image::Create(
-			*imgmgr->getImage("swordman"));
+			*imgmgr->getImage("p1swordman"));
 		sfg::Image::Ptr archerimg = sfg::Image::Create(
-			*imgmgr->getImage("archer"));
+			*imgmgr->getImage("p1archer"));
 		sfg::Image::Ptr spearmanimg = sfg::Image::Create(
-			*imgmgr->getImage("spearman"));
+			*imgmgr->getImage("p1spearman"));
 
 		sfg::Label::Ptr playeronelabel = sfg::Label::Create("Player 1");
 		sfg::Label::Ptr playertwolabel = sfg::Label::Create("Player 2");
@@ -98,13 +98,15 @@ namespace qrw
 		return window;
 	}
 
-	StartGameWindow::StartGameWindow(Engine* engine, IngameWindow::Ptr ingamewindow,
-		PlaceUnitWindow::Ptr placeunitwindow, GuiHandler* guihandler, int style)
+	StartGameWindow::StartGameWindow(Engine* engine, IngameWindow* ingamewindow,
+		PlaceUnitWindow::Ptr placeunitwindow, BoardRenderer* boardrenderer,
+		GuiHandler* guihandler, int style)
 	: Window(style),
 	  engine(engine),
 	  guihandler(guihandler),
 	  ingamewindow(ingamewindow),
-	  placeunitwindow(placeunitwindow)
+	  placeunitwindow(placeunitwindow),
+	  boardrenderer(boardrenderer)
 	{}
 
 	void StartGameWindow::startGame()

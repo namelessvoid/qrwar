@@ -23,7 +23,7 @@ namespace qrw
 		
 		windows[MAINWINDOW] = MainWindow::Create(this);
 		windows[STARTGAMEWINDOW] = StartGameWindow::Create(engine, ingamewindow,
-			placeunitwindow, this);
+			placeunitwindow, &boardrenderer, this);
 		windows[LOADGANEWINDO] = sfg::Window::Create();
 		windows[SETTINGSWINDOW] = sfg::Window::Create();
 		windows[CREDITSWINDOW] = sfg::Window::Create();

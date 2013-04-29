@@ -17,12 +17,14 @@ namespace qrw
 			typedef sfg::SharedPtr<StartGameWindow> Ptr;
 			typedef sfg::SharedPtr<const StartGameWindow> PtrConst;
 
-			static Ptr Create(Engine* engine, IngameWindow::Ptr ingamewindow,
-				PlaceUnitWindow::Ptr placeunitwindow, GuiHandler* guihandler);
+			static Ptr Create(Engine* engine, IngameWindow* ingamewindow,
+				PlaceUnitWindow::Ptr placeunitwindow,
+				BoardRenderer* boardrenderer, GuiHandler* guihandler);
 
 		protected:
-			StartGameWindow(Engine* engine, IngameWindow::Ptr ingamewindow,
-				PlaceUnitWindow::Ptr placeunitwindow, GuiHandler* guihandler,
+			StartGameWindow(Engine* engine, IngameWindow* ingamewindow,
+				PlaceUnitWindow::Ptr placeunitwindow,
+				BoardRenderer* boardrenderer, GuiHandler* guihandler,
 				int style = BACKGROUND);
 
 		private:
@@ -32,6 +34,7 @@ namespace qrw
 			GuiHandler* guihandler;
 			IngameWindow::Ptr ingamewindow;
 			PlaceUnitWindow::Ptr placeunitwindow;
+			BoardRenderer* boardrenderer;
 	};
 }
 
