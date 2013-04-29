@@ -18,7 +18,7 @@ namespace qrw
 		// Set up objects that need reference on board instance.
 		boardrenderer.setBoard(engine->getBoard());
 		Cursor::getCursor()->setBoard(engine->getBoard());
-		ingamewindow = new IngameWindow(engine);
+		ingamewindow = IngameWindow::Create(engine, windowsize);
 		placeunitwindow = PlaceUnitWindow::Create(engine);
 		
 		windows[MAINWINDOW] = MainWindow::Create(this);
@@ -27,7 +27,7 @@ namespace qrw
 		windows[LOADGANEWINDO] = sfg::Window::Create();
 		windows[SETTINGSWINDOW] = sfg::Window::Create();
 		windows[CREDITSWINDOW] = sfg::Window::Create();
-
+		this->Add(ingamewindow);
 		this->Add(placeunitwindow);
 		this->Add(windows[MAINWINDOW]);
 		this->Add(windows[STARTGAMEWINDOW]);
@@ -35,15 +35,12 @@ namespace qrw
 
 	GuiHandler::~GuiHandler()
 	{
-		delete ingamewindow;
-		ingamewindow = NULL;
 	}
 
 	void GuiHandler::display(sf::RenderTarget& rendertarget)
 	{
 		rendertarget.draw(boardrenderer);
 		sfgui.Display(rendertarget);
-		rendertarget.draw(*(sf::Drawable*)ingamewindow);
 	}
 
 	void GuiHandler::toggleGui()
@@ -85,7 +82,7 @@ namespace qrw
 			sfg::Desktop::HandleEvent(event);
 		else
 		{
-			ingamewindow->handleEvent(event);
+			ingamewindow->HandleEvent(event);
 			placeunitwindow->HandleEvent(event);
 			if(event.type == sf::Event::KeyPressed)
 			{
@@ -118,15 +115,15 @@ namespace qrw
 						int moveresult = engine->moveUnit(cursor->getPosition().x, cursor->getPosition().y,
 							childcursor->getPosition().x, childcursor->getPosition().y);
 						printf("moveresult: %i\n", moveresult);
-						if(moveresult == 0 || moveresult == -8 || moveresult == -9)
+						if(moveresult == 0)
 						{
 							cursor->setPosition(childcursor->getPosition());
 							cursor->despawnChild();
 						}
 					}
 				}
-				ingamewindow->update();
 			}
 		}
+		ingamewindow->update();
 	}
 }

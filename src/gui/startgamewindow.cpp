@@ -13,21 +13,21 @@
 namespace qrw
 {
 	StartGameWindow::Ptr StartGameWindow::Create(Engine* engine,
-		IngameWindow* ingamewindow, PlaceUnitWindow::Ptr placeunitwindow,
-		BoardRenderer* boardrenderer, GuiHandler* guihandler)
+		IngameWindow::Ptr ingamewindow, PlaceUnitWindow::Ptr placeunitwindow,
+		GuiHandler* guihandler)
 	{
 		Ptr window(new StartGameWindow(engine, ingamewindow,
-			placeunitwindow, boardrenderer, guihandler));
+			placeunitwindow, guihandler));
 		window->SetTitle("Start new game");
 
 		ImageManager* imgmgr = ImageManager::getInstance();
 
 		sfg::Image::Ptr swordsmanimg = sfg::Image::Create(
-			*imgmgr->getImage("p1swordman"));
+			*imgmgr->getImage("swordman"));
 		sfg::Image::Ptr archerimg = sfg::Image::Create(
-			*imgmgr->getImage("p1archer"));
+			*imgmgr->getImage("archer"));
 		sfg::Image::Ptr spearmanimg = sfg::Image::Create(
-			*imgmgr->getImage("p1spearman"));
+			*imgmgr->getImage("spearman"));
 
 		sfg::Label::Ptr playeronelabel = sfg::Label::Create("Player 1");
 		sfg::Label::Ptr playertwolabel = sfg::Label::Create("Player 2");
@@ -98,15 +98,13 @@ namespace qrw
 		return window;
 	}
 
-	StartGameWindow::StartGameWindow(Engine* engine, IngameWindow* ingamewindow,
-		PlaceUnitWindow::Ptr placeunitwindow, BoardRenderer* boardrenderer,
-		GuiHandler* guihandler, int style)
+	StartGameWindow::StartGameWindow(Engine* engine, IngameWindow::Ptr ingamewindow,
+		PlaceUnitWindow::Ptr placeunitwindow, GuiHandler* guihandler, int style)
 	: Window(style),
 	  engine(engine),
 	  guihandler(guihandler),
 	  ingamewindow(ingamewindow),
-	  placeunitwindow(placeunitwindow),
-	  boardrenderer(boardrenderer)
+	  placeunitwindow(placeunitwindow)
 	{}
 
 	void StartGameWindow::startGame()
@@ -127,7 +125,6 @@ namespace qrw
 		p2units[EUT_ARCHER] = sfg::DynamicPointerCast<sfg::SpinButton>(sfg::Widget::GetWidgetById("p2archspin"))->GetValue();
 		p2units[EUT_SPEARMAN] = sfg::DynamicPointerCast<sfg::SpinButton>(sfg::Widget::GetWidgetById("p2spearspin"))->GetValue();
 
-		boardrenderer->setBoard(engine->getBoard());
 		engine->getPlayer(0)->clearUnits();
 		engine->getPlayer(1)->clearUnits();		
 		ingamewindow->update();
