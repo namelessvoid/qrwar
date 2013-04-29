@@ -128,7 +128,8 @@ namespace qrw
 		p2units[EUT_SPEARMAN] = sfg::DynamicPointerCast<sfg::SpinButton>(sfg::Widget::GetWidgetById("p2spearspin"))->GetValue();
 
 		engine->getPlayer(0)->clearUnits();
-		engine->getPlayer(1)->clearUnits();		
+		engine->getPlayer(1)->clearUnits();
+		boardrenderer->setBoard(engine->getBoard());	
 		ingamewindow->update();
 		placeunitwindow->setPlayerUnits(p1units, p2units);
 		placeunitwindow->update();
