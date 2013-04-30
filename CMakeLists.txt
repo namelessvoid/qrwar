@@ -30,6 +30,7 @@ set(GUI_SOURCE
 	src/gui/placeunitwindow.cpp
 	src/gui/boardrenderer.cpp
 	src/gui/cursor.cpp
+	src/gui/button.cpp
 )
 
 include_directories(
