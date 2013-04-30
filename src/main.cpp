@@ -1,5 +1,6 @@
 #include <stdio.h>
 
+#include <thread>
 #include <SFML/Graphics/RenderWindow.hpp>
 #include <SFML/Graphics/RectangleShape.hpp>
 
@@ -12,12 +13,17 @@
 #include "engine/terrain.hpp"
 #include "engine/unit.hpp"
 
+#include "gui/splashscreen.hpp"
 #include "gui/imagemanager.hpp"
 #include "gui/texturemanager.hpp"
 
 
 int main(int argc, char const *argv[])
 {
+	// Create and show splash
+	qrw::SplashScreen* splash = new qrw::SplashScreen("./res/img/splash.png");
+	std::thread splashthread(&qrw::SplashScreen::show, splash);
+
 	// Preload image resources.
 	qrw::ImageManager* imgmgr = qrw::ImageManager::getInstance();
 	imgmgr->loadImage("p1swordman", "./res/img/units/p1swordman.png");
@@ -39,6 +45,9 @@ int main(int argc, char const *argv[])
 	texturemanager->loadTexture("wood", "./res/img/terrain/wood.png");
 	texturemanager->loadTexture("hill", "./res/img/terrain/hill.png");
 
+	splash->setCloseable(true);
+	splashthread.join();
+	delete splash;
 
 	sf::Vector2f windowsize(800, 600);
 	qrw::Engine engine;
