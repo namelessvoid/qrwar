@@ -4,6 +4,9 @@ set(CMAKE_BUILD_TYPE Debug)
 
 find_package(SFML REQUIRED)
 find_package(SFGUI REQUIRED)
+
+SET(CMAKE_CXX_FLAGS "-std=c++11")
+
 set(LIBS ${LIBS} sfml-graphics sfml-system sfml-window sfml-audio sfgui)
 
 set(COMMON_SOURCE
