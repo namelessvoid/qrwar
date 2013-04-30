@@ -10,7 +10,7 @@ namespace qrw
 		spritetex = new sf::Texture();
 		spritetex->loadFromFile(imgpath);
 		sprite = new sf::Sprite(*spritetex);
-		renderwindow = new sf::RenderWindow(sf::VideoMode(640, 480), "QRW Splash");
+		renderwindow = new sf::RenderWindow(sf::VideoMode(640, 480), "QRW Loading...", sf::Style::Default);
 	}
 	SplashScreen::~SplashScreen()
 	{
