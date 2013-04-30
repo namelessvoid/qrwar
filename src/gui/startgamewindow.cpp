@@ -8,6 +8,7 @@
 
 #include "gui/startgamewindow.hpp"
 #include "gui/imagemanager.hpp"
+#include "gui/cursor.hpp"
 #include "engine/unit.hpp"
 
 namespace qrw
@@ -130,6 +131,7 @@ namespace qrw
 		engine->getPlayer(0)->clearUnits();
 		engine->getPlayer(1)->clearUnits();
 		boardrenderer->setBoard(engine->getBoard());	
+		Cursor::getCursor()->setBoard(engine->getBoard());
 		ingamewindow->update();
 		placeunitwindow->setPlayerUnits(p1units, p2units);
 		placeunitwindow->update();
