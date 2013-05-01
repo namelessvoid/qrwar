@@ -44,6 +44,9 @@ int main(int argc, char const *argv[])
 	texturemanager->loadTexture("p2spearman", "./res/img/units/p2spearman.png");
 	texturemanager->loadTexture("wood", "./res/img/terrain/wood.png");
 	texturemanager->loadTexture("hill", "./res/img/terrain/hill.png");
+	texturemanager->loadTexture("nextbutton", "./res/img/gui/nextbutton.png");
+	texturemanager->loadTexture("nextbutton_hover", "./res/img/gui/nextbutton_hover.png");
+	texturemanager->loadTexture("nextbutton_active", "./res/img/gui/nextbutton_active.png");
 
 	splash->setCloseable(true);
 	splashthread.join();
@@ -52,7 +55,6 @@ int main(int argc, char const *argv[])
 	sf::Vector2f windowsize(800, 600);
 	qrw::Engine engine;
 	engine.init(10, 4);
-	qrw::GuiHandler guihandler(&engine, windowsize);
 
 	
 // Setup random board for test dings
@@ -63,6 +65,7 @@ qrw::Terrain terrain2(qrw::ET_HILL, 3, -1);
 board->getSquare(1, 2)->setTerrain(&terrain2);
 
 	sf::RenderWindow renderwindow(sf::VideoMode(windowsize.x, windowsize.y), "Quad-Ruled War", sf::Style::Default);
+	qrw::GuiHandler guihandler(&engine, &renderwindow);
 	sf::View camera(sf::FloatRect(0.0f, 0.0f, windowsize.x, windowsize.y));
 	renderwindow.setView(camera);
 
@@ -86,6 +89,7 @@ board->getSquare(1, 2)->setTerrain(&terrain2);
 
 		guihandler.Update(elapsedtime);
 		guihandler.display(renderwindow);
+		
 		renderwindow.display();
 	}
 

@@ -32,7 +32,7 @@ namespace qrw
 			void startGame();
 			Engine* engine;
 			GuiHandler* guihandler;
-			IngameWindow::Ptr ingamewindow;
+			IngameWindow* ingamewindow;
 			PlaceUnitWindow::Ptr placeunitwindow;
 			BoardRenderer* boardrenderer;
 	};
