@@ -58,15 +58,19 @@ namespace qrw
 			updateSprite();
 			return;
 		}
-		if(event.type == sf::Event::MouseMoved)
+		if(sf::Mouse::isButtonPressed(sf::Mouse::Left) == false
+			&& event.type == sf::Event::MouseMoved)
+		{
 			state = ES_HOVER;
-		else if(event.type == sf::Event::MouseButtonPressed &&
-			event.mouseButton.button == sf::Mouse::Left)
+		}
+		else if(event.type == sf::Event::MouseButtonPressed
+			&& event.mouseButton.button == sf::Mouse::Left)
 		{
 			state = ES_ACTIVE;
+			signalclicked.emit();
 		}
-		else if(event.type == sf::Event::MouseButtonReleased &&
-			event.mouseButton.button == sf::Mouse::Left)
+		else if(event.type == sf::Event::MouseButtonReleased
+			&& event.mouseButton.button == sf::Mouse::Left)
 		{
 			state = ES_INACTIVE;
 		}

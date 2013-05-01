@@ -7,6 +7,8 @@
 #include <SFML/Graphics/RenderTarget.hpp>
 #include <SFML/Window/Event.hpp>
 
+#include "gui/signal.hpp"
+
 namespace qrw
 {
 	class Button : public sf::Sprite
@@ -28,6 +30,9 @@ namespace qrw
 			// void draw(sf::RenderTarget& target,
 			// 	sf::RenderStates states = sf::RenderStates::Default) const;
 			void handleEvent(const sf::Event& event);
+
+			// Public signals:
+			Signal signalclicked;
 
 		private:
 			bool mouseOnButton();
