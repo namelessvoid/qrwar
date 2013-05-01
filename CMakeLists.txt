@@ -31,6 +31,7 @@ set(GUI_SOURCE
 	src/gui/boardrenderer.cpp
 	src/gui/cursor.cpp
 	src/gui/button.cpp
+	src/gui/signal.cpp
 )
 
 include_directories(
