@@ -40,6 +40,7 @@ namespace qrw
 			sf::Sprite* unitsprite;
 			sf::Sprite* terrainsprite;
 			sf::Sprite* plainsquare;
+			sf::Font* defaultfont;
 
 			sf::RectangleShape* background;
 			sf::RectangleShape* border;

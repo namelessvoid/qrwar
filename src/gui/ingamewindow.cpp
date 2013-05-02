@@ -23,11 +23,15 @@ namespace qrw
 	  terrainsprite(new sf::Sprite()),
 	  plainsquare(new sf::Sprite()),
 	  background(new sf::RectangleShape()),
-	  border(new sf::RectangleShape())
+	  border(new sf::RectangleShape()),
+	  defaultfont(new sf::Font())
 	{
+		defaultfont->loadFromFile("./res/font/Knigqst.ttf");
+		playernamelabel.setFont(*defaultfont);
+		playernamelabel.setCharacterSize(25);
 		playernamelabel.setString("Player name");
-		// playernamelabel.setPosition(sf::Vector2f(700, 30));
-		playernamelabel.setColor(sf::Color::Green);
+		playernamelabel.setPosition(sf::Vector2f(625, 0));
+		playernamelabel.setColor(sf::Color::White);
 
 		background->setPosition(621, 1);
 		background->setSize(sf::Vector2f(178, 598));
@@ -69,6 +73,9 @@ namespace qrw
 	}
 	void IngameWindow::update()
 	{
+		// Update player name
+		playernamelabel.setString(engine->getCurrentPlayer().getName());
+		// Update Square information
 		Board* board = engine->getBoard();
 		Cursor* cursor = Cursor::getCursor()->getChild();
 		if(cursor == NULL)
