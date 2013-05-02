@@ -2,12 +2,21 @@ cmake_minimum_required(VERSION 2.6)
 project(QuadRuledWar)
 set(CMAKE_BUILD_TYPE Debug)
 
-find_package(SFML REQUIRED)
+find_package(SFML 2.0 REQUIRED graphics system window audio)
+if(SFML_FOUND)
+	include_directories(${SFML_INCLUDE_DIRS})
+	set(LIBS ${LIBS} ${SFML_LIBRARIES})
+endif(SFML_FOUND)
+
 find_package(SFGUI REQUIRED)
+if(SFGUI_FOUND)
+	include_directories(${SFML_INCLUDE_DIRS})
+	set(LIBS ${LIBS} ${SFGUI_LIBRARY})
+endif(SFGUI_FOUND)
+
 
 SET(CMAKE_CXX_FLAGS "-std=c++11")
 
-set(LIBS ${LIBS} sfml-graphics sfml-system sfml-window sfml-audio sfgui)
 
 set(COMMON_SOURCE
 	src/engine/engine.cpp
@@ -30,6 +39,8 @@ set(GUI_SOURCE
 	src/gui/placeunitwindow.cpp
 	src/gui/boardrenderer.cpp
 	src/gui/cursor.cpp
+	src/gui/button.cpp
+	src/gui/signal.cpp
 )
 
 include_directories(
