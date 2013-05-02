@@ -3,6 +3,8 @@
 
 #include <SFML/System/Vector2.hpp>
 #include <SFML/Window/Event.hpp>
+#include <SFML/Graphics/Text.hpp>
+#include <SFML/Graphics/RectangleShape.hpp>
 
 #include "engine/engine.hpp"
 #include "gui/button.hpp"
@@ -31,7 +33,16 @@ namespace qrw
 
 			Engine* engine;
 			GuiHandler* guihandler;
+
+			// Widgets
 			Button endturnbutton;
+			sf::Text playernamelabel;
+			sf::Sprite* unitsprite;
+			sf::Sprite* terrainsprite;
+			sf::Sprite* plainsquare;
+
+			sf::RectangleShape* background;
+			sf::RectangleShape* border;
 	};
 }
 
