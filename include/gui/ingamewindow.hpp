@@ -46,6 +46,12 @@ namespace qrw
 			sf::Sprite* attacksprite;
 			sf::Sprite* defensesprite;
 
+			sf::Text* healthtext;
+			sf::Text* unitattacktext;
+			sf::Text* unitdefensetext;
+			sf::Text* terrainattacktext;
+			sf::Text* terraindefensetext;
+
 			sf::RectangleShape* background;
 			sf::RectangleShape* border;
 	};
