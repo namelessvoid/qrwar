@@ -35,23 +35,6 @@ namespace qrw
 		sf::Image spearimg;
 		spearimg.loadFromFile("./res/img/units/spearman.png");
 
-		// sfg::Label::Ptr p1label = sfg::Label::Create(engine->getPlayer(0)->getName());
-		// sfg::Button::Ptr p1swordbutton = sfg::Button::Create("blabla");
-		// p1swordbutton->SetImage(sfg::Image::Create(swordimg));
-		// sfg::Button::Ptr p1archerbutton = sfg::Button::Create("blabla");
-		// p1archerbutton->SetImage(sfg::Image::Create(archerimg));
-		// // p1archerbutton->SetGroup(buttongroup);
-		// sfg::Button::Ptr p1spearbutton = sfg::Button::Create("blabla");
-		// p1spearbutton->SetImage(sfg::Image::Create(spearimg));
-
-		// sfg::Label::Ptr p2label = sfg::Label::Create(engine->getPlayer(1)->getName());
-		// sfg::Button::Ptr p2swordbutton = sfg::Button::Create("blabla");
-		// p2swordbutton->SetImage(sfg::Image::Create(swordimg));
-		// sfg::Button::Ptr p2archerbutton = sfg::Button::Create("blabla");
-		// p2archerbutton->SetImage(sfg::Image::Create(archerimg));
-		// sfg::Button::Ptr p2spearbutton = sfg::Button::Create("blabla");
-		// p2spearbutton->SetImage(sfg::Image::Create(spearimg));
-
 		sfg::ComboBox::Ptr playerbox = sfg::ComboBox::Create();
 		playerbox->SetId("playerbox");
 		playerbox->AppendItem(engine->getPlayer(0)->getName());
@@ -73,15 +56,6 @@ namespace qrw
 
 		sfg::Table::Ptr maincontainer = sfg::Table::Create();
 		int options = sfg::Table::FILL | sfg::Table::EXPAND;
-		// maincontainer->Attach(p1label, sf::Rect<sf::Uint32>(0, 0, 1, 1), options, options);
-		// maincontainer->Attach(p1swordbutton, sf::Rect<sf::Uint32>(1, 0, 1, 1), options, options);
-		// maincontainer->Attach(p1archerbutton, sf::Rect<sf::Uint32>(2, 0, 1, 1), options, options);
-		// maincontainer->Attach(p1spearbutton, sf::Rect<sf::Uint32>(3, 0, 1, 1), options, options);
-
-		// maincontainer->Attach(p2label, sf::Rect<sf::Uint32>(0, 1, 1, 1), options, options);
-		// maincontainer->Attach(p2swordbutton, sf::Rect<sf::Uint32>(1, 1, 1, 1), options, options);
-		// maincontainer->Attach(p2archerbutton, sf::Rect<sf::Uint32>(2, 1, 1, 1), options, options);
-		// maincontainer->Attach(p2spearbutton, sf::Rect<sf::Uint32>(3, 1, 1, 1), options, options);
 
 		maincontainer->Attach(advicelabel, sf::Rect<sf::Uint32>(0, 0, 1, 1), options, options);
 		maincontainer->Attach(playerbox, sf::Rect<sf::Uint32>(0, 1, 1, 1), options, options);
