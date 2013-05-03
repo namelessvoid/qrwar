@@ -47,6 +47,9 @@ int main(int argc, char const *argv[])
 	texturemanager->loadTexture("nextbutton", "./res/img/gui/nextbutton.png");
 	texturemanager->loadTexture("nextbutton_hover", "./res/img/gui/nextbutton_hover.png");
 	texturemanager->loadTexture("nextbutton_active", "./res/img/gui/nextbutton_active.png");
+	texturemanager->loadTexture("health", "./res/img/gui/health.png");
+	texturemanager->loadTexture("attack", "./res/img/gui/attack.png");
+	texturemanager->loadTexture("defense", "./res/img/gui/defense.png");
 
 	splash->setCloseable(true);
 	splashthread.join();

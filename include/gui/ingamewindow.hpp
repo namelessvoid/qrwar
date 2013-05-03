@@ -42,6 +42,10 @@ namespace qrw
 			sf::Sprite* plainsquare;
 			sf::Font* defaultfont;
 
+			sf::Sprite* healthsprite;
+			sf::Sprite* attacksprite;
+			sf::Sprite* defensesprite;
+
 			sf::RectangleShape* background;
 			sf::RectangleShape* border;
 	};

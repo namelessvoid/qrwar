@@ -24,7 +24,10 @@ namespace qrw
 	  plainsquare(new sf::Sprite()),
 	  background(new sf::RectangleShape()),
 	  border(new sf::RectangleShape()),
-	  defaultfont(new sf::Font())
+	  defaultfont(new sf::Font()),
+	  healthsprite(new sf::Sprite()),
+	  attacksprite(new sf::Sprite()),
+	  defensesprite(new sf::Sprite())
 	{
 		defaultfont->loadFromFile("./res/font/Knigqst.ttf");
 		playernamelabel.setFont(*defaultfont);
@@ -32,6 +35,10 @@ namespace qrw
 		playernamelabel.setString("Player name");
 		playernamelabel.setPosition(sf::Vector2f(625, 0));
 		playernamelabel.setColor(sf::Color::White);
+
+		healthsprite->setTexture(*TextureManager::getInstance()->getTexture("health"));
+		attacksprite->setTexture(*TextureManager::getInstance()->getTexture("attack"));
+		defensesprite->setTexture(*TextureManager::getInstance()->getTexture("defense"));
 
 		background->setPosition(621, 1);
 		background->setSize(sf::Vector2f(178, 598));
@@ -46,7 +53,7 @@ namespace qrw
 		unitsprite->setScale(sf::Vector2f(1.5, 1.5));
 
 		terrainsprite->setTexture(*TextureManager::getInstance()->getTexture("wood"));
-		terrainsprite->setPosition(630, 100);
+		terrainsprite->setPosition(630, 175);
 		terrainsprite->setScale(sf::Vector2f(1.5, 1.5));
 
 		plainsquare->setTexture(*TextureManager::getInstance()->getTexture("plainsquare"));
@@ -70,6 +77,9 @@ namespace qrw
 			delete plainsquare;
 			delete background;
 			delete border;
+			delete healthsprite;
+			delete attacksprite;
+			delete defensesprite;
 	}
 	void IngameWindow::update()
 	{
@@ -166,18 +176,31 @@ namespace qrw
 		target.draw(*background);
 
 		target.draw(playernamelabel);
-		// Draw unit
-		plainsquare->setPosition(unitsprite->getPosition());
+		// Draw unit info
+		sf::Vector2f pos = unitsprite->getPosition();
+		plainsquare->setPosition(pos);
 		plainsquare->setScale(unitsprite->getScale());
 		target.draw(*plainsquare);
 		if(unitsprite != NULL)
 			target.draw(*unitsprite);
-		// Draw terrain
-		plainsquare->setPosition(terrainsprite->getPosition());
+		healthsprite->setPosition(pos.x + 52, pos.y);
+		attacksprite->setPosition(pos.x + 52, pos.y + 35);
+		defensesprite->setPosition(pos.x + 52, pos.y + 70);
+		target.draw(*healthsprite);
+		target.draw(*attacksprite);
+		target.draw(*defensesprite);
+
+		// Draw terrain info
+		pos = terrainsprite->getPosition();
+		plainsquare->setPosition(pos);
 		plainsquare->setScale(terrainsprite->getScale());
 		target.draw(*plainsquare);
 		if(terrainsprite != NULL)
 			target.draw(*terrainsprite);
+		attacksprite->setPosition(pos.x + 52, pos.y);
+		defensesprite->setPosition(pos.x + 52, pos.y + 35);
+		target.draw(*attacksprite);
+		target.draw(*defensesprite);
 
 		target.draw(endturnbutton);
 	}
