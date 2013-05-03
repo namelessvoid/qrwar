@@ -2,32 +2,58 @@
 #define QRW_INGAMEWINDOW_HPP
 
 #include <SFML/System/Vector2.hpp>
-#include <SFGUI/Window.hpp>
-#include <SFGUI/SharedPtr.hpp>
+#include <SFML/Window/Event.hpp>
+#include <SFML/Graphics/Text.hpp>
+#include <SFML/Graphics/RectangleShape.hpp>
 
 #include "engine/engine.hpp"
+#include "gui/button.hpp"
 
 namespace qrw
 {
-	class IngameWindow : public sfg::Window
+	class GuiHandler;
+	
+	class IngameWindow : public sf::Drawable
 	{
 		public:
-			typedef sfg::SharedPtr<IngameWindow> Ptr;
-			typedef sfg::SharedPtr<const IngameWindow> PtrConst;
-
-			static Ptr Create(Engine* engine, sf::Vector2f windowsize);
+			IngameWindow(Engine* engine, GuiHandler* guihandler);
+			~IngameWindow();
 
 			sf::Vector2f getSize();
 
 			void update();
 
-		protected:
-			IngameWindow(Engine* engine);
+			void handleEvent(const sf::Event& event);
+			void draw(sf::RenderTarget&,
+				sf::RenderStates = sf::RenderStates::Default) const;
 
 		private:
+			// private slots:
 			void changeplayerbuttonClicked();
 
 			Engine* engine;
+			GuiHandler* guihandler;
+
+			// Widgets
+			Button endturnbutton;
+			sf::Text playernamelabel;
+			sf::Sprite* unitsprite;
+			sf::Sprite* terrainsprite;
+			sf::Sprite* plainsquare;
+			sf::Font* defaultfont;
+
+			sf::Sprite* healthsprite;
+			sf::Sprite* attacksprite;
+			sf::Sprite* defensesprite;
+
+			sf::Text* healthtext;
+			sf::Text* unitattacktext;
+			sf::Text* unitdefensetext;
+			sf::Text* terrainattacktext;
+			sf::Text* terraindefensetext;
+
+			sf::RectangleShape* background;
+			sf::RectangleShape* border;
 	};
 }
 

@@ -33,9 +33,11 @@ namespace qrw
 	class GuiHandler : public sfg::Desktop
 	{
 		public:
-			GuiHandler(qrw::Engine* engine, sf::Vector2f windowsize);
+			GuiHandler(qrw::Engine* engine, sf::Window* renderwindow);
 			~GuiHandler();
 
+			sf::Window* getRenderWindow();
+			
 			void display(sf::RenderTarget& rendertarget);
 
 			inline bool guiVisible() { return visible; };
@@ -56,11 +58,11 @@ namespace qrw
 			qrw::Engine* engine;
 			BoardRenderer boardrenderer;
 
-			sf::Vector2f windowsize;
+			sf::Window* renderwindow;
 			
 			sfg::Window::Ptr windows[NUMEROFWINDOWS];
 			bool visiblestats[NUMEROFWINDOWS];
-			IngameWindow::Ptr ingamewindow;
+			IngameWindow* ingamewindow;
 			PlaceUnitWindow::Ptr placeunitwindow;
 
 			sfg::SFGUI sfgui;

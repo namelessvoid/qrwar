@@ -8,17 +8,17 @@
 
 namespace qrw
 {
-	GuiHandler::GuiHandler(qrw::Engine* engine, sf::Vector2f windowsize)
+	GuiHandler::GuiHandler(qrw::Engine* engine, sf::Window* renderwindow)
 		: engine(engine),
 		  sfgui(sfg::SFGUI()),
 		  visible(true),
 		  quit(false),
-		  windowsize(windowsize)
+		  renderwindow(renderwindow)
 	{
 		// Set up objects that need reference on board instance.
 		boardrenderer.setBoard(engine->getBoard());
 		Cursor::getCursor()->setBoard(engine->getBoard());
-		ingamewindow = IngameWindow::Create(engine, windowsize);
+		ingamewindow = new IngameWindow(engine, this);
 		placeunitwindow = PlaceUnitWindow::Create(engine);
 		
 		windows[MAINWINDOW] = MainWindow::Create(this);
@@ -27,7 +27,7 @@ namespace qrw
 		windows[LOADGANEWINDO] = sfg::Window::Create();
 		windows[SETTINGSWINDOW] = sfg::Window::Create();
 		windows[CREDITSWINDOW] = sfg::Window::Create();
-		this->Add(ingamewindow);
+
 		this->Add(placeunitwindow);
 		this->Add(windows[MAINWINDOW]);
 		this->Add(windows[STARTGAMEWINDOW]);
@@ -40,7 +40,13 @@ namespace qrw
 	void GuiHandler::display(sf::RenderTarget& rendertarget)
 	{
 		rendertarget.draw(boardrenderer);
+		rendertarget.draw(*(sf::Drawable*)ingamewindow);
 		sfgui.Display(rendertarget);
+	}
+
+	sf::Window* GuiHandler::getRenderWindow()
+	{
+		return renderwindow;
 	}
 
 	void GuiHandler::toggleGui()
@@ -79,10 +85,13 @@ namespace qrw
 				toggleGui();
 		// Let the gui handle the event
 		if(guiVisible())
+		{
 			sfg::Desktop::HandleEvent(event);
+			ingamewindow->handleEvent(event);
+		}
 		else
 		{
-			ingamewindow->HandleEvent(event);
+			ingamewindow->handleEvent(event);
 			placeunitwindow->HandleEvent(event);
 			if(event.type == sf::Event::KeyPressed)
 			{
