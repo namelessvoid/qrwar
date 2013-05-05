@@ -3,6 +3,7 @@
 
 #include <SFML/Graphics/RenderTarget.hpp>
 
+#include "engine/engine.hpp"
 #include "engine/unit.hpp"
 #include "gui/button.hpp"
 
@@ -13,7 +14,7 @@ namespace qrw
 	class DeployWindow : public sf::Drawable
 	{
 		public:
-			DeployWindow(GuiHandler* guihandler);
+			DeployWindow(Engine* engine, GuiHandler* guihandler);
 			~DeployWindow();
 
 			void setVisible(bool visible);
@@ -33,6 +34,7 @@ namespace qrw
 
 			Button* startbutton;
 
+			Engine* engine;
 			// Arrays of player units
 			int p1units[EUT_NUMBEROFUNITTYPES];
 			int p2units[EUT_NUMBEROFUNITTYPES];			

@@ -6,9 +6,10 @@
 
 namespace qrw
 {
-	DeployWindow::DeployWindow(GuiHandler* guihandler)
+	DeployWindow::DeployWindow(Engine* engine, GuiHandler* guihandler)
 	: visible(false),
-	  startbutton(new Button(guihandler->getRenderWindow()))
+	  startbutton(new Button(guihandler->getRenderWindow())),
+	  engine(engine)
 	{
 		TextureManager* texturemgr = TextureManager::getInstance();
 		startbutton->setTextures(texturemgr->getTexture("startbutton"),
@@ -35,7 +36,6 @@ namespace qrw
 		if(visible == false)
 			return;
 
-		printf("DeployWindow::draw\n");
 		target.draw(*startbutton);
 	}
 
@@ -58,6 +58,12 @@ namespace qrw
 
 	void DeployWindow::startbuttonClicked()
 	{
-		printf("startbutton clicked\n");
+		if(engine->getStatus() == EES_PREPARE)
+		{
+			printf("PlaceUnitWindow: starting game\n");
+			engine->startGame();
+			setVisible(false);
+			update();
+		}
 	}
 }
