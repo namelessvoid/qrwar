@@ -6,11 +6,20 @@
 
 namespace qrw
 {
-	DeployWindow::DeployWindow(Engine* engine, GuiHandler* guihandler)
+	DeployWindow::DeployWindow(Engine* engine, GuiHandler* guihandler,
+		IngameWindow* ingamewindow)
 	: visible(false),
+	  engine(engine),
+	  ingamewindow(ingamewindow),
 	  startbutton(new Button(guihandler->getRenderWindow())),
-	  engine(engine)
+	  defaultfont(new sf::Font()),
+	  title(new sf::Text())
 	{
+		defaultfont->loadFromFile("./res/font/Knigqst.ttf");
+		title->setFont(*defaultfont);
+		title->setString("Deployment");
+		title->setPosition(630, 0);
+
 		TextureManager* texturemgr = TextureManager::getInstance();
 		startbutton->setTextures(texturemgr->getTexture("startbutton"),
 			texturemgr->getTexture("startbutton"),
@@ -23,6 +32,8 @@ namespace qrw
 	DeployWindow::~DeployWindow()
 	{
 		delete startbutton;
+		delete defaultfont;
+		delete title;
 	}
 
 	void DeployWindow::setVisible(bool visible)
@@ -36,6 +47,7 @@ namespace qrw
 		if(visible == false)
 			return;
 
+		target.draw(*title);
 		target.draw(*startbutton);
 	}
 
@@ -62,6 +74,7 @@ namespace qrw
 		{
 			printf("PlaceUnitWindow: starting game\n");
 			engine->startGame();
+			ingamewindow->setVisible(true);
 			setVisible(false);
 			update();
 		}

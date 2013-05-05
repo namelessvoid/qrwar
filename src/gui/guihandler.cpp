@@ -20,7 +20,7 @@ namespace qrw
 		Cursor::getCursor()->setBoard(engine->getBoard());
 		ingamewindow = new IngameWindow(engine, this);
 		ingamewindow->setVisible(false);
-		deploywindow = new DeployWindow(engine, this);
+		deploywindow = new DeployWindow(engine, this, ingamewindow);
 		deploywindow->setVisible(false);
 		
 		windows[MAINWINDOW] = MainWindow::Create(this);

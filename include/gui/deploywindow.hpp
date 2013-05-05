@@ -2,10 +2,12 @@
 #define QRW_DEPLOYWINDOW_HPP
 
 #include <SFML/Graphics/RenderTarget.hpp>
+#include <SFML/Graphics/Text.hpp>
 
 #include "engine/engine.hpp"
 #include "engine/unit.hpp"
 #include "gui/button.hpp"
+#include "gui/ingamewindow.hpp"
 
 namespace qrw
 {
@@ -14,7 +16,8 @@ namespace qrw
 	class DeployWindow : public sf::Drawable
 	{
 		public:
-			DeployWindow(Engine* engine, GuiHandler* guihandler);
+			DeployWindow(Engine* engine, GuiHandler* guihandler,
+				IngameWindow* ingamewindow);
 			~DeployWindow();
 
 			void setVisible(bool visible);
@@ -32,7 +35,10 @@ namespace qrw
 			
 			bool visible;
 
+			IngameWindow* ingamewindow;
 			Button* startbutton;
+			sf::Font* defaultfont;
+			sf::Text* title;
 
 			Engine* engine;
 			// Arrays of player units
