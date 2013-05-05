@@ -22,14 +22,18 @@ namespace qrw
 			sf::Vector2f getSize();
 
 			void update();
+			void setVisible(bool visible);
 
 			void handleEvent(const sf::Event& event);
 			void draw(sf::RenderTarget&,
 				sf::RenderStates = sf::RenderStates::Default) const;
 
+
 		private:
 			// private slots:
 			void changeplayerbuttonClicked();
+
+			bool visible;
 
 			Engine* engine;
 			GuiHandler* guihandler;

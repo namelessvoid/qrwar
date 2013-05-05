@@ -17,6 +17,7 @@ namespace qrw
 	IngameWindow::IngameWindow(Engine* engine, GuiHandler* guihandler)
 	: engine(engine),
 	  guihandler(guihandler),
+	  visible(true),
 	  endturnbutton(guihandler->getRenderWindow()),
 	  playernamelabel(),
 	  unitsprite(new sf::Sprite()),
@@ -111,6 +112,12 @@ namespace qrw
 			delete terrainattacktext;
 			delete terraindefensetext;
 	}
+
+	void IngameWindow::setVisible(bool visible)
+	{
+		this->visible = visible;
+	}
+	
 	void IngameWindow::update()
 	{
 		// Update player name
@@ -215,6 +222,9 @@ namespace qrw
 
 	void IngameWindow::draw(sf::RenderTarget& target, sf::RenderStates) const
 	{
+		if(visible == false)
+			return;
+
 		target.draw(*border);
 		target.draw(*background);
 
