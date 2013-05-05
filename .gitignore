@@ -1,0 +1,10 @@
+CMakeCache.txt
+CMakeFiles/
+Makefile
+bin/
+cmake_install.cmake
+draft/
+*.sublime-project
+*.sublime-workspace
+*.zip
+*.xcf
