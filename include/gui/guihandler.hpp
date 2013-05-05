@@ -8,7 +8,7 @@
 #include "engine/engine.hpp"
 #include "gui/ingamewindow.hpp"
 #include "gui/boardrenderer.hpp"
-#include "gui/placeunitwindow.hpp"
+#include "gui/deploywindow.hpp"
 
 namespace qrw
 {
@@ -62,8 +62,8 @@ namespace qrw
 			
 			sfg::Window::Ptr windows[NUMEROFWINDOWS];
 			bool visiblestats[NUMEROFWINDOWS];
+			DeployWindow* deploywindow;
 			IngameWindow* ingamewindow;
-			PlaceUnitWindow::Ptr placeunitwindow;
 
 			sfg::SFGUI sfgui;
 			bool visible;
