@@ -14,7 +14,7 @@ namespace qrw
 	class Button : public sf::Sprite
 	{
 		public:
-			Button(sf::Window* window = NULL, std::string text = "",
+			Button(sf::Window* window, std::string text = "",
 				const sf::Texture* textureactive = NULL,
 				const sf::Texture* textureinainactive = NULL,
 				const sf::Texture* texutrehover = NULL);
