@@ -40,6 +40,11 @@ namespace qrw
 	{
 		this->state = state;
 	}
+
+	Button::STATES Button::getState()
+	{
+		return state;
+	}
 	
 	void Button::setTextures(const sf::Texture* textureinactive,
 		const sf::Texture* textureactive, const sf::Texture* texturehover)
@@ -48,11 +53,6 @@ namespace qrw
 		textures[ES_ACTIVE] = textureactive;
 		textures[ES_HOVER] = texturehover;
 	}
-
-	// void Button::draw(sf::RenderTarget& target, sf::RenderStates states) const
-	// {
-	// 	target.draw(*(sf::Sprite*)this, states);
-	// }
 
 	void Button::handleEvent(const sf::Event& event)
 	{

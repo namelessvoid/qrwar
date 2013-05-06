@@ -30,6 +30,7 @@ namespace qrw
 			void setText(std::string text);
 			std::string getText();
 			void setState(STATES state);
+			STATES getState();
 
 			void setTextures(const sf::Texture* textureinactive,
 				const sf::Texture* textureactive, 
