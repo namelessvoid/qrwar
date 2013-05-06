@@ -83,11 +83,7 @@ namespace qrw
 		sf::Vector2f mousepos;
 		mousepos.x = (float)sf::Mouse::getPosition(*window).x;
 		mousepos.y = (float)sf::Mouse::getPosition(*window).y;
-		if(getGlobalBounds().contains(mousepos) == true)
-		{
-			return false;
-		}
-		return true;
+		return getGlobalBounds().contains(mousepos);
 	}
 
 	void Button::updateSprite()
