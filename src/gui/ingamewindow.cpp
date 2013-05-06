@@ -198,6 +198,9 @@ namespace qrw
 				case ET_WOOD:
 					terrainsprite->setTexture(*TextureManager::getInstance()->getTexture("wood"));
 					break;
+				case ET_WALL:
+					terrainsprite->setTexture(*TextureManager::getInstance()->getTexture("wall"));
+					break;
 				default:
 					break;
 			}

@@ -44,6 +44,7 @@ int main(int argc, char const *argv[])
 	texturemanager->loadTexture("p2spearman", "./res/img/units/p2spearman.png");
 	texturemanager->loadTexture("wood", "./res/img/terrain/wood.png");
 	texturemanager->loadTexture("hill", "./res/img/terrain/hill.png");
+	texturemanager->loadTexture("wall", "./res/img/terrain/wall.png");
 	texturemanager->loadTexture("nextbutton", "./res/img/gui/nextbutton.png");
 	texturemanager->loadTexture("nextbutton_hover", "./res/img/gui/nextbutton_hover.png");
 	texturemanager->loadTexture("nextbutton_active", "./res/img/gui/nextbutton_active.png");
@@ -66,6 +67,8 @@ qrw::Terrain terrain1(qrw::ET_WOOD, 1, 2);
 board->getSquare(0, 0)->setTerrain(&terrain1);
 qrw::Terrain terrain2(qrw::ET_HILL, 3, -1);
 board->getSquare(1, 2)->setTerrain(&terrain2);
+qrw::Terrain terrain3(qrw::ET_WALL, 2, 2);
+board->getSquare(5, 1)->setTerrain(&terrain3);
 
 	sf::RenderWindow renderwindow(sf::VideoMode(windowsize.x, windowsize.y), "Quad-Ruled War", sf::Style::Default);
 	qrw::GuiHandler guihandler(&engine, &renderwindow);

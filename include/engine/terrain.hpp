@@ -13,6 +13,7 @@ namespace qrw
 	{
 		ET_WOOD,
 		ET_HILL,
+		ET_WALL,
 		ET_NUMBEROFTERRAINTYPES
 	};
 
