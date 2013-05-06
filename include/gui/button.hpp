@@ -30,7 +30,7 @@ namespace qrw
 			void setText(std::string text);
 			std::string getText();
 			void setState(STATES state);
-			STATES getState();
+			STATES getState() const;
 
 			void setTextures(const sf::Texture* textureinactive,
 				const sf::Texture* textureactive, 
@@ -39,16 +39,17 @@ namespace qrw
 			// void draw(sf::RenderTarget& target,
 			// 	sf::RenderStates states = sf::RenderStates::Default) const;
 			void handleEvent(const sf::Event& event);
+			void updateSprite();
 
 			// Public signals:
 			Signal signalclicked;
 
-		private:
+		protected:
 			bool mouseOnButton();
-			void updateSprite();
 
-			std::string text;
+		private:
 			STATES state;
+			std::string text;
 			sf::Window* window;
 
 			const sf::Texture* textures[3];

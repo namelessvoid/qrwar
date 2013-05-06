@@ -41,7 +41,7 @@ namespace qrw
 		this->state = state;
 	}
 
-	Button::STATES Button::getState()
+	Button::STATES Button::getState() const
 	{
 		return state;
 	}
