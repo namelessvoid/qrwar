@@ -21,6 +21,7 @@ namespace qrw
 		plainsquare = new sf::Sprite(*texturemanager->getTexture("plainsquare"));
 		terrainsprites[ET_WOOD] = new sf::Sprite(*texturemanager->getTexture("wood"));
 		terrainsprites[ET_HILL] = new sf::Sprite(*texturemanager->getTexture("hill"));
+		terrainsprites[ET_WALL] = new sf::Sprite(*texturemanager->getTexture("wall"));
 		p1unitsprites[EUT_SWORDMAN] = new sf::Sprite(*texturemanager->getTexture("p1swordman"));
 		p1unitsprites[EUT_ARCHER] = new sf::Sprite(*texturemanager->getTexture("p1archer"));
 		p1unitsprites[EUT_SPEARMAN] = new sf::Sprite(*texturemanager->getTexture("p1spearman"));
