@@ -7,7 +7,11 @@
 #include "engine/engine.hpp"
 #include "engine/unit.hpp"
 #include "gui/button.hpp"
+#include "gui/buttongroup.hpp"
+#include "gui/radiotogglebutton.hpp"
 #include "gui/ingamewindow.hpp"
+
+#define BUTTONCOUNT 9
 
 namespace qrw
 {
@@ -36,6 +40,9 @@ namespace qrw
 			bool visible;
 
 			IngameWindow* ingamewindow;
+			// Buttons for units and terrain
+			RadioToggleButton* radiobuttons[BUTTONCOUNT];
+			ButtonGroup* buttongroup;
 			Button* startbutton;
 			sf::Font* defaultfont;
 			sf::Text* title;
@@ -43,7 +50,7 @@ namespace qrw
 			Engine* engine;
 			// Arrays of player units
 			int p1units[EUT_NUMBEROFUNITTYPES];
-			int p2units[EUT_NUMBEROFUNITTYPES];			
+			int p2units[EUT_NUMBEROFUNITTYPES];		
 	};
 }
 #endif
