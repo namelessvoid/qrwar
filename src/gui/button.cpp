@@ -83,8 +83,7 @@ namespace qrw
 		sf::Vector2f mousepos;
 		mousepos.x = (float)sf::Mouse::getPosition(*window).x;
 		mousepos.y = (float)sf::Mouse::getPosition(*window).y;
-		if(mousepos.x < bounds.left || mousepos.x > (bounds.left + bounds.width)
-			|| mousepos.y < bounds.top || mousepos.y > (bounds.top + bounds.height))
+		if(getGlobalBounds().contains(mousepos) == true)
 		{
 			return false;
 		}
