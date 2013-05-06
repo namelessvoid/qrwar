@@ -36,7 +36,11 @@ namespace qrw
 	{
 		return text;
 	}
-
+	void Button::setState(Button::STATES state)
+	{
+		this->state = state;
+	}
+	
 	void Button::setTextures(const sf::Texture* textureinactive,
 		const sf::Texture* textureactive, const sf::Texture* texturehover)
 	{

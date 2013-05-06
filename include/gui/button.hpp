@@ -14,6 +14,13 @@ namespace qrw
 	class Button : public sf::Sprite
 	{
 		public:
+			enum STATES
+			{
+				ES_INACTIVE,
+				ES_ACTIVE,
+				ES_HOVER
+			};
+
 			Button(sf::Window* window = NULL, std::string text = "",
 				const sf::Texture* textureactive = NULL,
 				const sf::Texture* textureinainactive = NULL,
@@ -22,6 +29,7 @@ namespace qrw
 
 			void setText(std::string text);
 			std::string getText();
+			void setState(STATES state);
 
 			void setTextures(const sf::Texture* textureinactive,
 				const sf::Texture* textureactive, 
@@ -37,13 +45,6 @@ namespace qrw
 		private:
 			bool mouseOnButton();
 			void updateSprite();
-
-			enum STATES
-			{
-				ES_INACTIVE,
-				ES_ACTIVE,
-				ES_HOVER
-			};
 
 			std::string text;
 			STATES state;
