@@ -128,8 +128,16 @@ namespace qrw
  			if(destunit->getPlayer() == srcunit->getPlayer())
  				return -3;
  			// otherwise battle
- 			srcunit->attack(destunit);
- 			srcunit->setCurrentMovement(0);
+			// get modificators
+			int* attackmods;
+			int* defensemods;
+			if(orsquare->getTerrain())
+				attackmods = orsquare->getTerrain()->getModificators();
+			if(destsquare->getTerrain())
+				defensemods = destsquare->getTerrain()->getModificators();
+
+			srcunit->attack(destunit, attackmods, defensemods);
+			srcunit->setCurrentMovement(0);
  			if(srcunit->getHP() == 0)
  			{
  				orsquare->setUnit(0);

@@ -1,6 +1,7 @@
 #include <stdio.h>
 
 #include "engine/unit.hpp"
+#include "engine/terrain.hpp"
 
 namespace qrw
 {
@@ -81,21 +82,27 @@ namespace qrw
 			currentmovement = movement;
 	}
 
-	void Unit::attack(Unit* enemy)
+	void Unit::attack(Unit* enemy, int* attackmods, int* defensemods)
 	{
-		printf("before attack: a(%i), d(%i)\n", getHP(), enemy->getHP());
 		// Attacker attacks first
-		enemy->setHP(battleHPResult(enemy));
+		enemy->setHP(battleHPResult(enemy, attackmods[EM_ATTACK],
+			defensemods[EM_DEFENSE]));
 		// Enemy attacks if he's still alive
 		if(enemy->getHP() > 0)
-			setHP(enemy->battleHPResult(this));
-		printf("after attack: a(%i), d(%i)\n", getHP(), enemy->getHP());
+			setHP(enemy->battleHPResult(this, defensemods[EM_ATTACK],
+				attackmods[EM_DEFENSE]));
 	}
 
-	int Unit::battleHPResult(Unit* enemy)
+	int Unit::battleHPResult(Unit* enemy, int attackmod, int defensemod)
 	{
 		// Calculate effect on enemy
-		int damage = getAttack() - enemy->getDefense();
+		int attack = getAttack() + attackmod;
+		if(attack < 0)
+			attack = 0;
+		int defense = enemy->getDefense() + defensemod;
+		if(defense < 0)
+			defense = 0;
+		int damage = attack - defense;
 		if(damage < 0)
 			damage = 0;
 		int newhp = enemy->getHP() - damage;

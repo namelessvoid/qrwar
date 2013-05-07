@@ -24,13 +24,14 @@ class UnitTest : public CppUnit::TestFixture
 
 		void attackTest()
 		{
-			unit1->attack(unit2);
+			int mods[] = {0, 0};
+			unit1->attack(unit2, mods, mods);
 			CPPUNIT_ASSERT(unit1->getHP() == 3);
 			CPPUNIT_ASSERT(unit2->getHP() == 4);
-			unit2->attack(unit1);
+			unit2->attack(unit1, mods, mods);
 			CPPUNIT_ASSERT(unit1->getHP() == 1);
 			CPPUNIT_ASSERT(unit2->getHP() == 3);
-			unit2->attack(unit1);
+			unit2->attack(unit1, mods, mods);
 			CPPUNIT_ASSERT(unit1->getHP() == 0);
 			CPPUNIT_ASSERT(unit2->getHP() == 3);
 		}

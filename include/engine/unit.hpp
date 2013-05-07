@@ -36,7 +36,7 @@ namespace qrw
 			void setCurrentMovement(int movement);
 			std::string getName();
 
-			void attack(Unit* enemy);
+			void attack(Unit* enemy, int* attackmods, int* defensemods);
 
 			static 	std::string UNITNAMES[EUT_NUMBEROFUNITTYPES];
 
@@ -48,7 +48,7 @@ namespace qrw
 			 * @return: The number of hitpoints the enemy has
 			 * left after the battle.
 			 */
-			int battleHPResult(Unit* enemy);
+			int battleHPResult(Unit* enemy, int attackmod, int defensemod);
 
 			UNITTYPES type;
 			int attackvalue;
