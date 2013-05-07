@@ -1,8 +1,10 @@
 #include <stdio.h>
 
+#include "tostring.hpp"
 #include "gui/deploywindow.hpp"
 #include "gui/texturemanager.hpp"
 #include "gui/guihandler.hpp"
+#include "gui/cursor.hpp"
 
 namespace qrw
 {
@@ -54,12 +56,15 @@ namespace qrw
 		radiobuttons[6]->setTextures(texturemgr->getTexture("wood"),
 			texturemgr->getTexture("wood"),
 			texturemgr->getTexture("wood"));
+		radiobuttons[6]->setText("Wood");
 		radiobuttons[7]->setTextures(texturemgr->getTexture("hill"),
 			texturemgr->getTexture("hill"),
 			texturemgr->getTexture("hill"));
+		radiobuttons[7]->setText("Hill");
 		radiobuttons[8]->setTextures(texturemgr->getTexture("wall"),
 			texturemgr->getTexture("wall"),
 			texturemgr->getTexture("wall"));
+		radiobuttons[8]->setText("Tower");
 
 		startbutton->setTextures(texturemgr->getTexture("startbutton"),
 			texturemgr->getTexture("startbutton"),
@@ -99,19 +104,39 @@ namespace qrw
 
 	void DeployWindow::update()
 	{
+		// Set player info text
+		std::string text;
+		for(int i = 0; i < 2 * EUT_NUMBEROFUNITTYPES; ++i)
+		{
+			text = "(" + intToString(
+				engine->getPlayer(i / EUT_NUMBEROFUNITTYPES)
+				->getNumberOfUnits()[i % EUT_NUMBEROFUNITTYPES])
+			+ " / " + intToString(playerunits[i]) + ")";
+			radiobuttons[i]->setText(text);
+		}
 	}
 
-	void DeployWindow::setPlayerUnits(int p1units[], int p2units[])
+	void DeployWindow::setPlayerUnits(int playerunits[])
 	{
-		for(int i = 0; i < EUT_NUMBEROFUNITTYPES; ++i)
+		for(int i = 0; i < 2 * EUT_NUMBEROFUNITTYPES; ++i)
 		{
-			this->p1units[i] = p1units[i];
-			this->p2units[i] = p2units[i];
+			this->playerunits[i] = playerunits[i];
 		}
 	}
 
 	void DeployWindow::handleEvent(const sf::Event& event)
 	{
+		if(visible == false)
+			return;
+
+		if(event.type == sf::Event::KeyPressed)
+		{
+			if(event.key.code == sf::Keyboard::Return)
+			{
+				placeEntity();
+			}
+			return;
+		}
 		for(int i = 0; i < BUTTONCOUNT; ++i)
 			radiobuttons[i]->handleEvent(event);
 		startbutton->handleEvent(event);
@@ -121,10 +146,50 @@ namespace qrw
 	{
 		if(engine->getStatus() == EES_PREPARE)
 		{
-			printf("PlaceUnitWindow: starting game\n");
 			engine->startGame();
 			ingamewindow->setVisible(true);
 			setVisible(false);
+		}
+	}
+
+	void DeployWindow::placeEntity()
+	{
+		printf("place entity\n");
+		// get active button
+		int activebuttonid = 0;
+		for(activebuttonid = 0;
+			activebuttonid < BUTTONCOUNT;
+			 ++activebuttonid)
+		{
+			if(radiobuttons[activebuttonid]->getState() == Button::ES_ACTIVE)
+				break;
+		}
+
+		// Get cursor position
+		Cursor* cursor = Cursor::getCursor();
+		int x = cursor->getPosition().x;
+		int y = cursor->getPosition().y;
+
+		// Place unit
+		if(activebuttonid >= 0 && activebuttonid < 2 * EUT_NUMBEROFUNITTYPES)
+		{
+			int playerid = activebuttonid / EUT_NUMBEROFUNITTYPES;
+			Player* player = engine->getPlayer(playerid);
+			UNITTYPES unittype = (UNITTYPES)(activebuttonid % EUT_NUMBEROFUNITTYPES);
+
+			// Check if all units have been placed
+			if(player->getNumberOfUnits()[unittype] >= playerunits[activebuttonid])
+				return;
+
+			engine->placeUnit(x, y, playerid, unittype);
+			update();
+		}
+		// Place terrain
+		else
+		{
+			TERRAINTYPES terraintype = (TERRAINTYPES)(activebuttonid 
+				- (2 * EUT_NUMBEROFUNITTYPES));
+			engine->placeTerrain(x, y, terraintype);
 		}
 	}
 }

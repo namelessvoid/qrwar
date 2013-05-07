@@ -118,15 +118,13 @@ namespace qrw
 		engine->init(width, height);
 
 		// Create unit arrays for engine.
-		int p1units[EUT_NUMBEROFUNITTYPES];
-		p1units[EUT_SWORDMAN] = sfg::DynamicPointerCast<sfg::SpinButton>(sfg::Widget::GetWidgetById("p1swordspin"))->GetValue();
-		p1units[EUT_ARCHER] = sfg::DynamicPointerCast<sfg::SpinButton>(sfg::Widget::GetWidgetById("p1archspin"))->GetValue();
-		p1units[EUT_SPEARMAN] = sfg::DynamicPointerCast<sfg::SpinButton>(sfg::Widget::GetWidgetById("p1spearspin"))->GetValue();
-
-		int p2units[EUT_NUMBEROFUNITTYPES];
-		p2units[EUT_SWORDMAN] = sfg::DynamicPointerCast<sfg::SpinButton>(sfg::Widget::GetWidgetById("p2swordspin"))->GetValue();
-		p2units[EUT_ARCHER] = sfg::DynamicPointerCast<sfg::SpinButton>(sfg::Widget::GetWidgetById("p2archspin"))->GetValue();
-		p2units[EUT_SPEARMAN] = sfg::DynamicPointerCast<sfg::SpinButton>(sfg::Widget::GetWidgetById("p2spearspin"))->GetValue();
+		int playerunits[2 * EUT_NUMBEROFUNITTYPES];
+		playerunits[EUT_SWORDMAN] = sfg::DynamicPointerCast<sfg::SpinButton>(sfg::Widget::GetWidgetById("p1swordspin"))->GetValue();
+		playerunits[EUT_ARCHER] = sfg::DynamicPointerCast<sfg::SpinButton>(sfg::Widget::GetWidgetById("p1archspin"))->GetValue();
+		playerunits[EUT_SPEARMAN] = sfg::DynamicPointerCast<sfg::SpinButton>(sfg::Widget::GetWidgetById("p1spearspin"))->GetValue();
+		playerunits[EUT_SWORDMAN + 3] = sfg::DynamicPointerCast<sfg::SpinButton>(sfg::Widget::GetWidgetById("p2swordspin"))->GetValue();
+		playerunits[EUT_ARCHER + 3] = sfg::DynamicPointerCast<sfg::SpinButton>(sfg::Widget::GetWidgetById("p2archspin"))->GetValue();
+		playerunits[EUT_SPEARMAN + 3] = sfg::DynamicPointerCast<sfg::SpinButton>(sfg::Widget::GetWidgetById("p2spearspin"))->GetValue();
 
 		engine->getPlayer(0)->clearUnits();
 		engine->getPlayer(1)->clearUnits();
@@ -134,7 +132,7 @@ namespace qrw
 		Cursor::getCursor()->setBoard(engine->getBoard());
 		ingamewindow->update();
 		ingamewindow->setVisible(false);
-		deploywindow->setPlayerUnits(p1units, p2units);
+		deploywindow->setPlayerUnits(playerunits);
 		deploywindow->update();
 		deploywindow->setVisible(true);
 		guihandler->toggleGui();

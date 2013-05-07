@@ -29,13 +29,14 @@ namespace qrw
 				sf::RenderStates = sf::RenderStates::Default) const;
 
 			void update();
-			void setPlayerUnits(int p1units[], int p2units[]);
+			void setPlayerUnits(int playerunits[]);
 
 			void handleEvent(const sf::Event& event);
 
 		private:
 			// Private slots
 			void startbuttonClicked();
+			void placeEntity();
 			
 			bool visible;
 
@@ -49,8 +50,7 @@ namespace qrw
 
 			Engine* engine;
 			// Arrays of player units
-			int p1units[EUT_NUMBEROFUNITTYPES];
-			int p2units[EUT_NUMBEROFUNITTYPES];		
+			int playerunits[2*EUT_NUMBEROFUNITTYPES];
 	};
 }
 #endif
