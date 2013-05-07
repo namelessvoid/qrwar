@@ -5,6 +5,7 @@
 #include <SFML/Graphics/Sprite.hpp>
 #include <SFML/Graphics/Texture.hpp>
 #include <SFML/Graphics/RenderTarget.hpp>
+#include <SFML/Graphics/Text.hpp>
 #include <SFML/Window/Event.hpp>
 
 #include "gui/signal.hpp"
@@ -32,6 +33,10 @@ namespace qrw
 			void setState(STATES state);
 			STATES getState() const;
 
+			sf::Vector2f getSize() const;
+			void setPosition(float x, float y);
+			void setPosition(const sf::Vector2f& position);
+
 			void setTextures(const sf::Texture* textureinactive,
 				const sf::Texture* textureactive, 
 				const sf::Texture* texturehover);
@@ -46,11 +51,13 @@ namespace qrw
 
 		protected:
 			bool mouseOnButton();
+			sf::Text* text;
+
 
 		private:
 			STATES state;
-			std::string text;
 			sf::Window* window;
+			sf::Font* defaultfont;
 
 			const sf::Texture* textures[3];
 	};
