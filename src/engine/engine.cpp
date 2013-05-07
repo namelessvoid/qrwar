@@ -129,12 +129,18 @@ namespace qrw
  				return -3;
  			// otherwise battle
 			// get modificators
-			int* attackmods;
-			int* defensemods;
-			if(orsquare->getTerrain())
-				attackmods = orsquare->getTerrain()->getModificators();
-			if(destsquare->getTerrain())
-				defensemods = destsquare->getTerrain()->getModificators();
+			int attackmods[] = {0, 0};
+			int defensemods[] = {0, 0};
+			if(orsquare->getTerrain() != NULL)
+			{
+				attackmods[0] = orsquare->getTerrain()->getModificators()[0];
+				attackmods[1] = orsquare->getTerrain()->getModificators()[1];
+			}
+			if(destsquare->getTerrain() != NULL)
+			{
+				defensemods[0] = destsquare->getTerrain()->getModificators()[0];
+				defensemods[1] = destsquare->getTerrain()->getModificators()[1];
+			}
 
 			srcunit->attack(destunit, attackmods, defensemods);
 			srcunit->setCurrentMovement(0);
