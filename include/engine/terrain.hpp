@@ -25,6 +25,8 @@ namespace qrw
 
 			inline int getModificator(MODIFICATORS type)
 				{ return modificators[type]; };
+			inline int* getModificators()
+				{ return modificators; }
 			inline TERRAINTYPES getType() { return type; };
 
 		private:
