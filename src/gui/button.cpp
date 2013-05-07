@@ -21,6 +21,7 @@ namespace qrw
 		defaultfont->loadFromFile("./res/font/Knigqst.ttf");
 		this->text->setFont(*defaultfont);
 		this->text->setString("hallo");
+		this->text->setCharacterSize(25);
 		if(textureactive != NULL && textureinactive != NULL
 			&& texturehover != NULL)
 			setTextures(textureactive, textureinactive, texturehover);

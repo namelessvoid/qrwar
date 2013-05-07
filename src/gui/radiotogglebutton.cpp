@@ -27,7 +27,6 @@ namespace qrw
 			&& event.mouseButton.button == sf::Mouse::Left)
 		{
 			buttongroup->activateButton(this);
-			printf("activated button: status now %i\n", getState());
 		}
 		updateSprite();
 	}
