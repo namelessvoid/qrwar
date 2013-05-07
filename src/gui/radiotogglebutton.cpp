@@ -29,6 +29,7 @@ namespace qrw
 			buttongroup->activateButton(this);
 			printf("activated button: status now %i\n", getState());
 		}
+		updateSprite();
 	}
 
 	void RadioToggleButton::renderTo(sf::RenderTarget& target,
@@ -39,9 +40,10 @@ namespace qrw
 			sf::RectangleShape rect;
 			rect.setFillColor(sf::Color::Red);
 			rect.setPosition(getPosition().x, getPosition().y);
-			rect.setSize(sf::Vector2f(32, 32));
+			rect.setSize(getSize());
 			target.draw(rect);
 		}
+		target.draw(*text);
 		target.draw(*this);
 	}
 }
