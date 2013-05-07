@@ -133,6 +133,7 @@ namespace qrw
 		boardrenderer->setBoard(engine->getBoard());	
 		Cursor::getCursor()->setBoard(engine->getBoard());
 		ingamewindow->update();
+		ingamewindow->setVisible(false);
 		deploywindow->setPlayerUnits(p1units, p2units);
 		deploywindow->update();
 		deploywindow->setVisible(true);

@@ -26,11 +26,11 @@ namespace qrw
 		{
 			radiobuttons[i] = new RadioToggleButton(
 				guihandler->getRenderWindow(), buttongroup);
-			radiobuttons[i]->setScale(1, 1);
+			radiobuttons[i]->setScale(1.5, 1.5);
 
 			// Set positions
-			float x = 625 + (i % 3) * 35;
-			float y = 30 + (i / 3) * 35;
+			float x = 650;
+			float y = 35 + i * 50;
 			radiobuttons[i]->setPosition(x, y);
 		}
 		radiobuttons[0]->setTextures(texturemgr->getTexture("p1swordman"),
