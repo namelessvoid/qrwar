@@ -26,6 +26,9 @@ set(COMMON_SOURCE
 	src/engine/unit.cpp
 	src/engine/player.cpp
 	src/gui/texturemanager.cpp
+	src/gui/buttongroup.cpp
+	src/gui/button.cpp
+	src/gui/signal.cpp
 )
 
 set(GUI_SOURCE
@@ -36,11 +39,10 @@ set(GUI_SOURCE
 	src/gui/mainwindow.cpp
 	src/gui/startgamewindow.cpp
 	src/gui/ingamewindow.cpp
-	src/gui/placeunitwindow.cpp
 	src/gui/boardrenderer.cpp
 	src/gui/cursor.cpp
-	src/gui/button.cpp
-	src/gui/signal.cpp
+	src/gui/radiotogglebutton.cpp
+	src/gui/deploywindow.cpp
 )
 
 include_directories(
@@ -56,6 +58,7 @@ set(UNITTEST_SOURCE
 	test/engine/boardtest.cpp
 	test/engine/squaretest.cpp
 	test/engine/unittest.cpp
+	test/gui/buttongrouptest.cpp
 )
 
 add_executable(test test/main.cpp ${COMMON_SOURCE} ${UNITTEST_SOURCE})

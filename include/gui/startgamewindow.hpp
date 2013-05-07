@@ -7,7 +7,7 @@
 #include "engine/engine.hpp"
 #include "gui/guihandler.hpp"
 #include "gui/ingamewindow.hpp"
-#include "gui/placeunitwindow.hpp"
+#include "gui/deploywindow.hpp"
 
 namespace qrw
 {
@@ -18,12 +18,12 @@ namespace qrw
 			typedef sfg::SharedPtr<const StartGameWindow> PtrConst;
 
 			static Ptr Create(Engine* engine, IngameWindow* ingamewindow,
-				PlaceUnitWindow::Ptr placeunitwindow,
+				DeployWindow* deploywindow,
 				BoardRenderer* boardrenderer, GuiHandler* guihandler);
 
 		protected:
 			StartGameWindow(Engine* engine, IngameWindow* ingamewindow,
-				PlaceUnitWindow::Ptr placeunitwindow,
+				DeployWindow* deploywindow,
 				BoardRenderer* boardrenderer, GuiHandler* guihandler,
 				int style = BACKGROUND);
 
@@ -33,7 +33,7 @@ namespace qrw
 			Engine* engine;
 			GuiHandler* guihandler;
 			IngameWindow* ingamewindow;
-			PlaceUnitWindow::Ptr placeunitwindow;
+			DeployWindow* deploywindow;
 			BoardRenderer* boardrenderer;
 	};
 }

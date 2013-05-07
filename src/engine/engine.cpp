@@ -173,6 +173,30 @@ namespace qrw
  		return true;
  	}
 
+ 	bool Engine::placeTerrain(int x, int y, TERRAINTYPES terraintype)
+ 	{
+ 		if(status != EES_PREPARE)
+ 			return false;
+ 		Square* square = board->getSquare(x, y);
+ 		if(square == NULL)
+ 			return false;
+
+ 		if(square->getTerrain() != NULL)
+ 			delete square->getTerrain();
+ 		Terrain* terrain;
+ 		switch(terraintype)
+ 		{
+ 			case ET_WOOD:	terrain = new Terrain(ET_WOOD, -1, 1);
+ 							break;
+ 			case ET_HILL:	terrain = new Terrain(ET_HILL, 1, -1);
+ 							break;
+ 			default:		terrain = new Terrain(ET_WALL, 1, 1);
+ 							break;
+ 		}
+ 		square->setTerrain(terrain);
+ 		return true;
+ 	}
+
  	Player* Engine::getPlayer(int id)
  	{
  		if(id == 0 || id == 1)

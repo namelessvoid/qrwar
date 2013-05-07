@@ -45,9 +45,16 @@ namespace qrw
 
 			/**
 			 * Place a unit on the board.
-			 * @Return: False if status != EES_PREPRARE
+			 * @Return: False if status != EES_PREPRARE, index out of board
+			 *          or destination is not empty.
 			 */
 			bool placeUnit(int x, int y, int playerid, UNITTYPES unittype);
+
+			/**
+			 * Place a piece of terrain on the board.
+			 * @Return: False if status != EES_PREPARE or index out of board
+			 */
+			bool placeTerrain(int x, int y, TERRAINTYPES terraintype);
 
 			Player* getPlayer(int id);
 
