@@ -1,6 +1,7 @@
 cmake_minimum_required(VERSION 2.6)
 project(QuadRuledWar)
 set(CMAKE_BUILD_TYPE Debug)
+set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} cmake/Modules)
 
 find_package(SFML 2.0 REQUIRED graphics system window audio)
 if(SFML_FOUND)
@@ -14,9 +15,13 @@ if(SFGUI_FOUND)
 	set(LIBS ${LIBS} ${SFGUI_LIBRARY})
 endif(SFGUI_FOUND)
 
+find_package(tinyxml2 REQUIRED)
+if(TINYXML2_FOUND)
+	include_directories(${TINYXML2_INCLUDE_DIR})
+	set(LIBS ${LIBS} ${TINYXML2_LIBRARIES})
+endif(TINYXML2_FOUND)
 
 SET(CMAKE_CXX_FLAGS "-std=c++11")
-
 
 set(COMMON_SOURCE
 	src/engine/engine.cpp
