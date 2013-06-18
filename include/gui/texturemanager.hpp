@@ -41,6 +41,17 @@ namespace qrw
 			bool loadTexture(const std::string texname, const std::string filepath);
 
 			/**
+			 * @brief Unload a texture.
+			 *
+			 * This function unload the texture of given name
+			 * from the texturemanager. Memory is freed and 
+			 * the texture is no longer available.
+			 * @param texname Name of the texture that is unloaded
+			 * @return True if unload was successful.
+			 */
+			bool unloadTexture(const std::string texname);
+
+			/**
 			 * @brief Get pointer to texture.
 			 *
 			 * This Function searches through the textures map

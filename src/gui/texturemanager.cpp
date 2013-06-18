@@ -50,6 +50,24 @@ namespace qrw
 		}
 	}
 
+	bool TextureManager::unloadTexture(const std::string texname)
+	{
+		std::map<std::string, sf::Texture*>::iterator texiter
+			= textures.find(texname);
+		if(texiter == textures.end())
+		{
+			std::cerr << "TextureManager::unloadTexture failed: no such texture: "
+				<< texname << "!\n";
+			return 1;
+		}
+
+		sf::Texture* texture = texiter->second;
+		delete texture;
+		textures.erase(texiter);
+
+		return 0;
+	}
+
 	const sf::Texture* TextureManager::getTexture(const std::string texname)
 	{
 		// Texture with given name does not exist
