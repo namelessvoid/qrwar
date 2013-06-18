@@ -59,6 +59,7 @@ set(UNITTEST_SOURCE
 	test/engine/squaretest.cpp
 	test/engine/unittest.cpp
 	test/gui/buttongrouptest.cpp
+	test/gui/texturemanagertest.cpp
 )
 
 add_executable(test test/main.cpp ${COMMON_SOURCE} ${UNITTEST_SOURCE})
