@@ -34,6 +34,7 @@ set(COMMON_SOURCE
 	src/gui/buttongroup.cpp
 	src/gui/button.cpp
 	src/gui/signal.cpp
+	src/config/tilesetprocessor.cpp
 )
 
 set(GUI_SOURCE
@@ -65,6 +66,7 @@ set(UNITTEST_SOURCE
 	test/engine/unittest.cpp
 	test/gui/buttongrouptest.cpp
 	test/gui/texturemanagertest.cpp
+	test/config/tilesetprocessortest.cpp
 )
 
 add_executable(test test/main.cpp ${COMMON_SOURCE} ${UNITTEST_SOURCE})
