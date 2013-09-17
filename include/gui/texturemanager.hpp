@@ -55,10 +55,10 @@ namespace qrw
 			 * @brief Get pointer to texture.
 			 *
 			 * This Function searches through the textures map
-			 * and returns the texture if it can be found.
+			 * and returns the texture if it can be found or a fallback texture.
 			 * @param texname The name of the texture under which
 			 * it is stored in the textures map.
-			 * @return Pointer to the texture or Null if the
+			 * @return Pointer to the texture or pointer to a fallback texture if the
 			 * texture cannot be found.
 			 */
 			const sf::Texture* getTexture(const std::string texname);
@@ -68,11 +68,16 @@ namespace qrw
 			 * Singleton constructor.
 			 */
 			TextureManager();
-			
+
 			/**
 			 * Singleton self reference.
 			 */
 			static TextureManager* texturemanager;
+
+			/**
+			 * Default fallback texture.
+			 */
+			sf::Texture* fallbacktexture;
 
 			/**
 			 * Map that holds all textures.

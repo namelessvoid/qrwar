@@ -8,6 +8,26 @@ namespace qrw
 
 	TextureManager::TextureManager()
 	{
+		sf::Image textureimage;
+		textureimage.create(32, 32, sf::Color(255, 0, 0));
+
+		sf::Color col1(254, 254, 234);
+		sf::Color col2(0, 72, 180);
+
+		for(int i = 0; i < 32; ++i)
+		{
+			for(int j = i * 0.5; j < 32 - (i * 0.5); ++j) {
+				textureimage.setPixel(i, j, col1);
+			}
+		}
+
+		for(int i = 0; i < 32; ++i) {
+			textureimage.setPixel(31, i, col2);
+			textureimage.setPixel(i, 31, col2);
+		}
+
+		fallbacktexture = new sf::Texture();
+		fallbacktexture->loadFromImage(textureimage);
 	}
 
 	TextureManager::~TextureManager()
@@ -18,6 +38,8 @@ namespace qrw
 			delete iter->second;
 			textures.erase(iter);
 		}
+
+		delete fallbacktexture;
 	}
 
 	TextureManager* TextureManager::getInstance()
@@ -50,29 +72,23 @@ namespace qrw
 		}
 	}
 
-	bool TextureManager::unloadTexture(const std::string texname)
+	void TextureManager::unloadTexture(const std::string texname)
 	{
 		std::map<std::string, sf::Texture*>::iterator texiter
 			= textures.find(texname);
 		if(texiter == textures.end())
-		{
-			std::cerr << "TextureManager::unloadTexture failed: no such texture: "
-				<< texname << "!\n";
-			return 1;
-		}
+			return;
 
 		sf::Texture* texture = texiter->second;
 		delete texture;
 		textures.erase(texiter);
-
-		return 0;
 	}
 
 	const sf::Texture* TextureManager::getTexture(const std::string texname)
 	{
 		// Texture with given name does not exist
 		if(textures.find(texname) == textures.end())
-			return NULL;
+			return fallbacktexture;
 		return textures[texname];
 	}
 }
