@@ -4,18 +4,20 @@
 #include <SFML/Graphics/RenderWindow.hpp>
 #include <SFML/Graphics/RectangleShape.hpp>
 
-#include "gui/guihandler.hpp"
-#include "gui/cursor.hpp"
-#include "engine/engine.hpp"
 
-#include "gui/boardrenderer.hpp"
 
 #include "engine/terrain.hpp"
 #include "engine/unit.hpp"
+#include "engine/engine.hpp"
 
+#include "gui/cursor.hpp"
+#include "gui/guihandler.hpp"
 #include "gui/splashscreen.hpp"
 #include "gui/imagemanager.hpp"
 #include "gui/texturemanager.hpp"
+#include "gui/boardrenderer.hpp"
+
+#include "config/tilesetprocessor.hpp"
 
 
 int main(int argc, char const *argv[])
@@ -35,16 +37,9 @@ int main(int argc, char const *argv[])
 	imgmgr->loadImage("plainsquare", "./res/img/plainsquare.png");
 	// Preload texture resources.
 	qrw::TextureManager* texturemanager = qrw::TextureManager::getInstance();
-	texturemanager->loadTexture("plainsquare", "./res/img/plainsquare.png");
-	texturemanager->loadTexture("p1swordman", "./res/img/units/p1swordman.png");
-	texturemanager->loadTexture("p1archer", "./res/img/units/p1archer.png");
-	texturemanager->loadTexture("p1spearman", "./res/img/units/p1spearman.png");
-	texturemanager->loadTexture("p2swordman", "./res/img/units/p2swordman.png");
-	texturemanager->loadTexture("p2archer", "./res/img/units/p2archer.png");
-	texturemanager->loadTexture("p2spearman", "./res/img/units/p2spearman.png");
-	texturemanager->loadTexture("wood", "./res/img/terrain/wood.png");
-	texturemanager->loadTexture("hill", "./res/img/terrain/hill.png");
-	texturemanager->loadTexture("wall", "./res/img/terrain/wall.png");
+	qrw::TilesetProcessor tilesetprocessor;
+	tilesetprocessor.loadTileset("./res/defaulttileset.xml");
+
 	texturemanager->loadTexture("nextbutton", "./res/img/gui/nextbutton.png");
 	texturemanager->loadTexture("nextbutton_hover", "./res/img/gui/nextbutton_hover.png");
 	texturemanager->loadTexture("nextbutton_active", "./res/img/gui/nextbutton_active.png");
