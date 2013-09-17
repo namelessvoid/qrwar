@@ -38,18 +38,19 @@ namespace qrw
 			 * the texture.
 			 * @return True if the load was successful false if not.
 			 */
-			bool loadTexture(const std::string texname, const std::string filepath);
+			bool loadTexture(const std::string texname,
+				const std::string filepath, sf::IntRect area = sf::IntRect());
 
 			/**
 			 * @brief Unload a texture.
 			 *
 			 * This function unload the texture of given name
-			 * from the texturemanager. Memory is freed and 
+			 * from the texturemanager. Memory is freed and
 			 * the texture is no longer available.
 			 * @param texname Name of the texture that is unloaded
 			 * @return True if unload was successful.
 			 */
-			bool unloadTexture(const std::string texname);
+			void unloadTexture(const std::string texname);
 
 			/**
 			 * @brief Get pointer to texture.

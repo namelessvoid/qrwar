@@ -50,7 +50,7 @@ namespace qrw
 	}
 
 	bool TextureManager::loadTexture(const std::string texname,
-		const std::string filepath)
+		const std::string filepath, sf::IntRect area)
 	{
 		// Texture already exists
 		if(textures.find(texname) != textures.end())
@@ -58,7 +58,7 @@ namespace qrw
 
 		sf::Texture* texture = new sf::Texture();
 		// if load successful
-		if(texture->loadFromFile(filepath))
+		if(texture->loadFromFile(filepath, area))
 		{
 			textures[texname] = texture;
 			return true;
