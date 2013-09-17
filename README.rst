@@ -4,20 +4,23 @@ Introduction
 
 Quad Ruled War (qrw) is a turn based strategy game taking place on a board seperated into squares much like chess. The goal was to produce a minimalistic game for short and fast battles. It only supports hot seat modus for two players on one machine.
 
------------
-Compilation
------------
+--------
+Building
+--------
 
 The source comes with an CMake file and dependes on:
 
 - CMake
 - SFML_ (>= 2.0)
 - SFGUI_
+- TinyXML (>= 2.0)
 - CppUnit_ (for unittesting only)
 
 There are issues (at least on Linux Mint) when SFML 1.6 and 2.0 are installed at the same time. Altough requires(SFML 2.0) is set, it seems to find 1.6 first and make tries to link against the old library.
 
 If you've got any problems feel free to create an issue.
+
+Installation is not yet supported.
 
 --------
 The Game
@@ -27,7 +30,7 @@ The Game
 Controls
 ========
 
-The game is controled by mouse and keyboard. All interactions with the board are handled by keyboard. Usability still is an issue ;)
+The game is controled by mouse and keyboard. All interactions with the board are handled by keyboard. Usability is still an issue ;)
 
 ===============
 Units & Terrain
