@@ -88,7 +88,7 @@ namespace qrw
 			radiobuttons[i]->updateSprite();
 		startbutton->updateSprite();
 	}
-	
+
 	void DeployWindow::draw(sf::RenderTarget& target,
 		sf::RenderStates states) const
 	{
@@ -133,7 +133,25 @@ namespace qrw
 		{
 			if(event.key.code == sf::Keyboard::Return)
 			{
-				placeEntity();
+				Cursor* cursor = Cursor::getCursor();
+
+				// Check if a new unit is placed or a unit is moved.
+				// A unit is moved if cursor has a child (to point to destination)
+				// or there is a unit under cursor.
+				Square* cursorsquare = engine->getBoard()->getSquare(cursor->getPosition().x,
+						cursor->getPosition().y);
+				if (cursor->getChild() != NULL)
+				{
+					moveUnit();
+				}
+				else if(cursorsquare->getUnit() != NULL)
+				{
+					cursor->spawnChild();
+				}
+				else
+				{
+					placeEntity();
+				}
 			}
 			return;
 		}
