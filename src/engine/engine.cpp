@@ -16,124 +16,124 @@ namespace qrw
 
 	Engine::~Engine()
 	{}
- 
- 	void Engine::init(int boardwidth, int boardheight)
- 	{
- 		delete board;
- 		board = new Board(boardwidth, boardheight);
- 		currentplayer = 0;
- 		status = EES_PREPARE;
- 	}
 
- 	void Engine::startGame()
- 	{
- 		currentplayer = 0;
- 		status = EES_RUNNING;
- 	}
+	void Engine::init(int boardwidth, int boardheight)
+	{
+		delete board;
+		board = new Board(boardwidth, boardheight);
+		currentplayer = 0;
+		status = EES_PREPARE;
+	}
 
- 	ENGINSTATES Engine::getStatus()
- 	{
- 		return status;
- 	}
+	void Engine::startGame()
+	{
+		currentplayer = 0;
+		status = EES_RUNNING;
+	}
 
- 	// bool Engine::setUnits(int playeroneunits[EUT_NUMBEROFUNITTYPES],
+	ENGINSTATES Engine::getStatus()
+	{
+		return status;
+	}
+
+	// bool Engine::setUnits(int playeroneunits[EUT_NUMBEROFUNITTYPES],
 		// int playertwounits[EUT_NUMBEROFUNITTYPES])
- 	// {
- 	// 	players[0].clearUnits();
- 	// 	players[1].clearUnits();
- 		
- 	// 	if(status != EES_PREPARE)
- 	// 		return false;
- 	// 	setPlayerUnits(0, playeroneunits);
- 	// 	setPlayerUnits(1, playertwounits);
- 	// 	return true;
- 	// }
+	// {
+	//	players[0].clearUnits();
+	//	players[1].clearUnits();
 
- 	// void Engine::setPlayerUnits(int id, int unitnumbers[EUT_NUMBEROFUNITTYPES])
- 	// {
- 	// 	Player* player = getPlayer(id);
- 	// 	int i;
- 	// 	// Attention! player is "overwritten" in the method Player::addUnit(...).
- 	// 	for(i = 0; i < unitnumbers[EUT_SWORDMAN]; ++i)
- 	// 		player->addUnit(new Unit(EUT_SWORDMAN, 2, 1, 1, 3, player));
- 	// 	for(i = 0; i < unitnumbers[EUT_ARCHER]; ++i)
- 	// 		player->addUnit(new Unit(EUT_ARCHER, 2, 1, 3, 2, player));
- 	// 	for(i = 0; i < unitnumbers[EUT_SPEARMAN]; ++i)
- 	// 		player->addUnit(new Unit(EUT_SPEARMAN, 2, 1, 2, 2, player));
- 	// }
+	//	if(status != EES_PREPARE)
+	//		return false;
+	//	setPlayerUnits(0, playeroneunits);
+	//	setPlayerUnits(1, playertwounits);
+	//	return true;
+	// }
 
- 	Board* Engine::getBoard()
- 	{
- 		return board;
- 	}
+	// void Engine::setPlayerUnits(int id, int unitnumbers[EUT_NUMBEROFUNITTYPES])
+	// {
+	//	Player* player = getPlayer(id);
+	//	int i;
+	//	// Attention! player is "overwritten" in the method Player::addUnit(...).
+	//	for(i = 0; i < unitnumbers[EUT_SWORDMAN]; ++i)
+	//		player->addUnit(new Unit(EUT_SWORDMAN, 2, 1, 1, 3, player));
+	//	for(i = 0; i < unitnumbers[EUT_ARCHER]; ++i)
+	//		player->addUnit(new Unit(EUT_ARCHER, 2, 1, 3, 2, player));
+	//	for(i = 0; i < unitnumbers[EUT_SPEARMAN]; ++i)
+	//		player->addUnit(new Unit(EUT_SPEARMAN, 2, 1, 2, 2, player));
+	// }
 
- 	Player& Engine::getCurrentPlayer()
- 	{
- 		return players[currentplayer];
- 	}
+	Board* Engine::getBoard()
+	{
+		return board;
+	}
 
- 	void Engine::endTurn()
- 	{
- 		// Reset movement of current players units.
- 		std::vector<Unit*> playerunits = getCurrentPlayer().getUnits();
- 		for(std::vector<Unit*>::iterator it = playerunits.begin();
- 			it != playerunits.end(); ++it)
- 		{
- 			(*it)->setCurrentMovement((*it)->getMovement());
- 		}
- 		currentplayer = (currentplayer + 1) % 2;
- 		// return getCurrentPlayer();
- 	}
+	Player& Engine::getCurrentPlayer()
+	{
+		return players[currentplayer];
+	}
+
+	void Engine::endTurn()
+	{
+		// Reset movement of current players units.
+		std::vector<Unit*> playerunits = getCurrentPlayer().getUnits();
+		for(std::vector<Unit*>::iterator it = playerunits.begin();
+			it != playerunits.end(); ++it)
+		{
+			(*it)->setCurrentMovement((*it)->getMovement());
+		}
+		currentplayer = (currentplayer + 1) % 2;
+		// return getCurrentPlayer();
+	}
 
 	/**
 	 * @Return: 0 - success, -1 - wrong player, -2 origin empty,
-	 * 			-3 on destination is unit of same player, -4 or out of range,
+	 *			-3 on destination is unit of same player, -4 or out of range,
 	 *			-5 dest out of ranage, -6 not enough movement,
 	 *			-7 game not running, -8 unit on origin died, -9 enemy unit
 	 *			was not defeated, -10 enemy out of range
 	 */
- 	int Engine::moveUnit(int orx, int ory, int destx, int desty)
- 	{
- 		// Game is not running
- 		if(status != EES_RUNNING)
- 			return -7;
+	int Engine::moveUnit(int orx, int ory, int destx, int desty)
+	{
+		// Game is not running
+		if(status != EES_RUNNING)
+			return -7;
 
- 		Square* orsquare = board->getSquare(orx, ory);
- 		// index out of range
- 		if(orsquare == 0)
- 			return -4;
- 		// no unit on this square
- 		if(orsquare->getUnit() == 0)
- 			return -2;
+		Square* orsquare = board->getSquare(orx, ory);
+		// index out of range
+		if(orsquare == 0)
+			return -4;
+		// no unit on this square
+		if(orsquare->getUnit() == 0)
+			return -2;
 
- 		Square* destsquare = board->getSquare(destx, desty);
- 		// index out of range
- 		if(destsquare == 0)
- 			return -5;
+		Square* destsquare = board->getSquare(destx, desty);
+		// index out of range
+		if(destsquare == 0)
+			return -5;
 
- 		Unit* srcunit = orsquare->getUnit();
- 		// Unit does not belong to current player
- 		if(srcunit->getPlayer() != &getCurrentPlayer())
- 			return -1;
+		Unit* srcunit = orsquare->getUnit();
+				// Unit does not belong to current player
+		if(srcunit->getPlayer() != &getCurrentPlayer())
+			return -1;
 
- 		int distance = orsquare->getDistance(destsquare);
- 		// Distance is too far
- 		if(distance > srcunit->getCurrentMovement())
- 			return -6;
+		int distance = orsquare->getDistance(destsquare);
+		// Distance is too far
+		if(distance > srcunit->getCurrentMovement())
+			return -6;
 
- 		// Is there a unit on the destination?
- 		Unit* destunit = destsquare->getUnit();
- 		if(destunit != 0)
- 		{
-	 		// unit on destination belongs to same player
- 			if(destunit->getPlayer() == srcunit->getPlayer())
- 				return -3;
- 			// otherwise: battle
+		// Is there a unit on the destination?
+		Unit* destunit = destsquare->getUnit();
+		if(destunit != 0)
+		{
+			// unit on destination belongs to same player
+			if(destunit->getPlayer() == srcunit->getPlayer())
+				return -3;
+			// otherwise: battle
 
- 			// Check for range
- 			printf("distance: %d", distance);
- 			if(distance > srcunit->getRange())
- 				return -10;
+			// Check for range
+			printf("distance: %d", distance);
+			if(distance > srcunit->getRange())
+				return -10;
 
 			// get modificators
 			int attackmods[] = {0, 0};
@@ -151,77 +151,77 @@ namespace qrw
 
 			srcunit->attack(destunit, attackmods, defensemods);
 			srcunit->setCurrentMovement(0);
- 			if(srcunit->getHP() == 0)
- 			{
- 				orsquare->setUnit(0);
- 				return -8;
- 			}
- 			if(destunit->getHP() > 0)
- 				return -9;
+			if(srcunit->getHP() == 0)
+			{
+				orsquare->setUnit(0);
+				return -8;
+			}
+			if(destunit->getHP() > 0)
+				return -9;
 		}
 
- 		srcunit->setCurrentMovement(srcunit->getCurrentMovement() - distance);
- 		orsquare->setUnit(0);
- 		destsquare->setUnit(srcunit);
- 		return 0;
- 	}
+		srcunit->setCurrentMovement(srcunit->getCurrentMovement() - distance);
+		orsquare->setUnit(0);
+		destsquare->setUnit(srcunit);
+		return 0;
+	}
 
- 	bool Engine::placeUnit(int x, int y, int playerid, UNITTYPES unittype)
- 	{
- 		if(status != EES_PREPARE)
- 			return false;
- 		Square* square = board->getSquare(x, y);
+	bool Engine::placeUnit(int x, int y, int playerid, UNITTYPES unittype)
+	{
+		if(status != EES_PREPARE)
+			return false;
+		Square* square = board->getSquare(x, y);
 
- 		if(square == 0)
- 			return false;
+		if(square == 0)
+			return false;
 
- 		if(square->getUnit() != 0)
- 			return false;
+		if(square->getUnit() != 0)
+			return false;
 
- 		Player* player = getPlayer(playerid);
- 		Unit* unit;
- 		switch(unittype)
- 		{
- 			case EUT_SWORDMAN:  unit = new Unit(EUT_SWORDMAN, 5, 2, 1, 1, 3, player);
- 								break;
- 			case EUT_ARCHER:	unit = new Unit(EUT_ARCHER, 5, 2, 1, 3, 2, player);
- 								break;
- 			default:			unit = new Unit(EUT_SPEARMAN, 5, 2, 1, 2, 2, player);
- 								break;
- 		}
- 		player->addUnit(unit);
- 		square->setUnit(unit);
- 		return true;
- 	}
+		Player* player = getPlayer(playerid);
+		Unit* unit;
+		switch(unittype)
+		{
+			case EUT_SWORDMAN:  unit = new Unit(EUT_SWORDMAN, 5, 2, 1, 1, 3, player);
+								break;
+			case EUT_ARCHER:	unit = new Unit(EUT_ARCHER, 5, 2, 1, 3, 2, player);
+								break;
+			default:			unit = new Unit(EUT_SPEARMAN, 5, 2, 1, 2, 2, player);
+								break;
+		}
+		player->addUnit(unit);
+		square->setUnit(unit);
+		return true;
+	}
 
- 	bool Engine::placeTerrain(int x, int y, TERRAINTYPES terraintype)
- 	{
- 		if(status != EES_PREPARE)
- 			return false;
- 		Square* square = board->getSquare(x, y);
- 		if(square == NULL)
- 			return false;
+	bool Engine::placeTerrain(int x, int y, TERRAINTYPES terraintype)
+	{
+		if(status != EES_PREPARE)
+			return false;
+		Square* square = board->getSquare(x, y);
+		if(square == NULL)
+			return false;
 
- 		if(square->getTerrain() != NULL)
- 			delete square->getTerrain();
- 		Terrain* terrain;
- 		switch(terraintype)
- 		{
- 			case ET_WOOD:	terrain = new Terrain(ET_WOOD, -1, 1);
- 							break;
- 			case ET_HILL:	terrain = new Terrain(ET_HILL, 1, -1);
- 							break;
- 			default:		terrain = new Terrain(ET_WALL, 1, 1);
- 							break;
- 		}
- 		square->setTerrain(terrain);
- 		return true;
- 	}
+		if(square->getTerrain() != NULL)
+			delete square->getTerrain();
+		Terrain* terrain;
+		switch(terraintype)
+		{
+			case ET_WOOD:	terrain = new Terrain(ET_WOOD, -1, 1);
+							break;
+			case ET_HILL:	terrain = new Terrain(ET_HILL, 1, -1);
+							break;
+			default:		terrain = new Terrain(ET_WALL, 1, 1);
+							break;
+		}
+		square->setTerrain(terrain);
+		return true;
+	}
 
- 	Player* Engine::getPlayer(int id)
- 	{
- 		if(id == 0 || id == 1)
- 			return &players[id];
- 		return 0;
- 	}
- }
+	Player* Engine::getPlayer(int id)
+	{
+		if(id == 0 || id == 1)
+			return &players[id];
+		return 0;
+	}
+}
