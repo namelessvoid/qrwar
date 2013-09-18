@@ -25,7 +25,7 @@ namespace qrw
 			void startGame();
 
 			ENGINSTATES getStatus();
-			
+
 			// bool setUnits(int playeornoeunits[EUT_NUMBEROFUNITTYPES],
 			// 	int playertwounits[EUT_NUMBEROFUNITTYPES]);
 
@@ -45,6 +45,14 @@ namespace qrw
 			 *			was not defeated
 			 */
 			int moveUnitIngame(int orx, int ory, int destx, int desty);
+
+			/**
+			 * This funciton is used to move a unit during deployment phase. Not to be confused
+			 * with moveUnitIngame()!
+			 *
+			 * @return
+			 */
+			int moveUnitDeployment(int orx, int ory, int destx, int desty);
 
 			/**
 			 * Place a unit on the board.

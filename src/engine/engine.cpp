@@ -166,6 +166,22 @@ namespace qrw
 		return 0;
 	}
 
+	int Engine::moveUnitDeployment(int orx, int ory, int destx, int desty)
+	{
+		Square* orsquare = board->getSquare(orx, ory);
+		if(orsquare->getUnit() == NULL)
+			return -1;
+
+		Square* destsquare = board->getSquare(destx, desty);
+
+		if(destsquare->getUnit() != NULL)
+			return -1
+
+		destsquare->setUnit(orsquare->getUnit());
+		orsquare->setUnit(NULL);
+		return 0;
+	}
+
 	bool Engine::placeUnit(int x, int y, int playerid, UNITTYPES unittype)
 	{
 		if(status != EES_PREPARE)
