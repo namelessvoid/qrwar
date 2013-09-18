@@ -37,7 +37,8 @@ namespace qrw
 			// Private slots
 			void startbuttonClicked();
 			void placeEntity();
-			
+			void moveUnit();
+
 			bool visible;
 
 			IngameWindow* ingamewindow;

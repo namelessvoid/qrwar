@@ -187,9 +187,14 @@ namespace qrw
 		// Place terrain
 		else
 		{
-			TERRAINTYPES terraintype = (TERRAINTYPES)(activebuttonid 
+			TERRAINTYPES terraintype = (TERRAINTYPES)(activebuttonid
 				- (2 * EUT_NUMBEROFUNITTYPES));
 			engine->placeTerrain(x, y, terraintype);
 		}
+	}
+
+	void DeployWindow::moveUnit()
+	{
+		printf("move unit\n");
 	}
 }
