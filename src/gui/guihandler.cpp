@@ -22,7 +22,7 @@ namespace qrw
 		ingamewindow->setVisible(false);
 		deploywindow = new DeployWindow(engine, this, ingamewindow);
 		deploywindow->setVisible(false);
-		
+
 		windows[MAINWINDOW] = MainWindow::Create(this);
 		windows[STARTGAMEWINDOW] = StartGameWindow::Create(engine, ingamewindow,
 			deploywindow, &boardrenderer, this);
@@ -123,7 +123,7 @@ namespace qrw
 					else if(childcursor != 0)
 					{
 						// Move a unit
-						int moveresult = engine->moveUnit(cursor->getPosition().x, cursor->getPosition().y,
+						int moveresult = engine->moveUnitIngame(cursor->getPosition().x, cursor->getPosition().y,
 							childcursor->getPosition().x, childcursor->getPosition().y);
 						printf("moveresult: %i\n", moveresult);
 						if(moveresult == 0)

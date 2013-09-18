@@ -92,7 +92,7 @@ namespace qrw
 	 *			-7 game not running, -8 unit on origin died, -9 enemy unit
 	 *			was not defeated, -10 enemy out of range
 	 */
-	int Engine::moveUnit(int orx, int ory, int destx, int desty)
+	int Engine::moveUnitIngame(int orx, int ory, int destx, int desty)
 	{
 		// Game is not running
 		if(status != EES_RUNNING)
