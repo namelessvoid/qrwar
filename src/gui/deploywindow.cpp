@@ -213,6 +213,18 @@ namespace qrw
 
 	void DeployWindow::moveUnit()
 	{
+		Cursor* cursor = Cursor::getCursor();
+		Cursor* child = cursor->getChild();
+
+		if(child == NULL)
+			return;
+
+		engine->moveUnitDeployment(cursor->getPosition().x, cursor->getPosition().y,
+				child->getPosition().x, child->getPosition().y);
+
+		cursor->setPosition(child->getPosition());
+
+		cursor->despawnChild();
 		printf("move unit\n");
 	}
 }
