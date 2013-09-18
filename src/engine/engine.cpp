@@ -90,7 +90,7 @@ namespace qrw
 	 * 			-3 on destination is unit of same player, -4 or out of range,
 	 *			-5 dest out of ranage, -6 not enough movement,
 	 *			-7 game not running, -8 unit on origin died, -9 enemy unit
-	 *			was not defeated
+	 *			was not defeated, -10 enemy out of range
 	 */
  	int Engine::moveUnit(int orx, int ory, int destx, int desty)
  	{
@@ -121,13 +121,20 @@ namespace qrw
  		if(distance > srcunit->getCurrentMovement())
  			return -6;
 
+ 		// Is there a unit on the destination?
  		Unit* destunit = destsquare->getUnit();
  		if(destunit != 0)
  		{
 	 		// unit on destination belongs to same player
  			if(destunit->getPlayer() == srcunit->getPlayer())
  				return -3;
- 			// otherwise battle
+ 			// otherwise: battle
+
+ 			// Check for range
+ 			printf("distance: %d", distance);
+ 			if(distance > srcunit->getRange())
+ 				return -10;
+
 			// get modificators
 			int attackmods[] = {0, 0};
 			int defensemods[] = {0, 0};
