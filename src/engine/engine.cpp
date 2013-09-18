@@ -175,7 +175,7 @@ namespace qrw
 		Square* destsquare = board->getSquare(destx, desty);
 
 		if(destsquare->getUnit() != NULL)
-			return -1
+			return -1;
 
 		destsquare->setUnit(orsquare->getUnit());
 		orsquare->setUnit(NULL);
