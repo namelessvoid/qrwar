@@ -43,7 +43,7 @@ namespace qrw
 		rendertarget.draw(boardrenderer);
 		rendertarget.draw(*(sf::Drawable*)ingamewindow);
 		rendertarget.draw(*(sf::Drawable*)deploywindow);
-		sfgui.Display(rendertarget);
+		sfgui.Display((sf::RenderWindow&)rendertarget);
 	}
 
 	sf::Window* GuiHandler::getRenderWindow()
