@@ -23,8 +23,8 @@
 int main(int argc, char const *argv[])
 {
 	// Create and show splash
-	qrw::SplashScreen* splash = new qrw::SplashScreen("./res/img/splash.png");
-	std::thread splashthread(&qrw::SplashScreen::show, splash);
+	//qrw::SplashScreen* splash = new qrw::SplashScreen("./res/img/splash.png");
+	//std::thread splashthread(&qrw::SplashScreen::show, splash);
 
 	// Preload image resources.
 	qrw::ImageManager* imgmgr = qrw::ImageManager::getInstance();
@@ -48,15 +48,15 @@ int main(int argc, char const *argv[])
 	texturemanager->loadTexture("defense", "./res/img/gui/defense.png");
 	texturemanager->loadTexture("startbutton", "./res/img/gui/startbutton.png");
 
-	splash->setCloseable(true);
-	splashthread.join();
-	delete splash;
+	//splash->setCloseable(true);
+	//splashthread.join();
+	//delete splash;
 
 	sf::Vector2f windowsize(800, 600);
 	qrw::Engine engine;
 	engine.init(10, 4);
 
-	
+
 // Setup random board for test dings
 qrw::Board* board = engine.getBoard();
 qrw::Terrain terrain1(qrw::ET_WOOD, 1, 2);
@@ -91,7 +91,7 @@ board->getSquare(5, 1)->setTerrain(&terrain3);
 
 		guihandler.Update(elapsedtime);
 		guihandler.display(renderwindow);
-		
+
 		renderwindow.display();
 	}
 
