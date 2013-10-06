@@ -18,6 +18,8 @@ namespace qrw
 
 			void setBoard(Board* board);
 
+			void handleEvent(const sf::Event& event);
+
 			void draw(sf::RenderTarget &target, sf::RenderStates states) const;
 
 		private:

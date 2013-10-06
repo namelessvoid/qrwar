@@ -41,6 +41,11 @@ namespace qrw
 		this->board = board;
 	}
 
+	void BoardRenderer::handleEvent(const sf::Event& event)
+	{
+
+	}
+
 	void BoardRenderer::draw(sf::RenderTarget &target, sf::RenderStates states) const
 	{
 		sf::Vector2f targetsize = target.getView().getSize();
