@@ -91,4 +91,9 @@ namespace qrw
 			return fallbacktexture;
 		return textures[texname];
 	}
+
+	const sf::Texture* TextureManager::getFallbackTexture()
+	{
+        return fallbacktexture;
+	}
 }

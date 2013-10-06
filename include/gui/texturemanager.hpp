@@ -64,6 +64,15 @@ namespace qrw
 			 */
 			const sf::Texture* getTexture(const std::string texname);
 
+            /**
+             * @brief Get pointer to the fallback texture.
+             *
+             * This function is used to get a pointer to the fallback texture created
+             * in the constructor.
+             * @return sf::Texture pointer to the fallback texture.
+             */
+            const sf::Texture* getFallbackTexture();
+
 		private:
 			/**
 			 * Singleton constructor.
