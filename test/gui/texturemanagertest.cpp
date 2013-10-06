@@ -38,7 +38,7 @@ class TextureManagertest : public CppUnit::TestFixture
             // Try to load from file that does not exist.
             tm->loadTexture("INVALIDTEXTURE", "INVALIDTEXTURE");
             const sf::Texture* text3 = tm->getTexture("INVALIDTEXTURE");
-            CPPUNIT_ASSERT(text3 == NULL);
+            CPPUNIT_ASSERT(text3 == tm->getFallbackTexture());
         }
 
         void testUnload()
@@ -48,7 +48,7 @@ class TextureManagertest : public CppUnit::TestFixture
             CPPUNIT_ASSERT(text1 != NULL);
             tm->unloadTexture("defaulttileset");
             text1 = tm->getTexture("defaulttileset");
-            CPPUNIT_ASSERT(text1 == NULL);
+            CPPUNIT_ASSERT(text1 == tm->getFallbackTexture());
         }
 
     private:
