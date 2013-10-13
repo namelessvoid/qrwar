@@ -2,6 +2,7 @@
 #define WIDGET_HPP
 
 #include <SFML/Window/Window.hpp>
+#include <SFML/Window/Event.hpp>
 #include <SFML/Graphics/Sprite.hpp>
 
 #include "gui/signal.hpp"
