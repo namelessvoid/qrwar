@@ -17,7 +17,7 @@ namespace qrw
 			~RadioToggleButton();
 
 			void handleEvent(const sf::Event& event);
-			void renderTo(sf::RenderTarget& target,
+			void renderOn(sf::RenderTarget& target,
 				sf::RenderStates states = sf::RenderStates::Default) const;
 
 		private:

@@ -31,7 +31,7 @@ namespace qrw
 		updateSprite();
 	}
 
-	void RadioToggleButton::renderTo(sf::RenderTarget& target,
+	void RadioToggleButton::renderOn(sf::RenderTarget& target,
 		sf::RenderStates states) const
 	{
 		if(getState() == ES_ACTIVE)

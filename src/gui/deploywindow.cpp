@@ -96,7 +96,7 @@ namespace qrw
 			return;
 
 		for(int i = 0; i < BUTTONCOUNT; ++i)
-			radiobuttons[i]->renderTo(target);
+			radiobuttons[i]->renderOn(target);
 
 		target.draw(*title);
 		target.draw(*startbutton);
