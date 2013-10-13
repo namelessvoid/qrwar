@@ -20,7 +20,7 @@ namespace qrw
 
 	void RadioToggleButton::handleEvent(const sf::Event& event)
 	{
-		if(mouseOnButton() == false)
+		if(hasMouseFocus() == false)
 			return;
 
 		if(event.type == sf::Event::MouseButtonPressed

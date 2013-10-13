@@ -2,17 +2,16 @@
 #define QRW_BUTTON_HPP
 
 #include <string>
-#include <SFML/Graphics/Sprite.hpp>
 #include <SFML/Graphics/Texture.hpp>
 #include <SFML/Graphics/RenderTarget.hpp>
 #include <SFML/Graphics/Text.hpp>
 #include <SFML/Window/Event.hpp>
 
-#include "gui/signal.hpp"
+#include "gui/widget.hpp"
 
 namespace qrw
 {
-	class Button : public sf::Sprite
+	class Button : public Widget
 	{
 		public:
 			enum STATES
@@ -38,7 +37,7 @@ namespace qrw
 			void setPosition(const sf::Vector2f& position);
 
 			void setTextures(const sf::Texture* textureinactive,
-				const sf::Texture* textureactive, 
+				const sf::Texture* textureactive,
 				const sf::Texture* texturehover);
 
 			// void draw(sf::RenderTarget& target,
@@ -46,17 +45,12 @@ namespace qrw
 			void handleEvent(const sf::Event& event);
 			void updateSprite();
 
-			// Public signals:
-			Signal signalclicked;
-
 		protected:
-			bool mouseOnButton();
 			sf::Text* text;
 
 
 		private:
 			STATES state;
-			sf::Window* window;
 			sf::Font* defaultfont;
 
 			const sf::Texture* textures[3];
