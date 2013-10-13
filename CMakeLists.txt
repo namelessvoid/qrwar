@@ -32,6 +32,7 @@ set(COMMON_SOURCE
 	src/engine/player.cpp
 	src/gui/texturemanager.cpp
 	src/gui/buttongroup.cpp
+    src/gui/widget.cpp
 	src/gui/button.cpp
 	src/gui/signal.cpp
 	src/config/tilesetprocessor.cpp
@@ -49,7 +50,6 @@ set(GUI_SOURCE
 	src/gui/cursor.cpp
 	src/gui/radiotogglebutton.cpp
 	src/gui/deploywindow.cpp
-	src/gui/widget.cpp
 )
 
 include_directories(
