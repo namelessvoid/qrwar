@@ -52,6 +52,12 @@ namespace qrw
                     signalmouseentered.emit();
                     std::cout << "mouse entered widget.\n";
                 }
+                // just moved when already has mouse focus
+                else
+                {
+                    signalmousemoved.emit();
+                    std::cout << "mouse moved in widget.\n";
+                }
                 return;
             } // else(hasMouseFocus)
         } // if(MouseMoveEvent)

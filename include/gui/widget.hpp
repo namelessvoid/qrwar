@@ -21,6 +21,7 @@ namespace qrw
             Signal signalclicked;
             Signal signalmouseentered;
             Signal signalmouseleft;
+            Signal signalmousemoved;
 
         protected:
             bool hasMouseFocus();
