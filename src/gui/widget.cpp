@@ -5,6 +5,7 @@
 namespace qrw
 {
     Widget::Widget(sf::Window* window)
+        : mouseFocus(false)
     {
         this->window = window;
     }

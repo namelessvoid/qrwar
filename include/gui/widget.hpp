@@ -25,7 +25,9 @@ namespace qrw
         protected:
             bool hasMouseFocus();
 
-            sf::Window* window;
+        private:
+            bool mouseFocus;
+            const sf::Window* window;
     };
 }
 #endif
