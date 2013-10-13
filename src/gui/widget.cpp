@@ -24,7 +24,7 @@ namespace qrw
 		return bounds.contains(mousepos);
 	}
 
-    void Widget::handleEvent(sf::Event& event)
+    void Widget::handleEvent(const sf::Event& event)
     {
 
     }

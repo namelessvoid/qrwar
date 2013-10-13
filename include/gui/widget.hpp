@@ -14,7 +14,7 @@ namespace qrw
             Widget(sf::Window* window);
             ~Widget();
 
-            void handleEvent(sf::Event& event);
+            void handleEvent(const sf::Event& event);
 
             // Signals
             Signal signalclicked;
