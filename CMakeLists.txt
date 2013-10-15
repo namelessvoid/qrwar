@@ -32,6 +32,7 @@ set(COMMON_SOURCE
 	src/engine/player.cpp
 	src/gui/texturemanager.cpp
 	src/gui/buttongroup.cpp
+    src/gui/widget.cpp
 	src/gui/button.cpp
 	src/gui/signal.cpp
 	src/config/tilesetprocessor.cpp
