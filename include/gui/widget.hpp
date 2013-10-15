@@ -22,11 +22,16 @@ namespace qrw
             Signal signalmouseentered;
             Signal signalmouseleft;
             Signal signalmousemoved;
+            Signal signalleftmousebuttonpressed;
 
         protected:
             bool hasMouseFocus();
 
         private:
+            // Is set to true if the left mouse button was pressed while mouse cursor was on the widget. If the mouse
+            // is released again while on the widget a click event took place. Reset leftMouseButtonpressRegistered if
+            // mouse leaves focus.
+            bool leftMouseButtonPressRegistered;
             bool mouseFocus;
             const sf::Window* window;
     };
