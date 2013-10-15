@@ -27,6 +27,12 @@ namespace qrw
 
 		for(int i = 0; i < 3; ++i)
 			textures[i] = 0;
+
+		// Connect signals to slots
+		this->signalleftmousebuttonpressed.connect(std::bind(&Button::leftMousebuttonPressedSlot, this));
+		this->signalmouseentered.connect(std::bind(&Button::mouseEnteredSlot, this));
+		this->signalclicked.connect(std::bind(&Button::clickedSlot, this));
+		this->signalmouseleft.connect(std::bind(&Button::mouseLeftSlot, this));
 	}
 
 	Button::~Button()
@@ -89,32 +95,6 @@ namespace qrw
 		textures[ES_INACTIVE] = textureinactive;
 		textures[ES_ACTIVE] = textureactive;
 		textures[ES_HOVER] = texturehover;
-	}
-
-	void Button::handleEvent(const sf::Event& event)
-	{
-		if(hasMouseFocus() == false)
-		{
-			state = ES_INACTIVE;
-			updateSprite();
-			return;
-		}
-		if(sf::Mouse::isButtonPressed(sf::Mouse::Left) == false
-			&& event.type == sf::Event::MouseMoved)
-		{
-			state = ES_HOVER;
-		}
-		else if(event.type == sf::Event::MouseButtonPressed
-			&& event.mouseButton.button == sf::Mouse::Left)
-		{
-			state = ES_ACTIVE;
-			signalclicked.emit();
-		}
-		else if(event.type == sf::Event::MouseButtonReleased
-			&& event.mouseButton.button == sf::Mouse::Left)
-		{
-			state = ES_INACTIVE;
-		}
 		updateSprite();
 	}
 
@@ -126,4 +106,29 @@ namespace qrw
 			setPosition(getPosition());
 		}
 	}
+
+	void Button::leftMousebuttonPressedSlot()
+	{
+		state = ES_ACTIVE;
+		updateSprite();
+	}
+
+	void Button::mouseEnteredSlot()
+	{
+		state = ES_HOVER;
+		updateSprite();
+	}
+
+	void Button::clickedSlot()
+	{
+		state = ES_HOVER;
+		updateSprite();
+	}
+
+	void Button::mouseLeftSlot()
+	{
+		state = ES_INACTIVE;
+		updateSprite();
+	}
+
 }

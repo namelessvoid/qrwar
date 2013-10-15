@@ -42,14 +42,19 @@ namespace qrw
 
 			// void draw(sf::RenderTarget& target,
 			// 	sf::RenderStates states = sf::RenderStates::Default) const;
-			void handleEvent(const sf::Event& event);
 			void updateSprite();
 
 		protected:
 			sf::Text* text;
 
 
-		private:
+			private:
+			// Slots
+			void leftMousebuttonPressedSlot();
+			void mouseEnteredSlot();
+			void clickedSlot();
+			void mouseLeftSlot();
+
 			STATES state;
 			sf::Font* defaultfont;
 
