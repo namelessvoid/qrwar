@@ -20,7 +20,7 @@ namespace qrw
 
 	void RadioToggleButton::handleEvent(const sf::Event& event)
 	{
-		if(mouseOnButton() == false)
+		if(hasMouseFocus() == false)
 			return;
 
 		if(event.type == sf::Event::MouseButtonPressed
@@ -31,7 +31,7 @@ namespace qrw
 		updateSprite();
 	}
 
-	void RadioToggleButton::renderOn(sf::RenderTarget& target,
+	void RadioToggleButton::draw(sf::RenderTarget& target,
 		sf::RenderStates states) const
 	{
 		if(getState() == ES_ACTIVE)
@@ -43,6 +43,6 @@ namespace qrw
 			target.draw(rect);
 		}
 		target.draw(*text);
-		target.draw(*this);
+		target.draw((sf::Sprite)*this);
 	}
 }

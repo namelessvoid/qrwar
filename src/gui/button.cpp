@@ -12,10 +12,9 @@ namespace qrw
 		const sf::Texture* textureactive,
 		const sf::Texture* textureinactive,
 		const sf::Texture* texturehover)
-	: Sprite(),
+	: Widget(window),
 	  text(new sf::Text()),
 	  defaultfont(new sf::Font()),
-	  window(window),
 	  state(ES_INACTIVE)
 	{
 		defaultfont->loadFromFile("./res/font/Knigqst.ttf");
@@ -50,7 +49,7 @@ namespace qrw
 	{
 		return state;
 	}
-	
+
 	void Button::setPosition(float x, float y)
 	{
 		Sprite::setPosition(x, y);
@@ -94,7 +93,7 @@ namespace qrw
 
 	void Button::handleEvent(const sf::Event& event)
 	{
-		if(mouseOnButton() == false)
+		if(hasMouseFocus() == false)
 		{
 			state = ES_INACTIVE;
 			updateSprite();
@@ -117,19 +116,6 @@ namespace qrw
 			state = ES_INACTIVE;
 		}
 		updateSprite();
-	}
-
-	bool Button::mouseOnButton()
-	{
-		sf::FloatRect bounds = getGlobalBounds();
-		bounds.width += getSize().x;
-		bounds.height += getSize().x;
-
-		sf::Vector2f mousepos;
-		mousepos.x = (float)sf::Mouse::getPosition(*window).x;
-		mousepos.y = (float)sf::Mouse::getPosition(*window).y;
-
-		return bounds.contains(mousepos);
 	}
 
 	void Button::updateSprite()
