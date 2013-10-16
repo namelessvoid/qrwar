@@ -17,6 +17,8 @@ namespace qrw
 
             void handleEvent(const sf::Event& event);
 
+            void setVisible(bool visibility = true);
+
             // Signals
             Signal signalclicked;
             Signal signalmouseentered;
@@ -33,6 +35,7 @@ namespace qrw
             // mouse leaves focus.
             bool leftMouseButtonPressRegistered;
             bool mouseFocus;
+            bool visible;
             const sf::Window* window;
     };
 }
