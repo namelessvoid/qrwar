@@ -36,6 +36,10 @@ namespace qrw
 
     void Widget::handleEvent(const sf::Event& event)
     {
+        // A widget that is not visible cannot handle any event
+        if(!visible)
+            return;
+
         // Handle mouse move evets
         if(event.type == sf::Event::MouseMoved)
         {
