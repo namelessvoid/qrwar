@@ -101,14 +101,11 @@ namespace qrw
         } // else(MouseButtonEvent)
     }
 
-<<<<<<< HEAD
-=======
     void Widget::disconnectAllSignals()
     {
         this->signalclicked.disconnectAll();
         this->signalleftmousebuttonpressed.disconnectAll();
         this->signalmouseleft.disconnectAll();
         this->signalmouseentered.disconnectAll();
->>>>>>> origin/signal-refactoring
     }
 }
