@@ -8,6 +8,7 @@ namespace qrw
 {
     Widget::Widget(sf::Window* window)
         : mouseFocus(false),
+          visible(true),
           leftMouseButtonPressRegistered(false)
     {
         this->window = window;
@@ -28,8 +29,17 @@ namespace qrw
 		return bounds.contains(mousepos);
 	}
 
+    void Widget::setVisible(bool visibility)
+    {
+        visible = visibility;
+    }
+
     void Widget::handleEvent(const sf::Event& event)
     {
+        // A widget that is not visible cannot handle any event
+        if(!visible)
+            return;
+
         // Handle mouse move evets
         if(event.type == sf::Event::MouseMoved)
         {
