@@ -89,6 +89,13 @@ namespace qrw
                 }
             }
         } // else(MouseButtonEvent)
+    }
 
+    void Widget::disconnectAllSignals()
+    {
+        this->signalclicked.disconnectAll();
+        this->signalleftmousebuttonpressed.disconnectAll();
+        this->signalmouseleft.disconnectAll();
+        this->signalmouseentered.disconnectAll();
     }
 }

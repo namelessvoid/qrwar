@@ -17,6 +17,8 @@ namespace qrw
 
             void handleEvent(const sf::Event& event);
 
+            void disconnectAllSignals();
+
             // Signals
             Signal signalclicked;
             Signal signalmouseentered;
