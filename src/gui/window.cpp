@@ -1,5 +1,7 @@
 #include "gui/window.hpp"
 
+#include <SFML/Graphics/RenderTarget.hpp>
+
 namespace qrw
 {
 	Window::Window()
@@ -27,5 +29,14 @@ namespace qrw
 	void Window::addWidget(Widget* widget)
 	{
 		children.push_back(widget);
+	}
+
+	void Window::draw(sf::RenderTarget& target, sf::RenderStates states) const
+	{
+		if(!visible)
+			return;
+
+		for(auto iter = children.begin(); iter != children.end(); ++iter)
+			target.draw(*(*iter), states);
 	}
 }
