@@ -11,23 +11,18 @@ namespace qrw
 	: Button(window, text, textureactive, textureinainactive, texturehover),
 	  buttongroup(buttongroup)
 	{
-		this->buttongroup->addButton(this);
+		buttongroup->addButton(this);
+		disconnectAllSignals();
+		signalclicked.connect(std::bind(&RadioToggleButton::clickedSlot, this));
 	}
 
 	RadioToggleButton::~RadioToggleButton()
 	{
 	}
 
-	void RadioToggleButton::handleEvent(const sf::Event& event)
+	void RadioToggleButton::clickedSlot()
 	{
-		if(hasMouseFocus() == false)
-			return;
-
-		if(event.type == sf::Event::MouseButtonPressed
-			&& event.mouseButton.button == sf::Mouse::Left)
-		{
-			buttongroup->activateButton(this);
-		}
+		buttongroup->activateButton(this);
 		updateSprite();
 	}
 

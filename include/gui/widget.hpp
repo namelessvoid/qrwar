@@ -19,6 +19,8 @@ namespace qrw
 
             void setVisible(bool visibility = true);
 
+            void disconnectAllSignals();
+
             // Signals
             Signal signalclicked;
             Signal signalmouseentered;

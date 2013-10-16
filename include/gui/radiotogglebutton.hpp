@@ -16,11 +16,13 @@ namespace qrw
 				const sf::Texture* texturehover = NULL);
 			~RadioToggleButton();
 
-			void handleEvent(const sf::Event& event);
 			void draw(sf::RenderTarget& target,
 				sf::RenderStates states = sf::RenderStates::Default) const;
 
 		private:
+			// Overwritten slots
+			void clickedSlot();
+
 			// Button group
 			ButtonGroup* buttongroup;
 	};

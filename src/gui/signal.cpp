@@ -12,6 +12,11 @@ namespace qrw
 		slots.push_back(function);
 	}
 
+	void Signal::disconnectAll()
+	{
+		slots.clear();
+	}
+
 	void Signal::emit()
 	{
 
