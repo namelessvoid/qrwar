@@ -10,8 +10,7 @@ namespace qrw
 {
 	DeployWindow::DeployWindow(Engine* engine, GuiHandler* guihandler,
 		IngameWindow* ingamewindow)
-	: visible(false),
-	  engine(engine),
+	: engine(engine),
 	  ingamewindow(ingamewindow),
 	  buttongroup(new ButtonGroup()),
 	  startbutton(new Button(guihandler->getRenderWindow())),
@@ -34,6 +33,8 @@ namespace qrw
 			float x = 650;
 			float y = 35 + i * 50;
 			radiobuttons[i]->setPosition(x, y);
+
+			addWidget(radiobuttons[i]);
 		}
 		radiobuttons[0]->setTextures(texturemgr->getTexture("p1swordman"),
 			texturemgr->getTexture("p1swordman"),
@@ -72,6 +73,7 @@ namespace qrw
 		startbutton->setPosition(sf::Vector2f(650, 560));
 		startbutton->signalclicked.connect(
 			std::bind(&DeployWindow::startbuttonClicked, this));
+		addWidget(startbutton);
 	}
 
 	DeployWindow::~DeployWindow()
@@ -81,15 +83,7 @@ namespace qrw
 		delete title;
 	}
 
-	void DeployWindow::setVisible(bool visible)
-	{
-		this->visible = visible;
-		for(int i = 0; i < BUTTONCOUNT; ++i)
-			radiobuttons[i]->updateSprite();
-		startbutton->updateSprite();
-	}
-
-	void DeployWindow::draw(sf::RenderTarget& target,
+/*	void DeployWindow::draw(sf::RenderTarget& target,
 		sf::RenderStates states) const
 	{
 		if(visible == false)
@@ -100,7 +94,7 @@ namespace qrw
 
 		target.draw(*title);
 		target.draw(*startbutton);
-	}
+	}*/
 
 	void DeployWindow::update()
 	{
@@ -126,7 +120,7 @@ namespace qrw
 
 	void DeployWindow::handleEvent(const sf::Event& event)
 	{
-		if(visible == false)
+		if(!isVisible())
 			return;
 
 		if(event.type == sf::Event::KeyPressed)
