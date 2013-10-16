@@ -16,6 +16,7 @@ namespace qrw
 			~Window();
 
 			void setVisible(bool visibility = true);
+			bool isVisible();
 
 			void addWidget(Widget* widget);
 

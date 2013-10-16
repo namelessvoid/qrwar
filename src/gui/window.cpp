@@ -19,6 +19,11 @@ namespace qrw
 		}
 	}
 
+	bool Window::isVisible()
+	{
+		return visible;
+	}
+
 	void Window::addWidget(Widget* widget)
 	{
 		children.push_back(widget);
