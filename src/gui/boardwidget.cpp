@@ -1,3 +1,5 @@
+#include <cmath>
+
 #include <SFML/Graphics/Vertex.hpp>
 #include <SFML/Graphics/VertexArray.hpp>
 #include <SFML/Graphics/PrimitiveType.hpp>
@@ -35,8 +37,8 @@ namespace qrw
 		p2unitsprites[EUT_ARCHER] = new sf::Sprite(*texturemanager->getTexture("p2archer"));
 		p2unitsprites[EUT_SPEARMAN] = new sf::Sprite(*texturemanager->getTexture("p2spearman"));
 
-/*		signalmousemoved.connect(std::bind(&BoardWidget::updateCursor, this));
-		signalmouseentered.connect(std::bind(&BoardWidget::updateCursor, this));*/
+		signalmousemoved.connect(std::bind(&BoardWidget::updateCursor, this));
+		signalmouseentered.connect(std::bind(&BoardWidget::updateCursor, this));
 	}
 
 	BoardWidget::~BoardWidget()
@@ -146,6 +148,27 @@ namespace qrw
 
 	void BoardWidget::updateCursor()
 	{
+		// Calculate on which field the mouse cursor is placed.
+		sf::Vector2i mousePosition = sf::Mouse::getPosition(*window);
+		sf::Vector2i newCursorPos;
 
+		newCursorPos.x = floor( ((float)mousePosition.x) / spritedimensions );
+		newCursorPos.y = floor( ((float)mousePosition.y) / spritedimensions );
+
+		// Boarder checks
+		if(newCursorPos.x < 0)
+			newCursorPos.x = 0;
+		else if(newCursorPos.x > board->getWidth())
+			newCursorPos.x = board->getWidth();
+
+		if(newCursorPos.y < 0)
+			newCursorPos.y = 0;
+		else if(newCursorPos.y > board->getHeight())
+			newCursorPos.y = board->getHeight();
+
+		if(!Cursor::getCursor()->getChild())
+			Cursor::getCursor()->setPosition(newCursorPos);
+		else
+			Cursor::getCursor()->getChild()->setPosition(newCursorPos);
 	}
 }
