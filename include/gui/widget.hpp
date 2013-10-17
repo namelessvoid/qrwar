@@ -34,6 +34,7 @@ namespace qrw
 
         protected:
             bool hasMouseFocus();
+            const sf::Window* window;
 
         private:
             /**
@@ -52,8 +53,6 @@ namespace qrw
              * Holds size of the widget.
              */
             sf::Vector2f size;
-
-            const sf::Window* window;
     };
 }
 #endif
