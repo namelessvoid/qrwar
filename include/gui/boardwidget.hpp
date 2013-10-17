@@ -24,6 +24,8 @@ namespace qrw
 			void draw(sf::RenderTarget &target, sf::RenderStates states) const;
 
 		private:
+			void calcSpriteDimensions(int boardwidth, int boardheight);
+
 			void drawTerrain(sf::RenderTarget& target, TERRAINTYPES terraintype,
 				sf::Vector2f position, sf::Vector2f scale) const;
 			void drawUnit(sf::RenderTarget& target, int playerid, UNITTYPES unittype,
@@ -33,6 +35,9 @@ namespace qrw
 			void updateCursor();
 
 			Board* board;
+
+			float spritedimensions;
+			float singlespritescale;
 
 			sf::Sprite* plainsquare;
 			sf::Sprite* terrainsprites[ET_NUMBEROFTERRAINTYPES];

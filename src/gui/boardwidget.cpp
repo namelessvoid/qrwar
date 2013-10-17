@@ -14,7 +14,9 @@ namespace qrw
 {
 	BoardWidget::BoardWidget(sf::Window* window, float width, float height)
 	: Widget(window, width, height),
-	  board(0)
+	  board(0),
+	  spritedimensions(0.0),
+	  singlespritescale(0.0)
 	{
 		printf("boardrenderer position: x=%f / y=%f\n", getGlobalBounds().left, getGlobalBounds().top);
 		printf("boardrenderer size: w=%f / h=%f\n", getSize().x, getSize().y);
@@ -45,6 +47,7 @@ namespace qrw
 	void BoardWidget::setBoard(Board* board)
 	{
 		this->board = board;
+		calcSpriteDimensions(board->getWidth(), board->getHeight());
 	}
 
 
@@ -54,19 +57,6 @@ namespace qrw
 		targetsize.x -= 180.0;
 		int width = board->getWidth();
 		int height = board->getHeight();
-		float spritedimensions;
-		float singlespritescale = 1.0;
-
-		if(width > height)
-		{
-			spritedimensions = targetsize.x / width;
-			singlespritescale = targetsize.x / (width * 32.0);
-		}
-		else
-		{
-			spritedimensions = targetsize.y / height;
-			singlespritescale = targetsize.y / (height * 32.0);
-		}
 
 		sf::Vector2f spritescale(singlespritescale, singlespritescale);
 		sf::VertexArray vertices(sf::Lines, 0);
@@ -116,6 +106,20 @@ namespace qrw
 						currpos, spritescale);
 				}
 			}
+		}
+	}
+
+	void BoardWidget::calcSpriteDimensions(int boardwidth, int boardheight)
+	{
+		if(boardwidth > boardheight)
+		{
+			spritedimensions = getSize().x / boardwidth;
+			singlespritescale = getSize().x / (boardwidth * 32.0);
+		}
+		else
+		{
+			spritedimensions = getSize().y / boardheight;
+			singlespritescale = getSize().y / (boardheight * 32.0);
 		}
 	}
 
