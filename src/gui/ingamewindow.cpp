@@ -18,7 +18,8 @@ namespace qrw
 	: engine(engine),
 	  guihandler(guihandler),
 	  visible(true),
-	  endturnbutton(guihandler->getRenderWindow()),
+	  // TODO: Dynamic size
+	  endturnbutton(guihandler->getRenderWindow(), 100.0, 40.0),
 	  playernamelabel(),
 	  unitsprite(new sf::Sprite()),
 	  terrainsprite(new sf::Sprite()),
@@ -117,7 +118,7 @@ namespace qrw
 	{
 		this->visible = visible;
 	}
-	
+
 	void IngameWindow::update()
 	{
 		// Update player name

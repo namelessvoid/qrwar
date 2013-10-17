@@ -8,11 +8,11 @@
 namespace qrw
 {
 
-	Button::Button(sf::Window* window,std::string text,
+	Button::Button(sf::Window* window, float width, float height, std::string text,
 		const sf::Texture* textureactive,
 		const sf::Texture* textureinactive,
 		const sf::Texture* texturehover)
-	: Widget(window),
+	: Widget(window, width, height),
 	  text(new sf::Text()),
 	  defaultfont(new sf::Font()),
 	  state(ES_INACTIVE)

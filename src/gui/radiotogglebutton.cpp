@@ -4,11 +4,12 @@
 
 namespace qrw
 {
-	RadioToggleButton::RadioToggleButton(sf::Window* window,
-		ButtonGroup* buttongroup, std::string text, const sf::Texture* textureactive,
+	RadioToggleButton::RadioToggleButton(sf::Window* window, ButtonGroup* buttongroup,
+		float width, float height,
+		std::string text, const sf::Texture* textureactive,
 		const sf::Texture* textureinainactive,
 		const sf::Texture* texturehover)
-	: Button(window, text, textureactive, textureinainactive, texturehover),
+	: Button(window, width, height, text, textureactive, textureinainactive, texturehover),
 	  buttongroup(buttongroup)
 	{
 		buttongroup->addButton(this);

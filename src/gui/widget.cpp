@@ -3,15 +3,25 @@
 #include <SFML/Window/Mouse.hpp>
 
 #include <iostream>
+#include <stdio.h>
 
 namespace qrw
 {
-    Widget::Widget(sf::Window* window)
+    Widget::Widget(sf::Window* window, float width, float height)
         : mouseFocus(false),
           visible(true),
           leftMouseButtonPressRegistered(false)
     {
         this->window = window;
+
+        // Set size
+        size.x = width;
+        size.y = height;
+    }
+
+    Widget::Widget(sf::Window* window, sf::Vector2f size)
+    {
+        Widget(window, size.x, size.y);
     }
 
     Widget::~Widget()
@@ -21,6 +31,8 @@ namespace qrw
     bool Widget::hasMouseFocus()
 	{
 		sf::FloatRect bounds = getGlobalBounds();
+        bounds.width = size.x;
+        bounds.height = size.y;
 
 		sf::Vector2f mousepos;
 		mousepos.x = (float)sf::Mouse::getPosition(*window).x;
@@ -39,6 +51,8 @@ namespace qrw
         // A widget that is not visible cannot handle any event
         if(!visible)
             return;
+
+        // printf("widget dim: x=%f / y=%f; w=%f / h=%f\n", getGlobalBounds().left, getGlobalBounds().top, size.x, size.y);
 
         // Handle mouse move evets
         if(event.type == sf::Event::MouseMoved)
@@ -107,5 +121,15 @@ namespace qrw
         this->signalleftmousebuttonpressed.disconnectAll();
         this->signalmouseleft.disconnectAll();
         this->signalmouseentered.disconnectAll();
+    }
+
+    void Widget::setSize(sf::Vector2f size)
+    {
+        this->size = size;
+    }
+
+    sf::Vector2f Widget::getSize() const
+    {
+        return size;
     }
 }

@@ -10,6 +10,7 @@ namespace qrw
 	{
 		public:
 			RadioToggleButton(sf::Window* window, ButtonGroup* buttongroup,
+				float width, float height,
 				std::string text = "",
 				const sf::Texture* textureactive = NULL,
 				const sf::Texture* textureinainactive = NULL,

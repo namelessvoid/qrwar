@@ -18,7 +18,7 @@ class ButtonGroupTest : public CppUnit::TestFixture
 			group = new qrw::ButtonGroup();
 			for(int i = 0; i < BUTTONCOUNT; ++i)
 			{
-				buttons[i] = new qrw::Button(NULL);
+				buttons[i] = new qrw::Button(NULL, 1, 1);
 				group->addButton(buttons[i]);
 			}
 		}
