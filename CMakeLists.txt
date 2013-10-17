@@ -46,7 +46,7 @@ set(GUI_SOURCE
 	src/gui/mainwindow.cpp
 	src/gui/startgamewindow.cpp
 	src/gui/ingamewindow.cpp
-	src/gui/boardrenderer.cpp
+	src/gui/boardwidget.cpp
 	src/gui/cursor.cpp
 	src/gui/radiotogglebutton.cpp
 	src/gui/deploywindow.cpp

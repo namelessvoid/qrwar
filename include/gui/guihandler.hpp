@@ -7,7 +7,7 @@
 
 #include "engine/engine.hpp"
 #include "gui/ingamewindow.hpp"
-#include "gui/boardrenderer.hpp"
+#include "gui/boardwidget.hpp"
 #include "gui/deploywindow.hpp"
 
 namespace qrw
@@ -37,7 +37,7 @@ namespace qrw
 			~GuiHandler();
 
 			sf::Window* getRenderWindow();
-			
+
 			void display(sf::RenderTarget& rendertarget);
 
 			inline bool guiVisible() { return visible; };
@@ -56,10 +56,10 @@ namespace qrw
 
 		private:
 			qrw::Engine* engine;
-			BoardRenderer boardrenderer;
+			BoardWidget* boardwidget;
 
 			sf::Window* renderwindow;
-			
+
 			sfg::Window::Ptr windows[NUMEROFWINDOWS];
 			bool visiblestats[NUMEROFWINDOWS];
 			DeployWindow* deploywindow;

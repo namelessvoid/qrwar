@@ -15,10 +15,10 @@ namespace qrw
 {
 	StartGameWindow::Ptr StartGameWindow::Create(Engine* engine,
 		IngameWindow* ingamewindow, DeployWindow* deploywindow,
-		BoardRenderer* boardrenderer, GuiHandler* guihandler)
+		BoardWidget* boardwidget, GuiHandler* guihandler)
 	{
 		Ptr window(new StartGameWindow(engine, ingamewindow,
-			deploywindow, boardrenderer, guihandler));
+			deploywindow, boardwidget, guihandler));
 		window->SetTitle("Start new game");
 
 		ImageManager* imgmgr = ImageManager::getInstance();
@@ -100,14 +100,14 @@ namespace qrw
 	}
 
 	StartGameWindow::StartGameWindow(Engine* engine, IngameWindow* ingamewindow,
-		DeployWindow* deploywindow, BoardRenderer* boardrenderer,
+		DeployWindow* deploywindow, BoardWidget* boardwidget,
 		GuiHandler* guihandler, int style)
 	: Window(style),
 	  engine(engine),
 	  guihandler(guihandler),
 	  ingamewindow(ingamewindow),
 	  deploywindow(deploywindow),
-	  boardrenderer(boardrenderer)
+	  boardwidget(boardwidget)
 	{}
 
 	void StartGameWindow::startGame()
@@ -128,7 +128,7 @@ namespace qrw
 
 		engine->getPlayer(0)->clearUnits();
 		engine->getPlayer(1)->clearUnits();
-		boardrenderer->setBoard(engine->getBoard());	
+		boardwidget->setBoard(engine->getBoard());
 		Cursor::getCursor()->setBoard(engine->getBoard());
 		ingamewindow->update();
 		ingamewindow->setVisible(false);

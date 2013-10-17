@@ -15,7 +15,6 @@
 #include "gui/splashscreen.hpp"
 #include "gui/imagemanager.hpp"
 #include "gui/texturemanager.hpp"
-#include "gui/boardrenderer.hpp"
 
 #include "config/tilesetprocessor.hpp"
 

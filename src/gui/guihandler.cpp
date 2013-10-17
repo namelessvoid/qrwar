@@ -16,7 +16,9 @@ namespace qrw
 		  renderwindow(renderwindow)
 	{
 		// Set up objects that need reference on board instance.
-		boardrenderer.setBoard(engine->getBoard());
+		// TODO: dynamic size
+		boardwidget = new BoardWidget(renderwindow, 620, 600);
+		boardwidget->setBoard(engine->getBoard());
 		Cursor::getCursor()->setBoard(engine->getBoard());
 		ingamewindow = new IngameWindow(engine, this);
 		ingamewindow->setVisible(false);
@@ -25,7 +27,7 @@ namespace qrw
 
 		windows[MAINWINDOW] = MainWindow::Create(this);
 		windows[STARTGAMEWINDOW] = StartGameWindow::Create(engine, ingamewindow,
-			deploywindow, &boardrenderer, this);
+			deploywindow, boardwidget, this);
 		windows[LOADGANEWINDO] = sfg::Window::Create();
 		windows[SETTINGSWINDOW] = sfg::Window::Create();
 		windows[CREDITSWINDOW] = sfg::Window::Create();
@@ -36,11 +38,12 @@ namespace qrw
 
 	GuiHandler::~GuiHandler()
 	{
+		// TODO: delete all member variables!
 	}
 
 	void GuiHandler::display(sf::RenderTarget& rendertarget)
 	{
-		rendertarget.draw(boardrenderer);
+		rendertarget.draw(*boardwidget);
 		rendertarget.draw(*(sf::Drawable*)ingamewindow);
 		rendertarget.draw(*(sf::Drawable*)deploywindow);
 		sfgui.Display((sf::RenderWindow&)rendertarget);
@@ -95,6 +98,8 @@ namespace qrw
 		{
 			ingamewindow->handleEvent(event);
 			deploywindow->handleEvent(event);
+			boardwidget->handleEvent(event);
+
 			if(event.type == sf::Event::KeyPressed)
 			{
 				qrw::Cursor* cursor = qrw::Cursor::getCursor();

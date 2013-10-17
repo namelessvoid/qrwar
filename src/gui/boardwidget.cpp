@@ -7,14 +7,18 @@
 #include <stdio.h>
 
 #include "engine/player.hpp"
-#include "gui/boardrenderer.hpp"
+#include "gui/boardwidget.hpp"
 #include "gui/cursor.hpp"
 
 namespace qrw
 {
-	BoardRenderer::BoardRenderer()
-	:	board(0)
-	{	
+	BoardWidget::BoardWidget(sf::Window* window, float width, float height)
+	: Widget(window, width, height),
+	  board(0)
+	{
+		printf("boardrenderer position: x=%f / y=%f\n", getGlobalBounds().left, getGlobalBounds().top);
+		printf("boardrenderer size: w=%f / h=%f\n", getSize().x, getSize().y);
+
 		// Create required sprites.
 		TextureManager* texturemanager = TextureManager::getInstance();
 
@@ -29,24 +33,22 @@ namespace qrw
 		p2unitsprites[EUT_ARCHER] = new sf::Sprite(*texturemanager->getTexture("p2archer"));
 		p2unitsprites[EUT_SPEARMAN] = new sf::Sprite(*texturemanager->getTexture("p2spearman"));
 
+/*		signalmousemoved.connect(std::bind(&BoardWidget::updateCursor, this));
+		signalmouseentered.connect(std::bind(&BoardWidget::updateCursor, this));*/
 	}
 
-	BoardRenderer::~BoardRenderer()
+	BoardWidget::~BoardWidget()
 	{
 		delete plainsquare;
 	}
 
-	void BoardRenderer::setBoard(Board* board)
+	void BoardWidget::setBoard(Board* board)
 	{
 		this->board = board;
 	}
 
-	void BoardRenderer::handleEvent(const sf::Event& event)
-	{
 
-	}
-
-	void BoardRenderer::draw(sf::RenderTarget &target, sf::RenderStates states) const
+	void BoardWidget::draw(sf::RenderTarget &target, sf::RenderStates states) const
 	{
 		sf::Vector2f targetsize = target.getView().getSize();
 		targetsize.x -= 180.0;
@@ -117,7 +119,7 @@ namespace qrw
 		}
 	}
 
-	void BoardRenderer::drawTerrain(sf::RenderTarget& target, 
+	void BoardWidget::drawTerrain(sf::RenderTarget& target,
 		TERRAINTYPES terraintype, sf::Vector2f position, sf::Vector2f scale) const
 	{
 		terrainsprites[terraintype]->setPosition(position);
@@ -125,7 +127,7 @@ namespace qrw
 		target.draw(*terrainsprites[terraintype]);
 	}
 
-	void BoardRenderer::drawUnit(sf::RenderTarget& target, int playerid,
+	void BoardWidget::drawUnit(sf::RenderTarget& target, int playerid,
 		UNITTYPES unittype, sf::Vector2f position, sf::Vector2f scale) const
 	{
 		sf::Sprite* unitsprite = 0;
@@ -136,5 +138,10 @@ namespace qrw
 		unitsprite->setPosition(position);
 		unitsprite->setScale(scale);
 		target.draw(*unitsprite);
+	}
+
+	void BoardWidget::updateCursor()
+	{
+
 	}
 }

@@ -1,6 +1,7 @@
 #ifndef QRW_BOARDRENDERER_HPP
 #define QRW_BOARDRENDERER_HPP
 
+#include <SFML/Window/Window.hpp>
 #include <SFML/Graphics/Drawable.hpp>
 #include <SFML/Graphics/Sprite.hpp>
 #include <SFML/Graphics/Texture.hpp>
@@ -8,18 +9,17 @@
 
 #include "engine/board.hpp"
 #include "gui/texturemanager.hpp"
+#include "gui/widget.hpp"
 
 namespace qrw
 {
-	class BoardRenderer : public sf::Drawable
+	class BoardWidget : public Widget
 	{
 		public:
-			BoardRenderer();
-			~BoardRenderer();
+			BoardWidget(sf::Window* window, float width, float height);
+			~BoardWidget();
 
 			void setBoard(Board* board);
-
-			void handleEvent(const sf::Event& event);
 
 			void draw(sf::RenderTarget &target, sf::RenderStates states) const;
 
@@ -28,6 +28,9 @@ namespace qrw
 				sf::Vector2f position, sf::Vector2f scale) const;
 			void drawUnit(sf::RenderTarget& target, int playerid, UNITTYPES unittype,
 				sf::Vector2f position, sf::Vector2f scale) const;
+
+			// Slots
+			void updateCursor();
 
 			Board* board;
 
