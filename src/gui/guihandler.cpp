@@ -82,6 +82,16 @@ namespace qrw
 		return windows[id];
 	}
 
+	DeployWindow* GuiHandler::getDeployWindow()
+	{
+		return deploywindow;
+	}
+
+	IngameWindow* GuiHandler::getIngameWindow()
+	{
+		return ingamewindow;
+	}
+
 	void GuiHandler::HandleEvent(const sf::Event& event)
 	{
 		// Toggle gui

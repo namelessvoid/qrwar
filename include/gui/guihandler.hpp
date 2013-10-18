@@ -51,6 +51,8 @@ namespace qrw
 			void showStartGameWindow();
 
 			sfg::Window::Ptr getWindowById(int id);
+			DeployWindow* getDeployWindow();
+			IngameWindow* getIngameWindow();
 
 			void HandleEvent(const sf::Event& event);
 
