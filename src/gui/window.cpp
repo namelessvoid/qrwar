@@ -33,11 +33,11 @@ namespace qrw
 
 	void Window::draw(sf::RenderTarget& target, sf::RenderStates states) const
 	{
-		if(!visible)
-			return;
-
-		for(auto iter = children.begin(); iter != children.end(); ++iter)
-			target.draw(*(*iter), states);
+		if(visible)
+		{
+			for(auto iter = children.begin(); iter != children.end(); ++iter)
+				target.draw(*(*iter), states);
+		}
 	}
 
 	void Window::handleEvent(const sf::Event& event)
