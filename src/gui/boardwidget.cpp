@@ -46,6 +46,7 @@ namespace qrw
 		signalmouseentered.connect(std::bind(&BoardWidget::updateCursor, this));
 		signalclicked.connect(std::bind(&BoardWidget::leftClicked, this));
 		signalrightclicked.connect(std::bind(&BoardWidget::rightClicked, this));
+		signalkeypressed.connect(std::bind(&BoardWidget::keyPressed, this, std::placeholders::_1));
 	}
 
 	BoardWidget::~BoardWidget()
@@ -234,6 +235,46 @@ namespace qrw
 		{
 			cursor->setPosition(childcursor->getPosition());
 			cursor->despawnChild();
+		}
+	}
+
+	void BoardWidget::keyPressed(const sf::Event& event)
+	{
+		qrw::Cursor* cursor = qrw::Cursor::getCursor();
+		qrw::Cursor* childcursor = cursor->getChild();
+
+		if(event.key.code == sf::Keyboard::Up)
+			cursor->move(0, -1);
+		else if(event.key.code == sf::Keyboard::Down)
+			cursor->move(0, 1);
+		else if(event.key.code == sf::Keyboard::Right)
+			cursor->move(1, 0);
+		else if(event.key.code == sf::Keyboard::Left)
+			cursor->move(-1, 0);
+		else if(event.key.code == sf::Keyboard::Escape)
+			cursor->despawnChild();
+		else if(event.key.code == sf::Keyboard::Return)
+		{
+			if(engine->getStatus() == EES_PREPARE)
+			{
+				// invoke deploywindow->placeEntity or deploywindow->moveunit() here
+			}
+			else if(childcursor == 0)
+			{
+				cursor->spawnChild();
+			}
+			else if(childcursor != 0)
+			{
+				// Move a unit
+				int moveresult = engine->moveUnitIngame(cursor->getPosition().x, cursor->getPosition().y,
+					childcursor->getPosition().x, childcursor->getPosition().y);
+				printf("moveresult: %i\n", moveresult);
+				if(moveresult == 0)
+				{
+					cursor->setPosition(childcursor->getPosition());
+					cursor->despawnChild();
+				}
+			}
 		}
 	}
 }

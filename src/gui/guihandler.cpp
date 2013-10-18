@@ -109,46 +109,6 @@ namespace qrw
 			ingamewindow->handleEvent(event);
 			deploywindow->handleEvent(event);
 			boardwidget->handleEvent(event);
-
-			if(event.type == sf::Event::KeyPressed)
-			{
-				qrw::Cursor* cursor = qrw::Cursor::getCursor();
-				qrw::Cursor* childcursor = cursor->getChild();
-
-				if(event.key.code == sf::Keyboard::Up)
-					cursor->move(0, -1);
-				else if(event.key.code == sf::Keyboard::Down)
-					cursor->move(0, 1);
-				else if(event.key.code == sf::Keyboard::Right)
-					cursor->move(1, 0);
-				else if(event.key.code == sf::Keyboard::Left)
-					cursor->move(-1, 0);
-				else if(event.key.code == sf::Keyboard::Escape)
-					cursor->despawnChild();
-				else if(event.key.code == sf::Keyboard::Return)
-				{
-					if(engine->getStatus() == EES_PREPARE)
-					{
-						// placeunitwindow->placeUnitAtCursor();
-					}
-					else if(childcursor == 0)
-					{
-						cursor->spawnChild();
-					}
-					else if(childcursor != 0)
-					{
-						// Move a unit
-						int moveresult = engine->moveUnitIngame(cursor->getPosition().x, cursor->getPosition().y,
-							childcursor->getPosition().x, childcursor->getPosition().y);
-						printf("moveresult: %i\n", moveresult);
-						if(moveresult == 0)
-						{
-							cursor->setPosition(childcursor->getPosition());
-							cursor->despawnChild();
-						}
-					}
-				}
-			}
 		}
 		ingamewindow->update();
 	}

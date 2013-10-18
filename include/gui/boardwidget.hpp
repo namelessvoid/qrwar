@@ -39,6 +39,7 @@ namespace qrw
 			void updateCursor();
 			void leftClicked();
 			void rightClicked();
+			void keyPressed(const sf::Event& event);
 
 			Engine* engine;
 			Board* board;
