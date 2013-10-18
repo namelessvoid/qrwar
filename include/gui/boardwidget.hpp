@@ -14,6 +14,7 @@
 namespace qrw
 {
 	class GuiHandler;
+	class DeployWindow;
 	class Engine;
 
 	class BoardWidget : public Widget
@@ -47,6 +48,9 @@ namespace qrw
 			sf::Sprite* terrainsprites[ET_NUMBEROFTERRAINTYPES];
 			sf::Sprite* p1unitsprites[EUT_NUMBEROFUNITTYPES];
 			sf::Sprite* p2unitsprites[EUT_NUMBEROFUNITTYPES];
+
+			// Pointer to deploywindow to have acces to DeployWindow::placeEntity() and DeployWindow::moveUnit().
+			DeployWindow* deploywindow;
 	};
 }
 

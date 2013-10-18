@@ -22,7 +22,8 @@ namespace qrw
 	  board(0),
 	  engine(engine),
 	  spritedimensions(0.0),
-	  singlespritescale(0.0)
+	  singlespritescale(0.0),
+	  deploywindow(guihandler->getDeployWindow())
 	{
 		printf("boardrenderer position: x=%f / y=%f\n", getGlobalBounds().left, getGlobalBounds().top);
 		printf("boardrenderer size: w=%f / h=%f\n", getSize().x, getSize().y);
