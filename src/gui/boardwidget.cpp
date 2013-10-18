@@ -44,6 +44,7 @@ namespace qrw
 
 		signalmousemoved.connect(std::bind(&BoardWidget::updateCursor, this));
 		signalmouseentered.connect(std::bind(&BoardWidget::updateCursor, this));
+		signalclicked.connect(std::bind(&BoardWidget::leftClicked, this));
 	}
 
 	BoardWidget::~BoardWidget()
@@ -176,4 +177,51 @@ namespace qrw
 		else
 			Cursor::getCursor()->getChild()->setPosition(newCursorPos);
 	}
+
+	void BoardWidget::leftClicked()
+	{
+		Cursor* cursor = Cursor::getCursor();
+		Cursor* childcursor = cursor->getChild();
+		Square* cursorsquare = board->getSquare(cursor->getPosition().x, cursor->getPosition().y);
+
+		// Depploy unit / terrain by calling deploywindow methods.
+		if(engine->getStatus() == EES_PREPARE)
+		{
+			if(childcursor)
+			{
+				deploywindow->moveUnit();
+			}
+			else if(cursorsquare->getUnit())
+			{
+				cursor->spawnChild();
+			}
+			else
+			{
+				printf("boardwidget leftclicked pre placeEntity (deploywindow=%p)\n", deploywindow);
+				deploywindow->placeEntity();
+			}
+		}
+		// Ingame actions.
+		// TODO: Following code is just a copy&paste of GuiHandler::HandleEvent() code. Find a better solution
+		// for this code duplication...
+		else
+		{
+			if(cursorsquare->getUnit() && !childcursor)
+			{
+				cursor->spawnChild();
+			}
+			// Move a unit
+			else if(childcursor)
+			{
+				int moveresult = engine->moveUnitIngame(cursor->getPosition().x, cursor->getPosition().y,
+					childcursor->getPosition().x, childcursor->getPosition().y);
+				printf("moveresult: %i\n", moveresult);
+				if(moveresult == 0)
+				{
+					cursor->setPosition(childcursor->getPosition());
+					cursor->despawnChild();
+				}
+			}
+		}
+	} // BoardWidget::leftClicked();
 }
