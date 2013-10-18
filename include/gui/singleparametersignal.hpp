@@ -15,7 +15,7 @@ namespace qrw
 
 			void connect(std::function<void(P)> function);
 			void disconnectAll();
-			void emit();
+			void emit(P);
 
 		private:
 			std::vector<std::function<void(P)>> slots;
@@ -42,11 +42,11 @@ namespace qrw
 	}
 
 	template <class P>
-	void SingleParameterSignal<P>::emit()
+	void SingleParameterSignal<P>::emit(P p)
 	{
 		typename std::vector<std::function<void(P)>>::iterator it;
 		for(it = slots.begin(); it != slots.end(); ++it)
-			(*it)();
+			(*it)(p);
 	}
 }
 #endif
