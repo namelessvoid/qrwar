@@ -45,6 +45,14 @@ namespace qrw
              * mouse leaves focus.
              */
             bool leftMouseButtonPressRegistered;
+
+            /**
+             * @brief Saves the last known mouse focus state.
+             *
+             * Is used to determine if a signalmouseleft or signalmouseentered signal has to be emitted. It holds the last
+             * known mouse focus state which means that in case of mouseFocus followed by hasMouseFocus() == true the mouse
+             * cursor entered the widget or other way round left the widget.
+             */
             bool mouseFocus;
 
             bool visible;
