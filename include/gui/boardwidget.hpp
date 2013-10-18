@@ -38,6 +38,7 @@ namespace qrw
 			// Slots
 			void updateCursor();
 			void leftClicked();
+			void rightClicked();
 
 			Engine* engine;
 			Board* board;

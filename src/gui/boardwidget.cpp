@@ -45,6 +45,7 @@ namespace qrw
 		signalmousemoved.connect(std::bind(&BoardWidget::updateCursor, this));
 		signalmouseentered.connect(std::bind(&BoardWidget::updateCursor, this));
 		signalclicked.connect(std::bind(&BoardWidget::leftClicked, this));
+		signalrightclicked.connect(std::bind(&BoardWidget::rightClicked, this));
 	}
 
 	BoardWidget::~BoardWidget()
@@ -224,4 +225,15 @@ namespace qrw
 			}
 		}
 	} // BoardWidget::leftClicked();
+
+	void BoardWidget::rightClicked()
+	{
+		Cursor* cursor = Cursor::getCursor();
+		Cursor* childcursor = cursor->getChild();
+		if(childcursor)
+		{
+			cursor->setPosition(childcursor->getPosition());
+			cursor->despawnChild();
+		}
+	}
 }
