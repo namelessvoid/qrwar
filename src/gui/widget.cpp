@@ -126,6 +126,11 @@ namespace qrw
 
             }
         } // else(MouseButtonReleased)
+        else if(event.type == sf::Event::KeyPressed)
+        {
+            // TODO: check for keyboard focus.
+            signalkeypressed.emit(event);
+        }
     }
 
     void Widget::disconnectAllSignals()

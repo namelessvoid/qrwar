@@ -6,6 +6,7 @@
 #include <SFML/Graphics/Sprite.hpp>
 
 #include "gui/signal.hpp"
+#include "gui/singleparametersignal.hpp"
 
 namespace qrw
 {
@@ -32,6 +33,7 @@ namespace qrw
             Signal signalmouseleft;
             Signal signalmousemoved;
             Signal signalleftmousebuttonpressed;
+            SingleParameterSignal<const sf::Event&> signalkeypressed;
 
         protected:
             bool hasMouseFocus();
