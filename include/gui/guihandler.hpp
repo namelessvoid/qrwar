@@ -19,7 +19,7 @@ namespace qrw
 	{
 		MAINWINDOW = 0,
 		STARTGAMEWINDOW,
-		LOADGANEWINDO,
+		LOADGAMEWINDOW,
 		SETTINGSWINDOW,
 		CREDITSWINDOW,
 		// This one is just used to now the
