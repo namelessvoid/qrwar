@@ -46,8 +46,7 @@ namespace qrw
 			return false;
 		if(board->getSquare(position.x + dx, position.y + dy) == 0)
 			return false;
-		position.x += dx;
-		position.y += dy;
+		setPosition(position.x + dx, position.y + dy);
 		return true;
 	}
 
