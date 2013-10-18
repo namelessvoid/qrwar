@@ -39,4 +39,13 @@ namespace qrw
 		for(auto iter = children.begin(); iter != children.end(); ++iter)
 			target.draw(*(*iter), states);
 	}
+
+	void Window::handleEvent(const sf::Event& event)
+	{
+		if(visible)
+		{
+			for(auto iter = children.begin(); iter != children.end(); ++iter)
+				(*iter)->handleEvent(event);
+		}
+	}
 }

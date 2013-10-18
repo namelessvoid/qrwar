@@ -21,6 +21,7 @@ namespace qrw
 			void addWidget(Widget* widget);
 
 			void draw(sf::RenderTarget&, sf::RenderStates = sf::RenderStates::Default) const;
+			void handleEvent(const sf::Event& event);
 
 		private:
 			bool visible;
