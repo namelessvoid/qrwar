@@ -257,7 +257,23 @@ namespace qrw
 		{
 			if(engine->getStatus() == EES_PREPARE)
 			{
-				// invoke deploywindow->placeEntity or deploywindow->moveunit() here
+				// Check if a new unit is placed or a unit is moved.
+				// A unit is moved if cursor has a child (to point to destination)
+				// or there is a unit under cursor.
+				Square* cursorsquare = engine->getBoard()->getSquare(cursor->getPosition().x,
+						cursor->getPosition().y);
+				if (cursor->getChild() != NULL)
+				{
+					deploywindow->moveUnit();
+				}
+				else if(cursorsquare->getUnit() != NULL)
+				{
+					cursor->spawnChild();
+				}
+				else
+				{
+					deploywindow->placeEntity();
+				}
 			}
 			else if(childcursor == 0)
 			{
