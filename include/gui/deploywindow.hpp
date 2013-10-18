@@ -28,8 +28,6 @@ namespace qrw
 			void update();
 			void setPlayerUnits(int playerunits[]);
 
-			void handleEvent(const sf::Event& event);
-
 			void placeEntity();
 			void moveUnit();
 

@@ -85,19 +85,6 @@ namespace qrw
 		delete title;
 	}
 
-/*	void DeployWindow::draw(sf::RenderTarget& target,
-		sf::RenderStates states) const
-	{
-		if(visible == false)
-			return;
-
-		for(int i = 0; i < BUTTONCOUNT; ++i)
-			radiobuttons[i]->draw(target);
-
-		target.draw(*title);
-		target.draw(*startbutton);
-	}*/
-
 	void DeployWindow::update()
 	{
 		// Set player info text
@@ -118,16 +105,6 @@ namespace qrw
 		{
 			this->playerunits[i] = playerunits[i];
 		}
-	}
-
-	void DeployWindow::handleEvent(const sf::Event& event)
-	{
-		if(!isVisible())
-			return;
-
-		for(int i = 0; i < BUTTONCOUNT; ++i)
-			radiobuttons[i]->handleEvent(event);
-		startbutton->handleEvent(event);
 	}
 
 	void DeployWindow::startbuttonClicked()
