@@ -13,6 +13,12 @@ namespace qrw
 			SingleParameterSignal();
 			~SingleParameterSignal();
 
+			/**
+			 * @brief Connect a slot function to this signal.
+			 *
+			 * You can use something like this to set the parameter when invoking the emit() method:
+			 * signalkeypressed.connect(std::bind(&Widget::fooCallback, this, std::placeholders::_1));
+			 */
 			void connect(std::function<void(P)> function);
 			void disconnectAll();
 			void emit(P);
