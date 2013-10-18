@@ -30,11 +30,12 @@ namespace qrw
 
 			void handleEvent(const sf::Event& event);
 
+			void placeEntity();
+			void moveUnit();
+
 		private:
 			// Private slots
 			void startbuttonClicked();
-			void placeEntity();
-			void moveUnit();
 
 			IngameWindow* ingamewindow;
 			// Buttons for units and terrain
