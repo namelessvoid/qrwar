@@ -105,7 +105,7 @@ namespace qrw
                     return;
                 }
             }
-        }
+        } // else if(MouseButtonPressed)
         else if(event.type == sf::Event::MouseButtonReleased)
         {
             if(mouseFocus)
@@ -125,7 +125,7 @@ namespace qrw
                 }
 
             }
-        } // else(MouseButtonEvent)
+        } // else(MouseButtonReleased)
     }
 
     void Widget::disconnectAllSignals()
