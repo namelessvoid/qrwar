@@ -14,11 +14,12 @@
 namespace qrw
 {
 	class GuiHandler;
+	class Engine;
 
 	class BoardWidget : public Widget
 	{
 		public:
-			BoardWidget(GuiHandler* guihandler, float width, float height);
+			BoardWidget(GuiHandler* guihandler, Engine* engine, float width, float height);
 			~BoardWidget();
 
 			void setBoard(Board* board);
@@ -36,6 +37,7 @@ namespace qrw
 			// Slots
 			void updateCursor();
 
+			Engine* engine;
 			Board* board;
 
 			float spritedimensions;

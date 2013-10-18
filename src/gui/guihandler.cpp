@@ -17,7 +17,7 @@ namespace qrw
 	{
 		// Set up objects that need reference on board instance.
 		// TODO: dynamic size
-		boardwidget = new BoardWidget(this, 620, 600);
+		boardwidget = new BoardWidget(this, engine, 620, 600);
 		boardwidget->setBoard(engine->getBoard());
 		Cursor::getCursor()->setBoard(engine->getBoard());
 		ingamewindow = new IngameWindow(engine, this);

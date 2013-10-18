@@ -10,15 +10,17 @@
 #include <iostream>
 #include <stdio.h>
 
+#include "engine/engine.hpp"
 #include "engine/player.hpp"
 #include "gui/guihandler.hpp"
 #include "gui/cursor.hpp"
 
 namespace qrw
 {
-	BoardWidget::BoardWidget(GuiHandler* guihandler, float width, float height)
+	BoardWidget::BoardWidget(GuiHandler* guihandler, Engine* engine, float width, float height)
 	: Widget(guihandler->getRenderWindow(), width, height),
 	  board(0),
+	  engine(engine),
 	  spritedimensions(0.0),
 	  singlespritescale(0.0)
 	{
