@@ -13,10 +13,12 @@
 
 namespace qrw
 {
+	class GuiHandler;
+
 	class BoardWidget : public Widget
 	{
 		public:
-			BoardWidget(sf::Window* window, float width, float height);
+			BoardWidget(GuiHandler* guihandler, float width, float height);
 			~BoardWidget();
 
 			void setBoard(Board* board);

@@ -1,3 +1,5 @@
+#include "gui/boardwidget.hpp"
+
 #include <cmath>
 
 #include <SFML/Graphics/Vertex.hpp>
@@ -9,13 +11,13 @@
 #include <stdio.h>
 
 #include "engine/player.hpp"
-#include "gui/boardwidget.hpp"
+#include "gui/guihandler.hpp"
 #include "gui/cursor.hpp"
 
 namespace qrw
 {
-	BoardWidget::BoardWidget(sf::Window* window, float width, float height)
-	: Widget(window, width, height),
+	BoardWidget::BoardWidget(GuiHandler* guihandler, float width, float height)
+	: Widget(guihandler->getRenderWindow(), width, height),
 	  board(0),
 	  spritedimensions(0.0),
 	  singlespritescale(0.0)
