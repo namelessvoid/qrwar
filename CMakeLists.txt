@@ -21,7 +21,7 @@ if(TINYXML2_FOUND)
 	set(LIBS ${LIBS} ${TINYXML2_LIBRARIES})
 endif(TINYXML2_FOUND)
 
-SET(CMAKE_CXX_FLAGS "-std=c++11")
+SET(CMAKE_CXX_FLAGS "-std=c++11 -g")
 
 set(COMMON_SOURCE
 	src/engine/engine.cpp
