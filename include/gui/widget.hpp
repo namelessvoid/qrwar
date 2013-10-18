@@ -1,5 +1,5 @@
-#ifndef WIDGET_HPP
-#define WIDGET_HPP
+#ifndef QRW_WIDGET_HPP
+#define QRW_WIDGET_HPP
 
 #include <SFML/Window/Window.hpp>
 #include <SFML/Window/Event.hpp>
