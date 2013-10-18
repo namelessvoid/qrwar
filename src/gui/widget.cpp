@@ -10,7 +10,8 @@ namespace qrw
     Widget::Widget(sf::Window* window, float width, float height)
         : mouseFocus(false),
           visible(true),
-          leftMouseButtonPressRegistered(false)
+          leftMouseButtonPressRegistered(false),
+          rightMouseButtonPressRegistered(false)
     {
         this->window = window;
 
@@ -98,6 +99,11 @@ namespace qrw
                     std::cout << "Mouse button on widget pressed.\n";
                     return;
                 }
+                else if(event.mouseButton.button == sf::Mouse::Right)
+                {
+                    rightMouseButtonPressRegistered = true;
+                    return;
+                }
             }
         }
         else if(event.type == sf::Event::MouseButtonReleased)
@@ -111,6 +117,13 @@ namespace qrw
                     std::cout << "Widget was clicked.\n";
                     return;
                 }
+                else if(event.mouseButton.button == sf::Mouse::Right)
+                {
+                    signalrightclicked.emit();
+                    std::cout << "Widget was right clicked.\n";
+                    return;
+                }
+
             }
         } // else(MouseButtonEvent)
     }

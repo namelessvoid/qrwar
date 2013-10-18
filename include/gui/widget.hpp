@@ -27,6 +27,7 @@ namespace qrw
 
             // Signals
             Signal signalclicked;
+            Signal signalrightclicked;
             Signal signalmouseentered;
             Signal signalmouseleft;
             Signal signalmousemoved;
@@ -45,6 +46,15 @@ namespace qrw
              * mouse leaves focus.
              */
             bool leftMouseButtonPressRegistered;
+
+            /**
+             * @brief Registeres when right mouse button is pressed.
+             *
+             * Is set to true if the right mouse button was pressed while mouse cursor was on the widget. If the mouse
+             * is released again while on the widget a click event took place. Reset leftMouseButtonpressRegistered if
+             * mouse leaves focus.
+             */
+            bool rightMouseButtonPressRegistered;
 
             /**
              * @brief Saves the last known mouse focus state.
