@@ -175,16 +175,25 @@ namespace qrw
 			printf("moveresult: %i\n", moveresult);
 			if(moveresult == 0 || moveresult == -9 || moveresult == -8)
 			{
-				cursor->setPosition(childcursor->getPosition());
-				cursor->despawnChild();
-
 				// Display damage numbers
 				if(moveresult == -9)
 				{
 					DamageNumber* dm;
-					dm = new DamageNumber(unit1->getHP() - unit1hp, sf::Vector2f(cursor->getPosition().x * spritedimensions, cursor->getPosition().y + spritedimensions));
-					dm = new DamageNumber(unit2->getHP() - unit2hp, sf::Vector2f(childcursor->getPosition().x * spritedimensions, childcursor->getPosition().y + spritedimensions));
+					sf::Vector2f pos;
+
+					// First DMG number
+					pos.x = cursor->getPosition().x * spritedimensions;
+					pos.y = cursor->getPosition().y * spritedimensions + spritedimensions * 0.2;
+					dm = new DamageNumber(unit1->getHP() - unit1hp, pos);
+					// Second DMG number
+					pos.x = childcursor->getPosition().x * spritedimensions;
+					pos.y = childcursor->getPosition().y * spritedimensions + spritedimensions * 0.2;
+					dm = new DamageNumber(unit2->getHP() - unit2hp, pos);
 				}
+
+				// Resetting cursors
+				cursor->setPosition(childcursor->getPosition());
+				cursor->despawnChild();
 			}
 		}
 	}

@@ -11,7 +11,7 @@ namespace qrw
 		font.loadFromFile("./res/font/Knigqst.ttf");
 		text.setFont(font);
 		text.setCharacterSize(20);
-		text.setString("-" + intToString(damagedone) + " HP");
+		text.setString("~ " + intToString(damagedone) + " HP");
 		text.setPosition(postition);
 		text.setColor(sf::Color::Red);
 	}
@@ -23,6 +23,7 @@ namespace qrw
 	void DamageNumber::update(sf::Time elapsedtime)
 	{
 		Animation::update(elapsedtime);
+		text.setPosition(text.getPosition().x, text.getPosition().y - 30 * elapsedtime.asSeconds());
 	}
 
 	void DamageNumber::draw(sf::RenderTarget& target, sf::RenderStates states) const
