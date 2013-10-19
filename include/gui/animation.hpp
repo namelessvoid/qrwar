@@ -9,7 +9,9 @@
 namespace qrw
 {
 
-
+	/**
+	 * @brief Abstract class for managing animations.
+	 */
 	class Animation : public sf::Drawable
 	{
 		public:
