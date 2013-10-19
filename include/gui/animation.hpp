@@ -15,6 +15,8 @@ namespace qrw
 	class Animation : public sf::Drawable
 	{
 		public:
+			static void renderAll(sf::RenderTarget& target, sf::Time elapsedTime, sf::RenderStates states = sf::RenderStates::Default);
+
 			/**
 			 * @brief Create a new animation.
 			 *

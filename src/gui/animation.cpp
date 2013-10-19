@@ -4,6 +4,21 @@ namespace qrw
 {
 	std::vector<Animation*> Animation::animations;
 
+	void Animation::renderAll(sf::RenderTarget& target, sf::Time elapsedtime, sf::RenderStates states)
+	{
+		/*for(auto iter = animations.begin(); iter != animations.end(); ++iter)
+		{
+			(*iter)->update(elapsedtime);
+		}*/
+		for(int i = animations.size() - 1; i >= 0; --i)
+		{
+			animations.at(i)->update(elapsedtime);
+		}
+		for(auto iter = animations.begin(); iter != animations.end(); ++iter)
+		{
+			(*iter)->draw(target, states);
+		}
+	}
 	Animation::Animation(float duration, bool loop, bool deleteonstop)
 		: duration(duration),
 		  loop(loop),
