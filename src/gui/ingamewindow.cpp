@@ -17,7 +17,6 @@ namespace qrw
 	IngameWindow::IngameWindow(Engine* engine, GuiHandler* guihandler)
 	: engine(engine),
 	  guihandler(guihandler),
-	  visible(true),
 	  // TODO: Dynamic size
 	  endturnbutton(guihandler->getRenderWindow(), 100.0, 40.0),
 	  playernamelabel(),
@@ -93,8 +92,8 @@ namespace qrw
 			texmgr->getTexture("nextbutton_hover"));
 		endturnbutton.setPosition(sf::Vector2f(700, 560));
 		endturnbutton.setScale(sf::Vector2f(1, 1));
-		endturnbutton.signalclicked.connect(
-			std::bind(&IngameWindow::changeplayerbuttonClicked, this));
+		endturnbutton.signalclicked.connect(std::bind(&IngameWindow::changeplayerbuttonClicked, this));
+		addWidget(&endturnbutton);
 	}
 
 	IngameWindow::~IngameWindow()
@@ -112,11 +111,6 @@ namespace qrw
 			delete unitdefensetext;
 			delete terrainattacktext;
 			delete terraindefensetext;
-	}
-
-	void IngameWindow::setVisible(bool visible)
-	{
-		this->visible = visible;
 	}
 
 	void IngameWindow::update()
@@ -219,18 +213,15 @@ namespace qrw
 		return sf::Vector2f(0, 0);
 	}
 
-	void IngameWindow::handleEvent(const sf::Event& event)
+	void IngameWindow::draw(sf::RenderTarget& target, sf::RenderStates states) const
 	{
-		endturnbutton.handleEvent(event);
-	}
-
-	void IngameWindow::draw(sf::RenderTarget& target, sf::RenderStates) const
-	{
-		if(visible == false)
+		if(isVisible() == false)
 			return;
 
 		target.draw(*border);
 		target.draw(*background);
+
+		Window::draw(target, states);
 
 		target.draw(playernamelabel);
 		// Draw unit info
@@ -263,8 +254,6 @@ namespace qrw
 		target.draw(*defensesprite);
 		target.draw(*terrainattacktext);
 		target.draw(*terraindefensetext);
-
-		target.draw(endturnbutton);
 	}
 
 	void IngameWindow::changeplayerbuttonClicked()

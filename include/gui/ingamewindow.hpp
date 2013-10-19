@@ -7,13 +7,14 @@
 #include <SFML/Graphics/RectangleShape.hpp>
 
 #include "engine/engine.hpp"
+#include "gui/window.hpp"
 #include "gui/button.hpp"
 
 namespace qrw
 {
 	class GuiHandler;
-	
-	class IngameWindow : public sf::Drawable
+
+	class IngameWindow : public Window
 	{
 		public:
 			IngameWindow(Engine* engine, GuiHandler* guihandler);
@@ -22,9 +23,7 @@ namespace qrw
 			sf::Vector2f getSize();
 
 			void update();
-			void setVisible(bool visible);
 
-			void handleEvent(const sf::Event& event);
 			void draw(sf::RenderTarget&,
 				sf::RenderStates = sf::RenderStates::Default) const;
 
@@ -32,8 +31,6 @@ namespace qrw
 		private:
 			// private slots:
 			void changeplayerbuttonClicked();
-
-			bool visible;
 
 			Engine* engine;
 			GuiHandler* guihandler;
