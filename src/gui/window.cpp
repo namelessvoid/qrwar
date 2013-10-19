@@ -21,7 +21,7 @@ namespace qrw
 		}
 	}
 
-	bool Window::isVisible()
+	bool Window::isVisible() const
 	{
 		return visible;
 	}
