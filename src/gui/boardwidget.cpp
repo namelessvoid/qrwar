@@ -218,7 +218,7 @@ namespace qrw
 				int moveresult = engine->moveUnitIngame(cursor->getPosition().x, cursor->getPosition().y,
 					childcursor->getPosition().x, childcursor->getPosition().y);
 				printf("moveresult: %i\n", moveresult);
-				if(moveresult == 0)
+				if(moveresult == 0 || moveresult == -9)
 				{
 					cursor->setPosition(childcursor->getPosition());
 					cursor->despawnChild();
@@ -285,7 +285,7 @@ namespace qrw
 				int moveresult = engine->moveUnitIngame(cursor->getPosition().x, cursor->getPosition().y,
 					childcursor->getPosition().x, childcursor->getPosition().y);
 				printf("moveresult: %i\n", moveresult);
-				if(moveresult == 0)
+				if(moveresult == 0 || moveresult == -9)
 				{
 					cursor->setPosition(childcursor->getPosition());
 					cursor->despawnChild();
