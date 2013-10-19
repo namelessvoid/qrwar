@@ -14,6 +14,7 @@
 #include "engine/player.hpp"
 #include "gui/guihandler.hpp"
 #include "gui/cursor.hpp"
+#include "gui/damagenumber.hpp"
 
 namespace qrw
 {
@@ -154,6 +155,41 @@ namespace qrw
 		target.draw(*unitsprite);
 	}
 
+	void BoardWidget::moveUnitIngame()
+	{
+		Cursor* cursor = Cursor::getCursor();
+		Cursor* childcursor = cursor->getChild();
+
+		if(childcursor)
+		{
+			Unit* unit1 = board->getSquare(cursor->getPosition().x, cursor->getPosition().y)->getUnit();
+			int unit1hp = unit1->getHP();
+			Unit* unit2 = board->getSquare(childcursor->getPosition().x, childcursor->getPosition().y)->getUnit();
+			int unit2hp;
+
+			if(unit2)
+				unit2hp = unit2->getHP();
+
+			int moveresult = engine->moveUnitIngame(cursor->getPosition().x, cursor->getPosition().y,
+				childcursor->getPosition().x, childcursor->getPosition().y);
+			printf("moveresult: %i\n", moveresult);
+			if(moveresult == 0 || moveresult == -9 || moveresult == -8)
+			{
+				cursor->setPosition(childcursor->getPosition());
+				cursor->despawnChild();
+
+				// Display damage numbers
+				if(moveresult == -9)
+				{
+					DamageNumber* dm;
+					dm = new DamageNumber(unit1->getHP() - unit1hp, sf::Vector2f(cursor->getPosition().x * spritedimensions, cursor->getPosition().y + spritedimensions));
+					dm = new DamageNumber(unit2->getHP() - unit2hp, sf::Vector2f(childcursor->getPosition().x * spritedimensions, childcursor->getPosition().y + spritedimensions));
+				}
+			}
+		}
+	}
+
+
 	void BoardWidget::updateCursor()
 	{
 		// Calculate on which field the mouse cursor is placed.
@@ -215,14 +251,7 @@ namespace qrw
 			// Move a unit
 			else if(childcursor)
 			{
-				int moveresult = engine->moveUnitIngame(cursor->getPosition().x, cursor->getPosition().y,
-					childcursor->getPosition().x, childcursor->getPosition().y);
-				printf("moveresult: %i\n", moveresult);
-				if(moveresult == 0 || moveresult == -9)
-				{
-					cursor->setPosition(childcursor->getPosition());
-					cursor->despawnChild();
-				}
+				this->moveUnitIngame();
 			}
 		}
 	} // BoardWidget::leftClicked();
@@ -281,15 +310,7 @@ namespace qrw
 			}
 			else if(childcursor != 0)
 			{
-				// Move a unit
-				int moveresult = engine->moveUnitIngame(cursor->getPosition().x, cursor->getPosition().y,
-					childcursor->getPosition().x, childcursor->getPosition().y);
-				printf("moveresult: %i\n", moveresult);
-				if(moveresult == 0 || moveresult == -9)
-				{
-					cursor->setPosition(childcursor->getPosition());
-					cursor->despawnChild();
-				}
+				this->moveUnitIngame();
 			}
 		}
 	}

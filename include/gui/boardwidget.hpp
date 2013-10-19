@@ -35,6 +35,8 @@ namespace qrw
 			void drawUnit(sf::RenderTarget& target, int playerid, UNITTYPES unittype,
 				sf::Vector2f position, sf::Vector2f scale) const;
 
+			void moveUnitIngame();
+
 			// Slots
 			void updateCursor();
 			void leftClicked();
