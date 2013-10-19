@@ -1,5 +1,7 @@
 #include "gui/animation.hpp"
 
+#include <stdio.h>
+
 namespace qrw
 {
 	std::vector<Animation*> Animation::animations;
@@ -22,7 +24,8 @@ namespace qrw
 	Animation::Animation(float duration, bool loop, bool deleteonstop)
 		: duration(duration),
 		  loop(loop),
-		  deleteonstop(deleteonstop)
+		  deleteonstop(deleteonstop),
+		  totalelapsedtime(0.0f)
 	{
 		// Register animation to the animations vector.
 		animations.push_back(this);
@@ -43,7 +46,7 @@ namespace qrw
 
 	void Animation::start()
 	{
-		totalElapsedTime = 0.0f;
+		totalelapsedtime = 0.0f;
 		status = S_PLAYING;
 	}
 
@@ -53,7 +56,7 @@ namespace qrw
 			delete this;
 		else
 		{
-			totalElapsedTime = 0.0f;
+			totalelapsedtime = 0.0f;
 			status = S_STOPPED;
 		}
 	}
@@ -68,14 +71,19 @@ namespace qrw
 		status = S_PLAYING;
 	}
 
-	void Animation::update(sf::Time elapsedTime)
+	void Animation::update(sf::Time elapsedtime)
 	{
-		totalElapsedTime += elapsedTime.asSeconds();
+		totalelapsedtime = totalelapsedtime + elapsedtime.asSeconds();
+		printf("Animation::update(): elapsed / total: %f / %f\n", elapsedtime.asSeconds(), totalelapsedtime);
 
-		if(totalElapsedTime > duration && !loop)
-			stop();
-		else
-			totalElapsedTime = totalElapsedTime - duration;
+		if(totalelapsedtime > duration)
+		{
+			if(!loop)
+				stop();
+			else
+				totalelapsedtime = totalelapsedtime - duration;
+		}
 	}
+
 
 }

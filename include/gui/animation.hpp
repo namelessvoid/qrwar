@@ -32,7 +32,7 @@ namespace qrw
 			void pause();
 			void resume();
 
-			virtual void update(sf::Time elapsedTime) = 0;
+			virtual void update(sf::Time elapsedtime) = 0;
 
 		private:
 			enum STATES
@@ -53,7 +53,7 @@ namespace qrw
 			bool deleteonstop;
 
 			STATES status;
-			float totalElapsedTime;
+			float totalelapsedtime;
 	};
 }
 #endif
