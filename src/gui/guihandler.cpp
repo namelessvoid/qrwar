@@ -5,6 +5,7 @@
 #include "gui/startgamewindow.hpp"
 #include "gui/ingamewindow.hpp"
 #include "gui/cursor.hpp"
+#include "gui/animation.hpp"
 
 namespace qrw
 {
@@ -46,6 +47,7 @@ namespace qrw
 		rendertarget.draw(*boardwidget);
 		rendertarget.draw(*(sf::Drawable*)ingamewindow);
 		rendertarget.draw(*(sf::Drawable*)deploywindow);
+		Animation::renderAll(rendertarget, clock.restart());
 		sfgui.Display((sf::RenderWindow&)rendertarget);
 	}
 

@@ -1,6 +1,7 @@
 #ifndef QRW_GUIHANDLER_HPP
 #define QRW_GUIHANDLER_HPP
 
+#include <SFML/System/Clock.hpp>
 #include <SFGUI/SFGUI.hpp>
 #include <SFGUI/Desktop.hpp>
 #include <SFGUI/Window.hpp>
@@ -59,6 +60,8 @@ namespace qrw
 		private:
 			qrw::Engine* engine;
 			BoardWidget* boardwidget;
+
+			sf::Clock clock;
 
 			sf::Window* renderwindow;
 

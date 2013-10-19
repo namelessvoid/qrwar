@@ -51,6 +51,8 @@ set(GUI_SOURCE
 	src/gui/radiotogglebutton.cpp
 	src/gui/deploywindow.cpp
 	src/gui/window.cpp
+	src/gui/animation.cpp
+	src/gui/damagenumber.cpp
 )
 
 include_directories(
