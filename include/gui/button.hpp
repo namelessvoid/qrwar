@@ -21,7 +21,7 @@ namespace qrw
 				ES_HOVER
 			};
 
-			Button(sf::Window* window, std::string text = "",
+			Button(sf::Window* window, float width, float height, std::string text = "",
 				const sf::Texture* textureactive = NULL,
 				const sf::Texture* textureinainactive = NULL,
 				const sf::Texture* texutrehover = NULL);
@@ -42,14 +42,19 @@ namespace qrw
 
 			// void draw(sf::RenderTarget& target,
 			// 	sf::RenderStates states = sf::RenderStates::Default) const;
-			void handleEvent(const sf::Event& event);
 			void updateSprite();
 
 		protected:
 			sf::Text* text;
 
 
-		private:
+			private:
+			// Slots
+			void leftMousebuttonPressedSlot();
+			void mouseEnteredSlot();
+			void clickedSlot();
+			void mouseLeftSlot();
+
 			STATES state;
 			sf::Font* defaultfont;
 

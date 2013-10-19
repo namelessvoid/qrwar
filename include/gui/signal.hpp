@@ -13,6 +13,7 @@ namespace qrw
 			~Signal();
 
 			void connect(std::function<void()> function);
+			void disconnectAll();
 			void emit();
 
 		private:

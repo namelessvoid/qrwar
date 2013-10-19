@@ -16,17 +16,19 @@ namespace qrw
 		  renderwindow(renderwindow)
 	{
 		// Set up objects that need reference on board instance.
-		boardrenderer.setBoard(engine->getBoard());
+		// TODO: dynamic size
 		Cursor::getCursor()->setBoard(engine->getBoard());
 		ingamewindow = new IngameWindow(engine, this);
 		ingamewindow->setVisible(false);
 		deploywindow = new DeployWindow(engine, this, ingamewindow);
 		deploywindow->setVisible(false);
+		boardwidget = new BoardWidget(this, engine, 620, 600);
+		boardwidget->setBoard(engine->getBoard());
 
 		windows[MAINWINDOW] = MainWindow::Create(this);
 		windows[STARTGAMEWINDOW] = StartGameWindow::Create(engine, ingamewindow,
-			deploywindow, &boardrenderer, this);
-		windows[LOADGANEWINDO] = sfg::Window::Create();
+			deploywindow, boardwidget, this);
+		windows[LOADGAMEWINDOW] = sfg::Window::Create();
 		windows[SETTINGSWINDOW] = sfg::Window::Create();
 		windows[CREDITSWINDOW] = sfg::Window::Create();
 
@@ -36,11 +38,12 @@ namespace qrw
 
 	GuiHandler::~GuiHandler()
 	{
+		// TODO: delete all member variables!
 	}
 
 	void GuiHandler::display(sf::RenderTarget& rendertarget)
 	{
-		rendertarget.draw(boardrenderer);
+		rendertarget.draw(*boardwidget);
 		rendertarget.draw(*(sf::Drawable*)ingamewindow);
 		rendertarget.draw(*(sf::Drawable*)deploywindow);
 		sfgui.Display((sf::RenderWindow&)rendertarget);
@@ -79,6 +82,16 @@ namespace qrw
 		return windows[id];
 	}
 
+	DeployWindow* GuiHandler::getDeployWindow()
+	{
+		return deploywindow;
+	}
+
+	IngameWindow* GuiHandler::getIngameWindow()
+	{
+		return ingamewindow;
+	}
+
 	void GuiHandler::HandleEvent(const sf::Event& event)
 	{
 		// Toggle gui
@@ -95,45 +108,7 @@ namespace qrw
 		{
 			ingamewindow->handleEvent(event);
 			deploywindow->handleEvent(event);
-			if(event.type == sf::Event::KeyPressed)
-			{
-				qrw::Cursor* cursor = qrw::Cursor::getCursor();
-				qrw::Cursor* childcursor = cursor->getChild();
-
-				if(event.key.code == sf::Keyboard::Up)
-					cursor->move(0, -1);
-				else if(event.key.code == sf::Keyboard::Down)
-					cursor->move(0, 1);
-				else if(event.key.code == sf::Keyboard::Right)
-					cursor->move(1, 0);
-				else if(event.key.code == sf::Keyboard::Left)
-					cursor->move(-1, 0);
-				else if(event.key.code == sf::Keyboard::Escape)
-					cursor->despawnChild();
-				else if(event.key.code == sf::Keyboard::Return)
-				{
-					if(engine->getStatus() == EES_PREPARE)
-					{
-						// placeunitwindow->placeUnitAtCursor();
-					}
-					else if(childcursor == 0)
-					{
-						cursor->spawnChild();
-					}
-					else if(childcursor != 0)
-					{
-						// Move a unit
-						int moveresult = engine->moveUnitIngame(cursor->getPosition().x, cursor->getPosition().y,
-							childcursor->getPosition().x, childcursor->getPosition().y);
-						printf("moveresult: %i\n", moveresult);
-						if(moveresult == 0)
-						{
-							cursor->setPosition(childcursor->getPosition());
-							cursor->despawnChild();
-						}
-					}
-				}
-			}
+			boardwidget->handleEvent(event);
 		}
 		ingamewindow->update();
 	}

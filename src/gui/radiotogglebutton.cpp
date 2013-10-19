@@ -4,30 +4,26 @@
 
 namespace qrw
 {
-	RadioToggleButton::RadioToggleButton(sf::Window* window,
-		ButtonGroup* buttongroup, std::string text, const sf::Texture* textureactive,
+	RadioToggleButton::RadioToggleButton(sf::Window* window, ButtonGroup* buttongroup,
+		float width, float height,
+		std::string text, const sf::Texture* textureactive,
 		const sf::Texture* textureinainactive,
 		const sf::Texture* texturehover)
-	: Button(window, text, textureactive, textureinainactive, texturehover),
+	: Button(window, width, height, text, textureactive, textureinainactive, texturehover),
 	  buttongroup(buttongroup)
 	{
-		this->buttongroup->addButton(this);
+		buttongroup->addButton(this);
+		disconnectAllSignals();
+		signalclicked.connect(std::bind(&RadioToggleButton::clickedSlot, this));
 	}
 
 	RadioToggleButton::~RadioToggleButton()
 	{
 	}
 
-	void RadioToggleButton::handleEvent(const sf::Event& event)
+	void RadioToggleButton::clickedSlot()
 	{
-		if(hasMouseFocus() == false)
-			return;
-
-		if(event.type == sf::Event::MouseButtonPressed
-			&& event.mouseButton.button == sf::Mouse::Left)
-		{
-			buttongroup->activateButton(this);
-		}
+		buttongroup->activateButton(this);
 		updateSprite();
 	}
 

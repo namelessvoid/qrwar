@@ -7,7 +7,7 @@
 
 #include "engine/engine.hpp"
 #include "gui/ingamewindow.hpp"
-#include "gui/boardrenderer.hpp"
+#include "gui/boardwidget.hpp"
 #include "gui/deploywindow.hpp"
 
 namespace qrw
@@ -19,7 +19,7 @@ namespace qrw
 	{
 		MAINWINDOW = 0,
 		STARTGAMEWINDOW,
-		LOADGANEWINDO,
+		LOADGAMEWINDOW,
 		SETTINGSWINDOW,
 		CREDITSWINDOW,
 		// This one is just used to now the
@@ -37,7 +37,7 @@ namespace qrw
 			~GuiHandler();
 
 			sf::Window* getRenderWindow();
-			
+
 			void display(sf::RenderTarget& rendertarget);
 
 			inline bool guiVisible() { return visible; };
@@ -51,15 +51,17 @@ namespace qrw
 			void showStartGameWindow();
 
 			sfg::Window::Ptr getWindowById(int id);
+			DeployWindow* getDeployWindow();
+			IngameWindow* getIngameWindow();
 
 			void HandleEvent(const sf::Event& event);
 
 		private:
 			qrw::Engine* engine;
-			BoardRenderer boardrenderer;
+			BoardWidget* boardwidget;
 
 			sf::Window* renderwindow;
-			
+
 			sfg::Window::Ptr windows[NUMEROFWINDOWS];
 			bool visiblestats[NUMEROFWINDOWS];
 			DeployWindow* deploywindow;

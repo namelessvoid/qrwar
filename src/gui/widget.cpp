@@ -3,14 +3,26 @@
 #include <SFML/Window/Mouse.hpp>
 
 #include <iostream>
+#include <stdio.h>
 
 namespace qrw
 {
-    Widget::Widget(sf::Window* window)
+    Widget::Widget(sf::Window* window, float width, float height)
         : mouseFocus(false),
-          leftMouseButtonPressRegistered(false)
+          visible(true),
+          leftMouseButtonPressRegistered(false),
+          rightMouseButtonPressRegistered(false)
     {
         this->window = window;
+
+        // Set size
+        size.x = width;
+        size.y = height;
+    }
+
+    Widget::Widget(sf::Window* window, sf::Vector2f size)
+    {
+        Widget(window, size.x, size.y);
     }
 
     Widget::~Widget()
@@ -20,6 +32,8 @@ namespace qrw
     bool Widget::hasMouseFocus()
 	{
 		sf::FloatRect bounds = getGlobalBounds();
+        bounds.width = size.x;
+        bounds.height = size.y;
 
 		sf::Vector2f mousepos;
 		mousepos.x = (float)sf::Mouse::getPosition(*window).x;
@@ -28,8 +42,19 @@ namespace qrw
 		return bounds.contains(mousepos);
 	}
 
+    void Widget::setVisible(bool visibility)
+    {
+        visible = visibility;
+    }
+
     void Widget::handleEvent(const sf::Event& event)
     {
+        // A widget that is not visible cannot handle any event
+        if(!visible)
+            return;
+
+        // printf("widget dim: x=%f / y=%f; w=%f / h=%f\n", getGlobalBounds().left, getGlobalBounds().top, size.x, size.y);
+
         // Handle mouse move evets
         if(event.type == sf::Event::MouseMoved)
         {
@@ -74,8 +99,13 @@ namespace qrw
                     std::cout << "Mouse button on widget pressed.\n";
                     return;
                 }
+                else if(event.mouseButton.button == sf::Mouse::Right)
+                {
+                    rightMouseButtonPressRegistered = true;
+                    return;
+                }
             }
-        }
+        } // else if(MouseButtonPressed)
         else if(event.type == sf::Event::MouseButtonReleased)
         {
             if(mouseFocus)
@@ -87,8 +117,37 @@ namespace qrw
                     std::cout << "Widget was clicked.\n";
                     return;
                 }
-            }
-        } // else(MouseButtonEvent)
+                else if(event.mouseButton.button == sf::Mouse::Right)
+                {
+                    signalrightclicked.emit();
+                    std::cout << "Widget was right clicked.\n";
+                    return;
+                }
 
+            }
+        } // else(MouseButtonReleased)
+        else if(event.type == sf::Event::KeyPressed)
+        {
+            // TODO: check for keyboard focus.
+            signalkeypressed.emit(event);
+        }
+    }
+
+    void Widget::disconnectAllSignals()
+    {
+        this->signalclicked.disconnectAll();
+        this->signalleftmousebuttonpressed.disconnectAll();
+        this->signalmouseleft.disconnectAll();
+        this->signalmouseentered.disconnectAll();
+    }
+
+    void Widget::setSize(sf::Vector2f size)
+    {
+        this->size = size;
+    }
+
+    sf::Vector2f Widget::getSize() const
+    {
+        return size;
     }
 }

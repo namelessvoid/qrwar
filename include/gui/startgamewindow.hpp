@@ -19,12 +19,12 @@ namespace qrw
 
 			static Ptr Create(Engine* engine, IngameWindow* ingamewindow,
 				DeployWindow* deploywindow,
-				BoardRenderer* boardrenderer, GuiHandler* guihandler);
+				BoardWidget* boardwidget, GuiHandler* guihandler);
 
 		protected:
 			StartGameWindow(Engine* engine, IngameWindow* ingamewindow,
 				DeployWindow* deploywindow,
-				BoardRenderer* boardrenderer, GuiHandler* guihandler,
+				BoardWidget* boardwidget, GuiHandler* guihandler,
 				int style = BACKGROUND);
 
 		private:
@@ -34,7 +34,7 @@ namespace qrw
 			GuiHandler* guihandler;
 			IngameWindow* ingamewindow;
 			DeployWindow* deploywindow;
-			BoardRenderer* boardrenderer;
+			BoardWidget* boardwidget;
 	};
 }
 

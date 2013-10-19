@@ -21,7 +21,7 @@ if(TINYXML2_FOUND)
 	set(LIBS ${LIBS} ${TINYXML2_LIBRARIES})
 endif(TINYXML2_FOUND)
 
-SET(CMAKE_CXX_FLAGS "-std=c++11")
+SET(CMAKE_CXX_FLAGS "-std=c++11 -g")
 
 set(COMMON_SOURCE
 	src/engine/engine.cpp
@@ -46,10 +46,11 @@ set(GUI_SOURCE
 	src/gui/mainwindow.cpp
 	src/gui/startgamewindow.cpp
 	src/gui/ingamewindow.cpp
-	src/gui/boardrenderer.cpp
+	src/gui/boardwidget.cpp
 	src/gui/cursor.cpp
 	src/gui/radiotogglebutton.cpp
 	src/gui/deploywindow.cpp
+	src/gui/window.cpp
 )
 
 include_directories(

@@ -8,32 +8,35 @@
 
 namespace qrw
 {
-	DeployWindow::DeployWindow(Engine* engine, GuiHandler* guihandler,
-		IngameWindow* ingamewindow)
-	: visible(false),
-	  engine(engine),
+	DeployWindow::DeployWindow(Engine* engine, GuiHandler* guihandler, IngameWindow* ingamewindow)
+	: engine(engine),
 	  ingamewindow(ingamewindow),
 	  buttongroup(new ButtonGroup()),
-	  startbutton(new Button(guihandler->getRenderWindow())),
+	  // TODO dynamic size
+	  startbutton(new Button(guihandler->getRenderWindow(), 150.0, 40.0)),
 	  defaultfont(new sf::Font()),
 	  title(new sf::Text())
 	{
 		defaultfont->loadFromFile("./res/font/Knigqst.ttf");
 		title->setFont(*defaultfont);
 		title->setString("Deployment");
+		// TODO dynamic positioning
 		title->setPosition(630, 0);
 
 		TextureManager* texturemgr = TextureManager::getInstance();
 		for(int i = 0; i < BUTTONCOUNT; ++i)
 		{
-			radiobuttons[i] = new RadioToggleButton(
-				guihandler->getRenderWindow(), buttongroup);
+			// TODO dynamic size
+			radiobuttons[i] = new RadioToggleButton(guihandler->getRenderWindow(), buttongroup, 120.0, 50.0);
 			radiobuttons[i]->setScale(1.5, 1.5);
 
 			// Set positions
+			// TODO dynamic positioning
 			float x = 650;
 			float y = 35 + i * 50;
 			radiobuttons[i]->setPosition(x, y);
+
+			addWidget(radiobuttons[i]);
 		}
 		radiobuttons[0]->setTextures(texturemgr->getTexture("p1swordman"),
 			texturemgr->getTexture("p1swordman"),
@@ -72,6 +75,7 @@ namespace qrw
 		startbutton->setPosition(sf::Vector2f(650, 560));
 		startbutton->signalclicked.connect(
 			std::bind(&DeployWindow::startbuttonClicked, this));
+		addWidget(startbutton);
 	}
 
 	DeployWindow::~DeployWindow()
@@ -79,27 +83,6 @@ namespace qrw
 		delete startbutton;
 		delete defaultfont;
 		delete title;
-	}
-
-	void DeployWindow::setVisible(bool visible)
-	{
-		this->visible = visible;
-		for(int i = 0; i < BUTTONCOUNT; ++i)
-			radiobuttons[i]->updateSprite();
-		startbutton->updateSprite();
-	}
-
-	void DeployWindow::draw(sf::RenderTarget& target,
-		sf::RenderStates states) const
-	{
-		if(visible == false)
-			return;
-
-		for(int i = 0; i < BUTTONCOUNT; ++i)
-			radiobuttons[i]->draw(target);
-
-		target.draw(*title);
-		target.draw(*startbutton);
 	}
 
 	void DeployWindow::update()
@@ -122,42 +105,6 @@ namespace qrw
 		{
 			this->playerunits[i] = playerunits[i];
 		}
-	}
-
-	void DeployWindow::handleEvent(const sf::Event& event)
-	{
-		if(visible == false)
-			return;
-
-		if(event.type == sf::Event::KeyPressed)
-		{
-			if(event.key.code == sf::Keyboard::Return)
-			{
-				Cursor* cursor = Cursor::getCursor();
-
-				// Check if a new unit is placed or a unit is moved.
-				// A unit is moved if cursor has a child (to point to destination)
-				// or there is a unit under cursor.
-				Square* cursorsquare = engine->getBoard()->getSquare(cursor->getPosition().x,
-						cursor->getPosition().y);
-				if (cursor->getChild() != NULL)
-				{
-					moveUnit();
-				}
-				else if(cursorsquare->getUnit() != NULL)
-				{
-					cursor->spawnChild();
-				}
-				else
-				{
-					placeEntity();
-				}
-			}
-			return;
-		}
-		for(int i = 0; i < BUTTONCOUNT; ++i)
-			radiobuttons[i]->handleEvent(event);
-		startbutton->handleEvent(event);
 	}
 
 	void DeployWindow::startbuttonClicked()
