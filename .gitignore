@@ -3,6 +3,7 @@ CMakeFiles/
 Makefile
 bin/
 cmake_install.cmake
+doc/
 draft/
 *.sublime-project
 *.sublime-workspace
@@ -11,3 +12,4 @@ draft/
 README.html
 *.cbp
 qrwar.layout
+obj/
