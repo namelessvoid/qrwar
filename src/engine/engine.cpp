@@ -87,10 +87,10 @@ namespace qrw
 
 	/**
 	 * @Return: 0 - success, -1 - wrong player, -2 origin empty,
-	 *			-3 on destination is unit of same player, -4 or out of range,
+	 *			-3 on destination is unit of same player, -4 origin out of range,
 	 *			-5 dest out of ranage, -6 not enough movement,
 	 *			-7 game not running, -8 unit on origin died, -9 enemy unit
-	 *			was not defeated, -10 enemy out of range
+	 *			was not defeated, -10 enemy out of range, -11 defender died
 	 */
 	int Engine::moveUnitIngame(int orx, int ory, int destx, int desty)
 	{
@@ -151,13 +151,24 @@ namespace qrw
 
 			srcunit->attack(destunit, attackmods, defensemods);
 			srcunit->setCurrentMovement(0);
+			// Attacker died
 			if(srcunit->getHP() == 0)
 			{
 				orsquare->setUnit(0);
 				return -8;
 			}
-			if(destunit->getHP() > 0)
+			// No one died
+			else if(destunit->getHP() > 0)
+			{
 				return -9;
+			}
+			// Defender died
+			else
+			{
+				orsquare->setUnit(0);
+				destsquare->setUnit(srcunit);
+				return -11;
+			}
 		}
 
 		srcunit->setCurrentMovement(srcunit->getCurrentMovement() - distance);
