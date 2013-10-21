@@ -87,7 +87,7 @@ namespace qrw
 
 	/**
 	 * @Return: 0 - success, -1 - wrong player, -2 origin empty,
-	 *			-3 on destination is unit of same player, -4 or out of range,
+	 *			-3 on destination is unit of same player, -4 origin out of range,
 	 *			-5 dest out of ranage, -6 not enough movement,
 	 *			-7 game not running, -8 unit on origin died, -9 enemy unit
 	 *			was not defeated, -10 enemy out of range
