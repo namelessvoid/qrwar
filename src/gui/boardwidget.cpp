@@ -173,10 +173,10 @@ namespace qrw
 			int moveresult = engine->moveUnitIngame(cursor->getPosition().x, cursor->getPosition().y,
 				childcursor->getPosition().x, childcursor->getPosition().y);
 			printf("moveresult: %i\n", moveresult);
-			if(moveresult == 0 || moveresult == -9 || moveresult == -8)
+			if(moveresult == 0 || moveresult == -9 || moveresult == -8 || moveresult == -11)
 			{
 				// Display damage numbers
-				if(moveresult == -9)
+				if(moveresult == -9 || moveresult == -8 || moveresult == -11)
 				{
 					DamageNumber* dm;
 					sf::Vector2f pos;
