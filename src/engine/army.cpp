@@ -10,49 +10,39 @@ namespace qrw
 	{
 	}
 
-	void Army::addUnit(Unit* unit)
+	bool Army::addUnit(Unit* unit)
 	{
 		// Unit already added?
-		for(auto iter = units.begin(); iter != units.end(); ++iter)
-			if((*iter) == unit)
-				return;
-
-		units.push_back(unit);
+		return units.add(unit);
 	}
 
-	std::vector<Unit*>& Army::getUnits()
+	int* Army::getTotalUnitCount()
 	{
-		return units;
+		return units.getTotalUnitCount();
 	}
 
-	int* Army::getUnitCount()
+	int Army::getUnitCount(UNITTYPES unittype)
 	{
-		return NULL;
+		return units.getUnitCount(unittype);
 	}
 
-	void Army::deployUnit(Unit* unit)
+	bool Army::deployUnit(Unit* unit)
 	{
-		// Was the unit already added to the army?
-		bool added = false;
-		for(auto iter = units.begin(); iter != units.end(); ++iter)
+		if(units.contains(unit) && !deployedunits.contains(unit))
 		{
-			if((*iter) == unit)
-			{
-				added = true;
-				break;
-			}
+			deployedunits.add(unit);
+			return true;
 		}
-		if(added)
-			deployedunits.push_back(unit);
+		return false;
 	}
 
-	int* Army::getDeployedUnitCount()
+	int* Army::getTotalDeployedUnitCount()
 	{
-		return NULL;
+		return deployedunits.getTotalUnitCount();
 	}
 
-	std::vector<Unit*>& Army::getDeployedUnits()
+	int Army::getDeployedUnitCount(UNITTYPES unittype)
 	{
-		return deployedunits;
+		return deployedunits.getUnitCount(unittype);
 	}
 }

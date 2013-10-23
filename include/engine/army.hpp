@@ -4,6 +4,7 @@
 #include <vector>
 
 #include "engine/unit.hpp"
+#include "engine/unitsmap.hpp"
 
 namespace qrw
 {
@@ -25,15 +26,9 @@ namespace qrw
 			 *
 			 * Adds a new unit to the army (not deployed).
 			 * @param unit Pointer to unit that is added.
+			 * @return True if units was successfully added, false otherwise.
 			 */
-			void addUnit(Unit* unit);
-
-			/**
-			 * @brief Get vector of units of the army.
-			 *
-			 * @return Reference to the Army::units vector.
-			 */
-			std::vector<Unit*>& getUnits();
+			bool addUnit(Unit* unit);
 
 			/**
 			 * @brief Get the number of units in this army separated by UNITTYPES.
@@ -42,8 +37,11 @@ namespace qrw
 			 * @return Integer array which holds the unit count for each UNITTYPES and has
 			 * size UNITTYPES::EUT_NUMBEROFUNITTYPES.
 			 * @see UNITTYPES
+			 * @see UnitsMap::getTotalUnitCount()
 			 */
-			int* getUnitCount();
+			int* getTotalUnitCount();
+
+			int getUnitCount(UNITTYPES unittype);
 
 			/**
 			 * @brief Marks a unit as deployed.
@@ -51,8 +49,9 @@ namespace qrw
 			 * This method is called if a unit is deployed. It saves the deployment state so it can be retrieved later.
 			 * @param unit Pointer to the unit that is deployed. The unit has to be added via addUnit() first or deployUnit()
 			 * does nothing.
+			 * @return True if unit could be marked as deployed, false otherwise.
 			 */
-			void deployUnit(Unit* unit);
+			bool deployUnit(Unit* unit);
 
 			/**
 			 * @brief Get the number of deployed units
@@ -61,16 +60,11 @@ namespace qrw
 			 * @return Like getUnitCount() it also returns an array which holds the count of already deployed units per
 			 * unit type. The array has size UNITTYPES::EUT_NUMBEROFUNITTYPES.
 			 * @see UNITTYPES
+			 * @see UnitsMap::getTotalUnitCount()
 			 */
-			int* getDeployedUnitCount();
+			int* getTotalDeployedUnitCount();
 
-			/**
-			 * @brief get vector of deployed units.
-			 *
-			 * Similar to getUnits() but returns a vector of already deployed units.
-			 * @return Reference to the Army::deployedunits vector.
-			 */
-			std::vector<Unit*>& getDeployedUnits();
+			int getDeployedUnitCount(UNITTYPES unittype);
 
 		private:
 			/**
@@ -78,7 +72,7 @@ namespace qrw
 			 *
 			 * Contains a pointer to all units of which the army consists.
 			 */
-			std::vector<Unit*> units;
+			UnitsMap units;
 
 			/**
 			 * @brief Already deployed units.
@@ -87,7 +81,7 @@ namespace qrw
 			 * If all units have been deployed, it contains the same pointers as
 			 * the Army::units vector.
 			 */
-			std::vector<Unit*> deployedunits;
+			UnitsMap deployedunits;
 	};
 }
 
