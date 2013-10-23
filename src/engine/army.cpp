@@ -22,6 +22,11 @@ namespace qrw
 		deployedunits.deleteUnits();
 	}
 
+	std::set<Unit*>* Army::getUnitsByType(UNITTYPES unittype)
+	{
+		units.getUnitsByType(unittype);
+	}
+
 	int* Army::getTotalUnitCount()
 	{
 		return units.getTotalUnitCount();
