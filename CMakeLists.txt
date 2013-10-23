@@ -29,6 +29,8 @@ set(COMMON_SOURCE
 	src/engine/square.cpp
 	src/engine/terrain.cpp
 	src/engine/unit.cpp
+	src/engine/unitsmap.cpp
+	src/engine/army.cpp
 	src/engine/player.cpp
 	src/gui/texturemanager.cpp
 	src/gui/buttongroup.cpp
