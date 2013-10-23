@@ -29,6 +29,7 @@ namespace qrw
 
 			bool add(Unit* unit);
 			bool remove(Unit* unit);
+			void clear();
 			bool contains(Unit* unit);
 
 			/**

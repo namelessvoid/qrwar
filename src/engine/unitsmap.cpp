@@ -31,6 +31,12 @@ namespace qrw
 		return false;
 	}
 
+	void UnitsMap::clear()
+	{
+		for(int i = 0; i < EUT_NUMBEROFUNITTYPES; ++i)
+			units[(UNITTYPES)i]->clear();
+	}
+
 	bool UnitsMap::contains(Unit *unit)
 	{
 		// explanation: find(unit) != set::end
