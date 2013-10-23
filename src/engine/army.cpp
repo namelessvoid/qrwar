@@ -16,10 +16,10 @@ namespace qrw
 		return units.add(unit);
 	}
 
-	void Army::clear()
+	void Army::deleteAllUnits()
 	{
-		units.clear();
-		deployedunits.clear();
+		units.deleteUnits();
+		deployedunits.deleteUnits();
 	}
 
 	int* Army::getTotalUnitCount()

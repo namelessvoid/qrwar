@@ -30,7 +30,7 @@ namespace qrw
 			 */
 			bool addUnit(Unit* unit);
 
-			void clear();
+			void deleteAllUnits();
 
 			/**
 			 * @brief Get the number of units in this army separated by UNITTYPES.

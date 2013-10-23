@@ -31,10 +31,18 @@ namespace qrw
 		return false;
 	}
 
-	void UnitsMap::clear()
+	void UnitsMap::deleteUnits()
 	{
+		std::set<Unit*>* unitset;
 		for(int i = 0; i < EUT_NUMBEROFUNITTYPES; ++i)
-			units[(UNITTYPES)i]->clear();
+		{
+			unitset = units[(UNITTYPES)i];
+
+			for(auto iter = unitset->begin(); iter != unitset->end(); ++iter)
+				delete *iter;
+
+			unitset->clear();
+		}
 	}
 
 	bool UnitsMap::contains(Unit *unit)
