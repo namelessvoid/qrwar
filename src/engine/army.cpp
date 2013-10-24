@@ -12,8 +12,12 @@ namespace qrw
 
 	bool Army::addUnit(Unit* unit)
 	{
-		// Unit already added?
-		return units.add(unit);
+		if(units.add(unit))
+		{
+			undeployedunits.add(unit);
+			return true;
+		}
+		return false;
 	}
 
 	void Army::deleteAllUnits()
@@ -36,11 +40,17 @@ namespace qrw
 		return units.getUnitCount(unittype);
 	}
 
+	std::set<Unit*>& Army::getUndeployedUnitsByType(UNITTYPES unittype)
+	{
+		return (std::set<Unit*>&) undeployedunits.getUnitsByType(unittype);
+	}
+
 	bool Army::markUnitAsDeployed(Unit* unit)
 	{
-		if(units.contains(unit) && !deployedunits.contains(unit))
+		if(undeployedunits.contains(unit))
 		{
 			deployedunits.add(unit);
+			undeployedunits.remove(unit);
 			return true;
 		}
 		return false;

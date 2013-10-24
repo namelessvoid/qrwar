@@ -47,6 +47,8 @@ namespace qrw
 
 			int getUnitCount(UNITTYPES unittype);
 
+			std::set<Unit*>& getUndeployedUnitsByType(UNITTYPES unittype);
+
 			/**
 			 * @brief Marks a unit as deployed.
 			 *
@@ -77,6 +79,11 @@ namespace qrw
 			 * Contains a pointer to all units of which the army consists.
 			 */
 			UnitsMap units;
+
+			/**
+			 * @brief Units that have not been deployed yet.
+			 */
+			UnitsMap undeployedunits;
 
 			/**
 			 * @brief Already deployed units.
