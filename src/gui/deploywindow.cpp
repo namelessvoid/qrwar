@@ -104,14 +104,6 @@ namespace qrw
 		}
 	}
 
-	void DeployWindow::setPlayerUnits(int playerunits[])
-	{
-		for(int i = 0; i < 2 * EUT_NUMBEROFUNITTYPES; ++i)
-		{
-			this->playerunits[i] = playerunits[i];
-		}
-	}
-
 	void DeployWindow::startbuttonClicked()
 	{
 		if(engine->getStatus() == EES_PREPARE)
@@ -146,10 +138,6 @@ namespace qrw
 			int playerid = activebuttonid / EUT_NUMBEROFUNITTYPES;
 			Player* player = engine->getPlayer(playerid);
 			UNITTYPES unittype = (UNITTYPES)(activebuttonid % EUT_NUMBEROFUNITTYPES);
-
-			// Check if all units have been placed
-			if(player->getArmy().getUnitCount(unittype) >= playerunits[activebuttonid])
-				return;
 
 			engine->placeUnit(x, y, playerid, unittype);
 			update();
