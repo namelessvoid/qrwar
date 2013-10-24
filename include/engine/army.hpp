@@ -55,7 +55,7 @@ namespace qrw
 			 * does nothing.
 			 * @return True if unit could be marked as deployed, false otherwise.
 			 */
-			bool makrUnitAsDeployed(Unit* unit);
+			bool markUnitAsDeployed(Unit* unit);
 
 			/**
 			 * @brief Get the number of deployed units

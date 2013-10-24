@@ -19,7 +19,6 @@ namespace qrw
 	void Army::deleteAllUnits()
 	{
 		units.deleteUnits();
-		deployedunits.deleteUnits();
 	}
 
 	std::set<Unit*>* Army::getUnitsByType(UNITTYPES unittype)
