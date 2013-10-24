@@ -110,7 +110,7 @@ namespace qrw
 	void Engine::endTurn()
 	{
 		// Reset movement of current players units.
-		Army army = getCurrentPlayer().getArmy();
+		Army& army = getCurrentPlayer().getArmy();
 
 		for(int i = 0; i < EUT_NUMBEROFUNITTYPES; ++i)
 		{
