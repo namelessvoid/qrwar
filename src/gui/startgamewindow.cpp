@@ -126,8 +126,8 @@ namespace qrw
 		playerunits[EUT_ARCHER + 3] = sfg::DynamicPointerCast<sfg::SpinButton>(sfg::Widget::GetWidgetById("p2archspin"))->GetValue();
 		playerunits[EUT_SPEARMAN + 3] = sfg::DynamicPointerCast<sfg::SpinButton>(sfg::Widget::GetWidgetById("p2spearspin"))->GetValue();
 
-		engine->getPlayer(0)->clearUnits();
-		engine->getPlayer(1)->clearUnits();
+		engine->getPlayer(0)->getArmy().deleteAllUnits();
+		engine->getPlayer(1)->getArmy().deleteAllUnits();
 		boardwidget->setBoard(engine->getBoard());
 		Cursor::getCursor()->setBoard(engine->getBoard());
 		ingamewindow->update();
