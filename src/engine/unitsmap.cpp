@@ -45,6 +45,12 @@ namespace qrw
 		}
 	}
 
+	void UnitsMap::clear()
+	{
+		for(auto iter = units.begin(); iter != units.end(); ++iter)
+			iter->second->clear();
+	}
+
 	bool UnitsMap::contains(Unit *unit)
 	{
 		// explanation: find(unit) != set::end
