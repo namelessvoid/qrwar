@@ -118,21 +118,24 @@ namespace qrw
 		engine->init(width, height);
 
 		// Create unit arrays for engine.
-		int playerunits[2 * EUT_NUMBEROFUNITTYPES];
-		playerunits[EUT_SWORDMAN] = sfg::DynamicPointerCast<sfg::SpinButton>(sfg::Widget::GetWidgetById("p1swordspin"))->GetValue();
-		playerunits[EUT_ARCHER] = sfg::DynamicPointerCast<sfg::SpinButton>(sfg::Widget::GetWidgetById("p1archspin"))->GetValue();
-		playerunits[EUT_SPEARMAN] = sfg::DynamicPointerCast<sfg::SpinButton>(sfg::Widget::GetWidgetById("p1spearspin"))->GetValue();
-		playerunits[EUT_SWORDMAN + 3] = sfg::DynamicPointerCast<sfg::SpinButton>(sfg::Widget::GetWidgetById("p2swordspin"))->GetValue();
-		playerunits[EUT_ARCHER + 3] = sfg::DynamicPointerCast<sfg::SpinButton>(sfg::Widget::GetWidgetById("p2archspin"))->GetValue();
-		playerunits[EUT_SPEARMAN + 3] = sfg::DynamicPointerCast<sfg::SpinButton>(sfg::Widget::GetWidgetById("p2spearspin"))->GetValue();
+		std::map<UNITTYPES, int> unitcounts;
 
-		engine->getPlayer(0)->clearUnits();
-		engine->getPlayer(1)->clearUnits();
+		// Set unit counts for player one.
+		unitcounts[EUT_SWORDMAN] = sfg::DynamicPointerCast<sfg::SpinButton>(sfg::Widget::GetWidgetById("p1swordspin"))->GetValue();
+		unitcounts[EUT_ARCHER] = sfg::DynamicPointerCast<sfg::SpinButton>(sfg::Widget::GetWidgetById("p1archspin"))->GetValue();
+		unitcounts[EUT_SPEARMAN] = sfg::DynamicPointerCast<sfg::SpinButton>(sfg::Widget::GetWidgetById("p1spearspin"))->GetValue();
+		engine->createPlayerUnits(0, unitcounts);
+
+		// Set unit counts for player two.
+		unitcounts[EUT_SWORDMAN] = sfg::DynamicPointerCast<sfg::SpinButton>(sfg::Widget::GetWidgetById("p2swordspin"))->GetValue();
+		unitcounts[EUT_ARCHER] = sfg::DynamicPointerCast<sfg::SpinButton>(sfg::Widget::GetWidgetById("p2archspin"))->GetValue();
+		unitcounts[EUT_SPEARMAN] = sfg::DynamicPointerCast<sfg::SpinButton>(sfg::Widget::GetWidgetById("p2spearspin"))->GetValue();
+		engine->createPlayerUnits(1, unitcounts);
+
 		boardwidget->setBoard(engine->getBoard());
 		Cursor::getCursor()->setBoard(engine->getBoard());
 		ingamewindow->update();
 		ingamewindow->setVisible(false);
-		deploywindow->setPlayerUnits(playerunits);
 		deploywindow->update();
 		deploywindow->setVisible(true);
 		guihandler->toggleGui();

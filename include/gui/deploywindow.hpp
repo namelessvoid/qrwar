@@ -26,7 +26,6 @@ namespace qrw
 			~DeployWindow();
 
 			void update();
-			void setPlayerUnits(int playerunits[]);
 
 			void placeEntity();
 			void moveUnit();
@@ -44,8 +43,6 @@ namespace qrw
 			sf::Text* title;
 
 			Engine* engine;
-			// Arrays of player units
-			int playerunits[2*EUT_NUMBEROFUNITTYPES];
 	};
 }
 #endif

@@ -7,13 +7,11 @@ namespace qrw
 	Player::Player()
 	:	name("Player")
 	{
-		for(int i = 0; i < EUT_NUMBEROFUNITTYPES; ++i)
-			numberofunits[i] = 0;
 	}
 
 	Player::~Player()
 	{
-		clearUnits();
+		army.deleteAllUnits();
 	}
 
 	std::string Player::getName()
@@ -25,7 +23,7 @@ namespace qrw
 	{
 		this->name = name;
 	}
-	
+
 	int Player::getId()
 	{
 		return id;
@@ -35,34 +33,9 @@ namespace qrw
 	{
 		this->id = id;
 	}
-	std::vector<Unit*> Player::getUnits()
-	{
-		return units;
-	}
 
-	void Player::addUnit(Unit* unit)
+	Army& Player::getArmy()
 	{
-		unit->setPlayer(this);
-		units.push_back(unit);
-		++numberofunits[unit->getType()];
-	}
-
-	int* Player::getNumberOfUnits()
-	{
-		return numberofunits;
-	}
-
-	void Player::clearUnits()
-	{
-		for(int i = 0; i < EUT_NUMBEROFUNITTYPES; ++i)
-			numberofunits[i] = 0;
-
-		for(std::vector<Unit*>::iterator i = units.begin();
-			i != units.end(); ++i)
-		{
-			delete *i;
-			// units.erase(i);
-		}
-		units.clear();
+		return army;
 	}
 }

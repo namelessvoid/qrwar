@@ -23,6 +23,9 @@ namespace qrw
 		board = new Board(boardwidth, boardheight);
 		currentplayer = 0;
 		status = EES_PREPARE;
+
+		players[0].getArmy().deleteAllUnits();
+		players[1].getArmy().deleteAllUnits();
 	}
 
 	void Engine::startGame()
@@ -34,6 +37,38 @@ namespace qrw
 	ENGINSTATES Engine::getStatus()
 	{
 		return status;
+	}
+
+	void Engine::createPlayerUnits(int playerid, std::map<UNITTYPES, int> unitcounts)
+	{
+		Player* player = getPlayer(playerid);
+		UNITTYPES unittype;
+		Unit* unit;
+
+		for(auto iter = unitcounts.begin(); iter != unitcounts.end(); ++iter)
+		{
+			unittype = iter->first;
+			for(int i = 0; i < iter->second; ++i)
+			{
+				// Create new unit
+				switch(unittype)
+				{
+					case EUT_SWORDMAN:
+						unit = new Unit(EUT_SWORDMAN, 5, 2, 1, 1, 3, player);
+						break;
+
+					case EUT_ARCHER:
+						unit = new Unit(EUT_ARCHER, 5, 2, 1, 3, 2, player);
+						break;
+
+					default:
+						unit = new Unit(EUT_SPEARMAN, 5, 2, 1, 2, 2, player);
+						break;
+				}
+				// Add new unit to army
+				player->getArmy().addUnit(unit);
+			}
+		}
 	}
 
 	// bool Engine::setUnits(int playeroneunits[EUT_NUMBEROFUNITTYPES],
@@ -75,14 +110,17 @@ namespace qrw
 	void Engine::endTurn()
 	{
 		// Reset movement of current players units.
-		std::vector<Unit*> playerunits = getCurrentPlayer().getUnits();
-		for(std::vector<Unit*>::iterator it = playerunits.begin();
-			it != playerunits.end(); ++it)
+		Army& army = getCurrentPlayer().getArmy();
+
+		for(int i = 0; i < EUT_NUMBEROFUNITTYPES; ++i)
 		{
-			(*it)->setCurrentMovement((*it)->getMovement());
+			std::set<Unit*>& unitset = army.getUnitsByType((UNITTYPES)i);
+
+			for(auto iter = unitset.begin(); iter != unitset.end(); ++iter)
+				(*iter)->setCurrentMovement((*iter)->getMovement());
 		}
+
 		currentplayer = (currentplayer + 1) % 2;
-		// return getCurrentPlayer();
 	}
 
 	/**
@@ -206,19 +244,14 @@ namespace qrw
 			return false;
 
 		Player* player = getPlayer(playerid);
-		Unit* unit;
-		switch(unittype)
+		Unit* unit = *(player->getArmy().getUndeployedUnitsByType(unittype).begin());
+		if(unit)
 		{
-			case EUT_SWORDMAN:  unit = new Unit(EUT_SWORDMAN, 5, 2, 1, 1, 3, player);
-								break;
-			case EUT_ARCHER:	unit = new Unit(EUT_ARCHER, 5, 2, 1, 3, 2, player);
-								break;
-			default:			unit = new Unit(EUT_SPEARMAN, 5, 2, 1, 2, 2, player);
-								break;
+			player->getArmy().markUnitAsDeployed(unit);
+			square->setUnit(unit);
+			return true;
 		}
-		player->addUnit(unit);
-		square->setUnit(unit);
-		return true;
+		return false;
 	}
 
 	bool Engine::placeTerrain(int x, int y, TERRAINTYPES terraintype)

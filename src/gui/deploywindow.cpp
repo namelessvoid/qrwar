@@ -89,21 +89,18 @@ namespace qrw
 	{
 		// Set player info text
 		std::string text;
-		for(int i = 0; i < 2 * EUT_NUMBEROFUNITTYPES; ++i)
-		{
-			text = "(" + intToString(
-				engine->getPlayer(i / EUT_NUMBEROFUNITTYPES)
-				->getNumberOfUnits()[i % EUT_NUMBEROFUNITTYPES])
-			+ " / " + intToString(playerunits[i]) + ")";
-			radiobuttons[i]->setText(text);
-		}
-	}
+		Player* player = NULL;
 
-	void DeployWindow::setPlayerUnits(int playerunits[])
-	{
-		for(int i = 0; i < 2 * EUT_NUMBEROFUNITTYPES; ++i)
+		for(int i = 0; i < 2; ++i)
 		{
-			this->playerunits[i] = playerunits[i];
+			player = engine->getPlayer(i);
+
+			for(int j = 0; j < EUT_NUMBEROFUNITTYPES; ++j)
+			{
+				text = "(" + intToString(player->getArmy().getDeployedUnitCount((UNITTYPES)j))
+					+ " / " + intToString(player->getArmy().getUnitCount((UNITTYPES)j)) + ")";
+				radiobuttons[j + i * EUT_NUMBEROFUNITTYPES]->setText(text);
+			}
 		}
 	}
 
@@ -141,10 +138,6 @@ namespace qrw
 			int playerid = activebuttonid / EUT_NUMBEROFUNITTYPES;
 			Player* player = engine->getPlayer(playerid);
 			UNITTYPES unittype = (UNITTYPES)(activebuttonid % EUT_NUMBEROFUNITTYPES);
-
-			// Check if all units have been placed
-			if(player->getNumberOfUnits()[unittype] >= playerunits[activebuttonid])
-				return;
 
 			engine->placeUnit(x, y, playerid, unittype);
 			update();

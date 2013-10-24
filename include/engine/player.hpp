@@ -5,6 +5,7 @@
 #include <string>
 
 #include "engine/unit.hpp"
+#include "engine/army.hpp"
 
 namespace qrw
 {
@@ -19,19 +20,13 @@ namespace qrw
 			int getId();
 			void setId(int id);
 
-			/**
-			 * @Return A copy of the list of the units of the player.
-			 */
-			std::vector<Unit*> getUnits();
-			void addUnit(Unit* unit);
-			int* getNumberOfUnits();
-			void clearUnits();
+			Army& getArmy();
 
 		private:
 			std::string name;
 			int id;
-			std::vector<Unit*> units;
-			int numberofunits[EUT_NUMBEROFUNITTYPES];
+
+			Army army;
 	};
 }
 

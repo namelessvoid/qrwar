@@ -1,6 +1,8 @@
 #ifndef QRW_ENGINE_HPP
 #define QRW_ENGINE_HPP
 
+#include <map>
+
 #include "engine/board.hpp"
 #include "engine/player.hpp"
 
@@ -26,8 +28,7 @@ namespace qrw
 
 			ENGINSTATES getStatus();
 
-			// bool setUnits(int playeornoeunits[EUT_NUMBEROFUNITTYPES],
-			// 	int playertwounits[EUT_NUMBEROFUNITTYPES]);
+			void createPlayerUnits(int playerid, std::map<UNITTYPES, int> unitcounts);
 
 			Player& getCurrentPlayer();
 			void endTurn();
