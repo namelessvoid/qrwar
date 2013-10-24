@@ -37,7 +37,7 @@ namespace qrw
 		return units.getUnitCount(unittype);
 	}
 
-	bool Army::deployUnit(Unit* unit)
+	bool Army::markUnitAsDeployed(Unit* unit)
 	{
 		if(units.contains(unit) && !deployedunits.contains(unit))
 		{
