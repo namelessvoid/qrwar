@@ -23,6 +23,9 @@ namespace qrw
 		board = new Board(boardwidth, boardheight);
 		currentplayer = 0;
 		status = EES_PREPARE;
+
+		players[0].getArmy().deleteAllUnits();
+		players[1].getArmy().deleteAllUnits();
 	}
 
 	void Engine::startGame()
