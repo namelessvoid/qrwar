@@ -50,6 +50,7 @@ namespace qrw
 			unittype = iter->first;
 			for(int i = 0; i < iter->second; ++i)
 			{
+				// Create new unit
 				switch(unittype)
 				{
 					case EUT_SWORDMAN:
@@ -64,6 +65,8 @@ namespace qrw
 						unit = new Unit(EUT_SPEARMAN, 5, 2, 1, 2, 2, player);
 						break;
 				}
+				// Add new unit to army
+				player->getArmy().addUnit(unit);
 			}
 		}
 	}
