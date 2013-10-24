@@ -124,13 +124,13 @@ namespace qrw
 		unitcounts[EUT_SWORDMAN] = sfg::DynamicPointerCast<sfg::SpinButton>(sfg::Widget::GetWidgetById("p1swordspin"))->GetValue();
 		unitcounts[EUT_ARCHER] = sfg::DynamicPointerCast<sfg::SpinButton>(sfg::Widget::GetWidgetById("p1archspin"))->GetValue();
 		unitcounts[EUT_SPEARMAN] = sfg::DynamicPointerCast<sfg::SpinButton>(sfg::Widget::GetWidgetById("p1spearspin"))->GetValue();
-		engine->createPlayerUnits(1, unitcounts);
+		engine->createPlayerUnits(0, unitcounts);
 
 		// Set unit counts for player two.
 		unitcounts[EUT_SWORDMAN] = sfg::DynamicPointerCast<sfg::SpinButton>(sfg::Widget::GetWidgetById("p2swordspin"))->GetValue();
 		unitcounts[EUT_ARCHER] = sfg::DynamicPointerCast<sfg::SpinButton>(sfg::Widget::GetWidgetById("p2archspin"))->GetValue();
 		unitcounts[EUT_SPEARMAN] = sfg::DynamicPointerCast<sfg::SpinButton>(sfg::Widget::GetWidgetById("p2spearspin"))->GetValue();
-		engine->createPlayerUnits(2, unitcounts);
+		engine->createPlayerUnits(1, unitcounts);
 
 		boardwidget->setBoard(engine->getBoard());
 		Cursor::getCursor()->setBoard(engine->getBoard());
