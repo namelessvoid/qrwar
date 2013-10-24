@@ -32,7 +32,7 @@ namespace qrw
 
 			void deleteAllUnits();
 
-			std::set<Unit*>* getUnitsByType(UNITTYPES unittype);
+			std::set<Unit*>& getUnitsByType(UNITTYPES unittype);
 
 			/**
 			 * @brief Get the number of units in this army separated by UNITTYPES.
