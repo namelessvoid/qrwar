@@ -87,6 +87,10 @@ namespace qrw
 		unitdefensetext->setCharacterSize(30);
 		unitdefensetext->setPosition(unitsprite->getPosition().x + 90, unitsprite->getPosition().y + 64);
 
+		unitmovementtext->setFont(*defaultfont);
+		unitmovementtext->setCharacterSize(30);
+		unitmovementtext->setPosition(unitsprite->getPosition().x + 90, unitsprite->getPosition().y + 98);
+
 		terrainattacktext->setFont(*defaultfont);
 		terrainattacktext->setPosition(terrainsprite->getPosition().x + 90, terrainsprite->getPosition().y - 3);
 		terrainattacktext->setCharacterSize(30);
@@ -149,6 +153,7 @@ namespace qrw
 			healthtext->setString(intToString(unit->getHP()));
 			unitattacktext->setString(intToString(unit->getAttack()));
 			unitdefensetext->setString(intToString(unit->getDefense()));
+			unitmovementtext->setString(intToString(unit->getCurrentMovement()) + " / " + intToString(unit->getMovement()));
 			// player 0 units
 			if(unit->getPlayer() == engine->getPlayer(0))
 			{
@@ -192,6 +197,7 @@ namespace qrw
 			unitattacktext->setString("");
 			unitdefensetext->setString("");
 			healthtext->setString("");
+			unitmovementtext->setString("");
 		}
 		// Decide which terrain has to be drawn
 		Terrain* terrain = square->getTerrain();
@@ -254,10 +260,12 @@ namespace qrw
 		target.draw(*healthsprite);
 		target.draw(*attacksprite);
 		target.draw(*defensesprite);
+		target.draw(*movementsprite);
+
 		target.draw(*healthtext);
 		target.draw(*unitattacktext);
 		target.draw(*unitdefensetext);
-		target.draw(*movementsprite);
+		target.draw(*unitmovementtext);
 
 		// Draw terrain info
 		pos = terrainsprite->getPosition();
