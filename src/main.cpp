@@ -45,6 +45,7 @@ int main(int argc, char const *argv[])
 	texturemanager->loadTexture("health", "./res/img/gui/health.png");
 	texturemanager->loadTexture("attack", "./res/img/gui/attack.png");
 	texturemanager->loadTexture("defense", "./res/img/gui/defense.png");
+	texturemanager->loadTexture("movement", "./res/img/gui/movement.png");
 	texturemanager->loadTexture("startbutton", "./res/img/gui/startbutton.png");
 
 	//splash->setCloseable(true);
