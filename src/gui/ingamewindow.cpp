@@ -54,6 +54,7 @@ namespace qrw
 		healthsprite->setTexture(*texturemanager->getTexture("health"));
 		attacksprite->setTexture(*texturemanager->getTexture("attack"));
 		defensesprite->setTexture(*texturemanager->getTexture("defense"));
+		movementsprite->setTexture(*texturemanager->getTexture("movement"));
 
 		background->setPosition(621, 1);
 		background->setSize(sf::Vector2f(178, 598));
@@ -68,7 +69,7 @@ namespace qrw
 		unitsprite->setScale(sf::Vector2f(1.5, 1.5));
 
 		terrainsprite->setTexture(*texturemanager->getTexture("wood"));
-		terrainsprite->setPosition(630, 175);
+		terrainsprite->setPosition(630, 210);
 		terrainsprite->setScale(sf::Vector2f(1.5, 1.5));
 
 		plainsquare->setTexture(*texturemanager->getTexture("plainsquare"));
@@ -249,12 +250,14 @@ namespace qrw
 		healthsprite->setPosition(pos.x + 52, pos.y);
 		attacksprite->setPosition(pos.x + 52, pos.y + 35);
 		defensesprite->setPosition(pos.x + 52, pos.y + 70);
+		movementsprite->setPosition(pos.x + 52, pos.y + 105);
 		target.draw(*healthsprite);
 		target.draw(*attacksprite);
 		target.draw(*defensesprite);
 		target.draw(*healthtext);
 		target.draw(*unitattacktext);
 		target.draw(*unitdefensetext);
+		target.draw(*movementsprite);
 
 		// Draw terrain info
 		pos = terrainsprite->getPosition();
