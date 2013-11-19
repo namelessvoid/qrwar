@@ -79,17 +79,17 @@ namespace qrw
 		healthtext->setCharacterSize(30);
 		healthtext->setPosition(unitsprite->getPosition().x + 90, unitsprite->getPosition().y - 3);
 
+		unitmovementtext->setFont(*defaultfont);
+		unitmovementtext->setCharacterSize(30);
+		unitmovementtext->setPosition(unitsprite->getPosition().x + 90, unitsprite->getPosition().y + 32);
+
 		unitattacktext->setFont(*defaultfont);
 		unitattacktext->setCharacterSize(30);
-		unitattacktext->setPosition(unitsprite->getPosition().x + 90, unitsprite->getPosition().y + 32);
+		unitattacktext->setPosition(unitsprite->getPosition().x + 90, unitsprite->getPosition().y + 64);
 
 		unitdefensetext->setFont(*defaultfont);
 		unitdefensetext->setCharacterSize(30);
-		unitdefensetext->setPosition(unitsprite->getPosition().x + 90, unitsprite->getPosition().y + 64);
-
-		unitmovementtext->setFont(*defaultfont);
-		unitmovementtext->setCharacterSize(30);
-		unitmovementtext->setPosition(unitsprite->getPosition().x + 90, unitsprite->getPosition().y + 98);
+		unitdefensetext->setPosition(unitsprite->getPosition().x + 90, unitsprite->getPosition().y + 98);
 
 		terrainattacktext->setFont(*defaultfont);
 		terrainattacktext->setPosition(terrainsprite->getPosition().x + 90, terrainsprite->getPosition().y - 3);
@@ -254,9 +254,9 @@ namespace qrw
 		if(unitsprite != NULL)
 			target.draw(*unitsprite);
 		healthsprite->setPosition(pos.x + 52, pos.y);
-		attacksprite->setPosition(pos.x + 52, pos.y + 35);
-		defensesprite->setPosition(pos.x + 52, pos.y + 70);
-		movementsprite->setPosition(pos.x + 52, pos.y + 105);
+		movementsprite->setPosition(pos.x + 52, pos.y + 35);
+		attacksprite->setPosition(pos.x + 52, pos.y + 70);
+		defensesprite->setPosition(pos.x + 52, pos.y + 105);
 		target.draw(*healthsprite);
 		target.draw(*attacksprite);
 		target.draw(*defensesprite);
