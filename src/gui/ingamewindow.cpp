@@ -150,7 +150,7 @@ namespace qrw
 		if(unit != NULL)
 		{
 			// Update text
-			healthtext->setString(intToString(unit->getHP()));
+			healthtext->setString(intToString(unit->getHP()) + " / " + intToString(unit->getMaxHp()));
 			unitattacktext->setString(intToString(unit->getAttack()));
 			unitdefensetext->setString(intToString(unit->getDefense()));
 			unitmovementtext->setString(intToString(unit->getCurrentMovement()) + " / " + intToString(unit->getMovement()));
