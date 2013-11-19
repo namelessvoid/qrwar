@@ -14,6 +14,7 @@ namespace qrw
 				int range, int movement, Player* player)
 	:	type(type),
 		hp(hp),
+		maxhp(hp),
 		attackvalue(attack),
 		defensevalue(defense),
 		range(range),
@@ -54,6 +55,14 @@ namespace qrw
 	void Unit::setHP(int hp)
 	{
 		this->hp = hp;
+	}
+	int Unit::getMaxHp()
+	{
+		return maxhp;
+	}
+	void Unit::setMaxHp(int maxhp)
+	{
+		this->maxhp = maxhp;
 	}
 	int Unit::getRange()
 	{

@@ -7,7 +7,7 @@
 namespace qrw
 {
 	class Player;
-	
+
 	enum UNITTYPES
 	{
 		EUT_SWORDMAN,
@@ -31,6 +31,8 @@ namespace qrw
 			int getRange();
 			int getHP();
 			void setHP(int hp);
+			int getMaxHp();
+			void setMaxHp(int maxhp);
 			int getMovement();
 			int getCurrentMovement();
 			void setCurrentMovement(int movement);
@@ -54,6 +56,7 @@ namespace qrw
 			int attackvalue;
 			int defensevalue;
 			int hp;
+			int maxhp;
 			int range;
 			int movement;
 			int currentmovement;
