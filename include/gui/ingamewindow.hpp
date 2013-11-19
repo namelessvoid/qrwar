@@ -46,10 +46,12 @@ namespace qrw
 			sf::Sprite* healthsprite;
 			sf::Sprite* attacksprite;
 			sf::Sprite* defensesprite;
+			sf::Sprite* movementsprite;
 
 			sf::Text* healthtext;
 			sf::Text* unitattacktext;
 			sf::Text* unitdefensetext;
+			sf::Text* unitmovementtext;
 			sf::Text* terrainattacktext;
 			sf::Text* terraindefensetext;
 

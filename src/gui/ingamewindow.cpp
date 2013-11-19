@@ -29,9 +29,11 @@ namespace qrw
 	  healthsprite(new sf::Sprite()),
 	  attacksprite(new sf::Sprite()),
 	  defensesprite(new sf::Sprite()),
+	  movementsprite(new sf::Sprite()),
 	  healthtext(new sf::Text()),
 	  unitattacktext(new sf::Text()),
 	  unitdefensetext(new sf::Text()),
+	  unitmovementtext(new sf::Text()),
 	  terrainattacktext(new sf::Text()),
 	  terraindefensetext(new sf::Text())
 	{
@@ -106,9 +108,11 @@ namespace qrw
 			delete healthsprite;
 			delete attacksprite;
 			delete defensesprite;
+			delete movementsprite;
 			delete healthtext;
 			delete unitattacktext;
 			delete unitdefensetext;
+			delete unitmovementtext;
 			delete terrainattacktext;
 			delete terraindefensetext;
 	}
