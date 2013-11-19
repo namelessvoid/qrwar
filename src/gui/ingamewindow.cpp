@@ -20,20 +20,27 @@ namespace qrw
 	  // TODO: Dynamic size
 	  endturnbutton(guihandler->getRenderWindow(), 100.0, 40.0),
 	  playernamelabel(),
+
 	  unitsprite(new sf::Sprite()),
 	  terrainsprite(new sf::Sprite()),
 	  plainsquare(new sf::Sprite()),
-	  background(new sf::RectangleShape()),
-	  border(new sf::RectangleShape()),
-	  defaultfont(new sf::Font()),
+
 	  healthsprite(new sf::Sprite()),
 	  attacksprite(new sf::Sprite()),
 	  defensesprite(new sf::Sprite()),
+	  movementsprite(new sf::Sprite()),
+
+	  defaultfont(new sf::Font()),
+
 	  healthtext(new sf::Text()),
 	  unitattacktext(new sf::Text()),
 	  unitdefensetext(new sf::Text()),
+	  unitmovementtext(new sf::Text()),
 	  terrainattacktext(new sf::Text()),
-	  terraindefensetext(new sf::Text())
+	  terraindefensetext(new sf::Text()),
+
+	  background(new sf::RectangleShape()),
+	  border(new sf::RectangleShape())
 	{
 		defaultfont->loadFromFile("./res/font/Knigqst.ttf");
 		playernamelabel.setFont(*defaultfont);
@@ -42,9 +49,12 @@ namespace qrw
 		playernamelabel.setPosition(sf::Vector2f(625, 0));
 		playernamelabel.setColor(sf::Color::White);
 
-		healthsprite->setTexture(*TextureManager::getInstance()->getTexture("health"));
-		attacksprite->setTexture(*TextureManager::getInstance()->getTexture("attack"));
-		defensesprite->setTexture(*TextureManager::getInstance()->getTexture("defense"));
+		TextureManager* texturemanager = TextureManager::getInstance();
+
+		healthsprite->setTexture(*texturemanager->getTexture("health"));
+		attacksprite->setTexture(*texturemanager->getTexture("attack"));
+		defensesprite->setTexture(*texturemanager->getTexture("defense"));
+		movementsprite->setTexture(*texturemanager->getTexture("movement"));
 
 		background->setPosition(621, 1);
 		background->setSize(sf::Vector2f(178, 598));
@@ -54,15 +64,15 @@ namespace qrw
 		border->setSize(sf::Vector2f(180, 600));
 		border->setFillColor(sf::Color(50, 70, 50, 255));
 
-		unitsprite->setTexture(*TextureManager::getInstance()->getTexture("p1swordman"));
+		unitsprite->setTexture(*texturemanager->getTexture("p1swordman"));
 		unitsprite->setPosition(630, 40);
 		unitsprite->setScale(sf::Vector2f(1.5, 1.5));
 
-		terrainsprite->setTexture(*TextureManager::getInstance()->getTexture("wood"));
-		terrainsprite->setPosition(630, 175);
+		terrainsprite->setTexture(*texturemanager->getTexture("wood"));
+		terrainsprite->setPosition(630, 210);
 		terrainsprite->setScale(sf::Vector2f(1.5, 1.5));
 
-		plainsquare->setTexture(*TextureManager::getInstance()->getTexture("plainsquare"));
+		plainsquare->setTexture(*texturemanager->getTexture("plainsquare"));
 		plainsquare->setPosition(unitsprite->getPosition());
 
 		healthtext->setFont(*defaultfont);
@@ -77,6 +87,10 @@ namespace qrw
 		unitdefensetext->setCharacterSize(30);
 		unitdefensetext->setPosition(unitsprite->getPosition().x + 90, unitsprite->getPosition().y + 64);
 
+		unitmovementtext->setFont(*defaultfont);
+		unitmovementtext->setCharacterSize(30);
+		unitmovementtext->setPosition(unitsprite->getPosition().x + 90, unitsprite->getPosition().y + 98);
+
 		terrainattacktext->setFont(*defaultfont);
 		terrainattacktext->setPosition(terrainsprite->getPosition().x + 90, terrainsprite->getPosition().y - 3);
 		terrainattacktext->setCharacterSize(30);
@@ -85,11 +99,10 @@ namespace qrw
 		terraindefensetext->setPosition(terrainsprite->getPosition().x + 90, terrainsprite->getPosition().y + 32);
 		terraindefensetext->setCharacterSize(30);
 
-		TextureManager* texmgr = TextureManager::getInstance();
 		endturnbutton.setText("End turn!");
-		endturnbutton.setTextures(texmgr->getTexture("nextbutton"),
-			texmgr->getTexture("nextbutton_active"),
-			texmgr->getTexture("nextbutton_hover"));
+		endturnbutton.setTextures(texturemanager->getTexture("nextbutton"),
+			texturemanager->getTexture("nextbutton_active"),
+			texturemanager->getTexture("nextbutton_hover"));
 		endturnbutton.setPosition(sf::Vector2f(700, 560));
 		endturnbutton.setScale(sf::Vector2f(1, 1));
 		endturnbutton.signalclicked.connect(std::bind(&IngameWindow::changeplayerbuttonClicked, this));
@@ -101,16 +114,23 @@ namespace qrw
 			delete unitsprite;
 			delete terrainsprite;
 			delete plainsquare;
-			delete background;
-			delete border;
+
 			delete healthsprite;
 			delete attacksprite;
 			delete defensesprite;
+			delete movementsprite;
+
+			delete defaultfont;
+
 			delete healthtext;
 			delete unitattacktext;
 			delete unitdefensetext;
+			delete unitmovementtext;
 			delete terrainattacktext;
 			delete terraindefensetext;
+
+			delete background;
+			delete border;
 	}
 
 	void IngameWindow::update()
@@ -133,6 +153,7 @@ namespace qrw
 			healthtext->setString(intToString(unit->getHP()));
 			unitattacktext->setString(intToString(unit->getAttack()));
 			unitdefensetext->setString(intToString(unit->getDefense()));
+			unitmovementtext->setString(intToString(unit->getCurrentMovement()) + " / " + intToString(unit->getMovement()));
 			// player 0 units
 			if(unit->getPlayer() == engine->getPlayer(0))
 			{
@@ -176,6 +197,7 @@ namespace qrw
 			unitattacktext->setString("");
 			unitdefensetext->setString("");
 			healthtext->setString("");
+			unitmovementtext->setString("");
 		}
 		// Decide which terrain has to be drawn
 		Terrain* terrain = square->getTerrain();
@@ -234,12 +256,16 @@ namespace qrw
 		healthsprite->setPosition(pos.x + 52, pos.y);
 		attacksprite->setPosition(pos.x + 52, pos.y + 35);
 		defensesprite->setPosition(pos.x + 52, pos.y + 70);
+		movementsprite->setPosition(pos.x + 52, pos.y + 105);
 		target.draw(*healthsprite);
 		target.draw(*attacksprite);
 		target.draw(*defensesprite);
+		target.draw(*movementsprite);
+
 		target.draw(*healthtext);
 		target.draw(*unitattacktext);
 		target.draw(*unitdefensetext);
+		target.draw(*unitmovementtext);
 
 		// Draw terrain info
 		pos = terrainsprite->getPosition();

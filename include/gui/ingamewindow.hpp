@@ -41,15 +41,18 @@ namespace qrw
 			sf::Sprite* unitsprite;
 			sf::Sprite* terrainsprite;
 			sf::Sprite* plainsquare;
-			sf::Font* defaultfont;
 
 			sf::Sprite* healthsprite;
 			sf::Sprite* attacksprite;
 			sf::Sprite* defensesprite;
+			sf::Sprite* movementsprite;
+
+			sf::Font* defaultfont;
 
 			sf::Text* healthtext;
 			sf::Text* unitattacktext;
 			sf::Text* unitdefensetext;
+			sf::Text* unitmovementtext;
 			sf::Text* terrainattacktext;
 			sf::Text* terraindefensetext;
 
