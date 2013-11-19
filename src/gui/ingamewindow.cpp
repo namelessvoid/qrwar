@@ -20,22 +20,27 @@ namespace qrw
 	  // TODO: Dynamic size
 	  endturnbutton(guihandler->getRenderWindow(), 100.0, 40.0),
 	  playernamelabel(),
+
 	  unitsprite(new sf::Sprite()),
 	  terrainsprite(new sf::Sprite()),
 	  plainsquare(new sf::Sprite()),
-	  background(new sf::RectangleShape()),
-	  border(new sf::RectangleShape()),
-	  defaultfont(new sf::Font()),
+
 	  healthsprite(new sf::Sprite()),
 	  attacksprite(new sf::Sprite()),
 	  defensesprite(new sf::Sprite()),
 	  movementsprite(new sf::Sprite()),
+
+	  defaultfont(new sf::Font()),
+
 	  healthtext(new sf::Text()),
 	  unitattacktext(new sf::Text()),
 	  unitdefensetext(new sf::Text()),
 	  unitmovementtext(new sf::Text()),
 	  terrainattacktext(new sf::Text()),
-	  terraindefensetext(new sf::Text())
+	  terraindefensetext(new sf::Text()),
+
+	  background(new sf::RectangleShape()),
+	  border(new sf::RectangleShape())
 	{
 		defaultfont->loadFromFile("./res/font/Knigqst.ttf");
 		playernamelabel.setFont(*defaultfont);
@@ -103,18 +108,23 @@ namespace qrw
 			delete unitsprite;
 			delete terrainsprite;
 			delete plainsquare;
-			delete background;
-			delete border;
+
 			delete healthsprite;
 			delete attacksprite;
 			delete defensesprite;
 			delete movementsprite;
+
+			delete defaultfont;
+
 			delete healthtext;
 			delete unitattacktext;
 			delete unitdefensetext;
 			delete unitmovementtext;
 			delete terrainattacktext;
 			delete terraindefensetext;
+
+			delete background;
+			delete border;
 	}
 
 	void IngameWindow::update()
