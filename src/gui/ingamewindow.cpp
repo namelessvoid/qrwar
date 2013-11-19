@@ -49,9 +49,11 @@ namespace qrw
 		playernamelabel.setPosition(sf::Vector2f(625, 0));
 		playernamelabel.setColor(sf::Color::White);
 
-		healthsprite->setTexture(*TextureManager::getInstance()->getTexture("health"));
-		attacksprite->setTexture(*TextureManager::getInstance()->getTexture("attack"));
-		defensesprite->setTexture(*TextureManager::getInstance()->getTexture("defense"));
+		TextureManager* texturemanager = TextureManager::getInstance();
+
+		healthsprite->setTexture(*texturemanager->getTexture("health"));
+		attacksprite->setTexture(*texturemanager->getTexture("attack"));
+		defensesprite->setTexture(*texturemanager->getTexture("defense"));
 
 		background->setPosition(621, 1);
 		background->setSize(sf::Vector2f(178, 598));
@@ -61,15 +63,15 @@ namespace qrw
 		border->setSize(sf::Vector2f(180, 600));
 		border->setFillColor(sf::Color(50, 70, 50, 255));
 
-		unitsprite->setTexture(*TextureManager::getInstance()->getTexture("p1swordman"));
+		unitsprite->setTexture(*texturemanager->getTexture("p1swordman"));
 		unitsprite->setPosition(630, 40);
 		unitsprite->setScale(sf::Vector2f(1.5, 1.5));
 
-		terrainsprite->setTexture(*TextureManager::getInstance()->getTexture("wood"));
+		terrainsprite->setTexture(*texturemanager->getTexture("wood"));
 		terrainsprite->setPosition(630, 175);
 		terrainsprite->setScale(sf::Vector2f(1.5, 1.5));
 
-		plainsquare->setTexture(*TextureManager::getInstance()->getTexture("plainsquare"));
+		plainsquare->setTexture(*texturemanager->getTexture("plainsquare"));
 		plainsquare->setPosition(unitsprite->getPosition());
 
 		healthtext->setFont(*defaultfont);
@@ -92,11 +94,10 @@ namespace qrw
 		terraindefensetext->setPosition(terrainsprite->getPosition().x + 90, terrainsprite->getPosition().y + 32);
 		terraindefensetext->setCharacterSize(30);
 
-		TextureManager* texmgr = TextureManager::getInstance();
 		endturnbutton.setText("End turn!");
-		endturnbutton.setTextures(texmgr->getTexture("nextbutton"),
-			texmgr->getTexture("nextbutton_active"),
-			texmgr->getTexture("nextbutton_hover"));
+		endturnbutton.setTextures(texturemanager->getTexture("nextbutton"),
+			texturemanager->getTexture("nextbutton_active"),
+			texturemanager->getTexture("nextbutton_hover"));
 		endturnbutton.setPosition(sf::Vector2f(700, 560));
 		endturnbutton.setScale(sf::Vector2f(1, 1));
 		endturnbutton.signalclicked.connect(std::bind(&IngameWindow::changeplayerbuttonClicked, this));
