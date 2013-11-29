@@ -68,6 +68,10 @@ namespace qrw
 			texturemgr->getTexture("wall"),
 			texturemgr->getTexture("wall"));
 		radiobuttons[8]->setText("Tower");
+		radiobuttons[9]->setTextures(texturemgr->getTexture("plainsquare"),
+			texturemgr->getTexture("plainsquare"),
+			texturemgr->getTexture("plainsquare"));
+		radiobuttons[9]->setText("No Terrain");
 
 		startbutton->setTextures(texturemgr->getTexture("startbutton"),
 			texturemgr->getTexture("startbutton"),
@@ -132,8 +136,13 @@ namespace qrw
 		int x = cursor->getPosition().x;
 		int y = cursor->getPosition().y;
 
+		// Remove terrain
+		if(activebuttonid == 9)
+		{
+			engine->removeTerrain(x, y);
+		}
 		// Place unit
-		if(activebuttonid >= 0 && activebuttonid < 2 * EUT_NUMBEROFUNITTYPES)
+		else if(activebuttonid >= 0 && activebuttonid < 2 * EUT_NUMBEROFUNITTYPES)
 		{
 			int playerid = activebuttonid / EUT_NUMBEROFUNITTYPES;
 			Player* player = engine->getPlayer(playerid);

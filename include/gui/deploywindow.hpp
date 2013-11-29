@@ -12,7 +12,7 @@
 #include "gui/radiotogglebutton.hpp"
 #include "gui/ingamewindow.hpp"
 
-#define BUTTONCOUNT 9
+#define BUTTONCOUNT 10
 
 namespace qrw
 {
