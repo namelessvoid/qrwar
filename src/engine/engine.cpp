@@ -278,6 +278,20 @@ namespace qrw
 		return true;
 	}
 
+	bool Engine::removeTerrain(int x, int y)
+	{
+		if(status != EES_PREPARE)
+			return false;
+
+		Square* square = board->getSquare(x, y);
+		if(square == NULL)
+			return false;
+
+		if(square->getTerrain())
+			delete square->getTerrain();
+		square->setTerrain(NULL);
+	}
+
 	Player* Engine::getPlayer(int id)
 	{
 		if(id == 0 || id == 1)

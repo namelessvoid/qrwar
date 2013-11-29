@@ -68,6 +68,13 @@ namespace qrw
 			 */
 			bool placeTerrain(int x, int y, TERRAINTYPES terraintype);
 
+			/**
+			 * Remove a piece of terrain on the board.
+			 *
+			 * @return False if status != EES_PREPARE or index out of board.
+			 */
+			bool removeTerrain(int x, int y);
+
 			Player* getPlayer(int id);
 
 		private:
