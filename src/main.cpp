@@ -59,12 +59,12 @@ int main(int argc, char const *argv[])
 
 // Setup random board for test dings
 qrw::Board* board = engine.getBoard();
-qrw::Terrain terrain1(qrw::ET_WOOD, 1, 2);
-board->getSquare(0, 0)->setTerrain(&terrain1);
-qrw::Terrain terrain2(qrw::ET_HILL, 3, -1);
-board->getSquare(1, 2)->setTerrain(&terrain2);
-qrw::Terrain terrain3(qrw::ET_WALL, 2, 2);
-board->getSquare(5, 1)->setTerrain(&terrain3);
+qrw::Terrain* terrain1 = new qrw::Terrain(qrw::ET_WOOD, 1, 2);
+board->getSquare(0, 0)->setTerrain(terrain1);
+qrw::Terrain* terrain2 = new qrw::Terrain(qrw::ET_HILL, 3, -1);
+board->getSquare(1, 2)->setTerrain(terrain2);
+qrw::Terrain* terrain3 = new qrw::Terrain(qrw::ET_WALL, 2, 2);
+board->getSquare(5, 1)->setTerrain(terrain3);
 
 	sf::RenderWindow renderwindow(sf::VideoMode(windowsize.x, windowsize.y), "Quad-Ruled War", sf::Style::Default);
 	qrw::GuiHandler guihandler(&engine, &renderwindow);
