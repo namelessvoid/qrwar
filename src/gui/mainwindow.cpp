@@ -19,6 +19,7 @@ namespace qrw
 		sfg::Button::Ptr savegamebutton = sfg::Button::Create("Savegames");
 
 		sfg::Button::Ptr settingsbutton = sfg::Button::Create("Settings");
+		settingsbutton->GetSignal(sfg::Button::OnLeftClick).Connect(&GuiHandler::showSettingsWindow, guihandler);
 
 		sfg::Button::Ptr creditsbutton = sfg::Button::Create("Credits");
 

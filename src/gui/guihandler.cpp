@@ -2,6 +2,7 @@
 
 #include "gui/guihandler.hpp"
 #include "gui/mainwindow.hpp"
+#include "gui/settingswindow.hpp"
 #include "gui/startgamewindow.hpp"
 #include "gui/ingamewindow.hpp"
 #include "gui/cursor.hpp"
@@ -30,11 +31,12 @@ namespace qrw
 		windows[STARTGAMEWINDOW] = StartGameWindow::Create(engine, ingamewindow,
 			deploywindow, boardwidget, this);
 		windows[LOADGAMEWINDOW] = sfg::Window::Create();
-		windows[SETTINGSWINDOW] = sfg::Window::Create();
+		windows[SETTINGSWINDOW] = SettingsWindow::Create();
 		windows[CREDITSWINDOW] = sfg::Window::Create();
 
 		this->Add(windows[MAINWINDOW]);
 		this->Add(windows[STARTGAMEWINDOW]);
+		this->Add(windows[SETTINGSWINDOW]);
 	}
 
 	GuiHandler::~GuiHandler()
@@ -76,6 +78,12 @@ namespace qrw
 	{
 		hideAllWindows();
 		windows[STARTGAMEWINDOW]->Show(true);
+	}
+
+	void GuiHandler::showSettingsWindow()
+	{
+		hideAllWindows();
+		windows[SETTINGSWINDOW]->Show(true);
 	}
 
 	sfg::Window::Ptr GuiHandler::getWindowById(int id)

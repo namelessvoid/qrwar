@@ -54,6 +54,7 @@ namespace qrw
 			inline void doQuit() { this->quit = true; };
 
 			void showStartGameWindow();
+			void showSettingsWindow();
 
 			sfg::Window::Ptr getWindowById(int id);
 			DeployWindow* getDeployWindow();
