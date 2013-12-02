@@ -126,7 +126,8 @@ namespace qrw
 
 	void GuiHandler::hideAllWindows()
 	{
-		for(int i = 0; i < NUMEROFWINDOWS; ++i)
+		// Hide all except ID o (MainWindow)
+		for(int i = 1; i < NUMEROFWINDOWS; ++i)
 			windows[i]->Show(false);
 	}
 }

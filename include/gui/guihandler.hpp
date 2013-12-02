@@ -64,7 +64,7 @@ namespace qrw
 
 		private:
 			/**
-			 * Hide all windows without saving the their visibility status.
+			 * Hide all windows (except MainWindow) without saving the their visibility status.
 			 */
 			void hideAllWindows();
 
