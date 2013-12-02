@@ -74,6 +74,7 @@ namespace qrw
 
 	void GuiHandler::showStartGameWindow()
 	{
+		hideAllWindows();
 		windows[STARTGAMEWINDOW]->Show(true);
 	}
 
@@ -113,5 +114,11 @@ namespace qrw
 			boardwidget->handleEvent(event);
 		}
 		ingamewindow->update();
+	}
+
+	void GuiHandler::hideAllWindows()
+	{
+		for(int i = 0; i < NUMEROFWINDOWS; ++i)
+			windows[i]->Show(false);
 	}
 }
