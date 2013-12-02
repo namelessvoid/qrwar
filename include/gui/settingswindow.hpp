@@ -15,6 +15,8 @@ namespace qrw
 
 			static Ptr Create();
 
+			void hide();
+
 		protected:
 			SettingsWindow(int style = BACKGROUND);
 
