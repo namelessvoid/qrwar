@@ -63,9 +63,11 @@ namespace qrw
 		boardheightspin->SetId("boardheightspin");
 
 		sfg::Button::Ptr closebutton = sfg::Button::Create("Close");
-		closebutton->GetSignal(sfg::Button::OnLeftClick).Connect(&StartGameWindow::hide, &(*window));
+		closebutton->GetSignal(sfg::Button::OnLeftClick).Connect(
+			std::bind(&StartGameWindow::hide, window));
 		sfg::Button::Ptr startbutton = sfg::Button::Create("Start game");
-		startbutton->GetSignal(sfg::Button::OnLeftClick).Connect(&StartGameWindow::startGame, &(*window));
+		startbutton->GetSignal(sfg::Button::OnLeftClick).Connect(
+			std::bind(&StartGameWindow::startGame, window));
 
 		sfg::Table::Ptr maincontainer = sfg::Table::Create();
 		int options = sfg::Table::FILL | sfg::Table::EXPAND;
