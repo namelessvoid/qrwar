@@ -8,7 +8,8 @@ namespace qrw
 	VideoSettings::VideoSettings()
 		:	resolutionX(800),
 			resolutionY(600),
-			fullscreen(false)
+			fullscreen(false),
+			tilesetpath("res/defaulttileset.xml")
 	{
 		setParsingErrorMsg("VideoSettings parsing error: ");
 	}
@@ -47,6 +48,16 @@ namespace qrw
 		return fullscreen;
 	}
 
+	void VideoSettings::setTilesetPath(std::string tilesetpath)
+	{
+		this->tilesetpath = tilesetpath;
+	}
+
+	std::string VideoSettings::getTilesetPath()
+	{
+		return tilesetpath;
+	}
+
 	bool VideoSettings::loadFromFile(std::string filepath)
 	{
 		tinyxml2::XMLDocument doc;
@@ -56,6 +67,7 @@ namespace qrw
 
 		int intvaluestorage = 0;
 		bool boolvaluestorage = false;
+		const char* stringvaluestorage = NULL;
 
 		if(doc.LoadFile(filepath.c_str()) != 0)
 		{
@@ -110,6 +122,7 @@ namespace qrw
 		}
 		setResolutionX(intvaluestorage);
 		
+		// height
 		error = element->QueryIntAttribute("h", &intvaluestorage);
 		if(error != tinyxml2::XML_NO_ERROR)
 		{
@@ -117,6 +130,22 @@ namespace qrw
 			return false;
 		}
 		setResolutionY(intvaluestorage);
+
+		// Parse tileset
+		element = videoroot->FirstChildElement("tileset");
+		if(!element)
+		{
+			printTagMissingError("tileset");
+			return false;
+		}
+
+		stringvaluestorage = element->Attribute("path");
+		if(!stringvaluestorage)
+		{
+			printAttributeError(tinyxml2::XML_NO_ATTRIBUTE, "path");
+			return false;
+		}
+		setTilesetPath(stringvaluestorage);
 
 		return false;
 	}

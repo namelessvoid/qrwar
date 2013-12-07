@@ -24,10 +24,14 @@ namespace qrw
 			void setFullscreen(bool fullscreen);
 			bool getFullscreen();
 
+			void setTilesetPath(std::string tilesetpath);
+			std::string getTilesetPath();
+
 		protected:
 			int resolutionX;
 			int resolutionY;
 			bool fullscreen;
+			std::string tilesetpath;
 	};
 }
 #endif
