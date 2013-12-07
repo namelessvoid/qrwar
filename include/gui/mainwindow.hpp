@@ -2,7 +2,6 @@
 #define QRW_MAINWINDOW_HPP
 
 #include <SFGUI/Window.hpp>
-#include <SFGUI/SharedPtr.hpp>
 
 #include "gui/guihandler.hpp"
 
@@ -11,8 +10,8 @@ namespace qrw
 	class MainWindow : public sfg::Window
 	{
 		public:
-			typedef sfg::SharedPtr<MainWindow> Ptr;
-			typedef sfg::SharedPtr<const MainWindow> PtrConst;
+			typedef std::shared_ptr<MainWindow> Ptr;
+			typedef std::shared_ptr<const MainWindow> PtrConst;
 
 			static Ptr Create(GuiHandler* guihandler);
 		
