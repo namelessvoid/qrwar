@@ -12,8 +12,8 @@ The source comes with an CMake file and dependes on:
 
 - CMake
 - SFML_ (>= 2.0)
-- SFGUI_
-- TinyXML (>= 2.0)
+- SFGUI_ (>= 0.2.0)
+- TinyXML_ (>= 2.0)
 - CppUnit_ (for unittesting only)
 
 There are issues (at least on Linux Mint) when SFML 1.6 and 2.0 are installed at the same time. Altough requires(SFML 2.0) is set, it seems to find 1.6 first and make tries to link against the old library.
@@ -97,6 +97,7 @@ Third party resources
 .. _SFML: http://www.sfml-dev.org/
 .. _SFGUI: http://sfgui.sfml-dev.de/
 .. _CppUnit: http://sourceforge.net/projects/cppunit/
+.. _TinyXml: http://www.grinninglizard.com/tinyxml2/index.html
 
 .. Images:
 .. |HP| image:: https://raw.github.com/namelessvoid/qrwar/master/res/img/gui/health.png
