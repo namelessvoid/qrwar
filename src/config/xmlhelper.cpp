@@ -14,6 +14,16 @@ namespace qrw
 		return parsingerrormsg;
 	}
 	
+	void XMLHelper::printDocumentLoadError(std::string filepath)
+	{
+		std::cerr << getParsingErrorMsg() << "error loading file '" << filepath << "'.\n";
+	}
+
+	void XMLHelper::printTagMissingError(std::string tagname)
+	{
+		std::cerr << getParsingErrorMsg() << "no such tag '" << tagname << "'.\n";
+	}
+
 	void XMLHelper::printAttributeError(tinyxml2::XMLError error, std::string attributename)
 	{
 		if(error == tinyxml2::XML_NO_ATTRIBUTE)

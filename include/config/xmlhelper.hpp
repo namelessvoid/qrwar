@@ -13,6 +13,8 @@ namespace qrw
 			std::string getParsingErrorMsg();
 
 		protected:
+			void printDocumentLoadError(std::string filepath);
+			void printTagMissingError(std::string tagname);
 			void printAttributeError(tinyxml2::XMLError error, std::string attributename);
 
 		private:
