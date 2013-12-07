@@ -1,6 +1,5 @@
 #include "config/xmlhelper.hpp"
 
-#include <tinyxml2.h>
 #include <iostream>
 
 namespace qrw
@@ -15,7 +14,7 @@ namespace qrw
 		return parsingerrormsg;
 	}
 	
-	void XMLHelper::printAttributeError(int error, std::string attributename)
+	void XMLHelper::printAttributeError(tinyxml2::XMLError error, std::string attributename)
 	{
 		if(error == tinyxml2::XML_NO_ATTRIBUTE)
 		{

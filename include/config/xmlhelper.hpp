@@ -2,6 +2,7 @@
 #define QRW_XMLHELPER_HPP
 
 #include <string>
+#include <tinyxml2.h>
 
 namespace qrw
 {
@@ -12,7 +13,7 @@ namespace qrw
 			std::string getParsingErrorMsg();
 
 		protected:
-			void printAttributeError(int error, std::string attributename);
+			void printAttributeError(tinyxml2::XMLError error, std::string attributename);
 
 		private:
 			std::string parsingerrormsg;
