@@ -17,10 +17,14 @@
 #include "gui/texturemanager.hpp"
 
 #include "config/tilesetprocessor.hpp"
+#include "config/settings.hpp"
 
 
 int main(int argc, char const *argv[])
 {
+	qrw::Settings* settings = qrw::Settings::getInstance();
+	settings->loadFromFile("res/conf/settings.xml");
+
 	// Create and show splash
 	//qrw::SplashScreen* splash = new qrw::SplashScreen("./res/img/splash.png");
 	//std::thread splashthread(&qrw::SplashScreen::show, splash);
@@ -37,7 +41,7 @@ int main(int argc, char const *argv[])
 	// Preload texture resources.
 	qrw::TextureManager* texturemanager = qrw::TextureManager::getInstance();
 	qrw::TilesetProcessor tilesetprocessor;
-	tilesetprocessor.loadTileset("./res/defaulttileset.xml");
+	tilesetprocessor.loadTileset(settings->getTilesetPath());
 
 	texturemanager->loadTexture("nextbutton", "./res/img/gui/nextbutton.png");
 	texturemanager->loadTexture("nextbutton_hover", "./res/img/gui/nextbutton_hover.png");
@@ -52,7 +56,6 @@ int main(int argc, char const *argv[])
 	//splashthread.join();
 	//delete splash;
 
-	sf::Vector2f windowsize(800, 600);
 	qrw::Engine engine;
 	engine.init(10, 4);
 
@@ -66,9 +69,14 @@ board->getSquare(1, 2)->setTerrain(terrain2);
 qrw::Terrain* terrain3 = new qrw::Terrain(qrw::ET_WALL, 2, 2);
 board->getSquare(5, 1)->setTerrain(terrain3);
 
-	sf::RenderWindow renderwindow(sf::VideoMode(windowsize.x, windowsize.y), "Quad-Ruled War", sf::Style::Default);
+	sf::RenderWindow renderwindow(
+		sf::VideoMode(settings->getResolutionX(), settings->getResolutionY()),
+		"Quad-Ruled War",
+		sf::Style::Default
+	);
+
 	qrw::GuiHandler guihandler(&engine, &renderwindow);
-	sf::View camera(sf::FloatRect(0.0f, 0.0f, windowsize.x, windowsize.y));
+	sf::View camera(sf::FloatRect(0.0f, 0.0f, settings->getResolutionX(), settings->getResolutionY()));
 	renderwindow.setView(camera);
 
 	sf::RectangleShape rect(sf::Vector2f(10.0f, 10.0f));
