@@ -11,7 +11,8 @@ namespace qrw
 
 		// Create buttons
 		sfg::Button::Ptr cancelbutton = sfg::Button::Create("Cancel");
-		cancelbutton->GetSignal(sfg::Button::OnLeftClick).Connect(&SettingsWindow::hide, &(*window));
+		cancelbutton->GetSignal(sfg::Button::OnLeftClick).Connect(
+			std::bind(&SettingsWindow::hide, window));
 
 		sfg::Button::Ptr applybutton = sfg::Button::Create("Apply");
 

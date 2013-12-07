@@ -2,7 +2,6 @@
 #define QRW_SETTINGSWINDOW_HPP
 
 #include <SFGUI/Window.hpp>
-#include <SFGUI/SharedPtr.hpp>
 
 
 namespace qrw
@@ -10,8 +9,8 @@ namespace qrw
 	class SettingsWindow : public sfg::Window
 	{
 		public:
-			typedef sfg::SharedPtr<SettingsWindow> Ptr;
-			typedef sfg::SharedPtr<const SettingsWindow> PtrConst;
+			typedef std::shared_ptr<SettingsWindow> Ptr;
+			typedef std::shared_ptr<const SettingsWindow> PtrConst;
 
 			static Ptr Create();
 
