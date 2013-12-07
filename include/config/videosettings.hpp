@@ -3,15 +3,26 @@
 
 #include <string>
 
+#include "config/xmlhelper.hpp"
+
 namespace qrw
 {
-	class VideoSettings
+	class VideoSettings : public XMLHelper
 	{
 		public:
 			VideoSettings();
 			~VideoSettings();
 
 			bool loadFromFile(std::string path);
+
+			void setResolutionX(int resolutionX);
+			int getResolutionX();
+
+			void setResolutionY(int resolutionY);
+			int getResoltuionY();
+
+			void setFullscreen(bool fullscreen);
+			bool getFullscreen();
 
 		protected:
 			int resolutionX;
