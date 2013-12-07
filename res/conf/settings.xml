@@ -6,6 +6,6 @@
 	<video>
 		<fullscreen enabled="false"/>
 		<resolution w="800" h="600"/>
-		<tileset path="../defaulttileset.xml"/>
+		<tileset path="res/defaulttileset.xml"/>
 	</video>
 </settings>
