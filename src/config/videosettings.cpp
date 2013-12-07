@@ -32,11 +32,10 @@ namespace qrw
 		this->resolutionY = resolutionY;
 	}
 
-	int VideoSettings::getResoltuionY()
+	int VideoSettings::getResolutionY()
 	{
 		return resolutionY;
 	}
-
 
 	void VideoSettings::setFullscreen(bool fullscreen)
 	{
@@ -118,7 +117,7 @@ namespace qrw
 			return false;
 		}
 		setResolutionY(intvaluestorage);
-		
+
 		return false;
 	}
 }

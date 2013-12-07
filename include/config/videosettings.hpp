@@ -19,7 +19,7 @@ namespace qrw
 			int getResolutionX();
 
 			void setResolutionY(int resolutionY);
-			int getResoltuionY();
+			int getResolutionY();
 
 			void setFullscreen(bool fullscreen);
 			bool getFullscreen();
