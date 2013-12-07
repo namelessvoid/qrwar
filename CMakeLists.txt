@@ -38,6 +38,7 @@ set(COMMON_SOURCE
 	src/gui/button.cpp
 	src/gui/signal.cpp
 	src/config/tilesetprocessor.cpp
+	src/config/videosettings.cpp
 	src/config/audiosettings.cpp
 )
 
