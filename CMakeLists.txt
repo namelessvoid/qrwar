@@ -40,6 +40,7 @@ set(COMMON_SOURCE
 	src/config/tilesetprocessor.cpp
 	src/config/videosettings.cpp
 	src/config/audiosettings.cpp
+	src/config/settings.cpp
 )
 
 set(GUI_SOURCE
