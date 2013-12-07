@@ -11,10 +11,16 @@ namespace qrw
 	class Settings : public VideoSettings, AudioSettings
 	{
 		public:
-			Settings();
 			~Settings();
 
+			static Settings* getInstance();
+
 			bool loadFromFile(std::string filepath);
+
+		private:
+			Settings();
+
+			static Settings* instance;
 	};
 }
 #endif

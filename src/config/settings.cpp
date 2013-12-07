@@ -4,11 +4,20 @@
 
 namespace qrw
 {
+	Settings* Settings::instance = NULL;
+
 	Settings::Settings()
 	{}
 
 	Settings::~Settings()
 	{}
+
+	Settings* Settings::getInstance()
+	{
+		if(instance == NULL)
+			instance = new Settings();
+		return instance;
+	}
 
 	bool Settings::loadFromFile(std::string filepath)
 	{
