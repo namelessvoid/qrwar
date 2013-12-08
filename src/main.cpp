@@ -69,10 +69,15 @@ board->getSquare(1, 2)->setTerrain(terrain2);
 qrw::Terrain* terrain3 = new qrw::Terrain(qrw::ET_WALL, 2, 2);
 board->getSquare(5, 1)->setTerrain(terrain3);
 
+	// Determine whether fullscreen is enabled
+	sf::Uint32 style = sf::Style::Default;
+	if(settings->getFullscreen())
+		style = sf::Style::Fullscreen;
+
 	sf::RenderWindow renderwindow(
 		sf::VideoMode(settings->getResolutionX(), settings->getResolutionY()),
 		"Quad-Ruled War",
-		sf::Style::Default
+		style
 	);
 
 	qrw::GuiHandler guihandler(&engine, &renderwindow);
