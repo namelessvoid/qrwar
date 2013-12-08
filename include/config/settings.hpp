@@ -16,6 +16,7 @@ namespace qrw
 			static Settings* getInstance();
 
 			bool loadFromFile(std::string filepath);
+			int saveToFile(std::string filepath);
 
 		private:
 			Settings();

@@ -31,4 +31,16 @@ namespace qrw
 			return false;
 		}
 	}
+
+	int Settings::saveToFile(std::string filepath)
+	{
+		tinyxml2::XMLDocument doc;
+		tinyxml2::XMLElement* rootelement = doc.NewElement("settings");
+		doc.InsertEndChild(rootelement);
+
+		tinyxml2::XMLElement* videoelement = VideoSettings::toTinyxml2Element(&doc);
+		rootelement->InsertEndChild(videoelement);
+
+		return doc.SaveFile(filepath.c_str());
+	}
 }
