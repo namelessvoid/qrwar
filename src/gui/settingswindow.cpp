@@ -1,5 +1,8 @@
 #include "gui/settingswindow.hpp"
 
+#include <string>
+#include <memory>
+
 #include <SFGUI/SFGUI.hpp>
 
 #include "config/settings.hpp"
@@ -57,6 +60,13 @@ namespace qrw
 
 	void SettingsWindow::save()
 	{
+		std::string tilesetpath = (std::static_pointer_cast<sfg::Entry>(sfg::Widget::GetWidgetById("tilesetentry")))->GetText();
+
+		Settings* settings = Settings::getInstance();
+		settings->setTilesetPath(tilesetpath);
+
+		settings->saveToFile();
+
 		hide();
 	}
 }
