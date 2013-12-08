@@ -3,6 +3,7 @@
 namespace qrw
 {
 	Army::Army()
+		:	maxsize(0)
 	{
 	}
 
@@ -10,8 +11,27 @@ namespace qrw
 	{
 	}
 
+	void Army::setMaxSize(int maxsize)
+	{
+		this->maxsize = maxsize;
+	}
+
+	bool Army::isFull()
+	{
+		int* unittypecount = getTotalUnitCount();
+		int totalcount = 0;
+		for(int i = 0; i < EUT_NUMBEROFUNITTYPES; ++i)
+		{
+			totalcount += unittypecount[i];
+		}
+		return totalcount >= maxsize;
+	}
+
 	bool Army::addUnit(Unit* unit)
 	{
+		if(isFull())
+			return false;
+
 		if(units.add(unit))
 		{
 			undeployedunits.add(unit);

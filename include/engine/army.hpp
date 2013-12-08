@@ -21,6 +21,10 @@ namespace qrw
 			Army();
 			~Army();
 
+			void setMaxSize(int maxsize);
+
+			bool isFull();
+
 			/**
 			 * @brief Add unit to the army.
 			 *
@@ -73,6 +77,8 @@ namespace qrw
 			int getDeployedUnitCount(UNITTYPES unittype);
 
 		private:
+			int maxsize;
+
 			/**
 			 * @brief All units in the army.
 			 *
