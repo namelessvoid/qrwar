@@ -1,9 +1,14 @@
-#include <SFGUI/SFGUI.hpp>
-
 #include "gui/settingswindow.hpp"
+
+#include <SFGUI/SFGUI.hpp>
 
 namespace qrw
 {
+	SettingsWindow::SettingsWindow(int style)
+		: Window(style)
+	{
+	}
+
 	SettingsWindow::Ptr SettingsWindow::Create()
 	{
 		SettingsWindow::Ptr window(new SettingsWindow());
@@ -28,7 +33,6 @@ namespace qrw
 		maincontainer->Attach(tilesetentry, sf::Rect<sf::Uint32>(2, 4, 4, 1), options, options);
 		maincontainer->Attach(cancelbutton, sf::Rect<sf::Uint32>(5, 5, 1, 1), options, options);
 		maincontainer->Attach(applybutton, 	sf::Rect<sf::Uint32>(4, 5, 1, 1), options, options);
-		// maincontainer->Attach(startbutton,		sf::Rect<sf::Uint32>(0, 0,  10, 10), options, options);
 
 		window->Add(maincontainer);
 
@@ -40,10 +44,5 @@ namespace qrw
 	void SettingsWindow::hide()
 	{
 		Show(false);
-	}
-
-	SettingsWindow::SettingsWindow(int style)
-		: Window(style)
-	{
 	}
 }
