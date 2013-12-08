@@ -41,6 +41,7 @@ Image explanation:
 - Hitpoints: |HP|
 - Attack: |Attack|
 - Defense: |Defense|
+- Movement: |Movement|
 
 - Swordman: |Swordman|
 - Archer: |Archer|
@@ -51,7 +52,7 @@ Image explanation:
 - Tower: |Tower|
 
 +----------+------+--------+---------+----------+
-| Name     | |HP| ||Attack|||Defense|| Movement |
+| Name     | |HP| ||Attack|||Defense|||Movement||
 +----------+------+--------+---------+----------+
 ||Swordman||  5   | 2      | 1       | 3        |
 +----------+------+--------+---------+----------+
@@ -103,6 +104,7 @@ Third party resources
 .. |HP| image:: https://raw.github.com/namelessvoid/qrwar/master/res/img/gui/health.png
 .. |Attack| image:: https://raw.github.com/namelessvoid/qrwar/master/res/img/gui/attack.png
 .. |Defense| image:: https://raw.github.com/namelessvoid/qrwar/master/res/img/gui/defense.png
+.. |Movement| image:: https://raw.github.com/namelessvoid/qrwar/master/res/img/gui/movement.png
 
 .. |Archer| image:: https://raw.github.com/namelessvoid/qrwar/master/res/img/units/p1archer.png
 .. |Swordman| image:: https://raw.github.com/namelessvoid/qrwar/master/res/img/units/p1swordman.png
