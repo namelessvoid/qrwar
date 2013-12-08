@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <climits>
 
 #include "engine/engine.hpp"
 
@@ -24,7 +25,8 @@ namespace qrw
 		currentplayer = 0;
 		status = EES_PREPARE;
 
-		int maxarmysize = getMaxPlayerUnits();
+		int maxarmysize = INT_MAX;
+		// int maxarmysize = getMaxPlayerUnits();
 		players[0].getArmy().deleteAllUnits();
 		players[0].getArmy().setMaxSize(maxarmysize);
 		players[1].getArmy().deleteAllUnits();
