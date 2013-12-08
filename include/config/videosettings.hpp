@@ -28,6 +28,9 @@ namespace qrw
 			void setEntityTilesetPath(std::string entityilesetpath);
 			std::string getEntityTilesetPath();
 
+			void setGuiTilesetPath(std::string guitilesetpath);
+			std::string getGuiTilesetPath();
+
 			tinyxml2::XMLElement* toTinyxml2Element(tinyxml2::XMLDocument* document);
 
 		protected:
@@ -35,6 +38,7 @@ namespace qrw
 			int resolutionY;
 			bool fullscreen;
 			std::string entitytilesetpath;
+			std::string guitilesetpath;
 	};
 }
 #endif

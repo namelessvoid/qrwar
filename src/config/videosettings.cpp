@@ -57,6 +57,16 @@ namespace qrw
 		return entitytilesetpath;
 	}
 
+	void VideoSettings::setGuiTilesetPath(std::string guitilesetpath)
+	{
+		this->guitilesetpath = guitilesetpath;
+	}
+
+	std::string VideoSettings::getGuiTilesetPath()
+	{
+		return guitilesetpath;
+	}
+
 	bool VideoSettings::loadFromFile(std::string filepath)
 	{
 		tinyxml2::XMLDocument doc;
@@ -146,6 +156,21 @@ namespace qrw
 		}
 		setEntityTilesetPath(stringvaluestorage);
 
+		// Parse guitileset
+		element = videoroot->FirstChildElement("guitileset");
+		if(!element)
+		{
+			printTagMissingError("guitileset");
+			return false;
+		}
+
+		stringvaluestorage = element->Attribute("path");
+		if(!stringvaluestorage)
+		{
+			printAttributeError(tinyxml2::XML_NO_ATTRIBUTE, "path");
+			return false;
+		}
+		setGuiTilesetPath(stringvaluestorage);
 		return false;
 	}
 
@@ -164,6 +189,10 @@ namespace qrw
 
 		subelement = document->NewElement("entitytileset");
 		subelement->SetAttribute("path", getEntityTilesetPath().c_str());
+		rootelement->InsertEndChild(subelement);
+
+		subelement = document->NewElement("guitileset");
+		subelement->SetAttribute("path", getGuiTilesetPath().c_str());
 		rootelement->InsertEndChild(subelement);
 
 		return rootelement;
