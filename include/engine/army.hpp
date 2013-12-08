@@ -47,7 +47,7 @@ namespace qrw
 			 * @see UNITTYPES
 			 * @see UnitsMap::getTotalUnitCount()
 			 */
-			int* getTotalUnitCount();
+			int* getUnitCount();
 
 			int getUnitCount(UNITTYPES unittype);
 

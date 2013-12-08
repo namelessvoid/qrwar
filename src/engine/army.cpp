@@ -18,7 +18,7 @@ namespace qrw
 
 	bool Army::isFull()
 	{
-		int* unittypecount = getTotalUnitCount();
+		int* unittypecount = getUnitCount();
 		int totalcount = 0;
 		for(int i = 0; i < EUT_NUMBEROFUNITTYPES; ++i)
 		{
@@ -52,7 +52,7 @@ namespace qrw
 		return (std::set<Unit*>&) units.getUnitsByType(unittype);
 	}
 
-	int* Army::getTotalUnitCount()
+	int* Army::getUnitCount()
 	{
 		return units.getTotalUnitCount();
 	}
