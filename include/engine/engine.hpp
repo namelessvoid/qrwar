@@ -28,6 +28,7 @@ namespace qrw
 
 			ENGINSTATES getStatus();
 
+			int getMaxPlayerUnits();
 			void createPlayerUnits(int playerid, std::map<UNITTYPES, int> unitcounts);
 
 			Player& getCurrentPlayer();

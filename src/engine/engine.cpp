@@ -39,6 +39,13 @@ namespace qrw
 		return status;
 	}
 
+	int Engine::getMaxPlayerUnits()
+	{
+		if(board)
+			return (board->getHeight() * board->getWidth()) / 3;
+		return 0;
+	}
+
 	void Engine::createPlayerUnits(int playerid, std::map<UNITTYPES, int> unitcounts)
 	{
 		Player* player = getPlayer(playerid);
