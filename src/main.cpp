@@ -41,8 +41,6 @@ int main(int argc, char const *argv[])
 	// Preload texture resources.
 	qrw::TextureManager* texturemanager = qrw::TextureManager::getInstance();
 	qrw::TilesetProcessor tilesetprocessor;
-	tilesetprocessor.loadTileset(settings->getTilesetPath());
-
 	texturemanager->loadTexture("nextbutton", "./res/img/gui/nextbutton.png");
 	texturemanager->loadTexture("nextbutton_hover", "./res/img/gui/nextbutton_hover.png");
 	texturemanager->loadTexture("nextbutton_active", "./res/img/gui/nextbutton_active.png");
@@ -51,6 +49,7 @@ int main(int argc, char const *argv[])
 	texturemanager->loadTexture("defense", "./res/img/gui/defense.png");
 	texturemanager->loadTexture("movement", "./res/img/gui/movement.png");
 	texturemanager->loadTexture("startbutton", "./res/img/gui/startbutton.png");
+	tilesetprocessor.loadTileset(settings->getEntityTilesetPath());
 
 	//splash->setCloseable(true);
 	//splashthread.join();

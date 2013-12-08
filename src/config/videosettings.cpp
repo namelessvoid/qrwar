@@ -8,7 +8,7 @@ namespace qrw
 		:	resolutionX(800),
 			resolutionY(600),
 			fullscreen(false),
-			tilesetpath("res/defaulttileset.xml")
+			entitytilesetpath("res/defaulttileset.xml")
 	{
 		setParsingErrorMsg("VideoSettings parsing error: ");
 	}
@@ -47,14 +47,14 @@ namespace qrw
 		return fullscreen;
 	}
 
-	void VideoSettings::setTilesetPath(std::string tilesetpath)
+	void VideoSettings::setEntityTilesetPath(std::string entitytilesetpath)
 	{
-		this->tilesetpath = tilesetpath;
+		this->entitytilesetpath = entitytilesetpath;
 	}
 
-	std::string VideoSettings::getTilesetPath()
+	std::string VideoSettings::getEntityTilesetPath()
 	{
-		return tilesetpath;
+		return entitytilesetpath;
 	}
 
 	bool VideoSettings::loadFromFile(std::string filepath)
@@ -130,11 +130,11 @@ namespace qrw
 		}
 		setResolutionY(intvaluestorage);
 
-		// Parse tileset
-		element = videoroot->FirstChildElement("tileset");
+		// Parse entitytileset
+		element = videoroot->FirstChildElement("entitytileset");
 		if(!element)
 		{
-			printTagMissingError("tileset");
+			printTagMissingError("entitytileset");
 			return false;
 		}
 
@@ -144,7 +144,7 @@ namespace qrw
 			printAttributeError(tinyxml2::XML_NO_ATTRIBUTE, "path");
 			return false;
 		}
-		setTilesetPath(stringvaluestorage);
+		setEntityTilesetPath(stringvaluestorage);
 
 		return false;
 	}
@@ -162,8 +162,8 @@ namespace qrw
 		subelement->SetAttribute("h", getResolutionY());
 		rootelement->InsertEndChild(subelement);
 
-		subelement = document->NewElement("tileset");
-		subelement->SetAttribute("path", getTilesetPath().c_str());
+		subelement = document->NewElement("entitytileset");
+		subelement->SetAttribute("path", getEntityTilesetPath().c_str());
 		rootelement->InsertEndChild(subelement);
 
 		return rootelement;
