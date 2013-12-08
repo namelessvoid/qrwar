@@ -51,6 +51,8 @@ namespace qrw
 
 			int getUnitCount(UNITTYPES unittype);
 
+			int getTotalUnitCount();
+
 			std::set<Unit*>& getUndeployedUnitsByType(UNITTYPES unittype);
 
 			/**
