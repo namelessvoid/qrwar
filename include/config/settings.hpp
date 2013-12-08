@@ -15,10 +15,11 @@ namespace qrw
 
 			static Settings* getInstance();
 
-			bool loadFromFile(std::string filepath);
-			int saveToFile(std::string filepath);
+			bool loadFromFile(std::string filepath = "");
+			int saveToFile(std::string filepath = "");
 
 		private:
+			std::string defaultsettingspath = "res/conf/settings.xml";
 			Settings();
 
 			static Settings* instance;

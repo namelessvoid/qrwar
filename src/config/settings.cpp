@@ -21,6 +21,9 @@ namespace qrw
 
 	bool Settings::loadFromFile(std::string filepath)
 	{
+		if(filepath == "")
+			filepath = defaultsettingspath;
+
 		if (!AudioSettings::loadFromFile(filepath))
 		{
 			return false;
@@ -34,6 +37,9 @@ namespace qrw
 
 	int Settings::saveToFile(std::string filepath)
 	{
+		if(filepath == "")
+			filepath = defaultsettingspath;
+
 		tinyxml2::XMLDocument doc;
 		tinyxml2::XMLElement* rootelement = doc.NewElement("settings");
 		doc.InsertEndChild(rootelement);

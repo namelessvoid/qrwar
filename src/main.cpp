@@ -23,7 +23,7 @@
 int main(int argc, char const *argv[])
 {
 	qrw::Settings* settings = qrw::Settings::getInstance();
-	settings->loadFromFile("res/conf/settings.xml");
+	settings->loadFromFile();
 
 	// Create and show splash
 	//qrw::SplashScreen* splash = new qrw::SplashScreen("./res/img/splash.png");
