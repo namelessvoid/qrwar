@@ -3,6 +3,7 @@
 namespace qrw
 {
 	Army::Army()
+		:	maxsize(0)
 	{
 	}
 
@@ -10,8 +11,21 @@ namespace qrw
 	{
 	}
 
+	void Army::setMaxSize(int maxsize)
+	{
+		this->maxsize = maxsize;
+	}
+
+	bool Army::isFull()
+	{
+		return getTotalUnitCount() >= maxsize;
+	}
+
 	bool Army::addUnit(Unit* unit)
 	{
+		if(isFull())
+			return false;
+
 		if(units.add(unit))
 		{
 			undeployedunits.add(unit);
@@ -32,7 +46,7 @@ namespace qrw
 		return (std::set<Unit*>&) units.getUnitsByType(unittype);
 	}
 
-	int* Army::getTotalUnitCount()
+	int* Army::getUnitCount()
 	{
 		return units.getTotalUnitCount();
 	}
@@ -42,6 +56,14 @@ namespace qrw
 		return units.getUnitCount(unittype);
 	}
 
+	int Army::getTotalUnitCount()
+	{
+		int* unitcount = getUnitCount();
+		int totalcount = 0;
+		for(int i = 0; i < EUT_NUMBEROFUNITTYPES; ++i)
+			totalcount += unitcount[i];
+		return totalcount;
+	}
 	std::set<Unit*>& Army::getUndeployedUnitsByType(UNITTYPES unittype)
 	{
 		return (std::set<Unit*>&) undeployedunits.getUnitsByType(unittype);

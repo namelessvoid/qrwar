@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <climits>
 
 #include "engine/engine.hpp"
 
@@ -24,8 +25,12 @@ namespace qrw
 		currentplayer = 0;
 		status = EES_PREPARE;
 
+		int maxarmysize = INT_MAX;
+		// int maxarmysize = getMaxPlayerUnits();
 		players[0].getArmy().deleteAllUnits();
+		players[0].getArmy().setMaxSize(maxarmysize);
 		players[1].getArmy().deleteAllUnits();
+		players[1].getArmy().setMaxSize(maxarmysize);
 	}
 
 	void Engine::startGame()
@@ -37,6 +42,13 @@ namespace qrw
 	ENGINSTATES Engine::getStatus()
 	{
 		return status;
+	}
+
+	int Engine::getMaxPlayerUnits()
+	{
+		if(board)
+			return (board->getHeight() * board->getWidth()) / 3;
+		return 0;
 	}
 
 	void Engine::createPlayerUnits(int playerid, std::map<UNITTYPES, int> unitcounts)
