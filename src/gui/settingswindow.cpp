@@ -21,7 +21,9 @@ namespace qrw
 		cancelbutton->GetSignal(sfg::Button::OnLeftClick).Connect(
 			std::bind(&SettingsWindow::hide, window));
 
-		sfg::Button::Ptr applybutton = sfg::Button::Create("Apply");
+		sfg::Button::Ptr applybutton = sfg::Button::Create("Save");
+		applybutton->GetSignal(sfg::Button::OnLeftClick).Connect(
+			std::bind(&SettingsWindow::save, window));
 
 		// Create widgets
 		sfg::Label::Ptr tilesetlabel = sfg::Label::Create("Tileset path:");
@@ -51,5 +53,10 @@ namespace qrw
 	void SettingsWindow::hide()
 	{
 		Show(false);
+	}
+
+	void SettingsWindow::save()
+	{
+		hide();
 	}
 }

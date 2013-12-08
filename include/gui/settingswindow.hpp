@@ -16,6 +16,8 @@ namespace qrw
 
 			void hide();
 
+			void save();
+
 		protected:
 			SettingsWindow(int style = BACKGROUND);
 
