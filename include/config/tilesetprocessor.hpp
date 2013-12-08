@@ -4,11 +4,13 @@
 #include <string>
 #include <tinyxml2.h>
 
+#include "config/xmlhelper.hpp"
+
 #include "gui/texturemanager.hpp"
 
 namespace qrw
 {
-	class TilesetProcessor
+	class TilesetProcessor : public XMLHelper
 	{
 		public:
 			TilesetProcessor();
@@ -19,7 +21,6 @@ namespace qrw
 		private:
 			bool processTile(tinyxml2::XMLElement* xmlelement,
 				std::string texturefilepath);
-			void printAttributeError(int error, std::string attributename);
 
 			TextureManager* texturemanager;
 	};

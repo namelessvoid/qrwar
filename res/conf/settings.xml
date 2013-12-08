@@ -1,0 +1,11 @@
+<!DOCTYPE settings>
+<settings>
+	<audio>
+	</audio>
+
+	<video>
+		<fullscreen enabled="false"/>
+		<resolution w="800" h="600"/>
+		<tileset path="res/defaulttileset.xml"/>
+	</video>
+</settings>

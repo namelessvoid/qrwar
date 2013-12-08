@@ -37,7 +37,11 @@ set(COMMON_SOURCE
     src/gui/widget.cpp
 	src/gui/button.cpp
 	src/gui/signal.cpp
+	src/config/xmlhelper.cpp
 	src/config/tilesetprocessor.cpp
+	src/config/videosettings.cpp
+	src/config/audiosettings.cpp
+	src/config/settings.cpp
 )
 
 set(GUI_SOURCE
@@ -52,6 +56,7 @@ set(GUI_SOURCE
 	src/gui/cursor.cpp
 	src/gui/radiotogglebutton.cpp
 	src/gui/deploywindow.cpp
+	src/gui/settingswindow.cpp
 	src/gui/window.cpp
 	src/gui/animation.cpp
 	src/gui/damagenumber.cpp
