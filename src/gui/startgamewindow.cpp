@@ -53,6 +53,8 @@ namespace qrw
 		p2spearspin->SetValue(0);
 		p2spearspin->SetId("p2spearspin");
 
+		sfg::Separator::Ptr unitboardseparator = sfg::Separator::Create();
+
 		sfg::Label::Ptr boardwidthlabel = sfg::Label::Create("Board X");
 		sfg::Label::Ptr boardheightlabel = sfg::Label::Create("Borad Y");
 
@@ -86,14 +88,17 @@ namespace qrw
 		maincontainer->Attach(p2swordspin, sf::Rect<sf::Uint32>(2, 1, 1, 1), options, options);
 		maincontainer->Attach(p2archspin, sf::Rect<sf::Uint32>(2, 2, 1, 1), options, options);
 		maincontainer->Attach(p2spearspin, sf::Rect<sf::Uint32>(2, 3, 1, 1), options, options);
+
+		maincontainer->Attach(unitboardseparator, sf::Rect<sf::Uint32>(0, 5, 3, 1), options, options);
+
 		// Board settings
-		maincontainer->Attach(boardwidthlabel, sf::Rect<sf::Uint32>(1, 4, 1, 1), options, options);
-		maincontainer->Attach(boardheightlabel, sf::Rect<sf::Uint32>(2, 4, 1, 1), options, options);
-		maincontainer->Attach(boardwidthspin, sf::Rect<sf::Uint32>(1, 5, 1, 1), options, options);
-		maincontainer->Attach(boardheightspin, sf::Rect<sf::Uint32>(2, 5, 1, 1), options, options);
+		maincontainer->Attach(boardwidthlabel, sf::Rect<sf::Uint32>(1, 6, 1, 1), options, options);
+		maincontainer->Attach(boardheightlabel, sf::Rect<sf::Uint32>(2, 6, 1, 1), options, options);
+		maincontainer->Attach(boardwidthspin, sf::Rect<sf::Uint32>(1, 7, 1, 1), options, options);
+		maincontainer->Attach(boardheightspin, sf::Rect<sf::Uint32>(2, 7, 1, 1), options, options);
 		// Buttons
-		maincontainer->Attach(closebutton, sf::Rect<sf::Uint32>(0, 6, 2, 1), options, options);
-		maincontainer->Attach(startbutton, sf::Rect<sf::Uint32>(2, 6, 1, 1), options, options);
+		maincontainer->Attach(closebutton, sf::Rect<sf::Uint32>(0, 8, 2, 1), options, options);
+		maincontainer->Attach(startbutton, sf::Rect<sf::Uint32>(2, 8, 1, 1), options, options);
 
 
 		window->Add(maincontainer);
