@@ -2,6 +2,7 @@
 #define QRW_VIDEOSETTINGS_HPP
 
 #include <string>
+#include <tinyxml2.h>
 
 #include "config/xmlhelper.hpp"
 
@@ -26,6 +27,8 @@ namespace qrw
 
 			void setTilesetPath(std::string tilesetpath);
 			std::string getTilesetPath();
+
+			tinyxml2::XMLElement* toTinyxml2Element(tinyxml2::XMLDocument* document);
 
 		protected:
 			int resolutionX;

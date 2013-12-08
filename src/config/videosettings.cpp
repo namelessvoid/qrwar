@@ -1,7 +1,6 @@
 #include "config/videosettings.hpp"
 
 #include <iostream>
-#include <tinyxml2.h>
 
 namespace qrw
 {
@@ -148,5 +147,25 @@ namespace qrw
 		setTilesetPath(stringvaluestorage);
 
 		return false;
+	}
+
+	tinyxml2::XMLElement* VideoSettings::toTinyxml2Element(tinyxml2::XMLDocument* document)
+	{
+		tinyxml2::XMLElement* rootelement = document->NewElement("video");
+
+		tinyxml2::XMLElement* subelement = document->NewElement("fullscreen");
+		subelement->SetAttribute("enabled", getFullscreen());
+		rootelement->InsertEndChild(subelement);
+
+		subelement = document->NewElement("resolution");
+		subelement->SetAttribute("w", getResolutionX());
+		subelement->SetAttribute("h", getResolutionY());
+		rootelement->InsertEndChild(subelement);
+
+		subelement = document->NewElement("tileset");
+		subelement->SetAttribute("path", getTilesetPath().c_str());
+		rootelement->InsertEndChild(subelement);
+
+		return rootelement;
 	}
 }
