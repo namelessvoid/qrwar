@@ -1,11 +1,8 @@
-<!DOCTYPE settings>
 <settings>
-	<audio>
-	</audio>
-
-	<video>
-		<fullscreen enabled="false"/>
-		<resolution w="800" h="600"/>
-		<tileset path="res/defaulttileset.xml"/>
-	</video>
+    <video>
+        <fullscreen enabled="0"/>
+        <resolution w="800" h="600"/>
+        <entitytileset path="res/defaulttileset.xml"/>
+        <guitileset path="res/defaultguitileset.xml"/>
+    </video>
 </settings>

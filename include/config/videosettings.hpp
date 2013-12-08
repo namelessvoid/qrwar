@@ -25,8 +25,11 @@ namespace qrw
 			void setFullscreen(bool fullscreen);
 			bool getFullscreen();
 
-			void setTilesetPath(std::string tilesetpath);
-			std::string getTilesetPath();
+			void setEntityTilesetPath(std::string entityilesetpath);
+			std::string getEntityTilesetPath();
+
+			void setGuiTilesetPath(std::string guitilesetpath);
+			std::string getGuiTilesetPath();
 
 			tinyxml2::XMLElement* toTinyxml2Element(tinyxml2::XMLDocument* document);
 
@@ -34,7 +37,8 @@ namespace qrw
 			int resolutionX;
 			int resolutionY;
 			bool fullscreen;
-			std::string tilesetpath;
+			std::string entitytilesetpath;
+			std::string guitilesetpath;
 	};
 }
 #endif

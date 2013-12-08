@@ -38,19 +38,11 @@ int main(int argc, char const *argv[])
 	imgmgr->loadImage("p2archer", "./res/img/units/p2archer.png");
 	imgmgr->loadImage("p2spearman", "./res/img/units/p2spearman.png");
 	imgmgr->loadImage("plainsquare", "./res/img/plainsquare.png");
-	// Preload texture resources.
-	qrw::TextureManager* texturemanager = qrw::TextureManager::getInstance();
-	qrw::TilesetProcessor tilesetprocessor;
-	tilesetprocessor.loadTileset(settings->getTilesetPath());
 
-	texturemanager->loadTexture("nextbutton", "./res/img/gui/nextbutton.png");
-	texturemanager->loadTexture("nextbutton_hover", "./res/img/gui/nextbutton_hover.png");
-	texturemanager->loadTexture("nextbutton_active", "./res/img/gui/nextbutton_active.png");
-	texturemanager->loadTexture("health", "./res/img/gui/health.png");
-	texturemanager->loadTexture("attack", "./res/img/gui/attack.png");
-	texturemanager->loadTexture("defense", "./res/img/gui/defense.png");
-	texturemanager->loadTexture("movement", "./res/img/gui/movement.png");
-	texturemanager->loadTexture("startbutton", "./res/img/gui/startbutton.png");
+	// Loading tilesets
+	qrw::TilesetProcessor tilesetprocessor;
+	tilesetprocessor.loadTileset(settings->getEntityTilesetPath());
+	tilesetprocessor.loadTileset(settings->getGuiTilesetPath());
 
 	//splash->setCloseable(true);
 	//splashthread.join();
