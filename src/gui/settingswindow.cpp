@@ -2,6 +2,8 @@
 
 #include <SFGUI/SFGUI.hpp>
 
+#include "config/settings.hpp"
+
 namespace qrw
 {
 	SettingsWindow::SettingsWindow(int style)
@@ -23,8 +25,8 @@ namespace qrw
 
 		// Create widgets
 		sfg::Label::Ptr tilesetlabel = sfg::Label::Create("Tileset path:");
-		sfg::Entry::Ptr tilesetentry = sfg::Entry::Create("./res/defaulttileset.xml");
-
+		sfg::Entry::Ptr tilesetentry = sfg::Entry::Create();
+		tilesetentry->SetId("tilesetentry");
 		// Create layout
 		sfg::Table::Ptr maincontainer = sfg::Table::Create();
 		int options = sfg::Table::FILL | sfg::Table::EXPAND;
@@ -38,6 +40,11 @@ namespace qrw
 
 		window->SetAllocation(sf::FloatRect(200, 0, 350, 100));
 		window->Show(false);
+
+		// Fill widgets with values from Settings
+		Settings* settings = Settings::getInstance();
+		tilesetentry->SetText(settings->getTilesetPath());
+
 		return window;
 	}
 
