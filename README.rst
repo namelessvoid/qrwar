@@ -16,6 +16,9 @@ The source comes with an CMake file and dependes on:
 - TinyXML (>= 2.0)
 - CppUnit_ (for unittesting only)
 
+Note:
+Issues with Ubuntu and TinyXML2: Ubuntu provides a quite old tinyxml2 version through apt, so you have to build it manuall.
+
 There are issues (at least on Linux Mint) when SFML 1.6 and 2.0 are installed at the same time. Altough requires(SFML 2.0) is set, it seems to find 1.6 first and make tries to link against the old library.
 
 If you've got any problems feel free to create an issue.
