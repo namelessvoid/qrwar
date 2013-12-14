@@ -32,7 +32,6 @@ namespace namelessgui
 			void setState(STATES state);
 			STATES getState() const;
 
-			sf::Vector2f getSize() const;
 			void setPosition(float x, float y);
 			void setPosition(const sf::Vector2f& position);
 

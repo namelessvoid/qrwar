@@ -76,19 +76,6 @@ namespace namelessgui
 
 	}
 
-	sf::Vector2f Button::getSize() const
-	{
-		sf::Vector2f size;
-		size.x = text->getLocalBounds().width;
-		size.y = text->getLocalBounds().height;
-		if(getTexture() != NULL)
-		{
-			size.x += getTexture()->getSize().x * getScale().x;
-			size.y = getTexture()->getSize().y * getScale().y;
-		}
-		return size;
-	}
-
 	void Button::setTextures(const sf::Texture* textureinactive,
 		const sf::Texture* textureactive, const sf::Texture* texturehover)
 	{
