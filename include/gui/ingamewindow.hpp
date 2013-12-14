@@ -7,14 +7,14 @@
 #include <SFML/Graphics/RectangleShape.hpp>
 
 #include "engine/engine.hpp"
-#include "gui/window.hpp"
-#include "gui/button.hpp"
+#include "gui/ng/window.hpp"
+#include "gui/ng/button.hpp"
 
 namespace qrw
 {
 	class GuiHandler;
 
-	class IngameWindow : public Window
+	class IngameWindow : public namelessgui::Window
 	{
 		public:
 			IngameWindow(Engine* engine, GuiHandler* guihandler);
@@ -36,7 +36,7 @@ namespace qrw
 			GuiHandler* guihandler;
 
 			// Widgets
-			Button endturnbutton;
+			namelessgui::Button endturnbutton;
 			sf::Text playernamelabel;
 			sf::Sprite* unitsprite;
 			sf::Sprite* terrainsprite;

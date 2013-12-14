@@ -1,14 +1,14 @@
-#ifndef QRW_WIDGET_HPP
-#define QRW_WIDGET_HPP
+#ifndef NAMELESSGUI_WIDGET_HPP
+#define NAMELESSGUI_WIDGET_HPP
 
 #include <SFML/Window/Window.hpp>
 #include <SFML/Window/Event.hpp>
 #include <SFML/Graphics/Sprite.hpp>
 
-#include "gui/signal.hpp"
-#include "gui/singleparametersignal.hpp"
+#include "gui/ng/signal.hpp"
+#include "gui/ng/singleparametersignal.hpp"
 
-namespace qrw
+namespace namelessgui
 {
     class Widget : public sf::Sprite
     {

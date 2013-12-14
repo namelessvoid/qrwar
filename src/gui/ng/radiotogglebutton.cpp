@@ -1,8 +1,8 @@
 #include <SFML/Graphics/RectangleShape.hpp>
 
-#include "gui/radiotogglebutton.hpp"
+#include "gui/ng/radiotogglebutton.hpp"
 
-namespace qrw
+namespace namelessgui
 {
 	RadioToggleButton::RadioToggleButton(sf::Window* window, ButtonGroup* buttongroup,
 		float width, float height,

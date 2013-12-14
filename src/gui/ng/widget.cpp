@@ -1,11 +1,11 @@
-#include "gui/widget.hpp"
+#include "gui/ng/widget.hpp"
 
 #include <SFML/Window/Mouse.hpp>
 
 #include <iostream>
 #include <stdio.h>
 
-namespace qrw
+namespace namelessgui
 {
     Widget::Widget(sf::Window* window, float width, float height)
         : mouseFocus(false),

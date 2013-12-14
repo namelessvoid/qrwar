@@ -1,5 +1,5 @@
-#ifndef QRW_BUTTON_HPP
-#define QRW_BUTTON_HPP
+#ifndef NAMELESSGUI_BUTTON_HPP
+#define NAMELESSGUI_BUTTON_HPP
 
 #include <string>
 #include <SFML/Graphics/Texture.hpp>
@@ -7,9 +7,9 @@
 #include <SFML/Graphics/Text.hpp>
 #include <SFML/Window/Event.hpp>
 
-#include "gui/widget.hpp"
+#include "gui/ng/widget.hpp"
 
-namespace qrw
+namespace namelessgui
 {
 	class Button : public Widget
 	{

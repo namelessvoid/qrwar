@@ -1,10 +1,10 @@
-#ifndef QRW_SIGNAL_HPP
-#define QRW_SIGNAL_HPP
+#ifndef NAMELESSGUI_SIGNAL_HPP
+#define NAMELESSGUI_SIGNAL_HPP
 
 #include <functional>
 #include <vector>
 
-namespace qrw
+namespace namelessgui
 {
 	class Signal
 	{

@@ -33,10 +33,10 @@ set(COMMON_SOURCE
 	src/engine/army.cpp
 	src/engine/player.cpp
 	src/gui/texturemanager.cpp
-	src/gui/buttongroup.cpp
-    src/gui/widget.cpp
-	src/gui/button.cpp
-	src/gui/signal.cpp
+	src/gui/ng/buttongroup.cpp
+    src/gui/ng/widget.cpp
+	src/gui/ng/button.cpp
+	src/gui/ng/signal.cpp
 	src/config/xmlhelper.cpp
 	src/config/tilesetprocessor.cpp
 	src/config/videosettings.cpp
@@ -54,10 +54,10 @@ set(GUI_SOURCE
 	src/gui/ingamewindow.cpp
 	src/gui/boardwidget.cpp
 	src/gui/cursor.cpp
-	src/gui/radiotogglebutton.cpp
+	src/gui/ng/radiotogglebutton.cpp
 	src/gui/deploywindow.cpp
 	src/gui/settingswindow.cpp
-	src/gui/window.cpp
+	src/gui/ng/window.cpp
 	src/gui/animation.cpp
 	src/gui/damagenumber.cpp
 )

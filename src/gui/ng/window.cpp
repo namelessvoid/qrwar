@@ -1,8 +1,8 @@
-#include "gui/window.hpp"
+#include "gui/ng/window.hpp"
 
 #include <SFML/Graphics/RenderTarget.hpp>
 
-namespace qrw
+namespace namelessgui
 {
 	Window::Window()
 	{

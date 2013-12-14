@@ -1,11 +1,11 @@
-#ifndef QRW_BUTTONGROUP_HPP
-#define QRW_BUTTONGROUP_HPP
+#ifndef NAMELESSGUI_BUTTONGROUP_HPP
+#define NAMELESSGUI_BUTTONGROUP_HPP
 
 #include <map>
 
-#include "gui/button.hpp"
+#include "gui/ng/button.hpp"
 
-namespace qrw
+namespace namelessgui
 {
 	class ButtonGroup
 	{

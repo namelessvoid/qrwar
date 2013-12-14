@@ -3,9 +3,9 @@
 #include <SFML/Window/Mouse.hpp>
 #include <SFML/Graphics/RectangleShape.hpp>
 
-#include "gui/button.hpp"
+#include "gui/ng/button.hpp"
 
-namespace qrw
+namespace namelessgui
 {
 
 	Button::Button(sf::Window* window, float width, float height, std::string text,
