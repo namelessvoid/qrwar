@@ -46,7 +46,7 @@ namespace qrw
 
 	void GuiHandler::display(sf::RenderTarget& rendertarget)
 	{
-		rendertarget.draw(*boardwidget);
+		rendertarget.draw(*(namelessgui::Widget*)boardwidget);
 		rendertarget.draw(*(sf::Drawable*)ingamewindow);
 		rendertarget.draw(*(sf::Drawable*)deploywindow);
 		Animation::renderAll(rendertarget, clock.restart());

@@ -12,7 +12,7 @@ namespace namelessgui
 		const sf::Texture* textureactive,
 		const sf::Texture* textureinactive,
 		const sf::Texture* texturehover)
-	: Widget(window, width, height),
+	: SpriteWidget(window, width, height),
 	  text(new sf::Text()),
 	  defaultfont(new sf::Font()),
 	  state(ES_INACTIVE)

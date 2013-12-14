@@ -7,11 +7,11 @@
 #include <SFML/Graphics/Text.hpp>
 #include <SFML/Window/Event.hpp>
 
-#include "gui/ng/widget.hpp"
+#include "gui/ng/spritewidget.hpp"
 
 namespace namelessgui
 {
-	class Button : public Widget
+	class Button : public SpriteWidget
 	{
 		public:
 			enum STATES
