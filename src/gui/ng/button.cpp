@@ -58,7 +58,7 @@ namespace namelessgui
 
 	void Button::setPosition(float x, float y)
 	{
-		Sprite::setPosition(x, y);
+		SpriteWidget::setPosition(x, y);
 		if(getTexture() != NULL)
 		{
 			text->setPosition(x + getTexture()->getSize().x

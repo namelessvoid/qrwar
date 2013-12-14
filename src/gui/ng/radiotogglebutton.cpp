@@ -39,6 +39,6 @@ namespace namelessgui
 			target.draw(rect);
 		}
 		target.draw(*text);
-		target.draw((sf::Sprite)*this);
+		target.draw(static_cast<SpriteWidget>(*this));
 	}
 }
