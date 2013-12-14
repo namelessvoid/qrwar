@@ -18,7 +18,7 @@ namespace qrw
 {
 	class GuiHandler;
 
-	class DeployWindow : public Window
+	class DeployWindow : public namelessgui::Window
 	{
 		public:
 			DeployWindow(Engine* engine, GuiHandler* guihandler,
@@ -36,9 +36,9 @@ namespace qrw
 
 			IngameWindow* ingamewindow;
 			// Buttons for units and terrain
-			RadioToggleButton* radiobuttons[BUTTONCOUNT];
-			ButtonGroup* buttongroup;
-			Button* startbutton;
+			namelessgui::RadioToggleButton* radiobuttons[BUTTONCOUNT];
+			namelessgui::ButtonGroup* buttongroup;
+			namelessgui::Button* startbutton;
 			sf::Font* defaultfont;
 			sf::Text* title;
 

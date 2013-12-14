@@ -2,7 +2,7 @@
 
 #include <SFML/Graphics/RenderTarget.hpp>
 
-namespace qrw
+namespace namelessgui
 {
 	Window::Window()
 	{

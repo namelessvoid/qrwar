@@ -17,7 +17,7 @@ namespace qrw
 	class DeployWindow;
 	class Engine;
 
-	class BoardWidget : public Widget
+	class BoardWidget : public namelessgui::Widget
 	{
 		public:
 			BoardWidget(GuiHandler* guihandler, Engine* engine, float width, float height);

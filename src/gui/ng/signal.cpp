@@ -1,6 +1,6 @@
 #include "gui/ng/signal.hpp"
 
-namespace qrw
+namespace namelessgui
 {
 	Signal::Signal()
 	{}

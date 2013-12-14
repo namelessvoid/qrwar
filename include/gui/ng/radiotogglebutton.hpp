@@ -1,10 +1,10 @@
-#ifndef QRW_RADIOTOGGLEBUTTON_HPP
-#define QRW_RADIOTOGGLEBUTTON_HPP value
+#ifndef NAMELESSGUI_RADIOTOGGLEBUTTON_HPP
+#define NAMELESSGUI_RADIOTOGGLEBUTTON_HPP value
 
 #include "gui/ng/button.hpp"
 #include "gui/ng/buttongroup.hpp"
 
-namespace qrw
+namespace namelessgui
 {
 	class RadioToggleButton : public Button
 	{

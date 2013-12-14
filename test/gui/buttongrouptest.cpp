@@ -15,10 +15,10 @@ class ButtonGroupTest : public CppUnit::TestFixture
 	public:
 		void setUp()
 		{
-			group = new qrw::ButtonGroup();
+			group = new namelessgui::ButtonGroup();
 			for(int i = 0; i < BUTTONCOUNT; ++i)
 			{
-				buttons[i] = new qrw::Button(NULL, 1, 1);
+				buttons[i] = new namelessgui::Button(NULL, 1, 1);
 				group->addButton(buttons[i]);
 			}
 		}
@@ -33,20 +33,20 @@ class ButtonGroupTest : public CppUnit::TestFixture
 		void activateTest()
 		{
 			for(int i = 0; i < BUTTONCOUNT; ++i)
-				CPPUNIT_ASSERT(buttons[i]->getState() == qrw::Button::ES_INACTIVE);
+				CPPUNIT_ASSERT(buttons[i]->getState() == namelessgui::Button::ES_INACTIVE);
 			group->activateButton(buttons[0]);
-			CPPUNIT_ASSERT(buttons[0]->getState() == qrw::Button::ES_ACTIVE);
-			CPPUNIT_ASSERT(buttons[1]->getState() == qrw::Button::ES_INACTIVE);
+			CPPUNIT_ASSERT(buttons[0]->getState() == namelessgui::Button::ES_ACTIVE);
+			CPPUNIT_ASSERT(buttons[1]->getState() == namelessgui::Button::ES_INACTIVE);
 			group->activateButton(buttons[2]);
-			CPPUNIT_ASSERT(buttons[0]->getState() == qrw::Button::ES_INACTIVE);
-			CPPUNIT_ASSERT(buttons[1]->getState() == qrw::Button::ES_INACTIVE);
-			CPPUNIT_ASSERT(buttons[2]->getState() == qrw::Button::ES_ACTIVE);
+			CPPUNIT_ASSERT(buttons[0]->getState() == namelessgui::Button::ES_INACTIVE);
+			CPPUNIT_ASSERT(buttons[1]->getState() == namelessgui::Button::ES_INACTIVE);
+			CPPUNIT_ASSERT(buttons[2]->getState() == namelessgui::Button::ES_ACTIVE);
 		}
 
 
 	private:
-		qrw::ButtonGroup* group;
-		qrw::Button* buttons[BUTTONCOUNT];
+		namelessgui::ButtonGroup* group;
+		namelessgui::Button* buttons[BUTTONCOUNT];
 };
 
 CPPUNIT_TEST_SUITE_REGISTRATION(ButtonGroupTest);

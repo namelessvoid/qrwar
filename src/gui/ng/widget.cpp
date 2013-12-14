@@ -5,7 +5,7 @@
 #include <iostream>
 #include <stdio.h>
 
-namespace qrw
+namespace namelessgui
 {
     Widget::Widget(sf::Window* window, float width, float height)
         : mouseFocus(false),

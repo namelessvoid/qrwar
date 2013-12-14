@@ -1,5 +1,5 @@
-#ifndef QRW_WINDOW_HPP
-#define QRW_WINDOW_HPP value
+#ifndef NAMELESSGUI_WINDOW_HPP
+#define NAMELESSGUI_WINDOW_HPP value
 
 #include <vector>
 
@@ -7,7 +7,7 @@
 
 #include "gui/ng/widget.hpp"
 
-namespace qrw
+namespace namelessgui
 {
 	class Window : public sf::Drawable
 	{

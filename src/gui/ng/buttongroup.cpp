@@ -2,7 +2,7 @@
 
 #include "gui/ng/buttongroup.hpp"
 
-namespace qrw
+namespace namelessgui
 {
 	ButtonGroup::ButtonGroup()
 	{}
