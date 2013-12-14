@@ -1,4 +1,4 @@
-#include "gui/window.hpp"
+#include "gui/ng/window.hpp"
 
 #include <SFML/Graphics/RenderTarget.hpp>
 

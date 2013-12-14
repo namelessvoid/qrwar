@@ -7,7 +7,7 @@
 #include <SFML/Graphics/Text.hpp>
 #include <SFML/Window/Event.hpp>
 
-#include "gui/widget.hpp"
+#include "gui/ng/widget.hpp"
 
 namespace qrw
 {

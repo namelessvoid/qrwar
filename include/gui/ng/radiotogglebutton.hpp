@@ -1,8 +1,8 @@
 #ifndef QRW_RADIOTOGGLEBUTTON_HPP
 #define QRW_RADIOTOGGLEBUTTON_HPP value
 
-#include "gui/button.hpp"
-#include "gui/buttongroup.hpp"
+#include "gui/ng/button.hpp"
+#include "gui/ng/buttongroup.hpp"
 
 namespace qrw
 {

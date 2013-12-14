@@ -6,10 +6,10 @@
 
 #include "engine/engine.hpp"
 #include "engine/unit.hpp"
-#include "gui/window.hpp"
-#include "gui/button.hpp"
-#include "gui/buttongroup.hpp"
-#include "gui/radiotogglebutton.hpp"
+#include "gui/ng/window.hpp"
+#include "gui/ng/button.hpp"
+#include "gui/ng/buttongroup.hpp"
+#include "gui/ng/radiotogglebutton.hpp"
 #include "gui/ingamewindow.hpp"
 
 #define BUTTONCOUNT 10

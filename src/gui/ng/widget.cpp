@@ -1,4 +1,4 @@
-#include "gui/widget.hpp"
+#include "gui/ng/widget.hpp"
 
 #include <SFML/Window/Mouse.hpp>
 

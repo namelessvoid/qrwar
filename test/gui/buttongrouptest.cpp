@@ -1,8 +1,8 @@
 #include <cppunit/extensions/HelperMacros.h>
 #include <cppunit/TestFixture.h>
 
-#include "gui/buttongroup.hpp"
-#include "gui/button.hpp"
+#include "gui/ng/buttongroup.hpp"
+#include "gui/ng/button.hpp"
 
 #define BUTTONCOUNT 3
 

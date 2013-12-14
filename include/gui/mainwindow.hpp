@@ -14,7 +14,7 @@ namespace qrw
 			typedef std::shared_ptr<const MainWindow> PtrConst;
 
 			static Ptr Create(GuiHandler* guihandler);
-		
+
 		protected:
 			MainWindow(GuiHandler* guihandler, int style = BACKGROUND);
 

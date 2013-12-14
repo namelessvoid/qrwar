@@ -1,4 +1,4 @@
-#include "gui/signal.hpp"
+#include "gui/ng/signal.hpp"
 
 namespace qrw
 {

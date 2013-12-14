@@ -7,8 +7,8 @@
 #include <SFML/Graphics/RectangleShape.hpp>
 
 #include "engine/engine.hpp"
-#include "gui/window.hpp"
-#include "gui/button.hpp"
+#include "gui/ng/window.hpp"
+#include "gui/ng/button.hpp"
 
 namespace qrw
 {

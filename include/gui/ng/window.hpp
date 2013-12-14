@@ -5,7 +5,7 @@
 
 #include <SFML/Graphics/Drawable.hpp>
 
-#include "gui/widget.hpp"
+#include "gui/ng/widget.hpp"
 
 namespace qrw
 {

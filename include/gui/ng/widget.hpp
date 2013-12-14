@@ -5,8 +5,8 @@
 #include <SFML/Window/Event.hpp>
 #include <SFML/Graphics/Sprite.hpp>
 
-#include "gui/signal.hpp"
-#include "gui/singleparametersignal.hpp"
+#include "gui/ng/signal.hpp"
+#include "gui/ng/singleparametersignal.hpp"
 
 namespace qrw
 {

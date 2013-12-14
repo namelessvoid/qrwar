@@ -9,7 +9,7 @@
 
 #include "engine/board.hpp"
 #include "gui/texturemanager.hpp"
-#include "gui/widget.hpp"
+#include "gui/ng/widget.hpp"
 
 namespace qrw
 {

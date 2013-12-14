@@ -3,7 +3,7 @@
 #include <SFML/Window/Mouse.hpp>
 #include <SFML/Graphics/RectangleShape.hpp>
 
-#include "gui/button.hpp"
+#include "gui/ng/button.hpp"
 
 namespace qrw
 {
