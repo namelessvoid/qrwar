@@ -21,8 +21,8 @@ namespace namelessgui
     }
 
     Widget::Widget(sf::Window* window, sf::Vector2f size)
+        : Widget(window, size.x, size.y)
     {
-        Widget(window, size.x, size.y);
     }
 
     Widget::~Widget()
