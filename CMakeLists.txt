@@ -43,6 +43,7 @@ set(COMMON_SOURCE
 	src/config/videosettings.cpp
 	src/config/audiosettings.cpp
 	src/config/settings.cpp
+	src/gui/ng/label.cpp
 )
 
 set(GUI_SOURCE
@@ -61,7 +62,6 @@ set(GUI_SOURCE
 	src/gui/ng/window.cpp
 	src/gui/animation.cpp
 	src/gui/damagenumber.cpp
-	src/gui/ng/label.cpp
 )
 
 include_directories(
