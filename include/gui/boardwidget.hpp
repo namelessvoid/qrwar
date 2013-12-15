@@ -9,7 +9,7 @@
 
 #include "engine/board.hpp"
 #include "gui/texturemanager.hpp"
-#include "gui/ng/widget.hpp"
+#include "gui/ng/spritewidget.hpp"
 
 namespace qrw
 {
@@ -26,6 +26,11 @@ namespace qrw
 			void setBoard(Board* board);
 
 			void draw(sf::RenderTarget &target, sf::RenderStates states) const;
+
+			sf::FloatRect getGlobalBounds()
+			{
+				return sf::FloatRect(0, 0, getSize().x, getSize().y);
+			}
 
 		private:
 			void calcSpriteDimensions(int boardwidth, int boardheight);

@@ -3,12 +3,12 @@
 
 #include <SFML/System/Vector2.hpp>
 #include <SFML/Window/Event.hpp>
-#include <SFML/Graphics/Text.hpp>
 #include <SFML/Graphics/RectangleShape.hpp>
 
 #include "engine/engine.hpp"
 #include "gui/ng/window.hpp"
 #include "gui/ng/button.hpp"
+#include "gui/ng/label.hpp"
 
 namespace qrw
 {
@@ -37,7 +37,7 @@ namespace qrw
 
 			// Widgets
 			namelessgui::Button endturnbutton;
-			sf::Text playernamelabel;
+			namelessgui::Label playernamelabel;
 			sf::Sprite* unitsprite;
 			sf::Sprite* terrainsprite;
 			sf::Sprite* plainsquare;
@@ -49,12 +49,12 @@ namespace qrw
 
 			sf::Font* defaultfont;
 
-			sf::Text* healthtext;
-			sf::Text* unitattacktext;
-			sf::Text* unitdefensetext;
-			sf::Text* unitmovementtext;
-			sf::Text* terrainattacktext;
-			sf::Text* terraindefensetext;
+			namelessgui::Label* healthtext;
+			namelessgui::Label* unitattacktext;
+			namelessgui::Label* unitdefensetext;
+			namelessgui::Label* unitmovementtext;
+			namelessgui::Label* terrainattacktext;
+			namelessgui::Label* terraindefensetext;
 
 			sf::RectangleShape* background;
 			sf::RectangleShape* border;

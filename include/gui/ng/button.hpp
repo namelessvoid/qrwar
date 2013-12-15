@@ -4,14 +4,14 @@
 #include <string>
 #include <SFML/Graphics/Texture.hpp>
 #include <SFML/Graphics/RenderTarget.hpp>
-#include <SFML/Graphics/Text.hpp>
 #include <SFML/Window/Event.hpp>
 
-#include "gui/ng/widget.hpp"
+#include "gui/ng/spritewidget.hpp"
+#include "gui/ng/label.hpp"
 
 namespace namelessgui
 {
-	class Button : public Widget
+	class Button : public SpriteWidget
 	{
 		public:
 			enum STATES
@@ -28,11 +28,10 @@ namespace namelessgui
 			~Button();
 
 			void setText(std::string text);
-			std::string getText();
+
 			void setState(STATES state);
 			STATES getState() const;
 
-			sf::Vector2f getSize() const;
 			void setPosition(float x, float y);
 			void setPosition(const sf::Vector2f& position);
 
@@ -40,15 +39,13 @@ namespace namelessgui
 				const sf::Texture* textureactive,
 				const sf::Texture* texturehover);
 
-			// void draw(sf::RenderTarget& target,
-			// 	sf::RenderStates states = sf::RenderStates::Default) const;
 			void updateSprite();
 
 		protected:
-			sf::Text* text;
+			Label* label;
 
 
-			private:
+		private:
 			// Slots
 			void leftMousebuttonPressedSlot();
 			void mouseEnteredSlot();

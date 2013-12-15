@@ -38,7 +38,7 @@ namespace namelessgui
 			rect.setSize(getSize());
 			target.draw(rect);
 		}
-		target.draw(*text);
-		target.draw((sf::Sprite)*this);
+		target.draw(*label);
+		target.draw(static_cast<SpriteWidget>(*this));
 	}
 }

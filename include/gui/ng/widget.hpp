@@ -3,14 +3,14 @@
 
 #include <SFML/Window/Window.hpp>
 #include <SFML/Window/Event.hpp>
-#include <SFML/Graphics/Sprite.hpp>
+#include <SFML/Graphics/Drawable.hpp>
 
 #include "gui/ng/signal.hpp"
 #include "gui/ng/singleparametersignal.hpp"
 
 namespace namelessgui
 {
-    class Widget : public sf::Sprite
+    class Widget : public sf::Drawable
     {
         public:
             Widget(sf::Window* window, float width, float height);
@@ -25,6 +25,8 @@ namespace namelessgui
 
             void setSize(sf::Vector2f size);
             sf::Vector2f getSize() const;
+
+            virtual sf::FloatRect getGlobalBounds() = 0;
 
             // Signals
             Signal signalclicked;

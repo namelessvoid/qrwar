@@ -40,7 +40,7 @@ namespace qrw
 			namelessgui::ButtonGroup* buttongroup;
 			namelessgui::Button* startbutton;
 			sf::Font* defaultfont;
-			sf::Text* title;
+			namelessgui::Label* title;
 
 			Engine* engine;
 	};

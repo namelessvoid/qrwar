@@ -19,7 +19,7 @@ namespace qrw
 	  guihandler(guihandler),
 	  // TODO: Dynamic size
 	  endturnbutton(guihandler->getRenderWindow(), 100.0, 40.0),
-	  playernamelabel(),
+	  playernamelabel(guihandler->getRenderWindow(), 100.0, 40.0),
 
 	  unitsprite(new sf::Sprite()),
 	  terrainsprite(new sf::Sprite()),
@@ -32,12 +32,12 @@ namespace qrw
 
 	  defaultfont(new sf::Font()),
 
-	  healthtext(new sf::Text()),
-	  unitattacktext(new sf::Text()),
-	  unitdefensetext(new sf::Text()),
-	  unitmovementtext(new sf::Text()),
-	  terrainattacktext(new sf::Text()),
-	  terraindefensetext(new sf::Text()),
+	  healthtext(new namelessgui::Label(guihandler->getRenderWindow())),
+	  unitattacktext(new namelessgui::Label(guihandler->getRenderWindow())),
+	  unitdefensetext(new namelessgui::Label(guihandler->getRenderWindow())),
+	  unitmovementtext(new namelessgui::Label(guihandler->getRenderWindow())),
+	  terrainattacktext(new namelessgui::Label(guihandler->getRenderWindow())),
+	  terraindefensetext(new namelessgui::Label(guihandler->getRenderWindow())),
 
 	  background(new sf::RectangleShape()),
 	  border(new sf::RectangleShape())
@@ -45,9 +45,10 @@ namespace qrw
 		defaultfont->loadFromFile("./res/font/Knigqst.ttf");
 		playernamelabel.setFont(*defaultfont);
 		playernamelabel.setCharacterSize(25);
-		playernamelabel.setString("Player name");
-		playernamelabel.setPosition(sf::Vector2f(625, 0));
+		playernamelabel.setText("Player name");
+		playernamelabel.setPosition(625.0, 0.0);
 		playernamelabel.setColor(sf::Color::White);
+		addWidget(&playernamelabel);
 
 		TextureManager* texturemanager = TextureManager::getInstance();
 
@@ -78,26 +79,32 @@ namespace qrw
 		healthtext->setFont(*defaultfont);
 		healthtext->setCharacterSize(30);
 		healthtext->setPosition(unitsprite->getPosition().x + 90, unitsprite->getPosition().y - 3);
+		addWidget(healthtext);
 
 		unitmovementtext->setFont(*defaultfont);
 		unitmovementtext->setCharacterSize(30);
 		unitmovementtext->setPosition(unitsprite->getPosition().x + 90, unitsprite->getPosition().y + 32);
+		addWidget(unitmovementtext);
 
 		unitattacktext->setFont(*defaultfont);
 		unitattacktext->setCharacterSize(30);
 		unitattacktext->setPosition(unitsprite->getPosition().x + 90, unitsprite->getPosition().y + 64);
+		addWidget(unitattacktext);
 
 		unitdefensetext->setFont(*defaultfont);
 		unitdefensetext->setCharacterSize(30);
 		unitdefensetext->setPosition(unitsprite->getPosition().x + 90, unitsprite->getPosition().y + 98);
+		addWidget(unitdefensetext);
 
 		terrainattacktext->setFont(*defaultfont);
 		terrainattacktext->setPosition(terrainsprite->getPosition().x + 90, terrainsprite->getPosition().y - 3);
 		terrainattacktext->setCharacterSize(30);
+		addWidget(terrainattacktext);
 
 		terraindefensetext->setFont(*defaultfont);
 		terraindefensetext->setPosition(terrainsprite->getPosition().x + 90, terrainsprite->getPosition().y + 32);
 		terraindefensetext->setCharacterSize(30);
+		addWidget(terraindefensetext);
 
 		endturnbutton.setText("End turn!");
 		endturnbutton.setTextures(texturemanager->getTexture("nextbutton"),
@@ -136,7 +143,7 @@ namespace qrw
 	void IngameWindow::update()
 	{
 		// Update player name
-		playernamelabel.setString(engine->getCurrentPlayer().getName());
+		playernamelabel.setText(engine->getCurrentPlayer().getName());
 		// Update Square information
 		Board* board = engine->getBoard();
 		Cursor* cursor = Cursor::getCursor()->getChild();
@@ -150,10 +157,10 @@ namespace qrw
 		if(unit != NULL)
 		{
 			// Update text
-			healthtext->setString(intToString(unit->getHP()) + " / " + intToString(unit->getMaxHp()));
-			unitattacktext->setString(intToString(unit->getAttack()));
-			unitdefensetext->setString(intToString(unit->getDefense()));
-			unitmovementtext->setString(intToString(unit->getCurrentMovement()) + " / " + intToString(unit->getMovement()));
+			healthtext->setText(intToString(unit->getHP()) + " / " + intToString(unit->getMaxHp()));
+			unitattacktext->setText(intToString(unit->getAttack()));
+			unitdefensetext->setText(intToString(unit->getDefense()));
+			unitmovementtext->setText(intToString(unit->getCurrentMovement()) + " / " + intToString(unit->getMovement()));
 			// player 0 units
 			if(unit->getPlayer() == engine->getPlayer(0))
 			{
@@ -194,18 +201,18 @@ namespace qrw
 		else
 		{
 			unitsprite->setTexture(*TextureManager::getInstance()->getTexture("plainsquare"));
-			unitattacktext->setString("");
-			unitdefensetext->setString("");
-			healthtext->setString("");
-			unitmovementtext->setString("");
+			unitattacktext->setText("");
+			unitdefensetext->setText("");
+			healthtext->setText("");
+			unitmovementtext->setText("");
 		}
 		// Decide which terrain has to be drawn
 		Terrain* terrain = square->getTerrain();
 		if(terrain != NULL)
 		{
 			// Update terrain text
-			terrainattacktext->setString(intToString(terrain->getModificator(EM_ATTACK)));
-			terraindefensetext->setString(intToString(terrain->getModificator(EM_DEFENSE)));
+			terrainattacktext->setText(intToString(terrain->getModificator(EM_ATTACK)));
+			terraindefensetext->setText(intToString(terrain->getModificator(EM_DEFENSE)));
 			// set terrain sprite
 			switch(terrain->getType())
 			{
@@ -225,8 +232,8 @@ namespace qrw
 		else
 		{
 			terrainsprite->setTexture(*TextureManager::getInstance()->getTexture("plainsquare"));
-			terrainattacktext->setString("");
-			terraindefensetext->setString("");
+			terrainattacktext->setText("");
+			terraindefensetext->setText("");
 		}
 	}
 
@@ -245,7 +252,6 @@ namespace qrw
 
 		Window::draw(target, states);
 
-		target.draw(playernamelabel);
 		// Draw unit info
 		sf::Vector2f pos = unitsprite->getPosition();
 		plainsquare->setPosition(pos);
@@ -262,11 +268,6 @@ namespace qrw
 		target.draw(*defensesprite);
 		target.draw(*movementsprite);
 
-		target.draw(*healthtext);
-		target.draw(*unitattacktext);
-		target.draw(*unitdefensetext);
-		target.draw(*unitmovementtext);
-
 		// Draw terrain info
 		pos = terrainsprite->getPosition();
 		plainsquare->setPosition(pos);
@@ -278,8 +279,6 @@ namespace qrw
 		defensesprite->setPosition(pos.x + 52, pos.y + 35);
 		target.draw(*attacksprite);
 		target.draw(*defensesprite);
-		target.draw(*terrainattacktext);
-		target.draw(*terraindefensetext);
 	}
 
 	void IngameWindow::changeplayerbuttonClicked()

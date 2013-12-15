@@ -35,6 +35,7 @@ set(COMMON_SOURCE
 	src/gui/texturemanager.cpp
 	src/gui/ng/buttongroup.cpp
     src/gui/ng/widget.cpp
+    src/gui/ng/spritewidget.cpp
 	src/gui/ng/button.cpp
 	src/gui/ng/signal.cpp
 	src/config/xmlhelper.cpp
@@ -42,6 +43,7 @@ set(COMMON_SOURCE
 	src/config/videosettings.cpp
 	src/config/audiosettings.cpp
 	src/config/settings.cpp
+	src/gui/ng/label.cpp
 )
 
 set(GUI_SOURCE
