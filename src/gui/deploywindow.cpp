@@ -15,13 +15,14 @@ namespace qrw
 	  // TODO dynamic size
 	  startbutton(new namelessgui::Button(guihandler->getRenderWindow(), 150.0, 40.0)),
 	  defaultfont(new sf::Font()),
-	  title(new sf::Text())
+	  title(new namelessgui::Label(guihandler->getRenderWindow()))
 	{
 		defaultfont->loadFromFile("./res/font/Knigqst.ttf");
 		title->setFont(*defaultfont);
-		title->setString("Deployment");
+		title->setText("Deployment");
 		// TODO dynamic positioning
 		title->setPosition(630, 0);
+		addWidget(title);
 
 		TextureManager* texturemgr = TextureManager::getInstance();
 		for(int i = 0; i < BUTTONCOUNT; ++i)
