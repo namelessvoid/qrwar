@@ -14,56 +14,25 @@ namespace namelessgui
 	class SpriteWidget : public Widget
 	{
 		public:
-			SpriteWidget(sf::Window* window, float width, float height)
-				:	Widget(window, width, height),
-					sprite()
-			{
-			}
+			SpriteWidget(sf::Window* window, float width, float height);
 
-			void draw(sf::RenderTarget& target, sf::RenderStates states) const
-			{
-				target.draw(sprite, states);
-			}
+			void draw(sf::RenderTarget& target, sf::RenderStates states) const;
 
-			sf::FloatRect getGlobalBounds()
-			{
-				return sprite.getGlobalBounds();
-			}
+			sf::FloatRect getGlobalBounds();
 
-			void setScale(const sf::Vector2f scale)
-			{
-				sprite.setScale(scale);
-			}
+			void setScale(const sf::Vector2f scale);
 
-			void setScale(float scalex, float scaley)
-			{
-				sprite.setScale(scalex, scaley);
-			}
+			void setScale(float scalex, float scaley);
 
-			void setPosition(float x, float y)
-			{
-				sprite.setPosition(x, y);
-			}
+			void setPosition(float x, float y);
 
-			const sf::Vector2f& getPosition() const
-			{
-				return sprite.getPosition();
-			}
+			const sf::Vector2f& getPosition() const;
 
-			const sf::Texture* getTexture() const
-			{
-				return sprite.getTexture();
-			}
+			const sf::Texture* getTexture() const;
 
-			void setTexture(const sf::Texture& texture, bool resetRect = false)
-			{
-				sprite.setTexture(texture, resetRect);
-			}
+			void setTexture(const sf::Texture& texture, bool resetRect = false);
 
-			const sf::Vector2f& getScale() const
-			{
-				return sprite.getScale();
-			}
+			const sf::Vector2f& getScale() const;
 
 		private:
 			sf::Sprite sprite;
