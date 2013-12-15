@@ -28,7 +28,7 @@ namespace namelessgui
 			~Button();
 
 			void setText(std::string text);
-			// std::string getText();
+
 			void setState(STATES state);
 			STATES getState() const;
 
@@ -39,8 +39,6 @@ namespace namelessgui
 				const sf::Texture* textureactive,
 				const sf::Texture* texturehover);
 
-			// void draw(sf::RenderTarget& target,
-			// 	sf::RenderStates states = sf::RenderStates::Default) const;
 			void updateSprite();
 
 		protected:
