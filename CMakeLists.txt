@@ -61,6 +61,7 @@ set(GUI_SOURCE
 	src/gui/ng/window.cpp
 	src/gui/animation.cpp
 	src/gui/damagenumber.cpp
+	src/gui/ng/label.cpp
 )
 
 include_directories(
