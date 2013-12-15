@@ -4,10 +4,10 @@
 #include <string>
 #include <SFML/Graphics/Texture.hpp>
 #include <SFML/Graphics/RenderTarget.hpp>
-#include <SFML/Graphics/Text.hpp>
 #include <SFML/Window/Event.hpp>
 
 #include "gui/ng/spritewidget.hpp"
+#include "gui/ng/label.hpp"
 
 namespace namelessgui
 {
@@ -44,7 +44,7 @@ namespace namelessgui
 			void updateSprite();
 
 		protected:
-			sf::Text* text;
+			Label* label;
 
 
 		private:

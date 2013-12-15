@@ -13,14 +13,14 @@ namespace namelessgui
 		const sf::Texture* textureinactive,
 		const sf::Texture* texturehover)
 	: SpriteWidget(window, width, height),
-	  text(new sf::Text()),
+	  label(new Label(window)),
 	  defaultfont(new sf::Font()),
 	  state(ES_INACTIVE)
 	{
 		defaultfont->loadFromFile("./res/font/Knigqst.ttf");
-		this->text->setFont(*defaultfont);
-		this->text->setString("hallo");
-		this->text->setCharacterSize(25);
+		this->label->setFont(*defaultfont);
+		this->label->setCharacterSize(25);
+
 		if(textureactive != NULL && textureinactive != NULL
 			&& texturehover != NULL)
 			setTextures(textureactive, textureinactive, texturehover);
@@ -40,8 +40,9 @@ namespace namelessgui
 
 	void Button::setText(std::string text)
 	{
-		this->text->setString(text);
+		this->label->setText(text);
 	}
+
 	void Button::setState(Button::STATES state)
 	{
 		this->state = state;
@@ -57,12 +58,12 @@ namespace namelessgui
 		SpriteWidget::setPosition(x, y);
 		if(getTexture() != NULL)
 		{
-			text->setPosition(x + getTexture()->getSize().x
+			label->setPosition(x + getTexture()->getSize().x
 				* getScale().x, y);
 		}
 		else
 		{
-			text->setPosition(x, y);
+			label->setPosition(x, y);
 		}
 	}
 
