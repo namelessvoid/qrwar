@@ -42,10 +42,6 @@ namespace namelessgui
 	{
 		this->text->setString(text);
 	}
-	std::string Button::getText()
-	{
-		return text->getString();
-	}
 	void Button::setState(Button::STATES state)
 	{
 		this->state = state;

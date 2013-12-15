@@ -28,7 +28,7 @@ namespace namelessgui
 			~Button();
 
 			void setText(std::string text);
-			std::string getText();
+			// std::string getText();
 			void setState(STATES state);
 			STATES getState() const;
 
