@@ -20,6 +20,7 @@ namespace namelessgui
 		defaultfont->loadFromFile("./res/font/Knigqst.ttf");
 		this->label->setFont(*defaultfont);
 		this->label->setCharacterSize(25);
+		this->label->setText(text);
 
 		if(textureactive != NULL && textureinactive != NULL
 			&& texturehover != NULL)
