@@ -47,7 +47,7 @@ namespace namelessgui
 			sf::Text* text;
 
 
-			private:
+		private:
 			// Slots
 			void leftMousebuttonPressedSlot();
 			void mouseEnteredSlot();
