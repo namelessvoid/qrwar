@@ -8,7 +8,7 @@
 
 namespace qrw
 {
-	class Settings : public VideoSettings, AudioSettings
+	class Settings : public VideoSettings, public AudioSettings
 	{
 		public:
 			~Settings();
