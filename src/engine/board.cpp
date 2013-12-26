@@ -47,11 +47,17 @@ namespace qrw
 	{
 		return getSquare(pos.x, pos.y);
 	}
+
+	Square* Board::getSquare(const Coordinates& coordinates)
+	{
+		return getSquare(coordinates.getX(), coordinates.getY());
+	}
+
 	int Board::getWidth()
 	{
 		return width;
 	}
-	
+
 	int Board::getHeight()
 	{
 		return height;

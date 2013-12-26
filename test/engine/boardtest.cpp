@@ -2,11 +2,13 @@
 #include <cppunit/TestFixture.h>
 
 #include "engine/board.hpp"
+#include "engine/coordinates.hpp"
 
 class BoardTest : public CppUnit::TestFixture
 {
 	CPPUNIT_TEST_SUITE(BoardTest);
 	CPPUNIT_TEST(getSquareTest);
+	CPPUNIT_TEST(getSquareCoordinatesTest);
 	CPPUNIT_TEST_SUITE_END();
 
 	public:
@@ -30,6 +32,15 @@ class BoardTest : public CppUnit::TestFixture
 			CPPUNIT_ASSERT(board->getSquare(0, -1) == 0);
 			CPPUNIT_ASSERT(board->getSquare(3, 0) == 0);
 			CPPUNIT_ASSERT(board->getSquare(0, 5) == 0);
+		}
+
+		void getSquareCoordinatesTest()
+		{
+			qrw::Coordinates coords(1, 1);
+			CPPUNIT_ASSERT(board->getSquare(coords) != 0);
+
+			coords.setX(-1);
+			CPPUNIT_ASSERT(board->getSquare(coords) == 0);
 		}
 
 	private:
