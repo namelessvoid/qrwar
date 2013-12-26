@@ -32,6 +32,7 @@ set(COMMON_SOURCE
 	src/engine/unitsmap.cpp
 	src/engine/army.cpp
 	src/engine/player.cpp
+	src/engine/coordinates.cpp
 	src/gui/texturemanager.cpp
 	src/gui/ng/buttongroup.cpp
     src/gui/ng/widget.cpp
@@ -77,6 +78,7 @@ set(UNITTEST_SOURCE
 	test/engine/boardtest.cpp
 	test/engine/squaretest.cpp
 	test/engine/unittest.cpp
+	test/engine/coordinatestest.cpp
 	test/gui/buttongrouptest.cpp
 	test/gui/texturemanagertest.cpp
 	test/config/tilesetprocessortest.cpp
