@@ -14,6 +14,11 @@ namespace qrw
 			void setY(int y);
 			int getY() const;
 
+			struct PtrCompLess
+			{
+				bool operator()(const Coordinates* lhs, const Coordinates* rhs) const;
+			};
+
 		private:
 			int x;
 			int y;
