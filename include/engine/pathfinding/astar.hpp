@@ -15,6 +15,8 @@ namespace qrw
 			Path* getPath(const Coordinates& start, const Coordinates& end);
 
 		private:
+			void clear();
+
 			Board* board;
 
 			std::set<Coordinates*, Coordinates::PtrCompLess> openlist;

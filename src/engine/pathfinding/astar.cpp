@@ -11,4 +11,14 @@ namespace qrw
 	{
 		return 0;
 	}
+
+	void AStar::clear()
+	{
+		for(auto coordinate : openlist)
+			openlist.clear();
+
+		for(auto coordinate : closedlist)
+			delete coordinate;
+		closedlist.clear();
+	}
 }

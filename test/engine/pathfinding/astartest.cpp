@@ -9,6 +9,7 @@ class AStarTest : public CppUnit::TestFixture
 {
 	CPPUNIT_TEST_SUITE(AStarTest);
 	CPPUNIT_TEST(testGetPath);
+	CPPUNIT_TEST(testClear);
 	CPPUNIT_TEST_SUITE_END();
 
 	public:
@@ -30,6 +31,19 @@ class AStarTest : public CppUnit::TestFixture
 		void testGetPath()
 		{
 			CPPUNIT_ASSERT(astar->getPath(*start, *end) == 0);
+		}
+
+		void testClear()
+		{
+			qrw::Coordinates* startcopy = new qrw::Coordinates(*start);
+			qrw::Coordinates* endcopy = new qrw::Coordinates(*end);
+
+			astar->openlist.insert(startcopy);
+			astar->closedlist.insert(endcopy);
+			astar->clear();
+
+			CPPUNIT_ASSERT(astar->openlist.size() == 0);
+			CPPUNIT_ASSERT(astar->closedlist.size() == 0);
 		}
 
 	private:
