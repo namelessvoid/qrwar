@@ -2,6 +2,11 @@
 
 namespace qrw
 {
+	AStar::~AStar()
+	{
+		clear();
+	}
+
 	void AStar::setBoard(Board* board)
 	{
 		this->board = board;

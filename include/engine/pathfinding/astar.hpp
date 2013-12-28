@@ -11,6 +11,8 @@ namespace qrw
 	class AStar : public AbstractAlgorithm
 	{
 		public:
+			~AStar();
+
 			void setBoard(Board* board);
 			Path* getPath(const Coordinates& start, const Coordinates& end);
 
