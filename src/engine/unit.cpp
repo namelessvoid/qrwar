@@ -1,6 +1,7 @@
 #include <stdio.h>
 
 #include "engine/unit.hpp"
+#include "engine/square.hpp"
 #include "engine/terrain.hpp"
 
 namespace qrw
@@ -100,6 +101,11 @@ namespace qrw
 		if(enemy->getHP() > 0)
 			setHP(enemy->battleHPResult(this, defensemods[EM_ATTACK],
 				attackmods[EM_DEFENSE]));
+	}
+
+	bool Unit::canWalkSquare(Square* square)
+	{
+		return square->getUnit() == 0;
 	}
 
 	int Unit::battleHPResult(Unit* enemy, int attackmod, int defensemod)

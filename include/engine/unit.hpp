@@ -7,6 +7,7 @@
 namespace qrw
 {
 	class Player;
+	class Square;
 
 	enum UNITTYPES
 	{
@@ -39,6 +40,8 @@ namespace qrw
 			std::string getName();
 
 			void attack(Unit* enemy, int* attackmods, int* defensemods);
+
+			bool canWalkSquare(Square* square);
 
 			static 	std::string UNITNAMES[EUT_NUMBEROFUNITTYPES];
 
