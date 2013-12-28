@@ -5,11 +5,13 @@ namespace qrw
 {
 	class Board;
 	class Path;
+	class Coordinates;
 
 	class AbstractAlgorithm
 	{
-		virtual void setBoard(Board* board) = 0;
-		virtual Path* getPath(int startx, int starty, int endx, int endy) = 0;
+		public:
+			virtual void setBoard(Board* board) = 0;
+			virtual Path* getPath(const Coordinates& start, const Coordinates& end) = 0;
 	};
 }
 
