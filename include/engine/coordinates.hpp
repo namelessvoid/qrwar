@@ -11,6 +11,8 @@ namespace qrw
 			int getX() const;
 			int getY() const;
 
+			bool operator==(const Coordinates& rhs) const;
+
 			struct PtrCompLess
 			{
 				bool operator()(const Coordinates* lhs, const Coordinates* rhs) const;

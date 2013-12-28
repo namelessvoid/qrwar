@@ -17,6 +17,11 @@ namespace qrw
 		return y;
 	}
 
+	bool Coordinates::operator==(const Coordinates& rhs) const
+	{
+		return getX() == rhs.getX() && getY() == rhs.getY();
+	}
+
 	bool Coordinates::PtrCompLess::operator()(const Coordinates* lhs, const Coordinates* rhs) const
 	{
 		if(lhs->getX() != rhs->getX())

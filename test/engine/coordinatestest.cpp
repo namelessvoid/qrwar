@@ -97,6 +97,12 @@ class CoordinatesTest : public CppUnit::TestFixture
 			delete copy;
 		}
 
+		void testOperatorEquals()
+		{
+			CPPUNIT_ASSERT(*coord0_0 == *coord0_0_2);
+			CPPUNIT_ASSERT((*coord0_0 == *coord1_4) == false);
+		}
+
 	private:
 		qrw::Coordinates* coord0_0;
 		qrw::Coordinates* coord0_0_2;
