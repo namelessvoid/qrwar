@@ -86,6 +86,17 @@ class CoordinatesTest : public CppUnit::TestFixture
 			CPPUNIT_ASSERT(set.find(coord1_0) != set.end());
 		}
 
+		void testCopyCtor()
+		{
+			qrw::Coordinates* copy = new qrw::Coordinates(*coord0_4);
+
+			CPPUNIT_ASSERT(copy != coord0_4);
+			CPPUNIT_ASSERT(copy->getX() == coord0_4->getX());
+			CPPUNIT_ASSERT(copy->getY() == coord0_4->getY());
+
+			delete copy;
+		}
+
 	private:
 		qrw::Coordinates* coord0_0;
 		qrw::Coordinates* coord0_0_2;
