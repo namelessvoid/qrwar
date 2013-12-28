@@ -35,6 +35,7 @@ set(COMMON_SOURCE
 	src/engine/coordinates.cpp
 	src/engine/pathfinding/path.cpp
 	src/engine/pathfinding/astar.cpp
+	src/engine/pathfinding/node.cpp
 	src/gui/texturemanager.cpp
 	src/gui/ng/buttongroup.cpp
     src/gui/ng/widget.cpp
@@ -81,6 +82,7 @@ set(UNITTEST_SOURCE
 	test/engine/squaretest.cpp
 	test/engine/unittest.cpp
 	test/engine/coordinatestest.cpp
+	test/engine/pathfinding/nodetest.cpp
 	test/engine/pathfinding/pathtest.cpp
 	test/engine/pathfinding/astartest.cpp
 	test/gui/buttongrouptest.cpp
