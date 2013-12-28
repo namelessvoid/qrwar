@@ -11,6 +11,8 @@ class CoordinatesTest : public CppUnit::TestFixture
 	CPPUNIT_TEST(test);
 	CPPUNIT_TEST(testPtrComp);
 	CPPUNIT_TEST(testSetCompatibility);
+	CPPUNIT_TEST(testCopyCtor);
+	CPPUNIT_TEST(testOperatorEquals);
 	CPPUNIT_TEST_SUITE_END();
 
 	public:
