@@ -1,7 +1,9 @@
 #include <cppunit/extensions/HelperMacros.h>
 #include <cppunit/TestFixture.h>
 
+#define private public
 #include "engine/pathfinding/astar.hpp"
+#undef private
 
 class AStarTest : public CppUnit::TestFixture
 {
