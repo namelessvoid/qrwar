@@ -14,73 +14,84 @@ class CoordinatesTest : public CppUnit::TestFixture
 	CPPUNIT_TEST_SUITE_END();
 
 	public:
+		void setUp()
+		{
+			coord0_0   = new qrw::Coordinates(0, 0);
+			coord0_0_2 = new qrw::Coordinates(0, 0);
+			coord1_0   = new qrw::Coordinates(1, 0);
+			coord0_4   = new qrw::Coordinates(0, 4);
+			coord1_4   = new qrw::Coordinates(1, 4);
+		}
+
+		void tearDown()
+		{
+			delete coord0_0;
+			delete coord0_0_2;
+			delete coord1_0;
+			delete coord0_4;
+			delete coord1_4;
+		}
+
 		void test()
 		{
-			qrw::Coordinates coords(3);
+			qrw::Coordinates coord1(3);
 
-			CPPUNIT_ASSERT(coords.getX() == 3);
-			CPPUNIT_ASSERT(coords.getY() == 0);
+			CPPUNIT_ASSERT(coord1.getX() == 3);
+			CPPUNIT_ASSERT(coord1.getY() == 0);
 
-			coords.setY(12);
-			CPPUNIT_ASSERT(coords.getY() == 12);
+			qrw::Coordinates coord2(0, 12);
+			CPPUNIT_ASSERT(coord2.getX() == 0);
+			CPPUNIT_ASSERT(coord2.getY() == 12);
 
-			coords.setX(4);
-			CPPUNIT_ASSERT(coords.getX() == 4);
+			qrw::Coordinates coord3(4, 12);
+			CPPUNIT_ASSERT(coord3.getX() == 4);
+			CPPUNIT_ASSERT(coord3.getY() == 12);
 		}
 
 		void testPtrComp()
 		{
 			qrw::Coordinates::PtrCompLess ptrcomp;
 
-			qrw::Coordinates* coord1 = new qrw::Coordinates(0, 0);
-			qrw::Coordinates* coord2 = new qrw::Coordinates(0, 0);
-
 			// 1: (0/0), 2: (0/0)
-			CPPUNIT_ASSERT(ptrcomp(coord1, coord2) == false);
-			CPPUNIT_ASSERT(ptrcomp(coord2, coord1) == false);
+			CPPUNIT_ASSERT(ptrcomp(coord0_0, coord0_0_2) == false);
+			CPPUNIT_ASSERT(ptrcomp(coord0_0_2, coord0_0) == false);
 
 			// 1: (0/0), 2: (1/0)
-			coord2->setX(1);
-			CPPUNIT_ASSERT(ptrcomp(coord1, coord2) == true);
-			CPPUNIT_ASSERT(ptrcomp(coord2, coord1) == false);
+			CPPUNIT_ASSERT(ptrcomp(coord0_0, coord1_0) == true);
+			CPPUNIT_ASSERT(ptrcomp(coord1_0, coord0_0) == false);
 
 			// 1: (0/4), 2: (1/0)
-			coord1->setY(4);
-			CPPUNIT_ASSERT(ptrcomp(coord1, coord2) == true);
-			CPPUNIT_ASSERT(ptrcomp(coord2, coord1) == false);
+			CPPUNIT_ASSERT(ptrcomp(coord0_4, coord1_0) == true);
+			CPPUNIT_ASSERT(ptrcomp(coord1_0, coord0_4) == false);
 
 			// 1: (1/4), 2: (1/0)
-			coord1->setX(1);
-			CPPUNIT_ASSERT(ptrcomp(coord1, coord2) == false);
-			CPPUNIT_ASSERT(ptrcomp(coord2, coord1) == true);
+			CPPUNIT_ASSERT(ptrcomp(coord1_4, coord1_0) == false);
+			CPPUNIT_ASSERT(ptrcomp(coord1_0, coord1_4) == true);
 		}
 
 		void testSetCompatibility()
 		{
 			std::set<qrw::Coordinates*, qrw::Coordinates::PtrCompLess> set;
 
-			qrw::Coordinates* coord1 = new qrw::Coordinates(0, 0);
-			qrw::Coordinates* coord2 = new qrw::Coordinates(0, 0);
-
-			set.insert(coord1);
-			set.insert(coord2);
+			set.insert(coord0_0);
+			set.insert(coord0_0_2);
 
 			CPPUNIT_ASSERT(set.size() == 1);
 
-			coord2->setX(1);
-			set.insert(coord2);
+			set.insert(coord1_0);
 
 			CPPUNIT_ASSERT(set.size() == 2);
 
-			CPPUNIT_ASSERT(set.find(coord1) != set.end());
-			CPPUNIT_ASSERT(set.find(coord2) != set.end());
-
-			coord2->setY(2);
-			CPPUNIT_ASSERT(set.find(coord2) != set.end());
-
-			set.insert(coord2);
-			CPPUNIT_ASSERT(set.size() == 2);
+			CPPUNIT_ASSERT(set.find(coord0_0) != set.end());
+			CPPUNIT_ASSERT(set.find(coord1_0) != set.end());
 		}
+
+	private:
+		qrw::Coordinates* coord0_0;
+		qrw::Coordinates* coord0_0_2;
+		qrw::Coordinates* coord1_0;
+		qrw::Coordinates* coord0_4;
+		qrw::Coordinates* coord1_4;
 };
 
 CPPUNIT_TEST_SUITE_REGISTRATION(CoordinatesTest);

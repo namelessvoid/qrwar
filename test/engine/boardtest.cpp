@@ -36,11 +36,11 @@ class BoardTest : public CppUnit::TestFixture
 
 		void getSquareCoordinatesTest()
 		{
-			qrw::Coordinates coords(1, 1);
-			CPPUNIT_ASSERT(board->getSquare(coords) != 0);
+			qrw::Coordinates coord1(1, 1);
+			CPPUNIT_ASSERT(board->getSquare(coord1) != 0);
 
-			coords.setX(-1);
-			CPPUNIT_ASSERT(board->getSquare(coords) == 0);
+			qrw::Coordinates coord2(-1, 0);
+			CPPUNIT_ASSERT(board->getSquare(coord2) == 0);
 		}
 
 	private:

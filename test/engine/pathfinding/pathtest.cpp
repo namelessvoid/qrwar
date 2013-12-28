@@ -34,13 +34,13 @@ class PathTest : public CppUnit::TestFixture
 			path.appendStep(step1);
 			path.appendStep(step2);
 
+			int counter = 0;
 			for(auto step : path)
 			{
-				step->setX(step->getX() + 1);
+				++counter;
 			}
 
-			CPPUNIT_ASSERT(step1->getX() == 1);
-			CPPUNIT_ASSERT(step2->getX() == 2);
+			CPPUNIT_ASSERT(counter == 2);
 		}
 };
 CPPUNIT_TEST_SUITE_REGISTRATION(PathTest);
