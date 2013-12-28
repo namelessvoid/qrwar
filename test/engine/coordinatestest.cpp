@@ -1,6 +1,8 @@
 #include <cppunit/extensions/HelperMacros.h>
 #include <cppunit/TestFixture.h>
 
+#include <set>
+
 #include "engine/coordinates.hpp"
 
 class CoordinatesTest : public CppUnit::TestFixture
@@ -8,6 +10,7 @@ class CoordinatesTest : public CppUnit::TestFixture
 	CPPUNIT_TEST_SUITE(CoordinatesTest);
 	CPPUNIT_TEST(test);
 	CPPUNIT_TEST(testPtrComp);
+	CPPUNIT_TEST(testSetCompatibility);
 	CPPUNIT_TEST_SUITE_END();
 
 	public:
@@ -50,6 +53,33 @@ class CoordinatesTest : public CppUnit::TestFixture
 			coord1->setX(1);
 			CPPUNIT_ASSERT(ptrcomp(coord1, coord2) == false);
 			CPPUNIT_ASSERT(ptrcomp(coord2, coord1) == true);
+		}
+
+		void testSetCompatibility()
+		{
+			std::set<qrw::Coordinates*, qrw::Coordinates::PtrCompLess> set;
+
+			qrw::Coordinates* coord1 = new qrw::Coordinates(0, 0);
+			qrw::Coordinates* coord2 = new qrw::Coordinates(0, 0);
+
+			set.insert(coord1);
+			set.insert(coord2);
+
+			CPPUNIT_ASSERT(set.size() == 1);
+
+			coord2->setX(1);
+			set.insert(coord2);
+
+			CPPUNIT_ASSERT(set.size() == 2);
+
+			CPPUNIT_ASSERT(set.find(coord1) != set.end());
+			CPPUNIT_ASSERT(set.find(coord2) != set.end());
+
+			coord2->setY(2);
+			CPPUNIT_ASSERT(set.find(coord2) != set.end());
+
+			set.insert(coord2);
+			CPPUNIT_ASSERT(set.size() == 2);
 		}
 };
 
