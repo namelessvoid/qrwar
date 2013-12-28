@@ -17,8 +17,8 @@ namespace qrw
 		private:
 			Board* board;
 
-			std::set<Coordinates*> openlist;
-			std::set<Coordinates*> closedlist;
+			std::set<Coordinates*, Coordinates::PtrCompLess> openlist;
+			std::set<Coordinates*, Coordinates::PtrCompLess> closedlist;
 	};
 }
 #endif
