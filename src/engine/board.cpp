@@ -9,10 +9,11 @@ namespace qrw
 		width(width)
 	{
 		int arraysize = height * width;
-		squares = new Square[arraysize];
+		squares = new Square*[arraysize];
+
 		for(int i = 0; i < width; ++i)
 			for(int j = 0; j < height; ++j)
-				getSquare(i, j)->setPosition(i, j);
+				squares[j * width + i] = new Square(i, j);
 		// squares = new Square[arraysize];
 		// printf("Array size (height*widht): %i\n", arraysize);
 		// printf("array pointer: %i", squares);
@@ -26,9 +27,9 @@ namespace qrw
 
 	Board::~Board()
 	{
-		// for(int i = 0; i < height*width; ++i)
-		// 	delete squares[i];
-		delete[] squares;
+		for(int i = 0; i < height*width; ++i)
+			delete squares[i];
+		// delete[] squares;
 	}
 
 	/*
@@ -40,7 +41,7 @@ namespace qrw
 			return 0;
 		if(y < 0 || y >= height)
 			return 0;
-		return &squares[x+y*width];
+		return squares[x+y*width];
 	}
 
 	Square* Board::getSquare(sf::Vector2i pos)

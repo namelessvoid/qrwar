@@ -40,7 +40,7 @@ class UnitTest : public CppUnit::TestFixture
 
 		void testCanWalkSquare()
 		{
-			qrw::Square* square = new qrw::Square();
+			qrw::Square* square = new qrw::Square(0, 0);
 
 			CPPUNIT_ASSERT(unit1->canWalkSquare(square) == true);
 

@@ -23,7 +23,7 @@ namespace qrw
 			int getHeight();
 
 		private:
-			Square* squares;
+			Square** squares;
 
 			int width;
 			int height;
