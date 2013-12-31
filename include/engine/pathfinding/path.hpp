@@ -5,13 +5,13 @@
 
 namespace qrw
 {
-	class Coordinates;
+	class Square;
 
 	class Path
 	{
 		public:
-			typedef std::vector<Coordinates*>::iterator iterator;
-			typedef std::vector<Coordinates*>::const_iterator const_iterator;
+			typedef std::vector<Square*>::iterator iterator;
+			typedef std::vector<Square*>::const_iterator const_iterator;
 
 			~Path();
 
@@ -21,12 +21,12 @@ namespace qrw
 			iterator end();
 			const_iterator end() const;
 
-			void appendStep(Coordinates* coordinates);
+			void appendStep(Square* square);
 
 			int getLength();
 
 		private:
-			std::vector<Coordinates*> steps;
+			std::vector<Square*> steps;
 	};
 }
 

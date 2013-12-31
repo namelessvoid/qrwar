@@ -1,5 +1,5 @@
 #include "engine/pathfinding/path.hpp"
-#include "engine/coordinates.hpp"
+#include "engine/square.hpp"
 
 namespace qrw
 {
@@ -31,9 +31,9 @@ namespace qrw
 		return steps.end();
 	};
 
-	void Path::appendStep(Coordinates* coordinates)
+	void Path::appendStep(Square* square)
 	{
-		steps.push_back(coordinates);
+		steps.push_back(square);
 	};
 
 	int Path::getLength()

@@ -3,7 +3,7 @@
 
 #include "engine/pathfinding/path.hpp"
 
-#include "engine/coordinates.hpp"
+#include "engine/square.hpp"
 
 class PathTest : public CppUnit::TestFixture
 {
@@ -19,7 +19,7 @@ class PathTest : public CppUnit::TestFixture
 
 			CPPUNIT_ASSERT(path.getLength() == 0);
 
-			qrw::Coordinates* step1 = new qrw::Coordinates(0, 0);
+			qrw::Square* step1 = new qrw::Square(0, 0);
 			path.appendStep(step1);
 			CPPUNIT_ASSERT(path.getLength() == 1);
 		}
@@ -28,8 +28,8 @@ class PathTest : public CppUnit::TestFixture
 		{
 			qrw::Path path;
 
-			qrw::Coordinates* step1 = new qrw::Coordinates(0, 0);
-			qrw::Coordinates* step2 = new qrw::Coordinates(1, 0);
+			qrw::Square* step1 = new qrw::Square(0, 10);
+			qrw::Square* step2 = new qrw::Square(1, 11);
 
 			path.appendStep(step1);
 			path.appendStep(step2);
