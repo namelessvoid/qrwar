@@ -46,10 +46,17 @@ namespace qrw
 	void AStar::clear()
 	{
 		for(auto coordinate : openlist)
-			openlist.clear();
+		{
+			// Erase coordinate from closed list so it is not deleted twice.
+			closedlist.erase(coordinate);
+			delete coordinate;
+		}
+		openlist.clear();
 
 		for(auto coordinate : closedlist)
+		{
 			delete coordinate;
+		}
 		closedlist.clear();
 	}
 }

@@ -82,6 +82,7 @@ class AStarTest : public CppUnit::TestFixture
 
 			astar->openlist.insert(startcopy);
 			astar->closedlist.insert(endcopy);
+			astar->closedlist.insert(startcopy);
 			astar->clear();
 
 			CPPUNIT_ASSERT(astar->openlist.size() == 0);
