@@ -3,14 +3,6 @@
 
 namespace qrw
 {
-	Path::~Path()
-	{
-		for(auto step : steps)
-			delete step;
-
-		steps.clear();
-	};
-
 	Path::iterator Path::begin()
 	{
 		return steps.begin();

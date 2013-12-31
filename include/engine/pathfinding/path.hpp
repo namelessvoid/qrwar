@@ -13,8 +13,6 @@ namespace qrw
 			typedef std::vector<Square*>::iterator iterator;
 			typedef std::vector<Square*>::const_iterator const_iterator;
 
-			~Path();
-
 			iterator begin();
 			const_iterator begin() const;
 
