@@ -25,7 +25,7 @@ namespace qrw
 
 			Board* board;
 
-			std::map<Coordinates*, Node*> nodemap;
+			std::map<Coordinates*, Node*, Coordinates::PtrCompLess> nodemap;
 			std::set<Coordinates*, Coordinates::PtrCompLess> openlist;
 			std::set<Coordinates*, Coordinates::PtrCompLess> closedlist;
 	};

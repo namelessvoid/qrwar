@@ -19,6 +19,7 @@ class AStarTest : public CppUnit::TestFixture
 	CPPUNIT_TEST(testGetPathStartEqualsEnd);
 	CPPUNIT_TEST(testFindLowestFCoordinates);
 	CPPUNIT_TEST(testClear);
+	CPPUNIT_TEST(testNodemap);
 	CPPUNIT_TEST_SUITE_END();
 
 	public:
@@ -121,6 +122,27 @@ class AStarTest : public CppUnit::TestFixture
 			CPPUNIT_ASSERT(astar->openlist.size() == 0);
 			CPPUNIT_ASSERT(astar->closedlist.size() == 0);
 			CPPUNIT_ASSERT(astar->nodemap.size() == 0);
+		}
+
+		// Just test if the node map behaves as expected.
+		void testNodemap()
+		{
+			qrw::Coordinates* coords = new qrw::Coordinates(0, 0);
+			qrw::Node* node = new qrw::Node(0, 0);
+
+			astar->nodemap[coords] = node;
+
+			CPPUNIT_ASSERT(astar->nodemap[coords] == node);
+
+			qrw::Coordinates* coords2 = new qrw::Coordinates(0, 0);
+			CPPUNIT_ASSERT(astar->nodemap[coords2] == node);
+			CPPUNIT_ASSERT(coords != coords2);
+
+			delete node;
+			delete coords;
+			delete coords2;
+
+			astar->nodemap.clear();
 		}
 
 	private:
