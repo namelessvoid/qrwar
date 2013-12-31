@@ -31,6 +31,11 @@ namespace qrw
 		return steps.end();
 	};
 
+	void Path::prependStep(Square* square)
+	{
+		steps.insert(steps.begin(), square);
+	}
+
 	void Path::appendStep(Square* square)
 	{
 		steps.push_back(square);
