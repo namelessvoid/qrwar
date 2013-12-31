@@ -37,6 +37,8 @@ class PathTest : public CppUnit::TestFixture
 			int counter = 0;
 			for(auto step : path)
 			{
+				CPPUNIT_ASSERT(step->getXPosition() == counter);
+				CPPUNIT_ASSERT(step->getYPosition() == (counter + 10));
 				++counter;
 			}
 
