@@ -13,6 +13,7 @@ class CoordinatesTest : public CppUnit::TestFixture
 	CPPUNIT_TEST(testSetCompatibility);
 	CPPUNIT_TEST(testCopyCtor);
 	CPPUNIT_TEST(testOperatorEquals);
+	CPPUNIT_TEST(testOperatorPlus);
 	CPPUNIT_TEST_SUITE_END();
 
 	public:
@@ -103,6 +104,14 @@ class CoordinatesTest : public CppUnit::TestFixture
 		{
 			CPPUNIT_ASSERT(*coord0_0 == *coord0_0_2);
 			CPPUNIT_ASSERT((*coord0_0 == *coord1_4) == false);
+		}
+
+		void testOperatorPlus()
+		{
+			qrw::Coordinates* coords = new qrw::Coordinates(*coord1_0 + *coord1_4);
+
+			CPPUNIT_ASSERT(coords->getX() == 2);
+			CPPUNIT_ASSERT(coords->getY() == 4);
 		}
 
 	private:

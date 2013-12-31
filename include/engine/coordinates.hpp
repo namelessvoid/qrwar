@@ -13,6 +13,8 @@ namespace qrw
 
 			bool operator==(const Coordinates& rhs) const;
 
+			Coordinates operator+(const Coordinates& rhs) const;
+
 			struct PtrCompLess
 			{
 				bool operator()(const Coordinates* lhs, const Coordinates* rhs) const;
