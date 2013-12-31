@@ -8,12 +8,12 @@
 class PathTest : public CppUnit::TestFixture
 {
 	CPPUNIT_TEST_SUITE(PathTest);
-	CPPUNIT_TEST(appendTest);
-	CPPUNIT_TEST(forEachTest);
+	CPPUNIT_TEST(testAppendStep);
+	CPPUNIT_TEST(testForEach);
 	CPPUNIT_TEST_SUITE_END();
 
 	public:
-		void appendTest()
+		void testAppendStep()
 		{
 			qrw::Path path;
 
@@ -24,7 +24,7 @@ class PathTest : public CppUnit::TestFixture
 			CPPUNIT_ASSERT(path.getLength() == 1);
 		}
 
-		void forEachTest()
+		void testForEach()
 		{
 			qrw::Path path;
 
