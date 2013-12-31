@@ -7,9 +7,20 @@
 
 namespace qrw
 {
+	AStar::AStar()
+	{
+		directions[0] = new Coordinates(-1,  0);
+		directions[1] = new Coordinates( 0, -1);
+		directions[2] = new Coordinates(+1,  0);
+		directions[3] = new Coordinates( 0, +1);
+	}
+
 	AStar::~AStar()
 	{
 		clear();
+
+		for(int i = 0; i < 4; ++i)
+			 delete directions[i];
 	}
 
 	void AStar::setBoard(Board* board)

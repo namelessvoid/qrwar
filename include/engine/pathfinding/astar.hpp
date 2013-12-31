@@ -14,6 +14,7 @@ namespace qrw
 	class AStar : public AbstractAlgorithm
 	{
 		public:
+			AStar();
 			~AStar();
 
 			void setBoard(Board* board);
@@ -28,6 +29,8 @@ namespace qrw
 			std::map<Coordinates*, Node*, Coordinates::PtrCompLess> nodemap;
 			std::set<Coordinates*, Coordinates::PtrCompLess> openlist;
 			std::set<Coordinates*, Coordinates::PtrCompLess> closedlist;
+
+			Coordinates* directions[4];
 	};
 }
 #endif
