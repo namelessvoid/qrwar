@@ -17,6 +17,7 @@ class AStarTest : public CppUnit::TestFixture
 	CPPUNIT_TEST(testGetPathNoUnit);
 	CPPUNIT_TEST(testGetPathInvalidStartOrEnd);
 	CPPUNIT_TEST(testGetPathStartEqualsEnd);
+	CPPUNIT_TEST(testFindLowestFCoordinates);
 	CPPUNIT_TEST(testClear);
 	CPPUNIT_TEST_SUITE_END();
 
@@ -74,6 +75,34 @@ class AStarTest : public CppUnit::TestFixture
 		{
 			qrw::Coordinates equalend(*start);
 			CPPUNIT_ASSERT(astar->getPath(*start, equalend) == 0);
+		}
+
+		void testFindLowestFCoordinates()
+		{
+			// Test with an empty list
+			CPPUNIT_ASSERT(astar->findLowestFCoordinates() == 0);
+
+			// Test with only one element on openlist
+			qrw::Coordinates* coords1 = new qrw::Coordinates(*start);
+			astar->openlist.insert(coords1);
+			CPPUNIT_ASSERT(astar->findLowestFCoordinates() == coords1);
+
+			// Test with more than one element on openlist
+			qrw::Coordinates* coords2 = new qrw::Coordinates(1, 1);
+			qrw::Coordinates* coords3 = new qrw::Coordinates(2, 2);
+			astar->openlist.insert(coords2);
+			astar->openlist.insert(coords3);
+
+			astar->nodemap[coords1] = new qrw::Node(*coords1);
+			astar->nodemap[coords1]->setG(10);
+
+			astar->nodemap[coords2] = new qrw::Node(*coords2);
+			astar->nodemap[coords2]->setG(5);
+
+			astar->nodemap[coords3] = new qrw::Node(*coords3);
+			astar->nodemap[coords3]->setG(9);
+
+			CPPUNIT_ASSERT(*astar->findLowestFCoordinates() == *coords2);
 		}
 
 		void testClear()

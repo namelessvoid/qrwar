@@ -20,6 +20,7 @@ namespace qrw
 			Path* getPath(const Coordinates& start, const Coordinates& end);
 
 		private:
+			Coordinates* findLowestFCoordinates();
 			void clear();
 
 			Board* board;

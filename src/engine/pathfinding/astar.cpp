@@ -44,6 +44,27 @@ namespace qrw
 		return path;
 	}
 
+	Coordinates* AStar::findLowestFCoordinates()
+	{
+		if(openlist.size() == 0)
+			return 0;
+		else if(openlist.size() == 1)
+			return *openlist.begin();
+
+		Node* lowestfnode = nodemap[*openlist.begin()];
+		Node * currentnode =  0;
+
+		for(auto coordinate : openlist)
+		{
+			currentnode = nodemap[coordinate];
+			if(currentnode->getF() < lowestfnode->getF())
+				lowestfnode = currentnode;
+		}
+
+		return lowestfnode;
+	}
+
+
 	void AStar::clear()
 	{
 		for(auto nodemapiter : nodemap)
