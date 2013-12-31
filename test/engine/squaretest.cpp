@@ -2,11 +2,13 @@
 #include <cppunit/TestFixture.h>
 
 #include "engine/square.hpp"
+#include "engine/unit.hpp"
 
 class SquareTest : public CppUnit::TestFixture
 {
 	CPPUNIT_TEST_SUITE(SquareTest);
 	CPPUNIT_TEST(getDistanceTest);
+	CPPUNIT_TEST(testIsAccessible);
 	CPPUNIT_TEST_SUITE_END();
 
 	public:
@@ -27,6 +29,17 @@ class SquareTest : public CppUnit::TestFixture
 			CPPUNIT_ASSERT(square0_0.getDistance(&square2_1) == 3);
 			CPPUNIT_ASSERT(square0_0.getDistance(&square2_0) == 2);
 			CPPUNIT_ASSERT(square0_0.getDistance(&square_2_1) == 3);
+		}
+
+		void testIsAccessible()
+		{
+			qrw::Square square(0, 0);
+			qrw::Unit unit(qrw::EUT_SWORDMAN, 5, 2, 1, 0, 0, 0);
+
+			CPPUNIT_ASSERT(square.isAccessible() == true);
+
+			square.setUnit(&unit);
+			CPPUNIT_ASSERT(square.isAccessible() == false);
 		}
 };
 

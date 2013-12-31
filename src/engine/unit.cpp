@@ -103,11 +103,6 @@ namespace qrw
 				attackmods[EM_DEFENSE]));
 	}
 
-	bool Unit::canWalkSquare(Square* square)
-	{
-		return square->getUnit() == 0;
-	}
-
 	int Unit::battleHPResult(Unit* enemy, int attackmod, int defensemod)
 	{
 		// Calculate effect on enemy

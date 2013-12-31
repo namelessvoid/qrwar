@@ -8,7 +8,6 @@ class UnitTest : public CppUnit::TestFixture
 {
 	CPPUNIT_TEST_SUITE(UnitTest);
 	CPPUNIT_TEST(attackTest);
-	CPPUNIT_TEST(testCanWalkSquare);
 	CPPUNIT_TEST_SUITE_END();
 
 	public:
@@ -36,19 +35,6 @@ class UnitTest : public CppUnit::TestFixture
 			unit2->attack(unit1, mods, mods);
 			CPPUNIT_ASSERT(unit1->getHP() == 0);
 			CPPUNIT_ASSERT(unit2->getHP() == 3);
-		}
-
-		void testCanWalkSquare()
-		{
-			qrw::Square* square = new qrw::Square(0, 0);
-
-			CPPUNIT_ASSERT(unit1->canWalkSquare(square) == true);
-
-			square->setUnit(unit2);
-
-			CPPUNIT_ASSERT(unit1->canWalkSquare(square) == false);
-
-			delete square;
 		}
 
 	private:

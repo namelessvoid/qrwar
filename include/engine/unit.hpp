@@ -41,8 +41,6 @@ namespace qrw
 
 			void attack(Unit* enemy, int* attackmods, int* defensemods);
 
-			bool canWalkSquare(Square* square);
-
 			static 	std::string UNITNAMES[EUT_NUMBEROFUNITTYPES];
 
 		private:

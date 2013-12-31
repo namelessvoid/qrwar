@@ -54,4 +54,9 @@ namespace qrw
 		int dy = std::abs(getYPosition()) - std::abs(square->getYPosition());
 		return ceilf(sqrt(dx * dx + dy * dy));
 	}
+
+	bool Square::isAccessible()
+	{
+		return getUnit() == 0;
+	}
 }

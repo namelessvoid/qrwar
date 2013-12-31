@@ -25,6 +25,8 @@ namespace qrw
 			int getXPosition();
 			int getYPosition();
 
+			bool isAccessible();
+
 		private:
 			Terrain* terrain;
 			Unit* unit;
