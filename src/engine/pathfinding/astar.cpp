@@ -64,7 +64,7 @@ namespace qrw
 			currentcoords = findLowestFCoordinates();
 			openlist.erase(currentcoords);
 			currentnode = nodemap[currentcoords];
-			closedlist.insert(currentnode);
+			closedlist.insert(currentcoords);
 
 			// Check the neighbours
 			for(auto direction : directions)
@@ -131,17 +131,21 @@ namespace qrw
 		else if(openlist.size() == 1)
 			return *openlist.begin();
 
-		Node* lowestfnode = nodemap[*openlist.begin()];
+		Coordinates* lowestcoordinate = *openlist.begin();
+		Node* lowestfnode = nodemap[lowestcoordinate];
 		Node * currentnode =  0;
 
 		for(auto coordinate : openlist)
 		{
 			currentnode = nodemap[coordinate];
 			if(currentnode->getF() < lowestfnode->getF())
+			{
+				lowestcoordinate = coordinate;
 				lowestfnode = currentnode;
+			}
 		}
 
-		return lowestfnode;
+		return lowestcoordinate;
 	}
 
 
