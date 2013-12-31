@@ -3,6 +3,7 @@
 #include "engine/board.hpp"
 #include "engine/unit.hpp"
 #include "engine/pathfinding/path.hpp"
+#include "engine/pathfinding/node.hpp"
 
 namespace qrw
 {
@@ -45,6 +46,12 @@ namespace qrw
 
 	void AStar::clear()
 	{
+		for(auto nodemapiter : nodemap)
+		{
+			delete nodemapiter.second;
+		}
+		nodemap.clear();
+
 		for(auto coordinate : openlist)
 		{
 			// Erase coordinate from closed list so it is not deleted twice.

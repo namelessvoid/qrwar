@@ -3,6 +3,7 @@
 
 #include "engine/board.hpp"
 #include "engine/unit.hpp"
+#include "engine/pathfinding/node.hpp"
 
 #define private public
 #include "engine/pathfinding/astar.hpp"
@@ -80,13 +81,17 @@ class AStarTest : public CppUnit::TestFixture
 			qrw::Coordinates* startcopy = new qrw::Coordinates(*start);
 			qrw::Coordinates* endcopy = new qrw::Coordinates(*end);
 
+			qrw::Node* node = new qrw::Node(*start);
+
 			astar->openlist.insert(startcopy);
 			astar->closedlist.insert(endcopy);
 			astar->closedlist.insert(startcopy);
+			astar->nodemap[startcopy] = node;
 			astar->clear();
 
 			CPPUNIT_ASSERT(astar->openlist.size() == 0);
 			CPPUNIT_ASSERT(astar->closedlist.size() == 0);
+			CPPUNIT_ASSERT(astar->nodemap.size() == 0);
 		}
 
 	private:

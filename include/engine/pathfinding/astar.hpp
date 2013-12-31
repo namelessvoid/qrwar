@@ -2,12 +2,15 @@
 #define QRW_ASTAR_HPP
 
 #include <set>
+#include <map>
 
 #include "engine/pathfinding/abstractalgorithm.hpp"
 #include "engine/coordinates.hpp"
 
 namespace qrw
 {
+	class Node;
+
 	class AStar : public AbstractAlgorithm
 	{
 		public:
@@ -21,6 +24,7 @@ namespace qrw
 
 			Board* board;
 
+			std::map<Coordinates*, Node*> nodemap;
 			std::set<Coordinates*, Coordinates::PtrCompLess> openlist;
 			std::set<Coordinates*, Coordinates::PtrCompLess> closedlist;
 	};
