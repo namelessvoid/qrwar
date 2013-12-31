@@ -4,6 +4,7 @@
 #include "engine/board.hpp"
 #include "engine/unit.hpp"
 #include "engine/pathfinding/node.hpp"
+#include "engine/pathfinding/path.hpp"
 
 #define private public
 #include "engine/pathfinding/astar.hpp"
@@ -48,7 +49,9 @@ class AStarTest : public CppUnit::TestFixture
 
 		void testGetPath()
 		{
-			CPPUNIT_ASSERT(astar->getPath(*start, *end) != 0);
+			qrw::Path* path = astar->getPath(*start, *end);
+			CPPUNIT_ASSERT(path != 0);
+			CPPUNIT_ASSERT(path->getLength() == 19);
 		}
 
 		void testGetPathNoBoard()

@@ -43,15 +43,84 @@ namespace qrw
 		if(start == end)
 			return 0;
 
-		// Run the algorithm
-		Unit* unit = board->getSquare(start)->getUnit();
+		// Initialize the algorithm
+		Coordinates* currentcoords = new Coordinates(start);
+		Node* currentnode = new Node(*currentcoords);
+		Node* tmpnode = 0;
+		Coordinates* tmpcoords = 0;
 
+		currentnode->setG(0);
+		currentnode->setH(board->getSquare(*currentcoords)->getDistance(board->getSquare(end)));
+
+		nodemap[currentcoords] = currentnode;
+		openlist.insert(currentcoords);
+
+		currentcoords = currentnode = 0;
+		Coordinates* endcoords = new Coordinates(end);
+
+		// Run the algorithm
+		while(!openlist.empty() && closedlist.find(endcoords) == closedlist.end())
+		{
+			currentcoords = findLowestFCoordinates();
+			openlist.erase(currentcoords);
+			currentnode = nodemap[currentcoords];
+			closedlist.insert(currentnode);
+
+			// Check the neighbours
+			for(auto direction : directions)
+			{
+				tmpcoords = new Coordinates(*currentcoords + *direction);
+
+				// If the sqare is accessible but was not added to closedlist yet
+				if(closedlist.find(tmpcoords) == closedlist.end()
+					&& board->getSquare(*tmpcoords) != 0
+					&& board->getSquare(*tmpcoords)->isAccessible())
+				{
+					// Coordinates are not put into openlist
+					if(openlist.find(tmpcoords) == openlist.end())
+					{
+						tmpnode = new Node(*tmpcoords);
+						tmpnode->setG(currentnode->getG() + 1);
+						tmpnode->setH(board->getSquare(*tmpcoords)->getDistance(board->getSquare(end)));
+						tmpnode->setParent(currentnode);
+
+						nodemap[tmpcoords] = tmpnode;
+						openlist.insert(tmpcoords);
+					}
+					else
+					{
+						tmpnode = nodemap[tmpcoords];
+						delete tmpcoords;
+						tmpcoords = 0;
+
+						if(currentnode->getG() + 1 < tmpnode->getG())
+						{
+							tmpnode->setParent(currentnode);
+							tmpnode->setG(currentnode->getG() + 1);
+						}
+					}
+				} // if(accessible && not on closedlist)
+			} // for(directions)
+		} // for(openlist not empty && end not reached)
 
 		// Build the Path
+		if(closedlist.find(endcoords) == closedlist.end())
+			return 0;
+
 		Path* path = new Path();
+
+		for(currentnode = nodemap[endcoords];
+			currentnode->getParent() != 0;
+			currentnode = currentnode->getParent())
+		{
+			path->prependStep(board->getSquare(*currentnode));
+		}
+		path->prependStep(board->getSquare(start));
 
 		// Cleanup and return.
 		clear();
+		delete endcoords;
+
 		return path;
 	}
 
