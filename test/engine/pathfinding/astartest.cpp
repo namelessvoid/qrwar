@@ -14,6 +14,7 @@ class AStarTest : public CppUnit::TestFixture
 {
 	CPPUNIT_TEST_SUITE(AStarTest);
 	CPPUNIT_TEST(testFindPath);
+	CPPUNIT_TEST(testFindPath2);
 	CPPUNIT_TEST(testFindPathNoBoard);
 	CPPUNIT_TEST(testFindPathNoUnit);
 	CPPUNIT_TEST(testFindPathInvalidStartOrEnd);
@@ -73,7 +74,30 @@ class AStarTest : public CppUnit::TestFixture
 				++stepiter;
 				++counterx;
 			}
+			delete path;
+		}
 
+		void testFindPath2()
+		{
+			// Prepare board
+			for(int i = 2; i <= 5; ++i)
+				board->getSquare(2, i)->setUnit(blocker);
+			for(int i = 0; i <= 1; ++i)
+				board->getSquare(i, 5)->setUnit(blocker);
+			for(int i = 0; i <= 4; ++i)
+				board->getSquare(4, i)->setUnit(blocker);
+			for(int i = 3; i <= 7; ++i)
+				board->getSquare(6, i)->setUnit(blocker);
+			for(int i = 6; i <= 9; ++i)
+				board->getSquare(8, i)->setUnit(blocker);
+			board->getSquare(4, 6)->setUnit(blocker);
+			board->getSquare(3, 7)->setUnit(blocker);
+
+			qrw::Path* path = astar->findPath(*start, *end);
+			CPPUNIT_ASSERT(path != 0);
+			CPPUNIT_ASSERT(path->getLength() == 25);
+			CPPUNIT_ASSERT((*(path->begin() + 14))->getCoordinates() == qrw::Coordinates(6, 8));
+			delete path;
 		}
 
 		void testFindPathNoBoard()
