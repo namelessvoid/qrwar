@@ -8,6 +8,8 @@
 
 namespace qrw
 {
+	class AbstractAlgorithm;
+
 	enum ENGINSTATES
 	{
 		EES_UNDEFINED,
@@ -85,6 +87,8 @@ namespace qrw
 			int currentplayer;
 			Player players[2];
 			ENGINSTATES status;
+
+			AbstractAlgorithm* pathfinder;
 	};
 }
 
