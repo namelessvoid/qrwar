@@ -41,6 +41,7 @@ class AStarTest : public CppUnit::TestFixture
 
 		void tearDown()
 		{
+			delete board;
 			delete astar;
 			delete start;
 			delete end;
