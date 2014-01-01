@@ -327,4 +327,9 @@ namespace qrw
 			return &players[id];
 		return 0;
 	}
+
+	Path* Engine::findPath(const Coordinates& start, const Coordinates& end)
+	{
+		return pathfinder->findPath(start, end);
+	}
 }

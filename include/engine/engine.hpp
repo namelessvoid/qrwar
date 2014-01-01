@@ -9,6 +9,7 @@
 namespace qrw
 {
 	class AbstractAlgorithm;
+	class Path;
 
 	enum ENGINSTATES
 	{
@@ -79,6 +80,8 @@ namespace qrw
 			bool removeTerrain(int x, int y);
 
 			Player* getPlayer(int id);
+
+			Path* findPath(const Coordinates& start, const Coordinates& end);
 
 		private:
 			// void setPlayerUnits(int id, int unitnumbers[EUT_NUMBEROFUNITTYPES]);
