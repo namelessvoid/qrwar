@@ -13,11 +13,11 @@
 class AStarTest : public CppUnit::TestFixture
 {
 	CPPUNIT_TEST_SUITE(AStarTest);
-	CPPUNIT_TEST(testGetPath);
-	CPPUNIT_TEST(testGetPathNoBoard);
-	CPPUNIT_TEST(testGetPathNoUnit);
-	CPPUNIT_TEST(testGetPathInvalidStartOrEnd);
-	CPPUNIT_TEST(testGetPathStartEqualsEnd);
+	CPPUNIT_TEST(testFindPath);
+	CPPUNIT_TEST(testFindPathNoBoard);
+	CPPUNIT_TEST(testFindPathNoUnit);
+	CPPUNIT_TEST(testFindPathInvalidStartOrEnd);
+	CPPUNIT_TEST(testFindPathStartEqualsEnd);
 	CPPUNIT_TEST(testFindLowestFCoordinates);
 	CPPUNIT_TEST(testClear);
 	CPPUNIT_TEST(testNodemap);
@@ -47,38 +47,38 @@ class AStarTest : public CppUnit::TestFixture
 			delete walker;
 		}
 
-		void testGetPath()
+		void testFindPath()
 		{
-			qrw::Path* path = astar->getPath(*start, *end);
+			qrw::Path* path = astar->findPath(*start, *end);
 			CPPUNIT_ASSERT(path != 0);
 			CPPUNIT_ASSERT(path->getLength() == 19);
 		}
 
-		void testGetPathNoBoard()
+		void testFindPathNoBoard()
 		{
 			astar->setBoard(0);
-			CPPUNIT_ASSERT(astar->getPath(*start, *end) == 0);
+			CPPUNIT_ASSERT(astar->findPath(*start, *end) == 0);
 		}
 
-		void testGetPathInvalidStartOrEnd()
+		void testFindPathInvalidStartOrEnd()
 		{
 			qrw::Coordinates invalid(-1, 0);
 
-			CPPUNIT_ASSERT(astar->getPath(invalid, *end) == 0);
-			CPPUNIT_ASSERT(astar->getPath(*start, invalid) == 0);
+			CPPUNIT_ASSERT(astar->findPath(invalid, *end) == 0);
+			CPPUNIT_ASSERT(astar->findPath(*start, invalid) == 0);
 		}
 
-		void testGetPathNoUnit()
+		void testFindPathNoUnit()
 		{
 			board->getSquare(*start)->setUnit(0);
 
-			CPPUNIT_ASSERT(astar->getPath(*start, *end) == 0);
+			CPPUNIT_ASSERT(astar->findPath(*start, *end) == 0);
 		}
 
-		void testGetPathStartEqualsEnd()
+		void testFindPathStartEqualsEnd()
 		{
 			qrw::Coordinates equalend(*start);
-			CPPUNIT_ASSERT(astar->getPath(*start, equalend) == 0);
+			CPPUNIT_ASSERT(astar->findPath(*start, equalend) == 0);
 		}
 
 		void testFindLowestFCoordinates()

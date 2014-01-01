@@ -11,7 +11,7 @@ namespace qrw
 	{
 		public:
 			virtual void setBoard(Board* board) = 0;
-			virtual Path* getPath(const Coordinates& start, const Coordinates& end) = 0;
+			virtual Path* findPath(const Coordinates& start, const Coordinates& end) = 0;
 	};
 }
 

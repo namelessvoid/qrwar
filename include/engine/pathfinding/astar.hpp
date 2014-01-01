@@ -18,7 +18,7 @@ namespace qrw
 			~AStar();
 
 			void setBoard(Board* board);
-			Path* getPath(const Coordinates& start, const Coordinates& end);
+			Path* findPath(const Coordinates& start, const Coordinates& end);
 
 		private:
 			Coordinates* findLowestFCoordinates();

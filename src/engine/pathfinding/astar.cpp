@@ -28,7 +28,7 @@ namespace qrw
 		this->board = board;
 	}
 
-	Path* AStar::getPath(const Coordinates& start, const Coordinates& end)
+	Path* AStar::findPath(const Coordinates& start, const Coordinates& end)
 	{
 		// Check pre conditions
 		if(board == 0)
