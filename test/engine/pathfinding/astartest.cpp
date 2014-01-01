@@ -53,6 +53,25 @@ class AStarTest : public CppUnit::TestFixture
 			qrw::Path* path = astar->findPath(*start, *end);
 			CPPUNIT_ASSERT(path != 0);
 			CPPUNIT_ASSERT(path->getLength() == 19);
+
+			int counterx = 0;
+			int countery = 0;
+			auto stepiter =  path->begin();
+
+			while(countery < 9)
+			{
+				CPPUNIT_ASSERT((*stepiter)->getCoordinates() == qrw::Coordinates(counterx, countery));
+				++stepiter;
+				++countery;
+			}
+
+			while(counterx <= 9)
+			{
+				CPPUNIT_ASSERT((*stepiter)->getCoordinates() == qrw::Coordinates(counterx, countery));
+				++stepiter;
+				++counterx;
+			}
+
 		}
 
 		void testFindPathNoBoard()
