@@ -221,6 +221,12 @@ namespace qrw
 				// Resetting cursors
 				cursor->setPosition(childcursor->getPosition());
 				cursor->despawnChild();
+				// Reset path
+				if(path)
+				{
+					delete path;
+					path = 0;
+				}
 			}
 		}
 	}
@@ -301,11 +307,6 @@ namespace qrw
 			else if(childcursor)
 			{
 				this->moveUnitIngame();
-				if(path)
-				{
-					delete path;
-					path = 0;
-				}
 			}
 		}
 	} // BoardWidget::leftClicked();
