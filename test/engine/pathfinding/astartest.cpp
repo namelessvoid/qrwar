@@ -33,7 +33,8 @@ class AStarTest : public CppUnit::TestFixture
 
 			board = new qrw::Board(10, 10);
 
-			walker = new qrw::Unit(qrw::EUT_SWORDMAN, 100, 2, 2, 2, 10, 0);
+			walker  = new qrw::Unit(qrw::EUT_SWORDMAN, 100, 2, 2, 2, 10, 0);
+			blocker = new qrw::Unit(qrw::EUT_SWORDMAN, 100, 2, 2, 2, 10, 0);
 			board->getSquare(0, 0)->setUnit(walker);
 
 			astar->setBoard(board);
@@ -46,6 +47,7 @@ class AStarTest : public CppUnit::TestFixture
 			delete start;
 			delete end;
 			delete walker;
+			delete blocker;
 		}
 
 		void testFindPath()
@@ -177,5 +179,6 @@ class AStarTest : public CppUnit::TestFixture
 		qrw::Board* board;
 
 		qrw::Unit* walker;
+		qrw::Unit* blocker;
 };
 CPPUNIT_TEST_SUITE_REGISTRATION(AStarTest);
