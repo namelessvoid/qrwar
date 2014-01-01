@@ -23,6 +23,7 @@ class PathTest : public CppUnit::TestFixture
 			qrw::Square* step1 = new qrw::Square(0, 0);
 			path.appendStep(step1);
 			CPPUNIT_ASSERT(path.getLength() == 1);
+			CPPUNIT_ASSERT(path.getMovementCosts() == 0);
 		}
 
 		void testPrependStep()

@@ -37,4 +37,9 @@ namespace qrw
 	{
 		return steps.size();
 	}
+
+	int Path::getMovementCosts()
+	{
+		return getLength() - 1;
+	}
 }

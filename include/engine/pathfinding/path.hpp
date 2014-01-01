@@ -23,6 +23,7 @@ namespace qrw
 			void appendStep(Square* square);
 
 			int getLength();
+			int getMovementCosts();
 
 		private:
 			std::vector<Square*> steps;
