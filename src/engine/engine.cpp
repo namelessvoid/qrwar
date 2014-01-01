@@ -174,15 +174,18 @@ namespace qrw
 		if(srcunit->getPlayer() != &getCurrentPlayer())
 			return -1;
 
-		Path* path = pathfinder->findPath(orsquare->getCoordinates(), destsquare->getCoordinates());
-		if(path == 0)
+		int distance = orsquare->getDistance(destsquare);
+		if(distance > 1)
 		{
+			Path* path = pathfinder->findPath(orsquare->getCoordinates(), destsquare->getCoordinates());
+			if(path == 0)
+			{
+				delete path;
+				return -5;
+			}
+			distance = path->getMovementCosts();
 			delete path;
-			return -5;
 		}
-
-		int distance = path->getMovementCosts();
-		delete path;
 
 		// Distance is too far
 		if(distance > srcunit->getCurrentMovement())
