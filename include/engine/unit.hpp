@@ -7,6 +7,7 @@
 namespace qrw
 {
 	class Player;
+	class Square;
 
 	enum UNITTYPES
 	{

@@ -4,6 +4,7 @@
 #include <SFML/System/Vector2.hpp>
 
 #include "engine/square.hpp"
+#include "engine/coordinates.hpp"
 
 namespace qrw
 {
@@ -13,15 +14,16 @@ namespace qrw
 		public:
 			Board(int width, int height);
 			~Board();
-			
+
 			Square* getSquare(int x, int y);
 			Square* getSquare(sf::Vector2i pos);
+			Square* getSquare(const Coordinates& coordinates);
 
 			int getWidth();
 			int getHeight();
 
 		private:
-			Square* squares;
+			Square** squares;
 
 			int width;
 			int height;

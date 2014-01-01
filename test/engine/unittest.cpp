@@ -2,6 +2,7 @@
 #include <cppunit/TestFixture.h>
 
 #include "engine/unit.hpp"
+#include "engine/square.hpp"
 
 class UnitTest : public CppUnit::TestFixture
 {

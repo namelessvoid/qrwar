@@ -3,6 +3,9 @@
 
 #include "engine/engine.hpp"
 
+#include "engine/pathfinding/astar.hpp"
+#include "engine/pathfinding/path.hpp"
+
 namespace qrw
 {
 	Engine::Engine()
@@ -13,15 +16,20 @@ namespace qrw
 		players[0].setId(0);
 		players[1].setName("Player The Second");
 		players[1].setId(1);
+
+		pathfinder = new AStar();
 	}
 
 	Engine::~Engine()
-	{}
+	{
+		delete pathfinder;
+	}
 
 	void Engine::init(int boardwidth, int boardheight)
 	{
 		delete board;
 		board = new Board(boardwidth, boardheight);
+		pathfinder->setBoard(board);
 		currentplayer = 0;
 		status = EES_PREPARE;
 
@@ -167,6 +175,18 @@ namespace qrw
 			return -1;
 
 		int distance = orsquare->getDistance(destsquare);
+		if(distance > 1)
+		{
+			Path* path = pathfinder->findPath(orsquare->getCoordinates(), destsquare->getCoordinates());
+			if(path == 0)
+			{
+				delete path;
+				return -5;
+			}
+			distance = path->getMovementCosts();
+			delete path;
+		}
+
 		// Distance is too far
 		if(distance > srcunit->getCurrentMovement())
 			return -6;
@@ -309,5 +329,10 @@ namespace qrw
 		if(id == 0 || id == 1)
 			return &players[id];
 		return 0;
+	}
+
+	Path* Engine::findPath(const Coordinates& start, const Coordinates& end)
+	{
+		return pathfinder->findPath(start, end);
 	}
 }

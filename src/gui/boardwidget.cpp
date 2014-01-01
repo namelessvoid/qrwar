@@ -7,11 +7,15 @@
 #include <SFML/Graphics/PrimitiveType.hpp>
 #include <SFML/Graphics/RenderTarget.hpp>
 
+#include <SFML/Graphics/CircleShape.hpp>
+#include <SFML/Graphics/Color.hpp>
+
 #include <iostream>
 #include <stdio.h>
 
 #include "engine/engine.hpp"
 #include "engine/player.hpp"
+#include "engine/pathfinding/path.hpp"
 #include "gui/guihandler.hpp"
 #include "gui/cursor.hpp"
 #include "gui/damagenumber.hpp"
@@ -24,6 +28,7 @@ namespace qrw
 	  engine(engine),
 	  spritedimensions(0.0),
 	  singlespritescale(0.0),
+	  path(0),
 	  deploywindow(guihandler->getDeployWindow())
 	{
 		printf("boardrenderer position: x=%f / y=%f\n", getGlobalBounds().left, getGlobalBounds().top);
@@ -118,6 +123,8 @@ namespace qrw
 				}
 			}
 		}
+
+		drawPath(target);
 	}
 
 	void BoardWidget::calcSpriteDimensions(int boardwidth, int boardheight)
@@ -153,6 +160,26 @@ namespace qrw
 		unitsprite->setPosition(position);
 		unitsprite->setScale(scale);
 		target.draw(*unitsprite);
+	}
+
+	void BoardWidget::drawPath(sf::RenderTarget& target) const
+	{
+		if(!path)
+			return;
+
+		sf::CircleShape circle(spritedimensions);
+		circle.setOrigin(spritedimensions, spritedimensions);
+		circle.scale(0.2, 0.2);
+		circle.setFillColor(sf::Color::Red);
+
+		for(auto square : *path)
+		{
+			circle.setPosition(
+				spritedimensions * square->getXPosition() + 0.5 * spritedimensions,
+				spritedimensions * square->getYPosition() + 0.5 * spritedimensions
+			);
+			target.draw(circle);
+		}
 	}
 
 	void BoardWidget::moveUnitIngame()
@@ -194,6 +221,12 @@ namespace qrw
 				// Resetting cursors
 				cursor->setPosition(childcursor->getPosition());
 				cursor->despawnChild();
+				// Reset path
+				if(path)
+				{
+					delete path;
+					path = 0;
+				}
 			}
 		}
 	}
@@ -222,7 +255,20 @@ namespace qrw
 		if(!Cursor::getCursor()->getChild())
 			Cursor::getCursor()->setPosition(newCursorPos);
 		else
+		{
 			Cursor::getCursor()->getChild()->setPosition(newCursorPos);
+
+			if(engine->getStatus() == EES_RUNNING)
+			{
+				// Update path
+				if(path)
+					delete path;
+				path = engine->findPath(
+					Coordinates(Cursor::getCursor()->getPosition().x, Cursor::getCursor()->getPosition().y),
+					Coordinates(newCursorPos.x, newCursorPos.y)
+				);
+			}
+		}
 	}
 
 	void BoardWidget::leftClicked()
@@ -273,6 +319,11 @@ namespace qrw
 		{
 			cursor->setPosition(childcursor->getPosition());
 			cursor->despawnChild();
+		}
+		if(path)
+		{
+			delete path;
+			path = 0;
 		}
 	}
 

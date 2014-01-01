@@ -16,6 +16,7 @@ namespace qrw
 	class GuiHandler;
 	class DeployWindow;
 	class Engine;
+	class Path;
 
 	class BoardWidget : public namelessgui::Widget
 	{
@@ -39,6 +40,7 @@ namespace qrw
 				sf::Vector2f position, sf::Vector2f scale) const;
 			void drawUnit(sf::RenderTarget& target, int playerid, UNITTYPES unittype,
 				sf::Vector2f position, sf::Vector2f scale) const;
+			void drawPath(sf::RenderTarget& target) const;
 
 			void moveUnitIngame();
 
@@ -58,6 +60,8 @@ namespace qrw
 			sf::Sprite* terrainsprites[ET_NUMBEROFTERRAINTYPES];
 			sf::Sprite* p1unitsprites[EUT_NUMBEROFUNITTYPES];
 			sf::Sprite* p2unitsprites[EUT_NUMBEROFUNITTYPES];
+
+			Path* path;
 
 			// Pointer to deploywindow to have acces to DeployWindow::placeEntity() and DeployWindow::moveUnit().
 			DeployWindow* deploywindow;

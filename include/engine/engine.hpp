@@ -8,6 +8,9 @@
 
 namespace qrw
 {
+	class AbstractAlgorithm;
+	class Path;
+
 	enum ENGINSTATES
 	{
 		EES_UNDEFINED,
@@ -78,6 +81,8 @@ namespace qrw
 
 			Player* getPlayer(int id);
 
+			Path* findPath(const Coordinates& start, const Coordinates& end);
+
 		private:
 			// void setPlayerUnits(int id, int unitnumbers[EUT_NUMBEROFUNITTYPES]);
 
@@ -85,6 +90,8 @@ namespace qrw
 			int currentplayer;
 			Player players[2];
 			ENGINSTATES status;
+
+			AbstractAlgorithm* pathfinder;
 	};
 }
 
