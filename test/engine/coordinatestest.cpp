@@ -112,6 +112,8 @@ class CoordinatesTest : public CppUnit::TestFixture
 
 			CPPUNIT_ASSERT(coords->getX() == 2);
 			CPPUNIT_ASSERT(coords->getY() == 4);
+
+			delete coords;
 		}
 
 	private:
