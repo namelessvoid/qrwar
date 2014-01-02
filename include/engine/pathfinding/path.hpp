@@ -19,6 +19,8 @@ namespace qrw
 			iterator end();
 			const_iterator end() const;
 
+			Square* getStep(int n) const;
+
 			void prependStep(Square* square);
 			void appendStep(Square* square);
 

@@ -40,7 +40,7 @@ namespace qrw
 				sf::Vector2f position, sf::Vector2f scale) const;
 			void drawUnit(sf::RenderTarget& target, int playerid, UNITTYPES unittype,
 				sf::Vector2f position, sf::Vector2f scale) const;
-			void drawPath(sf::RenderTarget& target) const;
+			void drawPath(sf::RenderTarget& target, sf::Vector2f scale) const;
 
 			void moveUnitIngame();
 
@@ -57,6 +57,7 @@ namespace qrw
 			float singlespritescale;
 
 			sf::Sprite* plainsquare;
+			sf::Sprite* footstep;
 			sf::Sprite* terrainsprites[ET_NUMBEROFTERRAINTYPES];
 			sf::Sprite* p1unitsprites[EUT_NUMBEROFUNITTYPES];
 			sf::Sprite* p2unitsprites[EUT_NUMBEROFUNITTYPES];

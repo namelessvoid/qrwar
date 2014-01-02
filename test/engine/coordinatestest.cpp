@@ -14,6 +14,7 @@ class CoordinatesTest : public CppUnit::TestFixture
 	CPPUNIT_TEST(testCopyCtor);
 	CPPUNIT_TEST(testOperatorEquals);
 	CPPUNIT_TEST(testOperatorPlus);
+	CPPUNIT_TEST(testOperatorMinus);
 	CPPUNIT_TEST_SUITE_END();
 
 	public:
@@ -112,6 +113,16 @@ class CoordinatesTest : public CppUnit::TestFixture
 
 			CPPUNIT_ASSERT(coords->getX() == 2);
 			CPPUNIT_ASSERT(coords->getY() == 4);
+
+			delete coords;
+		}
+
+		void testOperatorMinus()
+		{
+			qrw::Coordinates coords(*coord0_0 - *coord1_4);
+
+			CPPUNIT_ASSERT(coords.getX() == -1);
+			CPPUNIT_ASSERT(coords.getY() == -4);
 		}
 
 	private:

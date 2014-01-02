@@ -6,6 +6,7 @@
 #include <SFML/Graphics/VertexArray.hpp>
 #include <SFML/Graphics/PrimitiveType.hpp>
 #include <SFML/Graphics/RenderTarget.hpp>
+#include <SFML/Graphics/Transform.hpp>
 
 #include <SFML/Graphics/CircleShape.hpp>
 #include <SFML/Graphics/Color.hpp>
@@ -38,6 +39,7 @@ namespace qrw
 		TextureManager* texturemanager = TextureManager::getInstance();
 
 		plainsquare = new sf::Sprite(*texturemanager->getTexture("plainsquare"));
+		footstep = new sf::Sprite(*texturemanager->getTexture("footstep"));
 		terrainsprites[ET_WOOD] = new sf::Sprite(*texturemanager->getTexture("wood"));
 		terrainsprites[ET_HILL] = new sf::Sprite(*texturemanager->getTexture("hill"));
 		terrainsprites[ET_WALL] = new sf::Sprite(*texturemanager->getTexture("wall"));
@@ -58,6 +60,7 @@ namespace qrw
 	BoardWidget::~BoardWidget()
 	{
 		delete plainsquare;
+		delete footstep;
 	}
 
 	void BoardWidget::setBoard(Board* board)
@@ -124,7 +127,7 @@ namespace qrw
 			}
 		}
 
-		drawPath(target);
+		drawPath(target, spritescale);
 	}
 
 	void BoardWidget::calcSpriteDimensions(int boardwidth, int boardheight)
@@ -162,23 +165,66 @@ namespace qrw
 		target.draw(*unitsprite);
 	}
 
-	void BoardWidget::drawPath(sf::RenderTarget& target) const
+	void BoardWidget::drawPath(sf::RenderTarget& target, sf::Vector2f scale) const
 	{
 		if(!path)
 			return;
 
-		sf::CircleShape circle(spritedimensions);
-		circle.setOrigin(spritedimensions, spritedimensions);
-		circle.scale(0.2, 0.2);
-		circle.setFillColor(sf::Color::Red);
+		int pathlength = path->getLength();
 
-		for(auto square : *path)
+		Square* previous = 0;
+		Square* current  = path->getStep(0);
+		Square* next     = path->getStep(1);
+
+		// Do not render first step.
+		for(int i = 1; i < pathlength; ++i)
 		{
-			circle.setPosition(
-				spritedimensions * square->getXPosition() + 0.5 * spritedimensions,
-				spritedimensions * square->getYPosition() + 0.5 * spritedimensions
+			previous = current;
+			current  = next;
+
+			// Reset the previously applied transformations.
+			footstep->setOrigin(16, 16);
+			footstep->setScale(scale);
+			footstep->setRotation(0);
+
+			// Transformations relative to the previous step
+			Coordinates prevdelta(previous->getCoordinates() - current->getCoordinates());
+			if(prevdelta.getX() != 0)
+				footstep->rotate(-90 * prevdelta.getX());
+			if(prevdelta.getY() != 0)
+				footstep->scale(1, prevdelta.getY());
+
+			// Transformations relative to the next step (if possible)
+			if(i < pathlength - 1)
+			{
+				next = path->getStep(i+1);
+
+				Coordinates prevnextdelta(previous->getCoordinates() - next->getCoordinates());
+
+				// If the path has a corner at this position
+				if(prevnextdelta.getX() != 0 && prevnextdelta.getY() != 0)
+				{
+					int rotationdirection = 0;
+					// horizontal
+					if(prevdelta.getX() == 0)
+					{
+						rotationdirection = -1;
+					}
+					// vertical
+					else if(prevdelta.getY() == 0)
+					{
+						rotationdirection = +1;
+					}
+					footstep->rotate(rotationdirection * 45 * (prevnextdelta.getX() * prevnextdelta.getY()));
+				}
+			}
+
+			footstep->setPosition(
+				spritedimensions * (0.5f + current->getXPosition()),
+				spritedimensions * (0.5f + current->getYPosition())
 			);
-			target.draw(circle);
+
+			target.draw(*footstep);
 		}
 	}
 

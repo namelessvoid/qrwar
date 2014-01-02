@@ -23,6 +23,11 @@ namespace qrw
 		return steps.end();
 	};
 
+	Square* Path::getStep(int n) const
+	{
+		return steps.at(n);
+	}
+
 	void Path::prependStep(Square* square)
 	{
 		steps.insert(steps.begin(), square);
