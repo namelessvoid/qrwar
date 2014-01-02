@@ -198,6 +198,25 @@ namespace qrw
 			if(i < pathlength - 1)
 			{
 				next = path->getStep(i+1);
+
+				Coordinates prevnextdelta(previous->getCoordinates() - next->getCoordinates());
+
+				// If the path has a corner at this position
+				if(prevnextdelta.getX() != 0 && prevnextdelta.getY() != 0)
+				{
+					int rotationdirection = 0;
+					// horizontal
+					if(prevdelta.getX() == 0)
+					{
+						rotationdirection = -1;
+					}
+					// vertical
+					else if(prevdelta.getY() == 0)
+					{
+						rotationdirection = +1;
+					}
+					footstep->rotate(rotationdirection * 45 * (prevnextdelta.getX() * prevnextdelta.getY()));
+				}
 			}
 
 			footstep->setPosition(
