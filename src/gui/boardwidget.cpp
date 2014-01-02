@@ -38,6 +38,7 @@ namespace qrw
 		TextureManager* texturemanager = TextureManager::getInstance();
 
 		plainsquare = new sf::Sprite(*texturemanager->getTexture("plainsquare"));
+		footstep = new sf::Sprite(*texturemanager->getTexture("footstep"));
 		terrainsprites[ET_WOOD] = new sf::Sprite(*texturemanager->getTexture("wood"));
 		terrainsprites[ET_HILL] = new sf::Sprite(*texturemanager->getTexture("hill"));
 		terrainsprites[ET_WALL] = new sf::Sprite(*texturemanager->getTexture("wall"));
@@ -58,6 +59,7 @@ namespace qrw
 	BoardWidget::~BoardWidget()
 	{
 		delete plainsquare;
+		delete footstep;
 	}
 
 	void BoardWidget::setBoard(Board* board)
@@ -124,7 +126,7 @@ namespace qrw
 			}
 		}
 
-		drawPath(target);
+		drawPath(target, spritescale);
 	}
 
 	void BoardWidget::calcSpriteDimensions(int boardwidth, int boardheight)
@@ -162,23 +164,16 @@ namespace qrw
 		target.draw(*unitsprite);
 	}
 
-	void BoardWidget::drawPath(sf::RenderTarget& target) const
+	void BoardWidget::drawPath(sf::RenderTarget& target, sf::Vector2f scale) const
 	{
 		if(!path)
 			return;
 
-		sf::CircleShape circle(spritedimensions);
-		circle.setOrigin(spritedimensions, spritedimensions);
-		circle.scale(0.2, 0.2);
-		circle.setFillColor(sf::Color::Red);
-
 		for(auto square : *path)
 		{
-			circle.setPosition(
-				spritedimensions * square->getXPosition() + 0.5 * spritedimensions,
-				spritedimensions * square->getYPosition() + 0.5 * spritedimensions
-			);
-			target.draw(circle);
+			footstep->setPosition(spritedimensions * square->getXPosition(), spritedimensions * square->getYPosition());
+			footstep->setScale(scale);
+			target.draw(*footstep);
 		}
 	}
 
