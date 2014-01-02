@@ -6,6 +6,7 @@
 #include <SFML/Graphics/VertexArray.hpp>
 #include <SFML/Graphics/PrimitiveType.hpp>
 #include <SFML/Graphics/RenderTarget.hpp>
+#include <SFML/Graphics/Transform.hpp>
 
 #include <SFML/Graphics/CircleShape.hpp>
 #include <SFML/Graphics/Color.hpp>
@@ -169,10 +170,41 @@ namespace qrw
 		if(!path)
 			return;
 
-		for(auto square : *path)
+		int pathlength = path->getLength();
+
+		Square* previous = 0;
+		Square* current  = path->getStep(0);
+		Square* next     = path->getStep(1);
+
+		// Do not render first step.
+		for(int i = 1; i < pathlength; ++i)
 		{
-			footstep->setPosition(spritedimensions * square->getXPosition(), spritedimensions * square->getYPosition());
+			previous = current;
+			current  = next;
+
+			// Reset the previously applied transformations.
+			footstep->setOrigin(16, 16);
 			footstep->setScale(scale);
+			footstep->setRotation(0);
+
+			// Transformations relative to the previous step
+			Coordinates prevdelta(previous->getCoordinates() - current->getCoordinates());
+			if(prevdelta.getX() != 0)
+				footstep->rotate(-90 * prevdelta.getX());
+			if(prevdelta.getY() != 0)
+				footstep->scale(1, prevdelta.getY());
+
+			// Transformations relative to the next step (if possible)
+			if(i < pathlength - 1)
+			{
+				next = path->getStep(i+1);
+			}
+
+			footstep->setPosition(
+				spritedimensions * (0.5f + current->getXPosition()),
+				spritedimensions * (0.5f + current->getYPosition())
+			);
+
 			target.draw(*footstep);
 		}
 	}
