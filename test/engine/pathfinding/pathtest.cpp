@@ -10,6 +10,7 @@ class PathTest : public CppUnit::TestFixture
 	CPPUNIT_TEST_SUITE(PathTest);
 	CPPUNIT_TEST(testPrependStep);
 	CPPUNIT_TEST(testAppendStep);
+	CPPUNIT_TEST(testGetStep);
 	CPPUNIT_TEST(testForEach);
 	CPPUNIT_TEST_SUITE_END();
 
@@ -42,6 +43,20 @@ class PathTest : public CppUnit::TestFixture
 				CPPUNIT_ASSERT(step->getXPosition() == counter);
 				++counter;
 			}
+		}
+
+		void testGetStep()
+		{
+			qrw::Path path;
+
+			qrw::Square* step1 = new qrw::Square(0, 0);
+			qrw::Square* step2 = new qrw::Square(1, 0);
+
+			path.appendStep(step1);
+			path.appendStep(step2);
+
+			CPPUNIT_ASSERT(path.getStep(0) == step1);
+			CPPUNIT_ASSERT(path.getStep(1) == step2);
 		}
 
 		void testForEach()
