@@ -59,6 +59,15 @@ namespace qrw
 
 	BoardWidget::~BoardWidget()
 	{
+		for(int i = 0; i < ET_NUMBEROFTERRAINTYPES; ++i)
+			delete terrainsprites[i];
+
+		for(int i = 0; i < EUT_NUMBEROFUNITTYPES; ++i)
+		{
+			delete p1unitsprites[i];
+			delete p2unitsprites[i];
+		}
+
 		delete plainsquare;
 		delete footstep;
 	}
