@@ -150,13 +150,13 @@ namespace qrw
 	 *			-7 game not running, -8 unit on origin died, -9 enemy unit
 	 *			was not defeated, -10 enemy out of range, -11 defender died
 	 */
-	int Engine::moveUnitIngame(int orx, int ory, int destx, int desty)
+	int Engine::moveUnitIngame(Coordinates origin, Coordinates destination)
 	{
 		// Game is not running
 		if(status != EES_RUNNING)
 			return -7;
 
-		Square* orsquare = board->getSquare(orx, ory);
+		Square* orsquare = board->getSquare(origin);
 		// index out of range
 		if(orsquare == 0)
 			return -4;
@@ -164,7 +164,7 @@ namespace qrw
 		if(orsquare->getUnit() == 0)
 			return -2;
 
-		Square* destsquare = board->getSquare(destx, desty);
+		Square* destsquare = board->getSquare(destination);
 		// index out of range
 		if(destsquare == 0)
 			return -5;
@@ -247,13 +247,13 @@ namespace qrw
 		return 0;
 	}
 
-	int Engine::moveUnitDeployment(int orx, int ory, int destx, int desty)
+	int Engine::moveUnitDeployment(Coordinates origin, Coordinates destination)
 	{
-		Square* orsquare = board->getSquare(orx, ory);
+		Square* orsquare = board->getSquare(origin);
 		if(orsquare->getUnit() == NULL)
 			return -1;
 
-		Square* destsquare = board->getSquare(destx, desty);
+		Square* destsquare = board->getSquare(destination);
 
 		if(destsquare->getUnit() != NULL)
 			return -1;
@@ -263,11 +263,11 @@ namespace qrw
 		return 0;
 	}
 
-	bool Engine::placeUnit(int x, int y, int playerid, UNITTYPES unittype)
+	bool Engine::placeUnit(Coordinates position, int playerid, UNITTYPES unittype)
 	{
 		if(status != EES_PREPARE)
 			return false;
-		Square* square = board->getSquare(x, y);
+		Square* square = board->getSquare(position);
 
 		if(square == 0)
 			return false;
@@ -286,11 +286,11 @@ namespace qrw
 		return false;
 	}
 
-	bool Engine::placeTerrain(int x, int y, TERRAINTYPES terraintype)
+	bool Engine::placeTerrain(Coordinates position, TERRAINTYPES terraintype)
 	{
 		if(status != EES_PREPARE)
 			return false;
-		Square* square = board->getSquare(x, y);
+		Square* square = board->getSquare(position);
 		if(square == NULL)
 			return false;
 
@@ -310,12 +310,12 @@ namespace qrw
 		return true;
 	}
 
-	bool Engine::removeTerrain(int x, int y)
+	bool Engine::removeTerrain(Coordinates position)
 	{
 		if(status != EES_PREPARE)
 			return false;
 
-		Square* square = board->getSquare(x, y);
+		Square* square = board->getSquare(position);
 		if(square == NULL)
 			return false;
 

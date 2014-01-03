@@ -242,8 +242,7 @@ namespace qrw
 			if(unit2)
 				unit2hp = unit2->getHP();
 
-			int moveresult = engine->moveUnitIngame(cursor->getPosition().getX(), cursor->getPosition().getY(),
-				childcursor->getPosition().getX(), childcursor->getPosition().getY());
+			int moveresult = engine->moveUnitIngame(cursor->getPosition(), childcursor->getPosition());
 			printf("moveresult: %i\n", moveresult);
 			if(moveresult == 0 || moveresult == -9 || moveresult == -8 || moveresult == -11)
 			{

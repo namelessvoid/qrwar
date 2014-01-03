@@ -134,13 +134,11 @@ namespace qrw
 
 		// Get cursor position
 		Cursor* cursor = Cursor::getCursor();
-		int x = cursor->getPosition().getX();
-		int y = cursor->getPosition().getY();
 
 		// Remove terrain
 		if(activebuttonid == 9)
 		{
-			engine->removeTerrain(x, y);
+			engine->removeTerrain(cursor->getPosition());
 		}
 		// Place unit
 		else if(activebuttonid >= 0 && activebuttonid < 2 * EUT_NUMBEROFUNITTYPES)
@@ -149,7 +147,7 @@ namespace qrw
 			Player* player = engine->getPlayer(playerid);
 			UNITTYPES unittype = (UNITTYPES)(activebuttonid % EUT_NUMBEROFUNITTYPES);
 
-			engine->placeUnit(x, y, playerid, unittype);
+			engine->placeUnit(cursor->getPosition(), playerid, unittype);
 			update();
 		}
 		// Place terrain
@@ -157,7 +155,7 @@ namespace qrw
 		{
 			TERRAINTYPES terraintype = (TERRAINTYPES)(activebuttonid
 				- (2 * EUT_NUMBEROFUNITTYPES));
-			engine->placeTerrain(x, y, terraintype);
+			engine->placeTerrain(cursor->getPosition(), terraintype);
 		}
 	}
 
@@ -169,8 +167,7 @@ namespace qrw
 		if(child == NULL)
 			return;
 
-		engine->moveUnitDeployment(cursor->getPosition().getX(), cursor->getPosition().getY(),
-				child->getPosition().getX(), child->getPosition().getY());
+		engine->moveUnitDeployment(cursor->getPosition(), child->getPosition());
 
 		cursor->setPosition(child->getPosition());
 
