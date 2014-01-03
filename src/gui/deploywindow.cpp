@@ -134,8 +134,8 @@ namespace qrw
 
 		// Get cursor position
 		Cursor* cursor = Cursor::getCursor();
-		int x = cursor->getPosition().x;
-		int y = cursor->getPosition().y;
+		int x = cursor->getPosition().getX();
+		int y = cursor->getPosition().getY();
 
 		// Remove terrain
 		if(activebuttonid == 9)
@@ -169,8 +169,8 @@ namespace qrw
 		if(child == NULL)
 			return;
 
-		engine->moveUnitDeployment(cursor->getPosition().x, cursor->getPosition().y,
-				child->getPosition().x, child->getPosition().y);
+		engine->moveUnitDeployment(cursor->getPosition().getX(), cursor->getPosition().getY(),
+				child->getPosition().getX(), child->getPosition().getY());
 
 		cursor->setPosition(child->getPosition());
 

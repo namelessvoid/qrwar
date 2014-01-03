@@ -5,6 +5,7 @@
 #include <SFML/Graphics/Drawable.hpp>
 
 #include "engine/board.hpp"
+#include "engine/coordinates.hpp"
 
 namespace qrw
 {
@@ -16,7 +17,6 @@ namespace qrw
 			~Cursor();
 
 			void setBoard(Board* board);
-			sf::Vector2i getPosition();
 
 			/**
 			 * Move the cursor or (if available) move child cursor.
@@ -24,6 +24,9 @@ namespace qrw
 			bool move(int dx, int dy);
 			bool setPosition(int x, int y);
 			bool setPosition(sf::Vector2i pos);
+			bool setPosition(Coordinates pos);
+
+			const Coordinates& getPosition() const;
 
 			Cursor* spawnChild();
 			Cursor* getChild();
@@ -43,7 +46,7 @@ namespace qrw
 			// Child cursor
 			Cursor* child;
 
-			sf::Vector2i position;
+			Coordinates position;
 			Board* board;
 	};
 }

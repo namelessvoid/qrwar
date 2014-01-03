@@ -150,7 +150,7 @@ namespace qrw
 		if(cursor == NULL)
 			cursor = Cursor::getCursor();
 
-		Square* square = board->getSquare(cursor->getPosition().x, cursor->getPosition().y);
+		Square* square = board->getSquare(cursor->getPosition().getX(), cursor->getPosition().getY());
 		Unit* unit = square->getUnit();
 
 		// Decide which unit has to be drawn

@@ -31,11 +31,6 @@ namespace qrw
 		this->board = board;
 	}
 
-	sf::Vector2i Cursor::getPosition()
-	{
-		return position;
-	}
-
 	bool Cursor::move(int dx, int dy)
 	{
 		if(child != 0)
@@ -44,9 +39,9 @@ namespace qrw
 		}
 		if(board == 0)
 			return false;
-		if(board->getSquare(position.x + dx, position.y + dy) == 0)
+		if(board->getSquare(position) == 0)
 			return false;
-		setPosition(position.x + dx, position.y + dy);
+		setPosition(position.getX() + dx, position.getY() + dy);
 		return true;
 	}
 
@@ -56,14 +51,23 @@ namespace qrw
 			return false;
 		if(board->getSquare(x, y) == 0)
 			return false;
-		position.x = x;
-		position.y = y;
+		position = Coordinates(x, y);
 		return true;
 	}
 
 	bool Cursor::setPosition(sf::Vector2i pos)
 	{
 		return setPosition(pos.x, pos.y);
+	}
+
+	bool Cursor::setPosition(Coordinates pos)
+	{
+		return setPosition(pos.getX(), pos.getY());
+	}
+
+	const Coordinates& Cursor::getPosition() const
+	{
+		return position;
 	}
 
 	Cursor* Cursor::spawnChild()
@@ -74,7 +78,7 @@ namespace qrw
 		{
 			child = new Cursor();
 			child->setBoard(board);
-			child->setPosition(position.x, position.y);
+			child->setPosition(position);
 		}
 		return child;
 	}

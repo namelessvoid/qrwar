@@ -84,13 +84,12 @@ namespace qrw
 		Terrain *terrain = 0;
 		sf::Vector2f currpos;
 
-		sf::Vector2i cursorpos = Cursor::getCursor()->getPosition();
-		sf::Vector2i childcursorpos(-1, -1);
+		Coordinates cursorpos = Cursor::getCursor()->getPosition();
+		Coordinates childcursorpos(-1, -1);
 
 		if(Cursor::getCursor()->getChild() != 0)
 		{
-			childcursorpos.x = Cursor::getCursor()->getChild()->getPosition().x;
-			childcursorpos.y = Cursor::getCursor()->getChild()->getPosition().y;
+			childcursorpos = Cursor::getCursor()->getChild()->getPosition();
 		}
 
 		for(int i = 0; i < width; ++i)
@@ -108,9 +107,9 @@ namespace qrw
 				terrain = square->getTerrain();
 				unit = square->getUnit();
 				// Render cursor
-				if(cursorpos.x == i && cursorpos.y == j)
+				if(cursorpos.getX() == i && cursorpos.getY() == j)
 					Cursor::getCursor()->draw(target, currpos, spritedimensions);
-				if(childcursorpos.x == i && childcursorpos.y == j)
+				if(childcursorpos.getX() == i && childcursorpos.getY() == j)
 					Cursor::getCursor()->drawChild(target, currpos, spritedimensions);
 
 				// Render Terrain
@@ -235,16 +234,16 @@ namespace qrw
 
 		if(childcursor)
 		{
-			Unit* unit1 = board->getSquare(cursor->getPosition().x, cursor->getPosition().y)->getUnit();
+			Unit* unit1 = board->getSquare(cursor->getPosition())->getUnit();
 			int unit1hp = unit1->getHP();
-			Unit* unit2 = board->getSquare(childcursor->getPosition().x, childcursor->getPosition().y)->getUnit();
+			Unit* unit2 = board->getSquare(childcursor->getPosition())->getUnit();
 			int unit2hp;
 
 			if(unit2)
 				unit2hp = unit2->getHP();
 
-			int moveresult = engine->moveUnitIngame(cursor->getPosition().x, cursor->getPosition().y,
-				childcursor->getPosition().x, childcursor->getPosition().y);
+			int moveresult = engine->moveUnitIngame(cursor->getPosition().getX(), cursor->getPosition().getY(),
+				childcursor->getPosition().getX(), childcursor->getPosition().getY());
 			printf("moveresult: %i\n", moveresult);
 			if(moveresult == 0 || moveresult == -9 || moveresult == -8 || moveresult == -11)
 			{
@@ -255,12 +254,12 @@ namespace qrw
 					sf::Vector2f pos;
 
 					// First DMG number
-					pos.x = cursor->getPosition().x * spritedimensions;
-					pos.y = cursor->getPosition().y * spritedimensions + spritedimensions * 0.2;
+					pos.x = cursor->getPosition().getX() * spritedimensions;
+					pos.y = cursor->getPosition().getY() * spritedimensions + spritedimensions * 0.2;
 					dm = new DamageNumber(unit1->getHP() - unit1hp, pos);
 					// Second DMG number
-					pos.x = childcursor->getPosition().x * spritedimensions;
-					pos.y = childcursor->getPosition().y * spritedimensions + spritedimensions * 0.2;
+					pos.x = childcursor->getPosition().getX() * spritedimensions;
+					pos.y = childcursor->getPosition().getY() * spritedimensions + spritedimensions * 0.2;
 					dm = new DamageNumber(unit2->getHP() - unit2hp, pos);
 				}
 
@@ -310,7 +309,7 @@ namespace qrw
 				if(path)
 					delete path;
 				path = engine->findPath(
-					Coordinates(Cursor::getCursor()->getPosition().x, Cursor::getCursor()->getPosition().y),
+					Coordinates(Cursor::getCursor()->getPosition()),
 					Coordinates(newCursorPos.x, newCursorPos.y)
 				);
 			}
@@ -321,7 +320,7 @@ namespace qrw
 	{
 		Cursor* cursor = Cursor::getCursor();
 		Cursor* childcursor = cursor->getChild();
-		Square* cursorsquare = board->getSquare(cursor->getPosition().x, cursor->getPosition().y);
+		Square* cursorsquare = board->getSquare(cursor->getPosition());
 
 		// Depploy unit / terrain by calling deploywindow methods.
 		if(engine->getStatus() == EES_PREPARE)
@@ -395,8 +394,7 @@ namespace qrw
 				// Check if a new unit is placed or a unit is moved.
 				// A unit is moved if cursor has a child (to point to destination)
 				// or there is a unit under cursor.
-				Square* cursorsquare = engine->getBoard()->getSquare(cursor->getPosition().x,
-						cursor->getPosition().y);
+				Square* cursorsquare = engine->getBoard()->getSquare(cursor->getPosition());
 				if (cursor->getChild() != NULL)
 				{
 					deploywindow->moveUnit();
