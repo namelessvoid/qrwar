@@ -69,6 +69,20 @@ namespace qrw
 		unitsprite->setPosition(630, 40);
 		unitsprite->setScale(sf::Vector2f(1.5, 1.5));
 
+		for(int i =  0; i < EUT_NUMBEROFUNITTYPES; ++i)
+		{
+			unitimages[i] = new namelessgui::SpriteWidget(guihandler->getRenderWindow(), 32, 32);
+			unitimages[i]->setPosition(630, 40);
+			unitimages[i]->setScale(1.5, 1.5);
+		}
+
+		for(int i = 0; i < ET_NUMBEROFTERRAINTYPES; ++i)
+		{
+			terrainimages[i] = new namelessgui::SpriteWidget(guihandler->getRenderWindow(), 32, 32);
+			terrainimages[i]->setPosition(630, 210);
+			terrainimages[i]->setScale(1.5, 1.5);
+		}
+
 		terrainsprite->setTexture(*texturemanager->getTexture("wood"));
 		terrainsprite->setPosition(630, 210);
 		terrainsprite->setScale(sf::Vector2f(1.5, 1.5));
@@ -118,6 +132,12 @@ namespace qrw
 
 	IngameWindow::~IngameWindow()
 	{
+		for(int i =  0; i < EUT_NUMBEROFUNITTYPES; ++i)
+			delete unitimages[i];
+
+		for(int i = 0; i < ET_NUMBEROFTERRAINTYPES; ++i)
+			delete terrainimages[i];
+
 			delete unitsprite;
 			delete terrainsprite;
 			delete plainsquare;
