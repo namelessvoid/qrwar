@@ -115,11 +115,6 @@ namespace qrw
 				square = board->getSquare(i, j);
 				terrain = square->getTerrain();
 				unit = square->getUnit();
-				// Render cursor
-				if(cursorpos.getX() == i && cursorpos.getY() == j)
-					Cursor::getCursor()->draw(target, currpos, spritedimensions);
-				if(childcursorpos.getX() == i && childcursorpos.getY() == j)
-					Cursor::getCursor()->drawChild(target, currpos, spritedimensions);
 
 				// Render Terrain
 				if(terrain != 0)
@@ -134,6 +129,11 @@ namespace qrw
 				}
 			}
 		}
+
+		// Render cursor
+		Cursor* cursor = Cursor::getCursor();
+		cursor->setDimensions(spritedimensions);
+		target.draw(*cursor, states);
 
 		drawPath(target, spritescale);
 	}
