@@ -35,9 +35,7 @@ namespace qrw
 	  unitdefensetext(new namelessgui::Label(guihandler->getRenderWindow())),
 	  unitmovementtext(new namelessgui::Label(guihandler->getRenderWindow())),
 	  terrainattacktext(new namelessgui::Label(guihandler->getRenderWindow())),
-	  terraindefensetext(new namelessgui::Label(guihandler->getRenderWindow())),
-
-	  background(new sf::RectangleShape())
+	  terraindefensetext(new namelessgui::Label(guihandler->getRenderWindow()))
 	{
 		defaultfont->loadFromFile("./res/font/Knigqst.ttf");
 		playernamelabel.setFont(*defaultfont);
@@ -54,11 +52,8 @@ namespace qrw
 		defensesprite->setTexture(*texturemanager->getTexture("defense"));
 		movementsprite->setTexture(*texturemanager->getTexture("movement"));
 
-		background->setPosition(621, 1);
-		background->setSize(sf::Vector2f(178, 598));
-		background->setFillColor(sf::Color(40, 40, 40, 255));
-		background->setOutlineColor(sf::Color(120, 120, 120));
-		background->setOutlineThickness(1);
+		setPosition(620, 0);
+		setSize(sf::Vector2f(200, 600));
 
 		sf::Vector2f unitspritepos(630, 40);
 		for(int i =  0; i < EUT_NUMBEROFUNITTYPES * 2; ++i)
@@ -156,8 +151,6 @@ namespace qrw
 			delete unitmovementtext;
 			delete terrainattacktext;
 			delete terraindefensetext;
-
-			delete background;
 	}
 
 	void IngameWindow::update()
@@ -223,7 +216,9 @@ namespace qrw
 		if(isVisible() == false)
 			return;
 
-		target.draw(*background);
+
+		Window::draw(target, states);
+		// target.draw(*background);
 
 		// Draw unit info
 		sf::Vector2f pos = unitimages[0]->getPosition();
@@ -248,8 +243,6 @@ namespace qrw
 		defensesprite->setPosition(pos.x + 52, pos.y + 35);
 		target.draw(*attacksprite);
 		target.draw(*defensesprite);
-
-		Window::draw(target, states);
 	}
 
 	void IngameWindow::changeplayerbuttonClicked()
