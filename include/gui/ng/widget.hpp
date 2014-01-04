@@ -40,6 +40,7 @@ namespace namelessgui
         protected:
             bool hasMouseFocus();
             const sf::Window* window;
+            bool visible;
 
         private:
             /**
@@ -68,8 +69,6 @@ namespace namelessgui
              * cursor entered the widget or other way round left the widget.
              */
             bool mouseFocus;
-
-            bool visible;
 
             /**
              * Holds size of the widget.
