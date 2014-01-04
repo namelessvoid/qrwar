@@ -26,10 +26,6 @@ namespace qrw
 
 			void update();
 
-			void draw(sf::RenderTarget&,
-				sf::RenderStates = sf::RenderStates::Default) const;
-
-
 		private:
 			// private slots:
 			void changeplayerbuttonClicked();
@@ -41,13 +37,17 @@ namespace qrw
 			namelessgui::Button endturnbutton;
 			namelessgui::Label playernamelabel;
 
+			// Sprites for unit information
 			namelessgui::SpriteWidget* unitplainsquare;
-			namelessgui::SpriteWidget* terrainplainsquare;
+			namelessgui::SpriteWidget* healthsprite;
+			namelessgui::SpriteWidget* unitattacksprite;
+			namelessgui::SpriteWidget* unitdefensesprite;
+			namelessgui::SpriteWidget* movementsprite;
 
-			sf::Sprite* healthsprite;
-			sf::Sprite* attacksprite;
-			sf::Sprite* defensesprite;
-			sf::Sprite* movementsprite;
+			// Sprites for terrain information
+			namelessgui::SpriteWidget* terrainplainsquare;
+			namelessgui::SpriteWidget* terrainattacksprite;
+			namelessgui::SpriteWidget* terraindefensesprite;
 
 			sf::Font* defaultfont;
 
