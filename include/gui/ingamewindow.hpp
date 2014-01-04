@@ -40,8 +40,7 @@ namespace qrw
 			// Widgets
 			namelessgui::Button endturnbutton;
 			namelessgui::Label playernamelabel;
-			sf::Sprite* unitsprite;
-			sf::Sprite* terrainsprite;
+
 			sf::Sprite* plainsquare;
 
 			sf::Sprite* healthsprite;
@@ -58,7 +57,7 @@ namespace qrw
 			namelessgui::Label* terrainattacktext;
 			namelessgui::Label* terraindefensetext;
 
-			namelessgui::SpriteWidget* unitimages[EUT_NUMBEROFUNITTYPES];
+			namelessgui::SpriteWidget* unitimages[EUT_NUMBEROFUNITTYPES * 2];
 			namelessgui::SpriteWidget* terrainimages[ET_NUMBEROFTERRAINTYPES];
 
 			sf::RectangleShape* background;
