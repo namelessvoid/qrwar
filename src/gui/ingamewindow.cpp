@@ -21,7 +21,8 @@ namespace qrw
 	  endturnbutton(guihandler->getRenderWindow(), 100.0, 40.0),
 	  playernamelabel(guihandler->getRenderWindow(), 100.0, 40.0),
 
-	  plainsquare(new sf::Sprite()),
+	  unitplainsquare(new namelessgui::SpriteWidget(guihandler->getRenderWindow(), 32, 32)),
+	  terrainplainsquare(new namelessgui::SpriteWidget(guihandler->getRenderWindow(), 32, 32)),
 
 	  healthsprite(new sf::Sprite()),
 	  attacksprite(new sf::Sprite()),
@@ -84,9 +85,15 @@ namespace qrw
 		terrainimages[ET_HILL]->setTexture(*texturemanager->getTexture("hill"));
 		terrainimages[ET_WALL]->setTexture(*texturemanager->getTexture("wall"));
 
-		plainsquare->setTexture(*texturemanager->getTexture("plainsquare"));
-		plainsquare->setPosition(unitspritepos);
-		plainsquare->setScale(1.5, 1.5);
+		unitplainsquare->setTexture(*texturemanager->getTexture("plainsquare"));
+		unitplainsquare->setPosition(unitspritepos);
+		unitplainsquare->setScale(1.5, 1.5);
+		addWidget(unitplainsquare);
+
+		terrainplainsquare->setTexture(*texturemanager->getTexture("plainsquare"));
+		terrainplainsquare->setPosition(terrainspritepos);
+		terrainplainsquare->setScale(1.5, 1.5);
+		addWidget(terrainplainsquare);
 
 		healthtext->setFont(*defaultfont);
 		healthtext->setCharacterSize(30);
@@ -136,7 +143,8 @@ namespace qrw
 		for(int i = 0; i < ET_NUMBEROFTERRAINTYPES; ++i)
 			delete terrainimages[i];
 
-			delete plainsquare;
+			delete unitplainsquare;
+			delete terrainplainsquare;
 
 			delete healthsprite;
 			delete attacksprite;
@@ -222,8 +230,6 @@ namespace qrw
 
 		// Draw unit info
 		sf::Vector2f pos = unitimages[0]->getPosition();
-		plainsquare->setPosition(pos);
-		target.draw(*plainsquare);
 
 		healthsprite->setPosition(pos.x + 52, pos.y);
 		movementsprite->setPosition(pos.x + 52, pos.y + 35);
@@ -236,8 +242,6 @@ namespace qrw
 
 		// Draw terrain info
 		pos = terrainimages[0]->getPosition();
-		plainsquare->setPosition(pos);
-		target.draw(*plainsquare);
 
 		attacksprite->setPosition(pos.x + 52, pos.y);
 		defensesprite->setPosition(pos.x + 52, pos.y + 35);

@@ -41,7 +41,8 @@ namespace qrw
 			namelessgui::Button endturnbutton;
 			namelessgui::Label playernamelabel;
 
-			sf::Sprite* plainsquare;
+			namelessgui::SpriteWidget* unitplainsquare;
+			namelessgui::SpriteWidget* terrainplainsquare;
 
 			sf::Sprite* healthsprite;
 			sf::Sprite* attacksprite;
