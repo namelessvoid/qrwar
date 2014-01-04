@@ -2,9 +2,6 @@
 
 #include <thread>
 #include <SFML/Graphics/RenderWindow.hpp>
-#include <SFML/Graphics/RectangleShape.hpp>
-
-
 
 #include "engine/terrain.hpp"
 #include "engine/unit.hpp"
@@ -76,9 +73,6 @@ board->getSquare(5, 1)->setTerrain(terrain3);
 	sf::View camera(sf::FloatRect(0.0f, 0.0f, settings->getResolutionX(), settings->getResolutionY()));
 	renderwindow.setView(camera);
 
-	sf::RectangleShape rect(sf::Vector2f(10.0f, 10.0f));
-	rect.setFillColor(sf::Color::Green);
-
 	sf::Clock clock;
 	float elapsedtime;
 
@@ -92,7 +86,6 @@ board->getSquare(5, 1)->setTerrain(terrain3);
 
 		// Rendering
 		renderwindow.clear(sf::Color::Black);
-		renderwindow.draw(rect);
 
 		guihandler.Update(elapsedtime);
 		guihandler.display(renderwindow);
