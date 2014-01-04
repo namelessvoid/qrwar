@@ -54,7 +54,6 @@ namespace qrw
 		signalmouseentered.connect(std::bind(&BoardWidget::updateCursor, this));
 		signalclicked.connect(std::bind(&BoardWidget::leftClicked, this));
 		signalrightclicked.connect(std::bind(&BoardWidget::rightClicked, this));
-		signalkeypressed.connect(std::bind(&BoardWidget::keyPressed, this, std::placeholders::_1));
 	}
 
 	BoardWidget::~BoardWidget()
@@ -377,53 +376,6 @@ namespace qrw
 		{
 			delete path;
 			path = 0;
-		}
-	}
-
-	void BoardWidget::keyPressed(const sf::Event& event)
-	{
-		qrw::Cursor* cursor = qrw::Cursor::getCursor();
-		qrw::Cursor* childcursor = cursor->getChild();
-
-		if(event.key.code == sf::Keyboard::Up)
-			cursor->move(0, -1);
-		else if(event.key.code == sf::Keyboard::Down)
-			cursor->move(0, 1);
-		else if(event.key.code == sf::Keyboard::Right)
-			cursor->move(1, 0);
-		else if(event.key.code == sf::Keyboard::Left)
-			cursor->move(-1, 0);
-		else if(event.key.code == sf::Keyboard::Escape)
-			cursor->despawnChild();
-		else if(event.key.code == sf::Keyboard::Return)
-		{
-			if(engine->getStatus() == EES_PREPARE)
-			{
-				// Check if a new unit is placed or a unit is moved.
-				// A unit is moved if cursor has a child (to point to destination)
-				// or there is a unit under cursor.
-				Square* cursorsquare = engine->getBoard()->getSquare(cursor->getPosition());
-				if (cursor->getChild() != NULL)
-				{
-					deploywindow->moveUnit();
-				}
-				else if(cursorsquare->getUnit() != NULL)
-				{
-					cursor->spawnChild();
-				}
-				else
-				{
-					deploywindow->placeEntity();
-				}
-			}
-			else if(childcursor == 0)
-			{
-				cursor->spawnChild();
-			}
-			else if(childcursor != 0)
-			{
-				this->moveUnitIngame();
-			}
 		}
 	}
 }
