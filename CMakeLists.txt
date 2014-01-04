@@ -52,7 +52,6 @@ set(COMMON_SOURCE
 
 set(GUI_SOURCE
 	src/tostring.cpp
-	src/gui/splashscreen.cpp
 	src/gui/imagemanager.cpp
 	src/gui/guihandler.cpp
 	src/gui/mainwindow.cpp
