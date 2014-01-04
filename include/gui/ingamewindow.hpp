@@ -61,7 +61,6 @@ namespace qrw
 			namelessgui::SpriteWidget* terrainimages[ET_NUMBEROFTERRAINTYPES];
 
 			sf::RectangleShape* background;
-			sf::RectangleShape* border;
 	};
 }
 

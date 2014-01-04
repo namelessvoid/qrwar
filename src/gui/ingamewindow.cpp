@@ -37,8 +37,7 @@ namespace qrw
 	  terrainattacktext(new namelessgui::Label(guihandler->getRenderWindow())),
 	  terraindefensetext(new namelessgui::Label(guihandler->getRenderWindow())),
 
-	  background(new sf::RectangleShape()),
-	  border(new sf::RectangleShape())
+	  background(new sf::RectangleShape())
 	{
 		defaultfont->loadFromFile("./res/font/Knigqst.ttf");
 		playernamelabel.setFont(*defaultfont);
@@ -58,10 +57,8 @@ namespace qrw
 		background->setPosition(621, 1);
 		background->setSize(sf::Vector2f(178, 598));
 		background->setFillColor(sf::Color(40, 40, 40, 255));
-
-		border->setPosition(620, 0);
-		border->setSize(sf::Vector2f(180, 600));
-		border->setFillColor(sf::Color(50, 70, 50, 255));
+		background->setOutlineColor(sf::Color(120, 120, 120));
+		background->setOutlineThickness(1);
 
 		sf::Vector2f unitspritepos(630, 40);
 		for(int i =  0; i < EUT_NUMBEROFUNITTYPES * 2; ++i)
@@ -161,7 +158,6 @@ namespace qrw
 			delete terraindefensetext;
 
 			delete background;
-			delete border;
 	}
 
 	void IngameWindow::update()
@@ -227,7 +223,6 @@ namespace qrw
 		if(isVisible() == false)
 			return;
 
-		target.draw(*border);
 		target.draw(*background);
 
 		// Draw unit info
