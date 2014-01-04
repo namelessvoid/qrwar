@@ -9,8 +9,8 @@
 		<tile name="startbutton" x="0" y="152" width="150" height="40" />
 
 		<tile name="health" x="0" y="0" width="32" height="32" />
-		<tile name="attack" x="32" y="0" width="32" height="32" />
-		<tile name="defense" x="64" y="0" width="32" height="32" />
+		<tile name="defense" x="32" y="0" width="32" height="32" />
+		<tile name="attack" x="64" y="0" width="32" height="32" />
 		<tile name="movement" x="96" y="0" width="32" height="32" />
 	</tiles>
 </tileset>
