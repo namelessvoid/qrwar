@@ -25,6 +25,7 @@ namespace namelessgui
 			void setScale(float scalex, float scaley);
 
 			void setPosition(float x, float y);
+			void setPosition(const sf::Vector2f& position);
 
 			const sf::Vector2f& getPosition() const;
 

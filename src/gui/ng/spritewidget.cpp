@@ -34,6 +34,11 @@ namespace namelessgui
 		sprite.setPosition(x, y);
 	}
 
+	void SpriteWidget::setPosition(const sf::Vector2f& position)
+	{
+		sprite.setPosition(position);
+	}
+
 	const sf::Vector2f& SpriteWidget::getPosition() const
 	{
 		return sprite.getPosition();

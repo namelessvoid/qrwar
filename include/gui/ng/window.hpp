@@ -3,13 +3,13 @@
 
 #include <vector>
 
-#include <SFML/Graphics/Drawable.hpp>
+#include <SFML/Graphics/RectangleShape.hpp>
 
 #include "gui/ng/widget.hpp"
 
 namespace namelessgui
 {
-	class Window : public sf::Drawable
+	class Window : public sf::RectangleShape
 	{
 		public:
 			Window();

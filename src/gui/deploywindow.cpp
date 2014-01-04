@@ -17,6 +17,9 @@ namespace qrw
 	  defaultfont(new sf::Font()),
 	  title(new namelessgui::Label(guihandler->getRenderWindow()))
 	{
+		setPosition(620, 0);
+		setSize(sf::Vector2f(200, 600));
+
 		defaultfont->loadFromFile("./res/font/Knigqst.ttf");
 		title->setFont(*defaultfont);
 		title->setText("Deployment");
