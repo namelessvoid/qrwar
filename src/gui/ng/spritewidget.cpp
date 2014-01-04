@@ -10,7 +10,8 @@ namespace namelessgui
 
 	void SpriteWidget::draw(sf::RenderTarget& target, sf::RenderStates states) const
 	{
-		target.draw(sprite, states);
+		if(visible)
+			target.draw(sprite, states);
 	}
 
 	sf::FloatRect SpriteWidget::getGlobalBounds()
