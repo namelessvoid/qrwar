@@ -6,6 +6,8 @@
 #include <SFML/Graphics/RectangleShape.hpp>
 
 #include "engine/engine.hpp"
+#include "engine/unit.hpp"
+#include "engine/terrain.hpp"
 #include "gui/ng/window.hpp"
 #include "gui/ng/button.hpp"
 #include "gui/ng/label.hpp"
@@ -38,8 +40,7 @@ namespace qrw
 			// Widgets
 			namelessgui::Button endturnbutton;
 			namelessgui::Label playernamelabel;
-			sf::Sprite* unitsprite;
-			sf::Sprite* terrainsprite;
+
 			sf::Sprite* plainsquare;
 
 			sf::Sprite* healthsprite;
@@ -55,6 +56,9 @@ namespace qrw
 			namelessgui::Label* unitmovementtext;
 			namelessgui::Label* terrainattacktext;
 			namelessgui::Label* terraindefensetext;
+
+			namelessgui::SpriteWidget* unitimages[EUT_NUMBEROFUNITTYPES * 2];
+			namelessgui::SpriteWidget* terrainimages[ET_NUMBEROFTERRAINTYPES];
 
 			sf::RectangleShape* background;
 			sf::RectangleShape* border;
