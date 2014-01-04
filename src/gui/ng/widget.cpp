@@ -1,11 +1,11 @@
-#include "gui/widget.hpp"
+#include "gui/ng/widget.hpp"
 
 #include <SFML/Window/Mouse.hpp>
 
 #include <iostream>
 #include <stdio.h>
 
-namespace qrw
+namespace namelessgui
 {
     Widget::Widget(sf::Window* window, float width, float height)
         : mouseFocus(false),
@@ -21,8 +21,8 @@ namespace qrw
     }
 
     Widget::Widget(sf::Window* window, sf::Vector2f size)
+        : Widget(window, size.x, size.y)
     {
-        Widget(window, size.x, size.y);
     }
 
     Widget::~Widget()
@@ -66,7 +66,6 @@ namespace qrw
                     mouseFocus = false;
                     signalmouseleft.emit();
                     leftMouseButtonPressRegistered = false;
-                    std::cout << "Mouse left widget.\n";
                 }
                 return;
             } // if(!hasMouseFocus)
@@ -77,13 +76,11 @@ namespace qrw
                 {
                     mouseFocus = true;
                     signalmouseentered.emit();
-                    std::cout << "mouse entered widget.\n";
                 }
                 // just moved when already has mouse focus
                 else
                 {
                     signalmousemoved.emit();
-                    std::cout << "mouse moved in widget.\n";
                 }
                 return;
             } // else(hasMouseFocus)
@@ -96,7 +93,6 @@ namespace qrw
                 {
                     signalleftmousebuttonpressed.emit();
                     leftMouseButtonPressRegistered = true;
-                    std::cout << "Mouse button on widget pressed.\n";
                     return;
                 }
                 else if(event.mouseButton.button == sf::Mouse::Right)
@@ -114,13 +110,11 @@ namespace qrw
                     && leftMouseButtonPressRegistered)
                 {
                     signalclicked.emit();
-                    std::cout << "Widget was clicked.\n";
                     return;
                 }
                 else if(event.mouseButton.button == sf::Mouse::Right)
                 {
                     signalrightclicked.emit();
-                    std::cout << "Widget was right clicked.\n";
                     return;
                 }
 

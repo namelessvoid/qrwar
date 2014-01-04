@@ -4,13 +4,12 @@
 
 #include "gui/texturemanager.hpp"
 
-#define PARSING_ERROR "TilesetProcessor parsing error: "
-
 namespace qrw
 {
 	TilesetProcessor::TilesetProcessor()
 	{
 		texturemanager = TextureManager::getInstance();
+		setParsingErrorMsg("TilesetProcessor parsing error: ");
 	}
 
 	TilesetProcessor::~TilesetProcessor()
@@ -30,7 +29,7 @@ namespace qrw
 		tinyxml2::XMLElement* tilesetroot = doc.FirstChildElement("tileset");
 		if(tilesetroot == NULL)
 		{
-			std::cout << PARSING_ERROR << "no child element 'tileset'" << std::endl;
+			std::cout << getParsingErrorMsg() << "no child element 'tileset'" << std::endl;
 			return -1;
 		}
 
@@ -38,7 +37,7 @@ namespace qrw
 		tinyxml2::XMLElement* tilesetchild = tilesetroot->FirstChildElement("file");
 		if(tilesetchild == NULL)
 		{
-			std::cout << PARSING_ERROR << "no child element 'file'" << std::endl;
+			std::cout << getParsingErrorMsg() << "no child element 'file'" << std::endl;
 			return -1;
 		}
 		std::string texturefilepath = tilesetchild->Attribute("href");
@@ -47,7 +46,7 @@ namespace qrw
 		tilesetchild = tilesetroot->FirstChildElement("tiles");
 		if(tilesetchild == NULL)
 		{
-			std::cout << PARSING_ERROR << "no child element 'tiles'" << std::endl;
+			std::cout << getParsingErrorMsg() << "no child element 'tiles'" << std::endl;
 			return -1;
 		}
 
@@ -56,7 +55,7 @@ namespace qrw
 		{
 			if(processTile(tilesetchild, texturefilepath) == false)
 			{
-				std::cout << PARSING_ERROR << "failed parsing tile.\n";
+				std::cout << getParsingErrorMsg() << "failed parsing tile.\n";
 				return -1;
 			}
 		}
@@ -67,7 +66,7 @@ namespace qrw
 		std::string texturefilepath)
 	{
 		sf::IntRect area;
-		int error = 0;
+		tinyxml2::XMLError error = tinyxml2::XML_NO_ERROR;
 		error = xmlelement->QueryIntAttribute("x", &area.left);
 		printAttributeError(error, "x");
 		if(error) return false;
@@ -87,7 +86,7 @@ namespace qrw
 		const char* tilename = xmlelement->Attribute("name");
 		if(tilename == NULL)
 		{
-			std::cerr << PARSING_ERROR << "attribute 'name' in 'tile' does not exist\n";
+			std::cerr << getParsingErrorMsg() << "attribute 'name' in 'tile' does not exist\n";
 			return false;
 		}
 
@@ -95,19 +94,5 @@ namespace qrw
 		texturemanager->unloadTexture(tilename);
 		texturemanager->loadTexture(tilename, texturefilepath, area);
 		return true;
-	}
-
-	void TilesetProcessor::printAttributeError(int error, std::string attributename)
-	{
-		if(error == tinyxml2::XML_NO_ATTRIBUTE)
-		{
-			std::cerr << PARSING_ERROR << "attribute '" << attributename
-				<< "'' in 'tile' does not exist!\n";
-		}
-		else if(error == tinyxml2::XML_WRONG_ATTRIBUTE_TYPE)
-		{
-			std::cerr << PARSING_ERROR << "attribute '" << attributename
-				<< "' in 'tile' has wrong type!\n";
-		}
 	}
 }

@@ -32,17 +32,26 @@ set(COMMON_SOURCE
 	src/engine/unitsmap.cpp
 	src/engine/army.cpp
 	src/engine/player.cpp
+	src/engine/coordinates.cpp
+	src/engine/pathfinding/path.cpp
+	src/engine/pathfinding/astar.cpp
+	src/engine/pathfinding/node.cpp
 	src/gui/texturemanager.cpp
-	src/gui/buttongroup.cpp
-    src/gui/widget.cpp
-	src/gui/button.cpp
-	src/gui/signal.cpp
+	src/gui/ng/buttongroup.cpp
+    src/gui/ng/widget.cpp
+    src/gui/ng/spritewidget.cpp
+	src/gui/ng/button.cpp
+	src/gui/ng/signal.cpp
+	src/config/xmlhelper.cpp
 	src/config/tilesetprocessor.cpp
+	src/config/videosettings.cpp
+	src/config/audiosettings.cpp
+	src/config/settings.cpp
+	src/gui/ng/label.cpp
 )
 
 set(GUI_SOURCE
 	src/tostring.cpp
-	src/gui/splashscreen.cpp
 	src/gui/imagemanager.cpp
 	src/gui/guihandler.cpp
 	src/gui/mainwindow.cpp
@@ -50,9 +59,10 @@ set(GUI_SOURCE
 	src/gui/ingamewindow.cpp
 	src/gui/boardwidget.cpp
 	src/gui/cursor.cpp
-	src/gui/radiotogglebutton.cpp
+	src/gui/ng/radiotogglebutton.cpp
 	src/gui/deploywindow.cpp
-	src/gui/window.cpp
+	src/gui/settingswindow.cpp
+	src/gui/ng/window.cpp
 	src/gui/animation.cpp
 	src/gui/damagenumber.cpp
 )
@@ -70,6 +80,10 @@ set(UNITTEST_SOURCE
 	test/engine/boardtest.cpp
 	test/engine/squaretest.cpp
 	test/engine/unittest.cpp
+	test/engine/coordinatestest.cpp
+	test/engine/pathfinding/nodetest.cpp
+	test/engine/pathfinding/pathtest.cpp
+	test/engine/pathfinding/astartest.cpp
 	test/gui/buttongrouptest.cpp
 	test/gui/texturemanagertest.cpp
 	test/config/tilesetprocessortest.cpp

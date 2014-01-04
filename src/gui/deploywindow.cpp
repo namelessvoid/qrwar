@@ -11,23 +11,27 @@ namespace qrw
 	DeployWindow::DeployWindow(Engine* engine, GuiHandler* guihandler, IngameWindow* ingamewindow)
 	: engine(engine),
 	  ingamewindow(ingamewindow),
-	  buttongroup(new ButtonGroup()),
+	  buttongroup(new namelessgui::ButtonGroup()),
 	  // TODO dynamic size
-	  startbutton(new Button(guihandler->getRenderWindow(), 150.0, 40.0)),
+	  startbutton(new namelessgui::Button(guihandler->getRenderWindow(), 150.0, 40.0)),
 	  defaultfont(new sf::Font()),
-	  title(new sf::Text())
+	  title(new namelessgui::Label(guihandler->getRenderWindow()))
 	{
+		setPosition(620, 0);
+		setSize(sf::Vector2f(200, 600));
+
 		defaultfont->loadFromFile("./res/font/Knigqst.ttf");
 		title->setFont(*defaultfont);
-		title->setString("Deployment");
+		title->setText("Deployment");
 		// TODO dynamic positioning
 		title->setPosition(630, 0);
+		addWidget(title);
 
 		TextureManager* texturemgr = TextureManager::getInstance();
 		for(int i = 0; i < BUTTONCOUNT; ++i)
 		{
 			// TODO dynamic size
-			radiobuttons[i] = new RadioToggleButton(guihandler->getRenderWindow(), buttongroup, 120.0, 50.0);
+			radiobuttons[i] = new namelessgui::RadioToggleButton(guihandler->getRenderWindow(), buttongroup, 120.0, 50.0);
 			radiobuttons[i]->setScale(1.5, 1.5);
 
 			// Set positions
@@ -68,6 +72,10 @@ namespace qrw
 			texturemgr->getTexture("wall"),
 			texturemgr->getTexture("wall"));
 		radiobuttons[8]->setText("Tower");
+		radiobuttons[9]->setTextures(texturemgr->getTexture("plainsquare"),
+			texturemgr->getTexture("plainsquare"),
+			texturemgr->getTexture("plainsquare"));
+		radiobuttons[9]->setText("No Terrain");
 
 		startbutton->setTextures(texturemgr->getTexture("startbutton"),
 			texturemgr->getTexture("startbutton"),
@@ -123,23 +131,26 @@ namespace qrw
 			activebuttonid < BUTTONCOUNT;
 			 ++activebuttonid)
 		{
-			if(radiobuttons[activebuttonid]->getState() == Button::ES_ACTIVE)
+			if(radiobuttons[activebuttonid]->getState() == namelessgui::Button::ES_ACTIVE)
 				break;
 		}
 
 		// Get cursor position
 		Cursor* cursor = Cursor::getCursor();
-		int x = cursor->getPosition().x;
-		int y = cursor->getPosition().y;
 
+		// Remove terrain
+		if(activebuttonid == 9)
+		{
+			engine->removeTerrain(cursor->getPosition());
+		}
 		// Place unit
-		if(activebuttonid >= 0 && activebuttonid < 2 * EUT_NUMBEROFUNITTYPES)
+		else if(activebuttonid >= 0 && activebuttonid < 2 * EUT_NUMBEROFUNITTYPES)
 		{
 			int playerid = activebuttonid / EUT_NUMBEROFUNITTYPES;
 			Player* player = engine->getPlayer(playerid);
 			UNITTYPES unittype = (UNITTYPES)(activebuttonid % EUT_NUMBEROFUNITTYPES);
 
-			engine->placeUnit(x, y, playerid, unittype);
+			engine->placeUnit(cursor->getPosition(), playerid, unittype);
 			update();
 		}
 		// Place terrain
@@ -147,7 +158,7 @@ namespace qrw
 		{
 			TERRAINTYPES terraintype = (TERRAINTYPES)(activebuttonid
 				- (2 * EUT_NUMBEROFUNITTYPES));
-			engine->placeTerrain(x, y, terraintype);
+			engine->placeTerrain(cursor->getPosition(), terraintype);
 		}
 	}
 
@@ -159,8 +170,7 @@ namespace qrw
 		if(child == NULL)
 			return;
 
-		engine->moveUnitDeployment(cursor->getPosition().x, cursor->getPosition().y,
-				child->getPosition().x, child->getPosition().y);
+		engine->moveUnitDeployment(cursor->getPosition(), child->getPosition());
 
 		cursor->setPosition(child->getPosition());
 

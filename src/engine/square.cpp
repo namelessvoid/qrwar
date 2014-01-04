@@ -4,11 +4,10 @@
 
 namespace qrw
 {
-	Square::Square()
+	Square::Square(int x, int y)
 	:	terrain(0),
 		unit(0),
-		xpos(-1),
-		ypos(-1)
+		coordinates(x, y)
 	{
 		terrain = 0;
 		unit = 0;
@@ -35,25 +34,29 @@ namespace qrw
 		return unit;
 	}
 
-	void Square::setPosition(int x, int y)
+	const Coordinates& Square::getCoordinates() const
 	{
-		xpos = x;
-		ypos = y;
+		return coordinates;
 	}
 
 	int Square::getXPosition()
 	{
-		return xpos;
+		return coordinates.getX();
 	}
 	int Square::getYPosition()
 	{
-		return ypos;
+		return coordinates.getY();
 	}
 
 	int Square::getDistance(Square* square)
 	{
-		int dx = std::abs(xpos) - std::abs(square->getXPosition());
-		int dy = std::abs(ypos) - std::abs(square->getYPosition());
+		int dx = std::abs(getXPosition()) - std::abs(square->getXPosition());
+		int dy = std::abs(getYPosition()) - std::abs(square->getYPosition());
 		return ceilf(sqrt(dx * dx + dy * dy));
+	}
+
+	bool Square::isAccessible()
+	{
+		return getUnit() == 0;
 	}
 }

@@ -1,8 +1,7 @@
 #include <stdio.h>
 
 #include <SFML/Graphics/Color.hpp>
-#include <SFML/Graphics/VertexArray.hpp>
-// #include <SFML/Graphics/Vertex.hpp>
+#include <SFML/Graphics/RectangleShape.hpp>
 #include <SFML/Graphics/RenderTarget.hpp>
 
 #include "gui/cursor.hpp"
@@ -12,9 +11,14 @@ namespace qrw
 	Cursor* Cursor::cursor = 0;
 
 	Cursor::Cursor()
-	: position(0, 0),
-	  child(0)
-	{}
+	: RectangleShape(),
+	  position(0, 0),
+	  child(0),
+	  maincolor(218, 218, 0, 120),
+	  subcolor(218, 0, 0, 120)
+	{
+		setFillColor(maincolor);
+	}
 
 	Cursor::~Cursor()
 	{}
@@ -31,11 +35,6 @@ namespace qrw
 		this->board = board;
 	}
 
-	sf::Vector2i Cursor::getPosition()
-	{
-		return position;
-	}
-
 	bool Cursor::move(int dx, int dy)
 	{
 		if(child != 0)
@@ -44,9 +43,9 @@ namespace qrw
 		}
 		if(board == 0)
 			return false;
-		if(board->getSquare(position.x + dx, position.y + dy) == 0)
+		if(board->getSquare(position) == 0)
 			return false;
-		setPosition(position.x + dx, position.y + dy);
+		setPosition(position.getX() + dx, position.getY() + dy);
 		return true;
 	}
 
@@ -56,14 +55,31 @@ namespace qrw
 			return false;
 		if(board->getSquare(x, y) == 0)
 			return false;
-		position.x = x;
-		position.y = y;
+		position = Coordinates(x, y);
+
+		RectangleShape::setPosition(x * dimensions, y * dimensions);
 		return true;
 	}
 
 	bool Cursor::setPosition(sf::Vector2i pos)
 	{
 		return setPosition(pos.x, pos.y);
+	}
+
+	bool Cursor::setPosition(Coordinates pos)
+	{
+		return setPosition(pos.getX(), pos.getY());
+	}
+
+	const Coordinates& Cursor::getPosition() const
+	{
+		return position;
+	}
+
+	void Cursor::setDimensions(float dimensions)
+	{
+		this->dimensions = dimensions;
+		RectangleShape::setSize(sf::Vector2f(dimensions, dimensions));
 	}
 
 	Cursor* Cursor::spawnChild()
@@ -74,12 +90,15 @@ namespace qrw
 		{
 			child = new Cursor();
 			child->setBoard(board);
-			child->setPosition(position.x, position.y);
+			child->setDimensions(dimensions);
+			child->setPosition(position);
+			child->setFillColor(maincolor);
+			this->setFillColor(subcolor);
 		}
 		return child;
 	}
 
-	Cursor* Cursor::getChild()
+	Cursor* Cursor::getChild() const
 	{
 		return child;
 	}
@@ -90,34 +109,14 @@ namespace qrw
 		{
 			delete child;
 			child = 0;
+			this->setFillColor(maincolor);
 		}
 	}
 
-	void Cursor::draw(sf::RenderTarget& target, sf::Vector2f position, float size)
+	void Cursor::draw(sf::RenderTarget &target, sf::RenderStates states) const
 	{
-		sf::Color col(218, 0, 0, 120);
-		// Change color if child is present
-		if(getChild() == 0)
-			col += sf::Color(0, 218, 0, 0);
-		sf::VertexArray quad(sf::Quads);
-		quad.append(sf::Vertex(sf::Vector2f(position.x, position.y), col));
-		quad.append(sf::Vertex(sf::Vector2f(position.x + size, position.y), col));
-		quad.append(sf::Vertex(sf::Vector2f(position.x + size, position.y + size), col));
-		quad.append(sf::Vertex(sf::Vector2f(position.x, position.y + size), col));
-		target.draw(quad);
-	}
-
-	void Cursor::drawChild(sf::RenderTarget& target, sf::Vector2f position, float size)
-	{
-		if(getChild())
-		{
-			sf::Color col(218, 218, 0, 120);
-			sf::VertexArray quad(sf::Quads);
-			quad.append(sf::Vertex(sf::Vector2f(position.x, position.y), col));
-			quad.append(sf::Vertex(sf::Vector2f(position.x + size, position.y), col));
-			quad.append(sf::Vertex(sf::Vector2f(position.x + size, position.y + size), col));
-			quad.append(sf::Vertex(sf::Vector2f(position.x, position.y + size), col));
-			target.draw(quad);
-		}
+		target.draw((sf::RectangleShape)*this, states);
+		if(getChild() != 0)
+			target.draw(*getChild(), states);
 	}
 }

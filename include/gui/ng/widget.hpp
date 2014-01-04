@@ -1,16 +1,16 @@
-#ifndef QRW_WIDGET_HPP
-#define QRW_WIDGET_HPP
+#ifndef NAMELESSGUI_WIDGET_HPP
+#define NAMELESSGUI_WIDGET_HPP
 
 #include <SFML/Window/Window.hpp>
 #include <SFML/Window/Event.hpp>
-#include <SFML/Graphics/Sprite.hpp>
+#include <SFML/Graphics/Drawable.hpp>
 
-#include "gui/signal.hpp"
-#include "gui/singleparametersignal.hpp"
+#include "gui/ng/signal.hpp"
+#include "gui/ng/singleparametersignal.hpp"
 
-namespace qrw
+namespace namelessgui
 {
-    class Widget : public sf::Sprite
+    class Widget : public sf::Drawable
     {
         public:
             Widget(sf::Window* window, float width, float height);
@@ -26,6 +26,8 @@ namespace qrw
             void setSize(sf::Vector2f size);
             sf::Vector2f getSize() const;
 
+            virtual sf::FloatRect getGlobalBounds() = 0;
+
             // Signals
             Signal signalclicked;
             Signal signalrightclicked;
@@ -38,6 +40,7 @@ namespace qrw
         protected:
             bool hasMouseFocus();
             const sf::Window* window;
+            bool visible;
 
         private:
             /**
@@ -66,8 +69,6 @@ namespace qrw
              * cursor entered the widget or other way round left the widget.
              */
             bool mouseFocus;
-
-            bool visible;
 
             /**
              * Holds size of the widget.

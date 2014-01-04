@@ -2,6 +2,7 @@
 
 #include "gui/guihandler.hpp"
 #include "gui/mainwindow.hpp"
+#include "gui/settingswindow.hpp"
 #include "gui/startgamewindow.hpp"
 #include "gui/ingamewindow.hpp"
 #include "gui/cursor.hpp"
@@ -30,11 +31,12 @@ namespace qrw
 		windows[STARTGAMEWINDOW] = StartGameWindow::Create(engine, ingamewindow,
 			deploywindow, boardwidget, this);
 		windows[LOADGAMEWINDOW] = sfg::Window::Create();
-		windows[SETTINGSWINDOW] = sfg::Window::Create();
+		windows[SETTINGSWINDOW] = SettingsWindow::Create();
 		windows[CREDITSWINDOW] = sfg::Window::Create();
 
 		this->Add(windows[MAINWINDOW]);
 		this->Add(windows[STARTGAMEWINDOW]);
+		this->Add(windows[SETTINGSWINDOW]);
 	}
 
 	GuiHandler::~GuiHandler()
@@ -44,7 +46,7 @@ namespace qrw
 
 	void GuiHandler::display(sf::RenderTarget& rendertarget)
 	{
-		rendertarget.draw(*boardwidget);
+		rendertarget.draw(*(namelessgui::Widget*)boardwidget);
 		rendertarget.draw(*(sf::Drawable*)ingamewindow);
 		rendertarget.draw(*(sf::Drawable*)deploywindow);
 		Animation::renderAll(rendertarget, clock.restart());
@@ -74,7 +76,14 @@ namespace qrw
 
 	void GuiHandler::showStartGameWindow()
 	{
+		hideAllWindows();
 		windows[STARTGAMEWINDOW]->Show(true);
+	}
+
+	void GuiHandler::showSettingsWindow()
+	{
+		hideAllWindows();
+		windows[SETTINGSWINDOW]->Show(true);
 	}
 
 	sfg::Window::Ptr GuiHandler::getWindowById(int id)
@@ -113,5 +122,12 @@ namespace qrw
 			boardwidget->handleEvent(event);
 		}
 		ingamewindow->update();
+	}
+
+	void GuiHandler::hideAllWindows()
+	{
+		// Hide all except ID o (MainWindow)
+		for(int i = 1; i < NUMEROFWINDOWS; ++i)
+			windows[i]->Show(false);
 	}
 }

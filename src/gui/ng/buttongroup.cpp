@@ -1,8 +1,8 @@
 #include <stdio.h>
 
-#include "gui/buttongroup.hpp"
+#include "gui/ng/buttongroup.hpp"
 
-namespace qrw
+namespace namelessgui
 {
 	ButtonGroup::ButtonGroup()
 	{}

@@ -3,24 +3,25 @@
 #include <SFML/Window/Mouse.hpp>
 #include <SFML/Graphics/RectangleShape.hpp>
 
-#include "gui/button.hpp"
+#include "gui/ng/button.hpp"
 
-namespace qrw
+namespace namelessgui
 {
 
 	Button::Button(sf::Window* window, float width, float height, std::string text,
 		const sf::Texture* textureactive,
 		const sf::Texture* textureinactive,
 		const sf::Texture* texturehover)
-	: Widget(window, width, height),
-	  text(new sf::Text()),
+	: SpriteWidget(window, width, height),
+	  label(new Label(window)),
 	  defaultfont(new sf::Font()),
 	  state(ES_INACTIVE)
 	{
 		defaultfont->loadFromFile("./res/font/Knigqst.ttf");
-		this->text->setFont(*defaultfont);
-		this->text->setString("hallo");
-		this->text->setCharacterSize(25);
+		this->label->setFont(*defaultfont);
+		this->label->setCharacterSize(25);
+		this->label->setText(text);
+
 		if(textureactive != NULL && textureinactive != NULL
 			&& texturehover != NULL)
 			setTextures(textureactive, textureinactive, texturehover);
@@ -40,12 +41,9 @@ namespace qrw
 
 	void Button::setText(std::string text)
 	{
-		this->text->setString(text);
+		this->label->setText(text);
 	}
-	std::string Button::getText()
-	{
-		return text->getString();
-	}
+
 	void Button::setState(Button::STATES state)
 	{
 		this->state = state;
@@ -58,15 +56,15 @@ namespace qrw
 
 	void Button::setPosition(float x, float y)
 	{
-		Sprite::setPosition(x, y);
+		SpriteWidget::setPosition(x, y);
 		if(getTexture() != NULL)
 		{
-			text->setPosition(x + getTexture()->getSize().x
+			label->setPosition(x + getTexture()->getSize().x
 				* getScale().x, y);
 		}
 		else
 		{
-			text->setPosition(x, y);
+			label->setPosition(x, y);
 		}
 	}
 
@@ -74,19 +72,6 @@ namespace qrw
 	{
 		setPosition(position.x, position.y);
 
-	}
-
-	sf::Vector2f Button::getSize() const
-	{
-		sf::Vector2f size;
-		size.x = text->getLocalBounds().width;
-		size.y = text->getLocalBounds().height;
-		if(getTexture() != NULL)
-		{
-			size.x += getTexture()->getSize().x * getScale().x;
-			size.y = getTexture()->getSize().y * getScale().y;
-		}
-		return size;
 	}
 
 	void Button::setTextures(const sf::Texture* textureinactive,

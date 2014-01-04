@@ -3,13 +3,14 @@
 
 #include "engine/terrain.hpp"
 #include "engine/unit.hpp"
+#include "engine/coordinates.hpp"
 
 namespace qrw
 {
 	class Square
 	{
 		public:
-			Square();
+			Square(int x, int y);
 			~Square();
 
 			void setTerrain(Terrain* terrain);
@@ -18,15 +19,18 @@ namespace qrw
 			void setUnit(Unit* unit);
 			Unit* getUnit();
 
-			void setPosition(int x, int y);
 			int getDistance(Square* suqare);
+
+			const Coordinates& getCoordinates() const;
 			int getXPosition();
 			int getYPosition();
+
+			bool isAccessible();
 
 		private:
 			Terrain* terrain;
 			Unit* unit;
-			int xpos, ypos;
+			Coordinates coordinates;
 	};
 }
 

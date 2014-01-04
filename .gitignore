@@ -12,4 +12,5 @@ draft/
 README.html
 *.cbp
 qrwar.layout
+qrwar.layout.save
 obj/

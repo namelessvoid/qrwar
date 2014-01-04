@@ -1,6 +1,7 @@
 #include <stdio.h>
 
 #include "engine/unit.hpp"
+#include "engine/square.hpp"
 #include "engine/terrain.hpp"
 
 namespace qrw

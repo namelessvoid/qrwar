@@ -43,6 +43,10 @@ namespace qrw
 
 			inline bool guiVisible() { return visible; };
 
+			/**
+			 * Toggle the gui. If gui will be hidden, save the visibility stats of the windows so they can be restored
+			 * when the gui is set visible again.
+			 */
 			void toggleGui();
 
 			inline bool getQuit() { return quit; };
@@ -50,6 +54,7 @@ namespace qrw
 			inline void doQuit() { this->quit = true; };
 
 			void showStartGameWindow();
+			void showSettingsWindow();
 
 			sfg::Window::Ptr getWindowById(int id);
 			DeployWindow* getDeployWindow();
@@ -58,6 +63,11 @@ namespace qrw
 			void HandleEvent(const sf::Event& event);
 
 		private:
+			/**
+			 * Hide all windows (except MainWindow) without saving the their visibility status.
+			 */
+			void hideAllWindows();
+
 			qrw::Engine* engine;
 			BoardWidget* boardwidget;
 

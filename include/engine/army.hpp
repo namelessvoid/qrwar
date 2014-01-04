@@ -21,6 +21,10 @@ namespace qrw
 			Army();
 			~Army();
 
+			void setMaxSize(int maxsize);
+
+			bool isFull();
+
 			/**
 			 * @brief Add unit to the army.
 			 *
@@ -43,9 +47,11 @@ namespace qrw
 			 * @see UNITTYPES
 			 * @see UnitsMap::getTotalUnitCount()
 			 */
-			int* getTotalUnitCount();
+			int* getUnitCount();
 
 			int getUnitCount(UNITTYPES unittype);
+
+			int getTotalUnitCount();
 
 			std::set<Unit*>& getUndeployedUnitsByType(UNITTYPES unittype);
 
@@ -73,6 +79,8 @@ namespace qrw
 			int getDeployedUnitCount(UNITTYPES unittype);
 
 		private:
+			int maxsize;
+
 			/**
 			 * @brief All units in the army.
 			 *

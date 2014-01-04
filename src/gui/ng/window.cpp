@@ -1,11 +1,16 @@
-#include "gui/window.hpp"
+#include "gui/ng/window.hpp"
 
 #include <SFML/Graphics/RenderTarget.hpp>
+#include <SFML/Graphics/Color.hpp>
 
-namespace qrw
+namespace namelessgui
 {
 	Window::Window()
+	 :	RectangleShape()
 	{
+		setFillColor(sf::Color(40, 40, 40, 255));
+		setOutlineThickness(1);
+		setOutlineColor(sf::Color(120, 120, 120));
 	}
 
 	Window::~Window()
@@ -35,6 +40,7 @@ namespace qrw
 	{
 		if(visible)
 		{
+			target.draw((sf::RectangleShape)*this);
 			for(auto iter = children.begin(); iter != children.end(); ++iter)
 				target.draw(*(*iter), states);
 		}

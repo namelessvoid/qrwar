@@ -11,14 +11,18 @@ namespace qrw
 
 		// Create buttons
 		sfg::Button::Ptr quitbutton = sfg::Button::Create("Quit!");
-		quitbutton->GetSignal(sfg::Button::OnLeftClick).Connect(&GuiHandler::doQuit, guihandler);
+		quitbutton->GetSignal(sfg::Button::OnLeftClick).Connect(
+			std::bind(&GuiHandler::doQuit, guihandler));
 
 		sfg::Button::Ptr startbutton = sfg::Button::Create("New Game");
-		startbutton->GetSignal(sfg::Button::OnLeftClick).Connect(&GuiHandler::showStartGameWindow, guihandler);
+		startbutton->GetSignal(sfg::Button::OnLeftClick).Connect(
+			std::bind(&GuiHandler::showStartGameWindow, guihandler));
 
 		sfg::Button::Ptr savegamebutton = sfg::Button::Create("Savegames");
 
 		sfg::Button::Ptr settingsbutton = sfg::Button::Create("Settings");
+		settingsbutton->GetSignal(sfg::Button::OnLeftClick).Connect(
+			std::bind(&GuiHandler::showSettingsWindow, guihandler));
 
 		sfg::Button::Ptr creditsbutton = sfg::Button::Create("Credits");
 

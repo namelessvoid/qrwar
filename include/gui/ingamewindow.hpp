@@ -3,18 +3,20 @@
 
 #include <SFML/System/Vector2.hpp>
 #include <SFML/Window/Event.hpp>
-#include <SFML/Graphics/Text.hpp>
 #include <SFML/Graphics/RectangleShape.hpp>
 
 #include "engine/engine.hpp"
-#include "gui/window.hpp"
-#include "gui/button.hpp"
+#include "engine/unit.hpp"
+#include "engine/terrain.hpp"
+#include "gui/ng/window.hpp"
+#include "gui/ng/button.hpp"
+#include "gui/ng/label.hpp"
 
 namespace qrw
 {
 	class GuiHandler;
 
-	class IngameWindow : public Window
+	class IngameWindow : public namelessgui::Window
 	{
 		public:
 			IngameWindow(Engine* engine, GuiHandler* guihandler);
@@ -24,10 +26,6 @@ namespace qrw
 
 			void update();
 
-			void draw(sf::RenderTarget&,
-				sf::RenderStates = sf::RenderStates::Default) const;
-
-
 		private:
 			// private slots:
 			void changeplayerbuttonClicked();
@@ -36,28 +34,32 @@ namespace qrw
 			GuiHandler* guihandler;
 
 			// Widgets
-			Button endturnbutton;
-			sf::Text playernamelabel;
-			sf::Sprite* unitsprite;
-			sf::Sprite* terrainsprite;
-			sf::Sprite* plainsquare;
+			namelessgui::Button endturnbutton;
+			namelessgui::Label playernamelabel;
 
-			sf::Sprite* healthsprite;
-			sf::Sprite* attacksprite;
-			sf::Sprite* defensesprite;
-			sf::Sprite* movementsprite;
+			// Sprites for unit information
+			namelessgui::SpriteWidget* unitplainsquare;
+			namelessgui::SpriteWidget* healthsprite;
+			namelessgui::SpriteWidget* unitattacksprite;
+			namelessgui::SpriteWidget* unitdefensesprite;
+			namelessgui::SpriteWidget* movementsprite;
+
+			// Sprites for terrain information
+			namelessgui::SpriteWidget* terrainplainsquare;
+			namelessgui::SpriteWidget* terrainattacksprite;
+			namelessgui::SpriteWidget* terraindefensesprite;
 
 			sf::Font* defaultfont;
 
-			sf::Text* healthtext;
-			sf::Text* unitattacktext;
-			sf::Text* unitdefensetext;
-			sf::Text* unitmovementtext;
-			sf::Text* terrainattacktext;
-			sf::Text* terraindefensetext;
+			namelessgui::Label* healthtext;
+			namelessgui::Label* unitattacktext;
+			namelessgui::Label* unitdefensetext;
+			namelessgui::Label* unitmovementtext;
+			namelessgui::Label* terrainattacktext;
+			namelessgui::Label* terraindefensetext;
 
-			sf::RectangleShape* background;
-			sf::RectangleShape* border;
+			namelessgui::SpriteWidget* unitimages[EUT_NUMBEROFUNITTYPES * 2];
+			namelessgui::SpriteWidget* terrainimages[ET_NUMBEROFTERRAINTYPES];
 	};
 }
 

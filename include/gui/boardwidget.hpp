@@ -9,15 +9,16 @@
 
 #include "engine/board.hpp"
 #include "gui/texturemanager.hpp"
-#include "gui/widget.hpp"
+#include "gui/ng/spritewidget.hpp"
 
 namespace qrw
 {
 	class GuiHandler;
 	class DeployWindow;
 	class Engine;
+	class Path;
 
-	class BoardWidget : public Widget
+	class BoardWidget : public namelessgui::Widget
 	{
 		public:
 			BoardWidget(GuiHandler* guihandler, Engine* engine, float width, float height);
@@ -27,6 +28,11 @@ namespace qrw
 
 			void draw(sf::RenderTarget &target, sf::RenderStates states) const;
 
+			sf::FloatRect getGlobalBounds()
+			{
+				return sf::FloatRect(0, 0, getSize().x, getSize().y);
+			}
+
 		private:
 			void calcSpriteDimensions(int boardwidth, int boardheight);
 
@@ -34,6 +40,7 @@ namespace qrw
 				sf::Vector2f position, sf::Vector2f scale) const;
 			void drawUnit(sf::RenderTarget& target, int playerid, UNITTYPES unittype,
 				sf::Vector2f position, sf::Vector2f scale) const;
+			void drawPath(sf::RenderTarget& target, sf::Vector2f scale) const;
 
 			void moveUnitIngame();
 
@@ -50,9 +57,12 @@ namespace qrw
 			float singlespritescale;
 
 			sf::Sprite* plainsquare;
+			sf::Sprite* footstep;
 			sf::Sprite* terrainsprites[ET_NUMBEROFTERRAINTYPES];
 			sf::Sprite* p1unitsprites[EUT_NUMBEROFUNITTYPES];
 			sf::Sprite* p2unitsprites[EUT_NUMBEROFUNITTYPES];
+
+			Path* path;
 
 			// Pointer to deploywindow to have acces to DeployWindow::placeEntity() and DeployWindow::moveUnit().
 			DeployWindow* deploywindow;

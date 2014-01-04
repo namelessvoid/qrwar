@@ -1,0 +1,35 @@
+#ifndef QRW_PATH_HPP
+#define QRW_PATH_HPP
+
+#include <vector>
+
+namespace qrw
+{
+	class Square;
+
+	class Path
+	{
+		public:
+			typedef std::vector<Square*>::iterator iterator;
+			typedef std::vector<Square*>::const_iterator const_iterator;
+
+			iterator begin();
+			const_iterator begin() const;
+
+			iterator end();
+			const_iterator end() const;
+
+			Square* getStep(int n) const;
+
+			void prependStep(Square* square);
+			void appendStep(Square* square);
+
+			int getLength();
+			int getMovementCosts();
+
+		private:
+			std::vector<Square*> steps;
+	};
+}
+
+#endif

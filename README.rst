@@ -12,8 +12,8 @@ The source comes with an CMake file and dependes on:
 
 - CMake
 - SFML_ (>= 2.0)
-- SFGUI_
-- TinyXML (>= 2.0)
+- SFGUI_ (>= 0.2.0)
+- TinyXML_ (>= 2.0)
 - CppUnit_ (for unittesting only)
 
 Note:
@@ -44,6 +44,7 @@ Image explanation:
 - Hitpoints: |HP|
 - Attack: |Attack|
 - Defense: |Defense|
+- Movement: |Movement|
 
 - Swordman: |Swordman|
 - Archer: |Archer|
@@ -54,7 +55,7 @@ Image explanation:
 - Tower: |Tower|
 
 +----------+------+--------+---------+----------+
-| Name     | |HP| ||Attack|||Defense|| Movement |
+| Name     | |HP| ||Attack|||Defense|||Movement||
 +----------+------+--------+---------+----------+
 ||Swordman||  5   | 2      | 1       | 3        |
 +----------+------+--------+---------+----------+
@@ -100,11 +101,13 @@ Third party resources
 .. _SFML: http://www.sfml-dev.org/
 .. _SFGUI: http://sfgui.sfml-dev.de/
 .. _CppUnit: http://sourceforge.net/projects/cppunit/
+.. _TinyXml: http://www.grinninglizard.com/tinyxml2/index.html
 
 .. Images:
 .. |HP| image:: https://raw.github.com/namelessvoid/qrwar/master/res/img/gui/health.png
 .. |Attack| image:: https://raw.github.com/namelessvoid/qrwar/master/res/img/gui/attack.png
 .. |Defense| image:: https://raw.github.com/namelessvoid/qrwar/master/res/img/gui/defense.png
+.. |Movement| image:: https://raw.github.com/namelessvoid/qrwar/master/res/img/gui/movement.png
 
 .. |Archer| image:: https://raw.github.com/namelessvoid/qrwar/master/res/img/units/p1archer.png
 .. |Swordman| image:: https://raw.github.com/namelessvoid/qrwar/master/res/img/units/p1swordman.png

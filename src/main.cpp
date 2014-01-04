@@ -1,31 +1,41 @@
-#include <stdio.h>
-
-#include <thread>
 #include <SFML/Graphics/RenderWindow.hpp>
-#include <SFML/Graphics/RectangleShape.hpp>
-
-
 
 #include "engine/terrain.hpp"
 #include "engine/unit.hpp"
 #include "engine/engine.hpp"
 
-#include "gui/cursor.hpp"
 #include "gui/guihandler.hpp"
-#include "gui/splashscreen.hpp"
 #include "gui/imagemanager.hpp"
 #include "gui/texturemanager.hpp"
 
 #include "config/tilesetprocessor.hpp"
-
+#include "config/settings.hpp"
 
 int main(int argc, char const *argv[])
 {
-	// Create and show splash
-	//qrw::SplashScreen* splash = new qrw::SplashScreen("./res/img/splash.png");
-	//std::thread splashthread(&qrw::SplashScreen::show, splash);
+	sf::RenderWindow renderwindow;
 
-	// Preload image resources.
+	renderwindow.create(
+		sf::VideoMode(640, 480),
+		"Quad-Ruled War - Loading...",
+		sf::Style::None
+	);
+
+	// Create splash screen stuff
+	sf::Texture* splashtexture = new sf::Texture();
+	splashtexture->loadFromFile("./res/img/splash.png");
+	sf::Sprite* splashsprite = new sf::Sprite();
+	splashsprite->setTexture(*splashtexture);
+
+	renderwindow.draw(*splashsprite);
+	renderwindow.display();
+
+	// Start initialization of qrw...
+	// Load Settings
+	qrw::Settings* settings = qrw::Settings::getInstance();
+	settings->loadFromFile();
+
+	// Preload image resources
 	qrw::ImageManager* imgmgr = qrw::ImageManager::getInstance();
 	imgmgr->loadImage("p1swordman", "./res/img/units/p1swordman.png");
 	imgmgr->loadImage("p1archer", "./res/img/units/p1archer.png");
@@ -34,60 +44,73 @@ int main(int argc, char const *argv[])
 	imgmgr->loadImage("p2archer", "./res/img/units/p2archer.png");
 	imgmgr->loadImage("p2spearman", "./res/img/units/p2spearman.png");
 	imgmgr->loadImage("plainsquare", "./res/img/plainsquare.png");
-	// Preload texture resources.
-	qrw::TextureManager* texturemanager = qrw::TextureManager::getInstance();
+
+	// Loading tilesets
 	qrw::TilesetProcessor tilesetprocessor;
-	tilesetprocessor.loadTileset("./res/defaulttileset.xml");
+	tilesetprocessor.loadTileset(settings->getEntityTilesetPath());
+	tilesetprocessor.loadTileset(settings->getGuiTilesetPath());
 
-	texturemanager->loadTexture("nextbutton", "./res/img/gui/nextbutton.png");
-	texturemanager->loadTexture("nextbutton_hover", "./res/img/gui/nextbutton_hover.png");
-	texturemanager->loadTexture("nextbutton_active", "./res/img/gui/nextbutton_active.png");
-	texturemanager->loadTexture("health", "./res/img/gui/health.png");
-	texturemanager->loadTexture("attack", "./res/img/gui/attack.png");
-	texturemanager->loadTexture("defense", "./res/img/gui/defense.png");
-	texturemanager->loadTexture("movement", "./res/img/gui/movement.png");
-	texturemanager->loadTexture("startbutton", "./res/img/gui/startbutton.png");
-
-	//splash->setCloseable(true);
-	//splashthread.join();
-	//delete splash;
-
-	sf::Vector2f windowsize(800, 600);
+	// Create engine
 	qrw::Engine engine;
 	engine.init(10, 4);
 
+	// Setup random board for test dings
+	qrw::Board* board = engine.getBoard();
+	qrw::Terrain* terrain1 = new qrw::Terrain(qrw::ET_WOOD, 1, 2);
+	board->getSquare(0, 0)->setTerrain(terrain1);
+	qrw::Terrain* terrain2 = new qrw::Terrain(qrw::ET_HILL, 3, -1);
+	board->getSquare(1, 2)->setTerrain(terrain2);
+	qrw::Terrain* terrain3 = new qrw::Terrain(qrw::ET_WALL, 2, 2);
+	board->getSquare(5, 1)->setTerrain(terrain3);
 
-// Setup random board for test dings
-qrw::Board* board = engine.getBoard();
-qrw::Terrain terrain1(qrw::ET_WOOD, 1, 2);
-board->getSquare(0, 0)->setTerrain(&terrain1);
-qrw::Terrain terrain2(qrw::ET_HILL, 3, -1);
-board->getSquare(1, 2)->setTerrain(&terrain2);
-qrw::Terrain terrain3(qrw::ET_WALL, 2, 2);
-board->getSquare(5, 1)->setTerrain(&terrain3);
+	// Determine whether fullscreen is enabled
+	sf::Uint32 style = sf::Style::Default;
+	if(settings->getFullscreen())
+		style = sf::Style::Fullscreen;
 
-	sf::RenderWindow renderwindow(sf::VideoMode(windowsize.x, windowsize.y), "Quad-Ruled War", sf::Style::Default);
+	// Create the gui
 	qrw::GuiHandler guihandler(&engine, &renderwindow);
-	sf::View camera(sf::FloatRect(0.0f, 0.0f, windowsize.x, windowsize.y));
-	renderwindow.setView(camera);
 
-	sf::RectangleShape rect(sf::Vector2f(10.0f, 10.0f));
-	rect.setFillColor(sf::Color::Green);
-
+	// Create clock for time measurement
 	sf::Clock clock;
 	float elapsedtime;
 
+	sf::Event event;
+
+	// Render loop for splash screen
+	bool quitsplash = false;
+	while(!quitsplash)
+	{
+		while(renderwindow.pollEvent(event))
+		{
+			if(event.type == sf::Event::MouseButtonReleased || event.type == sf::Event::KeyPressed)
+				quitsplash = true;
+		}
+		renderwindow.display();
+	}
+	delete splashsprite;
+	delete splashtexture;
+
+	// Initialize "real" window
+	renderwindow.create(
+		sf::VideoMode(settings->getResolutionX(), settings->getResolutionY()),
+		"Quad-Ruled War",
+		style
+	);
+
+	sf::View camera(sf::FloatRect(0.0f, 0.0f, settings->getResolutionX(), settings->getResolutionY()));
+	renderwindow.setView(camera);
+
+	// Start main game loop
 	while(!guihandler.getQuit())
 	{
 		elapsedtime = clock.restart().asSeconds();
 		// Event handling
-		sf::Event event;
 		while(renderwindow.pollEvent(event))
 			guihandler.HandleEvent(event);
 
 		// Rendering
 		renderwindow.clear(sf::Color::Black);
-		renderwindow.draw(rect);
 
 		guihandler.Update(elapsedtime);
 		guihandler.display(renderwindow);

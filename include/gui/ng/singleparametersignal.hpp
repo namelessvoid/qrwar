@@ -1,10 +1,10 @@
-#ifndef QRW_SINGLEPARAMETERSIGNAL_HPP
-#define QRW_SINGLEPARAMETERSIGNAL_HPP
+#ifndef NAMELESSGUI_SINGLEPARAMETERSIGNAL_HPP
+#define NAMELESSGUI_SINGLEPARAMETERSIGNAL_HPP
 
 #include <functional>
 #include <vector>
 
-namespace qrw
+namespace namelessgui
 {
 	template <class P>
 	class SingleParameterSignal

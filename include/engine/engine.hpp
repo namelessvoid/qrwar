@@ -8,6 +8,9 @@
 
 namespace qrw
 {
+	class AbstractAlgorithm;
+	class Path;
+
 	enum ENGINSTATES
 	{
 		EES_UNDEFINED,
@@ -28,6 +31,7 @@ namespace qrw
 
 			ENGINSTATES getStatus();
 
+			int getMaxPlayerUnits();
 			void createPlayerUnits(int playerid, std::map<UNITTYPES, int> unitcounts);
 
 			Player& getCurrentPlayer();
@@ -45,7 +49,7 @@ namespace qrw
 			 *			-7 status != EES_RUNNING, -8 unit on origin died, -9 enemy unit
 			 *			was not defeated
 			 */
-			int moveUnitIngame(int orx, int ory, int destx, int desty);
+			int moveUnitIngame(Coordinates origin, Coordinates destination);
 
 			/**
 			 * This funciton is used to move a unit during deployment phase. Not to be confused
@@ -53,22 +57,31 @@ namespace qrw
 			 *
 			 * @return
 			 */
-			int moveUnitDeployment(int orx, int ory, int destx, int desty);
+			int moveUnitDeployment(Coordinates origin, Coordinates destination);
 
 			/**
 			 * Place a unit on the board.
 			 * @Return: False if status != EES_PREPRARE, index out of board
 			 *          or destination is not empty.
 			 */
-			bool placeUnit(int x, int y, int playerid, UNITTYPES unittype);
+			bool placeUnit(Coordinates position, int playerid, UNITTYPES unittype);
 
 			/**
 			 * Place a piece of terrain on the board.
 			 * @Return: False if status != EES_PREPARE or index out of board
 			 */
-			bool placeTerrain(int x, int y, TERRAINTYPES terraintype);
+			bool placeTerrain(Coordinates position, TERRAINTYPES terraintype);
+
+			/**
+			 * Remove a piece of terrain on the board.
+			 *
+			 * @return False if status != EES_PREPARE or index out of board.
+			 */
+			bool removeTerrain(Coordinates position);
 
 			Player* getPlayer(int id);
+
+			Path* findPath(const Coordinates& start, const Coordinates& end);
 
 		private:
 			// void setPlayerUnits(int id, int unitnumbers[EUT_NUMBEROFUNITTYPES]);
@@ -77,6 +90,8 @@ namespace qrw
 			int currentplayer;
 			Player players[2];
 			ENGINSTATES status;
+
+			AbstractAlgorithm* pathfinder;
 	};
 }
 

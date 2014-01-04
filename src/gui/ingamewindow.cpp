@@ -19,85 +19,136 @@ namespace qrw
 	  guihandler(guihandler),
 	  // TODO: Dynamic size
 	  endturnbutton(guihandler->getRenderWindow(), 100.0, 40.0),
-	  playernamelabel(),
+	  playernamelabel(guihandler->getRenderWindow(), 100.0, 40.0),
 
-	  unitsprite(new sf::Sprite()),
-	  terrainsprite(new sf::Sprite()),
-	  plainsquare(new sf::Sprite()),
+	  unitplainsquare(new namelessgui::SpriteWidget(guihandler->getRenderWindow(), 32, 32)),
+	  healthsprite(new namelessgui::SpriteWidget(guihandler->getRenderWindow(), 32, 32)),
+	  unitattacksprite(new namelessgui::SpriteWidget(guihandler->getRenderWindow(), 32, 32)),
+	  unitdefensesprite(new namelessgui::SpriteWidget(guihandler->getRenderWindow(), 32, 32)),
+	  movementsprite(new namelessgui::SpriteWidget(guihandler->getRenderWindow(), 32, 32)),
 
-	  healthsprite(new sf::Sprite()),
-	  attacksprite(new sf::Sprite()),
-	  defensesprite(new sf::Sprite()),
-	  movementsprite(new sf::Sprite()),
+	  terrainplainsquare(new namelessgui::SpriteWidget(guihandler->getRenderWindow(), 32, 32)),
+	  terrainattacksprite(new namelessgui::SpriteWidget(guihandler->getRenderWindow(), 32, 32)),
+	  terraindefensesprite(new namelessgui::SpriteWidget(guihandler->getRenderWindow(), 32, 32)),
 
 	  defaultfont(new sf::Font()),
 
-	  healthtext(new sf::Text()),
-	  unitattacktext(new sf::Text()),
-	  unitdefensetext(new sf::Text()),
-	  unitmovementtext(new sf::Text()),
-	  terrainattacktext(new sf::Text()),
-	  terraindefensetext(new sf::Text()),
-
-	  background(new sf::RectangleShape()),
-	  border(new sf::RectangleShape())
+	  healthtext(new namelessgui::Label(guihandler->getRenderWindow())),
+	  unitattacktext(new namelessgui::Label(guihandler->getRenderWindow())),
+	  unitdefensetext(new namelessgui::Label(guihandler->getRenderWindow())),
+	  unitmovementtext(new namelessgui::Label(guihandler->getRenderWindow())),
+	  terrainattacktext(new namelessgui::Label(guihandler->getRenderWindow())),
+	  terraindefensetext(new namelessgui::Label(guihandler->getRenderWindow()))
 	{
 		defaultfont->loadFromFile("./res/font/Knigqst.ttf");
 		playernamelabel.setFont(*defaultfont);
 		playernamelabel.setCharacterSize(25);
-		playernamelabel.setString("Player name");
-		playernamelabel.setPosition(sf::Vector2f(625, 0));
+		playernamelabel.setText("Player name");
+		playernamelabel.setPosition(625.0, 0.0);
 		playernamelabel.setColor(sf::Color::White);
+		addWidget(&playernamelabel);
 
 		TextureManager* texturemanager = TextureManager::getInstance();
 
+		setPosition(620, 0);
+		setSize(sf::Vector2f(200, 600));
+
+		// set up sprites for unit information
+		sf::Vector2f unitspritepos(630, 40);
+
+		unitplainsquare->setTexture(*texturemanager->getTexture("plainsquare"));
+		unitplainsquare->setPosition(unitspritepos);
+		unitplainsquare->setScale(1.5, 1.5);
+		addWidget(unitplainsquare);
+
+		for(int i =  0; i < EUT_NUMBEROFUNITTYPES * 2; ++i)
+		{
+			unitimages[i] = new namelessgui::SpriteWidget(guihandler->getRenderWindow(), 32, 32);
+			unitimages[i]->setPosition(unitspritepos.x, unitspritepos.y);
+			unitimages[i]->setScale(1.5, 1.5);
+			this->addWidget(unitimages[i]);
+			unitimages[i]->setVisible(true);
+		}
+		unitimages[EUT_SWORDMAN]->setTexture(*texturemanager->getTexture("p1swordman"));
+		unitimages[EUT_SPEARMAN]->setTexture(*texturemanager->getTexture("p1spearman"));
+		unitimages[EUT_ARCHER]->setTexture(*texturemanager->getTexture("p1archer"));
+		std::cout << EUT_NUMBEROFUNITTYPES * 2 - 1 << std::endl;
+		unitimages[EUT_NUMBEROFUNITTYPES + EUT_SWORDMAN]->setTexture(*texturemanager->getTexture("p2swordman"));
+		unitimages[EUT_NUMBEROFUNITTYPES + EUT_SPEARMAN]->setTexture(*texturemanager->getTexture("p2spearman"));
+		unitimages[EUT_NUMBEROFUNITTYPES + EUT_ARCHER]->setTexture(*texturemanager->getTexture("p2archer"));
+
 		healthsprite->setTexture(*texturemanager->getTexture("health"));
-		attacksprite->setTexture(*texturemanager->getTexture("attack"));
-		defensesprite->setTexture(*texturemanager->getTexture("defense"));
+		healthsprite->setPosition(unitspritepos.x + 52, unitspritepos.y);
+		addWidget(healthsprite);
+
+		unitattacksprite->setTexture(*texturemanager->getTexture("attack"));
+		unitattacksprite->setPosition(unitspritepos.x + 52, unitspritepos.y + 70);
+		addWidget(unitattacksprite);
+
+		unitdefensesprite->setTexture(*texturemanager->getTexture("defense"));
+		unitdefensesprite->setPosition(unitspritepos.x + 52, unitspritepos.y + 105);
+		addWidget(unitdefensesprite);
+
 		movementsprite->setTexture(*texturemanager->getTexture("movement"));
+		movementsprite->setPosition(unitspritepos.x + 52,unitspritepos.y + 35);
+		addWidget(movementsprite);
 
-		background->setPosition(621, 1);
-		background->setSize(sf::Vector2f(178, 598));
-		background->setFillColor(sf::Color(40, 40, 40, 255));
+		// set up sprites for terrain information
+		sf::Vector2f terrainspritepos(630, 210);
+		for(int i = 0; i < ET_NUMBEROFTERRAINTYPES; ++i)
+		{
+			terrainimages[i] = new namelessgui::SpriteWidget(guihandler->getRenderWindow(), 32, 32);
+			terrainimages[i]->setPosition(terrainspritepos.x, terrainspritepos.y);
+			terrainimages[i]->setScale(1.5, 1.5);
+			this->addWidget(terrainimages[i]);
+		}
+		terrainimages[ET_WOOD]->setTexture(*texturemanager->getTexture("wood"));
+		terrainimages[ET_HILL]->setTexture(*texturemanager->getTexture("hill"));
+		terrainimages[ET_WALL]->setTexture(*texturemanager->getTexture("wall"));
 
-		border->setPosition(620, 0);
-		border->setSize(sf::Vector2f(180, 600));
-		border->setFillColor(sf::Color(50, 70, 50, 255));
+		terrainplainsquare->setTexture(*texturemanager->getTexture("plainsquare"));
+		terrainplainsquare->setPosition(terrainspritepos);
+		terrainplainsquare->setScale(1.5, 1.5);
+		addWidget(terrainplainsquare);
 
-		unitsprite->setTexture(*texturemanager->getTexture("p1swordman"));
-		unitsprite->setPosition(630, 40);
-		unitsprite->setScale(sf::Vector2f(1.5, 1.5));
+		terrainattacksprite->setTexture(*texturemanager->getTexture("attack"));
+		terrainattacksprite->setPosition(terrainspritepos.x + 52, terrainspritepos.y);
+		addWidget(terrainattacksprite);
 
-		terrainsprite->setTexture(*texturemanager->getTexture("wood"));
-		terrainsprite->setPosition(630, 210);
-		terrainsprite->setScale(sf::Vector2f(1.5, 1.5));
+		terraindefensesprite->setTexture(*texturemanager->getTexture("defense"));
+		terraindefensesprite->setPosition(terrainspritepos.x + 52, terrainspritepos.y + 35);
+		addWidget(terraindefensesprite);
 
-		plainsquare->setTexture(*texturemanager->getTexture("plainsquare"));
-		plainsquare->setPosition(unitsprite->getPosition());
-
+		// Set up text widgets
 		healthtext->setFont(*defaultfont);
 		healthtext->setCharacterSize(30);
-		healthtext->setPosition(unitsprite->getPosition().x + 90, unitsprite->getPosition().y - 3);
+		healthtext->setPosition(unitspritepos.x + 90, unitspritepos.y - 3);
+		addWidget(healthtext);
 
 		unitmovementtext->setFont(*defaultfont);
 		unitmovementtext->setCharacterSize(30);
-		unitmovementtext->setPosition(unitsprite->getPosition().x + 90, unitsprite->getPosition().y + 32);
+		unitmovementtext->setPosition(unitspritepos.x + 90, unitspritepos.y + 32);
+		addWidget(unitmovementtext);
 
 		unitattacktext->setFont(*defaultfont);
 		unitattacktext->setCharacterSize(30);
-		unitattacktext->setPosition(unitsprite->getPosition().x + 90, unitsprite->getPosition().y + 64);
+		unitattacktext->setPosition(unitspritepos.x + 90, unitspritepos.y + 64);
+		addWidget(unitattacktext);
 
 		unitdefensetext->setFont(*defaultfont);
 		unitdefensetext->setCharacterSize(30);
-		unitdefensetext->setPosition(unitsprite->getPosition().x + 90, unitsprite->getPosition().y + 98);
+		unitdefensetext->setPosition(unitspritepos.x + 90, unitspritepos.y + 98);
+		addWidget(unitdefensetext);
 
 		terrainattacktext->setFont(*defaultfont);
-		terrainattacktext->setPosition(terrainsprite->getPosition().x + 90, terrainsprite->getPosition().y - 3);
+		terrainattacktext->setPosition(terrainspritepos.x + 90, terrainspritepos.y - 3);
 		terrainattacktext->setCharacterSize(30);
+		addWidget(terrainattacktext);
 
 		terraindefensetext->setFont(*defaultfont);
-		terraindefensetext->setPosition(terrainsprite->getPosition().x + 90, terrainsprite->getPosition().y + 32);
+		terraindefensetext->setPosition(terrainspritepos.x + 90, terrainspritepos.y + 32);
 		terraindefensetext->setCharacterSize(30);
+		addWidget(terraindefensetext);
 
 		endturnbutton.setText("End turn!");
 		endturnbutton.setTextures(texturemanager->getTexture("nextbutton"),
@@ -111,14 +162,21 @@ namespace qrw
 
 	IngameWindow::~IngameWindow()
 	{
-			delete unitsprite;
-			delete terrainsprite;
-			delete plainsquare;
+		for(int i =  0; i < EUT_NUMBEROFUNITTYPES * 2; ++i)
+			delete unitimages[i];
 
+		for(int i = 0; i < ET_NUMBEROFTERRAINTYPES; ++i)
+			delete terrainimages[i];
+
+			delete unitplainsquare;
 			delete healthsprite;
-			delete attacksprite;
-			delete defensesprite;
+			delete unitattacksprite;
+			delete unitdefensesprite;
 			delete movementsprite;
+
+			delete terrainplainsquare;
+			delete terrainattacksprite;
+			delete terraindefensesprite;
 
 			delete defaultfont;
 
@@ -128,158 +186,64 @@ namespace qrw
 			delete unitmovementtext;
 			delete terrainattacktext;
 			delete terraindefensetext;
-
-			delete background;
-			delete border;
 	}
 
 	void IngameWindow::update()
 	{
 		// Update player name
-		playernamelabel.setString(engine->getCurrentPlayer().getName());
+		playernamelabel.setText(engine->getCurrentPlayer().getName());
 		// Update Square information
 		Board* board = engine->getBoard();
 		Cursor* cursor = Cursor::getCursor()->getChild();
 		if(cursor == NULL)
 			cursor = Cursor::getCursor();
 
-		Square* square = board->getSquare(cursor->getPosition().x, cursor->getPosition().y);
+		Square* square = board->getSquare(cursor->getPosition().getX(), cursor->getPosition().getY());
 		Unit* unit = square->getUnit();
+
+		for(int i = 0; i < EUT_NUMBEROFUNITTYPES * 2; ++i)
+			unitimages[i]->setVisible(false);
+		for(int i = 0; i < ET_NUMBEROFTERRAINTYPES; ++i)
+			terrainimages[i]->setVisible(false);
 
 		// Decide which unit has to be drawn
 		if(unit != NULL)
 		{
 			// Update text
-			healthtext->setString(intToString(unit->getHP()) + " / " + intToString(unit->getMaxHp()));
-			unitattacktext->setString(intToString(unit->getAttack()));
-			unitdefensetext->setString(intToString(unit->getDefense()));
-			unitmovementtext->setString(intToString(unit->getCurrentMovement()) + " / " + intToString(unit->getMovement()));
-			// player 0 units
-			if(unit->getPlayer() == engine->getPlayer(0))
-			{
-				switch(unit->getType())
-				{
-					case EUT_SWORDMAN:
-						unitsprite->setTexture(*TextureManager::getInstance()->getTexture("p1swordman"));
-						break;
-					case EUT_ARCHER:
-						unitsprite->setTexture(*TextureManager::getInstance()->getTexture("p1archer"));
-						break;
-					case EUT_SPEARMAN:
-						unitsprite->setTexture(*TextureManager::getInstance()->getTexture("p1spearman"));
-						break;
-					default:
-						break;
-				}
-			}
-			// player 2 units
-			else
-			{
-				switch(unit->getType())
-				{
-					case EUT_SWORDMAN:
-						unitsprite->setTexture(*TextureManager::getInstance()->getTexture("p2swordman"));
-						break;
-					case EUT_ARCHER:
-						unitsprite->setTexture(*TextureManager::getInstance()->getTexture("p2archer"));
-						break;
-					case EUT_SPEARMAN:
-						unitsprite->setTexture(*TextureManager::getInstance()->getTexture("p2spearman"));
-						break;
-					default:
-						break;
-				}
-			}
+			healthtext->setText(intToString(unit->getHP()) + " / " + intToString(unit->getMaxHp()));
+			unitattacktext->setText(intToString(unit->getAttack()));
+			unitdefensetext->setText(intToString(unit->getDefense()));
+			unitmovementtext->setText(intToString(unit->getCurrentMovement()) + " / " + intToString(unit->getMovement()));
+
+			unitimages[unit->getPlayer()->getId() * EUT_NUMBEROFUNITTYPES + unit->getType()]->setVisible(true);
 		}
 		else
 		{
-			unitsprite->setTexture(*TextureManager::getInstance()->getTexture("plainsquare"));
-			unitattacktext->setString("");
-			unitdefensetext->setString("");
-			healthtext->setString("");
-			unitmovementtext->setString("");
+			unitattacktext->setText("");
+			unitdefensetext->setText("");
+			healthtext->setText("");
+			unitmovementtext->setText("");
 		}
 		// Decide which terrain has to be drawn
 		Terrain* terrain = square->getTerrain();
 		if(terrain != NULL)
 		{
 			// Update terrain text
-			terrainattacktext->setString(intToString(terrain->getModificator(EM_ATTACK)));
-			terraindefensetext->setString(intToString(terrain->getModificator(EM_DEFENSE)));
-			// set terrain sprite
-			switch(terrain->getType())
-			{
-				case ET_HILL:
-					terrainsprite->setTexture(*TextureManager::getInstance()->getTexture("hill"));
-					break;
-				case ET_WOOD:
-					terrainsprite->setTexture(*TextureManager::getInstance()->getTexture("wood"));
-					break;
-				case ET_WALL:
-					terrainsprite->setTexture(*TextureManager::getInstance()->getTexture("wall"));
-					break;
-				default:
-					break;
-			}
+			terrainattacktext->setText(intToString(terrain->getModificator(EM_ATTACK)));
+			terraindefensetext->setText(intToString(terrain->getModificator(EM_DEFENSE)));
+
+			terrainimages[terrain->getType()]->setVisible(true);
 		}
 		else
 		{
-			terrainsprite->setTexture(*TextureManager::getInstance()->getTexture("plainsquare"));
-			terrainattacktext->setString("");
-			terraindefensetext->setString("");
+			terrainattacktext->setText("");
+			terraindefensetext->setText("");
 		}
 	}
 
 	sf::Vector2f IngameWindow::getSize()
 	{
 		return sf::Vector2f(0, 0);
-	}
-
-	void IngameWindow::draw(sf::RenderTarget& target, sf::RenderStates states) const
-	{
-		if(isVisible() == false)
-			return;
-
-		target.draw(*border);
-		target.draw(*background);
-
-		Window::draw(target, states);
-
-		target.draw(playernamelabel);
-		// Draw unit info
-		sf::Vector2f pos = unitsprite->getPosition();
-		plainsquare->setPosition(pos);
-		plainsquare->setScale(unitsprite->getScale());
-		target.draw(*plainsquare);
-		if(unitsprite != NULL)
-			target.draw(*unitsprite);
-		healthsprite->setPosition(pos.x + 52, pos.y);
-		movementsprite->setPosition(pos.x + 52, pos.y + 35);
-		attacksprite->setPosition(pos.x + 52, pos.y + 70);
-		defensesprite->setPosition(pos.x + 52, pos.y + 105);
-		target.draw(*healthsprite);
-		target.draw(*attacksprite);
-		target.draw(*defensesprite);
-		target.draw(*movementsprite);
-
-		target.draw(*healthtext);
-		target.draw(*unitattacktext);
-		target.draw(*unitdefensetext);
-		target.draw(*unitmovementtext);
-
-		// Draw terrain info
-		pos = terrainsprite->getPosition();
-		plainsquare->setPosition(pos);
-		plainsquare->setScale(terrainsprite->getScale());
-		target.draw(*plainsquare);
-		if(terrainsprite != NULL)
-			target.draw(*terrainsprite);
-		attacksprite->setPosition(pos.x + 52, pos.y);
-		defensesprite->setPosition(pos.x + 52, pos.y + 35);
-		target.draw(*attacksprite);
-		target.draw(*defensesprite);
-		target.draw(*terrainattacktext);
-		target.draw(*terraindefensetext);
 	}
 
 	void IngameWindow::changeplayerbuttonClicked()

@@ -2,54 +2,45 @@
 #include <cppunit/TestFixture.h>
 
 #include "engine/square.hpp"
+#include "engine/unit.hpp"
 
 class SquareTest : public CppUnit::TestFixture
 {
 	CPPUNIT_TEST_SUITE(SquareTest);
 	CPPUNIT_TEST(getDistanceTest);
+	CPPUNIT_TEST(testIsAccessible);
 	CPPUNIT_TEST_SUITE_END();
 
 	public:
-		void setUp()
-		{
-			sq1 = new qrw::Square();
-			sq2 = new qrw::Square();
-		}
-
-		void tearDown()
-		{
-			delete sq1;
-			delete sq2;
-		}
-
 		void getDistanceTest()
 		{
-			sq1->setPosition(0, 0);
-			sq2->setPosition(0, 0);
-			CPPUNIT_ASSERT(sq1->getDistance(sq2) == 0);
+			qrw::Square square0_0(0, 0);
+			qrw::Square square0_0_1(0, 0);
+			qrw::Square square1_0(1, 0);
+			qrw::Square square1_1(1, 1);
+			qrw::Square square2_1(2, 1);
+			qrw::Square square2_0(2, 0);
+			qrw::Square square_2_1(-2, 1);
 
-			sq2->setPosition(0, 1);
-			CPPUNIT_ASSERT(sq1->getDistance(sq2) == 1);
-
-			sq2->setPosition(1, 0);
-			CPPUNIT_ASSERT(sq1->getDistance(sq2) == 1);
-
-			sq2->setPosition(1, 1);
-			CPPUNIT_ASSERT(sq1->getDistance(sq2) == 2);
-
-			sq2->setPosition(2, 1);
-			CPPUNIT_ASSERT(sq1->getDistance(sq2) == 3);
-
-			sq2->setPosition(2, 0);
-			CPPUNIT_ASSERT(sq1->getDistance(sq2) == 2);
-
-			sq2->setPosition(-2, 1);
-			CPPUNIT_ASSERT(sq2->getDistance(sq1) == 3);
+			CPPUNIT_ASSERT(square0_0.getDistance(&square0_0_1) == 0);
+			CPPUNIT_ASSERT(square0_0.getDistance(&square1_0) == 1);
+			CPPUNIT_ASSERT(square0_0.getDistance(&square1_0) == 1);
+			CPPUNIT_ASSERT(square0_0.getDistance(&square1_1) == 2);
+			CPPUNIT_ASSERT(square0_0.getDistance(&square2_1) == 3);
+			CPPUNIT_ASSERT(square0_0.getDistance(&square2_0) == 2);
+			CPPUNIT_ASSERT(square0_0.getDistance(&square_2_1) == 3);
 		}
 
-	private:
-		qrw::Square* sq1;
-		qrw::Square* sq2;
+		void testIsAccessible()
+		{
+			qrw::Square square(0, 0);
+			qrw::Unit unit(qrw::EUT_SWORDMAN, 5, 2, 1, 0, 0, 0);
+
+			CPPUNIT_ASSERT(square.isAccessible() == true);
+
+			square.setUnit(&unit);
+			CPPUNIT_ASSERT(square.isAccessible() == false);
+		}
 };
 
 CPPUNIT_TEST_SUITE_REGISTRATION(SquareTest);

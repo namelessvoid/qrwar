@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <memory>
 
 #include <SFGUI/Button.hpp>
 #include <SFGUI/Label.hpp>
@@ -52,6 +53,8 @@ namespace qrw
 		p2spearspin->SetValue(0);
 		p2spearspin->SetId("p2spearspin");
 
+		sfg::Separator::Ptr unitboardseparator = sfg::Separator::Create();
+
 		sfg::Label::Ptr boardwidthlabel = sfg::Label::Create("Board X");
 		sfg::Label::Ptr boardheightlabel = sfg::Label::Create("Borad Y");
 
@@ -63,9 +66,11 @@ namespace qrw
 		boardheightspin->SetId("boardheightspin");
 
 		sfg::Button::Ptr closebutton = sfg::Button::Create("Close");
-		closebutton->GetSignal(sfg::Button::OnLeftClick).Connect(&StartGameWindow::hide, &(*window));
+		closebutton->GetSignal(sfg::Button::OnLeftClick).Connect(
+			std::bind(&StartGameWindow::hide, window));
 		sfg::Button::Ptr startbutton = sfg::Button::Create("Start game");
-		startbutton->GetSignal(sfg::Button::OnLeftClick).Connect(&StartGameWindow::startGame, &(*window));
+		startbutton->GetSignal(sfg::Button::OnLeftClick).Connect(
+			std::bind(&StartGameWindow::startGame, window));
 
 		sfg::Table::Ptr maincontainer = sfg::Table::Create();
 		int options = sfg::Table::FILL | sfg::Table::EXPAND;
@@ -83,14 +88,17 @@ namespace qrw
 		maincontainer->Attach(p2swordspin, sf::Rect<sf::Uint32>(2, 1, 1, 1), options, options);
 		maincontainer->Attach(p2archspin, sf::Rect<sf::Uint32>(2, 2, 1, 1), options, options);
 		maincontainer->Attach(p2spearspin, sf::Rect<sf::Uint32>(2, 3, 1, 1), options, options);
+
+		maincontainer->Attach(unitboardseparator, sf::Rect<sf::Uint32>(0, 5, 3, 1), options, options);
+
 		// Board settings
-		maincontainer->Attach(boardwidthlabel, sf::Rect<sf::Uint32>(1, 4, 1, 1), options, options);
-		maincontainer->Attach(boardheightlabel, sf::Rect<sf::Uint32>(2, 4, 1, 1), options, options);
-		maincontainer->Attach(boardwidthspin, sf::Rect<sf::Uint32>(1, 5, 1, 1), options, options);
-		maincontainer->Attach(boardheightspin, sf::Rect<sf::Uint32>(2, 5, 1, 1), options, options);
+		maincontainer->Attach(boardwidthlabel, sf::Rect<sf::Uint32>(1, 6, 1, 1), options, options);
+		maincontainer->Attach(boardheightlabel, sf::Rect<sf::Uint32>(2, 6, 1, 1), options, options);
+		maincontainer->Attach(boardwidthspin, sf::Rect<sf::Uint32>(1, 7, 1, 1), options, options);
+		maincontainer->Attach(boardheightspin, sf::Rect<sf::Uint32>(2, 7, 1, 1), options, options);
 		// Buttons
-		maincontainer->Attach(closebutton, sf::Rect<sf::Uint32>(0, 6, 2, 1), options, options);
-		maincontainer->Attach(startbutton, sf::Rect<sf::Uint32>(2, 6, 1, 1), options, options);
+		maincontainer->Attach(closebutton, sf::Rect<sf::Uint32>(0, 8, 2, 1), options, options);
+		maincontainer->Attach(startbutton, sf::Rect<sf::Uint32>(2, 8, 1, 1), options, options);
 
 
 		window->Add(maincontainer);
@@ -113,23 +121,23 @@ namespace qrw
 	void StartGameWindow::startGame()
 	{
 		// Init engine
-		int width = sfg::DynamicPointerCast<sfg::SpinButton>(sfg::Widget::GetWidgetById("boardwidthspin"))->GetValue();
-		int height = sfg::DynamicPointerCast<sfg::SpinButton>(sfg::Widget::GetWidgetById("boardheightspin"))->GetValue();
+		int width = std::static_pointer_cast<sfg::SpinButton>(sfg::Widget::GetWidgetById("boardwidthspin"))->GetValue();
+		int height = std::static_pointer_cast<sfg::SpinButton>(sfg::Widget::GetWidgetById("boardheightspin"))->GetValue();
 		engine->init(width, height);
 
 		// Create unit arrays for engine.
 		std::map<UNITTYPES, int> unitcounts;
 
 		// Set unit counts for player one.
-		unitcounts[EUT_SWORDMAN] = sfg::DynamicPointerCast<sfg::SpinButton>(sfg::Widget::GetWidgetById("p1swordspin"))->GetValue();
-		unitcounts[EUT_ARCHER] = sfg::DynamicPointerCast<sfg::SpinButton>(sfg::Widget::GetWidgetById("p1archspin"))->GetValue();
-		unitcounts[EUT_SPEARMAN] = sfg::DynamicPointerCast<sfg::SpinButton>(sfg::Widget::GetWidgetById("p1spearspin"))->GetValue();
+		unitcounts[EUT_SWORDMAN] = std::static_pointer_cast<sfg::SpinButton>(sfg::Widget::GetWidgetById("p1swordspin"))->GetValue();
+		unitcounts[EUT_ARCHER] = std::static_pointer_cast<sfg::SpinButton>(sfg::Widget::GetWidgetById("p1archspin"))->GetValue();
+		unitcounts[EUT_SPEARMAN] = std::static_pointer_cast<sfg::SpinButton>(sfg::Widget::GetWidgetById("p1spearspin"))->GetValue();
 		engine->createPlayerUnits(0, unitcounts);
 
 		// Set unit counts for player two.
-		unitcounts[EUT_SWORDMAN] = sfg::DynamicPointerCast<sfg::SpinButton>(sfg::Widget::GetWidgetById("p2swordspin"))->GetValue();
-		unitcounts[EUT_ARCHER] = sfg::DynamicPointerCast<sfg::SpinButton>(sfg::Widget::GetWidgetById("p2archspin"))->GetValue();
-		unitcounts[EUT_SPEARMAN] = sfg::DynamicPointerCast<sfg::SpinButton>(sfg::Widget::GetWidgetById("p2spearspin"))->GetValue();
+		unitcounts[EUT_SWORDMAN] = std::static_pointer_cast<sfg::SpinButton>(sfg::Widget::GetWidgetById("p2swordspin"))->GetValue();
+		unitcounts[EUT_ARCHER] = std::static_pointer_cast<sfg::SpinButton>(sfg::Widget::GetWidgetById("p2archspin"))->GetValue();
+		unitcounts[EUT_SPEARMAN] = std::static_pointer_cast<sfg::SpinButton>(sfg::Widget::GetWidgetById("p2spearspin"))->GetValue();
 		engine->createPlayerUnits(1, unitcounts);
 
 		boardwidget->setBoard(engine->getBoard());
