@@ -6,8 +6,15 @@ only:
     - ci
 
 before_install:
-    - chmod +x .travis-scripts/before-install-sfml.sh
-    - chmod +x .travis-scripts/before-install-sfgui.sh
+    # install g++ 4.7 (thanks to https://github.com/musescore/MuseScore/blob/master/.travis.yml)
+    - "sudo add-apt-repository -y ppa:ubuntu-toolchain-r/test"
+    - "sudo apt-get -q update"
+    - "sudo apt-get install -y g++-4.7"
+    - "sudo update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-4.7 40 --slave /usr/bin/g++ g++ /usr/bin/g++-4.7"
+    - "g++ --version"
+
+    - "chmod +x .travis-scripts/before-install-sfml.sh"
+    - "chmod +x .travis-scripts/before-install-sfgui.sh"
 
 install:
     - .travis-scripts/before-install-sfml.sh
