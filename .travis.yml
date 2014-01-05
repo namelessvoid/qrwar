@@ -5,7 +5,7 @@ compiler:
 only:
     - ci
 
-before_script:
+before_install:
     - chmod +x .travis-scripts/before-install-sfml.sh
 
 install:
