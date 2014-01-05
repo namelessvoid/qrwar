@@ -7,9 +7,11 @@ only:
 
 before_install:
     - chmod +x .travis-scripts/before-install-sfml.sh
+    - chmod +x .travis-scripts/before-install-sfgui.sh
 
 install:
     - .travis-scripts/before-install-sfml.sh
+    - .travis-scripts/before-install-sfgui.sh
 
 script: cmake . && make
 
