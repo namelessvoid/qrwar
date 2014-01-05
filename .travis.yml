@@ -1,8 +1,15 @@
 language: c++
 compiler:
     - gcc
-install:
-    - .travis-scripts/before-install-sfml.sh
-script: cmake . && make
+
 only:
     - ci
+
+before_script:
+    - chmod +x .travis-scripts/before-install-sfml.sh
+
+install:
+    - .travis-scripts/before-install-sfml.sh
+
+script: cmake . && make
+
