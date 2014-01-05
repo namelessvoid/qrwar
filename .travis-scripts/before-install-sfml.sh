@@ -1,16 +1,17 @@
 #!/usr/bin/env sh
 
-sudo apt-get install libpthread-stubs0-dev
-sudo apt-get install libgl1-mesa-dev
-sudo apt-get install libx11-dev
-sudo apt-get install libxrandr-dev
-sudo apt-get install libfreetype6-dev
-sudo apt-get install libglew1.5-dev
-sudo apt-get install libjpeg8-dev
-sudo apt-get install libsndfile1-dev
-sudo apt-get install libopenal-dev
+# install dependencies
+sudo apt-get install libpthread-stubs0-dev libgl1-mesa-dev libx11-dev libxrandr-dev libfreetype6-dev libglew1.5-dev libjpeg8-dev libsndfile1-dev libopenal-dev
 
-cd ..
+# get the latest sfml version
+cd ../..
 git clone https://github.com/LaurentGomila/SFML.git
 cd SFML
+
+# build and install it
 cmake . && make && sudo make install
+
+# copy FindSFML.cmake
+sudo cp cmake/Modules/FindSFML.cmake /usr/share/cmake-2.8/Modules
+
+cd $TRAVIS_BUILD_DIR
