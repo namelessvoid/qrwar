@@ -168,24 +168,24 @@ namespace qrw
 		for(int i = 0; i < ET_NUMBEROFTERRAINTYPES; ++i)
 			delete terrainimages[i];
 
-			delete unitplainsquare;
-			delete healthsprite;
-			delete unitattacksprite;
-			delete unitdefensesprite;
-			delete movementsprite;
+		delete unitplainsquare;
+		delete healthsprite;
+		delete unitattacksprite;
+		delete unitdefensesprite;
+		delete movementsprite;
 
-			delete terrainplainsquare;
-			delete terrainattacksprite;
-			delete terraindefensesprite;
+		delete terrainplainsquare;
+		delete terrainattacksprite;
+		delete terraindefensesprite;
 
-			delete defaultfont;
+		delete defaultfont;
 
-			delete healthtext;
-			delete unitattacktext;
-			delete unitdefensetext;
-			delete unitmovementtext;
-			delete terrainattacktext;
-			delete terraindefensetext;
+		delete healthtext;
+		delete unitattacktext;
+		delete unitdefensetext;
+		delete unitmovementtext;
+		delete terrainattacktext;
+		delete terraindefensetext;
 	}
 
 	void IngameWindow::update()
@@ -239,11 +239,6 @@ namespace qrw
 			terrainattacktext->setText("");
 			terraindefensetext->setText("");
 		}
-	}
-
-	sf::Vector2f IngameWindow::getSize()
-	{
-		return sf::Vector2f(0, 0);
 	}
 
 	void IngameWindow::changeplayerbuttonClicked()

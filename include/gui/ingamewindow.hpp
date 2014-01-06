@@ -22,8 +22,6 @@ namespace qrw
 			IngameWindow(Engine* engine, GuiHandler* guihandler);
 			~IngameWindow();
 
-			sf::Vector2f getSize();
-
 			void update();
 
 		private:
