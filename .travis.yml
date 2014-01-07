@@ -10,14 +10,16 @@ before_install:
     - sudo apt-get update -qq
     - if [ "$CXX" = "g++" ]; then sudo apt-get install -qq g++-4.8; fi
     - if [ "$CXX" = "g++" ]; then export CXX="g++-4.8" CC="gcc-4.8"; fi
-    - "g++ --version"
+    - sudo apt-get install libcppunit-dev
 
-    - "chmod +x .travis-scripts/before-install-sfml.sh"
-    - "chmod +x .travis-scripts/before-install-sfgui.sh"
+    - chmod +x ".travis-scripts/before-install-sfml.sh"
+    - chmod +x ".travis-scripts/before-install-sfgui.sh"
+    - chmod +x ".travis-scripts/before-install-tinyxml2.sh"
 
 install:
     - .travis-scripts/before-install-sfml.sh
     - .travis-scripts/before-install-sfgui.sh
+    - .travis-scripts/before-install-tinyxml2.sh
 
 script: cmake . && make
 
