@@ -6,6 +6,6 @@ git clone https://github.com/leethomason/tinyxml2.git
 cd tinyxml2
 
 # build and install
-cmake . && make && sudo make install
+cmake . && sudo make install
 
 cd $TRAVIS_BUILD_DIR
