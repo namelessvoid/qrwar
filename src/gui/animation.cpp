@@ -1,7 +1,5 @@
 #include "gui/animation.hpp"
 
-#include <stdio.h>
-
 namespace qrw
 {
 	std::vector<Animation*> Animation::animations;
@@ -74,7 +72,6 @@ namespace qrw
 	void Animation::update(sf::Time elapsedtime)
 	{
 		totalelapsedtime = totalelapsedtime + elapsedtime.asSeconds();
-		printf("Animation::update(): elapsed / total: %f / %f\n", elapsedtime.asSeconds(), totalelapsedtime);
 
 		if(totalelapsedtime > duration)
 		{
