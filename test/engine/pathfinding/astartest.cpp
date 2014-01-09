@@ -22,6 +22,7 @@ class AStarTest : public CppUnit::TestFixture
 	CPPUNIT_TEST(testFindLowestFCoordinates);
 	CPPUNIT_TEST(testClear);
 	CPPUNIT_TEST(testNodemap);
+	CPPUNIT_TEST(testBug_67);
 	CPPUNIT_TEST_SUITE_END();
 
 	public:
@@ -192,6 +193,17 @@ class AStarTest : public CppUnit::TestFixture
 			delete coords2;
 
 			astar->nodemap.clear();
+		}
+
+		/**
+		 * @see https://github.com/namelessvoid/qrwar/issues/67
+		 */
+		void testBug_67()
+		{
+			board->getSquare(1 ,0)->setUnit(blocker);
+			CPPUNIT_ASSERT(0 == astar->findPath(*start, qrw::Coordinates(1, 0)));
+			qrw::Path* path = astar->findPath(qrw::Coordinates(1, 0), *start);
+			CPPUNIT_ASSERT(0 == path);
 		}
 
 	private:

@@ -43,6 +43,9 @@ namespace qrw
 		if(start == end)
 			return 0;
 
+		// Clear everything that remained from previous steps
+		clear();
+
 		// Initialize the algorithm
 		Coordinates* currentcoords = new Coordinates(start);
 		Node* currentnode = new Node(*currentcoords);
@@ -118,7 +121,6 @@ namespace qrw
 		path->prependStep(board->getSquare(start));
 
 		// Cleanup and return.
-		clear();
 		delete endcoords;
 
 		return path;
