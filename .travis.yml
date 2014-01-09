@@ -7,6 +7,7 @@ before_install:
     - sudo apt-get update -qq
     - if [ "$CXX" = "g++" ]; then sudo apt-get install -qq g++-4.8; fi
     - if [ "$CXX" = "g++" ]; then export CXX="g++-4.8" CC="gcc-4.8"; fi
+    - sudo apt-get install libcppunit-dev
 
     - chmod +x ".travis-scripts/before-install-sfml.sh"
     - chmod +x ".travis-scripts/before-install-sfgui.sh"
