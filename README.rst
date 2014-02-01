@@ -39,7 +39,7 @@ The Game
 Controls
 ========
 
-The game is controled by mouse and keyboard. All interactions with the board are handled by keyboard. Usability is still an issue ;)
+The game is primarily controlled by mouse. During deployment, a unit / terrain can be selected in the right sidebar and placed by clicking on an empty square on the board. A unit can be moved by selecting it on the board and clicking the destinatin square.
 
 ===============
 Units & Terrain
@@ -73,7 +73,7 @@ Image explanation:
 +----------+------+--------+---------+----------+
 ||Hill|    |      | +1     | -1      |          |
 +----------+------+--------+---------+----------+
-||Tower|   |      | +1     | +1      |          | 
+||Tower|   |      | +1     | +1      |          |
 +----------+------+--------+---------+----------+
 
 
