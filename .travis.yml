@@ -10,6 +10,7 @@ before_install:
     - sudo apt-get install libcppunit-dev
 
     - cmake --version
+    - sudo wget http://raw.github.com/Kitware/CMake/master/Modules/FindGLEW.cmake -O /usr/share/cmake-2.8/Modules/FindGLEW.cmake
 
     - chmod +x ".travis-scripts/before-install-sfml.sh"
     - chmod +x ".travis-scripts/before-install-sfgui.sh"
