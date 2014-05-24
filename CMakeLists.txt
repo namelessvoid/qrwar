@@ -38,8 +38,8 @@ set(COMMON_SOURCE
 	src/engine/pathfinding/node.cpp
 	src/gui/texturemanager.cpp
 	src/gui/ng/buttongroup.cpp
-    src/gui/ng/widget.cpp
-    src/gui/ng/spritewidget.cpp
+	src/gui/ng/widget.cpp
+	src/gui/ng/spritewidget.cpp
 	src/gui/ng/button.cpp
 	src/gui/ng/signal.cpp
 	src/config/xmlhelper.cpp
@@ -91,3 +91,53 @@ set(UNITTEST_SOURCE
 
 add_executable(test test/main.cpp ${COMMON_SOURCE} ${UNITTEST_SOURCE})
 target_link_libraries(test ${LIBS} cppunit)
+
+# IDE stuff: Show header in IDEs like QtCreator or Visual Studio
+add_custom_target(QuadRuledWar SOURCES
+	# misc
+	.gitignore
+	res/defaulttileset.xml
+	res/defaultguitileset.xml
+	res/conf/settings.xml
+	res/img/defaultguitileset.png
+	res/img/defaulttileset.png
+	# header files
+	include/engine/engine.hpp
+	include/engine/board.hpp
+	include/engine/square.hpp
+	include/engine/terrain.hpp
+	include/engine/unit.hpp
+	include/engine/unitsmap.hpp
+	include/engine/army.hpp
+	include/engine/player.hpp
+	include/engine/coordinates.hpp
+	include/engine/pathfinding/path.hpp
+	include/engine/pathfinding/astar.hpp
+	include/engine/pathfinding/node.hpp
+	include/gui/texturemanager.hpp
+	include/gui/ng/buttongroup.hpp
+	include/gui/ng/widget.hpp
+	include/gui/ng/spritewidget.hpp
+	include/gui/ng/button.hpp
+	include/gui/ng/signal.hpp
+	include/config/xmlhelper.hpp
+	include/config/tilesetprocessor.hpp
+	include/config/videosettings.hpp
+	include/config/audiosettings.hpp
+	include/config/settings.hpp
+	include/gui/ng/label.hpp
+	include/tostring.hpp
+	include/gui/imagemanager.hpp
+	include/gui/guihandler.hpp
+	include/gui/mainwindow.hpp
+	include/gui/startgamewindow.hpp
+	include/gui/ingamewindow.hpp
+	include/gui/boardwidget.hpp
+	include/gui/cursor.hpp
+	include/gui/ng/radiotogglebutton.hpp
+	include/gui/deploywindow.hpp
+	include/gui/settingswindow.hpp
+	include/gui/ng/window.hpp
+	include/gui/animation.hpp
+	include/gui/damagenumber.hpp
+)
