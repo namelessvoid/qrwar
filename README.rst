@@ -8,7 +8,8 @@ Quad Ruled War (qrw) is a turn based strategy game taking place on a board seper
 Building
 --------
 
-.. image:: https://travis-ci.org/namelessvoid/qrwar.png?branch=master :target: https://travis-ci.org/namelessvoid/qrwar :alt: Travis build status image
+.. image:: https://travis-ci.org/namelessvoid/qrwar.svg?branch=master
+    :target: https://travis-ci.org/namelessvoid/qrwar.. image:: https://travis-ci.org/namelessvoid/qrwar.png?branch=master :target: https://travis-ci.org/namelessvoid/qrwar :alt: Travis build status image
 
 
 The source comes with an CMake file and dependes on:
