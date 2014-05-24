@@ -9,6 +9,8 @@ before_install:
     - if [ "$CXX" = "g++" ]; then export CXX="g++-4.8" CC="gcc-4.8"; fi
     - sudo apt-get install libcppunit-dev
 
+    - cmake --version
+
     - chmod +x ".travis-scripts/before-install-sfml.sh"
     - chmod +x ".travis-scripts/before-install-sfgui.sh"
     - chmod +x ".travis-scripts/before-install-tinyxml2.sh"
