@@ -3,12 +3,14 @@
 
 #include "engine/board.hpp"
 #include "engine/coordinates.hpp"
+#include "engine/pathfinding/path.hpp"
 
 class BoardTest : public CppUnit::TestFixture
 {
 	CPPUNIT_TEST_SUITE(BoardTest);
 	CPPUNIT_TEST(getSquareTest);
 	CPPUNIT_TEST(getSquareCoordinatesTest);
+	CPPUNIT_TEST(findPathTest);
 	CPPUNIT_TEST_SUITE_END();
 
 	public:
@@ -41,6 +43,20 @@ class BoardTest : public CppUnit::TestFixture
 
 			qrw::Coordinates coord2(-1, 0);
 			CPPUNIT_ASSERT(board->getSquare(coord2) == 0);
+		}
+
+		void findPathTest()
+		{
+			// Only check if pathfinder was called correctly.
+			qrw::Coordinates coord1(0, 0);
+			qrw::Coordinates coord2(2, 0);
+
+			qrw::Path* path = board->findPath(coord1, coord2);
+
+			CPPUNIT_ASSERT(path != nullptr);
+			CPPUNIT_ASSERT(path->getLength() == 3);
+
+			delete path;
 		}
 
 	private:
