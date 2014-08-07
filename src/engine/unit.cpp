@@ -71,10 +71,14 @@ namespace qrw
 	{
 		return hp;
 	}
+
 	void Unit::setHP(int hp)
 	{
+		// Prevent hp falling below 0.
+		hp = hp < 0 ? 0 : hp;
 		this->hp = hp;
 	}
+
 	int Unit::getMaxHp()
 	{
 		return maxhp;

@@ -10,6 +10,7 @@
 class UnitTest : public CppUnit::TestFixture
 {
 	CPPUNIT_TEST_SUITE(UnitTest);
+	CPPUNIT_TEST(setHPTest);
 	CPPUNIT_TEST(attackTest);
 	CPPUNIT_TEST(setGetSquareTest);
 	CPPUNIT_TEST(getModifiedAttackAndDefenseTest);
@@ -37,6 +38,15 @@ class UnitTest : public CppUnit::TestFixture
 		{
 			delete unit1;
 			delete unit2;
+		}
+
+		void setHPTest()
+		{
+			unit1->setHP(2);
+			CPPUNIT_ASSERT_EQUAL(2, unit1->getHP());
+
+			unit1->setHP(-4);
+			CPPUNIT_ASSERT_EQUAL(0, unit1->getHP());
 		}
 
 		void attackTest()
