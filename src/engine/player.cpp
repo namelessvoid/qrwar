@@ -41,7 +41,7 @@ namespace qrw
 
 	void Player::setActive(bool active)
 	{
-		active = active;
+		this->active = active;
 	}
 
 	Army& Player::getArmy()
