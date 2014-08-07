@@ -12,6 +12,7 @@ class UnitTest : public CppUnit::TestFixture
 	CPPUNIT_TEST_SUITE(UnitTest);
 	CPPUNIT_TEST(attackTest);
 	CPPUNIT_TEST(setGetSquareTest);
+	CPPUNIT_TEST(getModifiedAttackAndDefenseTest);
 	// movement
 	CPPUNIT_TEST(canMoveToTestPlayerNotActive);
 	CPPUNIT_TEST(canMoveToTestDestinationNotEmpty);
@@ -50,6 +51,26 @@ class UnitTest : public CppUnit::TestFixture
 			unit2->attack(unit1, mods, mods);
 			CPPUNIT_ASSERT(unit1->getHP() == 0);
 			CPPUNIT_ASSERT(unit2->getHP() == 3);
+		}
+
+		void getModifiedAttackAndDefenseTest()
+		{
+			// Test values > 0
+			qrw::Square square(0, 0);
+			qrw::Terrain terrain(qrw::ET_HILL, 1, -1);
+			square.setTerrain(&terrain);
+
+			unit1->setSquare(&square);
+
+			CPPUNIT_ASSERT_EQUAL(3, unit1->getModifiedAttack());
+			CPPUNIT_ASSERT_EQUAL(0, unit1->getModifiedDefense());
+
+			// Test values < 0
+			qrw::Terrain terrain2(qrw::ET_WALL, -3, -12);
+			square.setTerrain(&terrain2);
+
+			CPPUNIT_ASSERT_EQUAL(0, unit1->getModifiedAttack());
+			CPPUNIT_ASSERT_EQUAL(0, unit1->getModifiedDefense());
 		}
 
 		void setGetSquareTest()

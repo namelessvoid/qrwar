@@ -31,8 +31,31 @@ namespace qrw
 			Player* getPlayer() const;
 			void setPlayer(Player* player);
 			UNITTYPES getType();
-			int getAttack();
-			int getDefense();
+
+			/**
+			 * @brief Get unit base attack value.
+			 * @return Base attack value set by constructor.
+			 */
+			int getBaseAttack();
+
+			/**
+			 * @brief Get attack value after applying modifiers.
+			 * @return Modified attack value.
+			 */
+			int getModifiedAttack();
+
+			/**
+			 * @brief Get unit base defense value.
+			 * @return Base defense value set by constructor.
+			 */
+			int getBaseDefense();
+
+			/**
+			 * @brief Get defense value after applying modifiers.
+			 * @return Modified defense value.
+			 */
+			int getModifiedDefense();
+
 			int getRange();
 			int getHP();
 			void setHP(int hp);

@@ -45,14 +45,28 @@ namespace qrw
 		return type;
 	}
 
-	int Unit::getAttack()
+	int Unit::getBaseAttack()
 	{
 		return attackvalue;
 	}
-	int Unit::getDefense()
+
+	int Unit::getModifiedAttack()
+	{
+		int modifiedAttack = getBaseAttack() + square->getTerrain()->getModificator(EM_ATTACK);
+		return modifiedAttack < 0 ? 0 : modifiedAttack;
+	}
+
+	int Unit::getBaseDefense()
 	{
 		return defensevalue;
 	}
+
+	int Unit::getModifiedDefense()
+	{
+		int modifiedDefense = getBaseDefense() + square->getTerrain()->getModificator(EM_DEFENSE);
+		return modifiedDefense < 0 ? 0 : modifiedDefense;
+	}
+
 	int Unit::getHP()
 	{
 		return hp;
