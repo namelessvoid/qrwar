@@ -107,7 +107,6 @@ add_custom_target(QuadRuledWar SOURCES
 	include/engine/square.hpp
 	include/engine/terrain.hpp
 	include/engine/unit.hpp
-        include/engine/battleresult.hpp
 	include/engine/unitsmap.hpp
 	include/engine/army.hpp
 	include/engine/player.hpp
