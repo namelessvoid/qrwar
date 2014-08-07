@@ -4,6 +4,8 @@
 #include <string>
 // #include "engine/player.hpp"
 
+#include "engine/coordinates.hpp"
+
 namespace qrw
 {
 	class Player;
@@ -55,6 +57,13 @@ namespace qrw
 			 * @param square The new square.
 			 */
 			void setSquare(Square* square);
+
+			/**
+			 * @brief Check if the unit can move to given destination Coordinates.
+			 * @param destination Coordinates of the destination.
+			 * @return True if unit is able to move to destination.
+			 */
+			bool canMoveTo(const Coordinates& destination);
 
 	private:
 			/**

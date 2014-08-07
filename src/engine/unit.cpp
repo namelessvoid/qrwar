@@ -1,8 +1,11 @@
 #include <stdio.h>
 
 #include "engine/unit.hpp"
+#include "engine/board.hpp"
 #include "engine/square.hpp"
 #include "engine/terrain.hpp"
+#include "engine/player.hpp"
+#include "engine/pathfinding/path.hpp"
 
 namespace qrw
 {
@@ -127,6 +130,27 @@ namespace qrw
 	void Unit::setSquare(Square* square)
 	{
 		this->square = square;
+	}
+
+	bool Unit::canMoveTo(const Coordinates& destination)
+	{
+		if(!player->isActive())
+			return false;
+
+		if(board->getSquare(destination)->getUnit())
+			return false;
+
+		Path* path = board->findPath(square->getCoordinates(), destination);
+
+		if(path->getLength() > getCurrentMovement())
+		{
+			delete path;
+			return false;
+		}
+
+		delete path;
+
+		return true;
 	}
 
 	// void Unit::move(int distance)
