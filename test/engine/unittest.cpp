@@ -16,6 +16,7 @@ class UnitTest : public CppUnit::TestFixture
 	CPPUNIT_TEST(canMoveToTestDestinationNotEmpty);
 	CPPUNIT_TEST(canMoveToTestNotEnoughMovement);
 	CPPUNIT_TEST(canMoveToTest);
+	CPPUNIT_TEST(moveToTest);
 	CPPUNIT_TEST_SUITE_END();
 
 	public:
@@ -109,6 +110,25 @@ class UnitTest : public CppUnit::TestFixture
 			unit.canMoveTo(qrw::Coordinates(2, 0));
 
 			CPPUNIT_ASSERT(unit.canMoveTo(qrw::Coordinates(2, 0)) == true);
+		}
+
+		void moveToTest()
+		{
+			qrw::Board board(3, 3);
+			qrw::Player player;
+			player.setActive(true);
+
+			qrw::Unit unit(qrw::EUT_ARCHER, 5, 2, 1, 1, 3, &player, &board);
+			unit.setSquare(board.getSquare(0, 0));
+			board.getSquare(0, 0)->setUnit(&unit);
+
+			unit.setCurrentMovement(3);
+
+			unit.moveTo(qrw::Coordinates(2, 0));
+
+			CPPUNIT_ASSERT(board.getSquare(0, 0)->getUnit() == nullptr);
+			CPPUNIT_ASSERT(board.getSquare(2, 0)->getUnit() == &unit);
+			CPPUNIT_ASSERT(unit.getSquare() == board.getSquare(2, 0));
 		}
 
 	private:

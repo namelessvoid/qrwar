@@ -65,6 +65,13 @@ namespace qrw
 			 */
 			bool canMoveTo(const Coordinates& destination);
 
+			/**
+			 * @brief Move the unit to the given destination.
+			 * @param destination Coordinates of the destination.
+			 * @return True if movement was successful.
+			 */
+			bool moveTo(const Coordinates& destination);
+
 	private:
 			/**
 			 * Calculate the result of a battle round as

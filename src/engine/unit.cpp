@@ -153,6 +153,18 @@ namespace qrw
 		return true;
 	}
 
+	bool Unit::moveTo(const Coordinates& destination)
+	{
+		if(!canMoveTo(destination))
+			return false;
+
+		square->setUnit(nullptr);
+		this->setSquare(board->getSquare(destination));
+		square->setUnit(this);
+
+		return true;
+	}
+
 	// void Unit::move(int distance)
 	// {
 	// 	currentmovement -= distance;
