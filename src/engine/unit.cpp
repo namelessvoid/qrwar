@@ -114,19 +114,19 @@ namespace qrw
 			currentmovement = movement;
 	}
 
-	BattleResult Unit::attack(Unit* enemy, bool allowCounterAttack)
+	Unit::AttackResult Unit::attack(Unit* enemy, bool allowCounterAttack)
 	{
-		BattleResult battleResult;
+		AttackResult attackResult;
 
 		if(!this->canAttack(enemy))
-			return battleResult;
+			return attackResult;
 
 		// Attacker attacks first
 		int damage = this->getModifiedAttack() - enemy->getModifiedDefense();
 		damage = damage < 0 ? 0 : damage;
 
 		enemy->setHP(enemy->getHP() - damage);
-		battleResult.defenderHPDelta = damage;
+		attackResult.defenderHPDelta = damage;
 
 		// Counter attack
 		if(enemy->getHP() > 0 && allowCounterAttack == true)
@@ -135,10 +135,10 @@ namespace qrw
 			damage = damage < 0 ? 0 : damage;
 
 			this->setHP(this->getHP() - damage);
-			battleResult.attackerHPDelta = damage;
+			attackResult.attackerHPDelta = damage;
 		}
 
-		return battleResult;
+		return attackResult;
 	}
 
 	Square* Unit::getSquare() const

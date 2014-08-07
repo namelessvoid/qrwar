@@ -5,7 +5,6 @@
 // #include "engine/player.hpp"
 
 #include "engine/coordinates.hpp"
-#include "engine/battleresult.hpp"
 
 namespace qrw
 {
@@ -25,6 +24,21 @@ namespace qrw
 	class Unit
 	{
 		public:
+			/**
+			 * @brief The AttackResult struct to return results of the Unit::attack() method.
+			 */
+			struct AttackResult
+			{
+				/**
+				 * @brief Hit points the attacker lost.
+				 */
+				int attackerHPDelta;
+				/**
+				 * @brief Hit points the defender lost.
+				 */
+				int defenderHPDelta;
+			};
+
 			Unit(UNITTYPES type, int hp, int attack, int defense,
 				int range, int movement, Player* player, Board* board);
 			~Unit();
@@ -107,7 +121,7 @@ namespace qrw
 			 * @param enemy The enemy which is attacked.
 			 * @param allowCounterAttack States if enemy is able to do a counter attack (default).
 			 */
-			BattleResult attack(Unit* enemy, bool allowCounterAttack = true);
+			AttackResult attack(Unit* enemy, bool allowCounterAttack = true);
 
 	private:
 			UNITTYPES type;

@@ -250,7 +250,7 @@ class UnitTest : public CppUnit::TestFixture
 			board.getSquare(0, 1)->setUnit(&defender);
 			defender.setSquare(board.getSquare(0, 1));
 
-			qrw::BattleResult result = attacker.attack(&defender);
+			qrw::Unit::AttackResult result = attacker.attack(&defender);
 
 			CPPUNIT_ASSERT_EQUAL(2, result.attackerHPDelta);
 			CPPUNIT_ASSERT_EQUAL(1, result.defenderHPDelta);
