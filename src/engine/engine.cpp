@@ -31,6 +31,7 @@ namespace qrw
 		board = new Board(boardwidth, boardheight);
 		pathfinder->setBoard(board);
 		currentplayer = 0;
+		getCurrentPlayer().setActive(true);
 		status = EES_PREPARE;
 
 		int maxarmysize = INT_MAX;
@@ -140,7 +141,10 @@ namespace qrw
 				(*iter)->setCurrentMovement((*iter)->getMovement());
 		}
 
+		// change player and update active flags.
+		getCurrentPlayer().setActive(false);
 		currentplayer = (currentplayer + 1) % 2;
+		getCurrentPlayer().setActive(true);
 	}
 
 	/**
