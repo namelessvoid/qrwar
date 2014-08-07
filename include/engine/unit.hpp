@@ -43,7 +43,19 @@ namespace qrw
 
 			static 	std::string UNITNAMES[EUT_NUMBEROFUNITTYPES];
 
-		private:
+			/**
+			 * @brief Get the square on which Unit currently stands.
+			 * @return Pointer to Square.
+			 */
+			Square* getSquare() const;
+
+			/**
+			 * @brief Set the Square on which unit currently stands.
+			 * @param square The new square.
+			 */
+			void setSquare(Square* square);
+
+	private:
 			/**
 			 * Calculate the result of a battle round as
 			 * the number of hitpoints left of the enemy.
@@ -62,6 +74,8 @@ namespace qrw
 			int movement;
 			int currentmovement;
 			Player* player;
+
+			Square* square;
 
 	};
 }

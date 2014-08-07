@@ -118,6 +118,16 @@ namespace qrw
 		int newhp = enemy->getHP() - damage;
 		return newhp < 0 ? 0 : newhp;
 	}
+	Square* Unit::getSquare() const
+	{
+		return square;
+	}
+
+	void Unit::setSquare(Square* square)
+	{
+		this->square = square;
+	}
+
 	// void Unit::move(int distance)
 	// {
 	// 	currentmovement -= distance;

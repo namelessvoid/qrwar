@@ -8,6 +8,7 @@ class UnitTest : public CppUnit::TestFixture
 {
 	CPPUNIT_TEST_SUITE(UnitTest);
 	CPPUNIT_TEST(attackTest);
+	CPPUNIT_TEST(setGetSquareTest);
 	CPPUNIT_TEST_SUITE_END();
 
 	public:
@@ -35,6 +36,15 @@ class UnitTest : public CppUnit::TestFixture
 			unit2->attack(unit1, mods, mods);
 			CPPUNIT_ASSERT(unit1->getHP() == 0);
 			CPPUNIT_ASSERT(unit2->getHP() == 3);
+		}
+
+		void setGetSquareTest()
+		{
+			qrw::Square square(1, 2);
+
+			unit1->setSquare(&square);
+
+			CPPUNIT_ASSERT(&square == unit1->getSquare());
 		}
 
 	private:
