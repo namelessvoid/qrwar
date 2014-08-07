@@ -37,9 +37,6 @@ namespace qrw
 		if(board->getSquare(start) == 0 || board->getSquare(end) == 0)
 			return 0;
 
-		if(board->getSquare(start)->getUnit() == 0)
-			return 0;
-
 		if(start == end)
 			return 0;
 

@@ -211,8 +211,8 @@ namespace qrw
 		{
 			// Update text
 			healthtext->setText(intToString(unit->getHP()) + " / " + intToString(unit->getMaxHp()));
-			unitattacktext->setText(intToString(unit->getAttack()));
-			unitdefensetext->setText(intToString(unit->getDefense()));
+			unitattacktext->setText(intToString(unit->getBaseAttack()));
+			unitdefensetext->setText(intToString(unit->getBaseDefense()));
 			unitmovementtext->setText(intToString(unit->getCurrentMovement()) + " / " + intToString(unit->getMovement()));
 
 			unitimages[unit->getPlayer()->getId() * EUT_NUMBEROFUNITTYPES + unit->getType()]->setVisible(true);

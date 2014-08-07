@@ -1,6 +1,7 @@
 #include <stdio.h>
 
 #include "engine/board.hpp"
+#include "engine/pathfinding/astar.hpp"
 
 namespace qrw
 {
@@ -23,6 +24,10 @@ namespace qrw
 		// 	printf("current i: %i", i);
 		// 	printf(" with pointer: %i\n", squares[i]);
 		// }
+
+		// Initialize pathfinding
+		pathfinder = new AStar;
+		pathfinder->setBoard(this);
 	}
 
 	Board::~Board()
@@ -30,6 +35,7 @@ namespace qrw
 		for(int i = 0; i < height*width; ++i)
 			delete squares[i];
 		// delete[] squares;
+		delete pathfinder;
 	}
 
 	/*
@@ -62,5 +68,10 @@ namespace qrw
 	int Board::getHeight()
 	{
 		return height;
+	}
+
+	Path* Board::findPath(const Coordinates &start, const Coordinates &end)
+	{
+		return pathfinder->findPath(start, end);
 	}
 }

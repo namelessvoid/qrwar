@@ -8,6 +8,8 @@
 
 namespace qrw
 {
+	class AbstractAlgorithm;
+	class Path;
 
 	class Board
 	{
@@ -22,11 +24,21 @@ namespace qrw
 			int getWidth();
 			int getHeight();
 
+			/**
+			 * @brief Call pathfinding algorithm to find path from start to end.
+			 * @param start Coordinates of the start.
+			 * @param end Coordinates of the end.
+			 * @return Pointer to found path or nullptr if no path could be found.
+			 */
+			Path* findPath(const Coordinates& start, const Coordinates& end);
+
 		private:
 			Square** squares;
 
 			int width;
 			int height;
+
+			AbstractAlgorithm* pathfinder;
 	};
 }
 

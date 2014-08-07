@@ -31,6 +31,7 @@ namespace qrw
 		board = new Board(boardwidth, boardheight);
 		pathfinder->setBoard(board);
 		currentplayer = 0;
+		getCurrentPlayer().setActive(true);
 		status = EES_PREPARE;
 
 		int maxarmysize = INT_MAX;
@@ -74,15 +75,15 @@ namespace qrw
 				switch(unittype)
 				{
 					case EUT_SWORDMAN:
-						unit = new Unit(EUT_SWORDMAN, 5, 2, 1, 1, 3, player);
+						unit = new Unit(EUT_SWORDMAN, 5, 2, 1, 1, 3, player, board);
 						break;
 
 					case EUT_ARCHER:
-						unit = new Unit(EUT_ARCHER, 5, 2, 1, 3, 2, player);
+						unit = new Unit(EUT_ARCHER, 5, 2, 1, 3, 2, player, board);
 						break;
 
 					default:
-						unit = new Unit(EUT_SPEARMAN, 5, 2, 1, 2, 2, player);
+						unit = new Unit(EUT_SPEARMAN, 5, 2, 1, 2, 2, player, board);
 						break;
 				}
 				// Add new unit to army
@@ -140,111 +141,10 @@ namespace qrw
 				(*iter)->setCurrentMovement((*iter)->getMovement());
 		}
 
+		// change player and update active flags.
+		getCurrentPlayer().setActive(false);
 		currentplayer = (currentplayer + 1) % 2;
-	}
-
-	/**
-	 * @Return: 0 - success, -1 - wrong player, -2 origin empty,
-	 *			-3 on destination is unit of same player, -4 origin out of range,
-	 *			-5 dest out of ranage, -6 not enough movement,
-	 *			-7 game not running, -8 unit on origin died, -9 enemy unit
-	 *			was not defeated, -10 enemy out of range, -11 defender died
-	 */
-	int Engine::moveUnitIngame(Coordinates origin, Coordinates destination)
-	{
-		// Game is not running
-		if(status != EES_RUNNING)
-			return -7;
-
-		Square* orsquare = board->getSquare(origin);
-		// index out of range
-		if(orsquare == 0)
-			return -4;
-		// no unit on this square
-		if(orsquare->getUnit() == 0)
-			return -2;
-
-		Square* destsquare = board->getSquare(destination);
-		// index out of range
-		if(destsquare == 0)
-			return -5;
-
-		Unit* srcunit = orsquare->getUnit();
-				// Unit does not belong to current player
-		if(srcunit->getPlayer() != &getCurrentPlayer())
-			return -1;
-
-		int distance = orsquare->getDistance(destsquare);
-		if(distance > 1)
-		{
-			Path* path = pathfinder->findPath(orsquare->getCoordinates(), destsquare->getCoordinates());
-			if(path == 0)
-			{
-				delete path;
-				return -5;
-			}
-			distance = path->getMovementCosts();
-			delete path;
-		}
-
-		// Distance is too far
-		if(distance > srcunit->getCurrentMovement())
-			return -6;
-
-		// Is there a unit on the destination?
-		Unit* destunit = destsquare->getUnit();
-		if(destunit != 0)
-		{
-			// unit on destination belongs to same player
-			if(destunit->getPlayer() == srcunit->getPlayer())
-				return -3;
-			// otherwise: battle
-
-			// Check for range
-			printf("distance: %d", distance);
-			if(distance > srcunit->getRange())
-				return -10;
-
-			// get modificators
-			int attackmods[] = {0, 0};
-			int defensemods[] = {0, 0};
-			if(orsquare->getTerrain() != NULL)
-			{
-				attackmods[0] = orsquare->getTerrain()->getModificators()[0];
-				attackmods[1] = orsquare->getTerrain()->getModificators()[1];
-			}
-			if(destsquare->getTerrain() != NULL)
-			{
-				defensemods[0] = destsquare->getTerrain()->getModificators()[0];
-				defensemods[1] = destsquare->getTerrain()->getModificators()[1];
-			}
-
-			srcunit->attack(destunit, attackmods, defensemods);
-			srcunit->setCurrentMovement(0);
-			// Attacker died
-			if(srcunit->getHP() == 0)
-			{
-				orsquare->setUnit(0);
-				return -8;
-			}
-			// No one died
-			else if(destunit->getHP() > 0)
-			{
-				return -9;
-			}
-			// Defender died
-			else
-			{
-				orsquare->setUnit(0);
-				destsquare->setUnit(srcunit);
-				return -11;
-			}
-		}
-
-		srcunit->setCurrentMovement(srcunit->getCurrentMovement() - distance);
-		orsquare->setUnit(0);
-		destsquare->setUnit(srcunit);
-		return 0;
+		getCurrentPlayer().setActive(true);
 	}
 
 	int Engine::moveUnitDeployment(Coordinates origin, Coordinates destination)
@@ -281,6 +181,7 @@ namespace qrw
 		{
 			player->getArmy().markUnitAsDeployed(unit);
 			square->setUnit(unit);
+			unit->setSquare(square);
 			return true;
 		}
 		return false;

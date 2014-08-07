@@ -16,7 +16,6 @@ class AStarTest : public CppUnit::TestFixture
 	CPPUNIT_TEST(testFindPath);
 	CPPUNIT_TEST(testFindPath2);
 	CPPUNIT_TEST(testFindPathNoBoard);
-	CPPUNIT_TEST(testFindPathNoUnit);
 	CPPUNIT_TEST(testFindPathInvalidStartOrEnd);
 	CPPUNIT_TEST(testFindPathStartEqualsEnd);
 	CPPUNIT_TEST(testFindLowestFCoordinates);
@@ -35,8 +34,8 @@ class AStarTest : public CppUnit::TestFixture
 
 			board = new qrw::Board(10, 10);
 
-			walker  = new qrw::Unit(qrw::EUT_SWORDMAN, 100, 2, 2, 2, 10, 0);
-			blocker = new qrw::Unit(qrw::EUT_SWORDMAN, 100, 2, 2, 2, 10, 0);
+			walker  = new qrw::Unit(qrw::EUT_SWORDMAN, 100, 2, 2, 2, 10, 0, nullptr);
+			blocker = new qrw::Unit(qrw::EUT_SWORDMAN, 100, 2, 2, 2, 10, 0, nullptr);
 			board->getSquare(0, 0)->setUnit(walker);
 
 			astar->setBoard(board);
@@ -113,13 +112,6 @@ class AStarTest : public CppUnit::TestFixture
 
 			CPPUNIT_ASSERT(astar->findPath(invalid, *end) == 0);
 			CPPUNIT_ASSERT(astar->findPath(*start, invalid) == 0);
-		}
-
-		void testFindPathNoUnit()
-		{
-			board->getSquare(*start)->setUnit(0);
-
-			CPPUNIT_ASSERT(astar->findPath(*start, *end) == 0);
 		}
 
 		void testFindPathStartEqualsEnd()

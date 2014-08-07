@@ -34,6 +34,16 @@ namespace qrw
 		this->id = id;
 	}
 
+	bool Player::isActive() const
+	{
+		return active;
+	}
+
+	void Player::setActive(bool active)
+	{
+		this->active = active;
+	}
+
 	Army& Player::getArmy()
 	{
 		return army;
