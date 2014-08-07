@@ -285,6 +285,7 @@ namespace qrw
 		{
 			player->getArmy().markUnitAsDeployed(unit);
 			square->setUnit(unit);
+			unit->setSquare(square);
 			return true;
 		}
 		return false;
