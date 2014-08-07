@@ -28,7 +28,7 @@ namespace qrw
 				int range, int movement, Player* player, Board* board);
 			~Unit();
 
-			Player* getPlayer();
+			Player* getPlayer() const;
 			void setPlayer(Player* player);
 			UNITTYPES getType();
 			int getAttack();

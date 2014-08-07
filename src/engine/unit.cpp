@@ -32,7 +32,7 @@ namespace qrw
 	Unit::~Unit()
 	{}
 
-	Player* Unit::getPlayer()
+	Player* Unit::getPlayer() const
 	{
 		return player;
 	}
