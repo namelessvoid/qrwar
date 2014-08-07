@@ -73,6 +73,13 @@ namespace qrw
 			 */
 			bool moveTo(const Coordinates& destination);
 
+			/**
+			 * @brief Check if the Unit can attack the given enemy.
+			 * @param enemy Enemy Unit to be attacket
+			 * @return True if enemy Unit can be attacked.
+			 */
+			bool canAttack(const Unit* const enemy);
+
 	private:
 			/**
 			 * Calculate the result of a battle round as

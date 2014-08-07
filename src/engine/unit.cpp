@@ -167,6 +167,21 @@ namespace qrw
 		return true;
 	}
 
+	bool Unit::canAttack(const Unit* const enemy)
+	{
+		if(!player->isActive())
+			return false;
+
+		if(enemy->getPlayer() == this->getPlayer())
+			return false;
+
+		int distance = this->square->getDistance(enemy->getSquare());
+		if(distance > this->getRange())
+			return false;
+
+		return true;
+	}
+
 	// void Unit::move(int distance)
 	// {
 	// 	currentmovement -= distance;

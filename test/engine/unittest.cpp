@@ -12,11 +12,17 @@ class UnitTest : public CppUnit::TestFixture
 	CPPUNIT_TEST_SUITE(UnitTest);
 	CPPUNIT_TEST(attackTest);
 	CPPUNIT_TEST(setGetSquareTest);
+	// movement
 	CPPUNIT_TEST(canMoveToTestPlayerNotActive);
 	CPPUNIT_TEST(canMoveToTestDestinationNotEmpty);
 	CPPUNIT_TEST(canMoveToTestNotEnoughMovement);
 	CPPUNIT_TEST(canMoveToTest);
 	CPPUNIT_TEST(moveToTest);
+	// attack
+	CPPUNIT_TEST(canAttackTest);
+	CPPUNIT_TEST(canAttackTestPlayerNotActive);
+	CPPUNIT_TEST(canAttackTestUnitOfSamePlayer);
+	CPPUNIT_TEST(canAttackTestOutOfAttackRange);
 	CPPUNIT_TEST_SUITE_END();
 
 	public:
@@ -133,6 +139,77 @@ class UnitTest : public CppUnit::TestFixture
 			CPPUNIT_ASSERT(unit.getSquare() == board.getSquare(2, 0));
 			// Check if movement was substracted correctly
 			CPPUNIT_ASSERT(unit.getCurrentMovement() == 1);
+		}
+
+		void canAttackTest()
+		{
+			qrw::Board board(3, 3);
+
+			qrw::Player player1;
+			player1.setActive(true);
+
+			qrw::Player player2;
+			player2.setActive(false);
+
+			qrw::Unit attacker(qrw::EUT_ARCHER, 5, 2, 1, 1, 3, &player1, &board);
+			qrw::Unit defender(qrw::EUT_SPEARMAN, 5, 2, 2, 1, 3, &player2, &board);
+
+			board.getSquare(0, 0)->setUnit(&attacker);
+			attacker.setSquare(board.getSquare(0, 0));
+
+			board.getSquare(0, 1)->setUnit(&defender);
+			defender.setSquare(board.getSquare(0, 1));
+
+			CPPUNIT_ASSERT(attacker.canAttack(&defender));
+		}
+
+		void canAttackTestPlayerNotActive()
+		{
+			qrw::Board board(3, 3);
+			qrw::Player player;
+			player.setActive(false);
+
+			qrw::Unit attacker(qrw::EUT_ARCHER, 5, 2, 1, 1, 3, &player, &board);
+			qrw::Unit defender(qrw::EUT_ARCHER, 5, 2, 1, 1, 3, &player, &board);
+
+			CPPUNIT_ASSERT_EQUAL(false, attacker.canAttack(&defender));
+		}
+
+		void canAttackTestUnitOfSamePlayer()
+		{
+			qrw::Board board(3, 3);
+			qrw::Player player;
+			player.setActive(true);
+
+			qrw::Unit attacker(qrw::EUT_ARCHER, 5, 2, 1, 1, 3, &player, &board);
+			qrw::Unit defender(qrw::EUT_ARCHER, 5, 2, 1, 1, 3, &player, &board);
+
+			board.getSquare(0, 0)->setUnit(&attacker);
+			attacker.setSquare(board.getSquare(0, 0));
+
+			board.getSquare(0, 1)->setUnit(&defender);
+			defender.setSquare(board.getSquare(0, 1));
+
+			CPPUNIT_ASSERT_EQUAL(false, attacker.canAttack(&defender));
+		}
+
+		void canAttackTestOutOfAttackRange()
+		{
+			qrw::Board board(3, 3);
+			qrw::Player player1;
+			qrw::Player player2;
+			player1.setActive(true);
+
+			qrw::Unit attacker(qrw::EUT_ARCHER, 5, 2, 1, 1, 3, &player1, &board);
+			qrw::Unit defender(qrw::EUT_ARCHER, 5, 2, 1, 1, 3, &player2, &board);
+
+			board.getSquare(0, 0)->setUnit(&attacker);
+			attacker.setSquare(board.getSquare(0, 0));
+
+			board.getSquare(0, 2)->setUnit(&defender);
+			defender.setSquare(board.getSquare(0, 2));
+
+			CPPUNIT_ASSERT_EQUAL(false, attacker.canAttack(&defender));
 		}
 
 	private:
