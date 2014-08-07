@@ -20,11 +20,16 @@ namespace qrw
 			int getId();
 			void setId(int id);
 
+			bool getActive() const;
+			void setActive(bool active);
+
 			Army& getArmy();
 
-		private:
+	private:
 			std::string name;
 			int id;
+
+			bool active;
 
 			Army army;
 	};
