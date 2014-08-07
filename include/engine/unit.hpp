@@ -11,6 +11,7 @@ namespace qrw
 	class Player;
 	class Square;
 	class Board;
+	class Path;
 
 	enum UNITTYPES
 	{
@@ -61,9 +62,9 @@ namespace qrw
 			/**
 			 * @brief Check if the unit can move to given destination Coordinates.
 			 * @param destination Coordinates of the destination.
-			 * @return True if unit is able to move to destination.
+			 * @return Path that leads to destination or nullptr if destination is unreachable.
 			 */
-			bool canMoveTo(const Coordinates& destination);
+			Path* canMoveTo(const Coordinates& destination);
 
 			/**
 			 * @brief Move the unit to the given destination.

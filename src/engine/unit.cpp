@@ -132,35 +132,36 @@ namespace qrw
 		this->square = square;
 	}
 
-	bool Unit::canMoveTo(const Coordinates& destination)
+	Path* Unit::canMoveTo(const Coordinates& destination)
 	{
 		if(!player->isActive())
-			return false;
+			return nullptr;
 
 		if(board->getSquare(destination)->getUnit())
-			return false;
+			return nullptr;
 
 		Path* path = board->findPath(square->getCoordinates(), destination);
 
 		if(path->getLength() > getCurrentMovement())
 		{
 			delete path;
-			return false;
+			return nullptr;
 		}
 
-		delete path;
-
-		return true;
+		return path;
 	}
 
 	bool Unit::moveTo(const Coordinates& destination)
 	{
-		if(!canMoveTo(destination))
+		Path* path = canMoveTo(destination);
+		if(!path)
 			return false;
 
 		square->setUnit(nullptr);
 		this->setSquare(board->getSquare(destination));
 		square->setUnit(this);
+
+		delete path;
 
 		return true;
 	}

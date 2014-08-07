@@ -63,7 +63,7 @@ class UnitTest : public CppUnit::TestFixture
 
 			qrw::Unit unit(qrw::EUT_SPEARMAN, 5, 2, 1, 1, 3, &player, &board);
 
-			CPPUNIT_ASSERT(unit.canMoveTo(qrw::Coordinates(1, 1)) == false);
+			CPPUNIT_ASSERT(unit.canMoveTo(qrw::Coordinates(1, 1)) == nullptr);
 		}
 
 		void canMoveToTestDestinationNotEmpty()
@@ -78,7 +78,7 @@ class UnitTest : public CppUnit::TestFixture
 			qrw::Unit mover(qrw::EUT_ARCHER, 5, 2, 1, 1, 3, &player, &board);
 			board.getSquare(0, 0)->setUnit(&mover);
 
-			CPPUNIT_ASSERT(mover.canMoveTo(qrw::Coordinates(2, 0)) == false);
+			CPPUNIT_ASSERT(mover.canMoveTo(qrw::Coordinates(2, 0)) == nullptr);
 		}
 
 		void canMoveToTestNotEnoughMovement()
@@ -93,7 +93,7 @@ class UnitTest : public CppUnit::TestFixture
 
 			unit.setCurrentMovement(1);
 
-			CPPUNIT_ASSERT(unit.canMoveTo(qrw::Coordinates(2, 0)) == false);
+			CPPUNIT_ASSERT(unit.canMoveTo(qrw::Coordinates(2, 0)) == nullptr);
 		}
 
 		void canMoveToTest()
@@ -109,7 +109,7 @@ class UnitTest : public CppUnit::TestFixture
 			unit.setCurrentMovement(3);
 			unit.canMoveTo(qrw::Coordinates(2, 0));
 
-			CPPUNIT_ASSERT(unit.canMoveTo(qrw::Coordinates(2, 0)) == true);
+			CPPUNIT_ASSERT(unit.canMoveTo(qrw::Coordinates(2, 0)) != nullptr);
 		}
 
 		void moveToTest()
