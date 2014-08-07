@@ -5,6 +5,7 @@
 // #include "engine/player.hpp"
 
 #include "engine/coordinates.hpp"
+#include "engine/battleresult.hpp"
 
 namespace qrw
 {
@@ -66,8 +67,6 @@ namespace qrw
 			void setCurrentMovement(int movement);
 			std::string getName();
 
-			void attack(Unit* enemy, int* attackmods, int* defensemods);
-
 			static 	std::string UNITNAMES[EUT_NUMBEROFUNITTYPES];
 
 			/**
@@ -103,16 +102,14 @@ namespace qrw
 			 */
 			bool canAttack(const Unit* const enemy);
 
-	private:
 			/**
-			 * Calculate the result of a battle round as
-			 * the number of hitpoints left of the enemy.
-			 *
-			 * @return: The number of hitpoints the enemy has
-			 * left after the battle.
+			 * @brief Executes an attack (includes counter attack).
+			 * @param enemy The enemy which is attacked.
+			 * @param allowCounterAttack States if enemy is able to do a counter attack (default).
 			 */
-			int battleHPResult(Unit* enemy, int attackmod, int defensemod);
+			BattleResult attack(Unit* enemy, bool allowCounterAttack = true);
 
+	private:
 			UNITTYPES type;
 			int attackvalue;
 			int defensevalue;

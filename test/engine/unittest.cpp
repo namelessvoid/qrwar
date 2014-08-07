@@ -11,7 +11,6 @@ class UnitTest : public CppUnit::TestFixture
 {
 	CPPUNIT_TEST_SUITE(UnitTest);
 	CPPUNIT_TEST(setHPTest);
-	CPPUNIT_TEST(attackTest);
 	CPPUNIT_TEST(setGetSquareTest);
 	CPPUNIT_TEST(getModifiedAttackAndDefenseTest);
 	// movement
@@ -25,6 +24,7 @@ class UnitTest : public CppUnit::TestFixture
 	CPPUNIT_TEST(canAttackTestPlayerNotActive);
 	CPPUNIT_TEST(canAttackTestUnitOfSamePlayer);
 	CPPUNIT_TEST(canAttackTestOutOfAttackRange);
+	CPPUNIT_TEST(attackTest);
 	CPPUNIT_TEST_SUITE_END();
 
 	public:
@@ -47,20 +47,6 @@ class UnitTest : public CppUnit::TestFixture
 
 			unit1->setHP(-4);
 			CPPUNIT_ASSERT_EQUAL(0, unit1->getHP());
-		}
-
-		void attackTest()
-		{
-			int mods[] = {0, 0};
-			unit1->attack(unit2, mods, mods);
-			CPPUNIT_ASSERT(unit1->getHP() == 3);
-			CPPUNIT_ASSERT(unit2->getHP() == 4);
-			unit2->attack(unit1, mods, mods);
-			CPPUNIT_ASSERT(unit1->getHP() == 1);
-			CPPUNIT_ASSERT(unit2->getHP() == 3);
-			unit2->attack(unit1, mods, mods);
-			CPPUNIT_ASSERT(unit1->getHP() == 0);
-			CPPUNIT_ASSERT(unit2->getHP() == 3);
 		}
 
 		void getModifiedAttackAndDefenseTest()
@@ -241,6 +227,36 @@ class UnitTest : public CppUnit::TestFixture
 			defender.setSquare(board.getSquare(0, 2));
 
 			CPPUNIT_ASSERT_EQUAL(false, attacker.canAttack(&defender));
+		}
+
+		void attackTest()
+		{
+			qrw::Board board(2, 2);
+
+			qrw::Terrain terrain1(qrw::ET_HILL, -1, +1);
+			qrw::Player  player1;
+			qrw::Unit attacker(qrw::EUT_SPEARMAN, 5, 2, 1, 1, 3, &player1, &board);
+
+			player1.setActive(true);
+			board.getSquare(0, 0)->setTerrain(&terrain1);
+			board.getSquare(0, 0)->setUnit(&attacker);
+			attacker.setSquare(board.getSquare(0, 0));
+
+			qrw::Terrain terrain2(qrw::ET_HILL, +2, -1);
+			qrw::Player player2;
+			qrw::Unit defender(qrw::EUT_SPEARMAN, 5, 2, 1, 1, 3, &player2, &board);
+
+			board.getSquare(0, 1)->setTerrain(&terrain2);
+			board.getSquare(0, 1)->setUnit(&defender);
+			defender.setSquare(board.getSquare(0, 1));
+
+			qrw::BattleResult result = attacker.attack(&defender);
+
+			CPPUNIT_ASSERT_EQUAL(2, result.attackerHPDelta);
+			CPPUNIT_ASSERT_EQUAL(1, result.defenderHPDelta);
+
+			CPPUNIT_ASSERT_EQUAL(3, attacker.getHP());
+			CPPUNIT_ASSERT_EQUAL(4, defender.getHP());
 		}
 
 	private:

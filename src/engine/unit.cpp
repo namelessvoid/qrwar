@@ -114,32 +114,33 @@ namespace qrw
 			currentmovement = movement;
 	}
 
-	void Unit::attack(Unit* enemy, int* attackmods, int* defensemods)
+	BattleResult Unit::attack(Unit* enemy, bool allowCounterAttack)
 	{
+		BattleResult battleResult;
+
+		if(!this->canAttack(enemy))
+			return battleResult;
+
 		// Attacker attacks first
-		enemy->setHP(battleHPResult(enemy, attackmods[EM_ATTACK],
-			defensemods[EM_DEFENSE]));
-		// Enemy attacks if he's still alive
-		if(enemy->getHP() > 0)
-			setHP(enemy->battleHPResult(this, defensemods[EM_ATTACK],
-				attackmods[EM_DEFENSE]));
+		int damage = this->getModifiedAttack() - enemy->getModifiedDefense();
+		damage = damage < 0 ? 0 : damage;
+
+		enemy->setHP(enemy->getHP() - damage);
+		battleResult.defenderHPDelta = damage;
+
+		// Counter attack
+		if(enemy->getHP() > 0 && allowCounterAttack == true)
+		{
+			damage = enemy->getModifiedAttack() - this->getModifiedDefense();
+			damage = damage < 0 ? 0 : damage;
+
+			this->setHP(this->getHP() - damage);
+			battleResult.attackerHPDelta = damage;
+		}
+
+		return battleResult;
 	}
 
-	int Unit::battleHPResult(Unit* enemy, int attackmod, int defensemod)
-	{
-		// Calculate effect on enemy
-		int attack = getAttack() + attackmod;
-		if(attack < 0)
-			attack = 0;
-		int defense = enemy->getDefense() + defensemod;
-		if(defense < 0)
-			defense = 0;
-		int damage = attack - defense;
-		if(damage < 0)
-			damage = 0;
-		int newhp = enemy->getHP() - damage;
-		return newhp < 0 ? 0 : newhp;
-	}
 	Square* Unit::getSquare() const
 	{
 		return square;
