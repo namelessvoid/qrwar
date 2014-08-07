@@ -119,7 +119,8 @@ add_custom_target(QuadRuledWar SOURCES
 	include/gui/ng/widget.hpp
 	include/gui/ng/spritewidget.hpp
 	include/gui/ng/button.hpp
-	include/gui/ng/signal.hpp
+        include/gui/ng/signal.hpp
+        include/gui/ng/singleparametersignal.hpp
 	include/config/xmlhelper.hpp
 	include/config/tilesetprocessor.hpp
 	include/config/videosettings.hpp
