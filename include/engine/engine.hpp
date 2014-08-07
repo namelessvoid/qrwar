@@ -40,18 +40,6 @@ namespace qrw
 			Board* getBoard();
 
 			/**
-			 * This function is used to move a unit during a running game. Not to be confused
-			 * with moveUnitDeployment()!
-			 *
-			 * @Return: 0 - success, -1 - wrong player, -2 origin empty,
-			 * 			-3 on destination is unit of same player, -4 or out of range,
-			 *			-5 dest out of ranage, -6 not enough movement,
-			 *			-7 status != EES_RUNNING, -8 unit on origin died, -9 enemy unit
-			 *			was not defeated
-			 */
-			int moveUnitIngame(Coordinates origin, Coordinates destination);
-
-			/**
 			 * This funciton is used to move a unit during deployment phase. Not to be confused
 			 * with moveUnitIngame()!
 			 *
