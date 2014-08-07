@@ -30,6 +30,12 @@ namespace qrw
 			struct AttackResult
 			{
 				/**
+				 * @brief True if the attack could be performed or false if one requirement (e.g. not the active player)
+				 * was not fullfilled.
+				 */
+				bool attackPerformed;
+
+				/**
 				 * @brief Hit points the attacker lost.
 				 */
 				int attackerHPDelta;

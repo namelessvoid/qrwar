@@ -119,7 +119,10 @@ namespace qrw
 		AttackResult attackResult;
 
 		if(!this->canAttack(enemy))
+		{
+			attackResult.attackPerformed = false;
 			return attackResult;
+		}
 
 		// Attacker attacks first
 		int damage = this->getModifiedAttack() - enemy->getModifiedDefense();
@@ -138,6 +141,7 @@ namespace qrw
 			attackResult.attackerHPDelta = damage;
 		}
 
+		attackResult.attackPerformed = true;
 		return attackResult;
 	}
 

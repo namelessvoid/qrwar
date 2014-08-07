@@ -252,11 +252,17 @@ class UnitTest : public CppUnit::TestFixture
 
 			qrw::Unit::AttackResult result = attacker.attack(&defender);
 
+			CPPUNIT_ASSERT_EQUAL(true, result.attackPerformed);
 			CPPUNIT_ASSERT_EQUAL(2, result.attackerHPDelta);
 			CPPUNIT_ASSERT_EQUAL(1, result.defenderHPDelta);
 
 			CPPUNIT_ASSERT_EQUAL(3, attacker.getHP());
 			CPPUNIT_ASSERT_EQUAL(4, defender.getHP());
+
+			// Check if attackPerformed is false if attacking was not able.
+			result = defender.attack(&attacker);
+
+			CPPUNIT_ASSERT_EQUAL(false, result.attackPerformed);
 		}
 
 	private:
