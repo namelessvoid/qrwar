@@ -126,9 +126,13 @@ class UnitTest : public CppUnit::TestFixture
 
 			unit.moveTo(qrw::Coordinates(2, 0));
 
+			// Check if squares are updated
 			CPPUNIT_ASSERT(board.getSquare(0, 0)->getUnit() == nullptr);
 			CPPUNIT_ASSERT(board.getSquare(2, 0)->getUnit() == &unit);
+			// Check if unit has updated square
 			CPPUNIT_ASSERT(unit.getSquare() == board.getSquare(2, 0));
+			// Check if movement was substracted correctly
+			CPPUNIT_ASSERT(unit.getCurrentMovement() == 1);
 		}
 
 	private:

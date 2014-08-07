@@ -142,7 +142,7 @@ namespace qrw
 
 		Path* path = board->findPath(square->getCoordinates(), destination);
 
-		if(path->getLength() > getCurrentMovement())
+		if(path->getMovementCosts() > getCurrentMovement())
 		{
 			delete path;
 			return nullptr;
@@ -160,6 +160,7 @@ namespace qrw
 		square->setUnit(nullptr);
 		this->setSquare(board->getSquare(destination));
 		square->setUnit(this);
+		this->setCurrentMovement(this->getCurrentMovement() - path->getMovementCosts());
 
 		delete path;
 
