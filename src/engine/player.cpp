@@ -34,7 +34,7 @@ namespace qrw
 		this->id = id;
 	}
 
-	bool Player::getActive() const
+	bool Player::isActive() const
 	{
 		return active;
 	}

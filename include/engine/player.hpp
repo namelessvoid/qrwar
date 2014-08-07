@@ -24,7 +24,7 @@ namespace qrw
 			 * @brief Return if player is active or not.
 			 * @return True if player is active otherwise false.
 			 */
-			bool getActive() const;
+			bool isActive() const;
 
 			/**
 			 * @brief Set the active state of the player.
