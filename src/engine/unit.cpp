@@ -52,7 +52,11 @@ namespace qrw
 
 	int Unit::getModifiedAttack()
 	{
-		int modifiedAttack = getBaseAttack() + square->getTerrain()->getModificator(EM_ATTACK);
+		int modifiedAttack = getBaseAttack();
+
+		if(square->getTerrain())
+			modifiedAttack += square->getTerrain()->getModificator(EM_ATTACK);
+
 		return modifiedAttack < 0 ? 0 : modifiedAttack;
 	}
 
@@ -63,7 +67,11 @@ namespace qrw
 
 	int Unit::getModifiedDefense()
 	{
-		int modifiedDefense = getBaseDefense() + square->getTerrain()->getModificator(EM_DEFENSE);
+		int modifiedDefense = getBaseDefense();
+
+		if(square->getTerrain())
+			modifiedDefense += square->getTerrain()->getModificator(EM_DEFENSE);
+
 		return modifiedDefense < 0 ? 0 : modifiedDefense;
 	}
 
