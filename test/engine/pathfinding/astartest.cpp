@@ -34,8 +34,8 @@ class AStarTest : public CppUnit::TestFixture
 
 			board = new qrw::Board(10, 10);
 
-			walker  = new qrw::Unit(qrw::EUT_SWORDMAN, 100, 2, 2, 2, 10, 0);
-			blocker = new qrw::Unit(qrw::EUT_SWORDMAN, 100, 2, 2, 2, 10, 0);
+			walker  = new qrw::Unit(qrw::EUT_SWORDMAN, 100, 2, 2, 2, 10, 0, nullptr);
+			blocker = new qrw::Unit(qrw::EUT_SWORDMAN, 100, 2, 2, 2, 10, 0, nullptr);
 			board->getSquare(0, 0)->setUnit(walker);
 
 			astar->setBoard(board);

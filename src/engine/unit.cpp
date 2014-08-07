@@ -12,7 +12,7 @@ namespace qrw
 	};
 
 	Unit::Unit(UNITTYPES type, int hp, int attack, int defense,
-				int range, int movement, Player* player)
+				int range, int movement, Player* player, Board* board)
 	:	type(type),
 		hp(hp),
 		maxhp(hp),
@@ -21,7 +21,8 @@ namespace qrw
 		range(range),
 		movement(movement),
 		currentmovement(movement),
-		player(player)
+		player(player),
+		board(board)
 	{
 	}
 

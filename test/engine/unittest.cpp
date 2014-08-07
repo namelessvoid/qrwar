@@ -14,8 +14,8 @@ class UnitTest : public CppUnit::TestFixture
 	public:
 		void setUp()
 		{
-			unit1 = new qrw::Unit(qrw::EUT_SWORDMAN, 5, 2, 1, 0, 0, 0);
-			unit2 = new qrw::Unit(qrw::EUT_SWORDMAN, 5, 3, 1, 0, 0, 0);
+			unit1 = new qrw::Unit(qrw::EUT_SWORDMAN, 5, 2, 1, 0, 0, 0, nullptr);
+			unit2 = new qrw::Unit(qrw::EUT_SWORDMAN, 5, 3, 1, 0, 0, 0, nullptr);
 		}
 
 		void tearDown()

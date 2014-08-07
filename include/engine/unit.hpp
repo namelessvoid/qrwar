@@ -8,6 +8,7 @@ namespace qrw
 {
 	class Player;
 	class Square;
+	class Board;
 
 	enum UNITTYPES
 	{
@@ -21,7 +22,7 @@ namespace qrw
 	{
 		public:
 			Unit(UNITTYPES type, int hp, int attack, int defense,
-				int range, int movement, Player* player);
+				int range, int movement, Player* player, Board* board);
 			~Unit();
 
 			Player* getPlayer();
@@ -76,6 +77,7 @@ namespace qrw
 			Player* player;
 
 			Square* square;
+			Board* board;
 
 	};
 }

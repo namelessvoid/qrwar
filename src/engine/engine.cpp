@@ -75,15 +75,15 @@ namespace qrw
 				switch(unittype)
 				{
 					case EUT_SWORDMAN:
-						unit = new Unit(EUT_SWORDMAN, 5, 2, 1, 1, 3, player);
+						unit = new Unit(EUT_SWORDMAN, 5, 2, 1, 1, 3, player, board);
 						break;
 
 					case EUT_ARCHER:
-						unit = new Unit(EUT_ARCHER, 5, 2, 1, 3, 2, player);
+						unit = new Unit(EUT_ARCHER, 5, 2, 1, 3, 2, player, board);
 						break;
 
 					default:
-						unit = new Unit(EUT_SPEARMAN, 5, 2, 1, 2, 2, player);
+						unit = new Unit(EUT_SPEARMAN, 5, 2, 1, 2, 2, player, board);
 						break;
 				}
 				// Add new unit to army
