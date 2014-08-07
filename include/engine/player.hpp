@@ -20,7 +20,16 @@ namespace qrw
 			int getId();
 			void setId(int id);
 
+			/**
+			 * @brief Return if player is active or not.
+			 * @return True if player is active otherwise false.
+			 */
 			bool getActive() const;
+
+			/**
+			 * @brief Set the active state of the player.
+			 * @param active The new active state.
+			 */
 			void setActive(bool active);
 
 			Army& getArmy();
