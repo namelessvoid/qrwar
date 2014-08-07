@@ -243,19 +243,19 @@ namespace qrw
 		if(childcursor)
 		{
 			Unit* unit1 = board->getSquare(cursor->getPosition())->getUnit();
-			int unit1hp = unit1->getHP();
 			Unit* unit2 = board->getSquare(childcursor->getPosition())->getUnit();
-			int unit2hp;
 
-			if(unit2)
-				unit2hp = unit2->getHP();
-
-			int moveresult = engine->moveUnitIngame(cursor->getPosition(), childcursor->getPosition());
-			printf("moveresult: %i\n", moveresult);
-			if(moveresult == 0 || moveresult == -9 || moveresult == -8 || moveresult == -11)
+			// Simple move
+			if(!unit2)
 			{
-				// Display damage numbers
-				if(moveresult == -9 || moveresult == -8 || moveresult == -11)
+				unit1->moveTo(childcursor->getPosition());
+			}
+			// unit 2 is present: attack
+			else
+			{
+				Unit::AttackResult attackResult = unit1->attack(unit2);
+
+				if(attackResult.attackPerformed)
 				{
 					DamageNumber* dm;
 					sf::Vector2f pos;
@@ -263,24 +263,25 @@ namespace qrw
 					// First DMG number
 					pos.x = cursor->getPosition().getX() * spritedimensions;
 					pos.y = cursor->getPosition().getY() * spritedimensions + spritedimensions * 0.2;
-					dm = new DamageNumber(unit1->getHP() - unit1hp, pos);
+					dm = new DamageNumber(attackResult.attackerHPDelta, pos);
+
 					// Second DMG number
 					pos.x = childcursor->getPosition().getX() * spritedimensions;
 					pos.y = childcursor->getPosition().getY() * spritedimensions + spritedimensions * 0.2;
-					dm = new DamageNumber(unit2->getHP() - unit2hp, pos);
-				}
-
-				// Resetting cursors
-				cursor->setPosition(childcursor->getPosition());
-				cursor->despawnChild();
-				// Reset path
-				if(path)
-				{
-					delete path;
-					path = 0;
+					dm = new DamageNumber(attackResult.defenderHPDelta, pos);
 				}
 			}
-		}
+
+			// Resetting cursors
+			cursor->setPosition(childcursor->getPosition());
+			cursor->despawnChild();
+			// Reset path
+			if(path)
+			{
+				delete path;
+				path = 0;
+			}
+		} // if(childcursor)
 	}
 
 
