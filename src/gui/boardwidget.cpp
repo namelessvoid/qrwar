@@ -316,7 +316,7 @@ namespace qrw
 				// Update path
 				if(path)
 					delete path;
-				path = engine->findPath(
+				path = board->findPath(
 					Coordinates(Cursor::getCursor()->getPosition()),
 					Coordinates(newCursorPos.x, newCursorPos.y)
 				);
