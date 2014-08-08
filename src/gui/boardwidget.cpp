@@ -309,9 +309,11 @@ namespace qrw
 			Cursor::getCursor()->setPosition(newCursorPos);
 		else
 		{
+			Coordinates oldCoordinates = Cursor::getCursor()->getChild()->getPosition();
+
 			Cursor::getCursor()->getChild()->setPosition(newCursorPos);
 
-			if(engine->getStatus() == EES_RUNNING)
+			if(engine->getStatus() == EES_RUNNING && oldCoordinates != Coordinates(newCursorPos.x, newCursorPos.y))
 			{
 				// Update path
 				if(path)
