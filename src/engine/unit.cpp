@@ -181,6 +181,9 @@ namespace qrw
 		if(!player->isActive())
 			return false;
 
+		if(!this->getCurrentMovement() > 0)
+			return false;
+
 		if(enemy->getPlayer() == this->getPlayer())
 			return false;
 
@@ -220,6 +223,8 @@ namespace qrw
 		enemy->setHP(enemy->getHP() - damage);
 		if(enemy->getHP() == 0)
 			enemy->removeFromBoard();
+
+		this->setCurrentMovement(0);
 
 		return damage;
 	}

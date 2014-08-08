@@ -24,6 +24,7 @@ class UnitTest : public CppUnit::TestFixture
 	// attack
 	CPPUNIT_TEST(canAttackTest);
 	CPPUNIT_TEST(canAttackTestPlayerNotActive);
+	CPPUNIT_TEST(canAttackTestNoMovement);
 	CPPUNIT_TEST(canAttackTestUnitOfSamePlayer);
 	CPPUNIT_TEST(canAttackTestOutOfAttackRange);
 	CPPUNIT_TEST(attackTest);
@@ -188,6 +189,14 @@ class UnitTest : public CppUnit::TestFixture
 		void canAttackTestPlayerNotActive()
 		{
 			player1->setActive(false);
+
+			CPPUNIT_ASSERT_EQUAL(false, unit1->canAttack(unit2));
+		}
+
+		void canAttackTestNoMovement()
+		{
+			player1->setActive(true);
+			unit1->setCurrentMovement(0);
 
 			CPPUNIT_ASSERT_EQUAL(false, unit1->canAttack(unit2));
 		}
