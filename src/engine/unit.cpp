@@ -163,6 +163,15 @@ namespace qrw
 		this->square = square;
 	}
 
+	void Unit::removeFromBoard()
+	{
+		if(square)
+		{
+			square->setUnit(nullptr);
+			square = nullptr;
+		}
+	}
+
 	Path* Unit::canMoveTo(const Coordinates& destination)
 	{
 		if(!player->isActive())

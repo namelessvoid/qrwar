@@ -102,6 +102,11 @@ namespace qrw
 			void setSquare(Square* square);
 
 			/**
+			 * @brief Removes the unit from the board.
+			 */
+			void removeFromBoard();
+
+			/**
 			 * @brief Check if the unit can move to given destination Coordinates.
 			 * @param destination Coordinates of the destination.
 			 * @return Path that leads to destination or nullptr if destination is unreachable.
