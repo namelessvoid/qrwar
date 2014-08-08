@@ -22,6 +22,11 @@ namespace qrw
 		return getX() == rhs.getX() && getY() == rhs.getY();
 	}
 
+	bool Coordinates::operator!=(const Coordinates& rhs) const
+	{
+		return !(*this == rhs);
+	}
+
 	Coordinates Coordinates::operator+(const Coordinates& rhs) const
 	{
 		return Coordinates(getX() + rhs.getX(), getY() + rhs.getY());

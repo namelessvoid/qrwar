@@ -12,6 +12,7 @@ namespace qrw
 			int getY() const;
 
 			bool operator==(const Coordinates& rhs) const;
+			bool operator!=(const Coordinates& rhs) const;
 
 			Coordinates operator+(const Coordinates& rhs) const;
 			Coordinates operator-(const Coordinates& rhs) const;

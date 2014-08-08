@@ -13,6 +13,7 @@ class CoordinatesTest : public CppUnit::TestFixture
 	CPPUNIT_TEST(testSetCompatibility);
 	CPPUNIT_TEST(testCopyCtor);
 	CPPUNIT_TEST(testOperatorEquals);
+	CPPUNIT_TEST(testOperatorUnequal);
 	CPPUNIT_TEST(testOperatorPlus);
 	CPPUNIT_TEST(testOperatorMinus);
 	CPPUNIT_TEST(testOperatorAssignment);
@@ -106,6 +107,12 @@ class CoordinatesTest : public CppUnit::TestFixture
 		{
 			CPPUNIT_ASSERT(*coord0_0 == *coord0_0_2);
 			CPPUNIT_ASSERT((*coord0_0 == *coord1_4) == false);
+		}
+
+		void testOperatorUnequal()
+		{
+			CPPUNIT_ASSERT((*coord0_0 != *coord0_0_2) == false);
+			CPPUNIT_ASSERT(*coord0_0 != *coord1_4);
 		}
 
 		void testOperatorPlus()
