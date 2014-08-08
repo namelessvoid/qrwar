@@ -51,6 +51,15 @@ class UnitTest : public CppUnit::TestFixture
 			CPPUNIT_ASSERT_EQUAL(0, unit1->getHP());
 		}
 
+		void setGetSquareTest()
+		{
+			qrw::Square square(1, 2);
+
+			unit1->setSquare(&square);
+
+			CPPUNIT_ASSERT(&square == unit1->getSquare());
+		}
+
 		void removeFromBoardTest()
 		{
 			qrw::Board board(3, 3);
@@ -91,15 +100,6 @@ class UnitTest : public CppUnit::TestFixture
 
 			CPPUNIT_ASSERT_EQUAL(2, unit1->getModifiedAttack());
 			CPPUNIT_ASSERT_EQUAL(1, unit1->getModifiedDefense());
-		}
-
-		void setGetSquareTest()
-		{
-			qrw::Square square(1, 2);
-
-			unit1->setSquare(&square);
-
-			CPPUNIT_ASSERT(&square == unit1->getSquare());
 		}
 
 		void canMoveToTestPlayerNotActive()
