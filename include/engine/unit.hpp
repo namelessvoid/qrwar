@@ -33,16 +33,16 @@ namespace qrw
 				 * @brief True if the attack could be performed or false if one requirement (e.g. not the active player)
 				 * was not fullfilled.
 				 */
-				bool attackPerformed;
+				bool attackPerformed = false;
 
 				/**
 				 * @brief Hit points the attacker lost.
 				 */
-				int attackerHPDelta;
+				int attackerHPDelta = 0;
 				/**
 				 * @brief Hit points the defender lost.
 				 */
-				int defenderHPDelta;
+				int defenderHPDelta = 0;
 			};
 
 			Unit(UNITTYPES type, int hp, int attack, int defense,
@@ -102,6 +102,11 @@ namespace qrw
 			void setSquare(Square* square);
 
 			/**
+			 * @brief Removes the unit from the board.
+			 */
+			void removeFromBoard();
+
+			/**
 			 * @brief Check if the unit can move to given destination Coordinates.
 			 * @param destination Coordinates of the destination.
 			 * @return Path that leads to destination or nullptr if destination is unreachable.
@@ -123,13 +128,19 @@ namespace qrw
 			bool canAttack(const Unit* const enemy);
 
 			/**
-			 * @brief Executes an attack (includes counter attack).
+			 * @brief Attack an enemy Unit which then counter attacks.
 			 * @param enemy The enemy which is attacked.
-			 * @param allowCounterAttack States if enemy is able to do a counter attack (default).
 			 */
-			AttackResult attack(Unit* enemy, bool allowCounterAttack = true);
+			AttackResult attack(Unit* enemy);
 
 	private:
+			/**
+			 * @brief Executes the actual attack of the Unit against the enemy.
+			 * @param The enemy that is being attacked.
+			 * @return The damage dealt.
+			 */
+			int doAttack(Unit* enemy);
+
 			UNITTYPES type;
 			int attackvalue;
 			int defensevalue;

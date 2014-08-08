@@ -122,37 +122,6 @@ namespace qrw
 			currentmovement = movement;
 	}
 
-	Unit::AttackResult Unit::attack(Unit* enemy, bool allowCounterAttack)
-	{
-		AttackResult attackResult;
-
-		if(!this->canAttack(enemy))
-		{
-			attackResult.attackPerformed = false;
-			return attackResult;
-		}
-
-		// Attacker attacks first
-		int damage = this->getModifiedAttack() - enemy->getModifiedDefense();
-		damage = damage < 0 ? 0 : damage;
-
-		enemy->setHP(enemy->getHP() - damage);
-		attackResult.defenderHPDelta = damage;
-
-		// Counter attack
-		if(enemy->getHP() > 0 && allowCounterAttack == true)
-		{
-			damage = enemy->getModifiedAttack() - this->getModifiedDefense();
-			damage = damage < 0 ? 0 : damage;
-
-			this->setHP(this->getHP() - damage);
-			attackResult.attackerHPDelta = damage;
-		}
-
-		attackResult.attackPerformed = true;
-		return attackResult;
-	}
-
 	Square* Unit::getSquare() const
 	{
 		return square;
@@ -161,6 +130,15 @@ namespace qrw
 	void Unit::setSquare(Square* square)
 	{
 		this->square = square;
+	}
+
+	void Unit::removeFromBoard()
+	{
+		if(square)
+		{
+			square->setUnit(nullptr);
+			square = nullptr;
+		}
 	}
 
 	Path* Unit::canMoveTo(const Coordinates& destination)
@@ -203,6 +181,9 @@ namespace qrw
 		if(!player->isActive())
 			return false;
 
+		if(!this->getCurrentMovement() > 0)
+			return false;
+
 		if(enemy->getPlayer() == this->getPlayer())
 			return false;
 
@@ -211,6 +192,41 @@ namespace qrw
 			return false;
 
 		return true;
+	}
+
+	Unit::AttackResult Unit::attack(Unit* enemy)
+	{
+		AttackResult attackResult;
+
+		if(!canAttack(enemy))
+		{
+			attackResult.attackPerformed = false;
+			return attackResult;
+		}
+
+		this->setCurrentMovement(0);
+
+		// Attack and counter attack
+		attackResult.defenderHPDelta = this->doAttack(enemy);
+		attackResult.attackerHPDelta = enemy->doAttack(this);
+
+		attackResult.attackPerformed = true;
+		return attackResult;
+	}
+
+	int Unit::doAttack(Unit* enemy)
+	{
+		if(this->getHP() == 0)
+			return 0;
+
+		int damage = this->getModifiedAttack() - enemy->getModifiedDefense();
+		damage = damage < 0 ? 0 : damage;
+
+		enemy->setHP(enemy->getHP() - damage);
+		if(enemy->getHP() == 0)
+			enemy->removeFromBoard();
+
+		return damage;
 	}
 
 	// void Unit::move(int distance)
