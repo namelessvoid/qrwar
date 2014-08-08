@@ -128,13 +128,19 @@ namespace qrw
 			bool canAttack(const Unit* const enemy);
 
 			/**
-			 * @brief Executes an attack (includes counter attack).
+			 * @brief Attack an enemy Unit which then counter attacks.
 			 * @param enemy The enemy which is attacked.
-			 * @param allowCounterAttack States if enemy is able to do a counter attack (default).
 			 */
-			AttackResult attack(Unit* enemy, bool allowCounterAttack = true);
+			AttackResult attack(Unit* enemy);
 
 	private:
+			/**
+			 * @brief Executes the actual attack of the Unit against the enemy.
+			 * @param The enemy that is being attacked.
+			 * @return The damage dealt.
+			 */
+			int doAttack(Unit* enemy);
+
 			UNITTYPES type;
 			int attackvalue;
 			int defensevalue;
