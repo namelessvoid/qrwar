@@ -28,6 +28,8 @@ class UnitTest : public CppUnit::TestFixture
 	CPPUNIT_TEST(canAttackTestUnitOfSamePlayer);
 	CPPUNIT_TEST(canAttackTestOutOfAttackRange);
 	CPPUNIT_TEST(attackTest);
+	CPPUNIT_TEST(attackTestDefenderDied);
+	CPPUNIT_TEST(attackTestAttackerDied);
 	CPPUNIT_TEST_SUITE_END();
 
 	public:
@@ -244,6 +246,37 @@ class UnitTest : public CppUnit::TestFixture
 			result = unit2->attack(unit1);
 
 			CPPUNIT_ASSERT_EQUAL(false, result.attackPerformed);
+		}
+
+		void attackTestDefenderDied()
+		{
+			player1->setActive(true);
+			unit2->setHP(1);
+
+			qrw::Square* unit2Square = unit2->getSquare();
+
+			unit1->attack(unit2);
+
+			CPPUNIT_ASSERT_EQUAL(0, unit2->getHP());
+			// Check if unit2 was removed from board
+			CPPUNIT_ASSERT(unit2->getSquare() == nullptr);
+			CPPUNIT_ASSERT(unit2Square->getUnit() == nullptr);
+		}
+
+		void attackTestAttackerDied()
+		{
+			player1->setActive(true);
+			unit1->setHP(1);
+
+			qrw::Square* unit1Square = unit1->getSquare();
+
+			unit1->attack(unit2);
+
+			CPPUNIT_ASSERT_EQUAL(0, unit1->getHP());
+			CPPUNIT_ASSERT_EQUAL(4, unit2->getHP());
+			// Check if unit1 was removed from board
+			CPPUNIT_ASSERT(unit1->getSquare() == nullptr);
+			CPPUNIT_ASSERT(unit1Square->getUnit() == nullptr);
 		}
 
 	private:
