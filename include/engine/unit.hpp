@@ -33,16 +33,16 @@ namespace qrw
 				 * @brief True if the attack could be performed or false if one requirement (e.g. not the active player)
 				 * was not fullfilled.
 				 */
-				bool attackPerformed;
+				bool attackPerformed = false;
 
 				/**
 				 * @brief Hit points the attacker lost.
 				 */
-				int attackerHPDelta;
+				int attackerHPDelta = 0;
 				/**
 				 * @brief Hit points the defender lost.
 				 */
-				int defenderHPDelta;
+				int defenderHPDelta = 0;
 			};
 
 			Unit(UNITTYPES type, int hp, int attack, int defense,
