@@ -246,6 +246,10 @@ class UnitTest : public CppUnit::TestFixture
 			result = unit2->attack(unit1);
 
 			CPPUNIT_ASSERT_EQUAL(false, result.attackPerformed);
+
+			// Check if movement was reset correctly
+			CPPUNIT_ASSERT_EQUAL(0, unit1->getCurrentMovement());
+			CPPUNIT_ASSERT_EQUAL(4, unit2->getCurrentMovement());
 		}
 
 		void attackTestDefenderDied()

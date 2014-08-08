@@ -204,6 +204,8 @@ namespace qrw
 			return attackResult;
 		}
 
+		this->setCurrentMovement(0);
+
 		// Attack and counter attack
 		attackResult.defenderHPDelta = this->doAttack(enemy);
 		attackResult.attackerHPDelta = enemy->doAttack(this);
@@ -223,8 +225,6 @@ namespace qrw
 		enemy->setHP(enemy->getHP() - damage);
 		if(enemy->getHP() == 0)
 			enemy->removeFromBoard();
-
-		this->setCurrentMovement(0);
 
 		return damage;
 	}
