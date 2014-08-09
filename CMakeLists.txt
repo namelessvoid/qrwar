@@ -39,5 +39,7 @@ file(GLOB_RECURSE ide_files RELATIVE ${QuadRuledWar_SOURCE_DIR}
 	# glob expressions
 	${QuadRuledWar_SOURCE_DIR}/include/*.hpp
 	${QuadRuledWar_SOURCE_DIR}/res/*
+        ${QuadRuledWar_SOURCE_DIR}/.travis-scripts/*
+        ${QuadRuledWar_SOURCE_DIR}/.travis.yml
 )
 add_custom_target(QuadRuledWar SOURCES ${ide_files})
