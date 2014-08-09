@@ -1,0 +1,10 @@
+add_library(namelessgui
+	button.cpp
+	buttongroup.cpp
+	label.cpp
+	radiotogglebutton.cpp
+	signal.cpp
+	spritewidget.cpp
+	widget.cpp
+	window.cpp
+)
