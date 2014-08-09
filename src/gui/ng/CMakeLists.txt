@@ -8,3 +8,4 @@ add_library(namelessgui
 	widget.cpp
 	window.cpp
 )
+target_link_libraries(namelessgui ${SFML_LIBRARIES})
