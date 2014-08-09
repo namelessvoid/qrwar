@@ -9,7 +9,9 @@ git clone https://github.com/LaurentGomila/SFML.git
 cd SFML
 
 # build and install it
-cmake . && make && sudo make install
+cmake .
+make sfml-audio sfml-graphics sfml-window sfml-system
+sudo make install
 
 # copy FindSFML.cmake
 sudo cp cmake/Modules/FindSFML.cmake /usr/share/cmake-2.8/Modules
