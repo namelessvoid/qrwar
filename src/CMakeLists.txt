@@ -37,7 +37,7 @@ add_library(qrwarlib
 	gui/texturemanager.cpp
 )
 set_target_properties(qrwarlib PROPERTIES OUTPUT_NAME qrwar)
-target_link_libraries(qrwarlib tostring namelessgui)
+target_link_libraries(qrwarlib ${LIBS} tostring namelessgui)
 
 add_executable(qrwar main.cpp)
-target_link_libraries(qrwar ${LIBS} qrwarlib namelessgui)
+target_link_libraries(qrwar qrwarlib namelessgui)
