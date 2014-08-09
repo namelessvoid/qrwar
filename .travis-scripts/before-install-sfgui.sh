@@ -6,7 +6,9 @@ git clone https://github.com/TankOs/SFGUI.git
 cd SFGUI
 
 # build and install it
-cmake . && make && sudo make install
+cmake . -DSFGUI_BUILD_EXAMPLES=no -DSFGUI_BUILD_DOC=no
+make
+sudo make install
 
 #copy FindSFGUI.cmake
 sudo cp cmake/FindSFGUI.cmake /usr/share/cmake-2.8/Modules
