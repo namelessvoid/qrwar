@@ -2,24 +2,16 @@
 #define QRW_UNIT_HPP
 
 #include <string>
-// #include "engine/player.hpp"
 
-#include "engine/coordinates.hpp"
+#include "engine/unittypes.hpp"
 
 namespace qrw
 {
 	class Player;
 	class Square;
 	class Board;
+	class Coordinates;
 	class Path;
-
-	enum UNITTYPES
-	{
-		EUT_SWORDMAN,
-		EUT_ARCHER,
-		EUT_SPEARMAN,
-		EUT_NUMBEROFUNITTYPES
-	};
 
 	class Unit
 	{

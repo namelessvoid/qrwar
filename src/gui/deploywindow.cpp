@@ -1,10 +1,18 @@
 #include <stdio.h>
 
-#include "tostring.hpp"
 #include "gui/deploywindow.hpp"
+
+#include "engine/engine.hpp"
+#include "engine/player.hpp"
+
+#include "tostring.hpp"
 #include "gui/texturemanager.hpp"
 #include "gui/guihandler.hpp"
+#include "gui/ingamewindow.hpp"
 #include "gui/cursor.hpp"
+
+#include "gui/ng/radiotogglebutton.hpp"
+#include "gui/ng/buttongroup.hpp"
 
 namespace qrw
 {

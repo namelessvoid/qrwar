@@ -1,0 +1,17 @@
+#ifndef QRW_TERRAINTYPES_HPP
+#define QRW_TERRAINTYPES_HPP
+
+namespace qrw
+{
+
+enum TERRAINTYPES
+{
+	ET_WOOD,
+	ET_HILL,
+	ET_WALL,
+	ET_NUMBEROFTERRAINTYPES
+};
+
+} // namespace qrw
+
+#endif // QRW_TERRAINTYPES_HPP

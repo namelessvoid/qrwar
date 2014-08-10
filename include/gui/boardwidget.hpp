@@ -7,14 +7,16 @@
 #include <SFML/Graphics/Texture.hpp>
 #include <SFML/Window/Event.hpp>
 
-#include "engine/board.hpp"
-#include "gui/texturemanager.hpp"
-#include "gui/ng/spritewidget.hpp"
+#include "engine/unittypes.hpp"
+#include "engine/terraintypes.hpp"
+
+#include "gui/ng/widget.hpp"
 
 namespace qrw
 {
 	class GuiHandler;
 	class DeployWindow;
+	class Board;
 	class Engine;
 	class Path;
 

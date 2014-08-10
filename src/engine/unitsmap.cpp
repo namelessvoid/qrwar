@@ -1,5 +1,7 @@
 #include "engine/unitsmap.hpp"
 
+#include "engine/unit.hpp"
+
 namespace qrw
 {
 	UnitsMap::UnitsMap()

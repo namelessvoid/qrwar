@@ -4,19 +4,24 @@
 #include <SFML/Graphics/RenderTarget.hpp>
 #include <SFML/Graphics/Text.hpp>
 
-#include "engine/engine.hpp"
-#include "engine/unit.hpp"
 #include "gui/ng/window.hpp"
-#include "gui/ng/button.hpp"
-#include "gui/ng/buttongroup.hpp"
-#include "gui/ng/radiotogglebutton.hpp"
-#include "gui/ingamewindow.hpp"
 
 #define BUTTONCOUNT 10
 
+namespace namelessgui
+{
+	class Button;
+	class ButtonGroup;
+	class RadioToggleButton;
+	class Label;
+} // namespace namelessgui
+
 namespace qrw
 {
+
+	class Engine;
 	class GuiHandler;
+	class IngameWindow;
 
 	class DeployWindow : public namelessgui::Window
 	{

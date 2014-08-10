@@ -5,6 +5,7 @@
 #include <SFML/Graphics/RenderTarget.hpp>
 
 #include "gui/cursor.hpp"
+#include "engine/board.hpp"
 
 namespace qrw
 {

@@ -3,11 +3,12 @@
 
 #include <vector>
 
-#include "engine/unit.hpp"
 #include "engine/unitsmap.hpp"
 
 namespace qrw
 {
+	class Unit;
+
 	/**
 	 * @brief The army represents a group of units that belong to a player.
 	 *

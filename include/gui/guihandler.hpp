@@ -6,13 +6,13 @@
 #include <SFGUI/Desktop.hpp>
 #include <SFGUI/Window.hpp>
 
-#include "engine/engine.hpp"
-#include "gui/ingamewindow.hpp"
-#include "gui/boardwidget.hpp"
-#include "gui/deploywindow.hpp"
-
 namespace qrw
 {
+	class Engine;
+	class BoardWidget;
+	class DeployWindow;
+	class IngameWindow;
+
 	/**
 	 * @brief Enum holding all window ids.
 	 */

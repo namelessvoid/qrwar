@@ -4,7 +4,6 @@
 #include <vector>
 #include <string>
 
-#include "engine/unit.hpp"
 #include "engine/army.hpp"
 
 namespace qrw

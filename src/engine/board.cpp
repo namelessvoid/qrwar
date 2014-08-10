@@ -1,6 +1,7 @@
 #include <stdio.h>
 
 #include "engine/board.hpp"
+#include "engine/square.hpp"
 #include "engine/pathfinding/astar.hpp"
 
 namespace qrw

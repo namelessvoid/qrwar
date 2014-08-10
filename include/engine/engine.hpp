@@ -3,11 +3,15 @@
 
 #include <map>
 
-#include "engine/board.hpp"
+#include "engine/unittypes.hpp"
+#include "engine/terraintypes.hpp"
 #include "engine/player.hpp"
+#include "engine/coordinates.hpp"
 
 namespace qrw
 {
+	class Board;
+
 	enum ENGINSTATES
 	{
 		EES_UNDEFINED,

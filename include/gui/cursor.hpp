@@ -5,11 +5,12 @@
 #include <SFML/Graphics/RectangleShape.hpp>
 #include <SFML/Graphics/Drawable.hpp>
 
-#include "engine/board.hpp"
 #include "engine/coordinates.hpp"
 
 namespace qrw
 {
+	class Board;
+
 	class Cursor : public sf::RectangleShape
 	{
 		public:

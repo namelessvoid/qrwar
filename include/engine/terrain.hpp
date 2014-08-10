@@ -1,20 +1,14 @@
 #ifndef QRW_TERRAIN_HPP
 #define QRW_TERRAIN_HPP
 
+#include "engine/terraintypes.hpp"
+
 namespace qrw
 {
 	enum MODIFICATORS
 	{
 		EM_ATTACK,
 		EM_DEFENSE
-	};
-
-	enum TERRAINTYPES
-	{
-		ET_WOOD,
-		ET_HILL,
-		ET_WALL,
-		ET_NUMBEROFTERRAINTYPES
 	};
 
 	class Terrain

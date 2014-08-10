@@ -2,6 +2,7 @@
 #include <cppunit/TestFixture.h>
 
 #include "engine/board.hpp"
+#include "engine/square.hpp"
 #include "engine/unit.hpp"
 #include "engine/pathfinding/node.hpp"
 #include "engine/pathfinding/path.hpp"
