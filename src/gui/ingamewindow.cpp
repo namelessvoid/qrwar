@@ -1,16 +1,20 @@
-#include <stdio.h>
-
 #include <SFGUI/Button.hpp>
 #include <SFGUI/Table.hpp>
 #include <SFGUI/Label.hpp>
 #include <SFGUI/Separator.hpp>
 
 #include "tostring.hpp"
+#include "engine/engine.hpp"
+#include "engine/board.hpp"
+#include "engine/square.hpp"
 #include "gui/ingamewindow.hpp"
 #include "gui/cursor.hpp"
 #include "gui/imagemanager.hpp"
 #include "gui/texturemanager.hpp"
 #include "gui/guihandler.hpp"
+
+#include "gui/ng/spritewidget.hpp"
+#include "gui/ng/button.hpp"
 
 namespace qrw
 {
@@ -18,8 +22,8 @@ namespace qrw
 	: engine(engine),
 	  guihandler(guihandler),
 	  // TODO: Dynamic size
-	  endturnbutton(guihandler->getRenderWindow(), 100.0, 40.0),
-	  playernamelabel(guihandler->getRenderWindow(), 100.0, 40.0),
+	  endturnbutton(new namelessgui::Button(guihandler->getRenderWindow(), 100.0, 40.0)),
+	  playernamelabel(new namelessgui::Label(guihandler->getRenderWindow(), 100.0, 40.0)),
 
 	  unitplainsquare(new namelessgui::SpriteWidget(guihandler->getRenderWindow(), 32, 32)),
 	  healthsprite(new namelessgui::SpriteWidget(guihandler->getRenderWindow(), 32, 32)),
@@ -41,12 +45,12 @@ namespace qrw
 	  terraindefensetext(new namelessgui::Label(guihandler->getRenderWindow()))
 	{
 		defaultfont->loadFromFile("./res/font/Knigqst.ttf");
-		playernamelabel.setFont(*defaultfont);
-		playernamelabel.setCharacterSize(25);
-		playernamelabel.setText("Player name");
-		playernamelabel.setPosition(625.0, 0.0);
-		playernamelabel.setColor(sf::Color::White);
-		addWidget(&playernamelabel);
+		playernamelabel->setFont(*defaultfont);
+		playernamelabel->setCharacterSize(25);
+		playernamelabel->setText("Player name");
+		playernamelabel->setPosition(625.0, 0.0);
+		playernamelabel->setColor(sf::Color::White);
+		addWidget(playernamelabel);
 
 		TextureManager* texturemanager = TextureManager::getInstance();
 
@@ -150,14 +154,14 @@ namespace qrw
 		terraindefensetext->setCharacterSize(30);
 		addWidget(terraindefensetext);
 
-		endturnbutton.setText("End turn!");
-		endturnbutton.setTextures(texturemanager->getTexture("nextbutton"),
+		endturnbutton->setText("End turn!");
+		endturnbutton->setTextures(texturemanager->getTexture("nextbutton"),
 			texturemanager->getTexture("nextbutton_active"),
 			texturemanager->getTexture("nextbutton_hover"));
-		endturnbutton.setPosition(sf::Vector2f(700, 560));
-		endturnbutton.setScale(sf::Vector2f(1, 1));
-		endturnbutton.signalclicked.connect(std::bind(&IngameWindow::changeplayerbuttonClicked, this));
-		addWidget(&endturnbutton);
+		endturnbutton->setPosition(sf::Vector2f(700, 560));
+		endturnbutton->setScale(sf::Vector2f(1, 1));
+		endturnbutton->signalclicked.connect(std::bind(&IngameWindow::changeplayerbuttonClicked, this));
+		addWidget(endturnbutton);
 	}
 
 	IngameWindow::~IngameWindow()
@@ -191,7 +195,7 @@ namespace qrw
 	void IngameWindow::update()
 	{
 		// Update player name
-		playernamelabel.setText(engine->getCurrentPlayer().getName());
+		playernamelabel->setText(engine->getCurrentPlayer().getName());
 		// Update Square information
 		Board* board = engine->getBoard();
 		Cursor* cursor = Cursor::getCursor()->getChild();

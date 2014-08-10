@@ -3,13 +3,14 @@
 
 #include <SFGUI/Window.hpp>
 
-#include "engine/engine.hpp"
-#include "gui/guihandler.hpp"
-#include "gui/ingamewindow.hpp"
-#include "gui/deploywindow.hpp"
-
 namespace qrw
 {
+	class Engine;
+	class GuiHandler;
+	class IngameWindow;
+	class DeployWindow;
+	class BoardWidget;
+
 	class StartGameWindow : public sfg::Window
 	{
 		public:

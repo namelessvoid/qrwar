@@ -1,10 +1,12 @@
-#include <stdio.h>
+#include "engine/engine.hpp"
 
 #include "gui/guihandler.hpp"
+#include "gui/boardwidget.hpp"
 #include "gui/mainwindow.hpp"
 #include "gui/settingswindow.hpp"
 #include "gui/startgamewindow.hpp"
 #include "gui/ingamewindow.hpp"
+#include "gui/deploywindow.hpp"
 #include "gui/cursor.hpp"
 #include "gui/animation.hpp"
 

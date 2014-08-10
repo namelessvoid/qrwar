@@ -1,6 +1,7 @@
-#include <iostream>
+#include "SFGUI/SFGUI.hpp"
 
 #include "gui/mainwindow.hpp"
+#include "gui/guihandler.hpp"
 
 namespace qrw
 {

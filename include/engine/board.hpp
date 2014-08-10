@@ -3,13 +3,12 @@
 
 #include <SFML/System/Vector2.hpp>
 
-#include "engine/square.hpp"
-#include "engine/coordinates.hpp"
-
 namespace qrw
 {
 	class AbstractAlgorithm;
 	class Path;
+	class Coordinates;
+	class Square;
 
 	class Board
 	{

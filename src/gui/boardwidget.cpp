@@ -16,10 +16,15 @@
 
 #include "engine/engine.hpp"
 #include "engine/player.hpp"
+#include "engine/board.hpp"
+#include "engine/square.hpp"
 #include "engine/pathfinding/path.hpp"
+
+#include "gui/texturemanager.hpp"
 #include "gui/guihandler.hpp"
 #include "gui/cursor.hpp"
 #include "gui/damagenumber.hpp"
+#include "gui/deploywindow.hpp"
 
 namespace qrw
 {

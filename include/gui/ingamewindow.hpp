@@ -1,19 +1,23 @@
 #ifndef QRW_INGAMEWINDOW_HPP
 #define QRW_INGAMEWINDOW_HPP
 
-#include <SFML/System/Vector2.hpp>
-#include <SFML/Window/Event.hpp>
-#include <SFML/Graphics/RectangleShape.hpp>
+#include <SFML/Graphics/Font.hpp>
 
-#include "engine/engine.hpp"
 #include "engine/unit.hpp"
 #include "engine/terrain.hpp"
+
 #include "gui/ng/window.hpp"
-#include "gui/ng/button.hpp"
-#include "gui/ng/label.hpp"
+
+namespace namelessgui
+{
+class Label;
+class SpriteWidget;
+class Button;
+} // namespace namelessgui
 
 namespace qrw
 {
+	class Engine;
 	class GuiHandler;
 
 	class IngameWindow : public namelessgui::Window
@@ -32,8 +36,8 @@ namespace qrw
 			GuiHandler* guihandler;
 
 			// Widgets
-			namelessgui::Button endturnbutton;
-			namelessgui::Label playernamelabel;
+			namelessgui::Button* endturnbutton;
+			namelessgui::Label* playernamelabel;
 
 			// Sprites for unit information
 			namelessgui::SpriteWidget* unitplainsquare;

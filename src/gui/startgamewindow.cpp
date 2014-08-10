@@ -1,4 +1,3 @@
-#include <stdio.h>
 #include <memory>
 
 #include <SFGUI/Button.hpp>
@@ -6,11 +5,18 @@
 #include <SFGUI/Table.hpp>
 #include <SFGUI/SpinButton.hpp>
 #include <SFGUI/Image.hpp>
+#include <SFGUI/Separator.hpp>
 
+#include "engine/engine.hpp"
+#include "engine/unit.hpp"
+
+#include "gui/guihandler.hpp"
+#include "gui/boardwidget.hpp"
 #include "gui/startgamewindow.hpp"
+#include "gui/deploywindow.hpp"
+#include "gui/ingamewindow.hpp"
 #include "gui/imagemanager.hpp"
 #include "gui/cursor.hpp"
-#include "engine/unit.hpp"
 
 namespace qrw
 {

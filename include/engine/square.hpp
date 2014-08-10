@@ -1,12 +1,13 @@
 #ifndef QRW_SQUARE_HPP
 #define QRW_SQUARE_HPP
 
-#include "engine/terrain.hpp"
-#include "engine/unit.hpp"
 #include "engine/coordinates.hpp"
 
 namespace qrw
 {
+	class Terrain;
+	class Unit;
+
 	class Square
 	{
 		public:

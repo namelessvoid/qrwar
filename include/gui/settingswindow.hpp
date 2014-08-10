@@ -3,7 +3,6 @@
 
 #include <SFGUI/Window.hpp>
 
-
 namespace qrw
 {
 	class SettingsWindow : public sfg::Window

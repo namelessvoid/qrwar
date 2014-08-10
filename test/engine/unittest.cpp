@@ -5,6 +5,7 @@
 #include "engine/board.hpp"
 #include "engine/square.hpp"
 #include "engine/player.hpp"
+#include "engine/terrain.hpp"
 #include "engine/coordinates.hpp"
 
 class UnitTest : public CppUnit::TestFixture

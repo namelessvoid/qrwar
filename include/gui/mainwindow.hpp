@@ -3,10 +3,10 @@
 
 #include <SFGUI/Window.hpp>
 
-#include "gui/guihandler.hpp"
-
 namespace qrw
 {
+	class GuiHandler;
+
 	class MainWindow : public sfg::Window
 	{
 		public:

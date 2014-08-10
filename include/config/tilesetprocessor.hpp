@@ -6,10 +6,10 @@
 
 #include "config/xmlhelper.hpp"
 
-#include "gui/texturemanager.hpp"
-
 namespace qrw
 {
+	class TextureManager;
+
 	class TilesetProcessor : public XMLHelper
 	{
 		public:

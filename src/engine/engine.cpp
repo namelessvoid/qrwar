@@ -2,6 +2,8 @@
 #include <climits>
 
 #include "engine/engine.hpp"
+#include "engine/board.hpp"
+#include "engine/square.hpp"
 
 namespace qrw
 {
