@@ -3,9 +3,10 @@
 
 #include <map>
 
-#include "engine/terrain.hpp"
-#include "engine/unit.hpp"
+#include "engine/unittypes.hpp"
+#include "engine/terraintypes.hpp"
 #include "engine/player.hpp"
+#include "engine/coordinates.hpp"
 
 namespace qrw
 {

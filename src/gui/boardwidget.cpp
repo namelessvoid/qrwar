@@ -15,6 +15,8 @@
 #include <stdio.h>
 
 #include "engine/engine.hpp"
+#include "engine/unit.hpp"
+#include "engine/terrain.hpp"
 #include "engine/player.hpp"
 #include "engine/board.hpp"
 #include "engine/square.hpp"

@@ -4,10 +4,12 @@
 #include <set>
 #include <map>
 
-#include "engine/unit.hpp"
+#include "engine/unittypes.hpp"
 
 namespace qrw
 {
+	class Unit;
+
 	/**
 	 * @brief Used to save units ordered by UNITTYPES.
 	 *

@@ -7,8 +7,8 @@
 #include <SFML/Graphics/Texture.hpp>
 #include <SFML/Window/Event.hpp>
 
-#include "engine/terrain.hpp"
-#include "engine/unit.hpp"
+#include "engine/unittypes.hpp"
+#include "engine/terraintypes.hpp"
 
 #include "gui/ng/widget.hpp"
 

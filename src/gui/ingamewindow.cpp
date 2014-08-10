@@ -5,6 +5,8 @@
 
 #include "tostring.hpp"
 #include "engine/engine.hpp"
+#include "engine/unit.hpp"
+#include "engine/terrain.hpp"
 #include "engine/board.hpp"
 #include "engine/square.hpp"
 #include "gui/ingamewindow.hpp"

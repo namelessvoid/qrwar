@@ -3,8 +3,8 @@
 
 #include <SFML/Graphics/Font.hpp>
 
-#include "engine/unit.hpp"
-#include "engine/terrain.hpp"
+#include "engine/unittypes.hpp"
+#include "engine/terraintypes.hpp"
 
 #include "gui/ng/window.hpp"
 
