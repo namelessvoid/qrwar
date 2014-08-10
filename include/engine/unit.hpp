@@ -3,6 +3,8 @@
 
 #include <string>
 
+#include "engine/unittypes.hpp"
+
 namespace qrw
 {
 	class Player;
@@ -10,14 +12,6 @@ namespace qrw
 	class Board;
 	class Coordinates;
 	class Path;
-
-	enum UNITTYPES
-	{
-		EUT_SWORDMAN,
-		EUT_ARCHER,
-		EUT_SPEARMAN,
-		EUT_NUMBEROFUNITTYPES
-	};
 
 	class Unit
 	{

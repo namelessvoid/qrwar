@@ -1,0 +1,17 @@
+#ifndef QRW_UNITTYPES_HPP
+#define QRW_UNITTYPES_HPP
+
+namespace qrw
+{
+
+enum UNITTYPES
+{
+	EUT_SWORDMAN,
+	EUT_ARCHER,
+	EUT_SPEARMAN,
+	EUT_NUMBEROFUNITTYPES
+};
+
+}
+
+#endif // QRW_UNITTYPES_HPP
