@@ -5,7 +5,7 @@ project(QuadRuledWar)
 set(CMAKE_BUILD_TYPE Debug)
 set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} ${QuadRuledWar_SOURCE_DIR}/cmake/Modules)
 set(CMAKE_CXX_FLAGS "-std=c++11 -g")
-set(EXECUTABLE_OUTPUT_PATH bin)
+set(EXECUTABLE_OUTPUT_PATH ${CMAKE_SOURCE_DIR}/bin)
 
 # extern libraries
 find_package(SFML 2.0 REQUIRED graphics system window audio)
