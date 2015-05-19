@@ -111,18 +111,18 @@ Third party resources
 .. _TinyXml: http://www.grinninglizard.com/tinyxml2/index.html
 
 .. Images:
-.. |HP| image:: https://raw.github.com/namelessvoid/qrwar/master/res/img/gui/health.png
-.. |Attack| image:: https://raw.github.com/namelessvoid/qrwar/master/res/img/gui/attack.png
-.. |Defense| image:: https://raw.github.com/namelessvoid/qrwar/master/res/img/gui/defense.png
-.. |Movement| image:: https://raw.github.com/namelessvoid/qrwar/master/res/img/gui/movement.png
+.. |HP| image:: https://github.com/namelessvoid/qrwar-data/raw/master/img/gui/health.png
+.. |Attack| image:: https://github.com/namelessvoid/qrwar-data/raw/master/img/gui/attack.png
+.. |Defense| image:: https://github.com/namelessvoid/qrwar-data/raw/master/img/gui/defense.png
+.. |Movement| image:: https://github.com/namelessvoid/qrwar-data/raw/master/img/gui/movement.png
 
-.. |Archer| image:: https://raw.github.com/namelessvoid/qrwar/master/res/img/units/p1archer.png
-.. |Swordman| image:: https://raw.github.com/namelessvoid/qrwar/master/res/img/units/p1swordman.png
-.. |Spearman| image:: https://raw.github.com/namelessvoid/qrwar/master/res/img/units/p1spearman.png
+.. |Archer| image:: https://github.com/namelessvoid/qrwar-data/raw/master/img/units/p1archer.png
+.. |Swordman| image:: https://github.com/namelessvoid/qrwar-data/raw/master/img/units/p1swordman.png
+.. |Spearman| image:: https://github.com/namelessvoid/qrwar-data/raw/master/img/units/p1spearman.png
 
-.. |Wood| image:: https://raw.github.com/namelessvoid/qrwar/master/res/img/terrain/wood.png
-.. |Hill| image:: https://raw.github.com/namelessvoid/qrwar/master/res/img/terrain/hill.png
-.. |Tower| image:: https://raw.github.com/namelessvoid/qrwar/master/res/img/terrain/wall.png
+.. |Wood| image:: https://github.com/namelessvoid/qrwar-data/raw/master/img/terrain/wood.png
+.. |Hill| image:: https://github.com/namelessvoid/qrwar-data/raw/master/img/terrain/hill.png
+.. |Tower| image:: https://github.com/namelessvoid/qrwar-data/raw/master/img/terrain/wall.png
 
 
 .. Third party stuff:
