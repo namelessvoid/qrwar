@@ -4,6 +4,11 @@
 #include <memory>
 
 #include <SFGUI/SFGUI.hpp>
+#include <SFGUI/Button.hpp>
+#include <SFGUI/Label.hpp>
+#include <SFGUI/Table.hpp>
+#include <SFGUI/Entry.hpp>
+#include <SFGUI/CheckButton.hpp>
 
 #include "config/settings.hpp"
 

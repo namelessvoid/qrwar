@@ -1,5 +1,7 @@
 #include "engine/engine.hpp"
 
+#include <SFML/Graphics/RenderTarget.hpp>
+
 #include "gui/guihandler.hpp"
 #include "gui/boardwidget.hpp"
 #include "gui/mainwindow.hpp"

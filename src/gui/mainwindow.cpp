@@ -1,6 +1,9 @@
-#include "SFGUI/SFGUI.hpp"
-
 #include "gui/mainwindow.hpp"
+
+#include <SFGUI/SFGUI.hpp>
+#include <SFGUI/Button.hpp>
+#include <SFGUI/Table.hpp>
+
 #include "gui/guihandler.hpp"
 
 namespace qrw

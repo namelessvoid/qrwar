@@ -2,6 +2,8 @@
 #define QRW_GUIHANDLER_HPP
 
 #include <SFML/System/Clock.hpp>
+#include <SFML/Graphics/RenderTarget.hpp>
+
 #include <SFGUI/SFGUI.hpp>
 #include <SFGUI/Desktop.hpp>
 #include <SFGUI/Window.hpp>
