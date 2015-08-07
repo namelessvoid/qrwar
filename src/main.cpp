@@ -1,4 +1,6 @@
 #include <SFML/Graphics/RenderWindow.hpp>
+#include <SFML/Graphics/Sprite.hpp>
+#include <SFML/Window/Event.hpp>
 
 #include "engine/board.hpp"
 #include "engine/square.hpp"
