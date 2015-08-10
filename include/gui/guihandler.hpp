@@ -41,7 +41,7 @@ namespace qrw
 
 			sf::Window* getRenderWindow();
 
-			void display(sf::RenderTarget& rendertarget);
+			void display(sf::RenderWindow& renderwindow);
 
 			inline bool guiVisible() { return visible; }
 
