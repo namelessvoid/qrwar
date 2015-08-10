@@ -1,6 +1,6 @@
 #include "engine/engine.hpp"
 
-#include <SFML/Graphics/RenderTarget.hpp>
+#include <SFML/Graphics/RenderWindow.hpp>
 
 #include "gui/guihandler.hpp"
 #include "gui/boardwidget.hpp"
@@ -48,13 +48,13 @@ namespace qrw
 		// TODO: delete all member variables!
 	}
 
-	void GuiHandler::display(sf::RenderTarget& rendertarget)
+	void GuiHandler::display(sf::RenderWindow& renderwindow)
 	{
-		rendertarget.draw(*(namelessgui::Widget*)boardwidget);
-		rendertarget.draw(*(sf::Drawable*)ingamewindow);
-		rendertarget.draw(*(sf::Drawable*)deploywindow);
-		Animation::renderAll(rendertarget, clock.restart());
-		sfgui.Display((sf::RenderWindow&)rendertarget);
+		renderwindow.draw(*(namelessgui::Widget*)boardwidget);
+		renderwindow.draw(*(sf::Drawable*)ingamewindow);
+		renderwindow.draw(*(sf::Drawable*)deploywindow);
+		Animation::renderAll(renderwindow, clock.restart());
+		sfgui.Display(renderwindow);
 	}
 
 	sf::Window* GuiHandler::getRenderWindow()
