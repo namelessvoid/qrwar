@@ -43,7 +43,7 @@ namespace qrw
 
 			void display(sf::RenderTarget& rendertarget);
 
-			inline bool guiVisible() { return visible; };
+			inline bool guiVisible() { return visible; }
 
 			/**
 			 * Toggle the gui. If gui will be hidden, save the visibility stats of the windows so they can be restored
@@ -51,9 +51,9 @@ namespace qrw
 			 */
 			void toggleGui();
 
-			inline bool getQuit() { return quit; };
-			inline void setQuit(bool quit) { this->quit = quit; };
-			inline void doQuit() { this->quit = true; };
+			inline bool getQuit() { return quit; }
+			inline void setQuit(bool quit) { this->quit = quit; }
+			inline void doQuit() { this->quit = true; }
 
 			void showStartGameWindow();
 			void showSettingsWindow();
@@ -89,8 +89,8 @@ namespace qrw
 			class NoSuchWindowException
 			{
 				public:
-					NoSuchWindowException() {};
-					~NoSuchWindowException() {};
+					NoSuchWindowException() {}
+					~NoSuchWindowException() {}
 			};
 	};
 }
