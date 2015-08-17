@@ -1,4 +1,4 @@
-add_executable(test
+add_executable(unittest
     main.cpp
 	engine/boardtest.cpp
 	engine/squaretest.cpp
@@ -11,4 +11,4 @@ add_executable(test
 	gui/texturemanagertest.cpp
 	config/tilesetprocessortest.cpp
 )
-target_link_libraries(test ${LIBS} cppunit qrwarlib)
+target_link_libraries(unittest ${LIBS} cppunit qrwarlib)
