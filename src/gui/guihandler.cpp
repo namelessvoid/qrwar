@@ -14,7 +14,7 @@
 
 namespace qrw
 {
-	GuiHandler::GuiHandler(qrw::Engine* engine, sf::Window* renderwindow)
+	GuiHandler::GuiHandler(qrw::Engine* engine, sf::RenderWindow* renderwindow)
 		: engine(engine),
 		  sfgui(sfg::SFGUI()),
 		  visible(true),
@@ -57,7 +57,7 @@ namespace qrw
 		sfgui.Display(renderwindow);
 	}
 
-	sf::Window* GuiHandler::getRenderWindow()
+	sf::RenderWindow* GuiHandler::getRenderWindow()
 	{
 		return renderwindow;
 	}

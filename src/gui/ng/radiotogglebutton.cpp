@@ -4,7 +4,7 @@
 
 namespace namelessgui
 {
-	RadioToggleButton::RadioToggleButton(sf::Window* window, ButtonGroup* buttongroup,
+	RadioToggleButton::RadioToggleButton(sf::RenderWindow* window, ButtonGroup* buttongroup,
 		float width, float height,
 		std::string text, const sf::Texture* textureactive,
 		const sf::Texture* textureinainactive,

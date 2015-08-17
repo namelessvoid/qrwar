@@ -36,10 +36,10 @@ namespace qrw
 	class GuiHandler : public sfg::Desktop
 	{
 		public:
-			GuiHandler(qrw::Engine* engine, sf::Window* renderwindow);
+			GuiHandler(qrw::Engine* engine, sf::RenderWindow* renderwindow);
 			~GuiHandler();
 
-			sf::Window* getRenderWindow();
+			sf::RenderWindow* getRenderWindow();
 
 			void display(sf::RenderWindow& renderwindow);
 
@@ -75,7 +75,7 @@ namespace qrw
 
 			sf::Clock clock;
 
-			sf::Window* renderwindow;
+			sf::RenderWindow* renderwindow;
 
 			sfg::Window::Ptr windows[NUMEROFWINDOWS];
 			bool visiblestats[NUMEROFWINDOWS];

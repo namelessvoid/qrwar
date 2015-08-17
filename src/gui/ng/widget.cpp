@@ -1,13 +1,14 @@
 #include "gui/ng/widget.hpp"
 
 #include <SFML/Window/Mouse.hpp>
+#include <SFML/Graphics/RenderWindow.hpp>
 
 #include <iostream>
 #include <stdio.h>
 
 namespace namelessgui
 {
-    Widget::Widget(sf::Window* window, float width, float height)
+	Widget::Widget(sf::RenderWindow* window, float width, float height)
         : mouseFocus(false),
           visible(true),
           leftMouseButtonPressRegistered(false),
@@ -20,7 +21,7 @@ namespace namelessgui
         size.y = height;
     }
 
-    Widget::Widget(sf::Window* window, sf::Vector2f size)
+	Widget::Widget(sf::RenderWindow* window, sf::Vector2f size)
         : Widget(window, size.x, size.y)
     {
     }

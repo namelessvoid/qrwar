@@ -5,7 +5,7 @@
 #include <SFML/Graphics/Vertex.hpp>
 #include <SFML/Graphics/VertexArray.hpp>
 #include <SFML/Graphics/PrimitiveType.hpp>
-#include <SFML/Graphics/RenderTarget.hpp>
+#include <SFML/Graphics/RenderWindow.hpp>
 #include <SFML/Graphics/Transform.hpp>
 
 #include <SFML/Graphics/CircleShape.hpp>
@@ -295,13 +295,14 @@ namespace qrw
 	void BoardWidget::updateCursor()
 	{
 		// Calculate on which field the mouse cursor is placed.
-		sf::Vector2i mousePosition = sf::Mouse::getPosition(*window);
+		sf::Vector2i mousePixelPosition = sf::Mouse::getPosition(*(sf::Window*)window);
+		sf::Vector2f mouseWorldPosition = window->mapPixelToCoords(mousePixelPosition);
 		sf::Vector2i newCursorPos;
 
-		newCursorPos.x = floor( ((float)mousePosition.x) / spritedimensions );
-		newCursorPos.y = floor( ((float)mousePosition.y) / spritedimensions );
+		newCursorPos.x = floor( mouseWorldPosition.x / spritedimensions );
+		newCursorPos.y = floor( mouseWorldPosition.y / spritedimensions );
 
-		// Boarder checks
+		// Border checks
 		if(newCursorPos.x < 0)
 			newCursorPos.x = 0;
 		else if(newCursorPos.x > board->getWidth())

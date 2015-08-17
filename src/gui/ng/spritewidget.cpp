@@ -2,7 +2,7 @@
 
 namespace namelessgui
 {
-	SpriteWidget::SpriteWidget(sf::Window* window, float width, float height)
+	SpriteWidget::SpriteWidget(sf::RenderWindow* window, float width, float height)
 		:	Widget(window, width, height),
 			sprite()
 	{

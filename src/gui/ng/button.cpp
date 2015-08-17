@@ -8,7 +8,7 @@
 namespace namelessgui
 {
 
-	Button::Button(sf::Window* window, float width, float height, std::string text,
+	Button::Button(sf::RenderWindow* window, float width, float height, std::string text,
 		const sf::Texture* textureactive,
 		const sf::Texture* textureinactive,
 		const sf::Texture* texturehover)
