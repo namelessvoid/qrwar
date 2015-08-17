@@ -8,13 +8,18 @@
 #include "gui/ng/signal.hpp"
 #include "gui/ng/singleparametersignal.hpp"
 
+namespace sf
+{
+class RenderWindow;
+}
+
 namespace namelessgui
 {
     class Widget : public sf::Drawable
     {
         public:
-            Widget(sf::Window* window, float width, float height);
-            Widget(sf::Window* window, sf::Vector2f size);
+			Widget(sf::RenderWindow* window, float width, float height);
+			Widget(sf::RenderWindow* window, sf::Vector2f size);
             ~Widget();
 
             void handleEvent(const sf::Event& event);
@@ -39,7 +44,7 @@ namespace namelessgui
 
         protected:
             bool hasMouseFocus();
-            const sf::Window* window;
+			const sf::RenderWindow* window;
             bool visible;
 
         private:

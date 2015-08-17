@@ -14,7 +14,7 @@ namespace namelessgui
 	class SpriteWidget : public Widget
 	{
 		public:
-			SpriteWidget(sf::Window* window, float width, float height);
+			SpriteWidget(sf::RenderWindow* window, float width, float height);
 
 			void draw(sf::RenderTarget& target, sf::RenderStates states) const;
 
