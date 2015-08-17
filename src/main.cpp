@@ -111,7 +111,18 @@ int main(int argc, char const *argv[])
 		elapsedtime = clock.restart().asSeconds();
 		// Event handling
 		while(renderwindow.pollEvent(event))
+		{
+			if(event.type == sf::Event::Resized)
+			{
+				std::cout << "new width: " << event.size.width << std::endl;
+				std::cout << "new height: " << event.size.height << std::endl;
+				camera.reset(sf::FloatRect(0.0f, 0.0f, event.size.width, event.size.height));
+				camera.setViewport(sf::FloatRect(0.0f, 0.0f, 1.0f, 1.0f));
+				renderwindow.setView(camera);
+			}
+
 			guihandler.HandleEvent(event);
+		} // while(poll-event)
 
 		// Rendering
 		renderwindow.clear(sf::Color::Black);
