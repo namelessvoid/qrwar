@@ -62,7 +62,7 @@ namespace qrw
 		// set up sprites for unit information
 		sf::Vector2f unitspritepos(630, 40);
 
-		unitplainsquare->setTexture(*texturemanager->getTexture("plainsquare"));
+		unitplainsquare->setTexture(texturemanager->getTexture("plainsquare"));
 		unitplainsquare->setPosition(unitspritepos);
 		unitplainsquare->setScale(1.5, 1.5);
 		addWidget(unitplainsquare);
@@ -75,27 +75,27 @@ namespace qrw
 			this->addWidget(unitimages[i]);
 			unitimages[i]->setVisible(true);
 		}
-		unitimages[EUT_SWORDMAN]->setTexture(*texturemanager->getTexture("p1swordman"));
-		unitimages[EUT_SPEARMAN]->setTexture(*texturemanager->getTexture("p1spearman"));
-		unitimages[EUT_ARCHER]->setTexture(*texturemanager->getTexture("p1archer"));
+		unitimages[EUT_SWORDMAN]->setTexture(texturemanager->getTexture("p1swordman"));
+		unitimages[EUT_SPEARMAN]->setTexture(texturemanager->getTexture("p1spearman"));
+		unitimages[EUT_ARCHER]->setTexture(texturemanager->getTexture("p1archer"));
 		std::cout << EUT_NUMBEROFUNITTYPES * 2 - 1 << std::endl;
-		unitimages[EUT_NUMBEROFUNITTYPES + EUT_SWORDMAN]->setTexture(*texturemanager->getTexture("p2swordman"));
-		unitimages[EUT_NUMBEROFUNITTYPES + EUT_SPEARMAN]->setTexture(*texturemanager->getTexture("p2spearman"));
-		unitimages[EUT_NUMBEROFUNITTYPES + EUT_ARCHER]->setTexture(*texturemanager->getTexture("p2archer"));
+		unitimages[EUT_NUMBEROFUNITTYPES + EUT_SWORDMAN]->setTexture(texturemanager->getTexture("p2swordman"));
+		unitimages[EUT_NUMBEROFUNITTYPES + EUT_SPEARMAN]->setTexture(texturemanager->getTexture("p2spearman"));
+		unitimages[EUT_NUMBEROFUNITTYPES + EUT_ARCHER]->setTexture(texturemanager->getTexture("p2archer"));
 
-		healthsprite->setTexture(*texturemanager->getTexture("health"));
+		healthsprite->setTexture(texturemanager->getTexture("health"));
 		healthsprite->setPosition(unitspritepos.x + 52, unitspritepos.y);
 		addWidget(healthsprite);
 
-		unitattacksprite->setTexture(*texturemanager->getTexture("attack"));
+		unitattacksprite->setTexture(texturemanager->getTexture("attack"));
 		unitattacksprite->setPosition(unitspritepos.x + 52, unitspritepos.y + 70);
 		addWidget(unitattacksprite);
 
-		unitdefensesprite->setTexture(*texturemanager->getTexture("defense"));
+		unitdefensesprite->setTexture(texturemanager->getTexture("defense"));
 		unitdefensesprite->setPosition(unitspritepos.x + 52, unitspritepos.y + 105);
 		addWidget(unitdefensesprite);
 
-		movementsprite->setTexture(*texturemanager->getTexture("movement"));
+		movementsprite->setTexture(texturemanager->getTexture("movement"));
 		movementsprite->setPosition(unitspritepos.x + 52,unitspritepos.y + 35);
 		addWidget(movementsprite);
 
@@ -108,20 +108,20 @@ namespace qrw
 			terrainimages[i]->setScale(1.5, 1.5);
 			this->addWidget(terrainimages[i]);
 		}
-		terrainimages[ET_WOOD]->setTexture(*texturemanager->getTexture("wood"));
-		terrainimages[ET_HILL]->setTexture(*texturemanager->getTexture("hill"));
-		terrainimages[ET_WALL]->setTexture(*texturemanager->getTexture("wall"));
+		terrainimages[ET_WOOD]->setTexture(texturemanager->getTexture("wood"));
+		terrainimages[ET_HILL]->setTexture(texturemanager->getTexture("hill"));
+		terrainimages[ET_WALL]->setTexture(texturemanager->getTexture("wall"));
 
-		terrainplainsquare->setTexture(*texturemanager->getTexture("plainsquare"));
+		terrainplainsquare->setTexture(texturemanager->getTexture("plainsquare"));
 		terrainplainsquare->setPosition(terrainspritepos);
 		terrainplainsquare->setScale(1.5, 1.5);
 		addWidget(terrainplainsquare);
 
-		terrainattacksprite->setTexture(*texturemanager->getTexture("attack"));
+		terrainattacksprite->setTexture(texturemanager->getTexture("attack"));
 		terrainattacksprite->setPosition(terrainspritepos.x + 52, terrainspritepos.y);
 		addWidget(terrainattacksprite);
 
-		terraindefensesprite->setTexture(*texturemanager->getTexture("defense"));
+		terraindefensesprite->setTexture(texturemanager->getTexture("defense"));
 		terraindefensesprite->setPosition(terrainspritepos.x + 52, terrainspritepos.y + 35);
 		addWidget(terraindefensesprite);
 

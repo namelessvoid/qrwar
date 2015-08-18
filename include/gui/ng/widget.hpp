@@ -28,8 +28,8 @@ namespace namelessgui
 
             void disconnectAllSignals();
 
-            void setSize(sf::Vector2f size);
-            sf::Vector2f getSize() const;
+			void setSize(sf::Vector2f size);
+			sf::Vector2f getSize() const;
 
             virtual sf::FloatRect getGlobalBounds() = 0;
 

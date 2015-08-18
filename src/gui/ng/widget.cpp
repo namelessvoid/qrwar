@@ -136,13 +136,13 @@ namespace namelessgui
         this->signalmouseentered.disconnectAll();
     }
 
-    void Widget::setSize(sf::Vector2f size)
-    {
-        this->size = size;
-    }
+	void Widget::setSize(sf::Vector2f size)
+	{
+		this->size = size;
+	}
 
-    sf::Vector2f Widget::getSize() const
-    {
-        return size;
-    }
+	sf::Vector2f Widget::getSize() const
+	{
+		return size;
+	}
 }
