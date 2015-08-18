@@ -11,10 +11,10 @@
 
 namespace namelessgui
 {
-class SpriteWidget : public Widget, public sf::RectangleShape
+class RectangularWidget : public Widget, public sf::RectangleShape
 {
 public:
-	SpriteWidget(sf::RenderWindow* window, float width, float height);
+	RectangularWidget(sf::RenderWindow* window, float width, float height);
 
 	sf::Vector2f getSize() const;
 
