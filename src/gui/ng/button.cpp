@@ -12,9 +12,9 @@ namespace namelessgui
 		const sf::Texture* textureactive,
 		const sf::Texture* textureinactive,
 		const sf::Texture* texturehover)
-	: SpriteWidget(window, width, height),
+	: RectangularWidget(window, width, height),
 	  label(new Label(window)),
-	  image(new SpriteWidget(window, 48, 48)),
+	  image(new RectangularWidget(window, 48, 48)),
 	  defaultfont(new sf::Font()),
 	  state(ES_INACTIVE)
 	{
@@ -59,7 +59,7 @@ namespace namelessgui
 
 	void Button::setPosition(float x, float y)
 	{
-		SpriteWidget::setPosition(x, y);
+		RectangularWidget::setPosition(x, y);
 		image->setPosition(x, y);
 		if(image->getTexture() != NULL)
 		{

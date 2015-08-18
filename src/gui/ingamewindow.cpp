@@ -27,15 +27,15 @@ namespace qrw
 	  endturnbutton(new namelessgui::Button(guihandler->getRenderWindow(), 100.0, 40.0)),
 	  playernamelabel(new namelessgui::Label(guihandler->getRenderWindow(), 100.0, 40.0)),
 
-	  unitplainsquare(new namelessgui::SpriteWidget(guihandler->getRenderWindow(), 32, 32)),
-	  healthsprite(new namelessgui::SpriteWidget(guihandler->getRenderWindow(), 32, 32)),
-	  unitattacksprite(new namelessgui::SpriteWidget(guihandler->getRenderWindow(), 32, 32)),
-	  unitdefensesprite(new namelessgui::SpriteWidget(guihandler->getRenderWindow(), 32, 32)),
-	  movementsprite(new namelessgui::SpriteWidget(guihandler->getRenderWindow(), 32, 32)),
+	  unitplainsquare(new namelessgui::RectangularWidget(guihandler->getRenderWindow(), 32, 32)),
+	  healthsprite(new namelessgui::RectangularWidget(guihandler->getRenderWindow(), 32, 32)),
+	  unitattacksprite(new namelessgui::RectangularWidget(guihandler->getRenderWindow(), 32, 32)),
+	  unitdefensesprite(new namelessgui::RectangularWidget(guihandler->getRenderWindow(), 32, 32)),
+	  movementsprite(new namelessgui::RectangularWidget(guihandler->getRenderWindow(), 32, 32)),
 
-	  terrainplainsquare(new namelessgui::SpriteWidget(guihandler->getRenderWindow(), 32, 32)),
-	  terrainattacksprite(new namelessgui::SpriteWidget(guihandler->getRenderWindow(), 32, 32)),
-	  terraindefensesprite(new namelessgui::SpriteWidget(guihandler->getRenderWindow(), 32, 32)),
+	  terrainplainsquare(new namelessgui::RectangularWidget(guihandler->getRenderWindow(), 32, 32)),
+	  terrainattacksprite(new namelessgui::RectangularWidget(guihandler->getRenderWindow(), 32, 32)),
+	  terraindefensesprite(new namelessgui::RectangularWidget(guihandler->getRenderWindow(), 32, 32)),
 
 	  defaultfont(new sf::Font()),
 
@@ -69,7 +69,7 @@ namespace qrw
 
 		for(int i =  0; i < EUT_NUMBEROFUNITTYPES * 2; ++i)
 		{
-			unitimages[i] = new namelessgui::SpriteWidget(guihandler->getRenderWindow(), 32, 32);
+			unitimages[i] = new namelessgui::RectangularWidget(guihandler->getRenderWindow(), 32, 32);
 			unitimages[i]->setPosition(unitspritepos.x, unitspritepos.y);
 			unitimages[i]->setScale(1.5, 1.5);
 			this->addWidget(unitimages[i]);
@@ -103,7 +103,7 @@ namespace qrw
 		sf::Vector2f terrainspritepos(630, 210);
 		for(int i = 0; i < ET_NUMBEROFTERRAINTYPES; ++i)
 		{
-			terrainimages[i] = new namelessgui::SpriteWidget(guihandler->getRenderWindow(), 32, 32);
+			terrainimages[i] = new namelessgui::RectangularWidget(guihandler->getRenderWindow(), 32, 32);
 			terrainimages[i]->setPosition(terrainspritepos.x, terrainspritepos.y);
 			terrainimages[i]->setScale(1.5, 1.5);
 			this->addWidget(terrainimages[i]);

@@ -11,7 +11,7 @@
 namespace namelessgui
 {
 class Label;
-class SpriteWidget;
+class RectangularWidget;
 class Button;
 } // namespace namelessgui
 
@@ -40,16 +40,16 @@ namespace qrw
 			namelessgui::Label* playernamelabel;
 
 			// Sprites for unit information
-			namelessgui::SpriteWidget* unitplainsquare;
-			namelessgui::SpriteWidget* healthsprite;
-			namelessgui::SpriteWidget* unitattacksprite;
-			namelessgui::SpriteWidget* unitdefensesprite;
-			namelessgui::SpriteWidget* movementsprite;
+			namelessgui::RectangularWidget* unitplainsquare;
+			namelessgui::RectangularWidget* healthsprite;
+			namelessgui::RectangularWidget* unitattacksprite;
+			namelessgui::RectangularWidget* unitdefensesprite;
+			namelessgui::RectangularWidget* movementsprite;
 
 			// Sprites for terrain information
-			namelessgui::SpriteWidget* terrainplainsquare;
-			namelessgui::SpriteWidget* terrainattacksprite;
-			namelessgui::SpriteWidget* terraindefensesprite;
+			namelessgui::RectangularWidget* terrainplainsquare;
+			namelessgui::RectangularWidget* terrainattacksprite;
+			namelessgui::RectangularWidget* terraindefensesprite;
 
 			sf::Font* defaultfont;
 
@@ -60,8 +60,8 @@ namespace qrw
 			namelessgui::Label* terrainattacktext;
 			namelessgui::Label* terraindefensetext;
 
-			namelessgui::SpriteWidget* unitimages[EUT_NUMBEROFUNITTYPES * 2];
-			namelessgui::SpriteWidget* terrainimages[ET_NUMBEROFTERRAINTYPES];
+			namelessgui::RectangularWidget* unitimages[EUT_NUMBEROFUNITTYPES * 2];
+			namelessgui::RectangularWidget* terrainimages[ET_NUMBEROFTERRAINTYPES];
 	};
 }
 

@@ -11,7 +11,7 @@
 
 namespace namelessgui
 {
-	class Button : public SpriteWidget
+	class Button : public RectangularWidget
 	{
 		public:
 			enum STATES
@@ -43,7 +43,7 @@ namespace namelessgui
 
 		protected:
 			Label* label;
-			SpriteWidget* image;
+			RectangularWidget* image;
 
 
 		private:
