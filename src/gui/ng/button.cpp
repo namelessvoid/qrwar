@@ -14,6 +14,7 @@ namespace namelessgui
 		const sf::Texture* texturehover)
 	: SpriteWidget(window, width, height),
 	  label(new Label(window)),
+	  image(new SpriteWidget(window, 48, 48)),
 	  defaultfont(new sf::Font()),
 	  state(ES_INACTIVE)
 	{
@@ -34,6 +35,8 @@ namespace namelessgui
 		this->signalmouseentered.connect(std::bind(&Button::mouseEnteredSlot, this));
 		this->signalclicked.connect(std::bind(&Button::clickedSlot, this));
 		this->signalmouseleft.connect(std::bind(&Button::mouseLeftSlot, this));
+
+		image->setFillColor(sf::Color(255, 255, 255, 255));
 	}
 
 	Button::~Button()
@@ -57,10 +60,10 @@ namespace namelessgui
 	void Button::setPosition(float x, float y)
 	{
 		SpriteWidget::setPosition(x, y);
-		if(getTexture() != NULL)
+		image->setPosition(x, y);
+		if(image->getTexture() != NULL)
 		{
-			label->setPosition(x + getTexture()->getSize().x
-				* getScale().x, y);
+			label->setPosition(x + image->getSize().x, y);
 		}
 		else
 		{
@@ -87,7 +90,7 @@ namespace namelessgui
 	{
 		if(textures[state] != 0)
 		{
-			setTexture(*textures[state]);
+			image->setTexture(textures[state], true);
 			setPosition(getPosition());
 		}
 	}

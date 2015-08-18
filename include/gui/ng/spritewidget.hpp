@@ -3,7 +3,7 @@
 
 #include <memory>
 
-#include <SFML/Graphics/Sprite.hpp>
+#include <SFML/Graphics/RectangleShape.hpp>
 #include <SFML/Window/Window.hpp>
 #include <SFML/Graphics/RenderTarget.hpp>
 
@@ -11,32 +11,31 @@
 
 namespace namelessgui
 {
-	class SpriteWidget : public Widget
-	{
-		public:
-			SpriteWidget(sf::RenderWindow* window, float width, float height);
+class SpriteWidget : public Widget, public sf::RectangleShape
+{
+public:
+	SpriteWidget(sf::RenderWindow* window, float width, float height);
 
-			void draw(sf::RenderTarget& target, sf::RenderStates states) const;
+	sf::Vector2f getSize() const;
 
-			sf::FloatRect getGlobalBounds();
+	void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
 
-			void setScale(const sf::Vector2f scale);
+	/**
+	 * Returns the global boundaries of the widget.
+	 *
+	 * @return The global boundary rectangle.
+	 */
+	sf::FloatRect getGlobalBounds() override;
 
-			void setScale(float scalex, float scaley);
-
-			void setPosition(float x, float y);
-			void setPosition(const sf::Vector2f& position);
-
-			const sf::Vector2f& getPosition() const;
-
-			const sf::Texture* getTexture() const;
-
-			void setTexture(const sf::Texture& texture, bool resetRect = false);
-
-			const sf::Vector2f& getScale() const;
-
-		private:
-			sf::Sprite sprite;
-	};
+	/**
+	 * Sets the texture of the widget.
+	 *
+	 * Overwrites sf::RectangleShape::setTexture to set resetRecht to to true by default.
+	 *
+	 * @param texture
+	 * @param resetRect
+	 */
+	void setTexture(const sf::Texture* texture, bool resetRect = true);
+};
 }
 #endif

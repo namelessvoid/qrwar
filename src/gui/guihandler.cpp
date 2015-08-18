@@ -51,10 +51,17 @@ namespace qrw
 	void GuiHandler::display(sf::RenderWindow& renderwindow)
 	{
 		renderwindow.draw(*(namelessgui::Widget*)boardwidget);
+
+		sf::View gameView = renderwindow.getView();
+		sf::View guiView(sf::FloatRect(0, 0, renderwindow.getSize().x, renderwindow.getSize().y));
+		renderwindow.setView(guiView);
+
 		renderwindow.draw(*(sf::Drawable*)ingamewindow);
 		renderwindow.draw(*(sf::Drawable*)deploywindow);
 		Animation::renderAll(renderwindow, clock.restart());
 		sfgui.Display(renderwindow);
+
+		renderwindow.setView(gameView);
 	}
 
 	sf::RenderWindow* GuiHandler::getRenderWindow()

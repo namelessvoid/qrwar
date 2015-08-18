@@ -43,6 +43,7 @@ namespace namelessgui
 
 		protected:
 			Label* label;
+			SpriteWidget* image;
 
 
 		private:

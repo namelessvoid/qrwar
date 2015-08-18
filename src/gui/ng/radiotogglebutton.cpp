@@ -39,6 +39,7 @@ namespace namelessgui
 			target.draw(rect);
 		}
 		target.draw(*label);
-		target.draw(static_cast<SpriteWidget>(*this));
+		target.draw(static_cast<sf::RectangleShape>(*image));
+		target.draw(static_cast<sf::RectangleShape>(*this));
 	}
 }
