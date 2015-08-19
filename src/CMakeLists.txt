@@ -23,6 +23,8 @@ add_library(qrwarlib
 	engine/pathfinding/node.cpp
 	engine/pathfinding/path.cpp
 
+        gamestates/gamestate.cpp
+
 	gui/animation.cpp
 	gui/boardwidget.cpp
 	gui/cursor.cpp
