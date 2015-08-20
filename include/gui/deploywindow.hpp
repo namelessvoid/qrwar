@@ -39,6 +39,8 @@ namespace qrw
 			// Private slots
 			void startbuttonClicked();
 
+			Engine* _engine;
+
 			IngameWindow* _ingamewindow;
 			// Buttons for units and terrain
 			namelessgui::RadioToggleButton* _radiobuttons[BUTTONCOUNT];
@@ -46,8 +48,6 @@ namespace qrw
 			namelessgui::Button* _startbutton;
 			sf::Font* _defaultfont;
 			namelessgui::Label* _title;
-
-			Engine* _engine;
 	};
 }
 #endif

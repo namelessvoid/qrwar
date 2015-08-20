@@ -32,8 +32,8 @@ namespace qrw
 {
 	BoardWidget::BoardWidget(GuiHandler* guihandler, Engine* engine, float width, float height)
 	: Widget(guihandler->getRenderWindow(), width, height),
-	  _board(0),
 	  _engine(engine),
+	  _board(0),
 	  _spritedimensions(0.0),
 	  _singlespritescale(0.0),
 	  _path(0),
@@ -93,13 +93,11 @@ namespace qrw
 		int height = _board->getHeight();
 
 		sf::Vector2f spritescale(_singlespritescale, _singlespritescale);
-		sf::VertexArray vertices(sf::Lines, 0);
 		Square *square = 0;
 		Unit *unit = 0;
 		Terrain *terrain = 0;
 		sf::Vector2f currpos;
 
-		Coordinates cursorpos = Cursor::getCursor()->getPosition();
 		Coordinates childcursorpos(-1, -1);
 
 		if(Cursor::getCursor()->getChild() != 0)

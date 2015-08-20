@@ -15,8 +15,8 @@ namespace namelessgui
 	: RectangularWidget(window, width, height),
 	  _label(new Label(window)),
 	  _image(new RectangularWidget(window, 48, 48)),
-	  _defaultfont(new sf::Font()),
-	  _state(ES_INACTIVE)
+	  _state(ES_INACTIVE),
+	  _defaultfont(new sf::Font())
 	{
 		_defaultfont->loadFromFile("./res/font/Knigqst.ttf");
 		this->_label->setFont(*_defaultfont);

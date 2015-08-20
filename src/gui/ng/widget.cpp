@@ -9,13 +9,12 @@
 namespace namelessgui
 {
 	Widget::Widget(sf::RenderWindow* window, float width, float height)
-        : _mouseFocus(false),
-          _visible(true),
-          _leftMouseButtonPressRegistered(false),
-          _rightMouseButtonPressRegistered(false)
+		: _window(window),
+		  _visible(true),
+		  _leftMouseButtonPressRegistered(false),
+		  _rightMouseButtonPressRegistered(false),
+		  _mouseFocus(false)
     {
-        this->_window = window;
-
         // Set size
         _size.x = width;
         _size.y = height;

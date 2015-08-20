@@ -7,8 +7,8 @@
 namespace qrw
 {
 	Board::Board(int width, int height)
-	:	_height(height),
-		_width(width)
+	:	_width(width),
+	  _height(height)
 	{
 		int arraysize = height * width;
 		_squares = new Square*[arraysize];

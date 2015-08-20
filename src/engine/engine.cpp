@@ -220,6 +220,7 @@ namespace qrw
 		if(square->getTerrain())
 			delete square->getTerrain();
 		square->setTerrain(NULL);
+		return true;
 	}
 
 	Player* Engine::getPlayer(int id)
