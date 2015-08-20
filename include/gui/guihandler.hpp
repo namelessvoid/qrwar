@@ -36,14 +36,14 @@ namespace qrw
 	class GuiHandler : public sfg::Desktop
 	{
 		public:
-			GuiHandler(qrw::Engine* engine, sf::RenderWindow* renderwindow);
+			GuiHandler(qrw::Engine* _engine, sf::RenderWindow* _renderwindow);
 			~GuiHandler();
 
 			sf::RenderWindow* getRenderWindow();
 
-			void display(sf::RenderWindow& renderwindow);
+			void display(sf::RenderWindow& _renderwindow);
 
-			inline bool guiVisible() { return visible; }
+			inline bool guiVisible() { return _visible; }
 
 			/**
 			 * Toggle the gui. If gui will be hidden, save the visibility stats of the windows so they can be restored
@@ -51,9 +51,9 @@ namespace qrw
 			 */
 			void toggleGui();
 
-			inline bool getQuit() { return quit; }
-			inline void setQuit(bool quit) { this->quit = quit; }
-			inline void doQuit() { this->quit = true; }
+			inline bool getQuit() { return _quit; }
+			inline void setQuit(bool quit) { this->_quit = quit; }
+			inline void doQuit() { this->_quit = true; }
 
 			void showStartGameWindow();
 			void showSettingsWindow();
@@ -70,21 +70,21 @@ namespace qrw
 			 */
 			void hideAllWindows();
 
-			qrw::Engine* engine;
-			BoardWidget* boardwidget;
+			qrw::Engine* _engine;
+			BoardWidget* _boardwidget;
 
-			sf::Clock clock;
+			sf::Clock _clock;
 
-			sf::RenderWindow* renderwindow;
+			sf::RenderWindow* _renderwindow;
 
-			sfg::Window::Ptr windows[NUMEROFWINDOWS];
-			bool visiblestats[NUMEROFWINDOWS];
-			DeployWindow* deploywindow;
-			IngameWindow* ingamewindow;
+			sfg::Window::Ptr _windows[NUMEROFWINDOWS];
+			bool _visiblestats[NUMEROFWINDOWS];
+			DeployWindow* _deploywindow;
+			IngameWindow* _ingamewindow;
 
-			sfg::SFGUI sfgui;
-			bool visible;
-			bool quit;
+			sfg::SFGUI _sfgui;
+			bool _visible;
+			bool _quit;
 
 			class NoSuchWindowException
 			{

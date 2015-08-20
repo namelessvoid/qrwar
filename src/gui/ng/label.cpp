@@ -4,41 +4,41 @@ namespace namelessgui
 {
 	Label::Label(sf::RenderWindow* window, float width, float height)
 		:	Widget(window, width, height),
-			text()
+			_text()
 	{}
 
 	void Label::draw(sf::RenderTarget& target, sf::RenderStates states) const
 	{
-		target.draw(text);
+		target.draw(_text);
 	}
 
 	sf::FloatRect Label::getGlobalBounds()
 	{
-		return text.getGlobalBounds();
+		return _text.getGlobalBounds();
 	}
 
 	void Label::setFont(sf::Font& font)
 	{
-		text.setFont(font);
+		_text.setFont(font);
 	}
 
 	void Label::setColor(const sf::Color& color)
 	{
-		text.setColor(color);
+		_text.setColor(color);
 	}
 
 	void Label::setCharacterSize(unsigned int size)
 	{
-		text.setCharacterSize(size);
+		_text.setCharacterSize(size);
 	}
 
 	void Label::setText(const sf::String& text)
 	{
-		this->text.setString(text);
+		this->_text.setString(text);
 	}
 
 	void Label::setPosition(float x, float y)
 	{
-		text.setPosition(x, y);
+		_text.setPosition(x, y);
 	}
 }

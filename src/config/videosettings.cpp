@@ -5,10 +5,10 @@
 namespace qrw
 {
 	VideoSettings::VideoSettings()
-		:	resolutionX(800),
-			resolutionY(600),
-			fullscreen(false),
-			entitytilesetpath("res/defaulttileset.xml")
+		:	_resolutionX(800),
+			_resolutionY(600),
+			_fullscreen(false),
+			_entitytilesetpath("res/defaulttileset.xml")
 	{
 		setParsingErrorMsg("VideoSettings parsing error: ");
 	}
@@ -18,53 +18,53 @@ namespace qrw
 
 	void VideoSettings::setResolutionX(int resolutionX)
 	{
-		this->resolutionX = resolutionX;
+		this->_resolutionX = resolutionX;
 	}
 
 	int VideoSettings::getResolutionX()
 	{
-		return resolutionX;
+		return _resolutionX;
 	}
 
 
 	void VideoSettings::setResolutionY(int resolutionY)
 	{
-		this->resolutionY = resolutionY;
+		this->_resolutionY = resolutionY;
 	}
 
 	int VideoSettings::getResolutionY()
 	{
-		return resolutionY;
+		return _resolutionY;
 	}
 
 	void VideoSettings::setFullscreen(bool fullscreen)
 	{
-		this->fullscreen = fullscreen;
+		this->_fullscreen = fullscreen;
 	}
 
 	bool VideoSettings::getFullscreen()
 	{
-		return fullscreen;
+		return _fullscreen;
 	}
 
 	void VideoSettings::setEntityTilesetPath(std::string entitytilesetpath)
 	{
-		this->entitytilesetpath = entitytilesetpath;
+		this->_entitytilesetpath = entitytilesetpath;
 	}
 
 	std::string VideoSettings::getEntityTilesetPath()
 	{
-		return entitytilesetpath;
+		return _entitytilesetpath;
 	}
 
 	void VideoSettings::setGuiTilesetPath(std::string guitilesetpath)
 	{
-		this->guitilesetpath = guitilesetpath;
+		this->_guitilesetpath = guitilesetpath;
 	}
 
 	std::string VideoSettings::getGuiTilesetPath()
 	{
-		return guitilesetpath;
+		return _guitilesetpath;
 	}
 
 	bool VideoSettings::loadFromFile(std::string filepath)

@@ -80,19 +80,19 @@ namespace qrw
 			int getDeployedUnitCount(UNITTYPES unittype);
 
 		private:
-			int maxsize;
+			int _maxsize;
 
 			/**
 			 * @brief All units in the army.
 			 *
 			 * Contains a pointer to all units of which the army consists.
 			 */
-			UnitsMap units;
+			UnitsMap _units;
 
 			/**
 			 * @brief Units that have not been deployed yet.
 			 */
-			UnitsMap undeployedunits;
+			UnitsMap _undeployedunits;
 
 			/**
 			 * @brief Already deployed units.
@@ -101,7 +101,7 @@ namespace qrw
 			 * If all units have been deployed, it contains the same pointers as
 			 * the Army::units vector.
 			 */
-			UnitsMap deployedunits;
+			UnitsMap _deployedunits;
 	};
 }
 

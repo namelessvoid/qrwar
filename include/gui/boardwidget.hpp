@@ -23,10 +23,10 @@ namespace qrw
 	class BoardWidget : public namelessgui::Widget
 	{
 		public:
-			BoardWidget(GuiHandler* guihandler, Engine* engine, float width, float height);
+			BoardWidget(GuiHandler* guihandler, Engine* _engine, float width, float height);
 			~BoardWidget();
 
-			void setBoard(Board* board);
+			void setBoard(Board* _board);
 
 			void draw(sf::RenderTarget &target, sf::RenderStates states) const;
 
@@ -52,22 +52,22 @@ namespace qrw
 			void rightClicked();
 			void keyPressed(const sf::Event& event);
 
-			Engine* engine;
-			Board* board;
+			Engine* _engine;
+			Board* _board;
 
-			float spritedimensions;
-			float singlespritescale;
+			float _spritedimensions;
+			float _singlespritescale;
 
-			sf::Sprite* plainsquare;
-			sf::Sprite* footstep;
-			sf::Sprite* terrainsprites[ET_NUMBEROFTERRAINTYPES];
-			sf::Sprite* p1unitsprites[EUT_NUMBEROFUNITTYPES];
-			sf::Sprite* p2unitsprites[EUT_NUMBEROFUNITTYPES];
+			sf::Sprite* _plainsquare;
+			sf::Sprite* _footstep;
+			sf::Sprite* _terrainsprites[ET_NUMBEROFTERRAINTYPES];
+			sf::Sprite* _p1unitsprites[EUT_NUMBEROFUNITTYPES];
+			sf::Sprite* _p2unitsprites[EUT_NUMBEROFUNITTYPES];
 
-			Path* path;
+			Path* _path;
 
 			// Pointer to deploywindow to have acces to DeployWindow::placeEntity() and DeployWindow::moveUnit().
-			DeployWindow* deploywindow;
+			DeployWindow* _deploywindow;
 	};
 }
 

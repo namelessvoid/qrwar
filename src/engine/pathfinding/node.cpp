@@ -4,7 +4,7 @@ namespace qrw
 {
 	Node::Node(int x, int y)
 	 :	Coordinates(x, y),
-	 	parent(0)
+		_parent(0)
 	{}
 
 	Node::Node(const Coordinates& coordinates)
@@ -13,31 +13,31 @@ namespace qrw
 
 	void Node::setParent(Node* parent)
 	{
-		this->parent = parent;
+		this->_parent = parent;
 	}
 
 	Node* Node::getParent()
 	{
-		return parent;
+		return _parent;
 	}
 
 	void Node::setG(int g)
 	{
-		this->g = g;
+		this->_g = g;
 	}
 
 	int Node::getG()
 	{
-		return g;
+		return _g;
 	}
 
 	void Node::setH(int h)
 	{
-		this->h = h;
+		this->_h = h;
 	}
 
 	int Node::getF()
 	{
-		return this->getG() + h;
+		return this->getG() + _h;
 	}
 }

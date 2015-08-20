@@ -3,7 +3,7 @@
 namespace qrw
 {
 	Army::Army()
-		:	maxsize(0)
+		:	_maxsize(0)
 	{
 	}
 
@@ -13,12 +13,12 @@ namespace qrw
 
 	void Army::setMaxSize(int maxsize)
 	{
-		this->maxsize = maxsize;
+		this->_maxsize = maxsize;
 	}
 
 	bool Army::isFull()
 	{
-		return getTotalUnitCount() >= maxsize;
+		return getTotalUnitCount() >= _maxsize;
 	}
 
 	bool Army::addUnit(Unit* unit)
@@ -26,9 +26,9 @@ namespace qrw
 		if(isFull())
 			return false;
 
-		if(units.add(unit))
+		if(_units.add(unit))
 		{
-			undeployedunits.add(unit);
+			_undeployedunits.add(unit);
 			return true;
 		}
 		return false;
@@ -36,24 +36,24 @@ namespace qrw
 
 	void Army::deleteAllUnits()
 	{
-		units.deleteUnits();
-		undeployedunits.clear();
-		deployedunits.clear();
+		_units.deleteUnits();
+		_undeployedunits.clear();
+		_deployedunits.clear();
 	}
 
 	std::set<Unit*>& Army::getUnitsByType(UNITTYPES unittype)
 	{
-		return (std::set<Unit*>&) units.getUnitsByType(unittype);
+		return (std::set<Unit*>&) _units.getUnitsByType(unittype);
 	}
 
 	int* Army::getUnitCount()
 	{
-		return units.getTotalUnitCount();
+		return _units.getTotalUnitCount();
 	}
 
 	int Army::getUnitCount(UNITTYPES unittype)
 	{
-		return units.getUnitCount(unittype);
+		return _units.getUnitCount(unittype);
 	}
 
 	int Army::getTotalUnitCount()
@@ -66,15 +66,15 @@ namespace qrw
 	}
 	std::set<Unit*>& Army::getUndeployedUnitsByType(UNITTYPES unittype)
 	{
-		return (std::set<Unit*>&) undeployedunits.getUnitsByType(unittype);
+		return (std::set<Unit*>&) _undeployedunits.getUnitsByType(unittype);
 	}
 
 	bool Army::markUnitAsDeployed(Unit* unit)
 	{
-		if(undeployedunits.contains(unit))
+		if(_undeployedunits.contains(unit))
 		{
-			deployedunits.add(unit);
-			undeployedunits.remove(unit);
+			_deployedunits.add(unit);
+			_undeployedunits.remove(unit);
 			return true;
 		}
 		return false;
@@ -82,11 +82,11 @@ namespace qrw
 
 	int* Army::getTotalDeployedUnitCount()
 	{
-		return deployedunits.getTotalUnitCount();
+		return _deployedunits.getTotalUnitCount();
 	}
 
 	int Army::getDeployedUnitCount(UNITTYPES unittype)
 	{
-		return deployedunits.getUnitCount(unittype);
+		return _deployedunits.getUnitCount(unittype);
 	}
 }

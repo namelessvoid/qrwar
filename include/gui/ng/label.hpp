@@ -15,7 +15,7 @@ namespace namelessgui
 	class Label : public Widget
 	{
 		public:
-			Label(sf::RenderWindow* window, float width = 0, float height = 0);
+			Label(sf::RenderWindow* _window, float width = 0, float height = 0);
 
 			void draw(sf::RenderTarget& target, sf::RenderStates states) const;
 
@@ -25,14 +25,14 @@ namespace namelessgui
 
 			void setColor(const sf::Color& color);
 
-			void setCharacterSize(unsigned int size);
+			void setCharacterSize(unsigned int _size);
 
-			void setText(const sf::String& text);
+			void setText(const sf::String& _text);
 
 			void setPosition(float x, float y);
 
 		private:
-			sf::Text text;
+			sf::Text _text;
 	};
 }
 #endif

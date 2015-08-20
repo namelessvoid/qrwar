@@ -19,8 +19,8 @@ namespace namelessgui
 
 	void Window::setVisible(bool visible)
 	{
-		this->visible = visible;
-		for(std::vector<Widget*>::iterator iter = children.begin(); iter != children.end(); ++iter)
+		this->_visible = visible;
+		for(std::vector<Widget*>::iterator iter = _children.begin(); iter != _children.end(); ++iter)
 		{
 			(*iter)->setVisible(visible);
 		}
@@ -28,29 +28,29 @@ namespace namelessgui
 
 	bool Window::isVisible() const
 	{
-		return visible;
+		return _visible;
 	}
 
 	void Window::addWidget(Widget* widget)
 	{
-		children.push_back(widget);
+		_children.push_back(widget);
 	}
 
 	void Window::draw(sf::RenderTarget& target, sf::RenderStates states) const
 	{
-		if(visible)
+		if(_visible)
 		{
 			target.draw((sf::RectangleShape)*this);
-			for(auto iter = children.begin(); iter != children.end(); ++iter)
+			for(auto iter = _children.begin(); iter != _children.end(); ++iter)
 				target.draw(*(*iter), states);
 		}
 	}
 
 	void Window::handleEvent(const sf::Event& event)
 	{
-		if(visible)
+		if(_visible)
 		{
-			for(auto iter = children.begin(); iter != children.end(); ++iter)
+			for(auto iter = _children.begin(); iter != _children.end(); ++iter)
 				(*iter)->handleEvent(event);
 		}
 	}

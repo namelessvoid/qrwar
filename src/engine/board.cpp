@@ -7,15 +7,15 @@
 namespace qrw
 {
 	Board::Board(int width, int height)
-	:	height(height),
-		width(width)
+	:	_height(height),
+		_width(width)
 	{
 		int arraysize = height * width;
-		squares = new Square*[arraysize];
+		_squares = new Square*[arraysize];
 
 		for(int i = 0; i < width; ++i)
 			for(int j = 0; j < height; ++j)
-				squares[j * width + i] = new Square(i, j);
+				_squares[j * width + i] = new Square(i, j);
 		// squares = new Square[arraysize];
 		// printf("Array size (height*widht): %i\n", arraysize);
 		// printf("array pointer: %i", squares);
@@ -27,16 +27,16 @@ namespace qrw
 		// }
 
 		// Initialize pathfinding
-		pathfinder = new AStar;
-		pathfinder->setBoard(this);
+		_pathfinder = new AStar;
+		_pathfinder->setBoard(this);
 	}
 
 	Board::~Board()
 	{
-		for(int i = 0; i < height*width; ++i)
-			delete squares[i];
+		for(int i = 0; i < _height*_width; ++i)
+			delete _squares[i];
 		// delete[] squares;
-		delete pathfinder;
+		delete _pathfinder;
 	}
 
 	/*
@@ -44,11 +44,11 @@ namespace qrw
 	 */
 	Square* Board::getSquare(int x, int y)
 	{
-		if(x < 0 || x >= width)
+		if(x < 0 || x >= _width)
 			return 0;
-		if(y < 0 || y >= height)
+		if(y < 0 || y >= _height)
 			return 0;
-		return squares[x+y*width];
+		return _squares[x+y*_width];
 	}
 
 	Square* Board::getSquare(sf::Vector2i pos)
@@ -63,16 +63,16 @@ namespace qrw
 
 	int Board::getWidth()
 	{
-		return width;
+		return _width;
 	}
 
 	int Board::getHeight()
 	{
-		return height;
+		return _height;
 	}
 
 	Path* Board::findPath(const Coordinates &start, const Coordinates &end)
 	{
-		return pathfinder->findPath(start, end);
+		return _pathfinder->findPath(start, end);
 	}
 }

@@ -29,9 +29,9 @@ namespace qrw
 			bool isAccessible();
 
 		private:
-			Terrain* terrain;
-			Unit* unit;
-			Coordinates coordinates;
+			Terrain* _terrain;
+			Unit* _unit;
+			Coordinates _coordinates;
 	};
 }
 

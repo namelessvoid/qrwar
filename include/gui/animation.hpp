@@ -46,14 +46,14 @@ namespace qrw
 			 * This vector holds pointers to all existing animations. A animation registers itself in
 			 * its constructor and removes itself in its destructor.
 			 */
-			static std::vector<Animation*> animations;
+			static std::vector<Animation*> _animations;
 
-			float duration;
-			bool loop;
-			bool deleteonstop;
+			float _duration;
+			bool _loop;
+			bool _deleteonstop;
 
-			STATES status;
-			float totalelapsedtime;
+			STATES _status;
+			float _totalelapsedtime;
 	};
 }
 #endif

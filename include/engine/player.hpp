@@ -34,12 +34,12 @@ namespace qrw
 			Army& getArmy();
 
 	private:
-			std::string name;
-			int id;
+			std::string _name;
+			int _id;
 
-			bool active;
+			bool _active;
 
-			Army army;
+			Army _army;
 	};
 }
 
