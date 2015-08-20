@@ -1,6 +1,12 @@
 #ifndef QRW_GAMESTATE_HPP
 #define QRW_GAMESTATE_HPP
 
+// Foreward declarations
+namespace sf
+{
+class RenderWindow;
+}
+
 namespace qrw
 {
 
