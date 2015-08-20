@@ -117,11 +117,11 @@ namespace qrw
 		DeployWindow* deploywindow, BoardWidget* boardwidget,
 		GuiHandler* guihandler, int style)
 	: Window(style),
-	  engine(engine),
-	  guihandler(guihandler),
-	  ingamewindow(ingamewindow),
-	  deploywindow(deploywindow),
-	  boardwidget(boardwidget)
+	  _engine(engine),
+	  _guihandler(guihandler),
+	  _ingamewindow(ingamewindow),
+	  _deploywindow(deploywindow),
+	  _boardwidget(boardwidget)
 	{}
 
 	void StartGameWindow::startGame()
@@ -129,7 +129,7 @@ namespace qrw
 		// Init engine
 		int width = std::static_pointer_cast<sfg::SpinButton>(sfg::Widget::GetWidgetById("boardwidthspin"))->GetValue();
 		int height = std::static_pointer_cast<sfg::SpinButton>(sfg::Widget::GetWidgetById("boardheightspin"))->GetValue();
-		engine->init(width, height);
+		_engine->init(width, height);
 
 		// Create unit arrays for engine.
 		std::map<UNITTYPES, int> unitcounts;
@@ -138,21 +138,21 @@ namespace qrw
 		unitcounts[EUT_SWORDMAN] = std::static_pointer_cast<sfg::SpinButton>(sfg::Widget::GetWidgetById("p1swordspin"))->GetValue();
 		unitcounts[EUT_ARCHER] = std::static_pointer_cast<sfg::SpinButton>(sfg::Widget::GetWidgetById("p1archspin"))->GetValue();
 		unitcounts[EUT_SPEARMAN] = std::static_pointer_cast<sfg::SpinButton>(sfg::Widget::GetWidgetById("p1spearspin"))->GetValue();
-		engine->createPlayerUnits(0, unitcounts);
+		_engine->createPlayerUnits(0, unitcounts);
 
 		// Set unit counts for player two.
 		unitcounts[EUT_SWORDMAN] = std::static_pointer_cast<sfg::SpinButton>(sfg::Widget::GetWidgetById("p2swordspin"))->GetValue();
 		unitcounts[EUT_ARCHER] = std::static_pointer_cast<sfg::SpinButton>(sfg::Widget::GetWidgetById("p2archspin"))->GetValue();
 		unitcounts[EUT_SPEARMAN] = std::static_pointer_cast<sfg::SpinButton>(sfg::Widget::GetWidgetById("p2spearspin"))->GetValue();
-		engine->createPlayerUnits(1, unitcounts);
+		_engine->createPlayerUnits(1, unitcounts);
 
-		boardwidget->setBoard(engine->getBoard());
-		Cursor::getCursor()->setBoard(engine->getBoard());
-		ingamewindow->update();
-		ingamewindow->setVisible(false);
-		deploywindow->update();
-		deploywindow->setVisible(true);
-		guihandler->toggleGui();
+		_boardwidget->setBoard(_engine->getBoard());
+		Cursor::getCursor()->setBoard(_engine->getBoard());
+		_ingamewindow->update();
+		_ingamewindow->setVisible(false);
+		_deploywindow->update();
+		_deploywindow->setVisible(true);
+		_guihandler->toggleGui();
 		hide();
 	}
 

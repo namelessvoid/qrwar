@@ -23,8 +23,8 @@ namespace qrw
 			};
 
 		private:
-			int x;
-			int y;
+			int _x;
+			int _y;
 	};
 }
 

@@ -128,23 +128,23 @@ class AStarTest : public CppUnit::TestFixture
 
 			// Test with only one element on openlist
 			qrw::Coordinates* coords1 = new qrw::Coordinates(*start);
-			astar->openlist.insert(coords1);
+			astar->_openlist.insert(coords1);
 			CPPUNIT_ASSERT(astar->findLowestFCoordinates() == coords1);
 
 			// Test with more than one element on openlist
 			qrw::Coordinates* coords2 = new qrw::Coordinates(1, 1);
 			qrw::Coordinates* coords3 = new qrw::Coordinates(2, 2);
-			astar->openlist.insert(coords2);
-			astar->openlist.insert(coords3);
+			astar->_openlist.insert(coords2);
+			astar->_openlist.insert(coords3);
 
-			astar->nodemap[coords1] = new qrw::Node(*coords1);
-			astar->nodemap[coords1]->setG(10);
+			astar->_nodemap[coords1] = new qrw::Node(*coords1);
+			astar->_nodemap[coords1]->setG(10);
 
-			astar->nodemap[coords2] = new qrw::Node(*coords2);
-			astar->nodemap[coords2]->setG(5);
+			astar->_nodemap[coords2] = new qrw::Node(*coords2);
+			astar->_nodemap[coords2]->setG(5);
 
-			astar->nodemap[coords3] = new qrw::Node(*coords3);
-			astar->nodemap[coords3]->setG(9);
+			astar->_nodemap[coords3] = new qrw::Node(*coords3);
+			astar->_nodemap[coords3]->setG(9);
 
 			CPPUNIT_ASSERT(*astar->findLowestFCoordinates() == *coords2);
 		}
@@ -156,15 +156,15 @@ class AStarTest : public CppUnit::TestFixture
 
 			qrw::Node* node = new qrw::Node(*start);
 
-			astar->openlist.insert(startcopy);
-			astar->closedlist.insert(endcopy);
-			astar->closedlist.insert(startcopy);
-			astar->nodemap[startcopy] = node;
+			astar->_openlist.insert(startcopy);
+			astar->_closedlist.insert(endcopy);
+			astar->_closedlist.insert(startcopy);
+			astar->_nodemap[startcopy] = node;
 			astar->clear();
 
-			CPPUNIT_ASSERT(astar->openlist.size() == 0);
-			CPPUNIT_ASSERT(astar->closedlist.size() == 0);
-			CPPUNIT_ASSERT(astar->nodemap.size() == 0);
+			CPPUNIT_ASSERT(astar->_openlist.size() == 0);
+			CPPUNIT_ASSERT(astar->_closedlist.size() == 0);
+			CPPUNIT_ASSERT(astar->_nodemap.size() == 0);
 		}
 
 		// Just test if the node map behaves as expected.
@@ -173,19 +173,19 @@ class AStarTest : public CppUnit::TestFixture
 			qrw::Coordinates* coords = new qrw::Coordinates(0, 0);
 			qrw::Node* node = new qrw::Node(0, 0);
 
-			astar->nodemap[coords] = node;
+			astar->_nodemap[coords] = node;
 
-			CPPUNIT_ASSERT(astar->nodemap[coords] == node);
+			CPPUNIT_ASSERT(astar->_nodemap[coords] == node);
 
 			qrw::Coordinates* coords2 = new qrw::Coordinates(0, 0);
-			CPPUNIT_ASSERT(astar->nodemap[coords2] == node);
+			CPPUNIT_ASSERT(astar->_nodemap[coords2] == node);
 			CPPUNIT_ASSERT(coords != coords2);
 
 			delete node;
 			delete coords;
 			delete coords2;
 
-			astar->nodemap.clear();
+			astar->_nodemap.clear();
 		}
 
 		/**

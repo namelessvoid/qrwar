@@ -21,7 +21,7 @@ namespace namelessgui
 				ES_HOVER
 			};
 
-			Button(sf::RenderWindow* window, float width, float height, std::string text = "",
+			Button(sf::RenderWindow* _window, float width, float height, std::string text = "",
 				const sf::Texture* textureactive = NULL,
 				const sf::Texture* textureinainactive = NULL,
 				const sf::Texture* texutrehover = NULL);
@@ -29,7 +29,7 @@ namespace namelessgui
 
 			void setText(std::string text);
 
-			void setState(STATES state);
+			void setState(STATES _state);
 			STATES getState() const;
 
 			void setPosition(float x, float y);
@@ -42,8 +42,8 @@ namespace namelessgui
 			void updateSprite();
 
 		protected:
-			Label* label;
-			RectangularWidget* image;
+			Label* _label;
+			RectangularWidget* _image;
 
 
 		private:
@@ -53,10 +53,10 @@ namespace namelessgui
 			void clickedSlot();
 			void mouseLeftSlot();
 
-			STATES state;
-			sf::Font* defaultfont;
+			STATES _state;
+			sf::Font* _defaultfont;
 
-			const sf::Texture* textures[3];
+			const sf::Texture* _textures[3];
 	};
 }
 

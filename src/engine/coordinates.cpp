@@ -3,18 +3,18 @@
 namespace qrw
 {
 	Coordinates::Coordinates(int x, int y)
-	 :	x(x),
-	 	y(y)
+	 :	_x(x),
+		_y(y)
 	{}
 
 	int Coordinates::getX() const
 	{
-		return x;
+		return _x;
 	}
 
 	int Coordinates::getY() const
 	{
-		return y;
+		return _y;
 	}
 
 	bool Coordinates::operator==(const Coordinates& rhs) const

@@ -19,7 +19,7 @@ namespace qrw
 			MainWindow(GuiHandler* guihandler, int style = BACKGROUND);
 
 		private:
-			GuiHandler* guihandler;
+			GuiHandler* _guihandler;
 	};
 }
 

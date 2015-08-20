@@ -30,11 +30,11 @@ namespace qrw
 		private:
 			void hide();
 			void startGame();
-			Engine* engine;
-			GuiHandler* guihandler;
-			IngameWindow* ingamewindow;
-			DeployWindow* deploywindow;
-			BoardWidget* boardwidget;
+			Engine* _engine;
+			GuiHandler* _guihandler;
+			IngameWindow* _ingamewindow;
+			DeployWindow* _deploywindow;
+			BoardWidget* _boardwidget;
 	};
 }
 

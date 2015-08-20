@@ -11,7 +11,7 @@ namespace qrw
 			Node(int x, int y);
 			Node(const Coordinates& coordinates);
 
-			void setParent(Node* parent);
+			void setParent(Node* _parent);
 			Node* getParent();
 
 			void setG(int g);
@@ -22,10 +22,10 @@ namespace qrw
 			int getF();
 
 		private:
-			Node* parent;
+			Node* _parent;
 
-			int g;
-			int h;
+			int _g;
+			int _h;
 	};
 }
 

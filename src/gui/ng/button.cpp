@@ -13,22 +13,22 @@ namespace namelessgui
 		const sf::Texture* textureinactive,
 		const sf::Texture* texturehover)
 	: RectangularWidget(window, width, height),
-	  label(new Label(window)),
-	  image(new RectangularWidget(window, 48, 48)),
-	  defaultfont(new sf::Font()),
-	  state(ES_INACTIVE)
+	  _label(new Label(window)),
+	  _image(new RectangularWidget(window, 48, 48)),
+	  _defaultfont(new sf::Font()),
+	  _state(ES_INACTIVE)
 	{
-		defaultfont->loadFromFile("./res/font/Knigqst.ttf");
-		this->label->setFont(*defaultfont);
-		this->label->setCharacterSize(25);
-		this->label->setText(text);
+		_defaultfont->loadFromFile("./res/font/Knigqst.ttf");
+		this->_label->setFont(*_defaultfont);
+		this->_label->setCharacterSize(25);
+		this->_label->setText(text);
 
 		if(textureactive != NULL && textureinactive != NULL
 			&& texturehover != NULL)
 			setTextures(textureactive, textureinactive, texturehover);
 
 		for(int i = 0; i < 3; ++i)
-			textures[i] = 0;
+			_textures[i] = 0;
 
 		// Connect signals to slots
 		this->signalleftmousebuttonpressed.connect(std::bind(&Button::leftMousebuttonPressedSlot, this));
@@ -36,7 +36,7 @@ namespace namelessgui
 		this->signalclicked.connect(std::bind(&Button::clickedSlot, this));
 		this->signalmouseleft.connect(std::bind(&Button::mouseLeftSlot, this));
 
-		image->setFillColor(sf::Color(255, 255, 255, 255));
+		_image->setFillColor(sf::Color(255, 255, 255, 255));
 	}
 
 	Button::~Button()
@@ -44,30 +44,30 @@ namespace namelessgui
 
 	void Button::setText(std::string text)
 	{
-		this->label->setText(text);
+		this->_label->setText(text);
 	}
 
 	void Button::setState(Button::STATES state)
 	{
-		this->state = state;
+		this->_state = state;
 	}
 
 	Button::STATES Button::getState() const
 	{
-		return state;
+		return _state;
 	}
 
 	void Button::setPosition(float x, float y)
 	{
 		RectangularWidget::setPosition(x, y);
-		image->setPosition(x, y);
-		if(image->getTexture() != NULL)
+		_image->setPosition(x, y);
+		if(_image->getTexture() != NULL)
 		{
-			label->setPosition(x + image->getSize().x, y);
+			_label->setPosition(x + _image->getSize().x, y);
 		}
 		else
 		{
-			label->setPosition(x, y);
+			_label->setPosition(x, y);
 		}
 	}
 
@@ -80,42 +80,42 @@ namespace namelessgui
 	void Button::setTextures(const sf::Texture* textureinactive,
 		const sf::Texture* textureactive, const sf::Texture* texturehover)
 	{
-		textures[ES_INACTIVE] = textureinactive;
-		textures[ES_ACTIVE] = textureactive;
-		textures[ES_HOVER] = texturehover;
+		_textures[ES_INACTIVE] = textureinactive;
+		_textures[ES_ACTIVE] = textureactive;
+		_textures[ES_HOVER] = texturehover;
 		updateSprite();
 	}
 
 	void Button::updateSprite()
 	{
-		if(textures[state] != 0)
+		if(_textures[_state] != 0)
 		{
-			image->setTexture(textures[state], true);
+			_image->setTexture(_textures[_state], true);
 			setPosition(getPosition());
 		}
 	}
 
 	void Button::leftMousebuttonPressedSlot()
 	{
-		state = ES_ACTIVE;
+		_state = ES_ACTIVE;
 		updateSprite();
 	}
 
 	void Button::mouseEnteredSlot()
 	{
-		state = ES_HOVER;
+		_state = ES_HOVER;
 		updateSprite();
 	}
 
 	void Button::clickedSlot()
 	{
-		state = ES_HOVER;
+		_state = ES_HOVER;
 		updateSprite();
 	}
 
 	void Button::mouseLeftSlot()
 	{
-		state = ES_INACTIVE;
+		_state = ES_INACTIVE;
 		updateSprite();
 	}
 

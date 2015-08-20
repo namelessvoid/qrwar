@@ -10,7 +10,7 @@ namespace namelessgui
 		const sf::Texture* textureinainactive,
 		const sf::Texture* texturehover)
 	: Button(window, width, height, text, textureactive, textureinainactive, texturehover),
-	  buttongroup(buttongroup)
+	  _buttongroup(buttongroup)
 	{
 		buttongroup->addButton(this);
 		disconnectAllSignals();
@@ -23,7 +23,7 @@ namespace namelessgui
 
 	void RadioToggleButton::clickedSlot()
 	{
-		buttongroup->activateButton(this);
+		_buttongroup->activateButton(this);
 		updateSprite();
 	}
 
@@ -38,8 +38,8 @@ namespace namelessgui
 			rect.setSize(getSize());
 			target.draw(rect);
 		}
-		target.draw(*label);
-		target.draw(static_cast<sf::RectangleShape>(*image));
+		target.draw(*_label);
+		target.draw(static_cast<sf::RectangleShape>(*_image));
 		target.draw(static_cast<sf::RectangleShape>(*this));
 	}
 }

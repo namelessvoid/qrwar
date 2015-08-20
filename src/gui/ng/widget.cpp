@@ -9,16 +9,16 @@
 namespace namelessgui
 {
 	Widget::Widget(sf::RenderWindow* window, float width, float height)
-        : mouseFocus(false),
-          visible(true),
-          leftMouseButtonPressRegistered(false),
-          rightMouseButtonPressRegistered(false)
+        : _mouseFocus(false),
+          _visible(true),
+          _leftMouseButtonPressRegistered(false),
+          _rightMouseButtonPressRegistered(false)
     {
-        this->window = window;
+        this->_window = window;
 
         // Set size
-        size.x = width;
-        size.y = height;
+        _size.x = width;
+        _size.y = height;
     }
 
 	Widget::Widget(sf::RenderWindow* window, sf::Vector2f size)
@@ -33,25 +33,25 @@ namespace namelessgui
     bool Widget::hasMouseFocus()
 	{
 		sf::FloatRect bounds = getGlobalBounds();
-        bounds.width = size.x;
-        bounds.height = size.y;
+        bounds.width = _size.x;
+        bounds.height = _size.y;
 
 		sf::Vector2f mousepos;
-		mousepos.x = (float)sf::Mouse::getPosition(*window).x;
-		mousepos.y = (float)sf::Mouse::getPosition(*window).y;
+		mousepos.x = (float)sf::Mouse::getPosition(*_window).x;
+		mousepos.y = (float)sf::Mouse::getPosition(*_window).y;
 
 		return bounds.contains(mousepos);
 	}
 
     void Widget::setVisible(bool visibility)
     {
-        visible = visibility;
+        _visible = visibility;
     }
 
     void Widget::handleEvent(const sf::Event& event)
     {
         // A widget that is not visible cannot handle any event
-        if(!visible)
+        if(!_visible)
             return;
 
         // printf("widget dim: x=%f / y=%f; w=%f / h=%f\n", getGlobalBounds().left, getGlobalBounds().top, size.x, size.y);
@@ -62,20 +62,20 @@ namespace namelessgui
             if(!hasMouseFocus())
             {
                 // Mouse focus lost
-                if(mouseFocus)
+                if(_mouseFocus)
                 {
-                    mouseFocus = false;
+                    _mouseFocus = false;
                     signalmouseleft.emit();
-                    leftMouseButtonPressRegistered = false;
+                    _leftMouseButtonPressRegistered = false;
                 }
                 return;
             } // if(!hasMouseFocus)
             else
             {
                 // Got mouse focus
-                if(!mouseFocus)
+                if(!_mouseFocus)
                 {
-                    mouseFocus = true;
+                    _mouseFocus = true;
                     signalmouseentered.emit();
                 }
                 // just moved when already has mouse focus
@@ -88,27 +88,27 @@ namespace namelessgui
         } // if(MouseMoveEvent)
         else if(event.type == sf::Event::MouseButtonPressed)
         {
-            if(mouseFocus)
+            if(_mouseFocus)
             {
                 if(event.mouseButton.button == sf::Mouse::Left)
                 {
                     signalleftmousebuttonpressed.emit();
-                    leftMouseButtonPressRegistered = true;
+                    _leftMouseButtonPressRegistered = true;
                     return;
                 }
                 else if(event.mouseButton.button == sf::Mouse::Right)
                 {
-                    rightMouseButtonPressRegistered = true;
+                    _rightMouseButtonPressRegistered = true;
                     return;
                 }
             }
         } // else if(MouseButtonPressed)
         else if(event.type == sf::Event::MouseButtonReleased)
         {
-            if(mouseFocus)
+            if(_mouseFocus)
             {
                 if(event.mouseButton.button == sf::Mouse::Left
-                    && leftMouseButtonPressRegistered)
+                    && _leftMouseButtonPressRegistered)
                 {
                     signalclicked.emit();
                     return;
@@ -138,11 +138,11 @@ namespace namelessgui
 
 	void Widget::setSize(sf::Vector2f size)
 	{
-		this->size = size;
+		this->_size = size;
 	}
 
 	sf::Vector2f Widget::getSize() const
 	{
-		return size;
+		return _size;
 	}
 }

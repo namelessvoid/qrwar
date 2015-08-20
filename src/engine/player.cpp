@@ -5,47 +5,47 @@
 namespace qrw
 {
 	Player::Player()
-	:	name("Player")
+	:	_name("Player")
 	{
 	}
 
 	Player::~Player()
 	{
-		army.deleteAllUnits();
+		_army.deleteAllUnits();
 	}
 
 	std::string Player::getName()
 	{
-		return name;
+		return _name;
 	}
 
 	void Player::setName(std::string name)
 	{
-		this->name = name;
+		this->_name = name;
 	}
 
 	int Player::getId()
 	{
-		return id;
+		return _id;
 	}
 
 	void Player::setId(int id)
 	{
-		this->id = id;
+		this->_id = id;
 	}
 
 	bool Player::isActive() const
 	{
-		return active;
+		return _active;
 	}
 
 	void Player::setActive(bool active)
 	{
-		this->active = active;
+		this->_active = active;
 	}
 
 	Army& Player::getArmy()
 	{
-		return army;
+		return _army;
 	}
 }

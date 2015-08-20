@@ -18,7 +18,7 @@ namespace qrw
 
 			~Cursor();
 
-			void setBoard(Board* board);
+			void setBoard(Board* _board);
 
 			/**
 			 * Move the cursor or (if available) move child cursor.
@@ -30,7 +30,7 @@ namespace qrw
 
 			const Coordinates& getPosition() const;
 
-			void setDimensions(float dimensions);
+			void setDimensions(float _dimensions);
 
 			Cursor* spawnChild();
 			Cursor* getChild() const;
@@ -45,16 +45,16 @@ namespace qrw
 		private:
 			Cursor();
 
-			static Cursor* cursor;
+			static Cursor* _cursor;
 			// Child cursor
-			Cursor* child;
+			Cursor* _child;
 
-			sf::Color maincolor;
-			sf::Color subcolor;
+			sf::Color _maincolor;
+			sf::Color _subcolor;
 
-			Coordinates position;
-			float dimensions;
-			Board* board;
+			Coordinates _position;
+			float _dimensions;
+			Board* _board;
 	};
 }
 

@@ -6,12 +6,12 @@ namespace qrw
 {
 	void XMLHelper::setParsingErrorMsg(std::string parsingerrormsg)
 	{
-		this->parsingerrormsg = parsingerrormsg;
+		this->_parsingerrormsg = parsingerrormsg;
 	}
 
 	std::string XMLHelper::getParsingErrorMsg()
 	{
-		return parsingerrormsg;
+		return _parsingerrormsg;
 	}
 	
 	void XMLHelper::printDocumentLoadError(std::string filepath)

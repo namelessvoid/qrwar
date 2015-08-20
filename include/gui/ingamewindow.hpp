@@ -32,36 +32,36 @@ namespace qrw
 			// private slots:
 			void changeplayerbuttonClicked();
 
-			Engine* engine;
-			GuiHandler* guihandler;
+			Engine* _engine;
+			GuiHandler* _guihandler;
 
 			// Widgets
-			namelessgui::Button* endturnbutton;
-			namelessgui::Label* playernamelabel;
+			namelessgui::Button* _endturnbutton;
+			namelessgui::Label* _playernamelabel;
 
 			// Sprites for unit information
-			namelessgui::RectangularWidget* unitplainsquare;
-			namelessgui::RectangularWidget* healthsprite;
-			namelessgui::RectangularWidget* unitattacksprite;
-			namelessgui::RectangularWidget* unitdefensesprite;
-			namelessgui::RectangularWidget* movementsprite;
+			namelessgui::RectangularWidget* _unitplainsquare;
+			namelessgui::RectangularWidget* _healthsprite;
+			namelessgui::RectangularWidget* _unitattacksprite;
+			namelessgui::RectangularWidget* _unitdefensesprite;
+			namelessgui::RectangularWidget* _movementsprite;
 
 			// Sprites for terrain information
-			namelessgui::RectangularWidget* terrainplainsquare;
-			namelessgui::RectangularWidget* terrainattacksprite;
-			namelessgui::RectangularWidget* terraindefensesprite;
+			namelessgui::RectangularWidget* _terrainplainsquare;
+			namelessgui::RectangularWidget* _terrainattacksprite;
+			namelessgui::RectangularWidget* _terraindefensesprite;
 
-			sf::Font* defaultfont;
+			sf::Font* _defaultfont;
 
-			namelessgui::Label* healthtext;
-			namelessgui::Label* unitattacktext;
-			namelessgui::Label* unitdefensetext;
-			namelessgui::Label* unitmovementtext;
-			namelessgui::Label* terrainattacktext;
-			namelessgui::Label* terraindefensetext;
+			namelessgui::Label* _healthtext;
+			namelessgui::Label* _unitattacktext;
+			namelessgui::Label* _unitdefensetext;
+			namelessgui::Label* _unitmovementtext;
+			namelessgui::Label* _terrainattacktext;
+			namelessgui::Label* _terraindefensetext;
 
-			namelessgui::RectangularWidget* unitimages[EUT_NUMBEROFUNITTYPES * 2];
-			namelessgui::RectangularWidget* terrainimages[ET_NUMBEROFTERRAINTYPES];
+			namelessgui::RectangularWidget* _unitimages[EUT_NUMBEROFUNITTYPES * 2];
+			namelessgui::RectangularWidget* _terrainimages[ET_NUMBEROFTERRAINTYPES];
 	};
 }
 

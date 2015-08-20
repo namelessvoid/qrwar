@@ -13,7 +13,7 @@ namespace qrw
 	class Board
 	{
 		public:
-			Board(int width, int height);
+			Board(int _width, int _height);
 			~Board();
 
 			Square* getSquare(int x, int y);
@@ -32,12 +32,12 @@ namespace qrw
 			Path* findPath(const Coordinates& start, const Coordinates& end);
 
 		private:
-			Square** squares;
+			Square** _squares;
 
-			int width;
-			int height;
+			int _width;
+			int _height;
 
-			AbstractAlgorithm* pathfinder;
+			AbstractAlgorithm* _pathfinder;
 	};
 }
 

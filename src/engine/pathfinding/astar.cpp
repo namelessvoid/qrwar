@@ -10,10 +10,10 @@ namespace qrw
 {
 	AStar::AStar()
 	{
-		directions[0] = new Coordinates(-1,  0);
-		directions[1] = new Coordinates( 0, -1);
-		directions[2] = new Coordinates(+1,  0);
-		directions[3] = new Coordinates( 0, +1);
+		_directions[0] = new Coordinates(-1,  0);
+		_directions[1] = new Coordinates( 0, -1);
+		_directions[2] = new Coordinates(+1,  0);
+		_directions[3] = new Coordinates( 0, +1);
 	}
 
 	AStar::~AStar()
@@ -21,21 +21,21 @@ namespace qrw
 		clear();
 
 		for(int i = 0; i < 4; ++i)
-			 delete directions[i];
+			 delete _directions[i];
 	}
 
 	void AStar::setBoard(Board* board)
 	{
-		this->board = board;
+		this->_board = board;
 	}
 
 	Path* AStar::findPath(const Coordinates& start, const Coordinates& end)
 	{
 		// Check pre conditions
-		if(board == 0)
+		if(_board == 0)
 			return 0;
 
-		if(board->getSquare(start) == 0 || board->getSquare(end) == 0)
+		if(_board->getSquare(start) == 0 || _board->getSquare(end) == 0)
 			return 0;
 
 		if(start == end)
@@ -51,46 +51,46 @@ namespace qrw
 		Coordinates* tmpcoords = 0;
 
 		currentnode->setG(0);
-		currentnode->setH(board->getSquare(*currentcoords)->getDistance(board->getSquare(end)));
+		currentnode->setH(_board->getSquare(*currentcoords)->getDistance(_board->getSquare(end)));
 
-		nodemap[currentcoords] = currentnode;
-		openlist.insert(currentcoords);
+		_nodemap[currentcoords] = currentnode;
+		_openlist.insert(currentcoords);
 
 		currentcoords = currentnode = 0;
 		Coordinates* endcoords = new Coordinates(end);
 
 		// Run the algorithm
-		while(!openlist.empty() && closedlist.find(endcoords) == closedlist.end())
+		while(!_openlist.empty() && _closedlist.find(endcoords) == _closedlist.end())
 		{
 			currentcoords = findLowestFCoordinates();
-			openlist.erase(currentcoords);
-			currentnode = nodemap[currentcoords];
-			closedlist.insert(currentcoords);
+			_openlist.erase(currentcoords);
+			currentnode = _nodemap[currentcoords];
+			_closedlist.insert(currentcoords);
 
 			// Check the neighbours
-			for(auto direction : directions)
+			for(auto direction : _directions)
 			{
 				tmpcoords = new Coordinates(*currentcoords + *direction);
 
 				// If the sqare is accessible but was not added to closedlist yet
-				if(closedlist.find(tmpcoords) == closedlist.end()
-					&& board->getSquare(*tmpcoords) != 0
-					&& board->getSquare(*tmpcoords)->isAccessible())
+				if(_closedlist.find(tmpcoords) == _closedlist.end()
+					&& _board->getSquare(*tmpcoords) != 0
+					&& _board->getSquare(*tmpcoords)->isAccessible())
 				{
 					// Coordinates are not put into openlist
-					if(openlist.find(tmpcoords) == openlist.end())
+					if(_openlist.find(tmpcoords) == _openlist.end())
 					{
 						tmpnode = new Node(*tmpcoords);
 						tmpnode->setG(currentnode->getG() + 1);
-						tmpnode->setH(board->getSquare(*tmpcoords)->getDistance(board->getSquare(end)));
+						tmpnode->setH(_board->getSquare(*tmpcoords)->getDistance(_board->getSquare(end)));
 						tmpnode->setParent(currentnode);
 
-						nodemap[tmpcoords] = tmpnode;
-						openlist.insert(tmpcoords);
+						_nodemap[tmpcoords] = tmpnode;
+						_openlist.insert(tmpcoords);
 					}
 					else
 					{
-						tmpnode = nodemap[tmpcoords];
+						tmpnode = _nodemap[tmpcoords];
 						delete tmpcoords;
 						tmpcoords = 0;
 
@@ -105,18 +105,18 @@ namespace qrw
 		} // for(openlist not empty && end not reached)
 
 		// Build the Path
-		if(closedlist.find(endcoords) == closedlist.end())
+		if(_closedlist.find(endcoords) == _closedlist.end())
 			return 0;
 
 		Path* path = new Path();
 
-		for(currentnode = nodemap[endcoords];
+		for(currentnode = _nodemap[endcoords];
 			currentnode->getParent() != 0;
 			currentnode = currentnode->getParent())
 		{
-			path->prependStep(board->getSquare(*currentnode));
+			path->prependStep(_board->getSquare(*currentnode));
 		}
-		path->prependStep(board->getSquare(start));
+		path->prependStep(_board->getSquare(start));
 
 		// Cleanup and return.
 		delete endcoords;
@@ -126,18 +126,18 @@ namespace qrw
 
 	Coordinates* AStar::findLowestFCoordinates()
 	{
-		if(openlist.size() == 0)
+		if(_openlist.size() == 0)
 			return 0;
-		else if(openlist.size() == 1)
-			return *openlist.begin();
+		else if(_openlist.size() == 1)
+			return *_openlist.begin();
 
-		Coordinates* lowestcoordinate = *openlist.begin();
-		Node* lowestfnode = nodemap[lowestcoordinate];
+		Coordinates* lowestcoordinate = *_openlist.begin();
+		Node* lowestfnode = _nodemap[lowestcoordinate];
 		Node * currentnode =  0;
 
-		for(auto coordinate : openlist)
+		for(auto coordinate : _openlist)
 		{
-			currentnode = nodemap[coordinate];
+			currentnode = _nodemap[coordinate];
 			if(currentnode->getF() < lowestfnode->getF())
 			{
 				lowestcoordinate = coordinate;
@@ -151,24 +151,24 @@ namespace qrw
 
 	void AStar::clear()
 	{
-		for(auto nodemapiter : nodemap)
+		for(auto nodemapiter : _nodemap)
 		{
 			delete nodemapiter.second;
 		}
-		nodemap.clear();
+		_nodemap.clear();
 
-		for(auto coordinate : openlist)
+		for(auto coordinate : _openlist)
 		{
 			// Erase coordinate from closed list so it is not deleted twice.
-			closedlist.erase(coordinate);
+			_closedlist.erase(coordinate);
 			delete coordinate;
 		}
-		openlist.clear();
+		_openlist.clear();
 
-		for(auto coordinate : closedlist)
+		for(auto coordinate : _closedlist)
 		{
 			delete coordinate;
 		}
-		closedlist.clear();
+		_closedlist.clear();
 	}
 }

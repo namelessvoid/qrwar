@@ -120,6 +120,14 @@ int main(int argc, char const *argv[])
 				camera.setViewport(sf::FloatRect(0.0f, 0.0f, 1.0f, 1.0f));
 				renderwindow.setView(camera);
 			}
+			if(event.type == sf::Event::KeyPressed)
+			{
+				if(event.key.code == sf::Keyboard::W)
+				{
+					camera.move(0.0, -1.0);
+					renderwindow.setView(camera);
+				}
+			}
 
 			guihandler.HandleEvent(event);
 		} // while(poll-event)

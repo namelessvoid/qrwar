@@ -3,15 +3,13 @@
 namespace qrw
 {
 	Terrain::Terrain(TERRAINTYPES type, int attackmod, int defensemod)
-	: type(type)
+	: _type(type)
 	{
-		modificators[EM_ATTACK] = attackmod;
-		modificators[EM_DEFENSE] = defensemod;
+		_modificators[EM_ATTACK] = attackmod;
+		_modificators[EM_DEFENSE] = defensemod;
 	}
 
 	Terrain::~Terrain()
 	{
 	}
-
-
 }
