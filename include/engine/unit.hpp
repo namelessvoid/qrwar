@@ -134,18 +134,17 @@ namespace qrw
 			int doAttack(Unit* enemy);
 
 			UNITTYPES _type;
-			int _attackvalue;
-			int _defensevalue;
 			int _hp;
 			int _maxhp;
+			int _attackvalue;
+			int _defensevalue;
 			int _range;
 			int _movement;
 			int _currentmovement;
 			Player* _player;
 
-			Square* _square;
 			Board* _board;
-
+			Square* _square;
 	};
 }
 

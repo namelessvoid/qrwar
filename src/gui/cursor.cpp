@@ -13,10 +13,10 @@ namespace qrw
 
 	Cursor::Cursor()
 	: RectangleShape(),
-	  _position(0, 0),
 	  _child(0),
 	  _maincolor(218, 218, 0, 120),
-	  _subcolor(218, 0, 0, 120)
+	  _subcolor(218, 0, 0, 120),
+	  _position(0, 0)
 	{
 		setFillColor(_maincolor);
 	}

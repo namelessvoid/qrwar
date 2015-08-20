@@ -16,10 +16,10 @@ namespace qrw
 {
 	GuiHandler::GuiHandler(qrw::Engine* engine, sf::RenderWindow* renderwindow)
 		: _engine(engine),
+		  _renderwindow(renderwindow),
 		  _sfgui(sfg::SFGUI()),
 		  _visible(true),
-		  _quit(false),
-		  _renderwindow(renderwindow)
+		  _quit(false)
 	{
 		// Set up objects that need reference on board instance.
 		// TODO: dynamic size

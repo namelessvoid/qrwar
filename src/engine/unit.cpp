@@ -25,7 +25,8 @@ namespace qrw
 		_movement(movement),
 		_currentmovement(movement),
 		_player(player),
-		_board(board)
+		_board(board),
+		_square(nullptr)
 	{
 	}
 
@@ -181,7 +182,7 @@ namespace qrw
 		if(!_player->isActive())
 			return false;
 
-		if(!this->getCurrentMovement() > 0)
+		if(! (this->getCurrentMovement() > 0))
 			return false;
 
 		if(enemy->getPlayer() == this->getPlayer())

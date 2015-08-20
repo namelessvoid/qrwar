@@ -155,7 +155,6 @@ namespace qrw
 		else if(activebuttonid >= 0 && activebuttonid < 2 * EUT_NUMBEROFUNITTYPES)
 		{
 			int playerid = activebuttonid / EUT_NUMBEROFUNITTYPES;
-			Player* player = _engine->getPlayer(playerid);
 			UNITTYPES unittype = (UNITTYPES)(activebuttonid % EUT_NUMBEROFUNITTYPES);
 
 			_engine->placeUnit(cursor->getPosition(), playerid, unittype);
