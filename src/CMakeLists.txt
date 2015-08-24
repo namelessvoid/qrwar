@@ -3,6 +3,8 @@ add_subdirectory(gui/ng)
 add_library(tostring tostring.cpp)
 
 add_library(qrwarlib
+        qrwar.cpp
+
 	config/audiosettings.cpp
 	config/settings.cpp
 	config/tilesetprocessor.cpp
@@ -24,6 +26,7 @@ add_library(qrwarlib
 	engine/pathfinding/path.cpp
 
         gamestates/gamestate.cpp
+        gamestates/intro.cpp
 
 	gui/animation.cpp
 	gui/boardwidget.cpp

@@ -5,9 +5,19 @@
 namespace qrw
 {
 
-GameState::GameState(sf::RenderWindow *renderWindow)
+GameState::GameState(sf::RenderWindow* renderWindow, EGameStateId id)
+	: _renderWindow(renderWindow),
+	  _id(id)
 {
-	this->_renderWindow = renderWindow;
+}
+
+GameState::~GameState()
+{
+}
+
+EGameStateId GameState::getId()
+{
+	return _id;
 }
 
 } // namespace qrw
