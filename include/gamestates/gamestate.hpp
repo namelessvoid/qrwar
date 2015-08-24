@@ -13,7 +13,7 @@ namespace qrw
 
 enum EGameStateId
 {
-	EGSID_INTRO,
+	EGSID_INTRO_STATE,
 	EGSID_QUIT,
 	EGSID_NO_CHANGE,
 	EGSID_COUNT

@@ -1,4 +1,4 @@
-#include "gamestates/intro.hpp"
+#include "gamestates/introstate.hpp"
 
 #include <SFML/Window/Event.hpp>
 #include <SFML/Graphics/Texture.hpp>
@@ -11,7 +11,7 @@ namespace qrw
 {
 
 IntroState::IntroState(sf::RenderWindow* renderWindow)
-	: GameState(renderWindow, EGameStateId::EGSID_INTRO)
+	: GameState(renderWindow, EGameStateId::EGSID_INTRO_STATE)
 {
 }
 

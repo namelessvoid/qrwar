@@ -3,7 +3,7 @@
 #include <SFML/Graphics/RenderWindow.hpp>
 #include <SFML/Window/Event.hpp>
 
-#include "gamestates/intro.hpp"
+#include "gamestates/introstate.hpp"
 
 namespace qrw
 {
@@ -21,7 +21,7 @@ QRWar::QRWar()
 
 QRWar::~QRWar()
 {
-	delete _gameStates.at(EGameStateId::EGSID_INTRO);
+	delete _gameStates.at(EGameStateId::EGSID_INTRO_STATE);
 }
 
 void QRWar::run()

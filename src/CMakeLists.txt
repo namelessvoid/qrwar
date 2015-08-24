@@ -26,7 +26,7 @@ add_library(qrwarlib
 	engine/pathfinding/path.cpp
 
         gamestates/gamestate.cpp
-        gamestates/intro.cpp
+        gamestates/introstate.cpp
 
 	gui/animation.cpp
 	gui/boardwidget.cpp
