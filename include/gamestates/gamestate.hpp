@@ -35,6 +35,16 @@ public:
 	virtual ~GameState();
 
 	/**
+	 * Initialize the GameState.
+	 *
+	 * The previous GameState is passed as argument so it is possible
+	 * to pass parameters from one GameState to another.
+	 *
+	 * @param previousState Optional pointer to a previous GameState.
+	 */
+	virtual void init(GameState* previousState = nullptr) = 0;
+
+	/**
 	 * Update the GameState.
 	 *
 	 * @return The ID of the next GameState, EGSID_NO_CHANGE, if the state did not chnage
@@ -47,6 +57,11 @@ public:
 	 */
 	virtual void draw()	= 0;
 
+	/**
+	 * Handle an SFML event.
+	 *
+	 * @param event The SFML event to handle.
+	 */
 	virtual void handleEvent(sf::Event& event) = 0;
 
 	/**
@@ -56,9 +71,10 @@ public:
 	 */
 	EGameStateId getId();
 
-private:
+protected:
 	sf::RenderWindow* _renderWindow;
 
+private:
 	EGameStateId _id;
 };
 

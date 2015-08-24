@@ -10,19 +10,13 @@ namespace qrw
 
 QRWar::QRWar()
 {
-	// Create render window
-	_renderWindow.create(
-		sf::VideoMode(640, 480),
-		"Quad-Ruled War - Loading...",
-		sf::Style::Default
-	);
-
 	// Initialize game states
 	GameState* gameState;
 
 	gameState = new IntroState(&_renderWindow);
 	_gameStates[gameState->getId()] = gameState;
 	_currentState = gameState;
+	_currentState->init(nullptr);
 }
 
 QRWar::~QRWar()
@@ -45,11 +39,13 @@ void QRWar::run()
 
 		nextStateId = _currentState->update();
 
-		_currentState->draw();
-		_renderWindow.display();
-
 		if(nextStateId == EGameStateId::EGSID_QUIT)
 			quit = true;
+		else
+		{
+			_currentState->draw();
+			_renderWindow.display();
+		}
 	}
 }
 

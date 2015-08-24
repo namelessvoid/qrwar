@@ -8,6 +8,8 @@ namespace sf
 {
 class RenderWindow;
 class Event;
+class Texture;
+class Sprite;
 }
 
 namespace qrw
@@ -20,6 +22,8 @@ public:
 
 	~IntroState();
 
+	void init(GameState* previousState);
+
 	EGameStateId update();
 
 	void draw();
@@ -30,6 +34,9 @@ public:
 
 private:
 	bool _quit;
+
+	sf::Texture* _splashTexture;
+	sf::Sprite* _splashSprite;
 };
 
 } // namespace qrw
