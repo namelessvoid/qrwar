@@ -15,12 +15,15 @@ class QRWar
 public:
 	QRWar();
 
+	~QRWar();
+
 	void run();
 
 private:
 	sf::RenderWindow _renderWindow;
 
 	std::map<EGameStateId, GameState*> _gameStates;
+	GameState* _currentState;
 };
 
 } // namespace qrw

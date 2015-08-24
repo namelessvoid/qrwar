@@ -5,6 +5,7 @@
 namespace sf
 {
 class RenderWindow;
+class Event;
 }
 
 namespace qrw
@@ -45,6 +46,8 @@ public:
 	 * Render the GameState to the render window.
 	 */
 	virtual void draw()	= 0;
+
+	virtual void handleEvent(sf::Event& event) = 0;
 
 	/**
 	 * Get the ID of the GameState.

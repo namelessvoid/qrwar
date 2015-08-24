@@ -7,6 +7,7 @@
 namespace sf
 {
 class RenderWindow;
+class Event;
 }
 
 namespace qrw
@@ -23,7 +24,12 @@ public:
 
 	void draw();
 
+	void handleEvent(sf::Event &event);
+
 	EGameStateId getId();
+
+private:
+	bool _quit;
 };
 
 } // namespace qrw
