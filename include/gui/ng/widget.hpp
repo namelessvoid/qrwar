@@ -18,8 +18,8 @@ namespace namelessgui
     class Widget : public sf::Drawable
     {
         public:
-			Widget(sf::RenderWindow* window, float width, float height);
-			Widget(sf::RenderWindow* window, sf::Vector2f size);
+			Widget(sf::RenderWindow* _window, float width, float height);
+			Widget(sf::RenderWindow* _window, sf::Vector2f _size);
             ~Widget();
 
             void handleEvent(const sf::Event& event);
@@ -28,7 +28,7 @@ namespace namelessgui
 
             void disconnectAllSignals();
 
-			void setSize(sf::Vector2f size);
+			void setSize(sf::Vector2f _size);
 			sf::Vector2f getSize() const;
 
             virtual sf::FloatRect getGlobalBounds() = 0;
@@ -44,8 +44,8 @@ namespace namelessgui
 
         protected:
             bool hasMouseFocus();
-			const sf::RenderWindow* window;
-            bool visible;
+			const sf::RenderWindow* _window;
+			bool _visible;
 
         private:
             /**
@@ -55,7 +55,7 @@ namespace namelessgui
              * is released again while on the widget a click event took place. Reset leftMouseButtonpressRegistered if
              * mouse leaves focus.
              */
-            bool leftMouseButtonPressRegistered;
+			bool _leftMouseButtonPressRegistered;
 
             /**
              * @brief Registeres when right mouse button is pressed.
@@ -64,7 +64,7 @@ namespace namelessgui
              * is released again while on the widget a click event took place. Reset leftMouseButtonpressRegistered if
              * mouse leaves focus.
              */
-            bool rightMouseButtonPressRegistered;
+			bool _rightMouseButtonPressRegistered;
 
             /**
              * @brief Saves the last known mouse focus state.
@@ -73,12 +73,12 @@ namespace namelessgui
              * known mouse focus state which means that in case of mouseFocus followed by hasMouseFocus() == true the mouse
              * cursor entered the widget or other way round left the widget.
              */
-            bool mouseFocus;
+			bool _mouseFocus;
 
             /**
              * Holds size of the widget.
              */
-            sf::Vector2f size;
+			sf::Vector2f _size;
     };
 }
 #endif

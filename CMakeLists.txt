@@ -7,6 +7,8 @@ set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} ${QuadRuledWar_SOURCE_DIR}/cmake/Modu
 set(CMAKE_CXX_FLAGS "-std=c++11 -g")
 set(EXECUTABLE_OUTPUT_PATH ${CMAKE_SOURCE_DIR}/bin)
 
+add_definitions("-Wall")
+
 # extern libraries
 find_package(SFML 2.0 REQUIRED graphics system window audio)
 if(SFML_FOUND)

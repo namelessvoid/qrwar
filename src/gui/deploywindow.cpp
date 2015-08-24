@@ -17,88 +17,88 @@
 namespace qrw
 {
 	DeployWindow::DeployWindow(Engine* engine, GuiHandler* guihandler, IngameWindow* ingamewindow)
-	: engine(engine),
-	  ingamewindow(ingamewindow),
-	  buttongroup(new namelessgui::ButtonGroup()),
+	: _engine(engine),
+	  _ingamewindow(ingamewindow),
+	  _buttongroup(new namelessgui::ButtonGroup()),
 	  // TODO dynamic size
-	  startbutton(new namelessgui::Button(guihandler->getRenderWindow(), 150.0, 40.0)),
-	  defaultfont(new sf::Font()),
-	  title(new namelessgui::Label(guihandler->getRenderWindow()))
+	  _startbutton(new namelessgui::Button(guihandler->getRenderWindow(), 150.0, 40.0)),
+	  _defaultfont(new sf::Font()),
+	  _title(new namelessgui::Label(guihandler->getRenderWindow()))
 	{
 		setPosition(620, 0);
 		setSize(sf::Vector2f(200, 600));
 
-		defaultfont->loadFromFile("./res/font/Knigqst.ttf");
-		title->setFont(*defaultfont);
-		title->setText("Deployment");
+		_defaultfont->loadFromFile("./res/font/Knigqst.ttf");
+		_title->setFont(*_defaultfont);
+		_title->setText("Deployment");
 		// TODO dynamic positioning
-		title->setPosition(630, 0);
-		addWidget(title);
+		_title->setPosition(630, 0);
+		addWidget(_title);
 
 		TextureManager* texturemgr = TextureManager::getInstance();
 		for(int i = 0; i < BUTTONCOUNT; ++i)
 		{
 			// TODO dynamic size
-			radiobuttons[i] = new namelessgui::RadioToggleButton(guihandler->getRenderWindow(), buttongroup, 120.0, 50.0);
-			radiobuttons[i]->setScale(1.5, 1.5);
+			_radiobuttons[i] = new namelessgui::RadioToggleButton(guihandler->getRenderWindow(), _buttongroup, 120.0, 50.0);
+			_radiobuttons[i]->setScale(1.5, 1.5);
 
 			// Set positions
 			// TODO dynamic positioning
 			float x = 650;
 			float y = 35 + i * 50;
-			radiobuttons[i]->setPosition(x, y);
+			_radiobuttons[i]->setPosition(x, y);
 
-			addWidget(radiobuttons[i]);
+			addWidget(_radiobuttons[i]);
 		}
-		radiobuttons[0]->setTextures(texturemgr->getTexture("p1swordman"),
+		_radiobuttons[0]->setTextures(texturemgr->getTexture("p1swordman"),
 			texturemgr->getTexture("p1swordman"),
 			texturemgr->getTexture("p1swordman"));
-		radiobuttons[1]->setTextures(texturemgr->getTexture("p1archer"),
+		_radiobuttons[1]->setTextures(texturemgr->getTexture("p1archer"),
 			texturemgr->getTexture("p1archer"),
 			texturemgr->getTexture("p1archer"));
-		radiobuttons[2]->setTextures(texturemgr->getTexture("p1spearman"),
+		_radiobuttons[2]->setTextures(texturemgr->getTexture("p1spearman"),
 			texturemgr->getTexture("p1spearman"),
 			texturemgr->getTexture("p1spearman"));
-		radiobuttons[3]->setTextures(texturemgr->getTexture("p2swordman"),
+		_radiobuttons[3]->setTextures(texturemgr->getTexture("p2swordman"),
 			texturemgr->getTexture("p2swordman"),
 			texturemgr->getTexture("p2swordman"));
-		radiobuttons[4]->setTextures(texturemgr->getTexture("p2archer"),
+		_radiobuttons[4]->setTextures(texturemgr->getTexture("p2archer"),
 			texturemgr->getTexture("p2archer"),
 			texturemgr->getTexture("p2archer"));
-		radiobuttons[5]->setTextures(texturemgr->getTexture("p2spearman"),
+		_radiobuttons[5]->setTextures(texturemgr->getTexture("p2spearman"),
 			texturemgr->getTexture("p2spearman"),
 			texturemgr->getTexture("p2spearman"));
-		radiobuttons[6]->setTextures(texturemgr->getTexture("wood"),
+		_radiobuttons[6]->setTextures(texturemgr->getTexture("wood"),
 			texturemgr->getTexture("wood"),
 			texturemgr->getTexture("wood"));
-		radiobuttons[6]->setText("Wood");
-		radiobuttons[7]->setTextures(texturemgr->getTexture("hill"),
+		_radiobuttons[6]->setText("Wood");
+		_radiobuttons[7]->setTextures(texturemgr->getTexture("hill"),
 			texturemgr->getTexture("hill"),
 			texturemgr->getTexture("hill"));
-		radiobuttons[7]->setText("Hill");
-		radiobuttons[8]->setTextures(texturemgr->getTexture("wall"),
+		_radiobuttons[7]->setText("Hill");
+		_radiobuttons[8]->setTextures(texturemgr->getTexture("wall"),
 			texturemgr->getTexture("wall"),
 			texturemgr->getTexture("wall"));
-		radiobuttons[8]->setText("Tower");
-		radiobuttons[9]->setTextures(texturemgr->getTexture("plainsquare"),
+		_radiobuttons[8]->setText("Tower");
+		_radiobuttons[9]->setTextures(texturemgr->getTexture("plainsquare"),
 			texturemgr->getTexture("plainsquare"),
 			texturemgr->getTexture("plainsquare"));
-		radiobuttons[9]->setText("No Terrain");
+		_radiobuttons[9]->setText("No Terrain");
 
-		startbutton->setTextures(texturemgr->getTexture("startbutton"),
+		_startbutton->setTextures(texturemgr->getTexture("startbutton"),
 			texturemgr->getTexture("startbutton"),
 			texturemgr->getTexture("startbutton"));
-		startbutton->setPosition(sf::Vector2f(650, 560));
-		startbutton->signalclicked.connect(
+		_startbutton->setPosition(sf::Vector2f(650, 560));
+		_startbutton->signalclicked.connect(
 			std::bind(&DeployWindow::startbuttonClicked, this));
-		addWidget(startbutton);
+		addWidget(_startbutton);
 	}
 
 	DeployWindow::~DeployWindow()
 	{
-		delete startbutton;
-		delete defaultfont;
-		delete title;
+		delete _startbutton;
+		delete _defaultfont;
+		delete _title;
 	}
 
 	void DeployWindow::update()
@@ -109,23 +109,23 @@ namespace qrw
 
 		for(int i = 0; i < 2; ++i)
 		{
-			player = engine->getPlayer(i);
+			player = _engine->getPlayer(i);
 
 			for(int j = 0; j < EUT_NUMBEROFUNITTYPES; ++j)
 			{
 				text = "(" + intToString(player->getArmy().getDeployedUnitCount((UNITTYPES)j))
 					+ " / " + intToString(player->getArmy().getUnitCount((UNITTYPES)j)) + ")";
-				radiobuttons[j + i * EUT_NUMBEROFUNITTYPES]->setText(text);
+				_radiobuttons[j + i * EUT_NUMBEROFUNITTYPES]->setText(text);
 			}
 		}
 	}
 
 	void DeployWindow::startbuttonClicked()
 	{
-		if(engine->getStatus() == EES_PREPARE)
+		if(_engine->getStatus() == EES_PREPARE)
 		{
-			engine->startGame();
-			ingamewindow->setVisible(true);
+			_engine->startGame();
+			_ingamewindow->setVisible(true);
 			setVisible(false);
 		}
 	}
@@ -139,7 +139,7 @@ namespace qrw
 			activebuttonid < BUTTONCOUNT;
 			 ++activebuttonid)
 		{
-			if(radiobuttons[activebuttonid]->getState() == namelessgui::Button::ES_ACTIVE)
+			if(_radiobuttons[activebuttonid]->getState() == namelessgui::Button::ES_ACTIVE)
 				break;
 		}
 
@@ -149,16 +149,15 @@ namespace qrw
 		// Remove terrain
 		if(activebuttonid == 9)
 		{
-			engine->removeTerrain(cursor->getPosition());
+			_engine->removeTerrain(cursor->getPosition());
 		}
 		// Place unit
 		else if(activebuttonid >= 0 && activebuttonid < 2 * EUT_NUMBEROFUNITTYPES)
 		{
 			int playerid = activebuttonid / EUT_NUMBEROFUNITTYPES;
-			Player* player = engine->getPlayer(playerid);
 			UNITTYPES unittype = (UNITTYPES)(activebuttonid % EUT_NUMBEROFUNITTYPES);
 
-			engine->placeUnit(cursor->getPosition(), playerid, unittype);
+			_engine->placeUnit(cursor->getPosition(), playerid, unittype);
 			update();
 		}
 		// Place terrain
@@ -166,7 +165,7 @@ namespace qrw
 		{
 			TERRAINTYPES terraintype = (TERRAINTYPES)(activebuttonid
 				- (2 * EUT_NUMBEROFUNITTYPES));
-			engine->placeTerrain(cursor->getPosition(), terraintype);
+			_engine->placeTerrain(cursor->getPosition(), terraintype);
 		}
 	}
 
@@ -178,7 +177,7 @@ namespace qrw
 		if(child == NULL)
 			return;
 
-		engine->moveUnitDeployment(cursor->getPosition(), child->getPosition());
+		_engine->moveUnitDeployment(cursor->getPosition(), child->getPosition());
 
 		cursor->setPosition(child->getPosition());
 

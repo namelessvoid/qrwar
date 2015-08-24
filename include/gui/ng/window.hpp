@@ -24,9 +24,9 @@ namespace namelessgui
 			void handleEvent(const sf::Event& event);
 
 		private:
-			bool visible;
+			bool _visible;
 
-			std::vector<Widget*> children;
+			std::vector<Widget*> _children;
 	};
 }
 #endif

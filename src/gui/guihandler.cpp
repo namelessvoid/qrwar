@@ -15,32 +15,32 @@
 namespace qrw
 {
 	GuiHandler::GuiHandler(qrw::Engine* engine, sf::RenderWindow* renderwindow)
-		: engine(engine),
-		  sfgui(sfg::SFGUI()),
-		  visible(true),
-		  quit(false),
-		  renderwindow(renderwindow)
+		: _engine(engine),
+		  _renderwindow(renderwindow),
+		  _sfgui(sfg::SFGUI()),
+		  _visible(true),
+		  _quit(false)
 	{
 		// Set up objects that need reference on board instance.
 		// TODO: dynamic size
 		Cursor::getCursor()->setBoard(engine->getBoard());
-		ingamewindow = new IngameWindow(engine, this);
-		ingamewindow->setVisible(false);
-		deploywindow = new DeployWindow(engine, this, ingamewindow);
-		deploywindow->setVisible(false);
-		boardwidget = new BoardWidget(this, engine, 620, 600);
-		boardwidget->setBoard(engine->getBoard());
+		_ingamewindow = new IngameWindow(engine, this);
+		_ingamewindow->setVisible(false);
+		_deploywindow = new DeployWindow(engine, this, _ingamewindow);
+		_deploywindow->setVisible(false);
+		_boardwidget = new BoardWidget(this, engine, 620, 600);
+		_boardwidget->setBoard(engine->getBoard());
 
-		windows[MAINWINDOW] = MainWindow::Create(this);
-		windows[STARTGAMEWINDOW] = StartGameWindow::Create(engine, ingamewindow,
-			deploywindow, boardwidget, this);
-		windows[LOADGAMEWINDOW] = sfg::Window::Create();
-		windows[SETTINGSWINDOW] = SettingsWindow::Create();
-		windows[CREDITSWINDOW] = sfg::Window::Create();
+		_windows[MAINWINDOW] = MainWindow::Create(this);
+		_windows[STARTGAMEWINDOW] = StartGameWindow::Create(engine, _ingamewindow,
+			_deploywindow, _boardwidget, this);
+		_windows[LOADGAMEWINDOW] = sfg::Window::Create();
+		_windows[SETTINGSWINDOW] = SettingsWindow::Create();
+		_windows[CREDITSWINDOW] = sfg::Window::Create();
 
-		this->Add(windows[MAINWINDOW]);
-		this->Add(windows[STARTGAMEWINDOW]);
-		this->Add(windows[SETTINGSWINDOW]);
+		this->Add(_windows[MAINWINDOW]);
+		this->Add(_windows[STARTGAMEWINDOW]);
+		this->Add(_windows[SETTINGSWINDOW]);
 	}
 
 	GuiHandler::~GuiHandler()
@@ -50,68 +50,68 @@ namespace qrw
 
 	void GuiHandler::display(sf::RenderWindow& renderwindow)
 	{
-		renderwindow.draw(*(namelessgui::Widget*)boardwidget);
+		renderwindow.draw(*(namelessgui::Widget*)_boardwidget);
 
 		sf::View gameView = renderwindow.getView();
 		sf::View guiView(sf::FloatRect(0, 0, renderwindow.getSize().x, renderwindow.getSize().y));
 		renderwindow.setView(guiView);
 
-		renderwindow.draw(*(sf::Drawable*)ingamewindow);
-		renderwindow.draw(*(sf::Drawable*)deploywindow);
-		Animation::renderAll(renderwindow, clock.restart());
-		sfgui.Display(renderwindow);
+		renderwindow.draw(*(sf::Drawable*)_ingamewindow);
+		renderwindow.draw(*(sf::Drawable*)_deploywindow);
+		Animation::renderAll(renderwindow, _clock.restart());
+		_sfgui.Display(renderwindow);
 
 		renderwindow.setView(gameView);
 	}
 
 	sf::RenderWindow* GuiHandler::getRenderWindow()
 	{
-		return renderwindow;
+		return _renderwindow;
 	}
 
 	void GuiHandler::toggleGui()
 	{
-		if(visible)
+		if(_visible)
 			// Save visibility stats and make invisile
 			for(int i = 0; i < NUMEROFWINDOWS; ++i)
 			{
-				visiblestats[i] = windows[i]->IsGloballyVisible();
-				windows[i]->Show(false);
+				_visiblestats[i] = _windows[i]->IsGloballyVisible();
+				_windows[i]->Show(false);
 			}
 		// restore visibilities
 		else
 			for(int i = 0; i < NUMEROFWINDOWS; ++i)
-				windows[i]->Show(visiblestats[i]);
-		visible = !visible;
+				_windows[i]->Show(_visiblestats[i]);
+		_visible = !_visible;
 	}
 
 	void GuiHandler::showStartGameWindow()
 	{
 		hideAllWindows();
-		windows[STARTGAMEWINDOW]->Show(true);
+		_windows[STARTGAMEWINDOW]->Show(true);
 	}
 
 	void GuiHandler::showSettingsWindow()
 	{
 		hideAllWindows();
-		windows[SETTINGSWINDOW]->Show(true);
+		_windows[SETTINGSWINDOW]->Show(true);
 	}
 
 	sfg::Window::Ptr GuiHandler::getWindowById(int id)
 	{
 		if(id < 0 || id > NUMEROFWINDOWS)
 			throw NoSuchWindowException();
-		return windows[id];
+		return _windows[id];
 	}
 
 	DeployWindow* GuiHandler::getDeployWindow()
 	{
-		return deploywindow;
+		return _deploywindow;
 	}
 
 	IngameWindow* GuiHandler::getIngameWindow()
 	{
-		return ingamewindow;
+		return _ingamewindow;
 	}
 
 	void GuiHandler::HandleEvent(const sf::Event& event)
@@ -124,21 +124,21 @@ namespace qrw
 		if(guiVisible())
 		{
 			sfg::Desktop::HandleEvent(event);
-			ingamewindow->handleEvent(event);
+			_ingamewindow->handleEvent(event);
 		}
 		else
 		{
-			ingamewindow->handleEvent(event);
-			deploywindow->handleEvent(event);
-			boardwidget->handleEvent(event);
+			_ingamewindow->handleEvent(event);
+			_deploywindow->handleEvent(event);
+			_boardwidget->handleEvent(event);
 		}
-		ingamewindow->update();
+		_ingamewindow->update();
 	}
 
 	void GuiHandler::hideAllWindows()
 	{
 		// Hide all except ID o (MainWindow)
 		for(int i = 1; i < NUMEROFWINDOWS; ++i)
-			windows[i]->Show(false);
+			_windows[i]->Show(false);
 	}
 }

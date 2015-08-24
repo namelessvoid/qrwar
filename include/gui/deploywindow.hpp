@@ -26,8 +26,8 @@ namespace qrw
 	class DeployWindow : public namelessgui::Window
 	{
 		public:
-			DeployWindow(Engine* engine, GuiHandler* guihandler,
-				IngameWindow* ingamewindow);
+			DeployWindow(Engine* _engine, GuiHandler* guihandler,
+				IngameWindow* _ingamewindow);
 			~DeployWindow();
 
 			void update();
@@ -39,15 +39,15 @@ namespace qrw
 			// Private slots
 			void startbuttonClicked();
 
-			IngameWindow* ingamewindow;
-			// Buttons for units and terrain
-			namelessgui::RadioToggleButton* radiobuttons[BUTTONCOUNT];
-			namelessgui::ButtonGroup* buttongroup;
-			namelessgui::Button* startbutton;
-			sf::Font* defaultfont;
-			namelessgui::Label* title;
+			Engine* _engine;
 
-			Engine* engine;
+			IngameWindow* _ingamewindow;
+			// Buttons for units and terrain
+			namelessgui::RadioToggleButton* _radiobuttons[BUTTONCOUNT];
+			namelessgui::ButtonGroup* _buttongroup;
+			namelessgui::Button* _startbutton;
+			sf::Font* _defaultfont;
+			namelessgui::Label* _title;
 	};
 }
 #endif

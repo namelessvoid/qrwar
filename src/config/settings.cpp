@@ -33,6 +33,7 @@ namespace qrw
 		{
 			return false;
 		}
+		return true;
 	}
 
 	int Settings::saveToFile(std::string filepath)

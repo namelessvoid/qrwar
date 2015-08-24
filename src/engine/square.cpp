@@ -5,12 +5,12 @@
 namespace qrw
 {
 	Square::Square(int x, int y)
-	:	terrain(0),
-		unit(0),
-		coordinates(x, y)
+	:	_terrain(0),
+		_unit(0),
+		_coordinates(x, y)
 	{
-		terrain = 0;
-		unit = 0;
+		_terrain = 0;
+		_unit = 0;
 	}
 
 	Square::~Square()
@@ -18,34 +18,34 @@ namespace qrw
 
 	void Square::setTerrain(Terrain* terrain)
 	{
-		this->terrain = terrain;
+		this->_terrain = terrain;
 	}
 	Terrain* Square::getTerrain()
 	{
-		return terrain;
+		return _terrain;
 	}
 
 	void Square::setUnit(Unit* unit)
 	{
-		this->unit = unit;
+		this->_unit = unit;
 	}
 	Unit* Square::getUnit()
 	{
-		return unit;
+		return _unit;
 	}
 
 	const Coordinates& Square::getCoordinates() const
 	{
-		return coordinates;
+		return _coordinates;
 	}
 
 	int Square::getXPosition()
 	{
-		return coordinates.getX();
+		return _coordinates.getX();
 	}
 	int Square::getYPosition()
 	{
-		return coordinates.getY();
+		return _coordinates.getY();
 	}
 
 	int Square::getDistance(Square* square)

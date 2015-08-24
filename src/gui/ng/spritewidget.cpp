@@ -17,7 +17,7 @@ sf::Vector2f RectangularWidget::getSize() const
 
 void RectangularWidget::draw(sf::RenderTarget& target, sf::RenderStates states) const
 {
-	if(visible)
+	if(_visible)
 		target.draw(static_cast<sf::RectangleShape>(*this), states);
 }
 

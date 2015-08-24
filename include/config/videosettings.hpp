@@ -34,11 +34,11 @@ namespace qrw
 			tinyxml2::XMLElement* toTinyxml2Element(tinyxml2::XMLDocument* document);
 
 		protected:
-			int resolutionX;
-			int resolutionY;
-			bool fullscreen;
-			std::string entitytilesetpath;
-			std::string guitilesetpath;
+			int _resolutionX;
+			int _resolutionY;
+			bool _fullscreen;
+			std::string _entitytilesetpath;
+			std::string _guitilesetpath;
 	};
 }
 #endif

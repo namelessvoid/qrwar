@@ -10,6 +10,8 @@ namespace qrw
 	class AbstractAlgorithm
 	{
 		public:
+			virtual ~AbstractAlgorithm() {}
+
 			virtual void setBoard(Board* board) = 0;
 			virtual Path* findPath(const Coordinates& start, const Coordinates& end) = 0;
 	};

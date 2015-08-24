@@ -37,12 +37,12 @@ namespace qrw
 				int defenderHPDelta = 0;
 			};
 
-			Unit(UNITTYPES type, int hp, int attack, int defense,
-				int range, int movement, Player* player, Board* board);
+			Unit(UNITTYPES _type, int _hp, int attack, int defense,
+				int _range, int _movement, Player* _player, Board* _board);
 			~Unit();
 
 			Player* getPlayer() const;
-			void setPlayer(Player* player);
+			void setPlayer(Player* _player);
 			UNITTYPES getType();
 
 			/**
@@ -71,12 +71,12 @@ namespace qrw
 
 			int getRange();
 			int getHP();
-			void setHP(int hp);
+			void setHP(int _hp);
 			int getMaxHp();
-			void setMaxHp(int maxhp);
+			void setMaxHp(int _maxhp);
 			int getMovement();
 			int getCurrentMovement();
-			void setCurrentMovement(int movement);
+			void setCurrentMovement(int _movement);
 			std::string getName();
 
 			static 	std::string UNITNAMES[EUT_NUMBEROFUNITTYPES];
@@ -91,7 +91,7 @@ namespace qrw
 			 * @brief Set the Square on which unit currently stands.
 			 * @param square The new square.
 			 */
-			void setSquare(Square* square);
+			void setSquare(Square* _square);
 
 			/**
 			 * @brief Removes the unit from the board.
@@ -133,19 +133,18 @@ namespace qrw
 			 */
 			int doAttack(Unit* enemy);
 
-			UNITTYPES type;
-			int attackvalue;
-			int defensevalue;
-			int hp;
-			int maxhp;
-			int range;
-			int movement;
-			int currentmovement;
-			Player* player;
+			UNITTYPES _type;
+			int _hp;
+			int _maxhp;
+			int _attackvalue;
+			int _defensevalue;
+			int _range;
+			int _movement;
+			int _currentmovement;
+			Player* _player;
 
-			Square* square;
-			Board* board;
-
+			Board* _board;
+			Square* _square;
 	};
 }
 

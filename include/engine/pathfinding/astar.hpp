@@ -17,20 +17,20 @@ namespace qrw
 			AStar();
 			~AStar();
 
-			void setBoard(Board* board);
+			void setBoard(Board* _board);
 			Path* findPath(const Coordinates& start, const Coordinates& end);
 
 		private:
 			Coordinates* findLowestFCoordinates();
 			void clear();
 
-			Board* board;
+			Board* _board;
 
-			std::map<Coordinates*, Node*, Coordinates::PtrCompLess> nodemap;
-			std::set<Coordinates*, Coordinates::PtrCompLess> openlist;
-			std::set<Coordinates*, Coordinates::PtrCompLess> closedlist;
+			std::map<Coordinates*, Node*, Coordinates::PtrCompLess> _nodemap;
+			std::set<Coordinates*, Coordinates::PtrCompLess> _openlist;
+			std::set<Coordinates*, Coordinates::PtrCompLess> _closedlist;
 
-			Coordinates* directions[4];
+			Coordinates* _directions[4];
 	};
 }
 #endif

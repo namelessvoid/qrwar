@@ -18,7 +18,7 @@ namespace qrw
 			void printAttributeError(tinyxml2::XMLError error, std::string attributename);
 
 		private:
-			std::string parsingerrormsg;
+			std::string _parsingerrormsg;
 	};
 }
 

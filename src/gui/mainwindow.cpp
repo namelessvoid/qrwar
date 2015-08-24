@@ -46,7 +46,7 @@ namespace qrw
 
 	MainWindow::MainWindow(GuiHandler* guihandler, int style)
 		: Window(style),
-		  guihandler(guihandler)
+		  _guihandler(guihandler)
 	{
 	}
 }

@@ -32,12 +32,12 @@ namespace qrw
 {
 	BoardWidget::BoardWidget(GuiHandler* guihandler, Engine* engine, float width, float height)
 	: Widget(guihandler->getRenderWindow(), width, height),
-	  board(0),
-	  engine(engine),
-	  spritedimensions(0.0),
-	  singlespritescale(0.0),
-	  path(0),
-	  deploywindow(guihandler->getDeployWindow())
+	  _engine(engine),
+	  _board(0),
+	  _spritedimensions(0.0),
+	  _singlespritescale(0.0),
+	  _path(0),
+	  _deploywindow(guihandler->getDeployWindow())
 	{
 		printf("boardrenderer position: x=%f / y=%f\n", getGlobalBounds().left, getGlobalBounds().top);
 		printf("boardrenderer size: w=%f / h=%f\n", getSize().x, getSize().y);
@@ -45,17 +45,17 @@ namespace qrw
 		// Create required sprites.
 		TextureManager* texturemanager = TextureManager::getInstance();
 
-		plainsquare = new sf::Sprite(*texturemanager->getTexture("plainsquare"));
-		footstep = new sf::Sprite(*texturemanager->getTexture("footstep"));
-		terrainsprites[ET_WOOD] = new sf::Sprite(*texturemanager->getTexture("wood"));
-		terrainsprites[ET_HILL] = new sf::Sprite(*texturemanager->getTexture("hill"));
-		terrainsprites[ET_WALL] = new sf::Sprite(*texturemanager->getTexture("wall"));
-		p1unitsprites[EUT_SWORDMAN] = new sf::Sprite(*texturemanager->getTexture("p1swordman"));
-		p1unitsprites[EUT_ARCHER] = new sf::Sprite(*texturemanager->getTexture("p1archer"));
-		p1unitsprites[EUT_SPEARMAN] = new sf::Sprite(*texturemanager->getTexture("p1spearman"));
-		p2unitsprites[EUT_SWORDMAN] = new sf::Sprite(*texturemanager->getTexture("p2swordman"));
-		p2unitsprites[EUT_ARCHER] = new sf::Sprite(*texturemanager->getTexture("p2archer"));
-		p2unitsprites[EUT_SPEARMAN] = new sf::Sprite(*texturemanager->getTexture("p2spearman"));
+		_plainsquare = new sf::Sprite(*texturemanager->getTexture("plainsquare"));
+		_footstep = new sf::Sprite(*texturemanager->getTexture("footstep"));
+		_terrainsprites[ET_WOOD] = new sf::Sprite(*texturemanager->getTexture("wood"));
+		_terrainsprites[ET_HILL] = new sf::Sprite(*texturemanager->getTexture("hill"));
+		_terrainsprites[ET_WALL] = new sf::Sprite(*texturemanager->getTexture("wall"));
+		_p1unitsprites[EUT_SWORDMAN] = new sf::Sprite(*texturemanager->getTexture("p1swordman"));
+		_p1unitsprites[EUT_ARCHER] = new sf::Sprite(*texturemanager->getTexture("p1archer"));
+		_p1unitsprites[EUT_SPEARMAN] = new sf::Sprite(*texturemanager->getTexture("p1spearman"));
+		_p2unitsprites[EUT_SWORDMAN] = new sf::Sprite(*texturemanager->getTexture("p2swordman"));
+		_p2unitsprites[EUT_ARCHER] = new sf::Sprite(*texturemanager->getTexture("p2archer"));
+		_p2unitsprites[EUT_SPEARMAN] = new sf::Sprite(*texturemanager->getTexture("p2spearman"));
 
 		signalmousemoved.connect(std::bind(&BoardWidget::updateCursor, this));
 		signalmouseentered.connect(std::bind(&BoardWidget::updateCursor, this));
@@ -66,21 +66,21 @@ namespace qrw
 	BoardWidget::~BoardWidget()
 	{
 		for(int i = 0; i < ET_NUMBEROFTERRAINTYPES; ++i)
-			delete terrainsprites[i];
+			delete _terrainsprites[i];
 
 		for(int i = 0; i < EUT_NUMBEROFUNITTYPES; ++i)
 		{
-			delete p1unitsprites[i];
-			delete p2unitsprites[i];
+			delete _p1unitsprites[i];
+			delete _p2unitsprites[i];
 		}
 
-		delete plainsquare;
-		delete footstep;
+		delete _plainsquare;
+		delete _footstep;
 	}
 
 	void BoardWidget::setBoard(Board* board)
 	{
-		this->board = board;
+		this->_board = board;
 		calcSpriteDimensions(board->getWidth(), board->getHeight());
 	}
 
@@ -89,17 +89,15 @@ namespace qrw
 	{
 		sf::Vector2f targetsize = target.getView().getSize();
 		targetsize.x -= 180.0;
-		int width = board->getWidth();
-		int height = board->getHeight();
+		int width = _board->getWidth();
+		int height = _board->getHeight();
 
-		sf::Vector2f spritescale(singlespritescale, singlespritescale);
-		sf::VertexArray vertices(sf::Lines, 0);
+		sf::Vector2f spritescale(_singlespritescale, _singlespritescale);
 		Square *square = 0;
 		Unit *unit = 0;
 		Terrain *terrain = 0;
 		sf::Vector2f currpos;
 
-		Coordinates cursorpos = Cursor::getCursor()->getPosition();
 		Coordinates childcursorpos(-1, -1);
 
 		if(Cursor::getCursor()->getChild() != 0)
@@ -111,14 +109,14 @@ namespace qrw
 		{
 			for(int j = 0; j < height; ++j)
 			{
-				currpos.x = i * spritedimensions;
-				currpos.y = j * spritedimensions;
+				currpos.x = i * _spritedimensions;
+				currpos.y = j * _spritedimensions;
 
-				plainsquare->setPosition(currpos);
-				plainsquare->setScale(spritescale);
-				target.draw(*plainsquare);
+				_plainsquare->setPosition(currpos);
+				_plainsquare->setScale(spritescale);
+				target.draw(*_plainsquare);
 
-				square = board->getSquare(i, j);
+				square = _board->getSquare(i, j);
 				terrain = square->getTerrain();
 				unit = square->getUnit();
 
@@ -138,7 +136,7 @@ namespace qrw
 
 		// Render cursor
 		Cursor* cursor = Cursor::getCursor();
-		cursor->setDimensions(spritedimensions);
+		cursor->setDimensions(_spritedimensions);
 		target.draw(*cursor, states);
 
 		drawPath(target, spritescale);
@@ -148,22 +146,22 @@ namespace qrw
 	{
 		if(boardwidth > boardheight)
 		{
-			spritedimensions = getSize().x / boardwidth;
-			singlespritescale = getSize().x / (boardwidth * 32.0);
+			_spritedimensions = getSize().x / boardwidth;
+			_singlespritescale = getSize().x / (boardwidth * 32.0);
 		}
 		else
 		{
-			spritedimensions = getSize().y / boardheight;
-			singlespritescale = getSize().y / (boardheight * 32.0);
+			_spritedimensions = getSize().y / boardheight;
+			_singlespritescale = getSize().y / (boardheight * 32.0);
 		}
 	}
 
 	void BoardWidget::drawTerrain(sf::RenderTarget& target,
 		TERRAINTYPES terraintype, sf::Vector2f position, sf::Vector2f scale) const
 	{
-		terrainsprites[terraintype]->setPosition(position);
-		terrainsprites[terraintype]->setScale(scale);
-		target.draw(*terrainsprites[terraintype]);
+		_terrainsprites[terraintype]->setPosition(position);
+		_terrainsprites[terraintype]->setScale(scale);
+		target.draw(*_terrainsprites[terraintype]);
 	}
 
 	void BoardWidget::drawUnit(sf::RenderTarget& target, int playerid,
@@ -171,9 +169,9 @@ namespace qrw
 	{
 		sf::Sprite* unitsprite = 0;
 		if(playerid == 0)
-			unitsprite = p1unitsprites[unittype];
+			unitsprite = _p1unitsprites[unittype];
 		else
-			unitsprite = p2unitsprites[unittype];
+			unitsprite = _p2unitsprites[unittype];
 		unitsprite->setPosition(position);
 		unitsprite->setScale(scale);
 		target.draw(*unitsprite);
@@ -181,14 +179,14 @@ namespace qrw
 
 	void BoardWidget::drawPath(sf::RenderTarget& target, sf::Vector2f scale) const
 	{
-		if(!path)
+		if(!_path)
 			return;
 
-		int pathlength = path->getLength();
+		int pathlength = _path->getLength();
 
 		Square* previous = 0;
-		Square* current  = path->getStep(0);
-		Square* next     = path->getStep(1);
+		Square* current  = _path->getStep(0);
+		Square* next     = _path->getStep(1);
 
 		// Do not render first step.
 		for(int i = 1; i < pathlength; ++i)
@@ -197,21 +195,21 @@ namespace qrw
 			current  = next;
 
 			// Reset the previously applied transformations.
-			footstep->setOrigin(16, 16);
-			footstep->setScale(scale);
-			footstep->setRotation(0);
+			_footstep->setOrigin(16, 16);
+			_footstep->setScale(scale);
+			_footstep->setRotation(0);
 
 			// Transformations relative to the previous step
 			Coordinates prevdelta(previous->getCoordinates() - current->getCoordinates());
 			if(prevdelta.getX() != 0)
-				footstep->rotate(-90 * prevdelta.getX());
+				_footstep->rotate(-90 * prevdelta.getX());
 			if(prevdelta.getY() != 0)
-				footstep->scale(1, prevdelta.getY());
+				_footstep->scale(1, prevdelta.getY());
 
 			// Transformations relative to the next step (if possible)
 			if(i < pathlength - 1)
 			{
-				next = path->getStep(i+1);
+				next = _path->getStep(i+1);
 
 				Coordinates prevnextdelta(previous->getCoordinates() - next->getCoordinates());
 
@@ -229,16 +227,16 @@ namespace qrw
 					{
 						rotationdirection = +1;
 					}
-					footstep->rotate(rotationdirection * 45 * (prevnextdelta.getX() * prevnextdelta.getY()));
+					_footstep->rotate(rotationdirection * 45 * (prevnextdelta.getX() * prevnextdelta.getY()));
 				}
 			}
 
-			footstep->setPosition(
-				spritedimensions * (0.5f + current->getXPosition()),
-				spritedimensions * (0.5f + current->getYPosition())
+			_footstep->setPosition(
+				_spritedimensions * (0.5f + current->getXPosition()),
+				_spritedimensions * (0.5f + current->getYPosition())
 			);
 
-			target.draw(*footstep);
+			target.draw(*_footstep);
 		}
 	}
 
@@ -249,8 +247,8 @@ namespace qrw
 
 		if(childcursor)
 		{
-			Unit* unit1 = board->getSquare(cursor->getPosition())->getUnit();
-			Unit* unit2 = board->getSquare(childcursor->getPosition())->getUnit();
+			Unit* unit1 = _board->getSquare(cursor->getPosition())->getUnit();
+			Unit* unit2 = _board->getSquare(childcursor->getPosition())->getUnit();
 
 			// Simple move
 			if(!unit2)
@@ -268,13 +266,13 @@ namespace qrw
 					sf::Vector2f pos;
 
 					// First DMG number
-					pos.x = cursor->getPosition().getX() * spritedimensions;
-					pos.y = cursor->getPosition().getY() * spritedimensions + spritedimensions * 0.2;
+					pos.x = cursor->getPosition().getX() * _spritedimensions;
+					pos.y = cursor->getPosition().getY() * _spritedimensions + _spritedimensions * 0.2;
 					dm = new DamageNumber(attackResult.attackerHPDelta, pos);
 
 					// Second DMG number
-					pos.x = childcursor->getPosition().getX() * spritedimensions;
-					pos.y = childcursor->getPosition().getY() * spritedimensions + spritedimensions * 0.2;
+					pos.x = childcursor->getPosition().getX() * _spritedimensions;
+					pos.y = childcursor->getPosition().getY() * _spritedimensions + _spritedimensions * 0.2;
 					dm = new DamageNumber(attackResult.defenderHPDelta, pos);
 				}
 			}
@@ -283,10 +281,10 @@ namespace qrw
 			cursor->setPosition(childcursor->getPosition());
 			cursor->despawnChild();
 			// Reset path
-			if(path)
+			if(_path)
 			{
-				delete path;
-				path = 0;
+				delete _path;
+				_path = 0;
 			}
 		} // if(childcursor)
 	}
@@ -295,23 +293,23 @@ namespace qrw
 	void BoardWidget::updateCursor()
 	{
 		// Calculate on which field the mouse cursor is placed.
-		sf::Vector2i mousePixelPosition = sf::Mouse::getPosition(*(sf::Window*)window);
-		sf::Vector2f mouseWorldPosition = window->mapPixelToCoords(mousePixelPosition);
+		sf::Vector2i mousePixelPosition = sf::Mouse::getPosition(*(sf::Window*)_window);
+		sf::Vector2f mouseWorldPosition = _window->mapPixelToCoords(mousePixelPosition);
 		sf::Vector2i newCursorPos;
 
-		newCursorPos.x = floor( mouseWorldPosition.x / spritedimensions );
-		newCursorPos.y = floor( mouseWorldPosition.y / spritedimensions );
+		newCursorPos.x = floor( mouseWorldPosition.x / _spritedimensions );
+		newCursorPos.y = floor( mouseWorldPosition.y / _spritedimensions );
 
 		// Border checks
 		if(newCursorPos.x < 0)
 			newCursorPos.x = 0;
-		else if(newCursorPos.x > board->getWidth())
-			newCursorPos.x = board->getWidth();
+		else if(newCursorPos.x > _board->getWidth())
+			newCursorPos.x = _board->getWidth();
 
 		if(newCursorPos.y < 0)
 			newCursorPos.y = 0;
-		else if(newCursorPos.y > board->getHeight())
-			newCursorPos.y = board->getHeight();
+		else if(newCursorPos.y > _board->getHeight())
+			newCursorPos.y = _board->getHeight();
 
 		if(!Cursor::getCursor()->getChild())
 			Cursor::getCursor()->setPosition(newCursorPos);
@@ -321,12 +319,12 @@ namespace qrw
 
 			Cursor::getCursor()->getChild()->setPosition(newCursorPos);
 
-			if(engine->getStatus() == EES_RUNNING && oldCoordinates != Coordinates(newCursorPos.x, newCursorPos.y))
+			if(_engine->getStatus() == EES_RUNNING && oldCoordinates != Coordinates(newCursorPos.x, newCursorPos.y))
 			{
 				// Update path
-				if(path)
-					delete path;
-				path = board->findPath(
+				if(_path)
+					delete _path;
+				_path = _board->findPath(
 					Coordinates(Cursor::getCursor()->getPosition()),
 					Coordinates(newCursorPos.x, newCursorPos.y)
 				);
@@ -338,14 +336,14 @@ namespace qrw
 	{
 		Cursor* cursor = Cursor::getCursor();
 		Cursor* childcursor = cursor->getChild();
-		Square* cursorsquare = board->getSquare(cursor->getPosition());
+		Square* cursorsquare = _board->getSquare(cursor->getPosition());
 
 		// Depploy unit / terrain by calling deploywindow methods.
-		if(engine->getStatus() == EES_PREPARE)
+		if(_engine->getStatus() == EES_PREPARE)
 		{
 			if(childcursor)
 			{
-				deploywindow->moveUnit();
+				_deploywindow->moveUnit();
 			}
 			else if(cursorsquare->getUnit())
 			{
@@ -353,8 +351,8 @@ namespace qrw
 			}
 			else
 			{
-				printf("boardwidget leftclicked pre placeEntity (deploywindow=%p)\n", deploywindow);
-				deploywindow->placeEntity();
+				printf("boardwidget leftclicked pre placeEntity (deploywindow=%p)\n", _deploywindow);
+				_deploywindow->placeEntity();
 			}
 		}
 		// Ingame actions.
@@ -383,10 +381,10 @@ namespace qrw
 			cursor->setPosition(childcursor->getPosition());
 			cursor->despawnChild();
 		}
-		if(path)
+		if(_path)
 		{
-			delete path;
-			path = 0;
+			delete _path;
+			_path = 0;
 		}
 	}
 }

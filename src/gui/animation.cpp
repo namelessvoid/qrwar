@@ -2,7 +2,7 @@
 
 namespace qrw
 {
-	std::vector<Animation*> Animation::animations;
+	std::vector<Animation*> Animation::_animations;
 
 	void Animation::renderAll(sf::RenderTarget& target, sf::Time elapsedtime, sf::RenderStates states)
 	{
@@ -10,33 +10,33 @@ namespace qrw
 		{
 			(*iter)->update(elapsedtime);
 		}*/
-		for(int i = animations.size() - 1; i >= 0; --i)
+		for(int i = _animations.size() - 1; i >= 0; --i)
 		{
-			animations.at(i)->update(elapsedtime);
+			_animations.at(i)->update(elapsedtime);
 		}
-		for(auto iter = animations.begin(); iter != animations.end(); ++iter)
+		for(auto iter = _animations.begin(); iter != _animations.end(); ++iter)
 		{
 			(*iter)->draw(target, states);
 		}
 	}
 	Animation::Animation(float duration, bool loop, bool deleteonstop)
-		: duration(duration),
-		  loop(loop),
-		  deleteonstop(deleteonstop),
-		  totalelapsedtime(0.0f)
+		: _duration(duration),
+		  _loop(loop),
+		  _deleteonstop(deleteonstop),
+		  _totalelapsedtime(0.0f)
 	{
 		// Register animation to the animations vector.
-		animations.push_back(this);
+		_animations.push_back(this);
 	}
 
 	Animation::~Animation()
 	{
 		// Remove animation from animations vector.
-		for(auto iter = animations.begin(); iter != animations.end(); ++iter)
+		for(auto iter = _animations.begin(); iter != _animations.end(); ++iter)
 		{
 			if(*iter == this)
 			{
-				animations.erase(iter);
+				_animations.erase(iter);
 				break;
 			}
 		}
@@ -44,41 +44,41 @@ namespace qrw
 
 	void Animation::start()
 	{
-		totalelapsedtime = 0.0f;
-		status = S_PLAYING;
+		_totalelapsedtime = 0.0f;
+		_status = S_PLAYING;
 	}
 
 	void Animation::stop()
 	{
-		if(deleteonstop)
+		if(_deleteonstop)
 			delete this;
 		else
 		{
-			totalelapsedtime = 0.0f;
-			status = S_STOPPED;
+			_totalelapsedtime = 0.0f;
+			_status = S_STOPPED;
 		}
 	}
 
 	void Animation::pause()
 	{
-		status = S_PAUSED;
+		_status = S_PAUSED;
 	}
 
 	void Animation::resume()
 	{
-		status = S_PLAYING;
+		_status = S_PLAYING;
 	}
 
 	void Animation::update(sf::Time elapsedtime)
 	{
-		totalelapsedtime = totalelapsedtime + elapsedtime.asSeconds();
+		_totalelapsedtime = _totalelapsedtime + elapsedtime.asSeconds();
 
-		if(totalelapsedtime > duration)
+		if(_totalelapsedtime > _duration)
 		{
-			if(!loop)
+			if(!_loop)
 				stop();
 			else
-				totalelapsedtime = totalelapsedtime - duration;
+				_totalelapsedtime = _totalelapsedtime - _duration;
 		}
 	}
 
