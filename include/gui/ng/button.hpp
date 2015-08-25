@@ -41,6 +41,8 @@ namespace namelessgui
 
 			void updateSprite();
 
+            void draw(sf::RenderTarget& target, sf::RenderStates states = sf::RenderStates::Default) const;
+
 		protected:
 			Label* _label;
 			RectangularWidget* _image;

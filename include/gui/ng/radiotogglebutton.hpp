@@ -17,9 +17,6 @@ namespace namelessgui
 				const sf::Texture* texturehover = NULL);
 			~RadioToggleButton();
 
-			void draw(sf::RenderTarget& target,
-				sf::RenderStates states = sf::RenderStates::Default) const;
-
 		private:
 			// Overwritten slots
 			void clickedSlot();

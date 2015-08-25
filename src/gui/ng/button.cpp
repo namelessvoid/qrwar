@@ -95,6 +95,22 @@ namespace namelessgui
 		}
 	}
 
+    void Button::draw(sf::RenderTarget& target,
+        sf::RenderStates states) const
+    {
+        if(getState() == ES_ACTIVE)
+        {
+            sf::RectangleShape rect;
+            rect.setFillColor(sf::Color::Red);
+            rect.setPosition(getPosition().x, getPosition().y);
+            rect.setSize(getSize());
+            target.draw(rect);
+        }
+        target.draw(*_label);
+        target.draw(static_cast<sf::RectangleShape>(*_image));
+        target.draw(static_cast<sf::RectangleShape>(*this));
+    }
+
 	void Button::leftMousebuttonPressedSlot()
 	{
 		_state = ES_ACTIVE;
