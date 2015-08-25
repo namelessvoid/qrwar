@@ -3,11 +3,14 @@
 
 #include "gamestates/gamestate.hpp"
 
+#include <SFML/Graphics/RectangleShape.hpp>
+
 // Foreward declarations
 namespace sf
 {
 class RenderWindow;
 class Event;
+class RectangleShape;
 }
 
 namespace qrw
@@ -25,6 +28,9 @@ public:
 	void draw();
 
 	void handleEvent(sf::Event &event);
+
+private:
+	sf::RectangleShape _background;
 };
 
 } // namespace qrw
