@@ -5,6 +5,8 @@
 
 #include <SFML/Graphics/RectangleShape.hpp>
 
+#include <gui/ng/window.hpp>
+
 // Foreward declarations
 namespace sf
 {
@@ -31,6 +33,8 @@ public:
 
 private:
 	sf::RectangleShape _background;
+
+	namelessgui::Window _mainWindow;
 };
 
 } // namespace qrw
