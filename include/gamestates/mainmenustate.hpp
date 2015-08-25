@@ -32,6 +32,10 @@ public:
 	void handleEvent(sf::Event &event);
 
 private:
+	void quitClicked();
+
+	bool _quitClicked;
+
 	sf::RectangleShape _background;
 
 	namelessgui::Window _mainWindow;
