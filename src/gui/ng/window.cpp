@@ -15,6 +15,8 @@ namespace namelessgui
 
 	Window::~Window()
 	{
+        for(auto widget : _children)
+            delete widget;
 	}
 
 	void Window::setVisible(bool visible)
