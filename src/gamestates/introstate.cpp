@@ -23,7 +23,7 @@ void IntroState::init(GameState* previousState)
 {
 	// Create render window
 	_renderWindow->create(
-		sf::VideoMode(640, 480),
+		sf::VideoMode(640, 240),
 		"Quad-Ruled War - Loading...",
 		sf::Style::None
 	);
