@@ -28,7 +28,7 @@ void IntroState::init(GameState* previousState)
 		sf::Style::None
 	);
 
-	_quit = false;
+	_advanceToNextState = false;
 
 	_splashTexture = new sf::Texture();
 	_splashTexture->loadFromFile("./res/img/splash.png");
@@ -38,12 +38,12 @@ void IntroState::init(GameState* previousState)
 
 EGameStateId IntroState::update()
 {
-	if(_quit)
+	if(_advanceToNextState)
 	{
 		delete _splashTexture;
 		delete _splashSprite;
 
-		return EGameStateId::EGSID_QUIT;
+		return EGameStateId::EGSID_MAIN_MENU_STATE;
 	}
 
 	return EGameStateId::EGSID_NO_CHANGE;
@@ -59,9 +59,7 @@ void IntroState::handleEvent(sf::Event& event)
 	std::cout << "Handle event\n";
 
 	if(event.type == sf::Event::KeyPressed)
-	{
-		_quit = true;
-	}
+		_advanceToNextState = true;
 }
 
 } // namespace qrw

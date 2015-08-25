@@ -33,7 +33,7 @@ public:
 	EGameStateId getId();
 
 private:
-	bool _quit;
+	bool _advanceToNextState;
 
 	sf::Texture* _splashTexture;
 	sf::Sprite* _splashSprite;
