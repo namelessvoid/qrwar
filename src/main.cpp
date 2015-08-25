@@ -17,43 +17,6 @@
 
 int main(int argc, char const *argv[])
 {
-//	sf::RenderWindow renderwindow;
-
-//	renderwindow.create(
-//		sf::VideoMode(640, 480),
-//		"Quad-Ruled War - Loading...",
-//		sf::Style::None
-//	);
-
-//	// Create splash screen stuff
-//	sf::Texture* splashtexture = new sf::Texture();
-//	splashtexture->loadFromFile("./res/img/splash.png");
-//	sf::Sprite* splashsprite = new sf::Sprite();
-//	splashsprite->setTexture(*splashtexture);
-
-//	renderwindow.draw(*splashsprite);
-//	renderwindow.display();
-
-//	// Start initialization of qrw...
-//	// Load Settings
-//	qrw::Settings* settings = qrw::Settings::getInstance();
-//	settings->loadFromFile();
-
-//	// Preload image resources
-//	qrw::ImageManager* imgmgr = qrw::ImageManager::getInstance();
-//	imgmgr->loadImage("p1swordman", "./res/img/units/p1swordman.png");
-//	imgmgr->loadImage("p1archer", "./res/img/units/p1archer.png");
-//	imgmgr->loadImage("p1spearman", "./res/img/units/p1spearman.png");
-//	imgmgr->loadImage("p2swordman", "./res/img/units/p2swordman.png");
-//	imgmgr->loadImage("p2archer", "./res/img/units/p2archer.png");
-//	imgmgr->loadImage("p2spearman", "./res/img/units/p2spearman.png");
-//	imgmgr->loadImage("plainsquare", "./res/img/plainsquare.png");
-
-//	// Loading tilesets
-//	qrw::TilesetProcessor tilesetprocessor;
-//	tilesetprocessor.loadTileset(settings->getEntityTilesetPath());
-//	tilesetprocessor.loadTileset(settings->getGuiTilesetPath());
-
 //	// Create engine
 //	qrw::Engine engine;
 //	engine.init(10, 4);
@@ -66,11 +29,6 @@ int main(int argc, char const *argv[])
 //	board->getSquare(1, 2)->setTerrain(terrain2);
 //	qrw::Terrain* terrain3 = new qrw::Terrain(qrw::ET_WALL, 2, 2);
 //	board->getSquare(5, 1)->setTerrain(terrain3);
-
-//	// Determine whether fullscreen is enabled
-//	sf::Uint32 style = sf::Style::Default;
-//	if(settings->getFullscreen())
-//		style = sf::Style::Fullscreen;
 
 //	// Create the gui
 //	qrw::GuiHandler guihandler(&engine, &renderwindow);
