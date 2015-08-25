@@ -11,14 +11,44 @@ class Event;
 namespace qrw
 {
 
+/**
+ * Enum containing the identifiers of available game states.
+ */
 enum EGameStateId
 {
+	/**
+	 * The ID of te intro game state.
+	 */
 	EGSID_INTRO_STATE,
+
+	/**
+	 * The ID of the main menu game state.
+	 */
+	EGSID_MAIN_MENU_STATE,
+
+	/**
+	 * Special "game state" that indicates that the application should quit.
+	 */
 	EGSID_QUIT,
+
+	/**
+	 * Special "game state" that indicates that no game state change
+	 * should be performed by the QRWar object.
+	 */
 	EGSID_NO_CHANGE,
+
+	/**
+	 * Holds the number of game states.
+	 */
 	EGSID_COUNT
 };
 
+/**
+ * The GameState class represents a state of the game.
+ *
+ * It is used to encapuslate all data and methods required for a specific
+ * state.
+ */
 class GameState
 {
 public:
