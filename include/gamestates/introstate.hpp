@@ -34,6 +34,7 @@ public:
 
 private:
 	bool _advanceToNextState;
+    bool _resourcesLoaded;
 
 	sf::Texture* _splashTexture;
 	sf::Sprite* _splashSprite;
