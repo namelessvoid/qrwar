@@ -41,7 +41,7 @@ namespace namelessgui
 
 			void updateSprite();
 
-            void draw(sf::RenderTarget& target, sf::RenderStates states = sf::RenderStates::Default) const;
+			virtual void render(sf::RenderTarget& target, sf::RenderStates states = sf::RenderStates::Default) const override;
 
 		protected:
 			Label* _label;

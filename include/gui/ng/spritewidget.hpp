@@ -26,7 +26,7 @@ public:
 	void setPosition(float x, float y) { sf::RectangleShape::setPosition(x, y); }
 	void setPosition(sf::Vector2f position) { sf::RectangleShape::setPosition(position); }
 
-	void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
+	virtual void render(sf::RenderTarget& target, sf::RenderStates states) const override;
 
 	/**
 	 * Returns the global boundaries of the widget.

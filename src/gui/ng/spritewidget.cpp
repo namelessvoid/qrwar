@@ -25,11 +25,11 @@ void RectangularWidget::setScale(float scaleX, float scaleY)
 	sf::RectangleShape::setScale(scaleX, scaleY);
 }
 
-void RectangularWidget::draw(sf::RenderTarget& target, sf::RenderStates states) const
+void RectangularWidget::render(sf::RenderTarget& target, sf::RenderStates states) const
 {
 	if(_visible)
 		target.draw(static_cast<sf::RectangleShape>(*this), states);
-	Widget::draw(target, states);
+	Widget::render(target, states);
 }
 
 sf::FloatRect RectangularWidget::getGlobalBounds()

@@ -93,11 +93,11 @@ namespace namelessgui
 			_image->setTexture(_textures[_state], true);
 	}
 
-	void Button::draw(sf::RenderTarget& target, sf::RenderStates states) const
+	void Button::render(sf::RenderTarget& target, sf::RenderStates states) const
     {
 		target.draw(static_cast<sf::RectangleShape>(*this));
-		target.draw(*_label);
-		target.draw(static_cast<sf::RectangleShape>(*_image));
+		_label->render(target, states);
+		_image->render(target, states);
     }
 
 	void Button::leftMousebuttonPressedSlot()

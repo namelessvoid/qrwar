@@ -17,7 +17,7 @@ namespace namelessgui
 		public:
 			Label(sf::RenderWindow* _window, float width = 0, float height = 0);
 
-			void draw(sf::RenderTarget& target, sf::RenderStates states) const;
+			virtual void render(sf::RenderTarget& target, sf::RenderStates states) const override;
 
 			sf::FloatRect getGlobalBounds();
 

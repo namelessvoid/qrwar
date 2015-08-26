@@ -17,12 +17,12 @@ class RenderWindow;
 
 namespace namelessgui
 {
-	class Widget : public sf::Drawable, public sf::Transformable
+	class Widget
     {
         public:
 			Widget(sf::RenderWindow* _window, float width, float height);
 			Widget(sf::RenderWindow* _window, sf::Vector2f _size);
-            ~Widget();
+			virtual ~Widget();
 
 			void addWidget(Widget* widget);
 
@@ -35,7 +35,7 @@ namespace namelessgui
 
             virtual sf::FloatRect getGlobalBounds() = 0;
 
-			void draw(sf::RenderTarget&, sf::RenderStates = sf::RenderStates::Default) const override;
+			virtual void render(sf::RenderTarget&, sf::RenderStates = sf::RenderStates::Default) const;
 
             // Signals
 			Signal<> signalclicked;

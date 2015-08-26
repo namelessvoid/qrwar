@@ -59,7 +59,7 @@ EGameStateId MainMenuState::update()
 void MainMenuState::draw()
 {
 	_renderWindow->draw(_background);
-	_mainWindow.draw(*_renderWindow, sf::RenderStates::Default);
+	_mainWindow.render(*_renderWindow, sf::RenderStates::Default);
 }
 
 void MainMenuState::handleEvent(sf::Event& event)

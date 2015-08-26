@@ -7,7 +7,7 @@ namespace namelessgui
 			_text()
 	{}
 
-	void Label::draw(sf::RenderTarget& target, sf::RenderStates states) const
+	void Label::render(sf::RenderTarget& target, sf::RenderStates states) const
 	{
 		target.draw(_text);
 	}

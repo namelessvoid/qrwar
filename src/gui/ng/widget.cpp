@@ -58,12 +58,12 @@ namespace namelessgui
 		}
 	}
 
-	void Widget::draw(sf::RenderTarget& target, sf::RenderStates states) const
+	void Widget::render(sf::RenderTarget& target, sf::RenderStates states) const
 	{
 		if(_visible)
 		{
 			for(auto iter = _children.begin(); iter != _children.end(); ++iter)
-				target.draw(*(*iter), states);
+				(*iter)->render(target, states);
 		}
 	}
 
