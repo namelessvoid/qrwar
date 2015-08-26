@@ -23,8 +23,7 @@ namespace namelessgui
 		this->_label->setCharacterSize(25);
 		this->_label->setText(text);
 
-		if(textureactive != NULL && textureinactive != NULL
-			&& texturehover != NULL)
+		if(textureactive != NULL && textureinactive != NULL && texturehover != NULL)
 			setTextures(textureactive, textureinactive, texturehover);
 
 		for(int i = 0; i < 3; ++i)
@@ -36,7 +35,9 @@ namespace namelessgui
 		this->signalclicked.connect(std::bind(&Button::clickedSlot, this));
 		this->signalmouseleft.connect(std::bind(&Button::mouseLeftSlot, this));
 
-		_image->setFillColor(sf::Color(255, 255, 255, 255));
+		this->setFillColor(sf::Color(60, 60, 60, 255));
+		this->setOutlineColor(sf::Color(30, 30, 30, 255));
+		this->setOutlineThickness(2.0f);
 	}
 
 	Button::~Button()
@@ -95,43 +96,38 @@ namespace namelessgui
 		}
 	}
 
-    void Button::draw(sf::RenderTarget& target,
-        sf::RenderStates states) const
+	void Button::draw(sf::RenderTarget& target, sf::RenderStates states) const
     {
-        if(getState() == ES_ACTIVE)
-        {
-            sf::RectangleShape rect;
-            rect.setFillColor(sf::Color::Red);
-            rect.setPosition(getPosition().x, getPosition().y);
-            rect.setSize(getSize());
-            target.draw(rect);
-        }
-        target.draw(*_label);
-        target.draw(static_cast<sf::RectangleShape>(*_image));
-        target.draw(static_cast<sf::RectangleShape>(*this));
+		target.draw(static_cast<sf::RectangleShape>(*this));
+		target.draw(*_label);
+		target.draw(static_cast<sf::RectangleShape>(*_image));
     }
 
 	void Button::leftMousebuttonPressedSlot()
 	{
 		_state = ES_ACTIVE;
+		this->setFillColor(sf::Color(50, 50, 50, 255));
 		updateSprite();
 	}
 
 	void Button::mouseEnteredSlot()
 	{
 		_state = ES_HOVER;
+		this->setFillColor(sf::Color(80, 80, 80, 255));
 		updateSprite();
 	}
 
 	void Button::clickedSlot()
 	{
 		_state = ES_HOVER;
+		this->setFillColor(sf::Color(60, 60, 60, 255));
 		updateSprite();
 	}
 
 	void Button::mouseLeftSlot()
 	{
 		_state = ES_INACTIVE;
+		this->setFillColor(sf::Color(60, 60, 60, 255));
 		updateSprite();
 	}
 
