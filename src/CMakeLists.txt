@@ -29,17 +29,17 @@ add_library(qrwarlib
         gamestates/introstate.cpp
         gamestates/mainmenustate.cpp
 
-	gui/animation.cpp
-	gui/boardwidget.cpp
-	gui/cursor.cpp
-	gui/damagenumber.cpp
-	gui/deploywindow.cpp
-	gui/guihandler.cpp
-	gui/imagemanager.cpp
-	gui/ingamewindow.cpp
-	gui/mainwindow.cpp
-	gui/settingswindow.cpp
-	gui/startgamewindow.cpp
+#	gui/animation.cpp
+#	gui/boardwidget.cpp
+#	gui/cursor.cpp
+#	gui/damagenumber.cpp
+#	gui/deploywindow.cpp
+#	gui/guihandler.cpp
+#	gui/ingamewindow.cpp
+#	gui/mainwindow.cpp
+#	gui/settingswindow.cpp
+#	gui/startgamewindow.cppr
+        gui/imagemanager.cpp
 	gui/texturemanager.cpp
 )
 set_target_properties(qrwarlib PROPERTIES OUTPUT_NAME qrwar)
