@@ -90,10 +90,7 @@ namespace namelessgui
 	void Button::updateSprite()
 	{
 		if(_textures[_state] != 0)
-		{
 			_image->setTexture(_textures[_state], true);
-			setPosition(getPosition());
-		}
 	}
 
 	void Button::draw(sf::RenderTarget& target, sf::RenderStates states) const
