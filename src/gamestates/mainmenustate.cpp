@@ -13,7 +13,8 @@ namespace qrw
 
 MainMenuState::MainMenuState(sf::RenderWindow* renderWindow)
 	: GameState(renderWindow, EGameStateId::EGSID_MAIN_MENU_STATE),
-	  _quitClicked(false)
+	  _quitClicked(false),
+	  _mainWindow(renderWindow)
 {
 	_mainWindow.setSize(sf::Vector2f(145, 240));
 	_mainWindow.setPosition(sf::Vector2f(15, 15));
@@ -58,7 +59,7 @@ EGameStateId MainMenuState::update()
 void MainMenuState::draw()
 {
 	_renderWindow->draw(_background);
-	_renderWindow->draw(_mainWindow);
+	_mainWindow.draw(*_renderWindow, sf::RenderStates::Default);
 }
 
 void MainMenuState::handleEvent(sf::Event& event)

@@ -27,7 +27,14 @@ namespace namelessgui
 
     Widget::~Widget()
     {
+		for(auto widget : _children)
+			delete widget;
     }
+
+	void Widget::addWidget(Widget* widget)
+	{
+		_children.push_back(widget);
+	}
 
     bool Widget::hasMouseFocus()
 	{
@@ -42,10 +49,23 @@ namespace namelessgui
 		return bounds.contains(mousepos);
 	}
 
-    void Widget::setVisible(bool visibility)
-    {
-        _visible = visibility;
-    }
+	void Widget::setVisible(bool visible)
+	{
+		this->_visible = visible;
+		for(std::vector<Widget*>::iterator iter = _children.begin(); iter != _children.end(); ++iter)
+		{
+			(*iter)->setVisible(visible);
+		}
+	}
+
+	void Widget::draw(sf::RenderTarget& target, sf::RenderStates states) const
+	{
+		if(_visible)
+		{
+			for(auto iter = _children.begin(); iter != _children.end(); ++iter)
+				target.draw(*(*iter), states);
+		}
+	}
 
     void Widget::handleEvent(const sf::Event& event)
     {
@@ -53,7 +73,9 @@ namespace namelessgui
         if(!_visible)
             return;
 
-        // printf("widget dim: x=%f / y=%f; w=%f / h=%f\n", getGlobalBounds().left, getGlobalBounds().top, size.x, size.y);
+		// Let sub widgets also handle the event
+		for(auto iter = _children.begin(); iter != _children.end(); ++iter)
+			(*iter)->handleEvent(event);
 
         // Handle mouse move evets
         if(event.type == sf::Event::MouseMoved)
@@ -134,14 +156,4 @@ namespace namelessgui
         this->signalmouseleft.disconnectAll();
         this->signalmouseentered.disconnectAll();
     }
-
-	void Widget::setSize(sf::Vector2f size)
-	{
-		this->_size = size;
-	}
-
-	sf::Vector2f Widget::getSize() const
-	{
-		return _size;
-	}
 }

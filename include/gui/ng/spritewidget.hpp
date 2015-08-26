@@ -14,9 +14,17 @@ namespace namelessgui
 class RectangularWidget : public Widget, public sf::RectangleShape
 {
 public:
-	RectangularWidget(sf::RenderWindow* _window, float width, float height);
+	RectangularWidget(sf::RenderWindow* _window, float width = 10, float height = 10);
 
 	sf::Vector2f getSize() const;
+
+	void setScale(const sf::Vector2f &factors);
+
+	void setScale(float scaleX, float scaleY);
+
+	sf::Vector2f getPosition() const { return sf::RectangleShape::getPosition(); }
+	void setPosition(float x, float y) { sf::RectangleShape::setPosition(x, y); }
+	void setPosition(sf::Vector2f position) { sf::RectangleShape::setPosition(position); }
 
 	void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
 

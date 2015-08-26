@@ -26,8 +26,8 @@ namespace qrw
 	class DeployWindow : public namelessgui::Window
 	{
 		public:
-			DeployWindow(Engine* _engine, GuiHandler* guihandler,
-				IngameWindow* _ingamewindow);
+			DeployWindow(sf::RenderWindow* renderWindow, Engine* engine, GuiHandler* guihandler,
+				IngameWindow* ingamewindow);
 			~DeployWindow();
 
 			void update();

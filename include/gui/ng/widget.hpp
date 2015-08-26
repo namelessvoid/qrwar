@@ -1,9 +1,12 @@
 #ifndef NAMELESSGUI_WIDGET_HPP
 #define NAMELESSGUI_WIDGET_HPP
 
+#include <vector>
+
 #include <SFML/Window/Window.hpp>
 #include <SFML/Window/Event.hpp>
 #include <SFML/Graphics/Drawable.hpp>
+#include <SFML/Graphics/Transformable.hpp>
 
 #include "gui/ng/signal.hpp"
 #include "gui/ng/singleparametersignal.hpp"
@@ -15,23 +18,25 @@ class RenderWindow;
 
 namespace namelessgui
 {
-    class Widget : public sf::Drawable
+	class Widget : public sf::Drawable, public sf::Transformable
     {
         public:
 			Widget(sf::RenderWindow* _window, float width, float height);
 			Widget(sf::RenderWindow* _window, sf::Vector2f _size);
             ~Widget();
 
+			void addWidget(Widget* widget);
+
             void handleEvent(const sf::Event& event);
 
             void setVisible(bool visibility = true);
+			bool isVisible();
 
             void disconnectAllSignals();
 
-			void setSize(sf::Vector2f _size);
-			sf::Vector2f getSize() const;
-
             virtual sf::FloatRect getGlobalBounds() = 0;
+
+			void draw(sf::RenderTarget&, sf::RenderStates = sf::RenderStates::Default) const override;
 
             // Signals
             Signal signalclicked;
@@ -46,6 +51,7 @@ namespace namelessgui
             bool hasMouseFocus();
 			const sf::RenderWindow* _window;
 			bool _visible;
+			std::vector<Widget*> _children;
 
         private:
             /**

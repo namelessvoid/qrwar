@@ -16,8 +16,9 @@
 
 namespace qrw
 {
-	DeployWindow::DeployWindow(Engine* engine, GuiHandler* guihandler, IngameWindow* ingamewindow)
-	: _engine(engine),
+	DeployWindow::DeployWindow(sf::RenderWindow* renderWindow, Engine* engine, GuiHandler* guihandler, IngameWindow* ingamewindow)
+	: Window(renderWindow),
+	  _engine(engine),
 	  _ingamewindow(ingamewindow),
 	  _buttongroup(new namelessgui::ButtonGroup()),
 	  // TODO dynamic size
@@ -40,7 +41,7 @@ namespace qrw
 		{
 			// TODO dynamic size
 			_radiobuttons[i] = new namelessgui::RadioToggleButton(guihandler->getRenderWindow(), _buttongroup, 120.0, 50.0);
-			_radiobuttons[i]->setScale(1.5, 1.5);
+			_radiobuttons[i]->setScale(sf::Vector2f(1.5, 1.5));
 
 			// Set positions
 			// TODO dynamic positioning

@@ -23,7 +23,7 @@ namespace qrw
 	class IngameWindow : public namelessgui::Window
 	{
 		public:
-			IngameWindow(Engine* engine, GuiHandler* guihandler);
+			IngameWindow(sf::RenderWindow* renderWindow, Engine* engine, GuiHandler* guihandler);
 			~IngameWindow();
 
 			void update();

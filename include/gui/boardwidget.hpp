@@ -35,6 +35,11 @@ namespace qrw
 				return sf::FloatRect(0, 0, getSize().x, getSize().y);
 			}
 
+			sf::Vector2f getSize()
+			{
+				return sf::Vector2f(100, 100);
+			}
+
 		private:
 			void calcSpriteDimensions(int boardwidth, int boardheight);
 

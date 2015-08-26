@@ -12,13 +12,24 @@ RectangularWidget::RectangularWidget(sf::RenderWindow* window, float width, floa
 
 sf::Vector2f RectangularWidget::getSize() const
 {
-	 return sf::RectangleShape::getSize();
+	return sf::RectangleShape::getSize();
+}
+
+void RectangularWidget::setScale(const sf::Vector2f& factors)
+{
+	sf::RectangleShape::setScale(factors);
+}
+
+void RectangularWidget::setScale(float scaleX, float scaleY)
+{
+	sf::RectangleShape::setScale(scaleX, scaleY);
 }
 
 void RectangularWidget::draw(sf::RenderTarget& target, sf::RenderStates states) const
 {
 	if(_visible)
 		target.draw(static_cast<sf::RectangleShape>(*this), states);
+	Widget::draw(target, states);
 }
 
 sf::FloatRect RectangularWidget::getGlobalBounds()
