@@ -9,7 +9,6 @@
 #include <SFML/Graphics/Transformable.hpp>
 
 #include "gui/ng/signal.hpp"
-#include "gui/ng/singleparametersignal.hpp"
 
 namespace sf
 {
@@ -39,13 +38,13 @@ namespace namelessgui
 			void draw(sf::RenderTarget&, sf::RenderStates = sf::RenderStates::Default) const override;
 
             // Signals
-            Signal signalclicked;
-            Signal signalrightclicked;
-            Signal signalmouseentered;
-            Signal signalmouseleft;
-            Signal signalmousemoved;
-            Signal signalleftmousebuttonpressed;
-            SingleParameterSignal<const sf::Event&> signalkeypressed;
+			Signal<> signalclicked;
+			Signal<> signalrightclicked;
+			Signal<> signalmouseentered;
+			Signal<> signalmouseleft;
+			Signal<> signalmousemoved;
+			Signal<> signalleftmousebuttonpressed;
+			Signal<const sf::Event&> signalkeypressed;
 
         protected:
             bool hasMouseFocus();
