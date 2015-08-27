@@ -14,13 +14,6 @@ namespace namelessgui
 	class Button : public RectangularWidget
 	{
 		public:
-			enum STATES
-			{
-				ES_INACTIVE,
-				ES_ACTIVE,
-				ES_HOVER
-			};
-
 			Button(std::string text = "",
 				const sf::Texture* textureactive = NULL,
 				const sf::Texture* textureinainactive = NULL,
@@ -28,9 +21,6 @@ namespace namelessgui
 			~Button();
 
 			void setText(std::string text);
-
-			void setState(STATES _state);
-			STATES getState() const;
 
 			void setPosition(float x, float y);
 			void setPosition(const sf::Vector2f& position);
@@ -55,7 +45,7 @@ namespace namelessgui
 			void clickedSlot();
 			void mouseLeftSlot();
 
-			STATES _state;
+			EWidgetStates _state;
 			sf::Font* _defaultfont;
 
 			const sf::Texture* _textures[3];

@@ -33,14 +33,14 @@ class ButtonGroupTest : public CppUnit::TestFixture
 		void activateTest()
 		{
 			for(int i = 0; i < BUTTONCOUNT; ++i)
-				CPPUNIT_ASSERT(buttons[i]->getState() == namelessgui::Button::ES_INACTIVE);
+				CPPUNIT_ASSERT(buttons[i]->getState() == namelessgui::Button::EWS_INACTIVE);
 			group->activateButton(buttons[0]);
-			CPPUNIT_ASSERT(buttons[0]->getState() == namelessgui::Button::ES_ACTIVE);
-			CPPUNIT_ASSERT(buttons[1]->getState() == namelessgui::Button::ES_INACTIVE);
+			CPPUNIT_ASSERT(buttons[0]->getState() == namelessgui::Button::EWS_ACTIVE);
+			CPPUNIT_ASSERT(buttons[1]->getState() == namelessgui::Button::EWS_INACTIVE);
 			group->activateButton(buttons[2]);
-			CPPUNIT_ASSERT(buttons[0]->getState() == namelessgui::Button::ES_INACTIVE);
-			CPPUNIT_ASSERT(buttons[1]->getState() == namelessgui::Button::ES_INACTIVE);
-			CPPUNIT_ASSERT(buttons[2]->getState() == namelessgui::Button::ES_ACTIVE);
+			CPPUNIT_ASSERT(buttons[0]->getState() == namelessgui::Button::EWS_INACTIVE);
+			CPPUNIT_ASSERT(buttons[1]->getState() == namelessgui::Button::EWS_INACTIVE);
+			CPPUNIT_ASSERT(buttons[2]->getState() == namelessgui::Button::EWS_ACTIVE);
 		}
 
 

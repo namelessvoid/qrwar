@@ -11,6 +11,7 @@ namespace namelessgui
 	Widget::Widget(const Widget* parent)
 		: _parent(parent),
 		  _visible(true),
+		  _state(EWS_INACTIVE),
 		  _leftMouseButtonPressRegistered(false),
 		  _rightMouseButtonPressRegistered(false),
 		  _mouseFocus(false)
@@ -35,6 +36,16 @@ namespace namelessgui
 		{
 			(*iter)->setVisible(visible);
 		}
+	}
+
+	void Widget::setState(Widget::EWidgetStates state)
+	{
+		this->_state = state;
+	}
+
+	Widget::EWidgetStates Widget::getState() const
+	{
+		return _state;
 	}
 
 	void Widget::render(sf::RenderTarget& target, sf::RenderStates states) const

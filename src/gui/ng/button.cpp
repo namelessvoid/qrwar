@@ -15,7 +15,7 @@ namespace namelessgui
 	: RectangularWidget(),
 	  _label(new Label()),
 	  _image(new RectangularWidget()),
-	  _state(ES_INACTIVE),
+	  _state(EWS_INACTIVE),
 	  _defaultfont(new sf::Font())
 	{
 		_defaultfont->loadFromFile("./res/font/Knigqst.ttf");
@@ -48,16 +48,6 @@ namespace namelessgui
 		this->_label->setText(text);
 	}
 
-	void Button::setState(Button::STATES state)
-	{
-		this->_state = state;
-	}
-
-	Button::STATES Button::getState() const
-	{
-		return _state;
-	}
-
 	void Button::setPosition(float x, float y)
 	{
 		RectangularWidget::setPosition(x, y);
@@ -81,9 +71,9 @@ namespace namelessgui
 	void Button::setTextures(const sf::Texture* textureinactive,
 		const sf::Texture* textureactive, const sf::Texture* texturehover)
 	{
-		_textures[ES_INACTIVE] = textureinactive;
-		_textures[ES_ACTIVE] = textureactive;
-		_textures[ES_HOVER] = texturehover;
+		_textures[EWS_INACTIVE] = textureinactive;
+		_textures[EWS_ACTIVE] = textureactive;
+		_textures[EWS_HOVER] = texturehover;
 		updateSprite();
 	}
 
@@ -102,28 +92,28 @@ namespace namelessgui
 
 	void Button::leftMousebuttonPressedSlot()
 	{
-		_state = ES_ACTIVE;
+		_state = EWS_ACTIVE;
 		this->setFillColor(sf::Color(50, 50, 50, 255));
 		updateSprite();
 	}
 
 	void Button::mouseEnteredSlot()
 	{
-		_state = ES_HOVER;
+		_state = EWS_HOVER;
 		this->setFillColor(sf::Color(80, 80, 80, 255));
 		updateSprite();
 	}
 
 	void Button::clickedSlot()
 	{
-		_state = ES_HOVER;
+		_state = EWS_HOVER;
 		this->setFillColor(sf::Color(60, 60, 60, 255));
 		updateSprite();
 	}
 
 	void Button::mouseLeftSlot()
 	{
-		_state = ES_INACTIVE;
+		_state = EWS_INACTIVE;
 		this->setFillColor(sf::Color(60, 60, 60, 255));
 		updateSprite();
 	}

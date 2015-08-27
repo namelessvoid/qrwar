@@ -3,23 +3,23 @@
 
 #include <vector>
 
-#include <SFML/Window/Window.hpp>
+#include <SFML/Graphics/RenderTarget.hpp>
 #include <SFML/Window/Event.hpp>
-#include <SFML/Graphics/Drawable.hpp>
-#include <SFML/Graphics/Transformable.hpp>
 
 #include "gui/ng/signal.hpp"
 
-namespace sf
-{
-class RenderWindow;
-}
-
 namespace namelessgui
 {
-	class Widget
-    {
-        public:
+class Widget
+{
+	public:
+		enum EWidgetStates
+		{
+			EWS_INACTIVE,
+			EWS_ACTIVE,
+			EWS_HOVER
+		};
+
 			Widget(const Widget* parent = nullptr);
 			virtual ~Widget();
 
@@ -29,6 +29,9 @@ namespace namelessgui
 
             void setVisible(bool visibility = true);
 			bool isVisible();
+
+			void setState(EWidgetStates _state);
+			EWidgetStates getState() const;
 
             void disconnectAllSignals();
 
@@ -51,6 +54,7 @@ namespace namelessgui
 			const Widget* _parent;
 			bool _visible;
 			std::vector<Widget*> _children;
+			EWidgetStates _state;
 
         private:
             /**

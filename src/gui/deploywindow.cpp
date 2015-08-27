@@ -140,7 +140,7 @@ namespace qrw
 			activebuttonid < BUTTONCOUNT;
 			 ++activebuttonid)
 		{
-			if(_radiobuttons[activebuttonid]->getState() == namelessgui::Button::ES_ACTIVE)
+			if(_radiobuttons[activebuttonid]->getState() == namelessgui::Button::EWS_ACTIVE)
 				break;
 		}
 

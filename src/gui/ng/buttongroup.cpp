@@ -24,9 +24,9 @@ namespace namelessgui
 		std::map<Button*, Button*>::iterator iter;
 		for(iter = buttons.begin(); iter != buttons.end(); ++iter)
 		{
-			iter->second->setState(Button::ES_INACTIVE);
+			iter->second->setState(Button::EWS_INACTIVE);
 		}
-		buttons.find(button)->second->setState(Button::ES_ACTIVE);
+		buttons.find(button)->second->setState(Button::EWS_ACTIVE);
 	}
 
 	bool ButtonGroup::hasButton(Button* button)
