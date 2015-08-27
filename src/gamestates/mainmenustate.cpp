@@ -19,7 +19,8 @@ MainMenuState::MainMenuState(sf::RenderWindow* renderWindow)
 	_mainWindow.setSize(sf::Vector2f(145, 240));
 	_mainWindow.setPosition(sf::Vector2f(15, 15));
 
-	namelessgui::Button* button = new namelessgui::Button("Quit");
+	namelessgui::Button* button = new namelessgui::Button();
+	button->setText("Quit");
 	button->setSize(sf::Vector2f(139, 50));
 	button->signalclicked.connect(std::bind(&MainMenuState::quitClicked, this));
 	_mainWindow.addWidget(button);

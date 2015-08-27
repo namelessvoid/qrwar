@@ -8,8 +8,7 @@
 namespace namelessgui
 {
 
-	Button::Button(std::string text,
-		const sf::Texture* textureactive,
+	Button::Button(const sf::Texture* textureactive,
 		const sf::Texture* textureinactive,
 		const sf::Texture* texturehover)
 	: RectangularWidget(),
@@ -21,7 +20,6 @@ namespace namelessgui
 		_defaultfont->loadFromFile("./res/font/Knigqst.ttf");
 		this->_label->setFont(*_defaultfont);
 		this->_label->setCharacterSize(25);
-		this->_label->setText(text);
 
 		if(textureactive != NULL && textureinactive != NULL && texturehover != NULL)
 			setTextures(textureactive, textureinactive, texturehover);
