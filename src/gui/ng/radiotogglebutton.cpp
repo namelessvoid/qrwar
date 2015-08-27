@@ -4,11 +4,8 @@
 
 namespace namelessgui
 {
-	RadioToggleButton::RadioToggleButton(ButtonGroup* buttongroup,
-		const sf::Texture* textureactive,
-		const sf::Texture* textureinainactive,
-		const sf::Texture* texturehover)
-	: Button(textureactive, textureinainactive, texturehover),
+	RadioToggleButton::RadioToggleButton(ButtonGroup* buttongroup)
+	: Button(),
 	  _buttongroup(buttongroup)
 	{
 		buttongroup->addButton(this);

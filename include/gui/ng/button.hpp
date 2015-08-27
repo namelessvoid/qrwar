@@ -14,9 +14,7 @@ namespace namelessgui
 	class Button : public RectangularWidget
 	{
 		public:
-			Button(const sf::Texture* textureactive = NULL,
-				const sf::Texture* textureinainactive = NULL,
-				const sf::Texture* texutrehover = NULL);
+			Button();
 			~Button();
 
 			void setText(std::string text);
@@ -46,8 +44,6 @@ namespace namelessgui
 
 			EWidgetStates _state;
 			sf::Font* _defaultfont;
-
-			const sf::Texture* _textures[3];
 	};
 }
 

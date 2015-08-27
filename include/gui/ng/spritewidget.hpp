@@ -46,6 +46,9 @@ public:
 	 * @param resetRect
 	 */
 	void setTexture(const sf::Texture* texture, bool resetRect = true);
+
+protected:
+	const sf::Texture* _textures[3];
 };
 }
 #endif

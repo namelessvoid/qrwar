@@ -9,10 +9,7 @@ namespace namelessgui
 	class RadioToggleButton : public Button
 	{
 		public:
-			RadioToggleButton(ButtonGroup* buttongroup,
-				const sf::Texture* textureactive = NULL,
-				const sf::Texture* textureinainactive = NULL,
-				const sf::Texture* texturehover = NULL);
+			RadioToggleButton(ButtonGroup* buttongroup);
 			~RadioToggleButton();
 
 		private:

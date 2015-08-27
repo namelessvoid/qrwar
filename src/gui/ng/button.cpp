@@ -8,9 +8,7 @@
 namespace namelessgui
 {
 
-	Button::Button(const sf::Texture* textureactive,
-		const sf::Texture* textureinactive,
-		const sf::Texture* texturehover)
+	Button::Button()
 	: RectangularWidget(),
 	  _label(new Label()),
 	  _image(new RectangularWidget()),
@@ -20,12 +18,6 @@ namespace namelessgui
 		_defaultfont->loadFromFile("./res/font/Knigqst.ttf");
 		this->_label->setFont(*_defaultfont);
 		this->_label->setCharacterSize(25);
-
-		if(textureactive != NULL && textureinactive != NULL && texturehover != NULL)
-			setTextures(textureactive, textureinactive, texturehover);
-
-		for(int i = 0; i < 3; ++i)
-			_textures[i] = 0;
 
 		// Connect signals to slots
 		this->signalleftmousebuttonpressed.connect(std::bind(&Button::leftMousebuttonPressedSlot, this));
