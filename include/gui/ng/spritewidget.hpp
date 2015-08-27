@@ -14,7 +14,7 @@ namespace namelessgui
 class RectangularWidget : public Widget, public sf::RectangleShape
 {
 public:
-	RectangularWidget(sf::RenderWindow* _window, float width = 10, float height = 10);
+	RectangularWidget(float width = 10, float height = 10);
 
 	sf::Vector2f getSize() const;
 

@@ -15,7 +15,7 @@ namespace namelessgui
 	class Label : public Widget
 	{
 		public:
-			Label(sf::RenderWindow* _window, float width = 0, float height = 0);
+			Label(float width = 0, float height = 0);
 
 			virtual void render(sf::RenderTarget& target, sf::RenderStates states) const override;
 

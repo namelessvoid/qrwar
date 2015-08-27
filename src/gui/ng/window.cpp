@@ -5,8 +5,8 @@
 
 namespace namelessgui
 {
-	Window::Window(sf::RenderWindow* renderWindow)
-	 :	RectangularWidget(renderWindow)
+	Window::Window()
+	 :	RectangularWidget()
 	{
 		setFillColor(sf::Color(40, 40, 40, 255));
 		setOutlineThickness(1);

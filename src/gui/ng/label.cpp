@@ -2,8 +2,8 @@
 
 namespace namelessgui
 {
-	Label::Label(sf::RenderWindow* window, float width, float height)
-		:	Widget(window, width, height),
+	Label::Label(float width, float height)
+		:	Widget(width, height),
 			_text()
 	{}
 

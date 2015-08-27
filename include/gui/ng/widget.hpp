@@ -20,8 +20,8 @@ namespace namelessgui
 	class Widget
     {
         public:
-			Widget(sf::RenderWindow* _window, float width, float height);
-			Widget(sf::RenderWindow* _window, sf::Vector2f _size);
+			Widget(float width, float height);
+			Widget(sf::Vector2f _size);
 			virtual ~Widget();
 
 			void addWidget(Widget* widget);
@@ -47,8 +47,6 @@ namespace namelessgui
 			Signal<const sf::Event&> signalkeypressed;
 
         protected:
-            bool hasMouseFocus();
-			const sf::RenderWindow* _window;
 			bool _visible;
 			std::vector<Widget*> _children;
 

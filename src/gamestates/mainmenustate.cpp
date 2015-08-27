@@ -14,12 +14,12 @@ namespace qrw
 MainMenuState::MainMenuState(sf::RenderWindow* renderWindow)
 	: GameState(renderWindow, EGameStateId::EGSID_MAIN_MENU_STATE),
 	  _quitClicked(false),
-	  _mainWindow(renderWindow)
+	  _mainWindow()
 {
 	_mainWindow.setSize(sf::Vector2f(145, 240));
 	_mainWindow.setPosition(sf::Vector2f(15, 15));
 
-	namelessgui::Button* button = new namelessgui::Button(_renderWindow, 139, 50, "Quit");
+	namelessgui::Button* button = new namelessgui::Button(139, 50, "Quit");
 	_mainWindow.addWidget(button);
 	button->signalclicked.connect(std::bind(&MainMenuState::quitClicked, this));
 

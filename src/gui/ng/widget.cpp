@@ -8,9 +8,8 @@
 
 namespace namelessgui
 {
-	Widget::Widget(sf::RenderWindow* window, float width, float height)
-		: _window(window),
-		  _visible(true),
+	Widget::Widget(float width, float height)
+		: _visible(true),
 		  _leftMouseButtonPressRegistered(false),
 		  _rightMouseButtonPressRegistered(false),
 		  _mouseFocus(false)
@@ -20,8 +19,8 @@ namespace namelessgui
         _size.y = height;
     }
 
-	Widget::Widget(sf::RenderWindow* window, sf::Vector2f size)
-        : Widget(window, size.x, size.y)
+	Widget::Widget(sf::Vector2f size)
+		: Widget(size.x, size.y)
     {
     }
 
@@ -34,19 +33,6 @@ namespace namelessgui
 	void Widget::addWidget(Widget* widget)
 	{
 		_children.push_back(widget);
-	}
-
-    bool Widget::hasMouseFocus()
-	{
-		sf::FloatRect bounds = getGlobalBounds();
-        bounds.width = _size.x;
-        bounds.height = _size.y;
-
-		sf::Vector2f mousepos;
-		mousepos.x = (float)sf::Mouse::getPosition(*_window).x;
-		mousepos.y = (float)sf::Mouse::getPosition(*_window).y;
-
-		return bounds.contains(mousepos);
 	}
 
 	void Widget::setVisible(bool visible)
@@ -80,7 +66,7 @@ namespace namelessgui
         // Handle mouse move evets
         if(event.type == sf::Event::MouseMoved)
         {
-            if(!hasMouseFocus())
+			if(!getGlobalBounds().contains(event.mouseMove.x, event.mouseMove.y))
             {
                 // Mouse focus lost
                 if(_mouseFocus)

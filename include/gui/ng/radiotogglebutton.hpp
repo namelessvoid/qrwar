@@ -9,7 +9,7 @@ namespace namelessgui
 	class RadioToggleButton : public Button
 	{
 		public:
-			RadioToggleButton(sf::RenderWindow* _window, ButtonGroup* _buttongroup,
+			RadioToggleButton(ButtonGroup* _buttongroup,
 				float width, float height,
 				std::string text = "",
 				const sf::Texture* textureactive = NULL,

@@ -10,7 +10,7 @@ namespace namelessgui
 class Window : public RectangularWidget
 {
 public:
-	Window(sf::RenderWindow* renderWindow);
+	Window();
 	~Window();
 };
 }
