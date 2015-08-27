@@ -14,7 +14,7 @@ namespace namelessgui
 class RectangularWidget : public Widget, public sf::RectangleShape
 {
 public:
-	RectangularWidget(float width = 10, float height = 10);
+	RectangularWidget();
 
 	sf::Vector2f getSize() const;
 
@@ -28,12 +28,14 @@ public:
 
 	virtual void render(sf::RenderTarget& target, sf::RenderStates states) const override;
 
+	virtual void setSize(const sf::Vector2f& size) override {sf::RectangleShape::setSize(size); }
+
 	/**
 	 * Returns the global boundaries of the widget.
 	 *
 	 * @return The global boundary rectangle.
 	 */
-	sf::FloatRect getGlobalBounds() override;
+	virtual sf::FloatRect getGlobalBounds() override;
 
 	/**
 	 * Sets the texture of the widget.

@@ -2,8 +2,8 @@
 
 namespace namelessgui
 {
-	Label::Label(float width, float height)
-		:	Widget(width, height),
+	Label::Label()
+		:	Widget(),
 			_text()
 	{}
 

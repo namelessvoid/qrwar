@@ -20,8 +20,7 @@ namespace namelessgui
 	class Widget
     {
         public:
-			Widget(float width, float height);
-			Widget(sf::Vector2f _size);
+			Widget(const Widget* parent = nullptr);
 			virtual ~Widget();
 
 			void addWidget(Widget* widget);
@@ -35,6 +34,8 @@ namespace namelessgui
 
             virtual sf::FloatRect getGlobalBounds() = 0;
 
+			virtual void setSize(const sf::Vector2f& size) = 0;
+
 			virtual void render(sf::RenderTarget&, sf::RenderStates = sf::RenderStates::Default) const;
 
             // Signals
@@ -47,6 +48,7 @@ namespace namelessgui
 			Signal<const sf::Event&> signalkeypressed;
 
         protected:
+			const Widget* _parent;
 			bool _visible;
 			std::vector<Widget*> _children;
 
@@ -77,11 +79,6 @@ namespace namelessgui
              * cursor entered the widget or other way round left the widget.
              */
 			bool _mouseFocus;
-
-            /**
-             * Holds size of the widget.
-             */
-			sf::Vector2f _size;
     };
 }
 #endif

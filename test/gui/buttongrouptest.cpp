@@ -18,7 +18,7 @@ class ButtonGroupTest : public CppUnit::TestFixture
 			group = new namelessgui::ButtonGroup();
 			for(int i = 0; i < BUTTONCOUNT; ++i)
 			{
-				buttons[i] = new namelessgui::Button(1, 1);
+				buttons[i] = new namelessgui::Button();
 				group->addButton(buttons[i]);
 			}
 		}

@@ -8,13 +8,13 @@
 namespace namelessgui
 {
 
-	Button::Button(float width, float height, std::string text,
+	Button::Button(std::string text,
 		const sf::Texture* textureactive,
 		const sf::Texture* textureinactive,
 		const sf::Texture* texturehover)
-	: RectangularWidget(width, height),
+	: RectangularWidget(),
 	  _label(new Label()),
-	  _image(new RectangularWidget(48, 48)),
+	  _image(new RectangularWidget()),
 	  _state(ES_INACTIVE),
 	  _defaultfont(new sf::Font())
 	{

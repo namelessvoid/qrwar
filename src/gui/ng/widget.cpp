@@ -8,19 +8,12 @@
 
 namespace namelessgui
 {
-	Widget::Widget(float width, float height)
-		: _visible(true),
+	Widget::Widget(const Widget* parent)
+		: _parent(parent),
+		  _visible(true),
 		  _leftMouseButtonPressRegistered(false),
 		  _rightMouseButtonPressRegistered(false),
 		  _mouseFocus(false)
-    {
-        // Set size
-        _size.x = width;
-        _size.y = height;
-    }
-
-	Widget::Widget(sf::Vector2f size)
-		: Widget(size.x, size.y)
     {
     }
 

@@ -15,7 +15,7 @@ namespace namelessgui
 	class Label : public Widget
 	{
 		public:
-			Label(float width = 0, float height = 0);
+			Label();
 
 			virtual void render(sf::RenderTarget& target, sf::RenderStates states) const override;
 
@@ -30,6 +30,8 @@ namespace namelessgui
 			void setText(const sf::String& _text);
 
 			void setPosition(float x, float y);
+
+			virtual void setSize(const sf::Vector2f&) override {}
 
 		private:
 			sf::Text _text;

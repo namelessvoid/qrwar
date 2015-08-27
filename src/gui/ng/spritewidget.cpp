@@ -3,9 +3,9 @@
 namespace namelessgui
 {
 
-RectangularWidget::RectangularWidget(float width, float height)
-	: Widget(width, height),
-	  sf::RectangleShape(sf::Vector2f(width, height))
+RectangularWidget::RectangularWidget()
+	: Widget(),
+	  sf::RectangleShape(sf::Vector2f())
 {
 	setFillColor(sf::Color(255, 255, 0, 0));
 }
