@@ -22,9 +22,9 @@ public:
 
 	void setScale(float scaleX, float scaleY);
 
-	sf::Vector2f getPosition() const { return sf::RectangleShape::getPosition(); }
-	void setPosition(float x, float y) { sf::RectangleShape::setPosition(x, y); }
-	void setPosition(sf::Vector2f position) { sf::RectangleShape::setPosition(position); }
+	sf::Vector2f getPosition() const;
+
+	void setPosition(const sf::Vector2f& position) override;
 
 	virtual void render(sf::RenderTarget& target, sf::RenderStates states) const override;
 

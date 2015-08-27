@@ -38,24 +38,18 @@ namespace namelessgui
 		this->_label->setText(text);
 	}
 
-	void Button::setPosition(float x, float y)
+	void Button::setPosition(const sf::Vector2f& position)
 	{
-		RectangularWidget::setPosition(x, y);
-		_image->setPosition(x, y);
+		RectangularWidget::setPosition(position);
+		_image->setPosition(position);
 		if(_image->getTexture() != NULL)
 		{
-			_label->setPosition(x + _image->getSize().x, y);
+			_label->setPosition(sf::Vector2f(position.x + _image->getSize().x, position.y));
 		}
 		else
 		{
-			_label->setPosition(x, y);
+			_label->setPosition(position);
 		}
-	}
-
-	void Button::setPosition(const sf::Vector2f& position)
-	{
-		setPosition(position.x, position.y);
-
 	}
 
 	void Button::setTextures(const sf::Texture* textureinactive,

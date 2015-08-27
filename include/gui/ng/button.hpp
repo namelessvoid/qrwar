@@ -19,8 +19,7 @@ namespace namelessgui
 
 			void setText(std::string text);
 
-			void setPosition(float x, float y);
-			void setPosition(const sf::Vector2f& position);
+			virtual void setPosition(const sf::Vector2f& position) override;
 
 			void setTextures(const sf::Texture* textureinactive,
 				const sf::Texture* textureactive,

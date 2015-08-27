@@ -4,12 +4,11 @@
 #include <SFML/Graphics/RenderWindow.hpp>
 
 #include <iostream>
-#include <stdio.h>
 
 namespace namelessgui
 {
-	Widget::Widget(const Widget* parent)
-		: _parent(parent),
+	Widget::Widget()
+		: _parent(nullptr),
 		  _visible(true),
 		  _state(EWS_INACTIVE),
 		  _leftMouseButtonPressRegistered(false),
@@ -22,11 +21,18 @@ namespace namelessgui
     {
 		for(auto widget : _children)
 			delete widget;
-    }
+	}
+
+	void Widget::setParent(const Widget* parent)
+	{
+		_parent = parent;
+		setRelativePosition(getPosition());
+	}
 
 	void Widget::addWidget(Widget* widget)
 	{
 		_children.push_back(widget);
+		widget->setParent(this);
 	}
 
 	void Widget::setVisible(bool visible)
@@ -144,6 +150,18 @@ namespace namelessgui
         this->signalclicked.disconnectAll();
         this->signalleftmousebuttonpressed.disconnectAll();
         this->signalmouseleft.disconnectAll();
-        this->signalmouseentered.disconnectAll();
-    }
+		this->signalmouseentered.disconnectAll();
+	}
+
+	void Widget::setRelativePosition(const sf::Vector2f& relativePosition)
+	{
+		if(_parent == nullptr)
+		{
+			setPosition(relativePosition);
+			return;
+		}
+
+		std::cout << _parent << std::endl << std::flush;
+		setPosition(relativePosition + _parent->getPosition());
+	}
 }

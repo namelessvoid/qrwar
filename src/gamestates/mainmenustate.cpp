@@ -17,7 +17,7 @@ MainMenuState::MainMenuState(sf::RenderWindow* renderWindow)
 	  _mainWindow()
 {
 	_mainWindow.setSize(sf::Vector2f(145, 240));
-	_mainWindow.setPosition(sf::Vector2f(15, 15));
+	_mainWindow.setRelativePosition(sf::Vector2f(15, 15));
 
 	namelessgui::Button* button = new namelessgui::Button();
 	button->setText("Quit");

@@ -37,8 +37,13 @@ namespace namelessgui
 		this->_text.setString(text);
 	}
 
-	void Label::setPosition(float x, float y)
+	sf::Vector2f Label::getPosition() const
 	{
-		_text.setPosition(x, y);
+		return this->_text.getPosition();
+	}
+
+	void Label::setPosition(const sf::Vector2f& position)
+	{
+		_text.setPosition(position);
 	}
 }

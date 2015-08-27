@@ -25,6 +25,16 @@ void RectangularWidget::setScale(float scaleX, float scaleY)
 	sf::RectangleShape::setScale(scaleX, scaleY);
 }
 
+sf::Vector2f RectangularWidget::getPosition() const
+{
+	return sf::RectangleShape::getPosition();
+}
+
+void RectangularWidget::setPosition(const sf::Vector2f& position)
+{
+	sf::RectangleShape::setPosition(position);
+}
+
 void RectangularWidget::render(sf::RenderTarget& target, sf::RenderStates states) const
 {
 	if(_visible)

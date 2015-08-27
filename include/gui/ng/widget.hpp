@@ -20,8 +20,10 @@ class Widget
 			EWS_HOVER
 		};
 
-			Widget(const Widget* parent = nullptr);
+			Widget();
 			virtual ~Widget();
+
+			void setParent(const Widget* parent);
 
 			void addWidget(Widget* widget);
 
@@ -38,6 +40,11 @@ class Widget
             virtual sf::FloatRect getGlobalBounds() = 0;
 
 			virtual void setSize(const sf::Vector2f& size) = 0;
+
+			virtual sf::Vector2f getPosition() const = 0;
+			virtual void setPosition(const sf::Vector2f& position) = 0;
+
+			void setRelativePosition(const sf::Vector2f& relativePosition);
 
 			virtual void render(sf::RenderTarget&, sf::RenderStates = sf::RenderStates::Default) const;
 

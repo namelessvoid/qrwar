@@ -29,7 +29,9 @@ namespace namelessgui
 
 			void setText(const sf::String& _text);
 
-			void setPosition(float x, float y);
+			void setPosition(const sf::Vector2f& position);
+
+			sf::Vector2f getPosition() const override;
 
 			virtual void setSize(const sf::Vector2f&) override {}
 
