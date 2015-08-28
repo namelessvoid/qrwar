@@ -8,6 +8,10 @@ RectangularWidget::RectangularWidget()
 	  sf::RectangleShape(sf::Vector2f())
 {
 	setFillColor(sf::Color(255, 255, 0, 0));
+
+	// Reset texture pointers
+	for(int i = 0; i < EWidgetStates::EWS_COUNT; ++i)
+		_textures[i] = nullptr;
 }
 
 sf::Vector2f RectangularWidget::getSize() const

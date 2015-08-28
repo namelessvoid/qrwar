@@ -17,7 +17,8 @@ class Widget
 		{
 			EWS_INACTIVE,
 			EWS_ACTIVE,
-			EWS_HOVER
+			EWS_HOVER,
+			EWS_COUNT
 		};
 
 			Widget();
