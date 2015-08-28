@@ -16,17 +16,44 @@ MainMenuState::MainMenuState(sf::RenderWindow* renderWindow)
 	  _quitClicked(false),
 	  _mainWindow()
 {
-	_mainWindow.setSize(sf::Vector2f(145, 240));
+	_mainWindow.setSize(sf::Vector2f(145, 204));
 	_mainWindow.setRelativePosition(sf::Vector2f(15, 15));
 
-	namelessgui::Button* button = new namelessgui::Button();
+	namelessgui::Button* button;
+	sf::Vector2f buttonSize(139, 50);
 
-	button->setText("Quit");
-	button->setSize(sf::Vector2f(139, 50));
-	button->signalclicked.connect(std::bind(&MainMenuState::quitClicked, this));
-	button->setParentAnchor({0.5f, 0.0f});
+
+	button = new namelessgui::Button();
+	button->setText("New Match");
+	button->setSize(buttonSize);
+	button->setParentAnchor({0.5f, 0.01f});
 	button->setAnchor({0.5f, 0.0f});
 	button->setRelativePosition({0.0f, 0.0f});
+	_mainWindow.addWidget(button);
+
+	button = new namelessgui::Button();
+	button->setText("Settings");
+	button->setSize(buttonSize);
+	button->setParentAnchor({0.5f, 0.01f});
+	button->setAnchor({0.5f, 0.0f});
+	button->setRelativePosition({0.0f, 50.0f});
+	_mainWindow.addWidget(button);
+
+	button = new namelessgui::Button();
+	button->setText("About");
+	button->setSize(buttonSize);
+	button->setParentAnchor({0.5f, 0.01f});
+	button->setAnchor({0.5f, 0.0f});
+	button->setRelativePosition({0.0f, 100.0f});
+	_mainWindow.addWidget(button);
+
+	button = new namelessgui::Button();
+	button->setText("Quit");
+	button->setSize(buttonSize);
+	button->signalclicked.connect(std::bind(&MainMenuState::quitClicked, this));
+	button->setParentAnchor({0.5f, 0.01f});
+	button->setAnchor({0.5f, 0.0f});
+	button->setRelativePosition({0.0f, 150.0f});
 	_mainWindow.addWidget(button);
 
 	_mainWindow.setVisible(true);
