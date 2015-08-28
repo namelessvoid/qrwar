@@ -20,9 +20,13 @@ MainMenuState::MainMenuState(sf::RenderWindow* renderWindow)
 	_mainWindow.setRelativePosition(sf::Vector2f(15, 15));
 
 	namelessgui::Button* button = new namelessgui::Button();
+
 	button->setText("Quit");
 	button->setSize(sf::Vector2f(139, 50));
 	button->signalclicked.connect(std::bind(&MainMenuState::quitClicked, this));
+	button->setParentAnchor({0.5f, 0.0f});
+	button->setAnchor({0.5f, 0.0f});
+	button->setRelativePosition({0.0f, 0.0f});
 	_mainWindow.addWidget(button);
 
 	_mainWindow.setVisible(true);

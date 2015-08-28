@@ -3,8 +3,6 @@
 #include <SFML/Window/Mouse.hpp>
 #include <SFML/Graphics/RenderWindow.hpp>
 
-#include <iostream>
-
 namespace namelessgui
 {
 	Widget::Widget()
@@ -13,7 +11,9 @@ namespace namelessgui
 		  _state(EWS_INACTIVE),
 		  _leftMouseButtonPressRegistered(false),
 		  _rightMouseButtonPressRegistered(false),
-		  _mouseFocus(false)
+		  _mouseFocus(false),
+		  _parentAnchor(0, 0),
+		  _anchor(0, 0)
     {
     }
 
@@ -153,6 +153,16 @@ namespace namelessgui
 		this->signalmouseentered.disconnectAll();
 	}
 
+	void Widget::setParentAnchor(const sf::Vector2f& anchor)
+	{
+		_parentAnchor = anchor;
+	}
+
+	void Widget::setAnchor(const sf::Vector2f& anchor)
+	{
+		_anchor = anchor;
+	}
+
 	void Widget::setRelativePosition(const sf::Vector2f& relativePosition)
 	{
 		if(_parent == nullptr)
@@ -161,7 +171,14 @@ namespace namelessgui
 			return;
 		}
 
-		std::cout << _parent << std::endl << std::flush;
-		setPosition(relativePosition + _parent->getPosition());
+		sf::Vector2f parentPosition = _parent->getPosition();
+		sf::Vector2f parentSize = _parent->getSize();
+
+		sf::Vector2f position = {
+			parentPosition.x + _parentAnchor.x * parentSize.x - _anchor.x * getSize().x,
+			parentPosition.y + _parentAnchor.y * parentSize.y - _anchor.y * getSize().y
+		};
+
+		setPosition(relativePosition + position);
 	}
 }

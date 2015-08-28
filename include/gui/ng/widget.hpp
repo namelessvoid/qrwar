@@ -40,9 +40,13 @@ class Widget
             virtual sf::FloatRect getGlobalBounds() = 0;
 
 			virtual void setSize(const sf::Vector2f& size) = 0;
+			virtual sf::Vector2f getSize() const = 0;
 
 			virtual sf::Vector2f getPosition() const = 0;
 			virtual void setPosition(const sf::Vector2f& position) = 0;
+
+			void setParentAnchor(const sf::Vector2f& anchor);
+			void setAnchor(const sf::Vector2f& anchor);
 
 			void setRelativePosition(const sf::Vector2f& relativePosition);
 
@@ -90,6 +94,10 @@ class Widget
              * cursor entered the widget or other way round left the widget.
              */
 			bool _mouseFocus;
+
+			sf::Vector2f _parentAnchor;
+
+			sf::Vector2f _anchor;
     };
 }
 #endif

@@ -42,6 +42,11 @@ namespace namelessgui
 		return this->_text.getPosition();
 	}
 
+	sf::Vector2f Label::getSize() const
+	{
+		return sf::Vector2f(this->_text.getGlobalBounds().width, this->_text.getGlobalBounds().height);
+	}
+
 	void Label::setPosition(const sf::Vector2f& position)
 	{
 		_text.setPosition(position);

@@ -34,6 +34,7 @@ namespace namelessgui
 			sf::Vector2f getPosition() const override;
 
 			virtual void setSize(const sf::Vector2f&) override {}
+			virtual sf::Vector2f getSize() const override;
 
 		private:
 			sf::Text _text;
