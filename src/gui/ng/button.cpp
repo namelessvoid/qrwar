@@ -19,6 +19,10 @@ namespace namelessgui
 		this->_label->setFont(*_defaultfont);
 		this->_label->setCharacterSize(25);
 
+		// Add sub widgets
+		this->addWidget(this->_label);
+		this->addWidget(this->_image);
+
 		// Connect signals to slots
 		this->signalleftmousebuttonpressed.connect(std::bind(&Button::leftMousebuttonPressedSlot, this));
 		this->signalmouseentered.connect(std::bind(&Button::mouseEnteredSlot, this));
@@ -42,13 +46,18 @@ namespace namelessgui
 	{
 		RectangularWidget::setPosition(position);
 		_image->setPosition(position);
+
+		// Positioning with image
 		if(_image->getTexture() != NULL)
 		{
 			_label->setPosition(sf::Vector2f(position.x + _image->getSize().x, position.y));
 		}
+		// Positioning without image
 		else
 		{
-			_label->setPosition(position);
+			_label->setAnchor({0.5f, 1.0f});
+			_label->setParentAnchor({0.5f, 0.5f});
+			_label->setRelativePosition({0.0f, 0.0f});
 		}
 	}
 
@@ -63,7 +72,7 @@ namespace namelessgui
 
 	void Button::updateSprite()
 	{
-		if(_textures[_state] != 0)
+		if(_textures[_state] != nullptr)
 			_image->setTexture(_textures[_state], true);
 	}
 
