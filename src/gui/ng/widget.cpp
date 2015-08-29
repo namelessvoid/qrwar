@@ -7,7 +7,7 @@ namespace namelessgui
 {
 	Widget::Widget()
 		: _parent(nullptr),
-		  _visible(true),
+		  _visible(false),
 		  _state(EWS_INACTIVE),
 		  _leftMouseButtonPressRegistered(false),
 		  _rightMouseButtonPressRegistered(false),
@@ -42,6 +42,11 @@ namespace namelessgui
 		{
 			(*iter)->setVisible(visible);
 		}
+	}
+
+	bool Widget::isVisible()
+	{
+		return _visible;
 	}
 
 	void Widget::setState(Widget::EWidgetStates state)
