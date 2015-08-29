@@ -44,6 +44,8 @@ void MapEditorState::draw()
 
 void MapEditorState::handleEvent(sf::Event& event)
 {
+	GameState::handleEvent(event);
+
 	if(_backToMainMenuDialog.isVisible())
 	{
 		_backToMainMenuDialog.handleEvent(event);

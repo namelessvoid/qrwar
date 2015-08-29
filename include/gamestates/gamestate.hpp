@@ -97,7 +97,7 @@ public:
 	 *
 	 * @param event The SFML event to handle.
 	 */
-	virtual void handleEvent(sf::Event& event) = 0;
+	virtual void handleEvent(sf::Event& event);
 
 	/**
 	 * Get the ID of the GameState.

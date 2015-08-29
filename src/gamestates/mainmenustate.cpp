@@ -106,8 +106,8 @@ void MainMenuState::draw()
 
 void MainMenuState::handleEvent(sf::Event& event)
 {
-	if(event.type == sf::Event::Resized)
-		_renderWindow->setView(sf::View(sf::FloatRect(0.0f, 0.0f, event.size.width, event.size.height)));
+	GameState::handleEvent(event);
+
 	_mainWindow.handleEvent(event);
 }
 
