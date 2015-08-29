@@ -99,7 +99,10 @@ namespace namelessgui
 	void Button::clickedSlot()
 	{
 		_state = EWS_HOVER;
-		this->setFillColor(sf::Color(60, 60, 60, 255));
+		if(!hasMouseFocues())
+			this->setFillColor(sf::Color(60, 60, 60, 255));
+		else
+			this->setFillColor(sf::Color(80, 80, 80, 255));
 		updateSprite();
 	}
 

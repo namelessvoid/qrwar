@@ -50,6 +50,11 @@ namespace namelessgui
 		return _visible;
 	}
 
+	bool Widget::hasMouseFocues() const
+	{
+		return _mouseFocus;
+	}
+
 	void Widget::setState(Widget::EWidgetStates state)
 	{
 		this->_state = state;

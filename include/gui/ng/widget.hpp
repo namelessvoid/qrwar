@@ -33,6 +33,8 @@ class Widget
             void setVisible(bool visibility = true);
 			bool isVisible();
 
+			bool hasMouseFocues() const;
+
 			void setState(EWidgetStates _state);
 			EWidgetStates getState() const;
 
