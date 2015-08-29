@@ -22,9 +22,9 @@ private:
 	void slotYesClicked();
 	void slotNoClicked();
 
-	Label _label;
-	Button _yesButton;
-	Button _noButton;
+	Label* _label;
+	Button* _yesButton;
+	Button* _noButton;
 };
 
 } // namespace namelessgui
