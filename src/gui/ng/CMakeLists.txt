@@ -6,5 +6,6 @@ add_library(namelessgui
 	spritewidget.cpp
 	widget.cpp
 	window.cpp
+        confirmationdialog.cpp
 )
 target_link_libraries(namelessgui ${SFML_LIBRARIES})
