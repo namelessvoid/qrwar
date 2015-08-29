@@ -33,12 +33,15 @@ public:
 
 private:
 	void quitClicked();
+	void newGameClicked();
 
 	bool _quitClicked;
+	bool _newGameClicked;
 
 	sf::RectangleShape _background;
 
 	namelessgui::Window _mainWindow;
+
 };
 
 } // namespace qrw

@@ -14,6 +14,7 @@ namespace qrw
 MainMenuState::MainMenuState(sf::RenderWindow* renderWindow)
 	: GameState(renderWindow, EGameStateId::EGSID_MAIN_MENU_STATE),
 	  _quitClicked(false),
+	  _newGameClicked(false),
 	  _mainWindow()
 {
 	_mainWindow.setSize(sf::Vector2f(145, 204));
@@ -22,8 +23,8 @@ MainMenuState::MainMenuState(sf::RenderWindow* renderWindow)
 	namelessgui::Button* button;
 	sf::Vector2f buttonSize(139, 50);
 
-
 	button = new namelessgui::Button();
+	button->signalclicked.connect(std::bind(&MainMenuState::newGameClicked, this));
 	button->setText("New Match");
 	button->setSize(buttonSize);
 	button->setParentAnchor({0.5f, 0.01f});
@@ -48,9 +49,9 @@ MainMenuState::MainMenuState(sf::RenderWindow* renderWindow)
 	_mainWindow.addWidget(button);
 
 	button = new namelessgui::Button();
+	button->signalclicked.connect(std::bind(&MainMenuState::quitClicked, this));
 	button->setText("Quit");
 	button->setSize(buttonSize);
-	button->signalclicked.connect(std::bind(&MainMenuState::quitClicked, this));
 	button->setParentAnchor({0.5f, 0.01f});
 	button->setAnchor({0.5f, 0.0f});
 	button->setRelativePosition({0.0f, 150.0f});
@@ -61,31 +62,39 @@ MainMenuState::MainMenuState(sf::RenderWindow* renderWindow)
 
 void MainMenuState::init(GameState* previousState)
 {
-	Settings* settings = Settings::getInstance();
+	// Initialization that is only necessary at startup
+	if(previousState->getId() == EGameStateId::EGSID_INTRO_STATE)
+	{
+		Settings* settings = Settings::getInstance();
 
-	sf::Uint32 style = sf::Style::Default;
+		sf::Uint32 style = sf::Style::Default;
 
-	if(settings->getFullscreen())
-		style = sf::Style::Fullscreen;
+		if(settings->getFullscreen())
+			style = sf::Style::Fullscreen;
 
-	_renderWindow->create(
-		sf::VideoMode(settings->getResolutionX(), settings->getResolutionY()),
-		"QRW",
-		style
-	);
+		_renderWindow->create(
+			sf::VideoMode(settings->getResolutionX(), settings->getResolutionY()),
+			"QRW",
+			style
+		);
 
-	// Set up textures
-	TextureManager* textureManager = TextureManager::getInstance();
+		// Set up textures
+		TextureManager* textureManager = TextureManager::getInstance();
 
-	// Set background texture
-	_background.setSize(sf::Vector2f(settings->getResolutionX(), settings->getResolutionY()));
-	_background.setTexture(textureManager->getTexture("mainmenubackground"));
+		// Set background texture
+		_background.setSize(sf::Vector2f(settings->getResolutionX(), settings->getResolutionY()));
+		_background.setTexture(textureManager->getTexture("mainmenubackground"));
+	}
+
+	_newGameClicked = false;
 }
 
 EGameStateId MainMenuState::update()
 {
 	if(_quitClicked)
 		return EGSID_QUIT;
+	if(_newGameClicked)
+		return EGSID_MAP_EDITOR_STATE;
 	return EGSID_NO_CHANGE;
 }
 
@@ -106,6 +115,13 @@ void MainMenuState::quitClicked()
 {
 	_quitClicked = true;
 }
+
+void MainMenuState::newGameClicked()
+{
+	_newGameClicked = true;
+}
+
+
 
 } // namespace qrw
 

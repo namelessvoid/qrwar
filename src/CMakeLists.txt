@@ -28,6 +28,7 @@ add_library(qrwarlib
         gamestates/gamestate.cpp
         gamestates/introstate.cpp
         gamestates/mainmenustate.cpp
+        gamestates/mapeditorstate.cpp
 
 #	gui/animation.cpp
 #	gui/boardwidget.cpp

@@ -5,6 +5,7 @@
 
 #include "gamestates/introstate.hpp"
 #include "gamestates/mainmenustate.hpp"
+#include "gamestates/mapeditorstate.hpp"
 
 namespace qrw
 {
@@ -20,6 +21,10 @@ QRWar::QRWar()
 
 	// Main menu state
 	gameState = new MainMenuState(&_renderWindow);
+	_gameStates[gameState->getId()] = gameState;
+
+	// Map editor state
+	gameState = new MapEditorState(&_renderWindow);
 	_gameStates[gameState->getId()] = gameState;
 
 

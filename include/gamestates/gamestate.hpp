@@ -17,14 +17,19 @@ namespace qrw
 enum EGameStateId
 {
 	/**
-	 * The ID of te intro game state.
+	 * The ID of te IntroState.
 	 */
 	EGSID_INTRO_STATE,
 
 	/**
-	 * The ID of the main menu game state.
+	 * The ID of the MainMenuState.
 	 */
 	EGSID_MAIN_MENU_STATE,
+
+	/**
+	 * The ID of the MapEditorState.
+	 */
+	EGSID_MAP_EDITOR_STATE,
 
 	/**
 	 * Special "game state" that indicates that the application should quit.
