@@ -28,11 +28,7 @@ public:
 
 	virtual void render(sf::RenderTarget& target, sf::RenderStates states) const override;
 
-	virtual void setSize(const sf::Vector2f& size) override
-	{
-		sf::RectangleShape::setSize(size);
-		setTextureRect({0, 0, (int)size.x, (int)size.y});
-	}
+	virtual void setSize(const sf::Vector2f& size) override;
 
 	/**
 	 * Returns the global boundaries of the widget.

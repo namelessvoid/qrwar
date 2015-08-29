@@ -11,12 +11,11 @@ namespace namelessgui
 	Button::Button()
 	: RectangularWidget(),
 	  _label(new Label()),
-	  _image(new RectangularWidget()),
+	  _image(nullptr),
 	  _state(EWS_INACTIVE)
 	{
 		// Add sub widgets
 		this->addWidget(this->_label);
-		this->addWidget(this->_image);
 
 		// Connect signals to slots
 		this->signalleftmousebuttonpressed.connect(std::bind(&Button::leftMousebuttonPressedSlot, this));
@@ -38,14 +37,27 @@ namespace namelessgui
 		this->_label->setText(text);
 	}
 
+	void Button::setImage(const sf::Texture* texture)
+	{
+		if(!_image)
+		{
+			_image  = new RectangularWidget();
+			_image->setSize({getSize().y, getSize().y});
+			_image->setFillColor({255, 255, 255, 255});
+			addWidget(_image);
+		}
+		_image->setTexture(texture);
+		_image->setVisible(true);
+	}
+
 	void Button::setPosition(const sf::Vector2f& position)
 	{
 		RectangularWidget::setPosition(position);
-		_image->setPosition(position);
 
 		// Positioning with image
-		if(_image->getTexture() != nullptr)
+		if(_image != nullptr)
 		{
+			_image->setPosition(position);
 			_label->setPosition(sf::Vector2f(position.x + _image->getSize().x, position.y));
 		}
 		// Positioning without image
@@ -55,6 +67,14 @@ namespace namelessgui
 			_label->setParentAnchor({0.5f, 0.5f});
 			_label->setRelativePosition({0.0f, 0.0f});
 		}
+	}
+
+	void Button::setSize(const sf::Vector2f& size)
+	{
+		RectangleShape::setSize(size);
+
+		if(_image != nullptr)
+			_image->setSize({size.y, size.y});
 	}
 
 	void Button::setTextures(const sf::Texture* textureinactive,
@@ -78,8 +98,7 @@ namespace namelessgui
 			return;
 
 		target.draw(static_cast<sf::RectangleShape>(*this));
-		_label->render(target, states);
-		_image->render(target, states);
+		Widget::render(target, states);
     }
 
 	void Button::leftMousebuttonPressedSlot()

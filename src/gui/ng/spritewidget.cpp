@@ -46,6 +46,12 @@ void RectangularWidget::render(sf::RenderTarget& target, sf::RenderStates states
 	Widget::render(target, states);
 }
 
+void RectangularWidget::setSize(const sf::Vector2f& size)
+{
+	sf::RectangleShape::setSize(size);
+	setTextureRect({0, 0, (int)size.x, (int)size.y});
+}
+
 sf::FloatRect RectangularWidget::getGlobalBounds()
 {
 	return sf::RectangleShape::getGlobalBounds();

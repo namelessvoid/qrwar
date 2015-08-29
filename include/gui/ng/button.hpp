@@ -18,8 +18,10 @@ namespace namelessgui
 			~Button();
 
 			void setText(std::string text);
+			void setImage(const sf::Texture* texture);
 
 			virtual void setPosition(const sf::Vector2f& position) override;
+			virtual void setSize(const sf::Vector2f& size) override;
 
 			void setTextures(const sf::Texture* textureinactive,
 				const sf::Texture* textureactive,
