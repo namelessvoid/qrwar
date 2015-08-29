@@ -51,6 +51,7 @@ namespace qrw
 			return true;
 
 		sf::Texture* texture = new sf::Texture();
+		texture->setRepeated(true);
 		// if load successful
 		if(texture->loadFromFile(filepath, area))
 		{

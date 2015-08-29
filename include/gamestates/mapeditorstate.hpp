@@ -5,6 +5,7 @@
 
 #include "gamestates/gamestate.hpp"
 #include "gui/ng/confirmationdialog.hpp"
+#include "gui/ng/spritewidget.hpp"
 
 #include "engine/board.hpp"
 
@@ -30,6 +31,8 @@ private:
 	namelessgui::ConfirmationDialog _backToMainMenuDialog;
 
 	bool _backToMainMenu;
+
+	namelessgui::RectangularWidget _background;
 
 	std::shared_ptr<Board> _spBoard;
 };
