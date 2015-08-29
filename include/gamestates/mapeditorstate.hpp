@@ -6,6 +6,7 @@
 #include "gamestates/gamestate.hpp"
 #include "gui/ng/confirmationdialog.hpp"
 #include "gui/ng/spritewidget.hpp"
+#include "gui/ng/buttongroup.hpp"
 
 #include "engine/board.hpp"
 
@@ -28,7 +29,11 @@ public:
 private:
 	void slotBackToMainMenu();
 
+	bool _menusInitialized;
+
 	namelessgui::ConfirmationDialog _backToMainMenuDialog;
+	namelessgui::Window _toolBar;
+	namelessgui::ButtonGroup _terrainButtonGroup;
 
 	bool _backToMainMenu;
 

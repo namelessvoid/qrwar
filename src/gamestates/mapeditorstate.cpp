@@ -1,6 +1,7 @@
 #include "gamestates/mapeditorstate.hpp"
 
 #include "gui/texturemanager.hpp"
+#include "config/settings.hpp"
 
 #include <iostream>
 
@@ -9,22 +10,54 @@ namespace qrw
 
 MapEditorState::MapEditorState(sf::RenderWindow* renderWindow)
 	: GameState(renderWindow, EGameStateId::EGSID_MAP_EDITOR_STATE),
+	  _menusInitialized(false),
 	  _backToMainMenuDialog("Really exit and go back to main menu?")
 {
 	_backToMainMenuDialog.signalYesClicked.connect(std::bind(&MapEditorState::slotBackToMainMenu, this));
+
+	// Initialize toolbar
+	_toolBar.setVisible(true);
+	_toolBar.setSize({150.0f, (float)Settings::getInstance()->getResolutionY()});
+	_toolBar.setPosition({
+		 (float)Settings::getInstance()->getResolutionX() - _toolBar.getSize().x,
+		 0.0f
+	});
+	_toolBar.setVisible(true);
+
+	namelessgui::Label* label = new namelessgui::Label();
+	label->setText("Terrain");
+	label->setAnchor({0.5f, 0.0f});
+	label->setParentAnchor({0.5f, 0.0f});
+	_toolBar.addWidget(label);
+
+	// Render background
 	_background.setVisible(true);
 }
 
 void MapEditorState::init(GameState* previousState)
 {
+	// Initial setup that only needs to be done once.
+	if(!_menusInitialized)
+	{
+		_background.setTexture(TextureManager::getInstance()->getTexture("plainsquare"));
+		_background.setFillColor(sf::Color(255, 255, 255, 255));
+
+		namelessgui::Button* button = new namelessgui::Button();
+		button->setText("Wood");
+		button->setSize({140.0f, 50.0f});
+		button->setRelativePosition({5.0f, 50.0f});
+		button->setImage(TextureManager::getInstance()->getTexture("wood"));
+		_toolBar.addWidget(button);
+
+		_menusInitialized = true;
+	}
+
 	_backToMainMenu = false;
 	_spBoard = std::make_shared<Board>(16, 9);
 
-	_background.setTexture(TextureManager::getInstance()->getTexture("plainsquare"));
 	sf::Vector2u spriteSize = _background.getTexture()->getSize();
 	sf::Vector2f backgroundSize = sf::Vector2f(_spBoard->getWidth() * spriteSize.x, _spBoard->getHeight() * spriteSize.y);
 	_background.setSize(backgroundSize);
-	_background.setFillColor(sf::Color(255, 255, 255, 255));
 }
 
 EGameStateId MapEditorState::update()
@@ -38,6 +71,7 @@ EGameStateId MapEditorState::update()
 void MapEditorState::draw()
 {
 	_background.render(*_renderWindow, sf::RenderStates::Default);
+	_toolBar.render(*_renderWindow, sf::RenderStates::Default);
 
 	_backToMainMenuDialog.render(*_renderWindow, sf::RenderStates::Default);
 }
@@ -55,6 +89,8 @@ void MapEditorState::handleEvent(sf::Event& event)
 	if(event.type == sf::Event::KeyPressed)
 		if(event.key.code == sf::Keyboard::Escape)
 			_backToMainMenuDialog.setVisible(true);
+
+	_toolBar.handleEvent(event);
 }
 
 void MapEditorState::slotBackToMainMenu()
