@@ -27,6 +27,7 @@ namespace namelessgui
 		this->setFillColor(sf::Color(60, 60, 60, 255));
 		this->setOutlineColor(sf::Color(30, 30, 30, 255));
 		this->setOutlineThickness(2.0f);
+		this->setSize({100.0f, 30.0f});
 	}
 
 	Button::~Button()
@@ -43,7 +44,7 @@ namespace namelessgui
 		_image->setPosition(position);
 
 		// Positioning with image
-		if(_image->getTexture() != NULL)
+		if(_image->getTexture() != nullptr)
 		{
 			_label->setPosition(sf::Vector2f(position.x + _image->getSize().x, position.y));
 		}
