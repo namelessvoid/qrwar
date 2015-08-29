@@ -32,6 +32,7 @@ namespace namelessgui
 	void Widget::addWidget(Widget* widget)
 	{
 		_children.push_back(widget);
+		widget->setVisible(_visible);
 		widget->setParent(this);
 	}
 
