@@ -13,7 +13,7 @@ namespace qrw
 	class Board
 	{
 		public:
-			Board(int _width, int _height);
+			Board(int width, int height);
 			~Board();
 
 			Square* getSquare(int x, int y);
