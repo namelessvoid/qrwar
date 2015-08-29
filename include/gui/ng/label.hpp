@@ -38,6 +38,7 @@ namespace namelessgui
 
 		private:
 			sf::Text _text;
+			sf::Font _font;
 	};
 }
 #endif

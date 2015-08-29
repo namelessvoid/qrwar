@@ -15,10 +15,6 @@ namespace namelessgui
 	  _state(EWS_INACTIVE),
 	  _defaultfont(new sf::Font())
 	{
-		_defaultfont->loadFromFile("./res/font/Knigqst.ttf");
-		this->_label->setFont(*_defaultfont);
-		this->_label->setCharacterSize(25);
-
 		// Add sub widgets
 		this->addWidget(this->_label);
 		this->addWidget(this->_image);

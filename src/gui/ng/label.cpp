@@ -5,7 +5,11 @@ namespace namelessgui
 	Label::Label()
 		:	Widget(),
 			_text()
-	{}
+	{
+		_font.loadFromFile("./res/font/Knigqst.ttf");
+		_text.setFont(_font);
+		_text.setCharacterSize(25);
+	}
 
 	void Label::render(sf::RenderTarget& target, sf::RenderStates states) const
 	{
