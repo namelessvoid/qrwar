@@ -35,7 +35,8 @@ QRWar::QRWar()
 
 QRWar::~QRWar()
 {
-	delete _gameStates.at(EGameStateId::EGSID_INTRO_STATE);
+	for(auto iter : _gameStates)
+		delete iter.second;
 }
 
 void QRWar::run()
