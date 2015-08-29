@@ -12,8 +12,7 @@ namespace namelessgui
 	: RectangularWidget(),
 	  _label(new Label()),
 	  _image(new RectangularWidget()),
-	  _state(EWS_INACTIVE),
-	  _defaultfont(new sf::Font())
+	  _state(EWS_INACTIVE)
 	{
 		// Add sub widgets
 		this->addWidget(this->_label);

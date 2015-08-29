@@ -42,7 +42,6 @@ namespace namelessgui
 			void mouseLeftSlot();
 
 			EWidgetStates _state;
-			sf::Font* _defaultfont;
 	};
 }
 
