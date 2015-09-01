@@ -14,6 +14,8 @@ MapEditorState::MapEditorState(sf::RenderWindow* renderWindow)
 {
 	_backToMainMenuDialog = new namelessgui::ConfirmationDialog("Really exit and go back to main menu?");
 	_backToMainMenuDialog->signalYesClicked.connect(std::bind(&MapEditorState::slotBackToMainMenu, this));
+	_backToMainMenuDialog->setAnchor({0.5f, 0.5f});
+	_backToMainMenuDialog->setParentAnchor({0.5f, 0.5f});
 
 	// Initialize toolbar
 	_toolBar.setVisible(true);
@@ -91,6 +93,9 @@ void MapEditorState::handleEvent(sf::Event& event)
 	if(event.type == sf::Event::KeyPressed)
 		if(event.key.code == sf::Keyboard::Escape)
 			_backToMainMenuDialog->setVisible(true);
+
+	if(event.type == sf::Event::Resized)
+		_guiUptr->setSize({(float)event.size.width, (float)event.size.height});
 
 	_guiUptr->handleEvent(event);
 	_toolBar.handleEvent(event);

@@ -21,9 +21,10 @@ sf::FloatRect Gui::getGlobalBounds()
 	return {getPosition().x, getPosition().y, getSize().x, getSize().y};
 }
 
-void Gui::setSize(const sf::Vector2f&)
+void Gui::setSize(const sf::Vector2f& size)
 {
-	// Ignored
+	_size = size;
+	updatePosition();
 }
 
 sf::Vector2f Gui::getSize() const

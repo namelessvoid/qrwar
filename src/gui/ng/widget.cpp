@@ -188,18 +188,19 @@ namespace namelessgui
 		if(_parent == nullptr)
 		{
 			setPosition(_relativePosition);
-			return;
 		}
+		else
+		{
+			sf::Vector2f parentPosition = _parent->getPosition();
+			sf::Vector2f parentSize = _parent->getSize();
 
-		sf::Vector2f parentPosition = _parent->getPosition();
-		sf::Vector2f parentSize = _parent->getSize();
+			sf::Vector2f position = {
+				parentPosition.x + _parentAnchor.x * parentSize.x - _anchor.x * getSize().x,
+				parentPosition.y + _parentAnchor.y * parentSize.y - _anchor.y * getSize().y
+			};
 
-		sf::Vector2f position = {
-			parentPosition.x + _parentAnchor.x * parentSize.x - _anchor.x * getSize().x,
-			parentPosition.y + _parentAnchor.y * parentSize.y - _anchor.y * getSize().y
-		};
-
-		setPosition(_relativePosition + position);
+			setPosition(_relativePosition + position);
+		}
 
 		for(auto child : _children)
 			child->updatePosition();
