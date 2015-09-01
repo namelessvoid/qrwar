@@ -13,7 +13,8 @@ namespace namelessgui
 		  _rightMouseButtonPressRegistered(false),
 		  _mouseFocus(false),
 		  _parentAnchor(0, 0),
-		  _anchor(0, 0)
+		  _anchor(0, 0),
+		  _relativePosition(0, 0)
     {
     }
 
@@ -167,18 +168,26 @@ namespace namelessgui
 	void Widget::setParentAnchor(const sf::Vector2f& anchor)
 	{
 		_parentAnchor = anchor;
+		updatePosition();
 	}
 
 	void Widget::setAnchor(const sf::Vector2f& anchor)
 	{
 		_anchor = anchor;
+		updatePosition();
 	}
 
 	void Widget::setRelativePosition(const sf::Vector2f& relativePosition)
 	{
+		_relativePosition = relativePosition;
+		updatePosition();
+	}
+
+	void Widget::updatePosition()
+	{
 		if(_parent == nullptr)
 		{
-			setPosition(relativePosition);
+			setPosition(_relativePosition);
 			return;
 		}
 
@@ -190,6 +199,9 @@ namespace namelessgui
 			parentPosition.y + _parentAnchor.y * parentSize.y - _anchor.y * getSize().y
 		};
 
-		setPosition(relativePosition + position);
+		setPosition(_relativePosition + position);
+
+		for(auto child : _children)
+			child->updatePosition();
 	}
 }

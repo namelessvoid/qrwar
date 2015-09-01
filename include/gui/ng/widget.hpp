@@ -28,7 +28,7 @@ class Widget
 
 			void addWidget(Widget* widget);
 
-            void handleEvent(const sf::Event& event);
+			void handleEvent(const sf::Event& event);
 
             void setVisible(bool visibility = true);
 			bool isVisible();
@@ -52,6 +52,7 @@ class Widget
 			void setAnchor(const sf::Vector2f& anchor);
 
 			void setRelativePosition(const sf::Vector2f& relativePosition);
+			void updatePosition();
 
 			virtual void render(sf::RenderTarget&, sf::RenderStates = sf::RenderStates::Default) const;
 
@@ -101,6 +102,8 @@ class Widget
 			sf::Vector2f _parentAnchor;
 
 			sf::Vector2f _anchor;
+
+			sf::Vector2f _relativePosition;
     };
 }
 #endif
