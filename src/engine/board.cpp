@@ -35,7 +35,7 @@ namespace qrw
 	{
 		for(int i = 0; i < _height*_width; ++i)
 			delete _squares[i];
-		// delete[] squares;
+		delete[] _squares;
 		delete _pathfinder;
 	}
 
