@@ -10,10 +10,10 @@ namespace qrw
 
 MapEditorState::MapEditorState(sf::RenderWindow* renderWindow)
 	: GameState(renderWindow, EGameStateId::EGSID_MAP_EDITOR_STATE),
-	  _menusInitialized(false),
-	  _backToMainMenuDialog("Really exit and go back to main menu?")
+	  _menusInitialized(false)
 {
-	_backToMainMenuDialog.signalYesClicked.connect(std::bind(&MapEditorState::slotBackToMainMenu, this));
+	_backToMainMenuDialog = new namelessgui::ConfirmationDialog("Really exit and go back to main menu?");
+	_backToMainMenuDialog->signalYesClicked.connect(std::bind(&MapEditorState::slotBackToMainMenu, this));
 
 	// Initialize toolbar
 	_toolBar.setVisible(true);
@@ -30,8 +30,16 @@ MapEditorState::MapEditorState(sf::RenderWindow* renderWindow)
 	label->setParentAnchor({0.5f, 0.0f});
 	_toolBar.addWidget(label);
 
+	_guiUptr->addWidget(_backToMainMenuDialog);
+
 	// Render background
 	_background.setVisible(true);
+	_guiUptr->setVisible(true);
+	_backToMainMenuDialog->setVisible(false);
+}
+
+MapEditorState::~MapEditorState()
+{
 }
 
 void MapEditorState::init(GameState* previousState)
@@ -73,23 +81,18 @@ void MapEditorState::draw()
 	_background.render(*_renderWindow, sf::RenderStates::Default);
 	_toolBar.render(*_renderWindow, sf::RenderStates::Default);
 
-	_backToMainMenuDialog.render(*_renderWindow, sf::RenderStates::Default);
+	_guiUptr->render(*_renderWindow, sf::RenderStates::Default);
 }
 
 void MapEditorState::handleEvent(sf::Event& event)
 {
 	GameState::handleEvent(event);
 
-	if(_backToMainMenuDialog.isVisible())
-	{
-		_backToMainMenuDialog.handleEvent(event);
-		return;
-	}
-
 	if(event.type == sf::Event::KeyPressed)
 		if(event.key.code == sf::Keyboard::Escape)
-			_backToMainMenuDialog.setVisible(true);
+			_backToMainMenuDialog->setVisible(true);
 
+	_guiUptr->handleEvent(event);
 	_toolBar.handleEvent(event);
 }
 

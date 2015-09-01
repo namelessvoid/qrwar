@@ -1,6 +1,10 @@
 #ifndef QRW_GAMESTATE_HPP
 #define QRW_GAMESTATE_HPP
 
+#include <memory>
+
+#include "gui/ng/gui.hpp"
+
 // Foreward declarations
 namespace sf
 {
@@ -108,6 +112,8 @@ public:
 
 protected:
 	sf::RenderWindow* _renderWindow;
+
+	std::unique_ptr<namelessgui::Gui> _guiUptr;
 
 private:
 	EGameStateId _id;

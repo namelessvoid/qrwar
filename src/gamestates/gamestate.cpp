@@ -8,6 +8,7 @@ namespace qrw
 
 GameState::GameState(sf::RenderWindow* renderWindow, EGameStateId id)
 	: _renderWindow(renderWindow),
+	  _guiUptr(new namelessgui::Gui(renderWindow)),
 	  _id(id)
 {
 }

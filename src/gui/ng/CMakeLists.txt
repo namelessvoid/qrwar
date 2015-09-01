@@ -1,4 +1,5 @@
 add_library(namelessgui
+        gui.cpp
 	button.cpp
 	buttongroup.cpp
 	label.cpp

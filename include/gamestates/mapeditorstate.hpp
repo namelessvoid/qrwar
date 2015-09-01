@@ -18,6 +18,8 @@ class MapEditorState : public GameState
 public:
 	MapEditorState(sf::RenderWindow* renderWindow);
 
+	virtual ~MapEditorState();
+
 	virtual void init(GameState *previousState);
 
 	virtual EGameStateId update();
@@ -31,7 +33,7 @@ private:
 
 	bool _menusInitialized;
 
-	namelessgui::ConfirmationDialog _backToMainMenuDialog;
+	namelessgui::ConfirmationDialog* _backToMainMenuDialog;
 	namelessgui::Window _toolBar;
 	namelessgui::ButtonGroup _terrainButtonGroup;
 

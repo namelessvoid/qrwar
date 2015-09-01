@@ -39,9 +39,6 @@ private:
 	bool _newGameClicked;
 
 	sf::RectangleShape _background;
-
-	namelessgui::Window _mainWindow;
-
 };
 
 } // namespace qrw

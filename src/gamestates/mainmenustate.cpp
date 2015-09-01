@@ -14,11 +14,13 @@ namespace qrw
 MainMenuState::MainMenuState(sf::RenderWindow* renderWindow)
 	: GameState(renderWindow, EGameStateId::EGSID_MAIN_MENU_STATE),
 	  _quitClicked(false),
-	  _newGameClicked(false),
-	  _mainWindow()
+	  _newGameClicked(false)
 {
-	_mainWindow.setSize(sf::Vector2f(145, 204));
-	_mainWindow.setRelativePosition(sf::Vector2f(15, 15));
+	namelessgui::Window* mainWindow = new namelessgui::Window();
+	_guiUptr->addWidget(mainWindow);
+
+	mainWindow->setSize(sf::Vector2f(145, 204));
+	mainWindow->setRelativePosition(sf::Vector2f(15, 15));
 
 	namelessgui::Button* button;
 	sf::Vector2f buttonSize(139, 50);
@@ -30,7 +32,7 @@ MainMenuState::MainMenuState(sf::RenderWindow* renderWindow)
 	button->setParentAnchor({0.5f, 0.01f});
 	button->setAnchor({0.5f, 0.0f});
 	button->setRelativePosition({0.0f, 0.0f});
-	_mainWindow.addWidget(button);
+	mainWindow->addWidget(button);
 
 	button = new namelessgui::Button();
 	button->setText("Settings");
@@ -38,7 +40,7 @@ MainMenuState::MainMenuState(sf::RenderWindow* renderWindow)
 	button->setParentAnchor({0.5f, 0.01f});
 	button->setAnchor({0.5f, 0.0f});
 	button->setRelativePosition({0.0f, 50.0f});
-	_mainWindow.addWidget(button);
+	mainWindow->addWidget(button);
 
 	button = new namelessgui::Button();
 	button->setText("About");
@@ -46,7 +48,7 @@ MainMenuState::MainMenuState(sf::RenderWindow* renderWindow)
 	button->setParentAnchor({0.5f, 0.01f});
 	button->setAnchor({0.5f, 0.0f});
 	button->setRelativePosition({0.0f, 100.0f});
-	_mainWindow.addWidget(button);
+	mainWindow->addWidget(button);
 
 	button = new namelessgui::Button();
 	button->signalclicked.connect(std::bind(&MainMenuState::quitClicked, this));
@@ -55,9 +57,9 @@ MainMenuState::MainMenuState(sf::RenderWindow* renderWindow)
 	button->setParentAnchor({0.5f, 0.01f});
 	button->setAnchor({0.5f, 0.0f});
 	button->setRelativePosition({0.0f, 150.0f});
-	_mainWindow.addWidget(button);
+	mainWindow->addWidget(button);
 
-	_mainWindow.setVisible(true);
+	_guiUptr->setVisible(true);
 }
 
 void MainMenuState::init(GameState* previousState)
@@ -101,14 +103,14 @@ EGameStateId MainMenuState::update()
 void MainMenuState::draw()
 {
 	_renderWindow->draw(_background);
-	_mainWindow.render(*_renderWindow, sf::RenderStates::Default);
+	_guiUptr->render(*_renderWindow, sf::RenderStates::Default);
 }
 
 void MainMenuState::handleEvent(sf::Event& event)
 {
 	GameState::handleEvent(event);
 
-	_mainWindow.handleEvent(event);
+	_guiUptr->handleEvent(event);
 }
 
 void MainMenuState::quitClicked()
