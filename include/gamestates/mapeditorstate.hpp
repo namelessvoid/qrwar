@@ -31,8 +31,6 @@ public:
 private:
 	void slotBackToMainMenu();
 
-	bool _menusInitialized;
-
 	namelessgui::ConfirmationDialog* _backToMainMenuDialog;
 	namelessgui::Window _toolBar;
 	namelessgui::ButtonGroup _terrainButtonGroup;

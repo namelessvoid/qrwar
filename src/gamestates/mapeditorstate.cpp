@@ -9,13 +9,18 @@ namespace qrw
 {
 
 MapEditorState::MapEditorState(sf::RenderWindow* renderWindow)
-	: GameState(renderWindow, EGameStateId::EGSID_MAP_EDITOR_STATE),
-	  _menusInitialized(false)
+	: GameState(renderWindow, EGameStateId::EGSID_MAP_EDITOR_STATE)
 {
+	// Initialize background
+	_background.setTexture(TextureManager::getInstance()->getTexture("plainsquare"));
+	_background.setFillColor(sf::Color(255, 255, 255, 255));
+
+	// Set up back to main menu dialog
 	_backToMainMenuDialog = new namelessgui::ConfirmationDialog("Really exit and go back to main menu?");
 	_backToMainMenuDialog->signalYesClicked.connect(std::bind(&MapEditorState::slotBackToMainMenu, this));
 	_backToMainMenuDialog->setAnchor({0.5f, 0.5f});
 	_backToMainMenuDialog->setParentAnchor({0.5f, 0.5f});
+	_guiUptr->addWidget(_backToMainMenuDialog);
 
 	// Initialize toolbar
 	_toolBar.setVisible(true);
@@ -32,11 +37,16 @@ MapEditorState::MapEditorState(sf::RenderWindow* renderWindow)
 	label->setParentAnchor({0.5f, 0.0f});
 	_toolBar.addWidget(label);
 
-	_guiUptr->addWidget(_backToMainMenuDialog);
+	namelessgui::Button* button = new namelessgui::Button();
+	button->setText("Wood");
+	button->setSize({140.0f, 50.0f});
+	button->setRelativePosition({5.0f, 50.0f});
+	button->setImage(TextureManager::getInstance()->getTexture("wood"));
+	_toolBar.addWidget(button);
 
-	// Render background
-	_background.setVisible(true);
+	// Set visibilities
 	_guiUptr->setVisible(true);
+	_background.setVisible(true);
 	_backToMainMenuDialog->setVisible(false);
 }
 
@@ -46,22 +56,6 @@ MapEditorState::~MapEditorState()
 
 void MapEditorState::init(GameState* previousState)
 {
-	// Initial setup that only needs to be done once.
-	if(!_menusInitialized)
-	{
-		_background.setTexture(TextureManager::getInstance()->getTexture("plainsquare"));
-		_background.setFillColor(sf::Color(255, 255, 255, 255));
-
-		namelessgui::Button* button = new namelessgui::Button();
-		button->setText("Wood");
-		button->setSize({140.0f, 50.0f});
-		button->setRelativePosition({5.0f, 50.0f});
-		button->setImage(TextureManager::getInstance()->getTexture("wood"));
-		_toolBar.addWidget(button);
-
-		_menusInitialized = true;
-	}
-
 	GameState::init();
 
 	_backToMainMenu = false;
