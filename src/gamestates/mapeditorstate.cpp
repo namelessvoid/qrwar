@@ -15,21 +15,13 @@ MapEditorState::MapEditorState(sf::RenderWindow* renderWindow)
 	_background.setTexture(TextureManager::getInstance()->getTexture("plainsquare"));
 	_background.setFillColor(sf::Color(255, 255, 255, 255));
 
-	// Set up back to main menu dialog
-	_backToMainMenuDialog = new namelessgui::ConfirmationDialog("Really exit and go back to main menu?");
-	_backToMainMenuDialog->signalYesClicked.connect(std::bind(&MapEditorState::slotBackToMainMenu, this));
-	_backToMainMenuDialog->setAnchor({0.5f, 0.5f});
-	_backToMainMenuDialog->setParentAnchor({0.5f, 0.5f});
-	_guiUptr->addWidget(_backToMainMenuDialog);
-
 	// Initialize toolbar
 	_toolBar.setVisible(true);
 	_toolBar.setSize({150.0f, (float)Settings::getInstance()->getResolutionY()});
-	_toolBar.setPosition({
-		 (float)Settings::getInstance()->getResolutionX() - _toolBar.getSize().x,
-		 0.0f
-	});
+	_toolBar.setAnchor({1.0f, 0.0f});
+	_toolBar.setParentAnchor({1.0f, 0.0f});
 	_toolBar.setVisible(true);
+	_guiUptr->addWidget(&_toolBar);
 
 	namelessgui::Label* label = new namelessgui::Label();
 	label->setText("Terrain");
@@ -43,6 +35,13 @@ MapEditorState::MapEditorState(sf::RenderWindow* renderWindow)
 	button->setRelativePosition({5.0f, 50.0f});
 	button->setImage(TextureManager::getInstance()->getTexture("wood"));
 	_toolBar.addWidget(button);
+
+	// Set up back to main menu dialog
+	_backToMainMenuDialog = new namelessgui::ConfirmationDialog("Really exit and go back to main menu?");
+	_backToMainMenuDialog->signalYesClicked.connect(std::bind(&MapEditorState::slotBackToMainMenu, this));
+	_backToMainMenuDialog->setAnchor({0.5f, 0.5f});
+	_backToMainMenuDialog->setParentAnchor({0.5f, 0.5f});
+	_guiUptr->addWidget(_backToMainMenuDialog);
 
 	// Set visibilities
 	_guiUptr->setVisible(true);
