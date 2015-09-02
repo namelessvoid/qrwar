@@ -62,6 +62,8 @@ void MapEditorState::init(GameState* previousState)
 		_menusInitialized = true;
 	}
 
+	GameState::init();
+
 	_backToMainMenu = false;
 	_spBoard = std::make_shared<Board>(16, 9);
 

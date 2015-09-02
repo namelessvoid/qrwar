@@ -81,7 +81,7 @@ public:
 	 *
 	 * @param previousState Optional pointer to a previous GameState.
 	 */
-	virtual void init(GameState* previousState = nullptr) = 0;
+	virtual void init(GameState* previousState = nullptr);
 
 	/**
 	 * Update the GameState.

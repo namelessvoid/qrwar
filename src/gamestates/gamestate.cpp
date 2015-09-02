@@ -22,6 +22,11 @@ GameState::~GameState()
 {
 }
 
+void GameState::init(GameState*)
+{
+	_guiUptr->setSize(sf::Vector2f(_renderWindow->getSize()));
+}
+
 void GameState::handleEvent(sf::Event& event)
 {
 	if(event.type == sf::Event::Resized)

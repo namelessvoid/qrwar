@@ -88,6 +88,8 @@ void MainMenuState::init(GameState* previousState)
 		_background.setTexture(textureManager->getTexture("mainmenubackground"));
 	}
 
+	GameState::init();
+
 	_newGameClicked = false;
 }
 
