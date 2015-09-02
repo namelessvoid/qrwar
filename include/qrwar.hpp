@@ -19,7 +19,10 @@ public:
 
 	void run();
 
+
 private:
+	void preloadResources();
+
 	sf::RenderWindow _renderWindow;
 
 	std::map<EGameStateId, GameState*> _gameStates;

@@ -3,6 +3,11 @@
 #include <SFML/Graphics/RenderWindow.hpp>
 #include <SFML/Window/Event.hpp>
 
+#include "config/settings.hpp"
+#include "config/tilesetprocessor.hpp"
+
+#include "gui/texturemanager.hpp"
+
 #include "gamestates/introstate.hpp"
 #include "gamestates/mainmenustate.hpp"
 #include "gamestates/mapeditorstate.hpp"
@@ -12,6 +17,9 @@ namespace qrw
 
 QRWar::QRWar()
 {
+	// Load resources
+	preloadResources();
+
 	// Initialize game states
 	GameState* gameState;
 
@@ -71,6 +79,31 @@ void QRWar::run()
 			_currentState->init(previousState);
 		}
 	}
+}
+
+void QRWar::preloadResources()
+{
+	// Start initialization of qrw...
+	// Load Settings
+	qrw::Settings* settings = qrw::Settings::getInstance();
+	settings->loadFromFile();
+
+	// Preload image resources
+//	qrw::ImageManager* imgmgr = qrw::ImageManager::getInstance();
+//	imgmgr->loadImage("p1swordman", "./res/img/units/p1swordman.png");
+//	imgmgr->loadImage("p1archer", "./res/img/units/p1archer.png");
+//	imgmgr->loadImage("p1spearman", "./res/img/units/p1spearman.png");
+//	imgmgr->loadImage("p2swordman", "./res/img/units/p2swordman.png");
+//	imgmgr->loadImage("p2archer", "./res/img/units/p2archer.png");
+//	imgmgr->loadImage("p2spearman", "./res/img/units/p2spearman.png");
+//	imgmgr->loadImage("plainsquare", "./res/img/plainsquare.png");
+
+	TextureManager::getInstance()->loadTexture("mainmenubackground", "./res/img/mainmenubackground.png");
+
+	// Loading tilesets
+	qrw::TilesetProcessor tilesetprocessor;
+	tilesetprocessor.loadTileset(settings->getEntityTilesetPath());
+	tilesetprocessor.loadTileset(settings->getGuiTilesetPath());
 }
 
 } // namespace qrw
