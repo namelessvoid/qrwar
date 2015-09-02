@@ -3,6 +3,8 @@
 #include <SFML/Graphics/RenderWindow.hpp>
 #include <SFML/Window/Event.hpp>
 
+#include "config/settings.hpp"
+
 namespace qrw
 {
 
@@ -11,6 +13,9 @@ GameState::GameState(sf::RenderWindow* renderWindow, EGameStateId id)
 	  _guiUptr(new namelessgui::Gui(renderWindow)),
 	  _id(id)
 {
+	Settings* settings = Settings::getInstance();
+
+	_guiUptr->setSize(sf::Vector2f(settings->getResolutionX(), settings->getResolutionY()));
 }
 
 GameState::~GameState()
