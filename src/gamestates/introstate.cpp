@@ -72,8 +72,4 @@ void IntroState::draw()
 	_renderWindow->display();
 }
 
-void IntroState::handleEvent(sf::Event& event)
-{
-}
-
 } // namespace qrw

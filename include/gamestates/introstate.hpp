@@ -28,8 +28,6 @@ public:
 
 	void draw();
 
-	void handleEvent(sf::Event &event);
-
 	EGameStateId getId();
 
 private:
