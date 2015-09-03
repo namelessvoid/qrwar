@@ -32,7 +32,7 @@ private:
 	void slotBackToMainMenu();
 
 	namelessgui::ConfirmationDialog* _backToMainMenuDialog;
-	namelessgui::Window _toolBar;
+	namelessgui::Window* _toolBar;
 	namelessgui::ButtonGroup _terrainButtonGroup;
 
 	bool _backToMainMenu;

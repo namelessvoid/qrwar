@@ -16,18 +16,19 @@ MapEditorState::MapEditorState(sf::RenderWindow* renderWindow)
 	_background.setFillColor(sf::Color(255, 255, 255, 255));
 
 	// Initialize toolbar
-	_toolBar.setVisible(true);
-	_toolBar.setSize({150.0f, (float)Settings::getInstance()->getResolutionY()});
-	_toolBar.setAnchor({1.0f, 0.0f});
-	_toolBar.setParentAnchor({1.0f, 0.0f});
-	_toolBar.setVisible(true);
-	_guiUptr->addWidget(&_toolBar);
+	_toolBar = new namelessgui::Window();
+	_toolBar->setVisible(true);
+	_toolBar->setSize({150.0f, (float)Settings::getInstance()->getResolutionY()});
+	_toolBar->setAnchor({1.0f, 0.0f});
+	_toolBar->setParentAnchor({1.0f, 0.0f});
+	_toolBar->setVisible(true);
+	_guiUptr->addWidget(_toolBar);
 
 	namelessgui::Label* label = new namelessgui::Label();
 	label->setText("Terrain");
 	label->setAnchor({0.5f, 0.0f});
 	label->setParentAnchor({0.5f, 0.0f});
-	_toolBar.addWidget(label);
+	_toolBar->addWidget(label);
 
 	sf::Vector2f buttonSize(140.0f, 50.0f);
 
@@ -36,21 +37,21 @@ MapEditorState::MapEditorState(sf::RenderWindow* renderWindow)
 	button->setSize(buttonSize);
 	button->setRelativePosition({5.0f, buttonSize.y});
 	button->setImage(TextureManager::getInstance()->getTexture("wood"));
-	_toolBar.addWidget(button);
+	_toolBar->addWidget(button);
 
 	button = new namelessgui::Button();
 	button->setText("Hill");
 	button->setSize(buttonSize);
 	button->setRelativePosition({5.0f, 2 * buttonSize.y});
 	button->setImage(TextureManager::getInstance()->getTexture("hill"));
-	_toolBar.addWidget(button);
+	_toolBar->addWidget(button);
 
 	button = new namelessgui::Button();
 	button->setText("Wall");
 	button->setSize(buttonSize);
 	button->setRelativePosition({5.0f, 3 * buttonSize.y});
 	button->setImage(TextureManager::getInstance()->getTexture("wall"));
-	_toolBar.addWidget(button);
+	_toolBar->addWidget(button);
 
 	// Set up back to main menu dialog
 	_backToMainMenuDialog = new namelessgui::ConfirmationDialog("Really exit and go back to main menu?");
@@ -92,8 +93,6 @@ EGameStateId MapEditorState::update()
 void MapEditorState::draw()
 {
 	_background.render(*_renderWindow, sf::RenderStates::Default);
-	_toolBar.render(*_renderWindow, sf::RenderStates::Default);
-
 	_guiUptr->render(*_renderWindow, sf::RenderStates::Default);
 }
 
@@ -109,7 +108,6 @@ void MapEditorState::handleEvent(sf::Event& event)
 		_guiUptr->setSize({(float)event.size.width, (float)event.size.height});
 
 	_guiUptr->handleEvent(event);
-	_toolBar.handleEvent(event);
 }
 
 void MapEditorState::slotBackToMainMenu()
