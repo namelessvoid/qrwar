@@ -29,8 +29,6 @@ public:
 
 	void draw();
 
-	void handleEvent(sf::Event &event);
-
 private:
 	void quitClicked();
 	void newGameClicked();

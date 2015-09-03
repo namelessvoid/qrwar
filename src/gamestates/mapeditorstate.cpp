@@ -103,11 +103,6 @@ void MapEditorState::handleEvent(sf::Event& event)
 	if(event.type == sf::Event::KeyPressed)
 		if(event.key.code == sf::Keyboard::Escape)
 			_backToMainMenuDialog->setVisible(true);
-
-	if(event.type == sf::Event::Resized)
-		_guiUptr->setSize({(float)event.size.width, (float)event.size.height});
-
-	_guiUptr->handleEvent(event);
 }
 
 void MapEditorState::slotBackToMainMenu()

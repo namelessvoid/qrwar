@@ -109,13 +109,6 @@ void MainMenuState::draw()
 	_guiUptr->render(*_renderWindow, sf::RenderStates::Default);
 }
 
-void MainMenuState::handleEvent(sf::Event& event)
-{
-	GameState::handleEvent(event);
-
-	_guiUptr->handleEvent(event);
-}
-
 void MainMenuState::quitClicked()
 {
 	_quitClicked = true;

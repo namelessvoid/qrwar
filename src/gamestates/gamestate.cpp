@@ -31,6 +31,8 @@ void GameState::handleEvent(sf::Event& event)
 {
 	if(event.type == sf::Event::Resized)
 		_renderWindow->setView(sf::View(sf::FloatRect(0.0f, 0.0f, event.size.width, event.size.height)));
+
+	_guiUptr->handleEvent(event);
 }
 
 EGameStateId GameState::getId()
