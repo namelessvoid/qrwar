@@ -26,7 +26,7 @@ public:
 
 	virtual void draw();
 
-	virtual void handleEvent(sf::Event& event);
+	virtual bool handleEvent(sf::Event& event) override;
 
 private:
 	void slotBackToMainMenu();

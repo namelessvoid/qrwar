@@ -75,15 +75,16 @@ namespace namelessgui
 		}
 	}
 
-    void Widget::handleEvent(const sf::Event& event)
+	bool Widget::handleEvent(const sf::Event& event)
     {
+		bool stopEventPropagation = false;
         // A widget that is not visible cannot handle any event
         if(!_visible)
-            return;
+			return stopEventPropagation;
 
 		// Let sub widgets also handle the event
 		for(auto iter = _children.begin(); iter != _children.end(); ++iter)
-			(*iter)->handleEvent(event);
+			stopEventPropagation |= (*iter)->handleEvent(event);
 
         // Handle mouse move evets
         if(event.type == sf::Event::MouseMoved)
@@ -97,7 +98,6 @@ namespace namelessgui
                     signalmouseleft.emit();
                     _leftMouseButtonPressRegistered = false;
                 }
-                return;
             } // if(!hasMouseFocus)
             else
             {
@@ -112,7 +112,6 @@ namespace namelessgui
                 {
                     signalmousemoved.emit();
                 }
-                return;
             } // else(hasMouseFocus)
         } // if(MouseMoveEvent)
         else if(event.type == sf::Event::MouseButtonPressed)
@@ -123,12 +122,12 @@ namespace namelessgui
                 {
                     signalleftmousebuttonpressed.emit();
                     _leftMouseButtonPressRegistered = true;
-                    return;
+					stopEventPropagation = true;
                 }
                 else if(event.mouseButton.button == sf::Mouse::Right)
                 {
                     _rightMouseButtonPressRegistered = true;
-                    return;
+					stopEventPropagation = true;
                 }
             }
         } // else if(MouseButtonPressed)
@@ -140,14 +139,13 @@ namespace namelessgui
                     && _leftMouseButtonPressRegistered)
                 {
                     signalclicked.emit();
-                    return;
+					stopEventPropagation = true;
                 }
                 else if(event.mouseButton.button == sf::Mouse::Right)
                 {
                     signalrightclicked.emit();
-                    return;
+					stopEventPropagation = true;
                 }
-
             }
         } // else(MouseButtonReleased)
         else if(event.type == sf::Event::KeyPressed)
@@ -155,6 +153,8 @@ namespace namelessgui
             // TODO: check for keyboard focus.
             signalkeypressed.emit(event);
         }
+
+		return stopEventPropagation;
     }
 
     void Widget::disconnectAllSignals()

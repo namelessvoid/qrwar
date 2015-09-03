@@ -100,8 +100,10 @@ public:
 	 * Handle an SFML event.
 	 *
 	 * @param event The SFML event to handle.
+	 *
+	 * @return Whether the event propagation should be stopped or not.
 	 */
-	virtual void handleEvent(sf::Event& event);
+	virtual bool handleEvent(sf::Event& event);
 
 	/**
 	 * Get the ID of the GameState.

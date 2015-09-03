@@ -27,12 +27,12 @@ void GameState::init(GameState*)
 	_guiUptr->setSize(sf::Vector2f(_renderWindow->getSize()));
 }
 
-void GameState::handleEvent(sf::Event& event)
+bool GameState::handleEvent(sf::Event& event)
 {
 	if(event.type == sf::Event::Resized)
 		_renderWindow->setView(sf::View(sf::FloatRect(0.0f, 0.0f, event.size.width, event.size.height)));
 
-	_guiUptr->handleEvent(event);
+	return _guiUptr->handleEvent(event);
 }
 
 EGameStateId GameState::getId()

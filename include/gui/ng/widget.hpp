@@ -28,7 +28,13 @@ class Widget
 
 			void addWidget(Widget* widget);
 
-			void handleEvent(const sf::Event& event);
+			/**
+			 * Handle an sfml event.
+			 *
+			 * @param event The event that is handled.
+			 * @return Whether the event propagation should be stopped or not.
+			 */
+			virtual bool handleEvent(const sf::Event& event);
 
             void setVisible(bool visibility = true);
 			bool isVisible();

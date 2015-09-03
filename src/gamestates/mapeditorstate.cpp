@@ -96,13 +96,18 @@ void MapEditorState::draw()
 	_guiUptr->render(*_renderWindow, sf::RenderStates::Default);
 }
 
-void MapEditorState::handleEvent(sf::Event& event)
+bool MapEditorState::handleEvent(sf::Event& event)
 {
-	GameState::handleEvent(event);
+	bool stopEventPropagation = GameState::handleEvent(event);
+
+	if(stopEventPropagation)
+		return stopEventPropagation;
 
 	if(event.type == sf::Event::KeyPressed)
 		if(event.key.code == sf::Keyboard::Escape)
 			_backToMainMenuDialog->setVisible(true);
+
+	return stopEventPropagation;
 }
 
 void MapEditorState::slotBackToMainMenu()
