@@ -29,11 +29,27 @@ MapEditorState::MapEditorState(sf::RenderWindow* renderWindow)
 	label->setParentAnchor({0.5f, 0.0f});
 	_toolBar.addWidget(label);
 
+	sf::Vector2f buttonSize(140.0f, 50.0f);
+
 	namelessgui::Button* button = new namelessgui::Button();
 	button->setText("Wood");
-	button->setSize({140.0f, 50.0f});
-	button->setRelativePosition({5.0f, 50.0f});
+	button->setSize(buttonSize);
+	button->setRelativePosition({5.0f, buttonSize.y});
 	button->setImage(TextureManager::getInstance()->getTexture("wood"));
+	_toolBar.addWidget(button);
+
+	button = new namelessgui::Button();
+	button->setText("Hill");
+	button->setSize(buttonSize);
+	button->setRelativePosition({5.0f, 2 * buttonSize.y});
+	button->setImage(TextureManager::getInstance()->getTexture("hill"));
+	_toolBar.addWidget(button);
+
+	button = new namelessgui::Button();
+	button->setText("Wall");
+	button->setSize(buttonSize);
+	button->setRelativePosition({5.0f, 3 * buttonSize.y});
+	button->setImage(TextureManager::getInstance()->getTexture("wall"));
 	_toolBar.addWidget(button);
 
 	// Set up back to main menu dialog
