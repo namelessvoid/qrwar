@@ -5,57 +5,55 @@
 #include <SFML/Graphics/RectangleShape.hpp>
 #include <SFML/Graphics/Drawable.hpp>
 
+#include <memory>
+
 #include "engine/coordinates.hpp"
+
+namespace sf
+{
+class Event;
+}
 
 namespace qrw
 {
-	class Board;
+class Board;
 
-	class Cursor : public sf::RectangleShape
-	{
-		public:
-			static Cursor* getCursor();
+class Cursor : public sf::RectangleShape
+{
+public:
+	Cursor();
+	static Cursor* getCursor();
 
-			~Cursor();
+	~Cursor();
 
-			void setBoard(Board* _board);
+	void setBoard(std::shared_ptr<Board> spBoard);
 
-			/**
-			 * Move the cursor or (if available) move child cursor.
-			 */
-			bool move(int dx, int dy);
-			bool setPosition(int x, int y);
-			bool setPosition(sf::Vector2i pos);
-			bool setPosition(Coordinates pos);
+	void setDimensions(float _dimensions);
 
-			const Coordinates& getPosition() const;
+	Cursor* spawnChild();
+	Cursor* getChild() const;
+	void despawnChild();
 
-			void setDimensions(float _dimensions);
+	/**
+	 * @argument position Position on the screen (pixles)
+	 * @argument size Size of the cursor on the screen in pixles.
+	 */
+	void draw(sf::RenderTarget &target, sf::RenderStates states) const;
 
-			Cursor* spawnChild();
-			Cursor* getChild() const;
-			void despawnChild();
+	void handleEvent(const sf::Event& event);
 
-			/**
-			 * @argument position Position on the screen (pixles)
-			 * @argument size Size of the cursor on the screen in pixles.
-			 */
-			void draw(sf::RenderTarget &target, sf::RenderStates states) const;
+private:
 
-		private:
-			Cursor();
+	static Cursor* _cursor;
+	// Child cursor
+	Cursor* _child;
 
-			static Cursor* _cursor;
-			// Child cursor
-			Cursor* _child;
+	sf::Color _maincolor;
+	sf::Color _subcolor;
 
-			sf::Color _maincolor;
-			sf::Color _subcolor;
-
-			Coordinates _position;
-			float _dimensions;
-			Board* _board;
-	};
+	Coordinates _boardPosition;
+	std::shared_ptr<Board> _spBoard;
+};
 }
 
 #endif

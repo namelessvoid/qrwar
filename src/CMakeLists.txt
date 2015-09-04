@@ -32,7 +32,7 @@ add_library(qrwarlib
 
 #	gui/animation.cpp
 #	gui/boardwidget.cpp
-#	gui/cursor.cpp
+        gui/cursor.cpp
 #	gui/damagenumber.cpp
 #	gui/deploywindow.cpp
 #	gui/guihandler.cpp
