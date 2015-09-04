@@ -95,8 +95,8 @@ EGameStateId MapEditorState::update()
 void MapEditorState::draw()
 {
 	_background.render(*_renderWindow, sf::RenderStates::Default);
-	_guiUptr->render(*_renderWindow, sf::RenderStates::Default);
 	_renderWindow->draw(_cursor);
+	_guiUptr->render(*_renderWindow, sf::RenderStates::Default);
 }
 
 bool MapEditorState::handleEvent(sf::Event& event)
