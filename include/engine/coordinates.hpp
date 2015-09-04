@@ -11,6 +11,9 @@ namespace qrw
 			int getX() const;
 			int getY() const;
 
+			void setX(int x);
+			void setY(int y);
+
 			bool operator==(const Coordinates& rhs) const;
 			bool operator!=(const Coordinates& rhs) const;
 
