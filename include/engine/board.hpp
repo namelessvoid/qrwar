@@ -23,6 +23,8 @@ namespace qrw
 			int getWidth();
 			int getHeight();
 
+			bool isOnBoard(Coordinates coordinates);
+
 			/**
 			 * @brief Call pathfinding algorithm to find path from start to end.
 			 * @param start Coordinates of the start.

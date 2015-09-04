@@ -44,10 +44,8 @@ namespace qrw
 	 */
 	Square* Board::getSquare(int x, int y)
 	{
-		if(x < 0 || x >= _width)
-			return 0;
-		if(y < 0 || y >= _height)
-			return 0;
+		if(!isOnBoard({x, y}))
+			return nullptr;
 		return _squares[x+y*_width];
 	}
 
@@ -69,6 +67,15 @@ namespace qrw
 	int Board::getHeight()
 	{
 		return _height;
+	}
+
+	bool Board::isOnBoard(Coordinates coordinates)
+	{
+		if(coordinates.getX() < 0 || coordinates.getX() >= _width)
+			return false;
+		if(coordinates.getY() < 0 || coordinates.getY() >= _height)
+			return false;
+		return true;
 	}
 
 	Path* Board::findPath(const Coordinates &start, const Coordinates &end)
