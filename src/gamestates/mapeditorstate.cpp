@@ -77,6 +77,8 @@ void MapEditorState::init(GameState* previousState)
 	_backToMainMenu = false;
 	_spBoard = std::make_shared<Board>(16, 9);
 
+	_cursor.setBoard(_spBoard);
+
 	sf::Vector2u spriteSize = _background.getTexture()->getSize();
 	sf::Vector2f backgroundSize = sf::Vector2f(_spBoard->getWidth() * spriteSize.x, _spBoard->getHeight() * spriteSize.y);
 	_background.setSize(backgroundSize);
@@ -94,6 +96,7 @@ void MapEditorState::draw()
 {
 	_background.render(*_renderWindow, sf::RenderStates::Default);
 	_guiUptr->render(*_renderWindow, sf::RenderStates::Default);
+	_renderWindow->draw(_cursor);
 }
 
 bool MapEditorState::handleEvent(sf::Event& event)
@@ -106,6 +109,28 @@ bool MapEditorState::handleEvent(sf::Event& event)
 	if(event.type == sf::Event::KeyPressed)
 		if(event.key.code == sf::Keyboard::Escape)
 			_backToMainMenuDialog->setVisible(true);
+
+	// Scene must only handle events that are not consumed by the gui.
+	if(!stopEventPropagation)
+	{
+		if(event.type == sf::Event::MouseMoved)
+		{
+			sf::Vector2i mousePixelCoordinates(event.mouseMove.x, event.mouseMove.y);
+
+			sf::Vector2f mouseWorldCoordinates = _renderWindow->mapPixelToCoords(mousePixelCoordinates);
+
+			sf::Event mouseMovedWorldCoordinates;
+			mouseMovedWorldCoordinates.type = sf::Event::MouseMoved;
+			mouseMovedWorldCoordinates.mouseMove.x = mouseWorldCoordinates.x;
+			mouseMovedWorldCoordinates.mouseMove.y = mouseWorldCoordinates.y;
+
+			_cursor.handleEvent(mouseMovedWorldCoordinates);
+		}
+		else
+		{
+			_cursor.handleEvent(event);
+		}
+	}
 
 	return stopEventPropagation;
 }

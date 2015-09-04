@@ -4,9 +4,12 @@
 #include <memory>
 
 #include "gamestates/gamestate.hpp"
+
 #include "gui/ng/confirmationdialog.hpp"
 #include "gui/ng/spritewidget.hpp"
 #include "gui/ng/buttongroup.hpp"
+
+#include "gui/cursor.hpp"
 
 #include "engine/board.hpp"
 
@@ -38,6 +41,7 @@ private:
 	bool _backToMainMenu;
 
 	namelessgui::RectangularWidget _background;
+	Cursor _cursor;
 
 	std::shared_ptr<Board> _spBoard;
 };
