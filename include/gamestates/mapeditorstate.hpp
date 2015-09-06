@@ -7,7 +7,7 @@
 
 #include "gui/ng/confirmationdialog.hpp"
 #include "gui/ng/spritewidget.hpp"
-#include "gui/ng/buttongroup.hpp"
+#include "gui/ng/radiotogglebutton.hpp"
 
 #include "gui/cursor.hpp"
 
@@ -33,10 +33,14 @@ public:
 
 private:
 	void slotBackToMainMenu();
+	void slotCursorLeftClicked();
+	void slotCursorRightClicked();
+	void slotTerrainButtonChanged(namelessgui::RadioToggleButton* activeTerrainButton);
 
 	namelessgui::ConfirmationDialog* _backToMainMenuDialog;
 	namelessgui::Window* _toolBar;
-	namelessgui::ButtonGroup _terrainButtonGroup;
+
+	namelessgui::RadioToggleButton* _activeTerrainButton;
 
 	bool _backToMainMenu;
 

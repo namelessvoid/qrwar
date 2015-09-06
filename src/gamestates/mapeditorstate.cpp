@@ -2,6 +2,7 @@
 
 #include "gui/texturemanager.hpp"
 #include "config/settings.hpp"
+#include "engine/terrainfactory.hpp"
 
 #include <iostream>
 
@@ -9,7 +10,8 @@ namespace qrw
 {
 
 MapEditorState::MapEditorState(sf::RenderWindow* renderWindow)
-	: GameState(renderWindow, EGameStateId::EGSID_MAP_EDITOR_STATE)
+	: GameState(renderWindow, EGameStateId::EGSID_MAP_EDITOR_STATE),
+	  _activeTerrainButton(nullptr)
 {
 	// Initialize background
 	_background.setTexture(TextureManager::getInstance()->getTexture("plainsquare"));
@@ -32,26 +34,30 @@ MapEditorState::MapEditorState(sf::RenderWindow* renderWindow)
 
 	sf::Vector2f buttonSize(140.0f, 50.0f);
 
-	namelessgui::Button* button = new namelessgui::Button();
-	button->setText("Wood");
-	button->setSize(buttonSize);
-	button->setRelativePosition({5.0f, buttonSize.y});
-	button->setImage(TextureManager::getInstance()->getTexture("wood"));
-	_toolBar->addWidget(button);
+	namelessgui::RadioToggleButton* radioButton = new namelessgui::RadioToggleButton();
+	std::shared_ptr<namelessgui::ButtonGroup> spTerrainButtonGroup = radioButton->getButtonGroup();
+	radioButton->setText("Wood");
+	radioButton->setSize(buttonSize);
+	radioButton->setRelativePosition({5.0f, buttonSize.y});
+	radioButton->setImage(TextureManager::getInstance()->getTexture("wood"));
+	radioButton->signalActivated.connect(std::bind(&MapEditorState::slotTerrainButtonChanged, this, std::placeholders::_1));
+	_toolBar->addWidget(radioButton);
 
-	button = new namelessgui::Button();
-	button->setText("Hill");
-	button->setSize(buttonSize);
-	button->setRelativePosition({5.0f, 2 * buttonSize.y});
-	button->setImage(TextureManager::getInstance()->getTexture("hill"));
-	_toolBar->addWidget(button);
+	radioButton = new namelessgui::RadioToggleButton(spTerrainButtonGroup);
+	radioButton->setText("Hill");
+	radioButton->setSize(buttonSize);
+	radioButton->setRelativePosition({5.0f, 2 * buttonSize.y});
+	radioButton->setImage(TextureManager::getInstance()->getTexture("hill"));
+	radioButton->signalActivated.connect(std::bind(&MapEditorState::slotTerrainButtonChanged, this, std::placeholders::_1));
+	_toolBar->addWidget(radioButton);
 
-	button = new namelessgui::Button();
-	button->setText("Wall");
-	button->setSize(buttonSize);
-	button->setRelativePosition({5.0f, 3 * buttonSize.y});
-	button->setImage(TextureManager::getInstance()->getTexture("wall"));
-	_toolBar->addWidget(button);
+	radioButton = new namelessgui::RadioToggleButton(spTerrainButtonGroup);
+	radioButton->setText("Wall");
+	radioButton->setSize(buttonSize);
+	radioButton->setRelativePosition({5.0f, 3 * buttonSize.y});
+	radioButton->setImage(TextureManager::getInstance()->getTexture("wall"));
+	radioButton->signalActivated.connect(std::bind(&MapEditorState::slotTerrainButtonChanged, this, std::placeholders::_1));
+	_toolBar->addWidget(radioButton);
 
 	// Set up back to main menu dialog
 	_backToMainMenuDialog = new namelessgui::ConfirmationDialog("Really exit and go back to main menu?");
@@ -64,6 +70,10 @@ MapEditorState::MapEditorState(sf::RenderWindow* renderWindow)
 	_guiUptr->setVisible(true);
 	_background.setVisible(true);
 	_backToMainMenuDialog->setVisible(false);
+
+	// Handle cursor events
+	_cursor.signalLeftClicked.connect(std::bind(&MapEditorState::slotCursorLeftClicked, this));
+	_cursor.signalRightClicked.connect(std::bind(&MapEditorState::slotCursorRightClicked, this));
 }
 
 MapEditorState::~MapEditorState()
@@ -138,6 +148,21 @@ bool MapEditorState::handleEvent(sf::Event& event)
 void MapEditorState::slotBackToMainMenu()
 {
 	_backToMainMenu = true;
+}
+
+void MapEditorState::slotCursorLeftClicked()
+{
+	std::cout << "Cursor left clicked.\n" << std::flush;
+}
+
+void MapEditorState::slotCursorRightClicked()
+{
+	std::cout << "Cursor right clicked.\n" << std::flush;
+}
+
+void MapEditorState::slotTerrainButtonChanged(namelessgui::RadioToggleButton* activeTerrainButton)
+{
+	_activeTerrainButton = activeTerrainButton;
 }
 
 } // namespace qrw
