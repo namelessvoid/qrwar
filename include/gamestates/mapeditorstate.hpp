@@ -5,6 +5,8 @@
 
 #include "gamestates/gamestate.hpp"
 
+#include "engine/terraintypes.hpp"
+
 #include "gui/ng/confirmationdialog.hpp"
 #include "gui/ng/spritewidget.hpp"
 #include "gui/ng/radiotogglebutton.hpp"
@@ -35,12 +37,12 @@ private:
 	void slotBackToMainMenu();
 	void slotCursorLeftClicked();
 	void slotCursorRightClicked();
-	void slotTerrainButtonChanged(namelessgui::RadioToggleButton* activeTerrainButton);
+	void slotTerrainButtonChanged(const namelessgui::RadioToggleButton& activeTerrainButton);
 
 	namelessgui::ConfirmationDialog* _backToMainMenuDialog;
 	namelessgui::Window* _toolBar;
 
-	namelessgui::RadioToggleButton* _activeTerrainButton;
+	TERRAINTYPES _activeTerrainType;
 
 	bool _backToMainMenu;
 

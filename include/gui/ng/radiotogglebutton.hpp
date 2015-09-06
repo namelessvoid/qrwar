@@ -31,7 +31,7 @@ public:
 
 	std::shared_ptr<ButtonGroup> getButtonGroup();
 
-	Signal<RadioToggleButton*> signalActivated;
+	Signal<const RadioToggleButton&> signalActivated;
 
 private:
 	virtual void clickedSlot() override;

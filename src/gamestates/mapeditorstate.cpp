@@ -11,7 +11,7 @@ namespace qrw
 
 MapEditorState::MapEditorState(sf::RenderWindow* renderWindow)
 	: GameState(renderWindow, EGameStateId::EGSID_MAP_EDITOR_STATE),
-	  _activeTerrainButton(nullptr)
+	  _activeTerrainType(ET_NUMBEROFTERRAINTYPES)
 {
 	// Initialize background
 	_background.setTexture(TextureManager::getInstance()->getTexture("plainsquare"));
@@ -160,9 +160,18 @@ void MapEditorState::slotCursorRightClicked()
 	std::cout << "Cursor right clicked.\n" << std::flush;
 }
 
-void MapEditorState::slotTerrainButtonChanged(namelessgui::RadioToggleButton* activeTerrainButton)
+void MapEditorState::slotTerrainButtonChanged(const namelessgui::RadioToggleButton& activeTerrainButton)
 {
-	_activeTerrainButton = activeTerrainButton;
+	const std::string& terrainString = activeTerrainButton.getText();
+
+	if(terrainString == "Wood")
+		_activeTerrainType = ET_WOOD;
+	else if(terrainString == "Hill")
+		_activeTerrainType = ET_HILL;
+	else if(terrainString == "Wall")
+		_activeTerrainType = ET_WALL;
+	else
+		_activeTerrainType = ET_NUMBEROFTERRAINTYPES;
 }
 
 } // namespace qrw
