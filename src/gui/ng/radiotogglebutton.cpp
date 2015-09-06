@@ -37,6 +37,7 @@ std::shared_ptr<ButtonGroup> RadioToggleButton::getButtonGroup()
 void RadioToggleButton::clickedSlot()
 {
 	_isActive = true;
+	signalActivated.emit(this);
 }
 
 void RadioToggleButton::mouseEnteredSlot()

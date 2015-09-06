@@ -14,6 +14,8 @@ class ButtonGroup;
 class RadioToggleButton : public Button
 {
 public:
+	typedef std::shared_ptr<RadioToggleButton> SharedPtr;
+
 	enum ERadioButtonStatus
 	{
 		ERBS_INACTIVE,
@@ -28,6 +30,8 @@ public:
 	void deactivate();
 
 	std::shared_ptr<ButtonGroup> getButtonGroup();
+
+	Signal<RadioToggleButton*> signalActivated;
 
 private:
 	virtual void clickedSlot() override;

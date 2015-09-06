@@ -5,7 +5,6 @@
 namespace namelessgui
 {
 ButtonGroup::ButtonGroup()
-	: _activeButton(nullptr)
 {}
 
 ButtonGroup::~ButtonGroup()
@@ -24,19 +23,9 @@ void ButtonGroup::addButton(RadioToggleButton* button)
 	_buttons[button] = button;
 }
 
-void ButtonGroup::activateButton(RadioToggleButton* button)
-{
-	if(hasButton(button) == false)
-		return;
-}
-
-const RadioToggleButton* ButtonGroup::getActiveButton()
-{
-	return _activeButton;
-}
-
 bool ButtonGroup::hasButton(RadioToggleButton* button)
 {
 	return (_buttons.find(button) != _buttons.end());
 }
-}
+
+} // namespace namelessgui

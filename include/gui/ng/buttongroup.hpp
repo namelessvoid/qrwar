@@ -14,16 +14,11 @@ namespace namelessgui
 			~ButtonGroup();
 
 			void addButton(RadioToggleButton* button);
-			void activateButton(RadioToggleButton* button);
-
-			const RadioToggleButton* getActiveButton();
 
 		private:
 			bool hasButton(RadioToggleButton* button);
 
 			std::map<RadioToggleButton*, RadioToggleButton*> _buttons;
-
-			RadioToggleButton* _activeButton;
 	};
 }
 
