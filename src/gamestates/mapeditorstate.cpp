@@ -1,5 +1,8 @@
 #include "gamestates/mapeditorstate.hpp"
 
+#include "engine/terrain.hpp"
+#include "engine/square.hpp"
+
 #include "gui/texturemanager.hpp"
 #include "config/settings.hpp"
 
@@ -71,8 +74,8 @@ MapEditorState::MapEditorState(sf::RenderWindow* renderWindow)
 	_backToMainMenuDialog->setVisible(false);
 
 	// Handle cursor events
-	_cursor.signalLeftClicked.connect(std::bind(&MapEditorState::slotCursorLeftClicked, this));
-	_cursor.signalRightClicked.connect(std::bind(&MapEditorState::slotCursorRightClicked, this));
+	_cursor.signalLeftClicked.connect(std::bind(&MapEditorState::slotCursorLeftClicked, this, std::placeholders::_1));
+	_cursor.signalRightClicked.connect(std::bind(&MapEditorState::slotCursorRightClicked, this, std::placeholders::_1));
 }
 
 MapEditorState::~MapEditorState()
@@ -149,14 +152,21 @@ void MapEditorState::slotBackToMainMenu()
 	_backToMainMenu = true;
 }
 
-void MapEditorState::slotCursorLeftClicked()
+void MapEditorState::slotCursorLeftClicked(const Coordinates& boardPosition)
 {
-	std::cout << "Cursor left clicked.\n" << std::flush;
+	std::cout << "Cursor left clicked at " << boardPosition.getX() << "/" << boardPosition.getY() << ".\n" << std::flush;
+	// Create new terrain
+	Terrain* terrain = Terrain::createTerrain(_activeTerrainType);
+	if(terrain != nullptr)
+	{
+		_spBoard->getSquare(boardPosition)->setTerrain(terrain);
+	}
 }
 
-void MapEditorState::slotCursorRightClicked()
+void MapEditorState::slotCursorRightClicked(const Coordinates& boardPosition)
 {
-	std::cout << "Cursor right clicked.\n" << std::flush;
+	std::cout << "Cursor right clicked at " << boardPosition.getX() << "/" << boardPosition.getY() << ".\n" << std::flush;
+	_spBoard->getSquare(boardPosition)->setTerrain(nullptr);
 }
 
 void MapEditorState::slotTerrainButtonChanged(const namelessgui::RadioToggleButton& activeTerrainButton)

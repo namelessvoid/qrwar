@@ -40,8 +40,8 @@ public:
 	void handleEvent(const sf::Event& event);
 
 	// signals
-	namelessgui::Signal<> signalLeftClicked;
-	namelessgui::Signal<> signalRightClicked;
+	namelessgui::Signal<const Coordinates&> signalLeftClicked;
+	namelessgui::Signal<const Coordinates&> signalRightClicked;
 
 private:
 	sf::Color _maincolor;

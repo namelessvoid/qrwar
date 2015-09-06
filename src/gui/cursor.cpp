@@ -68,9 +68,9 @@ void Cursor::handleEvent(const sf::Event& event)
 	else if( _visible == true && event.type == sf::Event::MouseButtonPressed)
 	{
 		if(event.mouseButton.button == sf::Mouse::Button::Left)
-			signalLeftClicked.emit();
+			signalLeftClicked.emit(_boardPosition);
 		else if(event.mouseButton.button == sf::Mouse::Button::Right)
-			signalRightClicked.emit();
+			signalRightClicked.emit(_boardPosition);
 	}
 }
 

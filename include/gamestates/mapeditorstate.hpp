@@ -35,8 +35,8 @@ public:
 
 private:
 	void slotBackToMainMenu();
-	void slotCursorLeftClicked();
-	void slotCursorRightClicked();
+	void slotCursorLeftClicked(const Coordinates& boardPosition);
+	void slotCursorRightClicked(const Coordinates& boardPosition);
 	void slotTerrainButtonChanged(const namelessgui::RadioToggleButton& activeTerrainButton);
 
 	namelessgui::ConfirmationDialog* _backToMainMenuDialog;

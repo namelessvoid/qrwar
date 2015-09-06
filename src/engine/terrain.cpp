@@ -5,7 +5,7 @@ namespace qrw
 
 Terrain* Terrain::createTerrain(TERRAINTYPES terrainType)
 {
-	Terrain* terrain;
+	Terrain* terrain = nullptr;
 
 	switch(terrainType)
 	{
