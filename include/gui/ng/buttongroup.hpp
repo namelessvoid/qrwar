@@ -1,7 +1,7 @@
 #ifndef NAMELESSGUI_BUTTONGROUP_HPP
 #define NAMELESSGUI_BUTTONGROUP_HPP
 
-#include <map>
+#include <set>
 
 #include "gui/ng/radiotogglebutton.hpp"
 
@@ -16,9 +16,7 @@ namespace namelessgui
 			void addButton(RadioToggleButton* button);
 
 		private:
-			bool hasButton(RadioToggleButton* button);
-
-			std::map<RadioToggleButton*, RadioToggleButton*> _buttons;
+			std::set<RadioToggleButton*> _buttons;
 	};
 }
 
