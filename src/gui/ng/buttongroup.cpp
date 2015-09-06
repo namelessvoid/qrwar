@@ -4,33 +4,39 @@
 
 namespace namelessgui
 {
-	ButtonGroup::ButtonGroup()
-	{}
+ButtonGroup::ButtonGroup()
+	: _activeButton(nullptr)
+{}
 
-	ButtonGroup::~ButtonGroup()
-	{}
+ButtonGroup::~ButtonGroup()
+{}
 
-	void ButtonGroup::addButton(Button* button)
+void ButtonGroup::addButton(RadioToggleButton* button)
+{
+	if(hasButton(button) == true)
+		return;
+
+	for(auto iter : _buttons)
 	{
-		if(hasButton(button) == true)
-			return;
-		buttons[button] = button;
+		button->signalclicked.connect(std::bind(&RadioToggleButton::deactivate, iter.second));
+		iter.second->signalclicked.connect(std::bind(&RadioToggleButton::deactivate, button));
 	}
+	_buttons[button] = button;
+}
 
-	void ButtonGroup::activateButton(Button* button)
-	{
-		if(hasButton(button) == false)
-			return;
-		std::map<Button*, Button*>::iterator iter;
-		for(iter = buttons.begin(); iter != buttons.end(); ++iter)
-		{
-			iter->second->setState(Button::EWS_INACTIVE);
-		}
-		buttons.find(button)->second->setState(Button::EWS_ACTIVE);
-	}
+void ButtonGroup::activateButton(RadioToggleButton* button)
+{
+	if(hasButton(button) == false)
+		return;
+}
 
-	bool ButtonGroup::hasButton(Button* button)
-	{
-		return (buttons.find(button) != buttons.end());
-	}
+const RadioToggleButton* ButtonGroup::getActiveButton()
+{
+	return _activeButton;
+}
+
+bool ButtonGroup::hasButton(RadioToggleButton* button)
+{
+	return (_buttons.find(button) != _buttons.end());
+}
 }

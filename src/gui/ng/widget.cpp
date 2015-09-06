@@ -8,7 +8,6 @@ namespace namelessgui
 	Widget::Widget()
 		: _parent(nullptr),
 		  _visible(false),
-		  _state(EWS_INACTIVE),
 		  _leftMouseButtonPressRegistered(false),
 		  _rightMouseButtonPressRegistered(false),
 		  _mouseFocus(false),
@@ -56,15 +55,15 @@ namespace namelessgui
 		return _mouseFocus;
 	}
 
-	void Widget::setState(Widget::EWidgetStates state)
-	{
-		this->_state = state;
-	}
+//	void Widget::setState(Widget::EWidgetStates state)
+//	{
+//		this->_state = state;
+//	}
 
-	Widget::EWidgetStates Widget::getState() const
-	{
-		return _state;
-	}
+//	Widget::EWidgetStates Widget::getState() const
+//	{
+//		return _state;
+//	}
 
 	void Widget::render(sf::RenderTarget& target, sf::RenderStates states) const
 	{

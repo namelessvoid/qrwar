@@ -46,9 +46,8 @@ public:
 	 * @param resetRect
 	 */
 	void setTexture(const sf::Texture* texture, bool resetRect = true);
-
-protected:
-	const sf::Texture* _textures[EWidgetStates::EWS_COUNT];
 };
-}
-#endif
+
+} // namespace namelessgui
+
+#endif // NAMELESSGUI_SPRITEWIDGET_HPP

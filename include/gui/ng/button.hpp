@@ -11,40 +11,29 @@
 
 namespace namelessgui
 {
-	class Button : public RectangularWidget
-	{
-		public:
-			Button();
-			~Button();
+class Button : public RectangularWidget
+{
+	public:
+		Button();
+		~Button();
 
-			void setText(std::string text);
-			void setImage(const sf::Texture* texture);
+		void setText(std::string text);
+		void setImage(const sf::Texture* texture);
 
-			virtual void setPosition(const sf::Vector2f& position) override;
-			virtual void setSize(const sf::Vector2f& size) override;
+		virtual void setPosition(const sf::Vector2f& position) override;
+		virtual void setSize(const sf::Vector2f& size) override;
 
-			void setTextures(const sf::Texture* textureinactive,
-				const sf::Texture* textureactive,
-				const sf::Texture* texturehover);
+		virtual void render(sf::RenderTarget& target, sf::RenderStates states = sf::RenderStates::Default) const override;
 
-			void updateSprite();
+	protected:
+		Label* _label;
+		RectangularWidget* _image;
 
-			virtual void render(sf::RenderTarget& target, sf::RenderStates states = sf::RenderStates::Default) const override;
-
-		protected:
-			Label* _label;
-			RectangularWidget* _image;
-
-
-		private:
-			// Slots
-			void leftMousebuttonPressedSlot();
-			void mouseEnteredSlot();
-			void clickedSlot();
-			void mouseLeftSlot();
-
-			EWidgetStates _state;
-	};
+		virtual void leftMousebuttonPressedSlot();
+		virtual void mouseEnteredSlot();
+		virtual void clickedSlot();
+		virtual void mouseLeftSlot();
+};
 }
 
 #endif

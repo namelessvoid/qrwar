@@ -3,7 +3,7 @@
 
 #include <map>
 
-#include "gui/ng/button.hpp"
+#include "gui/ng/radiotogglebutton.hpp"
 
 namespace namelessgui
 {
@@ -13,13 +13,17 @@ namespace namelessgui
 			ButtonGroup();
 			~ButtonGroup();
 
-			void addButton(Button* button);
-			void activateButton(Button* button);
+			void addButton(RadioToggleButton* button);
+			void activateButton(RadioToggleButton* button);
+
+			const RadioToggleButton* getActiveButton();
 
 		private:
-			bool hasButton(Button* button);
+			bool hasButton(RadioToggleButton* button);
 
-			std::map<Button*, Button*> buttons;
+			std::map<RadioToggleButton*, RadioToggleButton*> _buttons;
+
+			RadioToggleButton* _activeButton;
 	};
 }
 

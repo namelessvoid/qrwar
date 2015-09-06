@@ -11,8 +11,7 @@ namespace namelessgui
 	Button::Button()
 	: RectangularWidget(),
 	  _label(new Label()),
-	  _image(nullptr),
-	  _state(EWS_INACTIVE)
+	  _image(nullptr)
 	{
 		// Add sub widgets
 		this->addWidget(this->_label);
@@ -77,21 +76,6 @@ namespace namelessgui
 			_image->setSize({size.y, size.y});
 	}
 
-	void Button::setTextures(const sf::Texture* textureinactive,
-		const sf::Texture* textureactive, const sf::Texture* texturehover)
-	{
-		_textures[EWS_INACTIVE] = textureinactive;
-		_textures[EWS_ACTIVE] = textureactive;
-		_textures[EWS_HOVER] = texturehover;
-		updateSprite();
-	}
-
-	void Button::updateSprite()
-	{
-		if(_textures[_state] != nullptr)
-			_image->setTexture(_textures[_state], true);
-	}
-
 	void Button::render(sf::RenderTarget& target, sf::RenderStates states) const
     {
 		if(!_visible)
@@ -103,33 +87,25 @@ namespace namelessgui
 
 	void Button::leftMousebuttonPressedSlot()
 	{
-		_state = EWS_ACTIVE;
 		this->setFillColor(sf::Color(50, 50, 50, 255));
-		updateSprite();
 	}
 
 	void Button::mouseEnteredSlot()
 	{
-		_state = EWS_HOVER;
 		this->setFillColor(sf::Color(80, 80, 80, 255));
-		updateSprite();
 	}
 
 	void Button::clickedSlot()
 	{
-		_state = EWS_HOVER;
 		if(!hasMouseFocues())
 			this->setFillColor(sf::Color(60, 60, 60, 255));
 		else
 			this->setFillColor(sf::Color(80, 80, 80, 255));
-		updateSprite();
 	}
 
 	void Button::mouseLeftSlot()
 	{
-		_state = EWS_INACTIVE;
 		this->setFillColor(sf::Color(60, 60, 60, 255));
-		updateSprite();
 	}
 
 }

@@ -13,14 +13,6 @@ namespace namelessgui
 class Widget
 {
 	public:
-		enum EWidgetStates
-		{
-			EWS_INACTIVE,
-			EWS_ACTIVE,
-			EWS_HOVER,
-			EWS_COUNT
-		};
-
 			Widget();
 			virtual ~Widget();
 
@@ -41,8 +33,8 @@ class Widget
 
 			bool hasMouseFocues() const;
 
-			void setState(EWidgetStates _state);
-			EWidgetStates getState() const;
+//			void setState(EWidgetStates _state);
+//			EWidgetStates getState() const;
 
             void disconnectAllSignals();
 
@@ -75,7 +67,6 @@ class Widget
 			const Widget* _parent;
 			bool _visible;
 			std::vector<Widget*> _children;
-			EWidgetStates _state;
 
         private:
             /**
