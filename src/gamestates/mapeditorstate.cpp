@@ -2,7 +2,6 @@
 
 #include "gui/texturemanager.hpp"
 #include "config/settings.hpp"
-#include "engine/terrainfactory.hpp"
 
 #include <iostream>
 

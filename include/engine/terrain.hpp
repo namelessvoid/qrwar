@@ -14,16 +14,17 @@ namespace qrw
 	class Terrain
 	{
 		public:
-			Terrain(TERRAINTYPES _type, int attackmod, int defensemod);
+			static Terrain* createTerrain(TERRAINTYPES terrainType);
+
 			~Terrain();
 
-			inline int getModificator(MODIFICATORS type)
-				{ return _modificators[type]; };
-			inline int* getModificators()
-				{ return _modificators; }
-			inline TERRAINTYPES getType() { return _type; };
+			int getModificator(MODIFICATORS type);
+			int* getModificators();
+			TERRAINTYPES getType();
 
 		private:
+			Terrain(TERRAINTYPES _type, int attackmod, int defensemod);
+
 			int _modificators[2];
 			TERRAINTYPES _type;
 	};
