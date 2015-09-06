@@ -8,6 +8,7 @@
 #include <memory>
 
 #include "engine/coordinates.hpp"
+#include "gui/ng/signal.hpp"
 
 namespace sf
 {
@@ -30,10 +31,6 @@ public:
 
 	void setDimensions(float _dimensions);
 
-	Cursor* spawnChild();
-	Cursor* getChild() const;
-	void despawnChild();
-
 	/**
 	 * @argument position Position on the screen (pixles)
 	 * @argument size Size of the cursor on the screen in pixles.
@@ -42,14 +39,13 @@ public:
 
 	void handleEvent(const sf::Event& event);
 
+	// signals
+	namelessgui::Signal<> signalLeftClicked;
+	namelessgui::Signal<> signalRightClicked;
+
 private:
-
-	static Cursor* _cursor;
-	// Child cursor
-	Cursor* _child;
-
 	sf::Color _maincolor;
-	sf::Color _subcolor;
+	bool _visible;
 
 	Coordinates _boardPosition;
 	std::shared_ptr<Board> _spBoard;

@@ -11,27 +11,19 @@
 
 namespace qrw
 {
-Cursor* Cursor::_cursor = 0;
 
 Cursor::Cursor()
-: RectangleShape(),
-  _child(0),
-  _maincolor(218, 218, 0, 120),
-  _subcolor(218, 0, 0, 120),
-  _boardPosition(0, 0)
+	: RectangleShape(),
+	  _maincolor(218, 218, 0, 120),
+	  _visible(true),
+	  _boardPosition(0, 0)
 {
     setFillColor(_maincolor);
     setSize({32.0f, 32.0f});
 }
 
 Cursor::~Cursor()
-{}
-
-Cursor* Cursor::getCursor()
 {
-    if(_cursor == 0)
-        _cursor = new Cursor();
-    return _cursor;
 }
 
 void Cursor::setBoard(std::shared_ptr<Board> spBoard)
@@ -44,41 +36,10 @@ void Cursor::setDimensions(float dimensions)
     RectangleShape::setSize({dimensions, dimensions});
 }
 
-Cursor* Cursor::spawnChild()
-{
-    if(_child != 0)
-            return 0;
-    else
-    {
-        _child = new Cursor();
-        _child->setBoard(_spBoard);
-        _child->setSize(getSize());
-        _child->setFillColor(_maincolor);
-        this->setFillColor(_subcolor);
-    }
-    return _child;
-}
-
-Cursor* Cursor::getChild() const
-{
-        return _child;
-}
-
-void Cursor::despawnChild()
-{
-    if(_child != 0)
-    {
-        delete _child;
-        _child = 0;
-        this->setFillColor(_maincolor);
-    }
-}
-
 void Cursor::draw(sf::RenderTarget &target, sf::RenderStates states) const
 {
-    target.draw((sf::RectangleShape)*this, states);
-    if(getChild() != 0)
-        target.draw(*getChild(), states);
+	if(_visible)
+		target.draw((sf::RectangleShape)*this, states);
 }
 
 void Cursor::handleEvent(const sf::Event& event)
@@ -97,8 +58,20 @@ void Cursor::handleEvent(const sf::Event& event)
         {
             setPosition(newPosition);
             _boardPosition = newBoardPosition;
+			_visible = true;
         }
+		else
+		{
+			_visible = false;
+		}
     }
+	else if( _visible == true && event.type == sf::Event::MouseButtonPressed)
+	{
+		if(event.mouseButton.button == sf::Mouse::Button::Left)
+			signalLeftClicked.emit();
+		else if(event.mouseButton.button == sf::Mouse::Button::Right)
+			signalRightClicked.emit();
+	}
 }
 
 } // namespace qrwar
