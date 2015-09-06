@@ -36,9 +36,15 @@ namespace namelessgui
 		_text.setCharacterSize(size);
 	}
 
-	void Label::setText(const sf::String& text)
+	void Label::setText(const std::string text)
 	{
-		this->_text.setString(text);
+		_stdText = text;
+		_text.setString(text);
+	}
+
+	const std::string&Label::getText() const
+	{
+		return _stdText;
 	}
 
 	sf::Vector2f Label::getPosition() const

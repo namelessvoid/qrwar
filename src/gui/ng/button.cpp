@@ -36,6 +36,11 @@ namespace namelessgui
 		this->_label->setText(text);
 	}
 
+	const std::string& Button::getText() const
+	{
+		return _label->getText();
+	}
+
 	void Button::setImage(const sf::Texture* texture)
 	{
 		if(!_image)

@@ -18,6 +18,8 @@ class Button : public RectangularWidget
 		~Button();
 
 		void setText(std::string text);
+		const std::string& getText() const;
+
 		void setImage(const sf::Texture* texture);
 
 		virtual void setPosition(const sf::Vector2f& position) override;
