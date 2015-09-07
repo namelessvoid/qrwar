@@ -19,7 +19,11 @@ namespace qrw
 	void Square::setTerrain(Terrain::Ptr terrain)
 	{
 		this->_terrain = terrain;
+
+		if(_terrain != nullptr)
+			_terrain->setPosition(getCoordinates());
 	}
+
 	Terrain::Ptr Square::getTerrain()
 	{
 		return _terrain;
@@ -29,6 +33,7 @@ namespace qrw
 	{
 		this->_unit = unit;
 	}
+
 	Unit* Square::getUnit()
 	{
 		return _unit;
