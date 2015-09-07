@@ -4,6 +4,7 @@
 #include <memory>
 
 #include "engine/terraintypes.hpp"
+#include "engine/coordinates.hpp"
 
 namespace qrw
 {
@@ -25,11 +26,16 @@ namespace qrw
 			int* getModificators();
 			TERRAINTYPES getType();
 
+			void setPosition(const Coordinates& position);
+			const Coordinates& getPosition() const;
+
 		private:
 			Terrain(TERRAINTYPES _type, int attackmod, int defensemod);
 
 			int _modificators[2];
 			TERRAINTYPES _type;
+
+			Coordinates _position;
 	};
 }
 

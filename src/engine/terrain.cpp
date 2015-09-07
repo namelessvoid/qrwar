@@ -24,7 +24,8 @@ Terrain::Ptr Terrain::createTerrain(TERRAINTYPES terrainType)
 }
 
 Terrain::Terrain(TERRAINTYPES type, int attackmod, int defensemod)
-: _type(type)
+	: _type(type),
+	  _position(0, 0)
 {
 	_modificators[EM_ATTACK] = attackmod;
 	_modificators[EM_DEFENSE] = defensemod;
@@ -47,6 +48,16 @@ int* Terrain::getModificators()
 TERRAINTYPES Terrain::getType()
 {
 	return _type;
+}
+
+void Terrain::setPosition(const Coordinates& position)
+{
+	_position = position;
+}
+
+const Coordinates& Terrain::getPosition() const
+{
+	return _position;
 }
 
 } // namespace qrw
