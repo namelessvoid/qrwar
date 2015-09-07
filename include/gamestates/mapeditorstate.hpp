@@ -2,6 +2,7 @@
 #define QRW_MAPEDITORSTATE_H
 
 #include <memory>
+#include <map>
 
 #include "gamestates/gamestate.hpp"
 
@@ -12,6 +13,7 @@
 #include "gui/ng/radiotogglebutton.hpp"
 
 #include "gui/cursor.hpp"
+#include "gui/terrainentity.hpp"
 
 #include "engine/board.hpp"
 
@@ -50,6 +52,8 @@ private:
 	Cursor _cursor;
 
 	std::shared_ptr<Board> _spBoard;
+
+	std::map<const Coordinates, TerrainEntity::Ptr> _terrainEntities;
 };
 
 } // namespace qrw

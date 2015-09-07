@@ -109,6 +109,9 @@ void MapEditorState::draw()
 	_background.render(*_renderWindow, sf::RenderStates::Default);
 	_renderWindow->draw(_cursor);
 	_guiUptr->render(*_renderWindow, sf::RenderStates::Default);
+
+	for(auto entityIterator : _terrainEntities)
+		_renderWindow->draw(*(entityIterator.second));
 }
 
 bool MapEditorState::handleEvent(sf::Event& event)
@@ -160,6 +163,7 @@ void MapEditorState::slotCursorLeftClicked(const Coordinates& boardPosition)
 	if(terrain != nullptr)
 	{
 		_spBoard->getSquare(boardPosition)->setTerrain(terrain);
+		_terrainEntities[boardPosition] = TerrainEntity::createTerrainEntity(terrain, 32);
 	}
 }
 
