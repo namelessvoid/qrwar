@@ -157,7 +157,10 @@ void MapEditorState::slotBackToMainMenu()
 
 void MapEditorState::slotCursorLeftClicked(const Coordinates& boardPosition)
 {
-	std::cout << "Cursor left clicked at " << boardPosition.getX() << "/" << boardPosition.getY() << ".\n" << std::flush;
+	// Do nothing if no terrain type was selected
+	if(_activeTerrainType == ET_NUMBEROFTERRAINTYPES)
+		return;
+
 	// Create new terrain
 	Terrain::Ptr terrain = Terrain::createTerrain(_activeTerrainType);
 	if(terrain != nullptr)
@@ -169,8 +172,8 @@ void MapEditorState::slotCursorLeftClicked(const Coordinates& boardPosition)
 
 void MapEditorState::slotCursorRightClicked(const Coordinates& boardPosition)
 {
-	std::cout << "Cursor right clicked at " << boardPosition.getX() << "/" << boardPosition.getY() << ".\n" << std::flush;
 	_spBoard->getSquare(boardPosition)->setTerrain(nullptr);
+	_terrainEntities.erase(boardPosition);
 }
 
 void MapEditorState::slotTerrainButtonChanged(const namelessgui::RadioToggleButton& activeTerrainButton)
