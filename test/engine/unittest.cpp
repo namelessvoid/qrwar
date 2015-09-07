@@ -93,8 +93,8 @@ class UnitTest : public CppUnit::TestFixture
 		{
 			// Test values > 0
 			qrw::Square square(0, 0);
-			std::unique_ptr<qrw::Terrain> terrain(qrw::Terrain::createTerrain(qrw::ET_HILL));
-			square.setTerrain(terrain.get());
+			qrw::Terrain::Ptr terrain = qrw::Terrain::createTerrain(qrw::ET_HILL);
+			square.setTerrain(terrain);
 
 			unit1->setSquare(&square);
 
@@ -102,8 +102,8 @@ class UnitTest : public CppUnit::TestFixture
 			CPPUNIT_ASSERT_EQUAL(0, unit1->getModifiedDefense());
 
 			// Test values < 0
-			std::unique_ptr<qrw::Terrain> terrain2(qrw::Terrain::createTerrain(qrw::ET_WALL));
-			square.setTerrain(terrain2.get());
+			qrw::Terrain::Ptr terrain2 = qrw::Terrain::createTerrain(qrw::ET_WALL);
+			square.setTerrain(terrain2);
 
 			CPPUNIT_ASSERT_EQUAL(0, unit1->getModifiedAttack());
 			CPPUNIT_ASSERT_EQUAL(0, unit1->getModifiedDefense());
@@ -228,11 +228,11 @@ class UnitTest : public CppUnit::TestFixture
 			player1->setActive(true);
 
 			// Set up terrain
-			std::unique_ptr<qrw::Terrain> terrain1(qrw::Terrain::createTerrain(qrw::ET_HILL));
-			board->getSquare(0, 0)->setTerrain(terrain1.get());
+			qrw::Terrain::Ptr terrain1 = qrw::Terrain::createTerrain(qrw::ET_HILL);
+			board->getSquare(0, 0)->setTerrain(terrain1);
 
-			std::unique_ptr<qrw::Terrain> terrain2(qrw::Terrain::createTerrain(qrw::ET_HILL));
-			board->getSquare(0, 1)->setTerrain(terrain2.get());
+			qrw::Terrain::Ptr terrain2 = qrw::Terrain::createTerrain(qrw::ET_HILL);
+			board->getSquare(0, 1)->setTerrain(terrain2);
 
 			qrw::Unit::AttackResult result = unit1->attack(unit2);
 

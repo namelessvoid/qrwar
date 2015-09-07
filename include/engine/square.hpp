@@ -2,6 +2,7 @@
 #define QRW_SQUARE_HPP
 
 #include "engine/coordinates.hpp"
+#include "engine/terrain.hpp"
 
 namespace qrw
 {
@@ -14,8 +15,8 @@ namespace qrw
 			Square(int x, int y);
 			~Square();
 
-			void setTerrain(Terrain* terrain);
-			Terrain* getTerrain();
+			void setTerrain(Terrain::Ptr terrain);
+			Terrain::Ptr getTerrain();
 
 			void setUnit(Unit* unit);
 			Unit* getUnit();
@@ -29,7 +30,7 @@ namespace qrw
 			bool isAccessible();
 
 		private:
-			Terrain* _terrain;
+			Terrain::Ptr _terrain;
 			Unit* _unit;
 			Coordinates _coordinates;
 	};

@@ -1,6 +1,8 @@
 #ifndef QRW_TERRAIN_HPP
 #define QRW_TERRAIN_HPP
 
+#include <memory>
+
 #include "engine/terraintypes.hpp"
 
 namespace qrw
@@ -14,7 +16,8 @@ namespace qrw
 	class Terrain
 	{
 		public:
-			static Terrain* createTerrain(TERRAINTYPES terrainType);
+			typedef std::shared_ptr<Terrain> Ptr;
+			static Ptr createTerrain(TERRAINTYPES terrainType);
 
 			~Terrain();
 

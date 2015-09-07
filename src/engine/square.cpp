@@ -16,11 +16,11 @@ namespace qrw
 	Square::~Square()
 	{}
 
-	void Square::setTerrain(Terrain* terrain)
+	void Square::setTerrain(Terrain::Ptr terrain)
 	{
 		this->_terrain = terrain;
 	}
-	Terrain* Square::getTerrain()
+	Terrain::Ptr Square::getTerrain()
 	{
 		return _terrain;
 	}

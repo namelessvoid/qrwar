@@ -192,9 +192,7 @@ namespace qrw
 		if(square == NULL)
 			return false;
 
-		if(square->getTerrain() != NULL)
-			delete square->getTerrain();
-		Terrain* terrain = Terrain::createTerrain(terraintype);
+		Terrain::Ptr terrain = Terrain::createTerrain(terraintype);
 		square->setTerrain(terrain);
 		return true;
 	}
@@ -208,8 +206,6 @@ namespace qrw
 		if(square == NULL)
 			return false;
 
-		if(square->getTerrain())
-			delete square->getTerrain();
 		square->setTerrain(NULL);
 		return true;
 	}

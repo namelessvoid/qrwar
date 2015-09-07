@@ -3,20 +3,20 @@
 namespace qrw
 {
 
-Terrain* Terrain::createTerrain(TERRAINTYPES terrainType)
+Terrain::Ptr Terrain::createTerrain(TERRAINTYPES terrainType)
 {
-	Terrain* terrain = nullptr;
+	Terrain::Ptr terrain = nullptr;
 
 	switch(terrainType)
 	{
 	case ET_WOOD:
-		terrain = new Terrain(ET_WOOD, -1, 1);
+		terrain = Terrain::Ptr(new Terrain(ET_WOOD, -1, 1));
 		break;
 	case ET_HILL:
-		terrain = new Terrain(ET_HILL, 1, -1);
+		terrain = Terrain::Ptr(new Terrain(ET_HILL, 1, -1));
 		break;
 	default:
-		terrain = new Terrain(ET_WALL, 1, 1);
+		terrain = Terrain::Ptr(new Terrain(ET_WALL, 1, 1));
 		break;
 	}
 

@@ -156,7 +156,7 @@ void MapEditorState::slotCursorLeftClicked(const Coordinates& boardPosition)
 {
 	std::cout << "Cursor left clicked at " << boardPosition.getX() << "/" << boardPosition.getY() << ".\n" << std::flush;
 	// Create new terrain
-	Terrain* terrain = Terrain::createTerrain(_activeTerrainType);
+	Terrain::Ptr terrain = Terrain::createTerrain(_activeTerrainType);
 	if(terrain != nullptr)
 	{
 		_spBoard->getSquare(boardPosition)->setTerrain(terrain);
