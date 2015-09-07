@@ -37,6 +37,13 @@ namespace qrw
 		return !(*this == rhs);
 	}
 
+	bool Coordinates::operator<(const Coordinates& rhs) const
+	{
+		if(getX() != rhs.getX())
+			return getX() < rhs.getX();
+		return getY() < rhs.getY();
+	}
+
 	Coordinates Coordinates::operator+(const Coordinates& rhs) const
 	{
 		return Coordinates(getX() + rhs.getX(), getY() + rhs.getY());
