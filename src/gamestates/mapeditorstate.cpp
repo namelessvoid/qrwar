@@ -120,11 +120,12 @@ EGameStateId MapEditorState::update()
 void MapEditorState::draw()
 {
 	_background.render(*_renderWindow, sf::RenderStates::Default);
-	_renderWindow->draw(_cursor);
 	_guiUptr->render(*_renderWindow, sf::RenderStates::Default);
 
 	for(auto entityIterator : _terrainEntities)
 		_renderWindow->draw(*(entityIterator.second));
+
+	_renderWindow->draw(_cursor);
 }
 
 bool MapEditorState::handleEvent(sf::Event& event)
