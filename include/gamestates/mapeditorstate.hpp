@@ -40,12 +40,14 @@ private:
 	void slotCursorLeftClicked(const Coordinates& boardPosition);
 	void slotCursorRightClicked(const Coordinates& boardPosition);
 	void slotTerrainButtonChanged(const namelessgui::RadioToggleButton& activeTerrainButton);
+	void slotToDeploymentButtonClicked();
 
 	namelessgui::ConfirmationDialog* _backToMainMenuDialog;
 	namelessgui::Window* _toolBar;
 
 	TERRAINTYPES _activeTerrainType;
 
+	bool _toDeployment;
 	bool _backToMainMenu;
 
 	namelessgui::RectangularWidget _background;
