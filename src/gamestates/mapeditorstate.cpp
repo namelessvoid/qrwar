@@ -13,12 +13,9 @@ namespace qrw
 
 MapEditorState::MapEditorState(sf::RenderWindow* renderWindow)
 	: GameState(renderWindow, EGameStateId::EGSID_MAP_EDITOR_STATE),
-	  _activeTerrainType(ET_NUMBEROFTERRAINTYPES)
+	  _activeTerrainType(ET_NUMBEROFTERRAINTYPES),
+	  _scene(nullptr)
 {
-	// Initialize background
-	_background.setTexture(TextureManager::getInstance()->getTexture("plainsquare"));
-	_background.setFillColor(sf::Color(255, 255, 255, 255));
-
 	// Initialize toolbar
 	_toolBar = new namelessgui::Window();
 	_toolBar->setVisible(true);
@@ -79,7 +76,6 @@ MapEditorState::MapEditorState(sf::RenderWindow* renderWindow)
 
 	// Set visibilities
 	_guiUptr->setVisible(true);
-	_background.setVisible(true);
 	_backToMainMenuDialog->setVisible(false);
 
 	// Handle cursor events
@@ -98,12 +94,9 @@ void MapEditorState::init(GameState* previousState)
 	_toDeployment = false;
 	_backToMainMenu = false;
 	_spBoard = std::make_shared<Board>(16, 9);
+	_scene = std::unique_ptr<Scene>(new Scene(_spBoard));
 
 	_cursor.setBoard(_spBoard);
-
-	sf::Vector2u spriteSize = _background.getTexture()->getSize();
-	sf::Vector2f backgroundSize = sf::Vector2f(_spBoard->getWidth() * spriteSize.x, _spBoard->getHeight() * spriteSize.y);
-	_background.setSize(backgroundSize);
 }
 
 EGameStateId MapEditorState::update()
@@ -119,13 +112,14 @@ EGameStateId MapEditorState::update()
 
 void MapEditorState::draw()
 {
-	_background.render(*_renderWindow, sf::RenderStates::Default);
 	_guiUptr->render(*_renderWindow, sf::RenderStates::Default);
 
+	_scene->render(*_renderWindow);
 	for(auto entityIterator : _terrainEntities)
 		_renderWindow->draw(*(entityIterator.second));
 
 	_renderWindow->draw(_cursor);
+
 }
 
 bool MapEditorState::handleEvent(sf::Event& event)

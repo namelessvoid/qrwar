@@ -12,6 +12,7 @@
 #include "gui/ng/spritewidget.hpp"
 #include "gui/ng/radiotogglebutton.hpp"
 
+#include "gui/scene.hpp"
 #include "gui/cursor.hpp"
 #include "gui/terrainentity.hpp"
 
@@ -50,7 +51,8 @@ private:
 	bool _toDeployment;
 	bool _backToMainMenu;
 
-	namelessgui::RectangularWidget _background;
+	std::unique_ptr<Scene> _scene;
+
 	Cursor _cursor;
 
 	std::shared_ptr<Board> _spBoard;
