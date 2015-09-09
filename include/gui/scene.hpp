@@ -28,7 +28,7 @@ public:
 
 	~Scene();
 
-	void render(sf::RenderTarget& renderTarget, sf::RenderStates renderStates = sf::RenderStates::Default);
+	void render();
 
 	void handleEvent(const sf::Event& event);
 

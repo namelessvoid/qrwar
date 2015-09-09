@@ -28,10 +28,12 @@ Scene::~Scene()
 {
 }
 
-void Scene::render(sf::RenderTarget& renderTarget, sf::RenderStates renderStates)
+void Scene::render()
 {
-	renderTarget.draw(_background, renderStates);
-	renderTarget.draw(_cursor, renderStates);
+	sf::RenderStates renderStates = sf::RenderStates::Default;
+
+	_renderTarget->draw(_background, renderStates);
+	_renderTarget->draw(_cursor, renderStates);
 }
 
 void Scene::handleEvent(const sf::Event& event)
