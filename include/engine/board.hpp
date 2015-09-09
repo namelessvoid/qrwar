@@ -1,6 +1,8 @@
 #ifndef QRW_BOARD_HPP
 #define QRW_BOARD_HPP
 
+#include <memory>
+
 #include <SFML/System/Vector2.hpp>
 
 namespace qrw
@@ -13,6 +15,8 @@ namespace qrw
 	class Board
 	{
 		public:
+			typedef std::shared_ptr<Board> Ptr;
+
 			Board(int width, int height);
 			~Board();
 
