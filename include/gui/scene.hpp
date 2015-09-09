@@ -24,7 +24,7 @@ namespace qrw
 class Scene
 {
 public:
-	Scene(Board::Ptr board);
+	Scene(sf::RenderTarget* rendertarget, Board::Ptr board);
 
 	~Scene();
 
@@ -36,6 +36,8 @@ public:
 	namelessgui::Signal<Coordinates> signalCursorRightClicked;
 
 private:
+	sf::RenderTarget* _renderTarget;
+
 	sf::RectangleShape _background;
 	Cursor _cursor;
 };

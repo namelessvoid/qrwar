@@ -1,13 +1,15 @@
 #include "gui/scene.hpp"
 
 #include <SFML/Graphics/RenderTarget.hpp>
+#include <SFML/Window/Event.hpp>
 
 #include "gui/texturemanager.hpp"
 
 namespace qrw
 {
 
-Scene::Scene(Board::Ptr board)
+Scene::Scene(sf::RenderTarget* renderTarget, Board::Ptr board)
+	: _renderTarget(renderTarget)
 {
 	// Set up background
 	_background.setTexture(TextureManager::getInstance()->getTexture("plainsquare"));
@@ -34,7 +36,20 @@ void Scene::render(sf::RenderTarget& renderTarget, sf::RenderStates renderStates
 
 void Scene::handleEvent(const sf::Event& event)
 {
-	_cursor.handleEvent(event);
+	sf::Event adjustedEvent = event;
+
+	// If mouse moved, convert screen coordinates to world coordinates
+	if(event.type == sf::Event::MouseMoved)
+	{
+		sf::Vector2i mousePixelCoordinates(event.mouseMove.x, event.mouseMove.y);
+		sf::Vector2f mouseWorldCoordinates = _renderTarget->mapPixelToCoords(mousePixelCoordinates);
+
+		adjustedEvent.mouseMove.x = mouseWorldCoordinates.x;
+		adjustedEvent.mouseMove.y = mouseWorldCoordinates.y;
+	}
+
+	// Propagate events
+	_cursor.handleEvent(adjustedEvent);
 }
 
 

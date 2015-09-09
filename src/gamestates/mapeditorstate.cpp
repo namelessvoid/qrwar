@@ -90,7 +90,7 @@ void MapEditorState::init(GameState* previousState)
 	_toDeployment = false;
 	_backToMainMenu = false;
 	_spBoard = std::make_shared<Board>(16, 9);
-	_scene = std::unique_ptr<Scene>(new Scene(_spBoard));
+	_scene = std::unique_ptr<Scene>(new Scene(_renderWindow, _spBoard));
 
 	_scene->signalCursorLeftClicked.connect(std::bind(&MapEditorState::slotCursorLeftClicked, this, std::placeholders::_1));
 	_scene->signalCursorRightClicked.connect(std::bind(&MapEditorState::slotCursorRightClicked, this, std::placeholders::_1));
@@ -129,25 +129,7 @@ bool MapEditorState::handleEvent(sf::Event& event)
 
 	// Scene must only handle events that are not consumed by the gui.
 	if(!stopEventPropagation)
-	{
-		if(event.type == sf::Event::MouseMoved)
-		{
-			sf::Vector2i mousePixelCoordinates(event.mouseMove.x, event.mouseMove.y);
-
-			sf::Vector2f mouseWorldCoordinates = _renderWindow->mapPixelToCoords(mousePixelCoordinates);
-
-			sf::Event mouseMovedWorldCoordinates;
-			mouseMovedWorldCoordinates.type = sf::Event::MouseMoved;
-			mouseMovedWorldCoordinates.mouseMove.x = mouseWorldCoordinates.x;
-			mouseMovedWorldCoordinates.mouseMove.y = mouseWorldCoordinates.y;
-
-			_scene->handleEvent(mouseMovedWorldCoordinates);
-		}
-		else
-		{
-			_scene->handleEvent(event);
-		}
-	}
+		_scene->handleEvent(event);
 
 	return stopEventPropagation;
 }
