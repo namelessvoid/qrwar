@@ -32,6 +32,7 @@ add_library(qrwarlib
 
 #	gui/animation.cpp
 #	gui/boardwidget.cpp
+        gui/scene.cpp
         gui/cursor.cpp
 	gui/terrainentity.cpp
 #	gui/damagenumber.cpp
