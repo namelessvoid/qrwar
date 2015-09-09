@@ -53,7 +53,7 @@ private:
 
 	std::unique_ptr<Scene> _scene;
 
-	Cursor _cursor;
+
 
 	std::shared_ptr<Board> _spBoard;
 

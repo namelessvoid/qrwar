@@ -77,10 +77,6 @@ MapEditorState::MapEditorState(sf::RenderWindow* renderWindow)
 	// Set visibilities
 	_guiUptr->setVisible(true);
 	_backToMainMenuDialog->setVisible(false);
-
-	// Handle cursor events
-	_cursor.signalLeftClicked.connect(std::bind(&MapEditorState::slotCursorLeftClicked, this, std::placeholders::_1));
-	_cursor.signalRightClicked.connect(std::bind(&MapEditorState::slotCursorRightClicked, this, std::placeholders::_1));
 }
 
 MapEditorState::~MapEditorState()
@@ -96,7 +92,8 @@ void MapEditorState::init(GameState* previousState)
 	_spBoard = std::make_shared<Board>(16, 9);
 	_scene = std::unique_ptr<Scene>(new Scene(_spBoard));
 
-	_cursor.setBoard(_spBoard);
+	_scene->signalCursorLeftClicked.connect(std::bind(&MapEditorState::slotCursorLeftClicked, this, std::placeholders::_1));
+	_scene->signalCursorRightClicked.connect(std::bind(&MapEditorState::slotCursorRightClicked, this, std::placeholders::_1));
 }
 
 EGameStateId MapEditorState::update()
@@ -117,9 +114,6 @@ void MapEditorState::draw()
 	_scene->render(*_renderWindow);
 	for(auto entityIterator : _terrainEntities)
 		_renderWindow->draw(*(entityIterator.second));
-
-	_renderWindow->draw(_cursor);
-
 }
 
 bool MapEditorState::handleEvent(sf::Event& event)
@@ -147,11 +141,11 @@ bool MapEditorState::handleEvent(sf::Event& event)
 			mouseMovedWorldCoordinates.mouseMove.x = mouseWorldCoordinates.x;
 			mouseMovedWorldCoordinates.mouseMove.y = mouseWorldCoordinates.y;
 
-			_cursor.handleEvent(mouseMovedWorldCoordinates);
+			_scene->handleEvent(mouseMovedWorldCoordinates);
 		}
 		else
 		{
-			_cursor.handleEvent(event);
+			_scene->handleEvent(event);
 		}
 	}
 

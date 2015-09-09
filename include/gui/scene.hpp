@@ -8,6 +8,8 @@
 #include <SFML/Graphics/RectangleShape.hpp>
 
 #include "engine/board.hpp"
+#include "gui/cursor.hpp"
+#include "gui/ng/signal.hpp"
 
 // Foreward declarations
 namespace sf
@@ -28,9 +30,14 @@ public:
 
 	void render(sf::RenderTarget& renderTarget, sf::RenderStates renderStates = sf::RenderStates::Default);
 
-private:
+	void handleEvent(const sf::Event& event);
 
+	namelessgui::Signal<Coordinates> signalCursorLeftClicked;
+	namelessgui::Signal<Coordinates> signalCursorRightClicked;
+
+private:
 	sf::RectangleShape _background;
+	Cursor _cursor;
 };
 
 } // namespace qrw
