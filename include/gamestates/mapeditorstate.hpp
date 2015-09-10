@@ -2,7 +2,6 @@
 #define QRW_MAPEDITORSTATE_H
 
 #include <memory>
-#include <map>
 
 #include "gamestates/gamestate.hpp"
 
@@ -52,12 +51,7 @@ private:
 	bool _backToMainMenu;
 
 	std::unique_ptr<Scene> _scene;
-
-
-
 	std::shared_ptr<Board> _spBoard;
-
-	std::map<const Coordinates, TerrainEntity::Ptr> _terrainEntities;
 };
 
 } // namespace qrw

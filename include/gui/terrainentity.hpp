@@ -15,6 +15,8 @@ public:
 
 	static Ptr createTerrainEntity(Terrain::Ptr terrain, int dimension);
 
+	const Coordinates& getBoardPosition() const;
+
 private:
 	TerrainEntity(Terrain::Ptr terrain, int dimension);
 

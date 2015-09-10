@@ -110,11 +110,7 @@ EGameStateId MapEditorState::update()
 void MapEditorState::draw()
 {
 	_scene->render();
-	for(auto entityIterator : _terrainEntities)
-		_renderWindow->draw(*(entityIterator.second));
-
 	_guiUptr->render(*_renderWindow, sf::RenderStates::Default);
-
 }
 
 bool MapEditorState::handleEvent(sf::Event& event)
@@ -151,14 +147,14 @@ void MapEditorState::slotCursorLeftClicked(const Coordinates& boardPosition)
 	if(terrain != nullptr)
 	{
 		_spBoard->getSquare(boardPosition)->setTerrain(terrain);
-		_terrainEntities[boardPosition] = TerrainEntity::createTerrainEntity(terrain, 32);
+		_scene->addTerrainEntity(TerrainEntity::createTerrainEntity(terrain, 32));
 	}
 }
 
 void MapEditorState::slotCursorRightClicked(const Coordinates& boardPosition)
 {
 	_spBoard->getSquare(boardPosition)->setTerrain(nullptr);
-	_terrainEntities.erase(boardPosition);
+	_scene->removeTerrainEntityAt(boardPosition);
 }
 
 void MapEditorState::slotTerrainButtonChanged(const namelessgui::RadioToggleButton& activeTerrainButton)

@@ -11,6 +11,11 @@ TerrainEntity::Ptr TerrainEntity::createTerrainEntity(Terrain::Ptr terrain, int 
 	return Ptr(new TerrainEntity(terrain, dimension));
 }
 
+const Coordinates& TerrainEntity::getBoardPosition() const
+{
+	return _terrain->getPosition();
+}
+
 TerrainEntity::TerrainEntity(Terrain::Ptr terrain, int dimension)
 	: _terrain(terrain)
 {
