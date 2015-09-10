@@ -1,21 +1,26 @@
 #ifndef QRW_DEPLOYSTATE_HPP
 #define QRW_DEPLOYSTATE_HPP
 
-#include "gamestates/gamestate.hpp"
+#include "gamestates/scenestate.hpp"
+
+#include "engine/board.hpp"
 
 namespace qrw
 {
 
-class DeployState : public GameState
+class DeployState : public SceneState
 {
 public:
 	DeployState(sf::RenderWindow* renderWindow);
 
 	virtual ~DeployState();
 
-	virtual void draw();
+	virtual qrw::EGameStateId update() override;
 
-	virtual qrw::EGameStateId update();
+	virtual void init(GameState* previousState) override;
+
+private:
+	Board::Ptr _board;
 };
 
 } // namespace qrw

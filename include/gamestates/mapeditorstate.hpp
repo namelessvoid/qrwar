@@ -32,6 +32,8 @@ public:
 
 	virtual bool handleEvent(sf::Event& event) override;
 
+	Board::Ptr getBoard() const;
+
 private:
 	void slotCursorLeftClicked(const Coordinates& boardPosition);
 	void slotCursorRightClicked(const Coordinates& boardPosition);

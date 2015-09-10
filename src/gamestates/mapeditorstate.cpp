@@ -102,6 +102,11 @@ bool MapEditorState::handleEvent(sf::Event& event)
 	return stopEventPropagation;
 }
 
+Board::Ptr MapEditorState::getBoard() const
+{
+	return _spBoard;
+}
+
 void MapEditorState::slotCursorLeftClicked(const Coordinates& boardPosition)
 {
 	// Do nothing if no terrain type was selected
