@@ -3,7 +3,7 @@
 
 #include <memory>
 
-#include "gamestates/gamestate.hpp"
+#include "gamestates/scenestate.hpp"
 
 #include "engine/terraintypes.hpp"
 
@@ -11,7 +11,6 @@
 #include "gui/ng/spritewidget.hpp"
 #include "gui/ng/radiotogglebutton.hpp"
 
-#include "gui/scene.hpp"
 #include "gui/cursor.hpp"
 #include "gui/terrainentity.hpp"
 
@@ -20,7 +19,7 @@
 namespace qrw
 {
 
-class MapEditorState : public GameState
+class MapEditorState : public SceneState
 {
 public:
 	MapEditorState(sf::RenderWindow* renderWindow);
@@ -31,26 +30,20 @@ public:
 
 	virtual EGameStateId update();
 
-	virtual void draw();
-
 	virtual bool handleEvent(sf::Event& event) override;
 
 private:
-	void slotBackToMainMenu();
 	void slotCursorLeftClicked(const Coordinates& boardPosition);
 	void slotCursorRightClicked(const Coordinates& boardPosition);
 	void slotTerrainButtonChanged(const namelessgui::RadioToggleButton& activeTerrainButton);
 	void slotToDeploymentButtonClicked();
 
-	namelessgui::ConfirmationDialog* _backToMainMenuDialog;
 	namelessgui::Window* _toolBar;
 
 	TERRAINTYPES _activeTerrainType;
 
 	bool _toDeployment;
-	bool _backToMainMenu;
 
-	std::unique_ptr<Scene> _scene;
 	std::shared_ptr<Board> _spBoard;
 };
 

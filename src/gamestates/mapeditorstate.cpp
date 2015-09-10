@@ -12,9 +12,8 @@ namespace qrw
 {
 
 MapEditorState::MapEditorState(sf::RenderWindow* renderWindow)
-	: GameState(renderWindow, EGameStateId::EGSID_MAP_EDITOR_STATE),
-	  _activeTerrainType(ET_NUMBEROFTERRAINTYPES),
-	  _scene(nullptr)
+	: SceneState(renderWindow, EGameStateId::EGSID_MAP_EDITOR_STATE),
+	  _activeTerrainType(ET_NUMBEROFTERRAINTYPES)
 {
 	// Initialize toolbar
 	_toolBar = new namelessgui::Window();
@@ -66,17 +65,6 @@ MapEditorState::MapEditorState(sf::RenderWindow* renderWindow)
 	toDeploymentButton->setRelativePosition({0.0f, -50.0f});
 	toDeploymentButton->signalclicked.connect(std::bind(&MapEditorState::slotToDeploymentButtonClicked, this));
 	_toolBar->addWidget(toDeploymentButton);
-
-	// Set up back to main menu dialog
-	_backToMainMenuDialog = new namelessgui::ConfirmationDialog("Really exit and go back to main menu?");
-	_backToMainMenuDialog->signalYesClicked.connect(std::bind(&MapEditorState::slotBackToMainMenu, this));
-	_backToMainMenuDialog->setAnchor({0.5f, 0.5f});
-	_backToMainMenuDialog->setParentAnchor({0.5f, 0.5f});
-	_guiUptr->addWidget(_backToMainMenuDialog);
-
-	// Set visibilities
-	_guiUptr->setVisible(true);
-	_backToMainMenuDialog->setVisible(false);
 }
 
 MapEditorState::~MapEditorState()
@@ -107,33 +95,11 @@ EGameStateId MapEditorState::update()
 	return EGameStateId::EGSID_NO_CHANGE;
 }
 
-void MapEditorState::draw()
-{
-	_scene->render();
-	_guiUptr->render(*_renderWindow, sf::RenderStates::Default);
-}
-
 bool MapEditorState::handleEvent(sf::Event& event)
 {
-	bool stopEventPropagation = GameState::handleEvent(event);
-
-	if(stopEventPropagation)
-		return stopEventPropagation;
-
-	if(event.type == sf::Event::KeyPressed)
-		if(event.key.code == sf::Keyboard::Escape)
-			_backToMainMenuDialog->setVisible(true);
-
-	// Scene must only handle events that are not consumed by the gui.
-	if(!stopEventPropagation)
-		_scene->handleEvent(event);
+	bool stopEventPropagation = SceneState::handleEvent(event);
 
 	return stopEventPropagation;
-}
-
-void MapEditorState::slotBackToMainMenu()
-{
-	_backToMainMenu = true;
 }
 
 void MapEditorState::slotCursorLeftClicked(const Coordinates& boardPosition)
