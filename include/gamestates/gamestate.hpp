@@ -36,6 +36,11 @@ enum EGameStateId
 	EGSID_MAP_EDITOR_STATE,
 
 	/**
+	 * The ID of the DeployGameState.
+	 */
+	EGSID_DEPLOY_STATE,
+
+	/**
 	 * Special "game state" that indicates that the application should quit.
 	 */
 	EGSID_QUIT,

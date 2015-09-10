@@ -11,6 +11,7 @@
 #include "gamestates/introstate.hpp"
 #include "gamestates/mainmenustate.hpp"
 #include "gamestates/mapeditorstate.hpp"
+#include "gamestates/deploystate.hpp"
 
 namespace qrw
 {
@@ -19,6 +20,7 @@ QRWar::QRWar()
 {
 	// Load resources
 	preloadResources();
+
 
 	// Initialize game states
 	GameState* gameState;
@@ -33,6 +35,10 @@ QRWar::QRWar()
 
 	// Map editor state
 	gameState = new MapEditorState(&_renderWindow);
+	_gameStates[gameState->getId()] = gameState;
+
+	// Deploy state
+	gameState = new DeployState(&_renderWindow);
 	_gameStates[gameState->getId()] = gameState;
 
 

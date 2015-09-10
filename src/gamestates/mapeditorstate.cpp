@@ -102,7 +102,7 @@ EGameStateId MapEditorState::update()
 		return EGameStateId::EGSID_MAIN_MENU_STATE;
 
 	if(_toDeployment)
-		return EGameStateId::EGSID_MAIN_MENU_STATE;
+		return EGameStateId::EGSID_DEPLOY_STATE;
 
 	return EGameStateId::EGSID_NO_CHANGE;
 }
