@@ -42,6 +42,8 @@ public:
 private:
 	sf::RenderTarget* _renderTarget;
 
+	Board::Ptr _board;
+
 	sf::RectangleShape _background;
 	Cursor _cursor;
 

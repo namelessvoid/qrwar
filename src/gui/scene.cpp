@@ -5,11 +5,14 @@
 
 #include "gui/texturemanager.hpp"
 
+#include "engine/square.hpp"
+
 namespace qrw
 {
 
 Scene::Scene(sf::RenderTarget* renderTarget, Board::Ptr board)
-	: _renderTarget(renderTarget)
+	: _renderTarget(renderTarget),
+	  _board(board)
 {
 	// Set up background
 	_background.setTexture(TextureManager::getInstance()->getTexture("plainsquare"));
@@ -19,9 +22,27 @@ Scene::Scene(sf::RenderTarget* renderTarget, Board::Ptr board)
 	_background.setSize(backgroundSize);
 	_background.setTextureRect(sf::IntRect(0, 0, backgroundSize.x, backgroundSize.y));
 
+	// Set up corser and connect cursor slots
 	_cursor.setBoard(board);
 	_cursor.signalLeftClicked.connect(std::bind(&namelessgui::Signal<Coordinates>::emit, &signalCursorLeftClicked, std::placeholders::_1));
 	_cursor.signalRightClicked.connect(std::bind(&namelessgui::Signal<Coordinates>::emit, &signalCursorRightClicked, std::placeholders::_1));
+
+	// Initialize entities
+	Square* square;
+	for(int r = 0; r < _board->getHeight(); ++r)
+	{
+		for(int c = 0; c < _board->getWidth(); ++c)
+		{
+			square = _board->getSquare(c, r);
+
+			// Add terrain entities
+			if(square->getTerrain() != nullptr)
+				addTerrainEntity(TerrainEntity::createTerrainEntity(square->getTerrain(), 32));
+
+			// Add unit enitity
+			// TODO...
+		}
+	}
 }
 
 Scene::~Scene()
