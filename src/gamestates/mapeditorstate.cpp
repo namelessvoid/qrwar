@@ -4,7 +4,6 @@
 #include "engine/square.hpp"
 
 #include "gui/texturemanager.hpp"
-#include "config/settings.hpp"
 
 #include <iostream>
 
@@ -16,14 +15,6 @@ MapEditorState::MapEditorState(sf::RenderWindow* renderWindow)
 	  _activeTerrainType(ET_NUMBEROFTERRAINTYPES)
 {
 	// Initialize toolbar
-	_toolBar = new namelessgui::Window();
-	_toolBar->setVisible(true);
-	_toolBar->setSize({150.0f, (float)Settings::getInstance()->getResolutionY()});
-	_toolBar->setAnchor({1.0f, 0.0f});
-	_toolBar->setParentAnchor({1.0f, 0.0f});
-	_toolBar->setVisible(true);
-	_guiUptr->addWidget(_toolBar);
-
 	namelessgui::Label* label = new namelessgui::Label();
 	label->setText("Terrain");
 	label->setAnchor({0.5f, 0.0f});

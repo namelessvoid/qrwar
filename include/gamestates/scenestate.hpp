@@ -24,6 +24,8 @@ protected:
 
 	std::unique_ptr<Scene> _scene;
 
+	namelessgui::Window* _toolBar;
+
 	bool _backToMainMenu;
 
 private:

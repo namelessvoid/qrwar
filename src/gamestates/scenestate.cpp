@@ -2,6 +2,8 @@
 
 #include <SFML/Graphics/RenderWindow.hpp>
 
+#include "config/settings.hpp"
+
 namespace qrw
 {
 
@@ -9,6 +11,15 @@ SceneState::SceneState(sf::RenderWindow* renderWindow, qrw::EGameStateId gameSta
 	: GameState(renderWindow, gameStateId),
 	  _scene(nullptr)
 {
+	// Initialize toolbar
+	_toolBar = new namelessgui::Window();
+	_toolBar->setVisible(true);
+	_toolBar->setSize({150.0f, (float)Settings::getInstance()->getResolutionY()});
+	_toolBar->setAnchor({1.0f, 0.0f});
+	_toolBar->setParentAnchor({1.0f, 0.0f});
+	_toolBar->setVisible(true);
+	_guiUptr->addWidget(_toolBar);
+
 	_guiUptr->setVisible(true);
 
 	// Set up back to main menu dialog

@@ -40,8 +40,6 @@ private:
 	void slotTerrainButtonChanged(const namelessgui::RadioToggleButton& activeTerrainButton);
 	void slotToDeploymentButtonClicked();
 
-	namelessgui::Window* _toolBar;
-
 	TERRAINTYPES _activeTerrainType;
 
 	bool _toDeployment;
