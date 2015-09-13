@@ -49,11 +49,11 @@ MapEditorState::MapEditorState(sf::RenderWindow* renderWindow)
 	_toolBar->addWidget(radioButton);
 
 	namelessgui::Button* toDeploymentButton = new namelessgui::Button();
-	toDeploymentButton->setText("next step");
+	toDeploymentButton->setText("Deploy Troops");
 	toDeploymentButton->setSize({buttonSize.x, 30.0f});
 	toDeploymentButton->setAnchor({0.5f, 1.0f});
 	toDeploymentButton->setParentAnchor({0.5f, 1.0f});
-	toDeploymentButton->setRelativePosition({0.0f, -50.0f});
+	toDeploymentButton->setRelativePosition({0.0f, -5.0f});
 	toDeploymentButton->signalclicked.connect(std::bind(&MapEditorState::slotToDeploymentButtonClicked, this));
 	_toolBar->addWidget(toDeploymentButton);
 }
