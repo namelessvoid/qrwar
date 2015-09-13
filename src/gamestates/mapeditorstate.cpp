@@ -67,7 +67,6 @@ void MapEditorState::init(GameState* previousState)
 	GameState::init();
 
 	_toDeployment = false;
-	_backToMainMenu = false;
 	_spBoard = std::make_shared<Board>(16, 9);
 	_scene = std::unique_ptr<Scene>(new Scene(_renderWindow, _spBoard));
 

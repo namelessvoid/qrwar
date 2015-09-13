@@ -15,6 +15,8 @@ class SceneState : public GameState
 public:
 	virtual ~SceneState();
 
+	virtual void init(GameState* previousState) override;
+
 	virtual void draw() override;
 
 	virtual bool handleEvent(sf::Event& event) override;

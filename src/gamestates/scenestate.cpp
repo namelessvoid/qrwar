@@ -35,6 +35,11 @@ SceneState::~SceneState()
 {
 }
 
+void SceneState::init(GameState* previousState)
+{
+	_backToMainMenu = false;
+}
+
 void SceneState::draw()
 {
 	_scene->render();
