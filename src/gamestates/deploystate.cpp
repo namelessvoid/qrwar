@@ -111,6 +111,11 @@ void DeployState::init(GameState* previousState)
 		_board = static_cast<MapEditorState*>(previousState)->getBoard();
 		_scene = std::unique_ptr<Scene>(new Scene(_renderWindow, _board));
 	}
+
+	// Create new players
+	_players.clear();
+	_players.push_back(Player::Ptr(new Player()));
+	_players.push_back(Player::Ptr(new Player()));
 }
 
 } // namespace qrw

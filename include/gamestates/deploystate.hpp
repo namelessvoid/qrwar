@@ -1,9 +1,12 @@
 #ifndef QRW_DEPLOYSTATE_HPP
 #define QRW_DEPLOYSTATE_HPP
 
+#include <vector>
+
 #include "gamestates/scenestate.hpp"
 
 #include "engine/board.hpp"
+#include "engine/player.hpp"
 
 namespace qrw
 {
@@ -21,6 +24,8 @@ public:
 
 private:
 	Board::Ptr _board;
+
+	std::vector<Player::Ptr> _players;
 };
 
 } // namespace qrw
