@@ -3,8 +3,8 @@
 namespace namelessgui
 {
 
-RectangularWidget::RectangularWidget()
-	: Widget(),
+RectangularWidget::RectangularWidget(std::string id)
+	: Widget(id),
 	  sf::RectangleShape(sf::Vector2f())
 {
 	setFillColor(sf::Color(255, 255, 0, 0));

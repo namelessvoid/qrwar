@@ -13,8 +13,20 @@ namespace namelessgui
 class Widget
 {
 	public:
-			Widget();
+			/**
+			 * @brief Construct a new widget.
+			 * @param id The ID assigned to the widget which can be used to identify the widget.
+			 *           Defaults to empty string.
+			 */
+			Widget(std::string id = "");
+
 			virtual ~Widget();
+
+			/**
+			 * @brief Get the ID of the widget (see constructor).
+			 * @return The ID of the widget or empty string if none was assigned.
+			 */
+			const std::string& getId() const;
 
 			void setParent(const Widget* parent);
 
@@ -69,6 +81,11 @@ class Widget
 			std::vector<Widget*> _children;
 
         private:
+			/**
+			 * @brief _id Used to identify a widget.
+			 */
+			std::string _id;
+
             /**
              * @brief Registeres when left mouse button is pressed.
              *

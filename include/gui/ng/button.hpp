@@ -14,7 +14,7 @@ namespace namelessgui
 class Button : public RectangularWidget
 {
 	public:
-		Button();
+		Button(std::string id = "");
 		~Button();
 
 		void setText(std::string text);

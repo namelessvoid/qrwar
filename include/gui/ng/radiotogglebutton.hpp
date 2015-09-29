@@ -24,7 +24,7 @@ public:
 		ERBS_COUNT
 	};
 
-	RadioToggleButton(std::shared_ptr<ButtonGroup> spButtonGroup = nullptr);
+	RadioToggleButton(std::shared_ptr<ButtonGroup> spButtonGroup = nullptr, std::string id = "");
 	~RadioToggleButton();
 
 	void deactivate();

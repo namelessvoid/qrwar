@@ -8,8 +8,8 @@
 namespace namelessgui
 {
 
-	Button::Button()
-	: RectangularWidget(),
+	Button::Button(std::string id)
+	: RectangularWidget(id),
 	  _label(new Label()),
 	  _image(nullptr)
 	{

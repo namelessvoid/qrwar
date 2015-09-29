@@ -7,8 +7,8 @@
 namespace namelessgui
 {
 
-RadioToggleButton::RadioToggleButton(std::shared_ptr<ButtonGroup> spButtonGroup)
-	: Button(),
+RadioToggleButton::RadioToggleButton(std::shared_ptr<ButtonGroup> spButtonGroup, std::string id)
+	: Button(id),
 	  _isActive(false)
 {
 	// Set up button group

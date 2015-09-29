@@ -5,9 +5,10 @@
 
 namespace namelessgui
 {
-	Widget::Widget()
+	Widget::Widget(std::string id)
 		: _parent(nullptr),
 		  _visible(false),
+		  _id(id),
 		  _leftMouseButtonPressRegistered(false),
 		  _rightMouseButtonPressRegistered(false),
 		  _mouseFocus(false),
@@ -21,6 +22,11 @@ namespace namelessgui
     {
 		for(auto widget : _children)
 			delete widget;
+	}
+
+	const std::string& Widget::getId() const
+	{
+		return _id;
 	}
 
 	void Widget::setParent(const Widget* parent)
