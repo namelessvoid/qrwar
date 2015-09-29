@@ -23,7 +23,7 @@ MapEditorState::MapEditorState(sf::RenderWindow* renderWindow)
 
 	sf::Vector2f buttonSize(140.0f, 50.0f);
 
-	namelessgui::RadioToggleButton* radioButton = new namelessgui::RadioToggleButton();
+	namelessgui::RadioToggleButton* radioButton = new namelessgui::RadioToggleButton(nullptr, "Wood");
 	std::shared_ptr<namelessgui::ButtonGroup> spTerrainButtonGroup = radioButton->getButtonGroup();
 	radioButton->setText("Wood");
 	radioButton->setSize(buttonSize);
@@ -32,7 +32,7 @@ MapEditorState::MapEditorState(sf::RenderWindow* renderWindow)
 	radioButton->signalActivated.connect(std::bind(&MapEditorState::slotTerrainButtonChanged, this, std::placeholders::_1));
 	_toolBar->addWidget(radioButton);
 
-	radioButton = new namelessgui::RadioToggleButton(spTerrainButtonGroup);
+	radioButton = new namelessgui::RadioToggleButton(spTerrainButtonGroup, "Hill");
 	radioButton->setText("Hill");
 	radioButton->setSize(buttonSize);
 	radioButton->setRelativePosition({5.0f, 2 * buttonSize.y});
@@ -40,7 +40,7 @@ MapEditorState::MapEditorState(sf::RenderWindow* renderWindow)
 	radioButton->signalActivated.connect(std::bind(&MapEditorState::slotTerrainButtonChanged, this, std::placeholders::_1));
 	_toolBar->addWidget(radioButton);
 
-	radioButton = new namelessgui::RadioToggleButton(spTerrainButtonGroup);
+	radioButton = new namelessgui::RadioToggleButton(spTerrainButtonGroup, "Wall");
 	radioButton->setText("Wall");
 	radioButton->setSize(buttonSize);
 	radioButton->setRelativePosition({5.0f, 3 * buttonSize.y});
@@ -120,13 +120,13 @@ void MapEditorState::slotCursorRightClicked(const Coordinates& boardPosition)
 
 void MapEditorState::slotTerrainButtonChanged(const namelessgui::RadioToggleButton& activeTerrainButton)
 {
-	const std::string& terrainString = activeTerrainButton.getText();
+	const std::string& buttonId = activeTerrainButton.getId();
 
-	if(terrainString == "Wood")
+	if(buttonId == "Wood")
 		_activeTerrainType = ET_WOOD;
-	else if(terrainString == "Hill")
+	else if(buttonId == "Hill")
 		_activeTerrainType = ET_HILL;
-	else if(terrainString == "Wall")
+	else if(buttonId == "Wall")
 		_activeTerrainType = ET_WALL;
 	else
 		_activeTerrainType = ET_NUMBEROFTERRAINTYPES;
