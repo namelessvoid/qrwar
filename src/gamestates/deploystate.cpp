@@ -6,6 +6,8 @@
 
 #include "gui/texturemanager.hpp"
 
+#include "gui/ng/radiotogglebutton.hpp"
+
 namespace qrw
 {
 
@@ -26,26 +28,29 @@ DeployState::DeployState(sf::RenderWindow* renderWindow)
 	label->setParentAnchor({0.5f, 0.0f});
 	_toolBar->addWidget(label);
 
-	radioButton = new namelessgui::RadioToggleButton();
+	radioButton = new namelessgui::RadioToggleButton(nullptr, "p1swordman");
 	unitButtonGroup = radioButton->getButtonGroup();
 	radioButton->setText("Swordman");
 	radioButton->setSize(buttonSize);
 	radioButton->setRelativePosition({5.0f, buttonSize.y});
 	radioButton->setImage(textureManager->getTexture("p1swordman"));
+	radioButton->signalActivated.connect(std::bind(&DeployState::slotUnitButtonChanged, this, std::placeholders::_1));
 	_toolBar->addWidget(radioButton);
 
-	radioButton = new namelessgui::RadioToggleButton(unitButtonGroup);
+	radioButton = new namelessgui::RadioToggleButton(unitButtonGroup, "p1archer");
 	radioButton->setText("Archer");
 	radioButton->setSize(buttonSize);
 	radioButton->setRelativePosition({5.0f, 2 * buttonSize.y});
 	radioButton->setImage(textureManager->getTexture("p1archer"));
+	radioButton->signalActivated.connect(std::bind(&DeployState::slotUnitButtonChanged, this, std::placeholders::_1));
 	_toolBar->addWidget(radioButton);
 
-	radioButton = new namelessgui::RadioToggleButton(unitButtonGroup);
+	radioButton = new namelessgui::RadioToggleButton(unitButtonGroup, "p1spearman");
 	radioButton->setText("Spearman");
 	radioButton->setSize(buttonSize);
 	radioButton->setRelativePosition({5.0f, 3 * buttonSize.y});
 	radioButton->setImage(textureManager->getTexture("p1spearman"));
+	radioButton->signalActivated.connect(std::bind(&DeployState::slotUnitButtonChanged, this, std::placeholders::_1));
 	_toolBar->addWidget(radioButton);
 
 	// Player two tools
@@ -55,28 +60,31 @@ DeployState::DeployState(sf::RenderWindow* renderWindow)
 	label->setParentAnchor({0.5f, 0.4f});
 	_toolBar->addWidget(label);
 
-	radioButton = new namelessgui::RadioToggleButton(unitButtonGroup);
+	radioButton = new namelessgui::RadioToggleButton(unitButtonGroup, "p2swordman");
 	radioButton->setText("Swordman");
 	radioButton->setSize(buttonSize);
 	radioButton->setParentAnchor({0.0f, 0.4f});
 	radioButton->setRelativePosition({5.0f, buttonSize.y});
 	radioButton->setImage(textureManager->getTexture("p2swordman"));
+	radioButton->signalActivated.connect(std::bind(&DeployState::slotUnitButtonChanged, this, std::placeholders::_1));
 	_toolBar->addWidget(radioButton);
 
-	radioButton = new namelessgui::RadioToggleButton(unitButtonGroup);
+	radioButton = new namelessgui::RadioToggleButton(unitButtonGroup, "p2archer");
 	radioButton->setText("Archer");
 	radioButton->setSize(buttonSize);
 	radioButton->setParentAnchor({0.0f, 0.4f});
 	radioButton->setRelativePosition({5.0f, 2 * buttonSize.y});
 	radioButton->setImage(textureManager->getTexture("p2archer"));
+	radioButton->signalActivated.connect(std::bind(&DeployState::slotUnitButtonChanged, this, std::placeholders::_1));
 	_toolBar->addWidget(radioButton);
 
-	radioButton = new namelessgui::RadioToggleButton(unitButtonGroup);
+	radioButton = new namelessgui::RadioToggleButton(unitButtonGroup, "p2spearman");
 	radioButton->setText("Spearman");
 	radioButton->setSize(buttonSize);
 	radioButton->setParentAnchor({0.0f, 0.4f});
 	radioButton->setRelativePosition({5.0f, 3 * buttonSize.y});
 	radioButton->setImage(textureManager->getTexture("p2spearman"));
+	radioButton->signalActivated.connect(std::bind(&DeployState::slotUnitButtonChanged, this, std::placeholders::_1));
 	_toolBar->addWidget(radioButton);
 
 	// Next step button
@@ -116,6 +124,23 @@ void DeployState::init(GameState* previousState)
 	_players.clear();
 	_players.push_back(Player::Ptr(new Player()));
 	_players.push_back(Player::Ptr(new Player()));
+}
+
+void DeployState::slotUnitButtonChanged(const namelessgui::RadioToggleButton& unitButton)
+{
+	std::string buttonId = unitButton.getId();
+	std::string unitName = buttonId.substr(2);
+
+	// Determine player id
+	_selectedPlayer = buttonId.at(1) - 49;
+
+	// Determine unit type
+	if(unitName == "swordman")
+		_selectedUnitType = EUT_SWORDMAN;
+	else if(unitName == "archer")
+		_selectedUnitType = EUT_ARCHER;
+	else if(unitName == "spearman")
+		_selectedUnitType = EUT_SPEARMAN;
 }
 
 } // namespace qrw

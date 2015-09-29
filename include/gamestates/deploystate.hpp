@@ -7,6 +7,12 @@
 
 #include "engine/board.hpp"
 #include "engine/player.hpp"
+#include "engine/unittypes.hpp"
+
+namespace namelessgui
+{
+class RadioToggleButton;
+}
 
 namespace qrw
 {
@@ -23,9 +29,14 @@ public:
 	virtual void init(GameState* previousState) override;
 
 private:
+	void slotUnitButtonChanged(const namelessgui::RadioToggleButton& unitButton);
+
 	Board::Ptr _board;
 
 	std::vector<Player::Ptr> _players;
+
+	size_t _selectedPlayer;
+	UNITTYPES _selectedUnitType;
 };
 
 } // namespace qrw
