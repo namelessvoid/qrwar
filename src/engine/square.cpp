@@ -29,12 +29,12 @@ namespace qrw
 		return _terrain;
 	}
 
-	void Square::setUnit(Unit* unit)
+	void Square::setUnit(Unit::Ptr unit)
 	{
 		this->_unit = unit;
 	}
 
-	Unit* Square::getUnit()
+	Unit::Ptr Square::getUnit()
 	{
 		return _unit;
 	}

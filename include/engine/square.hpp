@@ -3,37 +3,37 @@
 
 #include "engine/coordinates.hpp"
 #include "engine/terrain.hpp"
+#include "engine/unit.hpp"
 
 namespace qrw
 {
-	class Terrain;
-	class Unit;
 
-	class Square
-	{
-		public:
-			Square(int x, int y);
-			~Square();
+class Square
+{
+public:
+	Square(int x, int y);
+	~Square();
 
-			void setTerrain(Terrain::Ptr terrain);
-			Terrain::Ptr getTerrain();
+	void setTerrain(Terrain::Ptr terrain);
+	Terrain::Ptr getTerrain();
 
-			void setUnit(Unit* unit);
-			Unit* getUnit();
+	void setUnit(Unit::Ptr unit);
+	Unit::Ptr getUnit();
 
-			int getDistance(Square* suqare);
+	int getDistance(Square* suqare);
 
-			const Coordinates& getCoordinates() const;
-			int getXPosition();
-			int getYPosition();
+	const Coordinates& getCoordinates() const;
+	int getXPosition();
+	int getYPosition();
 
-			bool isAccessible();
+	bool isAccessible();
 
-		private:
-			Terrain::Ptr _terrain;
-			Unit* _unit;
-			Coordinates _coordinates;
-	};
-}
+private:
+	Terrain::Ptr _terrain;
+	Unit::Ptr _unit;
+	Coordinates _coordinates;
+};
+
+} // namespace QRW_SQUARE_HPP
 
 #endif
