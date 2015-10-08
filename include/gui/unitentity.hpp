@@ -15,7 +15,9 @@ class UnitEntity : public sf::RectangleShape
 public:
 	typedef std::shared_ptr<UnitEntity> Ptr;
 
-	Ptr createUnitEntity(Unit::Ptr unit, int dimension);
+	static Ptr createUnitEntity(Unit::Ptr unit, int dimension);
+
+	const Coordinates& getBoardPosition() const;
 
 private:
 	UnitEntity(Unit::Ptr unit, int dimension);

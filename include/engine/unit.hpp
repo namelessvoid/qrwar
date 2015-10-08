@@ -5,13 +5,12 @@
 #include <memory>
 
 #include "engine/unittypes.hpp"
+#include "engine/board.hpp"
+#include "engine/player.hpp"
+#include "engine/coordinates.hpp"
 
 namespace qrw
 {
-class Player;
-class Square;
-class Board;
-class Coordinates;
 class Path;
 
 class Unit
@@ -43,12 +42,12 @@ public:
 	 */
 	typedef std::shared_ptr<Unit> Ptr;
 
-	static Ptr createUnit(UNITTYPES unitType, Player* player, Board* board);
+	static Ptr createUnit(UNITTYPES unitType, Player::Ptr player, Board::Ptr board);
 
 	~Unit();
 
-	Player* getPlayer() const;
-	void setPlayer(Player* _player);
+	Player::Ptr getPlayer() const;
+	void setPlayer(Player::Ptr _player);
 	UNITTYPES getType();
 
 	/**
@@ -85,7 +84,9 @@ public:
 	void setCurrentMovement(int movement);
 	std::string getName();
 
-	Coordinates getPosition() const;
+	const Coordinates& getPosition() const;
+
+	void setPosition(const Coordinates& position);
 
 	static 	std::string UNITNAMES[EUT_NUMBEROFUNITTYPES];
 
@@ -146,7 +147,7 @@ private:
 	 * @param board Reference to the board on which the unit should be placed.
 	 */
 	Unit(UNITTYPES type, int hp, int attack, int defense,
-		int range, int movement, Player* player, Board* board);
+		int range, int movement, Player::Ptr player, Board::Ptr board);
 
 	/**
 	 * @brief Executes the actual attack of the Unit against the enemy.
@@ -163,10 +164,11 @@ private:
 	int _range;
 	int _movement;
 	int _currentmovement;
-	Player* _player;
+	Player::Ptr _player;
 
-	Board* _board;
-	Square* _square;
+	Board::Ptr _board;
+//	Square* _square;
+	Coordinates _position;
 };
 
 } // namespace qrw

@@ -32,6 +32,8 @@ namespace qrw
 	void Square::setUnit(Unit::Ptr unit)
 	{
 		this->_unit = unit;
+		if(_unit != nullptr)
+			_unit->setPosition(getCoordinates());
 	}
 
 	Unit::Ptr Square::getUnit()

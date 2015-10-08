@@ -58,6 +58,9 @@ void Scene::render()
 	for(auto entityIterator : _terrainEntities)
 		_renderTarget->draw(*(entityIterator.second));
 
+	for(auto unitIterator : _unitEntities)
+		_renderTarget->draw(*(unitIterator.second));
+
 	_renderTarget->draw(_cursor, renderStates);
 }
 
@@ -87,6 +90,11 @@ void Scene::addTerrainEntity(TerrainEntity::Ptr terrainEntity)
 void Scene::removeTerrainEntityAt(const Coordinates& boardPosition)
 {
 	_terrainEntities.erase(boardPosition);
+}
+
+void Scene::addUnitEntity(UnitEntity::Ptr unitEntity)
+{
+	_unitEntities[unitEntity->getBoardPosition()] = unitEntity;
 }
 
 

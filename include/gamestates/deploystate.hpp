@@ -30,12 +30,13 @@ public:
 
 private:
 	void slotUnitButtonChanged(const namelessgui::RadioToggleButton& unitButton);
+	void slotCursorLeftClicked(const Coordinates& boardPosition);
 
 	Board::Ptr _board;
 
 	std::vector<Player::Ptr> _players;
 
-	size_t _selectedPlayer;
+	Player::Ptr _selectedPlayer;
 	UNITTYPES _selectedUnitType;
 };
 

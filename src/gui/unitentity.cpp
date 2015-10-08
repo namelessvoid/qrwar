@@ -13,6 +13,11 @@ UnitEntity::Ptr UnitEntity::createUnitEntity(Unit::Ptr unit, int dimension)
 	return Ptr(new UnitEntity(unit, dimension));
 }
 
+const Coordinates& UnitEntity::getBoardPosition() const
+{
+	return _unit->getPosition();
+}
+
 UnitEntity::UnitEntity(Unit::Ptr unit, int dimension)
 	: _unit(unit)
 {
@@ -37,6 +42,7 @@ UnitEntity::UnitEntity(Unit::Ptr unit, int dimension)
 		break;
 	default:
 		textureName = "";
+		break;
 	}
 
 	TextureManager* textureManager = TextureManager::getInstance();

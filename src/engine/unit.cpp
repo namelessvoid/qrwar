@@ -15,7 +15,7 @@ std::string Unit::UNITNAMES[] =
 };
 
 Unit::Unit(UNITTYPES type, int hp, int attack, int defense,
-			int range, int movement, Player* player, Board* board)
+			int range, int movement, Player::Ptr player, Board::Ptr board)
 :	_type(type),
 	_hp(hp),
 	_maxhp(hp),
@@ -25,12 +25,11 @@ Unit::Unit(UNITTYPES type, int hp, int attack, int defense,
 	_movement(movement),
 	_currentmovement(movement),
 	_player(player),
-	_board(board),
-	_square(nullptr)
+	_board(board)
 {
 }
 
-Unit::Ptr Unit::createUnit(UNITTYPES unitType, Player* player, Board* board)
+Unit::Ptr Unit::createUnit(UNITTYPES unitType, Player::Ptr player, Board::Ptr board)
 {
 	switch(unitType)
 	{
@@ -46,14 +45,16 @@ Unit::Ptr Unit::createUnit(UNITTYPES unitType, Player* player, Board* board)
 Unit::~Unit()
 {}
 
-Player* Unit::getPlayer() const
+Player::Ptr Unit::getPlayer() const
 {
 	return _player;
 }
-void Unit::setPlayer(Player* player)
+
+void Unit::setPlayer(Player::Ptr player)
 {
 	this->_player = player;
 }
+
 UNITTYPES Unit::getType()
 {
 	return _type;
@@ -68,8 +69,8 @@ int Unit::getModifiedAttack()
 {
 	int modifiedAttack = getBaseAttack();
 
-	if(_square->getTerrain())
-		modifiedAttack += _square->getTerrain()->getModificator(EM_ATTACK);
+	if(getSquare()->getTerrain())
+		modifiedAttack += getSquare()->getTerrain()->getModificator(EM_ATTACK);
 
 	return modifiedAttack < 0 ? 0 : modifiedAttack;
 }
@@ -83,8 +84,8 @@ int Unit::getModifiedDefense()
 {
 	int modifiedDefense = getBaseDefense();
 
-	if(_square->getTerrain())
-		modifiedDefense += _square->getTerrain()->getModificator(EM_DEFENSE);
+	if(getSquare()->getTerrain())
+		modifiedDefense += getSquare()->getTerrain()->getModificator(EM_DEFENSE);
 
 	return modifiedDefense < 0 ? 0 : modifiedDefense;
 }
@@ -126,9 +127,14 @@ std::string Unit::getName()
 	return UNITNAMES[_type];
 }
 
-Coordinates Unit::getPosition() const
+const Coordinates& Unit::getPosition() const
 {
-	return _square->getCoordinates();
+	return _position;
+}
+
+void Unit::setPosition(const Coordinates& position)
+{
+	_position = position;
 }
 
 void Unit::setCurrentMovement(int movement)
@@ -143,21 +149,13 @@ void Unit::setCurrentMovement(int movement)
 
 Square* Unit::getSquare() const
 {
-	return _square;
-}
-
-void Unit::setSquare(Square* square)
-{
-	this->_square = square;
+	return _board->getSquare(_position);
 }
 
 void Unit::removeFromBoard()
 {
-	if(_square)
-	{
-		_square->setUnit(nullptr);
-		_square = nullptr;
-	}
+	if(getSquare())
+		getSquare()->setUnit(nullptr);
 }
 
 Path* Unit::canMoveTo(const Coordinates& destination)
@@ -165,10 +163,10 @@ Path* Unit::canMoveTo(const Coordinates& destination)
 	if(!_player->isActive())
 		return nullptr;
 
-	if(_board->getSquare(destination)->getUnit())
+	if(getSquare()->getUnit())
 		return nullptr;
 
-	Path* path = _board->findPath(_square->getCoordinates(), destination);
+	Path* path = _board->findPath(_position, destination);
 
 	if(path->getMovementCosts() > getCurrentMovement())
 	{
@@ -185,10 +183,12 @@ bool Unit::moveTo(const Coordinates& destination)
 	if(!path)
 		return false;
 
-	Unit::Ptr sharedThis = _square->getUnit();
-	_square->setUnit(nullptr);
-	this->setSquare(_board->getSquare(destination));
-	_square->setUnit(sharedThis);
+	Unit::Ptr sharedThis = getSquare()->getUnit();
+	getSquare()->setUnit(nullptr);
+
+	this->setPosition(destination);
+	getSquare()->setUnit(sharedThis);
+
 	this->setCurrentMovement(this->getCurrentMovement() - path->getMovementCosts());
 
 	delete path;
@@ -207,7 +207,7 @@ bool Unit::canAttack(Unit::Ptr const enemy)
 	if(enemy->getPlayer() == this->getPlayer())
 		return false;
 
-	int distance = this->_square->getDistance(enemy->getSquare());
+	int distance = getSquare()->getDistance(enemy->getSquare());
 	if(distance > this->getRange())
 		return false;
 
@@ -229,7 +229,7 @@ Unit::AttackResult Unit::attack(Unit::Ptr enemy)
 	// Attack and counter attack
 	attackResult.defenderHPDelta = this->doAttack(enemy);
 												// Hacky access to shared ptr of this
-	attackResult.attackerHPDelta = enemy->doAttack(_square->getUnit());
+	attackResult.attackerHPDelta = enemy->doAttack(getSquare()->getUnit());
 
 	attackResult.attackPerformed = true;
 	return attackResult;

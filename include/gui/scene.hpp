@@ -10,6 +10,7 @@
 #include "engine/board.hpp"
 #include "gui/cursor.hpp"
 #include "gui/terrainentity.hpp"
+#include "gui/unitentity.hpp"
 #include "gui/ng/signal.hpp"
 
 // Foreward declarations
@@ -39,6 +40,8 @@ public:
 	void addTerrainEntity(TerrainEntity::Ptr terrainEntity);
 	void removeTerrainEntityAt(const Coordinates& boardPosition);
 
+	void addUnitEntity(UnitEntity::Ptr unitEntity);
+
 private:
 	sf::RenderTarget* _renderTarget;
 
@@ -48,6 +51,7 @@ private:
 	Cursor _cursor;
 
 	std::map<const Coordinates, TerrainEntity::Ptr> _terrainEntities;
+	std::map<const Coordinates, UnitEntity::Ptr> _unitEntities;
 };
 
 } // namespace qrw

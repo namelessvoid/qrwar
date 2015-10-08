@@ -2,6 +2,9 @@
 
 #include <memory>
 
+#include "engine/unit.hpp"
+#include "engine/square.hpp"
+
 #include "gamestates/mapeditorstate.hpp"
 
 #include "gui/texturemanager.hpp"
@@ -118,12 +121,16 @@ void DeployState::init(GameState* previousState)
 	{
 		_board = static_cast<MapEditorState*>(previousState)->getBoard();
 		_scene = std::unique_ptr<Scene>(new Scene(_renderWindow, _board));
+
+		_scene->signalCursorLeftClicked.connect(std::bind(&DeployState::slotCursorLeftClicked, this, std::placeholders::_1));
 	}
 
 	// Create new players
 	_players.clear();
 	_players.push_back(Player::Ptr(new Player()));
+	_players[0]->setId(1);
 	_players.push_back(Player::Ptr(new Player()));
+	_players[1]->setId(2);
 }
 
 void DeployState::slotUnitButtonChanged(const namelessgui::RadioToggleButton& unitButton)
@@ -132,7 +139,7 @@ void DeployState::slotUnitButtonChanged(const namelessgui::RadioToggleButton& un
 	std::string unitName = buttonId.substr(2);
 
 	// Determine player id
-	_selectedPlayer = buttonId.at(1) - 49;
+	_selectedPlayer = _players.at(buttonId.at(1) - 49);
 
 	// Determine unit type
 	if(unitName == "swordman")
@@ -141,6 +148,15 @@ void DeployState::slotUnitButtonChanged(const namelessgui::RadioToggleButton& un
 		_selectedUnitType = EUT_ARCHER;
 	else if(unitName == "spearman")
 		_selectedUnitType = EUT_SPEARMAN;
+}
+
+void DeployState::slotCursorLeftClicked(const Coordinates& boardPosition)
+{
+	Unit::Ptr unit = Unit::createUnit(_selectedUnitType, _selectedPlayer, _board);
+	_board->getSquare(boardPosition)->setUnit(unit);
+	UnitEntity::Ptr unitEntity = UnitEntity::createUnitEntity(unit, 32);
+
+	_scene->addUnitEntity(unitEntity);
 }
 
 } // namespace qrw
