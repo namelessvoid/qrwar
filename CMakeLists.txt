@@ -34,7 +34,7 @@ include_directories(${QuadRuledWar_SOURCE_DIR}/include)
 # subdirectory with main code
 add_subdirectory(src)
 # subdirectory for tests
-add_subdirectory(test)
+#add_subdirectory(test)
 
 # IDE stuff: Show headers and resources in IDEs like QtCreator or Visual Studio
 file(GLOB_RECURSE ide_files RELATIVE ${QuadRuledWar_SOURCE_DIR}
