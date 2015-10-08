@@ -64,7 +64,7 @@ MapEditorState::~MapEditorState()
 
 void MapEditorState::init(GameState* previousState)
 {
-	GameState::init();
+	SceneState::init(previousState);
 
 	_toDeployment = false;
 	_spBoard = std::make_shared<Board>(16, 9);
