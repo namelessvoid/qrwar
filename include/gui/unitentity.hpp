@@ -13,12 +13,14 @@ namespace qrw
 class UnitEntity : public sf::RectangleShape
 {
 public:
-	typedef std::shared_ptr<Unit> Ptr;
+	typedef std::shared_ptr<UnitEntity> Ptr;
 
 	Ptr createUnitEntity(Unit::Ptr unit, int dimension);
 
 private:
-	UnitEntity();
+	UnitEntity(Unit::Ptr unit, int dimension);
+
+	Unit::Ptr _unit;
 };
 
 } // namespace qrw

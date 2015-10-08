@@ -85,6 +85,8 @@ public:
 	void setCurrentMovement(int movement);
 	std::string getName();
 
+	Coordinates getPosition() const;
+
 	static 	std::string UNITNAMES[EUT_NUMBEROFUNITTYPES];
 
 	/**

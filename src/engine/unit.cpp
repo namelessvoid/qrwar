@@ -126,6 +126,11 @@ std::string Unit::getName()
 	return UNITNAMES[_type];
 }
 
+Coordinates Unit::getPosition() const
+{
+	return _square->getCoordinates();
+}
+
 void Unit::setCurrentMovement(int movement)
 {
 	if(movement < 0)
