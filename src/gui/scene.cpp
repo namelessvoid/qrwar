@@ -37,6 +37,11 @@ void Scene::setBoard(Board::Ptr board)
     _cursor.signalRightClicked.connect(std::bind(&namelessgui::Signal<Coordinates>::emit, &signalCursorRightClicked, std::placeholders::_1));
 
     // Initialize entities
+    // First: Destroy old entities.
+    _terrainEntities.clear();
+    _unitEntities.clear();
+
+    // Second: Initialize new entities.
     Square* square;
     for(int r = 0; r < _board->getHeight(); ++r)
     {
@@ -84,7 +89,7 @@ void Scene::handleEvent(const sf::Event& event)
 	}
 
 	// Propagate events
-	_cursor.handleEvent(adjustedEvent);
+    _cursor.handleEvent(adjustedEvent);
 }
 
 void Scene::addTerrainEntity(TerrainEntity::Ptr terrainEntity)
