@@ -138,6 +138,11 @@ void DeployState::init(GameState* previousState)
     _toSkirmish = false;
 }
 
+Board::Ptr DeployState::getBoard() const
+{
+    return _board;
+}
+
 void DeployState::slotUnitButtonChanged(const namelessgui::RadioToggleButton& unitButton)
 {
 	std::string buttonId = unitButton.getId();

@@ -1,5 +1,7 @@
 #include "gamestates/skirmishstate.hpp"
 
+#include "gamestates/deploystate.hpp"
+
 namespace qrw
 {
 
@@ -13,7 +15,12 @@ void SkirmishState::init(GameState *previousState)
 {
     SceneState::init(previousState);
 
-    _board = std::make_shared<Board>(16, 9);
+    if(previousState->getId() != EGameStateId::EGSID_DEPLOY_STATE)
+        return;
+
+    DeployState* deployState = static_cast<DeployState*>(previousState);
+
+    _board = deployState->getBoard();
     _scene->setBoard(_board);
 }
 

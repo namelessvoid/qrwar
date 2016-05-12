@@ -28,6 +28,12 @@ public:
 
 	virtual void init(GameState* previousState) override;
 
+    /**
+     * @brief Get the board.
+     * @return Returns the board currently used by this game state.
+     */
+    Board::Ptr getBoard() const;
+
 private:
 	void slotUnitButtonChanged(const namelessgui::RadioToggleButton& unitButton);
     void slotToSkirmishButtonClicked();
