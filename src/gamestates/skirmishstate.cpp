@@ -11,6 +11,8 @@ SkirmishState::SkirmishState(sf::RenderWindow* renderWindow)
 
 void SkirmishState::init(GameState *previousState)
 {
+    SceneState::init(previousState);
+
     _board = std::make_shared<Board>(16, 9);
     _scene->setBoard(_board);
 }

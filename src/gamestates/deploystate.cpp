@@ -134,6 +134,8 @@ void DeployState::init(GameState* previousState)
 	_players[0]->setId(1);
 	_players.push_back(Player::Ptr(new Player()));
 	_players[1]->setId(2);
+
+    _toSkirmish = false;
 }
 
 void DeployState::slotUnitButtonChanged(const namelessgui::RadioToggleButton& unitButton)
