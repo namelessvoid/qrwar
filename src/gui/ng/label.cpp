@@ -28,7 +28,7 @@ namespace namelessgui
 
 	void Label::setColor(const sf::Color& color)
 	{
-		_text.setColor(color);
+        _text.setFillColor(color);
 	}
 
 	void Label::setCharacterSize(unsigned int size)
