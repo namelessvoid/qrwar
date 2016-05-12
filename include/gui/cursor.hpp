@@ -43,6 +43,15 @@ public:
 	namelessgui::Signal<const Coordinates&> signalLeftClicked;
 	namelessgui::Signal<const Coordinates&> signalRightClicked;
 
+    /**
+     * @brief Signal emitted when the cursor moved to a new board position.
+     *
+     * First parameter are the new coordinates on the board.
+     * Second parameter is set to false when the cursor left the board and true if
+     * cursor is on the board.
+     */
+    namelessgui::Signal<const Coordinates&, bool> signalMoved;
+
 private:
 	sf::Color _maincolor;
 	bool _visible;
@@ -50,6 +59,6 @@ private:
 	Coordinates _boardPosition;
 	std::shared_ptr<Board> _spBoard;
 };
-}
+} // namespace qrw
 
 #endif

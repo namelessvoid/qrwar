@@ -34,6 +34,7 @@ SceneState::SceneState(sf::RenderWindow* renderWindow, qrw::EGameStateId gameSta
     _scene = std::unique_ptr<Scene>(new Scene(_renderWindow));
     _scene->signalCursorLeftClicked.connect(std::bind(&SceneState::slotCursorLeftClicked, this, std::placeholders::_1));
     _scene->signalCursorRightClicked.connect(std::bind(&SceneState::slotCursorRightClicked, this, std::placeholders::_1));
+    _scene->signalCursorMoved.connect(std::bind(&SceneState::slotCursorMoved, this, std::placeholders::_1, std::placeholders::_2));
 }
 
 SceneState::~SceneState()

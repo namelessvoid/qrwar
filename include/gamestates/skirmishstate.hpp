@@ -5,12 +5,6 @@
 
 #include "engine/board.hpp"
 
-// Foreward declarations
-//namespace sf
-//{
-//    class RenderWindow;
-//}
-
 namespace qrw
 {
 
@@ -24,6 +18,8 @@ public:
     virtual void init(GameState* previousState) override;
 
 private:
+    virtual void slotCursorMoved(const Coordinates& boardPosition, bool isOnBoard) override;
+
     Board::Ptr _board;
 };
 

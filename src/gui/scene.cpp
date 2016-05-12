@@ -35,6 +35,7 @@ void Scene::setBoard(Board::Ptr board)
     _cursor.setBoard(board);
     _cursor.signalLeftClicked.connect(std::bind(&namelessgui::Signal<Coordinates>::emit, &signalCursorLeftClicked, std::placeholders::_1));
     _cursor.signalRightClicked.connect(std::bind(&namelessgui::Signal<Coordinates>::emit, &signalCursorRightClicked, std::placeholders::_1));
+    _cursor.signalMoved.connect(std::bind(&namelessgui::Signal<Coordinates,bool>::emit, &signalCursorMoved, std::placeholders::_1, std::placeholders::_2));
 
     // Initialize entities
     // First: Destroy old entities.

@@ -32,6 +32,7 @@ protected:
 
     virtual void slotCursorLeftClicked(const Coordinates& boardPosition) {}
     virtual void slotCursorRightClicked(const Coordinates& boardPosition) {}
+    virtual void slotCursorMoved(const Coordinates& boardPosition, bool isOnBoard) {}
 
 private:
 	void slotBackToMainMenu();

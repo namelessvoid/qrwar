@@ -54,16 +54,21 @@ void Cursor::handleEvent(const sf::Event& event)
 
         Coordinates newBoardPosition((int)newPosition.x / size.x, (int)newPosition.y / size.y);
 
-        if(_spBoard->isOnBoard(newBoardPosition))
+        if(newBoardPosition != _boardPosition)
         {
-            setPosition(newPosition);
+            if(_spBoard->isOnBoard(newBoardPosition))
+            {
+                setPosition(newPosition);
+                 _visible = true;
+            }
+            else
+            {
+                _visible = false;
+            }
+
             _boardPosition = newBoardPosition;
-			_visible = true;
+            signalMoved.emit(_boardPosition, _visible);
         }
-		else
-		{
-			_visible = false;
-		}
     }
 	else if( _visible == true && event.type == sf::Event::MouseButtonPressed)
 	{

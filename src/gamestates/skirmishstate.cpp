@@ -2,6 +2,8 @@
 
 #include "gamestates/deploystate.hpp"
 
+#include <iostream>
+
 namespace qrw
 {
 
@@ -22,6 +24,11 @@ void SkirmishState::init(GameState *previousState)
 
     _board = deployState->getBoard();
     _scene->setBoard(_board);
+}
+
+void SkirmishState::slotCursorMoved(const Coordinates &boardPosition, bool isOnBoard)
+{
+    std::cout << "Cursor moved to: " << boardPosition.getX() << "/" << boardPosition.getY() << std::endl << std::flush;
 }
 
 EGameStateId SkirmishState::update()

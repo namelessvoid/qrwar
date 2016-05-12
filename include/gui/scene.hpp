@@ -38,6 +38,7 @@ public:
 
 	namelessgui::Signal<Coordinates> signalCursorLeftClicked;
 	namelessgui::Signal<Coordinates> signalCursorRightClicked;
+    namelessgui::Signal<Coordinates, bool> signalCursorMoved;
 
 	void addTerrainEntity(TerrainEntity::Ptr terrainEntity);
 	void removeTerrainEntityAt(const Coordinates& boardPosition);
