@@ -54,7 +54,8 @@ void Scene::setBoard(Board::Ptr board)
                 addTerrainEntity(TerrainEntity::createTerrainEntity(square->getTerrain(), 32));
 
             // Add unit enitity
-            // TODO...
+            if(square->getUnit() != nullptr)
+                addUnitEntity(UnitEntity::createUnitEntity(square->getUnit(), 32));
         }
     }
 }
