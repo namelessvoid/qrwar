@@ -12,7 +12,8 @@ namespace qrw
 
 MapEditorState::MapEditorState(sf::RenderWindow* renderWindow)
 	: SceneState(renderWindow, EGameStateId::EGSID_MAP_EDITOR_STATE),
-	  _activeTerrainType(ET_NUMBEROFTERRAINTYPES)
+      _activeTerrainType(ET_NUMBEROFTERRAINTYPES),
+      _eraseMode(false)
 {
 	// Initialize toolbar
 	namelessgui::Label* label = new namelessgui::Label();
@@ -47,6 +48,13 @@ MapEditorState::MapEditorState(sf::RenderWindow* renderWindow)
 	radioButton->setImage(TextureManager::getInstance()->getTexture("wall"));
 	radioButton->signalActivated.connect(std::bind(&MapEditorState::slotTerrainButtonChanged, this, std::placeholders::_1));
 	_toolBar->addWidget(radioButton);
+
+    radioButton = new namelessgui::RadioToggleButton(spTerrainButtonGroup, "Erase");
+    radioButton->setText("Erase");
+    radioButton->setSize(buttonSize);
+    radioButton->setRelativePosition({5.0f, 4 * buttonSize.y});
+    radioButton->signalActivated.connect(std::bind(&MapEditorState::slotTerrainButtonChanged, this, std::placeholders::_1));
+    _toolBar->addWidget(radioButton);
 
 	namelessgui::Button* toDeploymentButton = new namelessgui::Button();
 	toDeploymentButton->setText("Deploy Troops");
@@ -99,17 +107,27 @@ Board::Ptr MapEditorState::getBoard() const
 
 void MapEditorState::slotCursorLeftClicked(const Coordinates& boardPosition)
 {
-	// Do nothing if no terrain type was selected
-	if(_activeTerrainType == ET_NUMBEROFTERRAINTYPES)
-		return;
+    // Erase terrain
+    if(_eraseMode)
+    {
+        Terrain::Ptr terrain = _spBoard->getSquare(boardPosition)->getTerrain();
+        _spBoard->getSquare(boardPosition)->setTerrain(nullptr);
+        _scene->removeTerrainEntityAt(boardPosition);
+    }
+    // Place terrain
+    else
+    {
+        // Do nothing if no terrain type was selected and erase mode is off.
+        if(_activeTerrainType == ET_NUMBEROFTERRAINTYPES)
+            return;
 
-	// Create new terrain
-	Terrain::Ptr terrain = Terrain::createTerrain(_activeTerrainType);
-	if(terrain != nullptr)
-	{
-		_spBoard->getSquare(boardPosition)->setTerrain(terrain);
-		_scene->addTerrainEntity(TerrainEntity::createTerrainEntity(terrain, 32));
-	}
+        Terrain::Ptr terrain = Terrain::createTerrain(_activeTerrainType);
+        if(terrain != nullptr)
+        {
+            _spBoard->getSquare(boardPosition)->setTerrain(terrain);
+            _scene->addTerrainEntity(TerrainEntity::createTerrainEntity(terrain, 32));
+        }
+    }
 }
 
 void MapEditorState::slotCursorRightClicked(const Coordinates& boardPosition)
@@ -128,8 +146,13 @@ void MapEditorState::slotTerrainButtonChanged(const namelessgui::RadioToggleButt
 		_activeTerrainType = ET_HILL;
 	else if(buttonId == "Wall")
 		_activeTerrainType = ET_WALL;
-	else
+    else
 		_activeTerrainType = ET_NUMBEROFTERRAINTYPES;
+
+    if(buttonId == "Erase")
+        _eraseMode = true;
+    else
+        _eraseMode = false;
 }
 
 void MapEditorState::slotToDeploymentButtonClicked()

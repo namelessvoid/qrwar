@@ -44,6 +44,13 @@ private:
 
 	bool _toDeployment;
 
+    /**
+     * @brief Mode of the cursor.
+     *
+     * If set to true, terrain is removed. Otherwise, terrain is placed.
+     */
+    bool _eraseMode;
+
 	std::shared_ptr<Board> _spBoard;
 };
 
