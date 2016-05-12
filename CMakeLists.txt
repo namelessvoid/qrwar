@@ -16,12 +16,6 @@ if(SFML_FOUND)
 	set(LIBS ${LIBS} ${SFML_LIBRARIES})
 endif(SFML_FOUND)
 
-find_package(SFGUI REQUIRED)
-if(SFGUI_FOUND)
-	include_directories(${SFML_INCLUDE_DIRS})
-	set(LIBS ${LIBS} ${SFGUI_LIBRARY})
-endif(SFGUI_FOUND)
-
 find_package(tinyxml2 REQUIRED)
 if(TINYXML2_FOUND)
 	include_directories(${TINYXML2_INCLUDE_DIR})
