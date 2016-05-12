@@ -35,8 +35,9 @@ public:
 	Board::Ptr getBoard() const;
 
 private:
-	void slotCursorLeftClicked(const Coordinates& boardPosition);
-	void slotCursorRightClicked(const Coordinates& boardPosition);
+    virtual void slotCursorLeftClicked(const Coordinates& boardPosition) override;
+    virtual void slotCursorRightClicked(const Coordinates& boardPosition) override;
+
 	void slotTerrainButtonChanged(const namelessgui::RadioToggleButton& activeTerrainButton);
 	void slotToDeploymentButtonClicked();
 

@@ -76,10 +76,7 @@ void MapEditorState::init(GameState* previousState)
 
 	_toDeployment = false;
 	_spBoard = std::make_shared<Board>(16, 9);
-	_scene = std::unique_ptr<Scene>(new Scene(_renderWindow, _spBoard));
-
-	_scene->signalCursorLeftClicked.connect(std::bind(&MapEditorState::slotCursorLeftClicked, this, std::placeholders::_1));
-	_scene->signalCursorRightClicked.connect(std::bind(&MapEditorState::slotCursorRightClicked, this, std::placeholders::_1));
+    _scene->setBoard(_spBoard);
 }
 
 EGameStateId MapEditorState::update()

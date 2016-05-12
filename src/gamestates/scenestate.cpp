@@ -29,6 +29,11 @@ SceneState::SceneState(sf::RenderWindow* renderWindow, qrw::EGameStateId gameSta
 	_backToMainMenuDialog->setParentAnchor({0.5f, 0.5f});
 	_guiUptr->addWidget(_backToMainMenuDialog);
 	_backToMainMenuDialog->setVisible(false);
+
+    // Set up scene and scene signals
+    _scene = std::unique_ptr<Scene>(new Scene(_renderWindow));
+    _scene->signalCursorLeftClicked.connect(std::bind(&SceneState::slotCursorLeftClicked, this, std::placeholders::_1));
+    _scene->signalCursorRightClicked.connect(std::bind(&SceneState::slotCursorRightClicked, this, std::placeholders::_1));
 }
 
 SceneState::~SceneState()

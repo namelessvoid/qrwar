@@ -30,6 +30,9 @@ protected:
 
 	bool _backToMainMenu;
 
+    virtual void slotCursorLeftClicked(const Coordinates& boardPosition) {}
+    virtual void slotCursorRightClicked(const Coordinates& boardPosition) {}
+
 private:
 	void slotBackToMainMenu();
 

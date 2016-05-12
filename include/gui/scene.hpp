@@ -26,9 +26,11 @@ namespace qrw
 class Scene
 {
 public:
-	Scene(sf::RenderTarget* rendertarget, Board::Ptr board);
+    Scene(sf::RenderTarget* rendertarget);
 
 	~Scene();
+
+    void setBoard(Board::Ptr board);
 
 	void render();
 

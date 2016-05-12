@@ -10,43 +10,48 @@
 namespace qrw
 {
 
-Scene::Scene(sf::RenderTarget* renderTarget, Board::Ptr board)
-	: _renderTarget(renderTarget),
-	  _board(board)
+Scene::Scene(sf::RenderTarget* renderTarget)
+    : _renderTarget(renderTarget)
 {
-	// Set up background
-	_background.setTexture(TextureManager::getInstance()->getTexture("plainsquare"));
-
-	sf::Vector2u spriteSize = _background.getTexture()->getSize();
-	sf::Vector2f backgroundSize = sf::Vector2f(board->getWidth() * spriteSize.x, board->getHeight() * spriteSize.y);
-	_background.setSize(backgroundSize);
-	_background.setTextureRect(sf::IntRect(0, 0, backgroundSize.x, backgroundSize.y));
-
-	// Set up corser and connect cursor slots
-	_cursor.setBoard(board);
-	_cursor.signalLeftClicked.connect(std::bind(&namelessgui::Signal<Coordinates>::emit, &signalCursorLeftClicked, std::placeholders::_1));
-	_cursor.signalRightClicked.connect(std::bind(&namelessgui::Signal<Coordinates>::emit, &signalCursorRightClicked, std::placeholders::_1));
-
-	// Initialize entities
-	Square* square;
-	for(int r = 0; r < _board->getHeight(); ++r)
-	{
-		for(int c = 0; c < _board->getWidth(); ++c)
-		{
-			square = _board->getSquare(c, r);
-
-			// Add terrain entities
-			if(square->getTerrain() != nullptr)
-				addTerrainEntity(TerrainEntity::createTerrainEntity(square->getTerrain(), 32));
-
-			// Add unit enitity
-			// TODO...
-		}
-	}
 }
 
 Scene::~Scene()
 {
+}
+
+void Scene::setBoard(Board::Ptr board)
+{
+    _board = board;
+
+    // Set up background
+    _background.setTexture(TextureManager::getInstance()->getTexture("plainsquare"));
+
+    sf::Vector2u spriteSize = _background.getTexture()->getSize();
+    sf::Vector2f backgroundSize = sf::Vector2f(board->getWidth() * spriteSize.x, board->getHeight() * spriteSize.y);
+    _background.setSize(backgroundSize);
+    _background.setTextureRect(sf::IntRect(0, 0, backgroundSize.x, backgroundSize.y));
+
+    // Set up corser and connect cursor slots
+    _cursor.setBoard(board);
+    _cursor.signalLeftClicked.connect(std::bind(&namelessgui::Signal<Coordinates>::emit, &signalCursorLeftClicked, std::placeholders::_1));
+    _cursor.signalRightClicked.connect(std::bind(&namelessgui::Signal<Coordinates>::emit, &signalCursorRightClicked, std::placeholders::_1));
+
+    // Initialize entities
+    Square* square;
+    for(int r = 0; r < _board->getHeight(); ++r)
+    {
+        for(int c = 0; c < _board->getWidth(); ++c)
+        {
+            square = _board->getSquare(c, r);
+
+            // Add terrain entities
+            if(square->getTerrain() != nullptr)
+                addTerrainEntity(TerrainEntity::createTerrainEntity(square->getTerrain(), 32));
+
+            // Add unit enitity
+            // TODO...
+        }
+    }
 }
 
 void Scene::render()

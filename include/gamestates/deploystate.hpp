@@ -30,7 +30,7 @@ public:
 
 private:
 	void slotUnitButtonChanged(const namelessgui::RadioToggleButton& unitButton);
-	void slotCursorLeftClicked(const Coordinates& boardPosition);
+    virtual void slotCursorLeftClicked(const Coordinates& boardPosition) override;
 
 	Board::Ptr _board;
 

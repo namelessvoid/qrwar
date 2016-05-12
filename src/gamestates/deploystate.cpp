@@ -120,9 +120,7 @@ void DeployState::init(GameState* previousState)
 	if(previousState->getId() == EGameStateId::EGSID_MAP_EDITOR_STATE)
 	{
 		_board = static_cast<MapEditorState*>(previousState)->getBoard();
-		_scene = std::unique_ptr<Scene>(new Scene(_renderWindow, _board));
-
-		_scene->signalCursorLeftClicked.connect(std::bind(&DeployState::slotCursorLeftClicked, this, std::placeholders::_1));
+        _scene->setBoard(_board);
 	}
 
 	// Create new players
