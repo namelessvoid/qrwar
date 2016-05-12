@@ -30,11 +30,19 @@ public:
 
 private:
 	void slotUnitButtonChanged(const namelessgui::RadioToggleButton& unitButton);
+    void slotToSkirmishButtonClicked();
+
     virtual void slotCursorLeftClicked(const Coordinates& boardPosition) override;
 
 	Board::Ptr _board;
 
 	std::vector<Player::Ptr> _players;
+
+    /**
+     * @brief If set to true, the update method will cause the game to switch
+     * to SkirmishState.
+     */
+    bool _toSkirmish;
 
 	Player::Ptr _selectedPlayer;
 	UNITTYPES _selectedUnitType;

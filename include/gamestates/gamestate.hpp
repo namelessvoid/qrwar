@@ -40,6 +40,11 @@ enum EGameStateId
 	 */
 	EGSID_DEPLOY_STATE,
 
+    /**
+      * The ID of the SkrimishState.
+      */
+    EGSID_SKIRMISH_STATE,
+
 	/**
 	 * Special "game state" that indicates that the application should quit.
 	 */

@@ -31,6 +31,7 @@ add_library(qrwarlib
         gamestates/mainmenustate.cpp
         gamestates/mapeditorstate.cpp
         gamestates/deploystate.cpp
+        gamestates/skirmishstate.cpp
 
 #	gui/animation.cpp
 #	gui/boardwidget.cpp

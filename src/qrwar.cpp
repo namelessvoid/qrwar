@@ -12,6 +12,7 @@
 #include "gamestates/mainmenustate.hpp"
 #include "gamestates/mapeditorstate.hpp"
 #include "gamestates/deploystate.hpp"
+#include "gamestates/skirmishstate.hpp"
 
 namespace qrw
 {
@@ -41,6 +42,9 @@ QRWar::QRWar()
 	gameState = new DeployState(&_renderWindow);
 	_gameStates[gameState->getId()] = gameState;
 
+    // Skirmish state
+    gameState = new SkirmishState(&_renderWindow);
+    _gameStates[gameState->getId()] = gameState;
 
 	// Set and initialize start state
 	_currentState = _gameStates[EGameStateId::EGSID_INTRO_STATE];

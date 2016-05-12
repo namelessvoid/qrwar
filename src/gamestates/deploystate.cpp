@@ -15,7 +15,8 @@ namespace qrw
 {
 
 DeployState::DeployState(sf::RenderWindow* renderWindow)
-	: SceneState(renderWindow, EGameStateId::EGSID_DEPLOY_STATE)
+    : SceneState(renderWindow, EGameStateId::EGSID_DEPLOY_STATE),
+      _toSkirmish(false)
 {
 	// Initialize tool bar
 	sf::Vector2f buttonSize(140.0f, 50.0f);
@@ -97,6 +98,7 @@ DeployState::DeployState(sf::RenderWindow* renderWindow)
 	nextStepButton->setAnchor({0.5f, 1.0f});
 	nextStepButton->setParentAnchor({0.5f, 1.0f});
 	nextStepButton->setRelativePosition({0.0f, -5.0f});
+    nextStepButton->signalclicked.connect(std::bind(&DeployState::slotToSkirmishButtonClicked, this));
 	_toolBar->addWidget(nextStepButton);
 }
 
@@ -109,6 +111,9 @@ EGameStateId DeployState::update()
 {
 	if(_backToMainMenu)
 		return EGameStateId::EGSID_MAIN_MENU_STATE;
+
+    if(_toSkirmish)
+        return EGameStateId::EGSID_SKIRMISH_STATE;
 
 	return EGameStateId::EGSID_NO_CHANGE;
 }
@@ -145,7 +150,12 @@ void DeployState::slotUnitButtonChanged(const namelessgui::RadioToggleButton& un
 	else if(unitName == "archer")
 		_selectedUnitType = EUT_ARCHER;
 	else if(unitName == "spearman")
-		_selectedUnitType = EUT_SPEARMAN;
+        _selectedUnitType = EUT_SPEARMAN;
+}
+
+void DeployState::slotToSkirmishButtonClicked()
+{
+    _toSkirmish = true;
 }
 
 void DeployState::slotCursorLeftClicked(const Coordinates& boardPosition)
