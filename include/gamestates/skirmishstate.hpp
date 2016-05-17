@@ -21,6 +21,8 @@ private:
     virtual void slotCursorMoved(const Coordinates& boardPosition, bool isOnBoard) override;
 
     Board::Ptr _board;
+
+    class SquareDetailWindow* _squareDetailWindow;
 };
 
 } // namespace qrw

@@ -1,8 +1,10 @@
 #include "gamestates/skirmishstate.hpp"
 
 #include "gamestates/deploystate.hpp"
-
-#include <iostream>
+#include "gui/texturemanager.hpp"
+#include "gui/ng/label.hpp"
+#include "gui/ng/spritewidget.hpp"
+#include "gui/squaredetailwindow.hpp"
 
 namespace qrw
 {
@@ -10,7 +12,8 @@ namespace qrw
 SkirmishState::SkirmishState(sf::RenderWindow* renderWindow)
     : SceneState(renderWindow, EGameStateId::EGSID_SKIRMISH_STATE)
 {
-
+    _squareDetailWindow = new SquareDetailWindow();
+    _guiUptr->addWidget(_squareDetailWindow);
 }
 
 void SkirmishState::init(GameState *previousState)
@@ -24,11 +27,8 @@ void SkirmishState::init(GameState *previousState)
 
     _board = deployState->getBoard();
     _scene->setBoard(_board);
-}
 
-void SkirmishState::slotCursorMoved(const Coordinates &boardPosition, bool isOnBoard)
-{
-    std::cout << "Cursor moved to: " << boardPosition.getX() << "/" << boardPosition.getY() << std::endl << std::flush;
+    // TODO: reset square detail window
 }
 
 EGameStateId SkirmishState::update()
@@ -37,6 +37,14 @@ EGameStateId SkirmishState::update()
         return EGameStateId::EGSID_MAIN_MENU_STATE;
 
     return EGameStateId::EGSID_NO_CHANGE;
+}
+
+void SkirmishState::slotCursorMoved(const Coordinates &boardPosition, bool isOnBoard)
+{
+    if(isOnBoard)
+        _squareDetailWindow->setSquare(_board->getSquare(boardPosition));
+    else
+        _squareDetailWindow->setSquare(nullptr);
 }
 
 } // namespace qrw

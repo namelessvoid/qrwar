@@ -39,6 +39,7 @@ add_library(qrwarlib
         gui/cursor.cpp
 	gui/terrainentity.cpp
         gui/unitentity.cpp
+        gui/squaredetailwindow.cpp
 #	gui/damagenumber.cpp
 #	gui/deploywindow.cpp
 #	gui/guihandler.cpp
@@ -48,6 +49,7 @@ add_library(qrwarlib
 #	gui/startgamewindow.cppr
         gui/imagemanager.cpp
 	gui/texturemanager.cpp
+        gui/guihelper.cpp
 )
 set_target_properties(qrwarlib PROPERTIES OUTPUT_NAME qrwar)
 target_link_libraries(qrwarlib ${LIBS} tostring namelessgui)

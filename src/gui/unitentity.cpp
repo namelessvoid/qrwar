@@ -5,6 +5,7 @@
 #include "engine/player.hpp"
 
 #include "gui/texturemanager.hpp"
+#include "gui/guihelper.hpp"
 
 namespace qrw {
 
@@ -26,28 +27,7 @@ UnitEntity::UnitEntity(Unit::Ptr unit, int dimension)
 	const Coordinates boardPosition = _unit->getPosition();
 	setPosition(sf::Vector2f(dimension * boardPosition.getX(), dimension * boardPosition.getY()));
 
-	// Find correct texture
-	std::string textureName = "p" + std::to_string(_unit->getPlayer()->getId());
-
-	switch(_unit->getType())
-	{
-	case EUT_SWORDMAN:
-		textureName += "swordman";
-		break;
-	case EUT_ARCHER:
-		textureName += "archer";
-		break;
-	case EUT_SPEARMAN:
-		textureName += "spearman";
-		break;
-	default:
-		textureName = "";
-		break;
-	}
-
-	TextureManager* textureManager = TextureManager::getInstance();
-	const sf::Texture* texture = textureName != "" ? textureManager->getTexture(textureName) : textureManager->getFallbackTexture();
-	setTexture(texture);
+    setTexture(GuiHelper::getUnitTexture(unit));
 }
 
 } // namespace qrw
