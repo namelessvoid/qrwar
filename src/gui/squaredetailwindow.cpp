@@ -98,6 +98,8 @@ void SquareDetailWindow::setSquare(Square *square)
         setUnit(square->getUnit());
         setTerrain(square->getTerrain());
     }
+    else
+        setVisible(false);
 }
 
 void SquareDetailWindow::setUnit(Unit::Ptr unit)
