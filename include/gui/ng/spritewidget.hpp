@@ -11,6 +11,11 @@
 
 namespace namelessgui
 {
+
+/**
+ * @brief A rectangular widget that can be filled with color and be surrounded
+ * by a colored border.
+ */
 class RectangularWidget : public Widget, public sf::RectangleShape
 {
 public:
