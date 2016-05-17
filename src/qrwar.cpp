@@ -68,7 +68,12 @@ void QRWar::run()
 		_renderWindow.clear(sf::Color::Black);
 
 		while(_renderWindow.pollEvent(event))
+        {
+            if (event.type == sf::Event::Closed)
+                quit = true;
+
 			_currentState->handleEvent(event);
+        }
 
 		nextStateId = _currentState->update();
 
