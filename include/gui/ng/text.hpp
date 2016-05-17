@@ -1,5 +1,5 @@
-#ifndef NAMELESSGUI_LABEL_HPP
-#define NAMELESSGUI_LABEL_HPP
+#ifndef NAMELESSGUI_TEXT_HPP
+#define NAMELESSGUI_TEXT_HPP
 
 #include <string>
 
@@ -13,10 +13,10 @@
 
 namespace namelessgui
 {
-	class Label : public Widget
+    class Text : public Widget
 	{
 		public:
-			Label();
+            Text();
 
 			virtual void render(sf::RenderTarget& target, sf::RenderStates states) const override;
 
@@ -43,5 +43,7 @@ namespace namelessgui
 			sf::Text _text;
 			sf::Font _font;
 	};
-}
-#endif
+
+} // namespace namelessgui
+
+#endif // NAMELESSGUI_TEXT_HPP

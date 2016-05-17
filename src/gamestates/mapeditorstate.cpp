@@ -16,7 +16,7 @@ MapEditorState::MapEditorState(sf::RenderWindow* renderWindow)
       _eraseMode(false)
 {
 	// Initialize toolbar
-	namelessgui::Label* label = new namelessgui::Label();
+    namelessgui::Text* label = new namelessgui::Text();
 	label->setText("Terrain");
 	label->setAnchor({0.5f, 0.0f});
 	label->setParentAnchor({0.5f, 0.0f});

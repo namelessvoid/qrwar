@@ -4,7 +4,7 @@ namespace namelessgui
 {
 
 ConfirmationDialog::ConfirmationDialog(const std::string& text)
-	: _label(new Label()),
+    : _label(new Text()),
 	  _yesButton(new Button()),
 	  _noButton(new Button())
 {

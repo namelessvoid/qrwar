@@ -4,7 +4,7 @@
 #include <string>
 
 #include "gui/ng/window.hpp"
-#include "gui/ng/label.hpp"
+#include "gui/ng/text.hpp"
 #include "gui/ng/button.hpp"
 
 namespace namelessgui
@@ -22,7 +22,7 @@ private:
 	void slotYesClicked();
 	void slotNoClicked();
 
-	Label* _label;
+    Text* _label;
 	Button* _yesButton;
 	Button* _noButton;
 };

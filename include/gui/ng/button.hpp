@@ -7,7 +7,7 @@
 #include <SFML/Window/Event.hpp>
 
 #include "gui/ng/spritewidget.hpp"
-#include "gui/ng/label.hpp"
+#include "gui/ng/text.hpp"
 
 namespace namelessgui
 {
@@ -28,7 +28,7 @@ class Button : public RectangularWidget
 		virtual void render(sf::RenderTarget& target, sf::RenderStates states = sf::RenderStates::Default) const override;
 
 	protected:
-		Label* _label;
+        Text* _label;
 		RectangularWidget* _image;
 
 		virtual void leftMousebuttonPressedSlot();

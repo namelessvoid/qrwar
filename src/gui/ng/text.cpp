@@ -1,8 +1,8 @@
-#include "gui/ng/label.hpp"
+#include "gui/ng/text.hpp"
 
 namespace namelessgui
 {
-	Label::Label()
+	Text::Text()
 		:	Widget(),
 			_text()
 	{
@@ -11,53 +11,53 @@ namespace namelessgui
 		_text.setCharacterSize(25);
 	}
 
-	void Label::render(sf::RenderTarget& target, sf::RenderStates states) const
+	void Text::render(sf::RenderTarget& target, sf::RenderStates states) const
 	{
 		target.draw(_text);
 	}
 
-	sf::FloatRect Label::getGlobalBounds()
+	sf::FloatRect Text::getGlobalBounds()
 	{
 		return _text.getGlobalBounds();
 	}
 
-	void Label::setFont(sf::Font& font)
+	void Text::setFont(sf::Font& font)
 	{
 		_text.setFont(font);
 	}
 
-	void Label::setColor(const sf::Color& color)
+	void Text::setColor(const sf::Color& color)
 	{
         _text.setFillColor(color);
 	}
 
-	void Label::setCharacterSize(unsigned int size)
+	void Text::setCharacterSize(unsigned int size)
 	{
 		_text.setCharacterSize(size);
 	}
 
-	void Label::setText(const std::string text)
+	void Text::setText(const std::string text)
 	{
 		_stdText = text;
 		_text.setString(text);
 	}
 
-	const std::string&Label::getText() const
+	const std::string&Text::getText() const
 	{
 		return _stdText;
 	}
 
-	sf::Vector2f Label::getPosition() const
+	sf::Vector2f Text::getPosition() const
 	{
 		return this->_text.getPosition();
 	}
 
-	sf::Vector2f Label::getSize() const
+	sf::Vector2f Text::getSize() const
 	{
 		return sf::Vector2f(this->_text.getGlobalBounds().width, this->_text.getGlobalBounds().height);
 	}
 
-	void Label::setPosition(const sf::Vector2f& position)
+	void Text::setPosition(const sf::Vector2f& position)
 	{
 		_text.setPosition(position);
 	}

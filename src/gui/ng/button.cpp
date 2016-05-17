@@ -10,7 +10,7 @@ namespace namelessgui
 
 	Button::Button(std::string id)
 	: RectangularWidget(id),
-	  _label(new Label()),
+      _label(new Text()),
 	  _image(nullptr)
 	{
 		// Add sub widgets

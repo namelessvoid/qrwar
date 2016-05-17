@@ -13,7 +13,7 @@ namespace namelessgui
 	class Button;
 	class ButtonGroup;
 	class RadioToggleButton;
-	class Label;
+	class Text;
 } // namespace namelessgui
 
 namespace qrw
@@ -47,7 +47,7 @@ namespace qrw
 			namelessgui::ButtonGroup* _buttongroup;
 			namelessgui::Button* _startbutton;
 			sf::Font* _defaultfont;
-			namelessgui::Label* _title;
+			namelessgui::Text* _title;
 	};
 }
 #endif

@@ -21,12 +21,12 @@ DeployState::DeployState(sf::RenderWindow* renderWindow)
 	// Initialize tool bar
 	sf::Vector2f buttonSize(140.0f, 50.0f);
 	namelessgui::RadioToggleButton* radioButton = nullptr;
-	namelessgui::Label* label = nullptr;
+    namelessgui::Text* label = nullptr;
 	std::shared_ptr<namelessgui::ButtonGroup> unitButtonGroup = nullptr;
 	TextureManager* textureManager = TextureManager::getInstance();
 
 	// Player one tools
-	label = new namelessgui::Label();
+    label = new namelessgui::Text();
 	label->setText("Player One");
 	label->setAnchor({0.5f, 0.0f});
 	label->setParentAnchor({0.5f, 0.0f});
@@ -58,7 +58,7 @@ DeployState::DeployState(sf::RenderWindow* renderWindow)
 	_toolBar->addWidget(radioButton);
 
 	// Player two tools
-	label = new namelessgui::Label();
+    label = new namelessgui::Text();
 	label->setText("Player Two");
 	label->setAnchor({0.5f, 0.0f});
 	label->setParentAnchor({0.5f, 0.4f});
