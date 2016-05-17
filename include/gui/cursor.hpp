@@ -52,6 +52,8 @@ public:
      */
     namelessgui::Signal<const Coordinates&, bool> signalMoved;
 
+    Coordinates getBoardPosition();
+
 private:
 	sf::Color _maincolor;
 	bool _visible;

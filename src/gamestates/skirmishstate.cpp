@@ -28,7 +28,10 @@ void SkirmishState::init(GameState *previousState)
     _board = deployState->getBoard();
     _scene->setBoard(_board);
 
-    // TODO: reset square detail window
+    // Initialize square detail window.
+    Coordinates cursorPosition = _scene->getCursorPosition();
+    if(_board->isOnBoard(cursorPosition))
+        _squareDetailWindow->setSquare(_board->getSquare(cursorPosition));
 }
 
 EGameStateId SkirmishState::update()

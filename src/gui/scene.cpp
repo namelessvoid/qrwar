@@ -106,7 +106,12 @@ void Scene::removeTerrainEntityAt(const Coordinates& boardPosition)
 
 void Scene::addUnitEntity(UnitEntity::Ptr unitEntity)
 {
-	_unitEntities[unitEntity->getBoardPosition()] = unitEntity;
+    _unitEntities[unitEntity->getBoardPosition()] = unitEntity;
+}
+
+Coordinates Scene::getCursorPosition()
+{
+    return _cursor.getBoardPosition();
 }
 
 

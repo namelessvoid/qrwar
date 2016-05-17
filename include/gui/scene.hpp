@@ -8,6 +8,8 @@
 #include <SFML/Graphics/RectangleShape.hpp>
 
 #include "engine/board.hpp"
+#include "engine/coordinates.hpp"
+
 #include "gui/cursor.hpp"
 #include "gui/terrainentity.hpp"
 #include "gui/unitentity.hpp"
@@ -44,6 +46,8 @@ public:
 	void removeTerrainEntityAt(const Coordinates& boardPosition);
 
 	void addUnitEntity(UnitEntity::Ptr unitEntity);
+
+    Coordinates getCursorPosition();
 
 private:
 	sf::RenderTarget* _renderTarget;

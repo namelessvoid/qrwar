@@ -76,7 +76,12 @@ void Cursor::handleEvent(const sf::Event& event)
 			signalLeftClicked.emit(_boardPosition);
 		else if(event.mouseButton.button == sf::Mouse::Button::Right)
 			signalRightClicked.emit(_boardPosition);
-	}
+    }
+}
+
+Coordinates Cursor::getBoardPosition()
+{
+    return _boardPosition;
 }
 
 } // namespace qrwar
