@@ -4,14 +4,14 @@
 #include <SFML/Graphics/RectangleShape.hpp>
 
 #include "gui/ng/button.hpp"
+#include "gui/ng/label.hpp"
 
 namespace namelessgui
 {
 
 	Button::Button(std::string id)
 	: RectangularWidget(id),
-      _label(new Text()),
-	  _image(nullptr)
+      _label(new Label())
 	{
 		// Add sub widgets
 		this->addWidget(this->_label);
@@ -42,43 +42,20 @@ namespace namelessgui
 	}
 
 	void Button::setImage(const sf::Texture* texture)
-	{
-		if(!_image)
-		{
-			_image  = new RectangularWidget();
-			_image->setSize({getSize().y, getSize().y});
-			_image->setFillColor({255, 255, 255, 255});
-			addWidget(_image);
-		}
-		_image->setTexture(texture);
-		_image->setVisible(true);
+    {
+        _label->setImage(texture);
 	}
 
 	void Button::setPosition(const sf::Vector2f& position)
 	{
 		RectangularWidget::setPosition(position);
-
-		// Positioning with image
-		if(_image != nullptr)
-		{
-			_image->setPosition(position);
-			_label->setPosition(sf::Vector2f(position.x + _image->getSize().x, position.y));
-		}
-		// Positioning without image
-		else
-		{
-			_label->setAnchor({0.5f, 1.0f});
-			_label->setParentAnchor({0.5f, 0.5f});
-			_label->setRelativePosition({0.0f, 0.0f});
-		}
+        _label->setPosition(position);
 	}
 
 	void Button::setSize(const sf::Vector2f& size)
 	{
 		RectangleShape::setSize(size);
-
-		if(_image != nullptr)
-			_image->setSize({size.y, size.y});
+        _label->setSize(size);
 	}
 
 	void Button::render(sf::RenderTarget& target, sf::RenderStates states) const
