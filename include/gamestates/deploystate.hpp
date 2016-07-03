@@ -34,6 +34,12 @@ public:
      */
     Board::Ptr getBoard() const;
 
+    /**
+     * @brief Return the players.
+     * @return Vector holding the players pointers.
+     */
+    std::vector<Player::Ptr> getPlayers() const;
+
 private:
 	void slotUnitButtonChanged(const namelessgui::RadioToggleButton& unitButton);
     void slotToSkirmishButtonClicked();

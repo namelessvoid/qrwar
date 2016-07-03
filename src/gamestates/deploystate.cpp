@@ -132,8 +132,10 @@ void DeployState::init(GameState* previousState)
 	_players.clear();
 	_players.push_back(Player::Ptr(new Player()));
 	_players[0]->setId(1);
+	_players[0]->setName("Sigurdson");
 	_players.push_back(Player::Ptr(new Player()));
 	_players[1]->setId(2);
+	_players[1]->setName("King Karl XI");
 
     _toSkirmish = false;
 }
@@ -141,6 +143,11 @@ void DeployState::init(GameState* previousState)
 Board::Ptr DeployState::getBoard() const
 {
     return _board;
+}
+
+std::vector<Player::Ptr> DeployState::getPlayers() const
+{
+    return _players;
 }
 
 void DeployState::slotUnitButtonChanged(const namelessgui::RadioToggleButton& unitButton)
