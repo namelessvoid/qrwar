@@ -7,10 +7,10 @@ namespace qrw
 	class Path;
 	class Coordinates;
 
-	class AbstractAlgorithm
+	class AbstractPathfinder
 	{
 		public:
-			virtual ~AbstractAlgorithm() {}
+			virtual ~AbstractPathfinder() {}
 
 			virtual void setBoard(Board* board) = 0;
 			virtual Path* findPath(const Coordinates& start, const Coordinates& end) = 0;

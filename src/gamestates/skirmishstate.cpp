@@ -16,8 +16,7 @@ namespace qrw
 {
 
 SkirmishState::SkirmishState(sf::RenderWindow* renderWindow)
-	: SceneState(renderWindow, EGameStateId::EGSID_SKIRMISH_STATE),
-	  _pathFinder(new AStar())
+	: SceneState(renderWindow, EGameStateId::EGSID_SKIRMISH_STATE)
 {
     _squareDetailWindow = new SquareDetailWindow();
     _guiUptr->addWidget(_squareDetailWindow);
@@ -49,7 +48,6 @@ void SkirmishState::init(GameState *previousState)
 
     _board = deployState->getBoard();
     _scene->setBoard(_board);
-	_pathFinder->setBoard(_board.get());
 
 	_players = deployState->getPlayers();
 	_currentPlayer = 0;
@@ -75,7 +73,7 @@ void SkirmishState::slotCursorMoved(const Coordinates &boardPosition, bool isOnB
 	{
         _squareDetailWindow->setSquare(_board->getSquare(boardPosition));
 		if(_selectedUnit)
-			_path.reset(_pathFinder->findPath({0, 0}, boardPosition));
+			_path.reset(_board->findPath({0, 0}, boardPosition));
 	}
     else
         _squareDetailWindow->setSquare(nullptr);

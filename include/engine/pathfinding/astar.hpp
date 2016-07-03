@@ -4,14 +4,14 @@
 #include <set>
 #include <map>
 
-#include "engine/pathfinding/abstractalgorithm.hpp"
+#include "engine/pathfinding/abstractpathfinder.hpp"
 #include "engine/coordinates.hpp"
 
 namespace qrw
 {
 	class Node;
 
-	class AStar : public AbstractAlgorithm
+	class AStar : public AbstractPathfinder
 	{
 		public:
 			AStar();

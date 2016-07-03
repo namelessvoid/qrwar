@@ -7,7 +7,7 @@
 
 namespace qrw
 {
-	class AbstractAlgorithm;
+	class AbstractPathfinder;
 	class Path;
 	class Coordinates;
 	class Square;
@@ -43,7 +43,7 @@ namespace qrw
 			int _width;
 			int _height;
 
-			AbstractAlgorithm* _pathfinder;
+			AbstractPathfinder* _pathfinder;
 	};
 }
 

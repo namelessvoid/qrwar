@@ -42,7 +42,6 @@ private:
 
     Unit::Ptr _selectedUnit;
 
-	std::unique_ptr<class AbstractAlgorithm> _pathFinder;
 	std::shared_ptr<class Path> _path;
 
     class SquareDetailWindow* _squareDetailWindow;
