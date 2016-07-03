@@ -112,8 +112,8 @@ EGameStateId DeployState::update()
 	if(_backToMainMenu)
 		return EGameStateId::EGSID_MAIN_MENU_STATE;
 
-    if(_toSkirmish)
-        return EGameStateId::EGSID_SKIRMISH_STATE;
+	if(_toSkirmish)
+		return EGameStateId::EGSID_SKIRMISH_STATE;
 
 	return EGameStateId::EGSID_NO_CHANGE;
 }
@@ -167,8 +167,8 @@ void DeployState::slotToSkirmishButtonClicked()
 
 void DeployState::slotCursorLeftClicked(const Coordinates& boardPosition)
 {
-    if(!_selectedPlayer)
-        return;
+	if(!_selectedPlayer)
+		return;
 
 	Unit::Ptr unit = Unit::createUnit(_selectedUnitType, _selectedPlayer, _board);
 	_board->getSquare(boardPosition)->setUnit(unit);
