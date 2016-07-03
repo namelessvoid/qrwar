@@ -27,12 +27,16 @@ public:
 
     virtual void init(GameState* previousState) override;
 
+	virtual void draw() override;
+
 private:
     virtual void slotCursorMoved(const Coordinates& boardPosition, bool isOnBoard) override;
     virtual void slotCursorLeftClicked(const Coordinates& boardPosition) override;
 
 	// Triggerd via signal of end turn button.
 	void endTurn();
+
+	void drawPath();
 
     std::vector<Player::Ptr> _players;
 	int _currentPlayer;

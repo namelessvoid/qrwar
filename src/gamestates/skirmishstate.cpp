@@ -10,6 +10,7 @@
 #include "gui/ng/button.hpp"
 #include "gui/squaredetailwindow.hpp"
 
+#include <SFML/Graphics/Sprite.hpp>
 #include <iostream>
 
 namespace qrw
@@ -56,7 +57,13 @@ void SkirmishState::init(GameState *previousState)
     // Initialize square detail window.
     Coordinates cursorPosition = _scene->getCursorPosition();
     if(_board->isOnBoard(cursorPosition))
-        _squareDetailWindow->setSquare(_board->getSquare(cursorPosition));
+		_squareDetailWindow->setSquare(_board->getSquare(cursorPosition));
+}
+
+void SkirmishState::draw()
+{
+	SceneState::draw();
+	drawPath();
 }
 
 EGameStateId SkirmishState::update()
@@ -94,6 +101,71 @@ void SkirmishState::endTurn()
 	_currentPlayer = (_currentPlayer + 1) % _players.size();
 	_playerNameText->setText(_players[_currentPlayer]->getName());
 	_selectedUnit = nullptr;
+}
+
+void SkirmishState::drawPath()
+{
+	if(!_path)
+		return;
+
+	const int pathLength = _path->getLength();
+
+	Square* previous = 0;
+	Square* current  = _path->getStep(0);
+	Square* next     = _path->getStep(1);
+
+	sf::Sprite footstep = sf::Sprite(*TextureManager::getInstance()->getTexture("footstep"));
+
+	// Do not render first step.
+	for(int i = 1; i < pathLength; ++i)
+	{
+		previous = current;
+		current  = next;
+
+		// Reset the previously applied transformations.
+		footstep.setOrigin(16, 16);
+		footstep.setScale(1, 1);
+		footstep.setRotation(0);
+
+		// Transformations relative to the previous step
+		Coordinates prevDelta(previous->getCoordinates() - current->getCoordinates());
+		if(prevDelta.getX() != 0)
+			footstep.rotate(-90 * prevDelta.getX());
+		if(prevDelta.getY() != 0)
+			footstep.scale(1, prevDelta.getY());
+
+		// Transformations relative to the next step (if possible)
+		if(i < pathLength - 1)
+		{
+			next = _path->getStep(i+1);
+
+			Coordinates prevNextDelta(previous->getCoordinates() - next->getCoordinates());
+
+			// If the path has a corner at this position
+			if(prevNextDelta.getX() != 0 && prevNextDelta.getY() != 0)
+			{
+				int rotationdirection = 0;
+				// horizontal
+				if(prevDelta.getX() == 0)
+				{
+					rotationdirection = -1;
+				}
+				// vertical
+				else if(prevDelta.getY() == 0)
+				{
+					rotationdirection = +1;
+				}
+				footstep.rotate(rotationdirection * 45 * (prevNextDelta.getX() * prevNextDelta.getY()));
+			}
+		}
+
+		footstep.setPosition(
+			32 * (0.5f + current->getXPosition()),
+			32 * (0.5f + current->getYPosition())
+		);
+
+		_renderWindow->draw(footstep);
+	}
 }
 
 } // namespace qrw
