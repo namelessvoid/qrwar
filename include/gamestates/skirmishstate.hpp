@@ -8,6 +8,7 @@
 #include "engine/player.hpp"
 
 #include <vector>
+#include <memory>
 
 namespace namelessgui
 {
@@ -28,6 +29,7 @@ public:
 
 private:
     virtual void slotCursorMoved(const Coordinates& boardPosition, bool isOnBoard) override;
+    virtual void slotCursorLeftClicked(const Coordinates& boardPosition) override;
 
 	// Triggerd via signal of end turn button.
 	void endTurn();
@@ -37,6 +39,11 @@ private:
 	namelessgui::Text* _playerNameText;
 
     Board::Ptr _board;
+
+    Unit::Ptr _selectedUnit;
+
+	std::unique_ptr<class AbstractAlgorithm> _pathFinder;
+	std::shared_ptr<class Path> _path;
 
     class SquareDetailWindow* _squareDetailWindow;
 };

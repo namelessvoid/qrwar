@@ -1,16 +1,23 @@
 #include "gamestates/skirmishstate.hpp"
 
 #include "gamestates/deploystate.hpp"
+#include "engine/square.hpp"
+#include "engine/pathfinding/astar.hpp"
+#include "engine/pathfinding/path.hpp"
 #include "gui/texturemanager.hpp"
 #include "gui/ng/label.hpp"
 #include "gui/ng/spritewidget.hpp"
+#include "gui/ng/button.hpp"
 #include "gui/squaredetailwindow.hpp"
+
+#include <iostream>
 
 namespace qrw
 {
 
 SkirmishState::SkirmishState(sf::RenderWindow* renderWindow)
-    : SceneState(renderWindow, EGameStateId::EGSID_SKIRMISH_STATE)
+	: SceneState(renderWindow, EGameStateId::EGSID_SKIRMISH_STATE),
+	  _pathFinder(new AStar())
 {
     _squareDetailWindow = new SquareDetailWindow();
     _guiUptr->addWidget(_squareDetailWindow);
@@ -42,6 +49,7 @@ void SkirmishState::init(GameState *previousState)
 
     _board = deployState->getBoard();
     _scene->setBoard(_board);
+	_pathFinder->setBoard(_board.get());
 
 	_players = deployState->getPlayers();
 	_currentPlayer = 0;
@@ -64,15 +72,30 @@ EGameStateId SkirmishState::update()
 void SkirmishState::slotCursorMoved(const Coordinates &boardPosition, bool isOnBoard)
 {
     if(isOnBoard)
+	{
         _squareDetailWindow->setSquare(_board->getSquare(boardPosition));
+		if(_selectedUnit)
+			_path.reset(_pathFinder->findPath({0, 0}, boardPosition));
+	}
     else
         _squareDetailWindow->setSquare(nullptr);
+}
+
+void SkirmishState::slotCursorLeftClicked(const Coordinates &boardPosition)
+{
+	Square* square = _board->getSquare(boardPosition);
+	_selectedUnit = square->getUnit();
+
+	// Do not allow to select units of other player
+	if(_selectedUnit && _selectedUnit->getPlayer() != _players[_currentPlayer])
+		_selectedUnit = nullptr;
 }
 
 void SkirmishState::endTurn()
 {
 	_currentPlayer = (_currentPlayer + 1) % _players.size();
 	_playerNameText->setText(_players[_currentPlayer]->getName());
+	_selectedUnit = nullptr;
 }
 
 } // namespace qrw
