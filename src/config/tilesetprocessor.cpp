@@ -66,7 +66,7 @@ namespace qrw
 		std::string texturefilepath)
 	{
 		sf::IntRect area;
-		tinyxml2::XMLError error = tinyxml2::XML_NO_ERROR;
+		tinyxml2::XMLError error = tinyxml2::XML_SUCCESS;
 		error = xmlelement->QueryIntAttribute("x", &area.left);
 		printAttributeError(error, "x");
 		if(error) return false;
