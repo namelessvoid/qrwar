@@ -9,6 +9,7 @@
 
 #include "engine/coordinates.hpp"
 #include "gui/ng/signal.hpp"
+#include "gui/squaremarker.hpp"
 
 namespace sf
 {
@@ -19,23 +20,12 @@ namespace qrw
 {
 class Board;
 
-class Cursor : public sf::RectangleShape
+class Cursor : public SquareMarker
 {
 public:
 	Cursor();
-	static Cursor* getCursor();
 
 	~Cursor();
-
-	void setBoard(std::shared_ptr<Board> spBoard);
-
-	void setDimensions(float dimensions);
-
-	/**
-	 * @argument position Position on the screen (pixles)
-	 * @argument size Size of the cursor on the screen in pixles.
-	 */
-	void draw(sf::RenderTarget &target, sf::RenderStates states) const;
 
 	void handleEvent(const sf::Event& event);
 
@@ -51,15 +41,6 @@ public:
      * cursor is on the board.
      */
     namelessgui::Signal<const Coordinates&, bool> signalMoved;
-
-    Coordinates getBoardPosition();
-
-private:
-	sf::Color _maincolor;
-	bool _visible;
-
-	Coordinates _boardPosition;
-	std::shared_ptr<Board> _spBoard;
 };
 } // namespace qrw
 

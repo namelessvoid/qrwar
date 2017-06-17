@@ -13,33 +13,11 @@ namespace qrw
 {
 
 Cursor::Cursor()
-	: RectangleShape(),
-	  _maincolor(218, 218, 0, 120),
-	  _visible(true),
-	  _boardPosition(0, 0)
-{
-    setFillColor(_maincolor);
-    setSize({32.0f, 32.0f});
-}
+	: SquareMarker()
+{}
 
 Cursor::~Cursor()
 {
-}
-
-void Cursor::setBoard(std::shared_ptr<Board> spBoard)
-{
-    _spBoard = spBoard;
-}
-
-void Cursor::setDimensions(float dimensions)
-{
-	RectangleShape::setSize({dimensions, dimensions});
-}
-
-void Cursor::draw(sf::RenderTarget &target, sf::RenderStates states) const
-{
-	if(_visible)
-		target.draw((sf::RectangleShape)*this, states);
 }
 
 void Cursor::handleEvent(const sf::Event& event)
@@ -56,7 +34,7 @@ void Cursor::handleEvent(const sf::Event& event)
 
         if(newBoardPosition != _boardPosition)
         {
-            if(_spBoard->isOnBoard(newBoardPosition))
+			if(_board->isOnBoard(newBoardPosition))
             {
                 setPosition(newPosition);
                  _visible = true;
@@ -77,11 +55,6 @@ void Cursor::handleEvent(const sf::Event& event)
 		else if(event.mouseButton.button == sf::Mouse::Button::Right)
 			signalRightClicked.emit(_boardPosition);
     }
-}
-
-Coordinates Cursor::getBoardPosition()
-{
-    return _boardPosition;
 }
 
 } // namespace qrwar
