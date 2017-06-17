@@ -29,7 +29,7 @@ public:
 
 	void setBoard(std::shared_ptr<Board> spBoard);
 
-	void setDimensions(float _dimensions);
+	void setDimensions(float dimensions);
 
 	/**
 	 * @argument position Position on the screen (pixles)

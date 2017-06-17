@@ -33,7 +33,7 @@ void Cursor::setBoard(std::shared_ptr<Board> spBoard)
 
 void Cursor::setDimensions(float dimensions)
 {
-    RectangleShape::setSize({dimensions, dimensions});
+	RectangleShape::setSize({dimensions, dimensions});
 }
 
 void Cursor::draw(sf::RenderTarget &target, sf::RenderStates states) const
