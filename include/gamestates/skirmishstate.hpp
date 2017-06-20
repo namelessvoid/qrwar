@@ -33,6 +33,8 @@ private:
     virtual void slotCursorMoved(const Coordinates& boardPosition, bool isOnBoard) override;
     virtual void slotCursorLeftClicked(const Coordinates& boardPosition) override;
 
+	virtual bool handleEvent(sf::Event &event);
+
 	// Triggerd via signal of end turn button.
 	void endTurn();
 
@@ -49,6 +51,8 @@ private:
 	std::shared_ptr<class Path> _path;
 
     class SquareDetailWindow* _squareDetailWindow;
+
+	std::unique_ptr<class SquareMarker> _squareMarker;
 };
 
 } // namespace qrw

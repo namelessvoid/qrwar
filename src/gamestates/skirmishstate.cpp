@@ -11,16 +11,21 @@
 #include "gui/squaredetailwindow.hpp"
 
 #include <SFML/Graphics/Sprite.hpp>
+
 #include <iostream>
+#include <memory>
 
 namespace qrw
 {
 
 SkirmishState::SkirmishState(sf::RenderWindow* renderWindow)
-	: SceneState(renderWindow, EGameStateId::EGSID_SKIRMISH_STATE)
+	: SceneState(renderWindow, EGameStateId::EGSID_SKIRMISH_STATE),
+	  _squareMarker(new SquareMarker())
 {
     _squareDetailWindow = new SquareDetailWindow();
     _guiUptr->addWidget(_squareDetailWindow);
+
+	_squareMarker->setVisible(false);
 
 	_playerNameText = new namelessgui::Text();
 	_playerNameText->setText("Player Name");
@@ -63,6 +68,7 @@ void SkirmishState::init(GameState *previousState)
 void SkirmishState::draw()
 {
 	SceneState::draw();
+	_squareMarker->draw(*_renderWindow, sf::RenderStates::Default);
 	drawPath();
 }
 
@@ -94,6 +100,40 @@ void SkirmishState::slotCursorLeftClicked(const Coordinates &boardPosition)
 	// Do not allow to select units of other player
 	if(_selectedUnit && _selectedUnit->getPlayer() != _players[_currentPlayer])
 		_selectedUnit = nullptr;
+
+	if(_selectedUnit)
+	{
+		// SelectUnit();
+		_squareMarker->setBoardPosition(boardPosition);
+		_squareMarker->setVisible(true);
+	}
+	else
+	{
+		// deselcectUnit();
+		_squareMarker->setVisible(false);
+	}
+}
+
+bool SkirmishState::handleEvent(sf::Event& event)
+{
+	bool stopEventPropagation = SceneState::handleEvent(event);
+
+	if(stopEventPropagation)
+		return stopEventPropagation;
+
+	if(event.type == sf::Event::MouseButtonReleased)
+	{
+		if(event.mouseButton.button == sf::Mouse::Right)
+		{
+			// deselectUnit()
+			_selectedUnit = nullptr;
+			_squareMarker->setVisible(false);
+
+			return true;
+		}
+	}
+
+	return stopEventPropagation;
 }
 
 void SkirmishState::endTurn()
