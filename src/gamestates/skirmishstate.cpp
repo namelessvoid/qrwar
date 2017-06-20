@@ -86,7 +86,7 @@ void SkirmishState::slotCursorMoved(const Coordinates &boardPosition, bool isOnB
 	{
         _squareDetailWindow->setSquare(_board->getSquare(boardPosition));
 		if(_selectedUnit)
-			_path.reset(_board->findPath({0, 0}, boardPosition));
+			_path.reset(_board->findPath(_selectedUnit->getPosition(), boardPosition));
 	}
     else
         _squareDetailWindow->setSquare(nullptr);
