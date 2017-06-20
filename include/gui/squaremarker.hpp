@@ -24,7 +24,9 @@ public:
 
 	void draw(sf::RenderTarget &target, sf::RenderStates states) const;
 
-	Coordinates getBoardPosition();
+	Coordinates getBoardPosition() const;
+
+	void setBoardPosition(const Coordinates& boardPosition);
 
 	bool isVisible() const;
 

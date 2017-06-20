@@ -31,9 +31,18 @@ void SquareMarker::draw(sf::RenderTarget &target, sf::RenderStates states) const
 		target.draw((sf::RectangleShape)*this, states);
 }
 
-Coordinates SquareMarker::getBoardPosition()
+Coordinates SquareMarker::getBoardPosition() const
 {
 	return _boardPosition;
+}
+
+void SquareMarker::setBoardPosition(const Coordinates& boardPosition)
+{
+	_boardPosition = boardPosition;
+
+	float dimension = getSize().x;
+
+	setPosition({dimension * _boardPosition.getX(), dimension * _boardPosition.getY()});
 }
 
 bool SquareMarker::isVisible() const

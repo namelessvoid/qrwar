@@ -36,7 +36,7 @@ void Cursor::handleEvent(const sf::Event& event)
         {
 			if(_board->isOnBoard(newBoardPosition))
             {
-                setPosition(newPosition);
+				setBoardPosition(newBoardPosition);
                  _visible = true;
             }
             else
@@ -44,7 +44,6 @@ void Cursor::handleEvent(const sf::Event& event)
                 _visible = false;
             }
 
-            _boardPosition = newBoardPosition;
             signalMoved.emit(_boardPosition, _visible);
         }
     }
