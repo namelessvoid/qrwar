@@ -94,6 +94,8 @@ void SkirmishState::slotCursorMoved(const Coordinates &boardPosition, bool isOnB
 
 void SkirmishState::slotCursorLeftClicked(const Coordinates &boardPosition)
 {
+	deselectUnit();
+
 	Square* square = _board->getSquare(boardPosition);
 	_selectedUnit = square->getUnit();
 
@@ -106,11 +108,6 @@ void SkirmishState::slotCursorLeftClicked(const Coordinates &boardPosition)
 		// SelectUnit();
 		_squareMarker->setBoardPosition(boardPosition);
 		_squareMarker->setVisible(true);
-	}
-	else
-	{
-		// deselcectUnit();
-		_squareMarker->setVisible(false);
 	}
 }
 
@@ -125,10 +122,7 @@ bool SkirmishState::handleEvent(sf::Event& event)
 	{
 		if(event.mouseButton.button == sf::Mouse::Right)
 		{
-			// deselectUnit()
-			_selectedUnit = nullptr;
-			_squareMarker->setVisible(false);
-
+			deselectUnit();
 			return true;
 		}
 	}
@@ -140,7 +134,8 @@ void SkirmishState::endTurn()
 {
 	_currentPlayer = (_currentPlayer + 1) % _players.size();
 	_playerNameText->setText(_players[_currentPlayer]->getName());
-	_selectedUnit = nullptr;
+
+	deselectUnit();
 }
 
 void SkirmishState::drawPath()
@@ -206,6 +201,13 @@ void SkirmishState::drawPath()
 
 		_renderWindow->draw(footstep);
 	}
+}
+
+void SkirmishState::deselectUnit()
+{
+	_selectedUnit = nullptr;
+	_squareMarker->setVisible(false);
+	_path.reset();
 }
 
 } // namespace qrw

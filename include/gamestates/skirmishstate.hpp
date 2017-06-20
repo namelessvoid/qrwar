@@ -40,6 +40,8 @@ private:
 
 	void drawPath();
 
+	void deselectUnit();
+
     std::vector<Player::Ptr> _players;
 	int _currentPlayer;
 	namelessgui::Text* _playerNameText;
