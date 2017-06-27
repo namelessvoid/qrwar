@@ -42,6 +42,10 @@ private:
 
 	void deselectUnit();
 
+	void moveUnit();
+
+	void performAttack();
+
     std::vector<Player::Ptr> _players;
 	int _currentPlayer;
 	namelessgui::Text* _playerNameText;

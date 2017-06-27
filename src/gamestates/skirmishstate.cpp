@@ -92,23 +92,47 @@ void SkirmishState::slotCursorMoved(const Coordinates &boardPosition, bool isOnB
         _squareDetailWindow->setSquare(nullptr);
 }
 
+void SkirmishState::moveUnit()
+{
+	std::cout << "Move unit." << std::endl;
+}
+
+void SkirmishState::performAttack()
+{
+	std::cout << "Attack unit." << std::endl;
+}
+
 void SkirmishState::slotCursorLeftClicked(const Coordinates &boardPosition)
 {
-	deselectUnit();
+	// Case 1: Unit is selected and instructed to attack enemy unit
+	Square* squareUnderCursor = _board->getSquare(boardPosition);
+	Unit::Ptr unitUnderCursor = squareUnderCursor->getUnit();
 
-	Square* square = _board->getSquare(boardPosition);
-	_selectedUnit = square->getUnit();
+	if(_selectedUnit && !unitUnderCursor)
+	{
+		// Move unit
+		moveUnit();
+		return;
+	}
+
+	if(_selectedUnit && unitUnderCursor && unitUnderCursor->getPlayer() != _selectedUnit->getPlayer())
+	{
+		performAttack();
+		return;
+	}
 
 	// Do not allow to select units of other player
-	if(_selectedUnit && _selectedUnit->getPlayer() != _players[_currentPlayer])
-		_selectedUnit = nullptr;
-
-	if(_selectedUnit)
+	if(unitUnderCursor && unitUnderCursor->getPlayer() != _players[_currentPlayer])
 	{
-		// SelectUnit();
+		// Select unit
+		_selectedUnit = unitUnderCursor;
 		_squareMarker->setBoardPosition(boardPosition);
 		_squareMarker->setVisible(true);
+
+		return;
 	}
+
+	deselectUnit();
 }
 
 bool SkirmishState::handleEvent(sf::Event& event)
