@@ -11,21 +11,36 @@
 
 namespace namelessgui
 {
+
+/**
+ * @brief A rectangular widget that can be filled with color and be surrounded
+ * by a colored border.
+ */
 class RectangularWidget : public Widget, public sf::RectangleShape
 {
 public:
-	RectangularWidget(sf::RenderWindow* _window, float width, float height);
+	RectangularWidget(std::string id = "");
 
 	sf::Vector2f getSize() const;
 
-	void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
+	void setScale(const sf::Vector2f &factors);
+
+	void setScale(float scaleX, float scaleY);
+
+	sf::Vector2f getPosition() const;
+
+	void setPosition(const sf::Vector2f& position) override;
+
+	virtual void render(sf::RenderTarget& target, sf::RenderStates states) const override;
+
+	virtual void setSize(const sf::Vector2f& size) override;
 
 	/**
 	 * Returns the global boundaries of the widget.
 	 *
 	 * @return The global boundary rectangle.
 	 */
-	sf::FloatRect getGlobalBounds() override;
+	virtual sf::FloatRect getGlobalBounds() override;
 
 	/**
 	 * Sets the texture of the widget.
@@ -37,5 +52,7 @@ public:
 	 */
 	void setTexture(const sf::Texture* texture, bool resetRect = true);
 };
-}
-#endif
+
+} // namespace namelessgui
+
+#endif // NAMELESSGUI_SPRITEWIDGET_HPP

@@ -3,6 +3,8 @@ add_subdirectory(gui/ng)
 add_library(tostring tostring.cpp)
 
 add_library(qrwarlib
+        qrwar.cpp
+
 	config/audiosettings.cpp
 	config/settings.cpp
 	config/tilesetprocessor.cpp
@@ -23,18 +25,32 @@ add_library(qrwarlib
 	engine/pathfinding/node.cpp
 	engine/pathfinding/path.cpp
 
-	gui/animation.cpp
-	gui/boardwidget.cpp
-	gui/cursor.cpp
-	gui/damagenumber.cpp
-	gui/deploywindow.cpp
-	gui/guihandler.cpp
-	gui/imagemanager.cpp
-	gui/ingamewindow.cpp
-	gui/mainwindow.cpp
-	gui/settingswindow.cpp
-	gui/startgamewindow.cpp
+        gamestates/gamestate.cpp
+        gamestates/scenestate.cpp
+        gamestates/introstate.cpp
+        gamestates/mainmenustate.cpp
+        gamestates/mapeditorstate.cpp
+        gamestates/deploystate.cpp
+        gamestates/skirmishstate.cpp
+
+#	gui/animation.cpp
+#	gui/boardwidget.cpp
+        gui/scene.cpp
+        gui/squaremarker.cpp
+        gui/cursor.cpp
+	gui/terrainentity.cpp
+        gui/unitentity.cpp
+        gui/squaredetailwindow.cpp
+#	gui/damagenumber.cpp
+#	gui/deploywindow.cpp
+#	gui/guihandler.cpp
+#	gui/ingamewindow.cpp
+#	gui/mainwindow.cpp
+#	gui/settingswindow.cpp
+#	gui/startgamewindow.cppr
+        gui/imagemanager.cpp
 	gui/texturemanager.cpp
+        gui/guihelper.cpp
 )
 set_target_properties(qrwarlib PROPERTIES OUTPUT_NAME qrwar)
 target_link_libraries(qrwarlib ${LIBS} tostring namelessgui)

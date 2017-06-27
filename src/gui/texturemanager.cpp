@@ -26,20 +26,14 @@ namespace qrw
 			textureimage.setPixel(i, 31, col2);
 		}
 
-		fallbacktexture = new sf::Texture();
-		fallbacktexture->loadFromImage(textureimage);
+		fallbacktexture.loadFromImage(textureimage);
 	}
 
 	TextureManager::~TextureManager()
 	{
 		std::map<std::string, sf::Texture*>::iterator iter;
 		for(iter = textures.begin(); iter != textures.end(); ++iter)
-		{
 			delete iter->second;
-			textures.erase(iter);
-		}
-
-		delete fallbacktexture;
 	}
 
 	TextureManager* TextureManager::getInstance()
@@ -57,6 +51,7 @@ namespace qrw
 			return true;
 
 		sf::Texture* texture = new sf::Texture();
+		texture->setRepeated(true);
 		// if load successful
 		if(texture->loadFromFile(filepath, area))
 		{
@@ -88,12 +83,12 @@ namespace qrw
 	{
 		// Texture with given name does not exist
 		if(textures.find(texname) == textures.end())
-			return fallbacktexture;
+			return getFallbackTexture();
 		return textures[texname];
 	}
 
 	const sf::Texture* TextureManager::getFallbackTexture()
 	{
-        return fallbacktexture;
+		return &fallbacktexture;
 	}
 }

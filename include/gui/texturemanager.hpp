@@ -87,7 +87,7 @@ namespace qrw
 			/**
 			 * Default fallback texture.
 			 */
-			sf::Texture* fallbacktexture;
+			sf::Texture fallbacktexture;
 
 			/**
 			 * Map that holds all textures.

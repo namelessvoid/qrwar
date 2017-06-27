@@ -1,5 +1,5 @@
-#ifndef QRW_UNITSSLIST_HPP
-#define QRW_UNITSLIST_HPP
+#ifndef QRW_UNITSMAP_HPP
+#define QRW_UNITSMAP_HPP
 
 #include <set>
 #include <map>

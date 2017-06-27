@@ -1,9 +1,9 @@
 #ifndef NAMELESSGUI_BUTTONGROUP_HPP
 #define NAMELESSGUI_BUTTONGROUP_HPP
 
-#include <map>
+#include <set>
 
-#include "gui/ng/button.hpp"
+#include "gui/ng/radiotogglebutton.hpp"
 
 namespace namelessgui
 {
@@ -13,13 +13,10 @@ namespace namelessgui
 			ButtonGroup();
 			~ButtonGroup();
 
-			void addButton(Button* button);
-			void activateButton(Button* button);
+			void addButton(RadioToggleButton* button);
 
 		private:
-			bool hasButton(Button* button);
-
-			std::map<Button*, Button*> buttons;
+			std::set<RadioToggleButton*> _buttons;
 	};
 }
 

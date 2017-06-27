@@ -17,6 +17,16 @@ namespace qrw
 		return _y;
 	}
 
+	void Coordinates::setX(int x)
+	{
+		_x = x;
+	}
+
+	void Coordinates::setY(int y)
+	{
+		_y = y;
+	}
+
 	bool Coordinates::operator==(const Coordinates& rhs) const
 	{
 		return getX() == rhs.getX() && getY() == rhs.getY();
@@ -25,6 +35,13 @@ namespace qrw
 	bool Coordinates::operator!=(const Coordinates& rhs) const
 	{
 		return !(*this == rhs);
+	}
+
+	bool Coordinates::operator<(const Coordinates& rhs) const
+	{
+		if(getX() != rhs.getX())
+			return getX() < rhs.getX();
+		return getY() < rhs.getY();
 	}
 
 	Coordinates Coordinates::operator+(const Coordinates& rhs) const

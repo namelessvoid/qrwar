@@ -24,9 +24,9 @@ namespace qrw
 		// Set up objects that need reference on board instance.
 		// TODO: dynamic size
 		Cursor::getCursor()->setBoard(engine->getBoard());
-		_ingamewindow = new IngameWindow(engine, this);
+		_ingamewindow = new IngameWindow(renderwindow, engine, this);
 		_ingamewindow->setVisible(false);
-		_deploywindow = new DeployWindow(engine, this, _ingamewindow);
+		_deploywindow = new DeployWindow(renderwindow, engine, this, _ingamewindow);
 		_deploywindow->setVisible(false);
 		_boardwidget = new BoardWidget(this, engine, 620, 600);
 		_boardwidget->setBoard(engine->getBoard());
@@ -56,8 +56,8 @@ namespace qrw
 		sf::View guiView(sf::FloatRect(0, 0, renderwindow.getSize().x, renderwindow.getSize().y));
 		renderwindow.setView(guiView);
 
-		renderwindow.draw(*(sf::Drawable*)_ingamewindow);
-		renderwindow.draw(*(sf::Drawable*)_deploywindow);
+		_ingamewindow->draw(renderwindow, sf::RenderStates::Default);
+		_deploywindow->draw(renderwindow, sf::RenderStates::Default);
 		Animation::renderAll(renderwindow, _clock.restart());
 		_sfgui.Display(renderwindow);
 

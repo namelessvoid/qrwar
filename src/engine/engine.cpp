@@ -57,37 +57,26 @@ namespace qrw
 		return 0;
 	}
 
-	void Engine::createPlayerUnits(int playerid, std::map<UNITTYPES, int> unitcounts)
-	{
-		Player* player = getPlayer(playerid);
-		UNITTYPES unittype;
-		Unit* unit;
+//	void Engine::createPlayerUnits(int playerid, std::map<UNITTYPES, int> unitcounts)
+//	{
+//		Player* player = getPlayer(playerid);
+//		UNITTYPES unittype;
+//		Unit* unit;
 
-		for(auto iter = unitcounts.begin(); iter != unitcounts.end(); ++iter)
-		{
-			unittype = iter->first;
-			for(int i = 0; i < iter->second; ++i)
-			{
-				// Create new unit
-				switch(unittype)
-				{
-					case EUT_SWORDMAN:
-						unit = new Unit(EUT_SWORDMAN, 5, 2, 1, 1, 3, player, board);
-						break;
+//		for(auto iter = unitcounts.begin(); iter != unitcounts.end(); ++iter)
+//		{
+//			unittype = iter->first;
+//			for(int i = 0; i < iter->second; ++i)
+//			{
+//				// Create new unit
+//				switch(unittype)
+//				{
 
-					case EUT_ARCHER:
-						unit = new Unit(EUT_ARCHER, 5, 2, 1, 3, 2, player, board);
-						break;
-
-					default:
-						unit = new Unit(EUT_SPEARMAN, 5, 2, 1, 2, 2, player, board);
-						break;
-				}
-				// Add new unit to army
-				player->getArmy().addUnit(unit);
-			}
-		}
-	}
+//				// Add new unit to army
+//				player->getArmy().addUnit(unit);
+//			}
+//		}
+//	}
 
 	// bool Engine::setUnits(int playeroneunits[EUT_NUMBEROFUNITTYPES],
 		// int playertwounits[EUT_NUMBEROFUNITTYPES])
@@ -144,45 +133,45 @@ namespace qrw
 		getCurrentPlayer().setActive(true);
 	}
 
-	int Engine::moveUnitDeployment(Coordinates origin, Coordinates destination)
-	{
-		Square* orsquare = board->getSquare(origin);
-		if(orsquare->getUnit() == NULL)
-			return -1;
+//	int Engine::moveUnitDeployment(Coordinates origin, Coordinates destination)
+//	{
+//		Square* orsquare = board->getSquare(origin);
+//		if(orsquare->getUnit() == NULL)
+//			return -1;
 
-		Square* destsquare = board->getSquare(destination);
+//		Square* destsquare = board->getSquare(destination);
 
-		if(destsquare->getUnit() != NULL)
-			return -1;
+//		if(destsquare->getUnit() != NULL)
+//			return -1;
 
-		destsquare->setUnit(orsquare->getUnit());
-		orsquare->setUnit(NULL);
-		return 0;
-	}
+//		destsquare->setUnit(orsquare->getUnit());
+//		orsquare->setUnit(NULL);
+//		return 0;
+//	}
 
-	bool Engine::placeUnit(Coordinates position, int playerid, UNITTYPES unittype)
-	{
-		if(status != EES_PREPARE)
-			return false;
-		Square* square = board->getSquare(position);
+//	bool Engine::placeUnit(Coordinates position, int playerid, UNITTYPES unittype)
+//	{
+//		if(status != EES_PREPARE)
+//			return false;
+//		Square* square = board->getSquare(position);
 
-		if(square == 0)
-			return false;
+//		if(square == 0)
+//			return false;
 
-		if(square->getUnit() != 0)
-			return false;
+//		if(square->getUnit() != 0)
+//			return false;
 
-		Player* player = getPlayer(playerid);
-		Unit* unit = *(player->getArmy().getUndeployedUnitsByType(unittype).begin());
-		if(unit)
-		{
-			player->getArmy().markUnitAsDeployed(unit);
-			square->setUnit(unit);
-			unit->setSquare(square);
-			return true;
-		}
-		return false;
-	}
+//		Player* player = getPlayer(playerid);
+//		Unit* unit = *(player->getArmy().getUndeployedUnitsByType(unittype).begin());
+//		if(unit)
+//		{
+//			player->getArmy().markUnitAsDeployed(unit);
+//			square->setUnit(unit);
+//			unit->setSquare(square);
+//			return true;
+//		}
+//		return false;
+//	}
 
 	bool Engine::placeTerrain(Coordinates position, TERRAINTYPES terraintype)
 	{
@@ -192,18 +181,7 @@ namespace qrw
 		if(square == NULL)
 			return false;
 
-		if(square->getTerrain() != NULL)
-			delete square->getTerrain();
-		Terrain* terrain;
-		switch(terraintype)
-		{
-			case ET_WOOD:	terrain = new Terrain(ET_WOOD, -1, 1);
-							break;
-			case ET_HILL:	terrain = new Terrain(ET_HILL, 1, -1);
-							break;
-			default:		terrain = new Terrain(ET_WALL, 1, 1);
-							break;
-		}
+		Terrain::Ptr terrain = Terrain::createTerrain(terraintype);
 		square->setTerrain(terrain);
 		return true;
 	}
@@ -217,8 +195,6 @@ namespace qrw
 		if(square == NULL)
 			return false;
 
-		if(square->getTerrain())
-			delete square->getTerrain();
 		square->setTerrain(NULL);
 		return true;
 	}

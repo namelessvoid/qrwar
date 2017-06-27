@@ -1,11 +1,13 @@
 #ifndef QRW_BOARD_HPP
 #define QRW_BOARD_HPP
 
+#include <memory>
+
 #include <SFML/System/Vector2.hpp>
 
 namespace qrw
 {
-	class AbstractAlgorithm;
+	class AbstractPathfinder;
 	class Path;
 	class Coordinates;
 	class Square;
@@ -13,7 +15,9 @@ namespace qrw
 	class Board
 	{
 		public:
-			Board(int _width, int _height);
+			typedef std::shared_ptr<Board> Ptr;
+
+			Board(int width, int height);
 			~Board();
 
 			Square* getSquare(int x, int y);
@@ -22,6 +26,8 @@ namespace qrw
 
 			int getWidth();
 			int getHeight();
+
+			bool isOnBoard(Coordinates coordinates);
 
 			/**
 			 * @brief Call pathfinding algorithm to find path from start to end.
@@ -37,7 +43,7 @@ namespace qrw
 			int _width;
 			int _height;
 
-			AbstractAlgorithm* _pathfinder;
+			AbstractPathfinder* _pathfinder;
 	};
 }
 

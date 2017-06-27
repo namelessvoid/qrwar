@@ -4,33 +4,24 @@
 
 namespace namelessgui
 {
-	ButtonGroup::ButtonGroup()
-	{}
+ButtonGroup::ButtonGroup()
+{}
 
-	ButtonGroup::~ButtonGroup()
-	{}
+ButtonGroup::~ButtonGroup()
+{}
 
-	void ButtonGroup::addButton(Button* button)
+void ButtonGroup::addButton(RadioToggleButton* button)
+{
+	if(_buttons.find(button) != _buttons.end())
+		return;
+
+	for(auto iter : _buttons)
 	{
-		if(hasButton(button) == true)
-			return;
-		buttons[button] = button;
+		button->signalclicked.connect(std::bind(&RadioToggleButton::deactivate, iter));
+		iter->signalclicked.connect(std::bind(&RadioToggleButton::deactivate, button));
 	}
 
-	void ButtonGroup::activateButton(Button* button)
-	{
-		if(hasButton(button) == false)
-			return;
-		std::map<Button*, Button*>::iterator iter;
-		for(iter = buttons.begin(); iter != buttons.end(); ++iter)
-		{
-			iter->second->setState(Button::ES_INACTIVE);
-		}
-		buttons.find(button)->second->setState(Button::ES_ACTIVE);
-	}
-
-	bool ButtonGroup::hasButton(Button* button)
-	{
-		return (buttons.find(button) != buttons.end());
-	}
+	_buttons.insert(button);
 }
+
+} // namespace namelessgui

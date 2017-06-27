@@ -2,44 +2,54 @@
 
 #include "gui/ng/radiotogglebutton.hpp"
 
+#include "gui/ng/buttongroup.hpp"
+
 namespace namelessgui
 {
-	RadioToggleButton::RadioToggleButton(sf::RenderWindow* window, ButtonGroup* buttongroup,
-		float width, float height,
-		std::string text, const sf::Texture* textureactive,
-		const sf::Texture* textureinainactive,
-		const sf::Texture* texturehover)
-	: Button(window, width, height, text, textureactive, textureinainactive, texturehover),
-	  _buttongroup(buttongroup)
-	{
-		buttongroup->addButton(this);
-		disconnectAllSignals();
-		signalclicked.connect(std::bind(&RadioToggleButton::clickedSlot, this));
-	}
 
-	RadioToggleButton::~RadioToggleButton()
-	{
-	}
-
-	void RadioToggleButton::clickedSlot()
-	{
-		_buttongroup->activateButton(this);
-		updateSprite();
-	}
-
-	void RadioToggleButton::draw(sf::RenderTarget& target,
-		sf::RenderStates states) const
-	{
-		if(getState() == ES_ACTIVE)
-		{
-			sf::RectangleShape rect;
-			rect.setFillColor(sf::Color::Red);
-			rect.setPosition(getPosition().x, getPosition().y);
-			rect.setSize(getSize());
-			target.draw(rect);
-		}
-		target.draw(*_label);
-		target.draw(static_cast<sf::RectangleShape>(*_image));
-		target.draw(static_cast<sf::RectangleShape>(*this));
-	}
+RadioToggleButton::RadioToggleButton(std::shared_ptr<ButtonGroup> spButtonGroup, std::string id)
+	: Button(id),
+	  _isActive(false)
+{
+	// Set up button group
+	if(spButtonGroup != nullptr)
+		_spButtonGroup = spButtonGroup;
+	else
+		_spButtonGroup = std::make_shared<ButtonGroup>();
+	_spButtonGroup->addButton(this);
 }
+
+RadioToggleButton::~RadioToggleButton()
+{
+}
+
+void RadioToggleButton::deactivate()
+{
+	_isActive = false;
+	setFillColor(sf::Color(60, 60, 60, 255));
+}
+
+std::shared_ptr<ButtonGroup> RadioToggleButton::getButtonGroup()
+{
+	return _spButtonGroup;
+}
+
+void RadioToggleButton::clickedSlot()
+{
+	_isActive = true;
+	signalActivated.emit(*this);
+}
+
+void RadioToggleButton::mouseEnteredSlot()
+{
+	if(!_isActive)
+		Button::mouseEnteredSlot();
+}
+
+void RadioToggleButton::mouseLeftSlot()
+{
+	if(!_isActive)
+		Button::mouseLeftSlot();
+}
+
+} // namespace namelessgui

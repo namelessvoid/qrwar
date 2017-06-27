@@ -1,11 +1,13 @@
 add_library(namelessgui
+        gui.cpp
 	button.cpp
 	buttongroup.cpp
-	label.cpp
+        text.cpp
+        label.cpp
 	radiotogglebutton.cpp
-	signal.cpp
 	spritewidget.cpp
 	widget.cpp
 	window.cpp
+        confirmationdialog.cpp
 )
 target_link_libraries(namelessgui ${SFML_LIBRARIES})

@@ -20,8 +20,9 @@
 
 namespace qrw
 {
-	IngameWindow::IngameWindow(Engine* engine, GuiHandler* guihandler)
-	: _engine(engine),
+	IngameWindow::IngameWindow(sf::RenderWindow* renderWindow, Engine* engine, GuiHandler* guihandler)
+	: Window(renderWindow),
+	  _engine(engine),
 	  _guihandler(guihandler),
 	  // TODO: Dynamic size
 	  _endturnbutton(new namelessgui::Button(guihandler->getRenderWindow(), 100.0, 40.0)),

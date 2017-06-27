@@ -70,7 +70,7 @@ namespace qrw
 	bool VideoSettings::loadFromFile(std::string filepath)
 	{
 		tinyxml2::XMLDocument doc;
-		tinyxml2::XMLError error = tinyxml2::XML_NO_ERROR;
+		tinyxml2::XMLError error = tinyxml2::XML_SUCCESS;
 		tinyxml2::XMLElement* videoroot = NULL;
 		tinyxml2::XMLElement* element = NULL;
 
@@ -107,7 +107,7 @@ namespace qrw
 		}
 
 		error = element->QueryBoolAttribute("enabled", &boolvaluestorage);
-		if(error != tinyxml2::XML_NO_ERROR)
+		if(error != tinyxml2::XML_SUCCESS)
 		{
 			printAttributeError(error, "height");
 			return false;
@@ -124,7 +124,7 @@ namespace qrw
 		}
 
 		error = element->QueryIntAttribute("w", &intvaluestorage);
-		if(error != tinyxml2::XML_NO_ERROR)
+		if(error != tinyxml2::XML_SUCCESS)
 		{
 			printAttributeError(error, "w");
 			return false;
@@ -133,7 +133,7 @@ namespace qrw
 		
 		// height
 		error = element->QueryIntAttribute("h", &intvaluestorage);
-		if(error != tinyxml2::XML_NO_ERROR)
+		if(error != tinyxml2::XML_SUCCESS)
 		{
 			printAttributeError(error, "h");
 			return false;

@@ -5,57 +5,43 @@
 #include <SFML/Graphics/RectangleShape.hpp>
 #include <SFML/Graphics/Drawable.hpp>
 
+#include <memory>
+
 #include "engine/coordinates.hpp"
+#include "gui/ng/signal.hpp"
+#include "gui/squaremarker.hpp"
+
+namespace sf
+{
+class Event;
+}
 
 namespace qrw
 {
-	class Board;
+class Board;
 
-	class Cursor : public sf::RectangleShape
-	{
-		public:
-			static Cursor* getCursor();
+class Cursor : public SquareMarker
+{
+public:
+	Cursor();
 
-			~Cursor();
+	~Cursor();
 
-			void setBoard(Board* _board);
+	void handleEvent(const sf::Event& event);
 
-			/**
-			 * Move the cursor or (if available) move child cursor.
-			 */
-			bool move(int dx, int dy);
-			bool setPosition(int x, int y);
-			bool setPosition(sf::Vector2i pos);
-			bool setPosition(Coordinates pos);
+	// signals
+	namelessgui::Signal<const Coordinates&> signalLeftClicked;
+	namelessgui::Signal<const Coordinates&> signalRightClicked;
 
-			const Coordinates& getPosition() const;
-
-			void setDimensions(float _dimensions);
-
-			Cursor* spawnChild();
-			Cursor* getChild() const;
-			void despawnChild();
-
-			/**
-			 * @argument position Position on the screen (pixles)
-			 * @argument size Size of the cursor on the screen in pixles.
-			 */
-			void draw(sf::RenderTarget &target, sf::RenderStates states) const;
-
-		private:
-			Cursor();
-
-			static Cursor* _cursor;
-			// Child cursor
-			Cursor* _child;
-
-			sf::Color _maincolor;
-			sf::Color _subcolor;
-
-			Coordinates _position;
-			float _dimensions;
-			Board* _board;
-	};
-}
+    /**
+     * @brief Signal emitted when the cursor moved to a new board position.
+     *
+     * First parameter are the new coordinates on the board.
+     * Second parameter is set to false when the cursor left the board and true if
+     * cursor is on the board.
+     */
+    namelessgui::Signal<const Coordinates&, bool> signalMoved;
+};
+} // namespace qrw
 
 #endif

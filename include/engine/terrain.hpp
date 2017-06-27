@@ -1,7 +1,10 @@
 #ifndef QRW_TERRAIN_HPP
 #define QRW_TERRAIN_HPP
 
+#include <memory>
+
 #include "engine/terraintypes.hpp"
+#include "engine/coordinates.hpp"
 
 namespace qrw
 {
@@ -14,18 +17,25 @@ namespace qrw
 	class Terrain
 	{
 		public:
-			Terrain(TERRAINTYPES _type, int attackmod, int defensemod);
+			typedef std::shared_ptr<Terrain> Ptr;
+			static Ptr createTerrain(TERRAINTYPES terrainType);
+
 			~Terrain();
 
-			inline int getModificator(MODIFICATORS type)
-				{ return _modificators[type]; };
-			inline int* getModificators()
-				{ return _modificators; }
-			inline TERRAINTYPES getType() { return _type; };
+			int getModificator(MODIFICATORS type);
+			int* getModificators();
+			TERRAINTYPES getType();
+
+			void setPosition(const Coordinates& position);
+			const Coordinates& getPosition() const;
 
 		private:
+			Terrain(TERRAINTYPES _type, int attackmod, int defensemod);
+
 			int _modificators[2];
 			TERRAINTYPES _type;
+
+			Coordinates _position;
 	};
 }
 

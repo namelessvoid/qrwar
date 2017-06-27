@@ -13,7 +13,7 @@ namespace namelessgui
 	class Button;
 	class ButtonGroup;
 	class RadioToggleButton;
-	class Label;
+	class Text;
 } // namespace namelessgui
 
 namespace qrw
@@ -26,8 +26,8 @@ namespace qrw
 	class DeployWindow : public namelessgui::Window
 	{
 		public:
-			DeployWindow(Engine* _engine, GuiHandler* guihandler,
-				IngameWindow* _ingamewindow);
+			DeployWindow(sf::RenderWindow* renderWindow, Engine* engine, GuiHandler* guihandler,
+				IngameWindow* ingamewindow);
 			~DeployWindow();
 
 			void update();
@@ -47,7 +47,7 @@ namespace qrw
 			namelessgui::ButtonGroup* _buttongroup;
 			namelessgui::Button* _startbutton;
 			sf::Font* _defaultfont;
-			namelessgui::Label* _title;
+			namelessgui::Text* _title;
 	};
 }
 #endif

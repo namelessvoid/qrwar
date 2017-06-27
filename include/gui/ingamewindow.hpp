@@ -10,7 +10,7 @@
 
 namespace namelessgui
 {
-class Label;
+class Text;
 class RectangularWidget;
 class Button;
 } // namespace namelessgui
@@ -23,7 +23,7 @@ namespace qrw
 	class IngameWindow : public namelessgui::Window
 	{
 		public:
-			IngameWindow(Engine* engine, GuiHandler* guihandler);
+			IngameWindow(sf::RenderWindow* renderWindow, Engine* engine, GuiHandler* guihandler);
 			~IngameWindow();
 
 			void update();
@@ -37,7 +37,7 @@ namespace qrw
 
 			// Widgets
 			namelessgui::Button* _endturnbutton;
-			namelessgui::Label* _playernamelabel;
+			namelessgui::Text* _playernamelabel;
 
 			// Sprites for unit information
 			namelessgui::RectangularWidget* _unitplainsquare;
@@ -53,12 +53,12 @@ namespace qrw
 
 			sf::Font* _defaultfont;
 
-			namelessgui::Label* _healthtext;
-			namelessgui::Label* _unitattacktext;
-			namelessgui::Label* _unitdefensetext;
-			namelessgui::Label* _unitmovementtext;
-			namelessgui::Label* _terrainattacktext;
-			namelessgui::Label* _terraindefensetext;
+			namelessgui::Text* _healthtext;
+			namelessgui::Text* _unitattacktext;
+			namelessgui::Text* _unitdefensetext;
+			namelessgui::Text* _unitmovementtext;
+			namelessgui::Text* _terrainattacktext;
+			namelessgui::Text* _terraindefensetext;
 
 			namelessgui::RectangularWidget* _unitimages[EUT_NUMBEROFUNITTYPES * 2];
 			namelessgui::RectangularWidget* _terrainimages[ET_NUMBEROFTERRAINTYPES];

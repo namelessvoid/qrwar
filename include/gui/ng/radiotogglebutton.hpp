@@ -2,31 +2,46 @@
 #define NAMELESSGUI_RADIOTOGGLEBUTTON_HPP value
 
 #include "gui/ng/button.hpp"
-#include "gui/ng/buttongroup.hpp"
+
+#include <memory>
 
 namespace namelessgui
 {
-	class RadioToggleButton : public Button
+
+// Foreward declarations
+class ButtonGroup;
+
+class RadioToggleButton : public Button
+{
+public:
+	typedef std::shared_ptr<RadioToggleButton> SharedPtr;
+
+	enum ERadioButtonStatus
 	{
-		public:
-			RadioToggleButton(sf::RenderWindow* _window, ButtonGroup* _buttongroup,
-				float width, float height,
-				std::string text = "",
-				const sf::Texture* textureactive = NULL,
-				const sf::Texture* textureinainactive = NULL,
-				const sf::Texture* texturehover = NULL);
-			~RadioToggleButton();
-
-			void draw(sf::RenderTarget& target,
-				sf::RenderStates states = sf::RenderStates::Default) const;
-
-		private:
-			// Overwritten slots
-			void clickedSlot();
-
-			// Button group
-			ButtonGroup* _buttongroup;
+		ERBS_INACTIVE,
+		ERBS_ACTIVE,
+		ERBS_HOVER,
+		ERBS_COUNT
 	};
-}
 
-#endif
+	RadioToggleButton(std::shared_ptr<ButtonGroup> spButtonGroup = nullptr, std::string id = "");
+	~RadioToggleButton();
+
+	void deactivate();
+
+	std::shared_ptr<ButtonGroup> getButtonGroup();
+
+	Signal<const RadioToggleButton&> signalActivated;
+
+private:
+	virtual void clickedSlot() override;
+	virtual void mouseEnteredSlot() override;
+	virtual void mouseLeftSlot() override;
+
+	bool _isActive;
+	std::shared_ptr<ButtonGroup> _spButtonGroup;
+};
+
+} // namespace namelessgui
+
+#endif // NAMELESSGUI_RADIOTOGGLEBUTTON_HPP

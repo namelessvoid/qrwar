@@ -1,8 +1,8 @@
 #ifndef QRW_PLAYER_HPP
 #define QRW_PLAYER_HPP
 
-#include <vector>
 #include <string>
+#include <memory>
 
 #include "engine/army.hpp"
 
@@ -11,6 +11,8 @@ namespace qrw
 	class Player
 	{
 		public:
+			typedef std::shared_ptr<Player> Ptr;
+
 			Player();
 			~Player();
 

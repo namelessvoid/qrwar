@@ -1,12 +1,12 @@
 #ifndef NAMELESSGUI_WIDGET_HPP
 #define NAMELESSGUI_WIDGET_HPP
 
-#include <SFML/Window/Window.hpp>
+#include <vector>
+
+#include <SFML/Graphics/RenderTarget.hpp>
 #include <SFML/Window/Event.hpp>
-#include <SFML/Graphics/Drawable.hpp>
 
 #include "gui/ng/signal.hpp"
-#include "gui/ng/singleparametersignal.hpp"
 
 namespace sf
 {
@@ -15,39 +15,82 @@ class RenderWindow;
 
 namespace namelessgui
 {
-    class Widget : public sf::Drawable
-    {
-        public:
-			Widget(sf::RenderWindow* _window, float width, float height);
-			Widget(sf::RenderWindow* _window, sf::Vector2f _size);
-            ~Widget();
+class Widget
+{
+	public:
+			/**
+			 * @brief Construct a new widget.
+			 * @param id The ID assigned to the widget which can be used to identify the widget.
+			 *           Defaults to empty string.
+			 */
+			Widget(std::string id = "");
 
-            void handleEvent(const sf::Event& event);
+			virtual ~Widget();
+
+			/**
+			 * @brief Get the ID of the widget (see constructor).
+			 * @return The ID of the widget or empty string if none was assigned.
+			 */
+			const std::string& getId() const;
+
+			void setParent(const Widget* parent);
+
+			void addWidget(Widget* widget);
+
+			/**
+			 * Handle an sfml event.
+			 *
+			 * @param event The event that is handled.
+			 * @return Whether the event propagation should be stopped or not.
+			 */
+			virtual bool handleEvent(const sf::Event& event);
 
             void setVisible(bool visibility = true);
+			bool isVisible();
+
+			bool hasMouseFocues() const;
+
+//			void setState(EWidgetStates _state);
+//			EWidgetStates getState() const;
 
             void disconnectAllSignals();
 
-			void setSize(sf::Vector2f _size);
-			sf::Vector2f getSize() const;
-
             virtual sf::FloatRect getGlobalBounds() = 0;
 
+			virtual void setSize(const sf::Vector2f& size) = 0;
+			virtual sf::Vector2f getSize() const = 0;
+
+			virtual sf::Vector2f getPosition() const = 0;
+			virtual void setPosition(const sf::Vector2f& position) = 0;
+
+			void setParentAnchor(const sf::Vector2f& anchor);
+			void setAnchor(const sf::Vector2f& anchor);
+
+			void setRelativePosition(const sf::Vector2f& relativePosition);
+			void updatePosition();
+
+			virtual void render(sf::RenderTarget&, sf::RenderStates = sf::RenderStates::Default) const;
+
             // Signals
-            Signal signalclicked;
-            Signal signalrightclicked;
-            Signal signalmouseentered;
-            Signal signalmouseleft;
-            Signal signalmousemoved;
-            Signal signalleftmousebuttonpressed;
-            SingleParameterSignal<const sf::Event&> signalkeypressed;
+			Signal<> signalclicked;
+			Signal<> signalrightclicked;
+			Signal<> signalmouseentered;
+			Signal<> signalmouseleft;
+			Signal<> signalmousemoved;
+			Signal<> signalleftmousebuttonpressed;
+			Signal<const sf::Event&> signalkeypressed;
 
         protected:
-            bool hasMouseFocus();
-			const sf::RenderWindow* _window;
+			const Widget* _parent;
 			bool _visible;
+			std::vector<Widget*> _children;
 
         private:
+			/**
+			 * @brief _id Used to identify a widget.
+			 */
+			std::string _id;
+
             /**
              * @brief Registeres when left mouse button is pressed.
              *
@@ -75,10 +118,11 @@ namespace namelessgui
              */
 			bool _mouseFocus;
 
-            /**
-             * Holds size of the widget.
-             */
-			sf::Vector2f _size;
+			sf::Vector2f _parentAnchor;
+
+			sf::Vector2f _anchor;
+
+			sf::Vector2f _relativePosition;
     };
 }
 #endif

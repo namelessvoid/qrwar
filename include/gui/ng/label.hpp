@@ -1,38 +1,37 @@
 #ifndef NAMELESSGUI_LABEL_HPP
 #define NAMELESSGUI_LABEL_HPP
 
-#include <SFML/Window/Window.hpp>
-#include <SFML/Graphics/RenderTarget.hpp>
-#include <SFML/Graphics/Text.hpp>
-#include <SFML/Graphics/Color.hpp>
-#include <SFML/System/String.hpp>
-
-
 #include "gui/ng/widget.hpp"
 
 namespace namelessgui
 {
-	class Label : public Widget
-	{
-		public:
-			Label(sf::RenderWindow* _window, float width = 0, float height = 0);
 
-			void draw(sf::RenderTarget& target, sf::RenderStates states) const;
+class Label : public Widget
+{
+public:
+    Label();
 
-			sf::FloatRect getGlobalBounds();
+    void setText(const std::string& text);
+    const std::string& getText() const;
 
-			void setFont(sf::Font& font);
+    void setImage(const sf::Texture* image);
 
-			void setColor(const sf::Color& color);
+    virtual sf::FloatRect getGlobalBounds() override;
 
-			void setCharacterSize(unsigned int _size);
+    virtual void setSize(const sf::Vector2f& size) override;
+    virtual sf::Vector2f getSize() const override;
 
-			void setText(const sf::String& _text);
+    virtual void setPosition(const sf::Vector2f& position) override;
+    virtual sf::Vector2f getPosition() const override;
 
-			void setPosition(float x, float y);
+private:
+    class Text* _text;
+    class RectangularWidget* _image;
 
-		private:
-			sf::Text _text;
-	};
-}
-#endif
+    sf::Vector2f _position;
+    sf::Vector2f _size;
+};
+
+} // namespace namelessgui
+
+#endif // NAMELESSGUI_LABEL_HPP

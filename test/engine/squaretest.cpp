@@ -34,11 +34,11 @@ class SquareTest : public CppUnit::TestFixture
 		void testIsAccessible()
 		{
 			qrw::Square square(0, 0);
-			qrw::Unit unit(qrw::EUT_SWORDMAN, 5, 2, 1, 0, 0, 0, nullptr);
+			qrw::Unit::Ptr unit = qrw::Unit::createUnit(qrw::EUT_SWORDMAN, nullptr, nullptr);
 
 			CPPUNIT_ASSERT(square.isAccessible() == true);
 
-			square.setUnit(&unit);
+			square.setUnit(unit);
 			CPPUNIT_ASSERT(square.isAccessible() == false);
 		}
 };

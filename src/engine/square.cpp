@@ -16,20 +16,27 @@ namespace qrw
 	Square::~Square()
 	{}
 
-	void Square::setTerrain(Terrain* terrain)
+	void Square::setTerrain(Terrain::Ptr terrain)
 	{
 		this->_terrain = terrain;
+
+		if(_terrain != nullptr)
+			_terrain->setPosition(getCoordinates());
 	}
-	Terrain* Square::getTerrain()
+
+	Terrain::Ptr Square::getTerrain()
 	{
 		return _terrain;
 	}
 
-	void Square::setUnit(Unit* unit)
+	void Square::setUnit(Unit::Ptr unit)
 	{
 		this->_unit = unit;
+		if(_unit != nullptr)
+			_unit->setPosition(getCoordinates());
 	}
-	Unit* Square::getUnit()
+
+	Unit::Ptr Square::getUnit()
 	{
 		return _unit;
 	}
