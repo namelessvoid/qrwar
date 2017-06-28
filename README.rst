@@ -16,15 +16,12 @@ The source comes with an CMake file and dependes on:
 
 - CMake
 - SFML_ (>= 2.0)
-- SFGUI_ (>= 0.2.0)
 - TinyXML_ (>= 2.0)
 - CppUnit_ (for unittesting only)
 
 Notes:
 
 Issues with Ubuntu and TinyXML2: Ubuntu provides a quite old tinyxml2 version through apt, so you have to build it manuall.
-
-Issues with Ubuntu and SFGUI: I ran into compiling errors ('looser throw specifier') when compiling SFGUI on Ubuntu. This may be caused by a bug in g++-4.7.3 and could be resolved by upgrading to g++-4.8. You can have a look at `this <https://github.com/namelessvoid/qrwar/blob/aa780eef5637fe3d4d8cd6a3c3bb148e3e9377af/.travis.yml#L6-L9>`_ to see how I did it.
 
 There are issues (at least on Linux Mint) when SFML 1.6 and 2.0 are installed at the same time. Altough requires(SFML 2.0) is set, it seems to find 1.6 first and make tries to link against the old library.
 
@@ -106,7 +103,6 @@ Third party resources
 
 .. Dependencies:
 .. _SFML: http://www.sfml-dev.org/
-.. _SFGUI: http://sfgui.sfml-dev.de/
 .. _CppUnit: http://sourceforge.net/projects/cppunit/
 .. _TinyXml: http://www.grinninglizard.com/tinyxml2/index.html
 
