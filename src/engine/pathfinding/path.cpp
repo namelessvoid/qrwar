@@ -47,4 +47,9 @@ namespace qrw
 	{
 		return getLength() - 1;
 	}
+
+	const Coordinates& Path::getTargetPosition() const
+	{
+		return steps.back()->getCoordinates();
+	}
 }

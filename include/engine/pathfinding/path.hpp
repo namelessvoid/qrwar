@@ -6,6 +6,7 @@
 namespace qrw
 {
 	class Square;
+	class Coordinates;
 
 	class Path
 	{
@@ -26,6 +27,8 @@ namespace qrw
 
 			int getLength();
 			int getMovementCosts();
+
+			const Coordinates& getTargetPosition() const;
 
 		private:
 			std::vector<Square*> steps;

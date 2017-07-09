@@ -94,6 +94,21 @@ void SkirmishState::slotCursorMoved(const Coordinates &boardPosition, bool isOnB
 
 void SkirmishState::moveUnit()
 {
+	if(!_selectedUnit) return;
+	if(!_path) return;
+
+	int pathCosts = _path->getMovementCosts();
+	if(pathCosts == 0) return;
+
+	int maxDistance = _selectedUnit->getCurrentMovement();
+	if(pathCosts > maxDistance) return;
+
+	int remainingMovement = maxDistance - pathCosts;
+	_selectedUnit->setCurrentMovement(remainingMovement);
+
+	_board->getSquare(_squareMarker->getBoardPosition())->setUnit(nullptr);
+	_board->getSquare(_path->getTargetPosition())->setUnit(_selectedUnit);
+
 	std::cout << "Move unit." << std::endl;
 }
 
