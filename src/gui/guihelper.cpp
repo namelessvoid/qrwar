@@ -5,11 +5,11 @@
 namespace qrw
 {
 
-const sf::Texture* GuiHelper::getUnitTexture(Unit::Ptr unit)
+const sf::Texture* GuiHelper::getUnitTexture(UNITTYPES type, Player::Ptr player)
 {
-    std::string textureName = "p" + std::to_string(unit->getPlayer()->getId());
+	std::string textureName = "p" + std::to_string(player->getId());
 
-    switch(unit->getType())
+	switch(type)
     {
     case EUT_SWORDMAN:
         textureName += "swordman";

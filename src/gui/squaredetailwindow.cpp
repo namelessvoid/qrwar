@@ -107,7 +107,7 @@ void SquareDetailWindow::setUnit(Unit::Ptr unit)
     if(unit)
     {
         _unitTitleLabel->setVisible(true);
-        _unitTitleLabel->setImage(GuiHelper::getUnitTexture(unit));
+		_unitTitleLabel->setImage(unit->getTexture());
         _unitTitleLabel->setText(GuiHelper::getUnitName(unit));
 
         _unitHealthLabel->setVisible(true);

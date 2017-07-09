@@ -179,9 +179,6 @@ void DeployState::slotCursorLeftClicked(const Coordinates& boardPosition)
 
 	Unit::Ptr unit = Unit::createUnit(_selectedUnitType, _selectedPlayer, _board);
 	_board->getSquare(boardPosition)->setUnit(unit);
-	UnitEntity::Ptr unitEntity = UnitEntity::createUnitEntity(unit, 32);
-
-	_scene->addUnitEntity(unitEntity);
 }
 
 } // namespace qrw

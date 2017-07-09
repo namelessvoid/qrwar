@@ -40,7 +40,6 @@ void Scene::setBoard(Board::Ptr board)
     // Initialize entities
     // First: Destroy old entities.
     _terrainEntities.clear();
-    _unitEntities.clear();
 
     // Second: Initialize new entities.
     Square* square;
@@ -53,10 +52,6 @@ void Scene::setBoard(Board::Ptr board)
             // Add terrain entities
             if(square->getTerrain() != nullptr)
                 addTerrainEntity(TerrainEntity::createTerrainEntity(square->getTerrain(), 32));
-
-            // Add unit enitity
-            if(square->getUnit() != nullptr)
-                addUnitEntity(UnitEntity::createUnitEntity(square->getUnit(), 32));
         }
     }
 }
@@ -70,8 +65,15 @@ void Scene::render()
 	for(auto entityIterator : _terrainEntities)
 		_renderTarget->draw(*(entityIterator.second));
 
-	for(auto unitIterator : _unitEntities)
-		_renderTarget->draw(*(unitIterator.second));
+	for(int w = 0; w < _board->getWidth(); ++w)
+	{
+		for(int h = 0; h < _board->getHeight(); ++h)
+		{
+			Unit::Ptr unit = _board->getSquare(w, h)->getUnit();
+			if(unit)
+				_renderTarget->draw(*unit.get());
+		}
+	}
 
 	_renderTarget->draw(_cursor, renderStates);
 }
@@ -102,11 +104,6 @@ void Scene::addTerrainEntity(TerrainEntity::Ptr terrainEntity)
 void Scene::removeTerrainEntityAt(const Coordinates& boardPosition)
 {
 	_terrainEntities.erase(boardPosition);
-}
-
-void Scene::addUnitEntity(UnitEntity::Ptr unitEntity)
-{
-    _unitEntities[unitEntity->getBoardPosition()] = unitEntity;
 }
 
 Coordinates Scene::getCursorPosition()

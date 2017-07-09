@@ -7,15 +7,22 @@
 #include "engine/player.hpp"
 #include "engine/pathfinding/path.hpp"
 
+#include "gui/guihelper.hpp"
+#include "gui/texturemanager.hpp"
+
 namespace qrw
 {
+
+const float Unit::_dimension = 32;
+
 std::string Unit::UNITNAMES[] =
 {
 	"Swordman", "Archer", "Spearman"
 };
 
 Unit::Unit(UNITTYPES type, int hp, int attack, int defense,
-			int range, int movement, Player::Ptr player, Board::Ptr board)
+			int range, int movement, Player::Ptr player, Board::Ptr board,
+			const sf::Texture* texture)
 :	_type(type),
 	_hp(hp),
 	_maxhp(hp),
@@ -27,18 +34,23 @@ Unit::Unit(UNITTYPES type, int hp, int attack, int defense,
 	_player(player),
 	_board(board)
 {
+	setSize(sf::Vector2f(_dimension, _dimension));
+
+	setTexture(texture);
 }
 
 Unit::Ptr Unit::createUnit(UNITTYPES unitType, Player::Ptr player, Board::Ptr board)
 {
+	const sf::Texture* texture = GuiHelper::getUnitTexture(unitType, player);
+
 	switch(unitType)
 	{
-		case EUT_SWORDMAN:
-			return Ptr(new Unit(EUT_SWORDMAN, 5, 2, 1, 1, 3, player, board));
-		case EUT_ARCHER:
-			return Ptr(new Unit(EUT_ARCHER, 5, 2, 1, 3, 2, player, board));
-		default:
-			return Ptr(new Unit(EUT_SPEARMAN, 5, 2, 1, 2, 2, player, board));
+	case EUT_SWORDMAN:
+		return Ptr(new Unit(EUT_SWORDMAN, 5, 2, 1, 1, 3, player, board, texture));
+	case EUT_ARCHER:
+		return Ptr(new Unit(EUT_ARCHER, 5, 2, 1, 3, 2, player, board, texture));
+	default:
+		return Ptr(new Unit(EUT_SPEARMAN, 5, 2, 1, 2, 2, player, board, texture));
 	}
 }
 
@@ -135,6 +147,7 @@ const Coordinates& Unit::getPosition() const
 void Unit::setPosition(const Coordinates& position)
 {
 	_position = position;
+	sf::RectangleShape::setPosition(sf::Vector2f(_dimension * _position.getX(), _dimension * _position.getY()));
 }
 
 void Unit::setCurrentMovement(int movement)
@@ -152,77 +165,9 @@ Square* Unit::getSquare() const
 	return _board->getSquare(_position);
 }
 
-void Unit::removeFromBoard()
-{
-	if(getSquare())
-		getSquare()->setUnit(nullptr);
-}
-
-Path* Unit::canMoveTo(const Coordinates& destination)
-{
-	if(!_player->isActive())
-		return nullptr;
-
-	if(getSquare()->getUnit())
-		return nullptr;
-
-	Path* path = _board->findPath(_position, destination);
-
-	if(path->getMovementCosts() > getCurrentMovement())
-	{
-		delete path;
-		return nullptr;
-	}
-
-	return path;
-}
-
-bool Unit::moveTo(const Coordinates& destination)
-{
-	Path* path = canMoveTo(destination);
-	if(!path)
-		return false;
-
-	Unit::Ptr sharedThis = getSquare()->getUnit();
-	getSquare()->setUnit(nullptr);
-
-	this->setPosition(destination);
-	getSquare()->setUnit(sharedThis);
-
-	this->setCurrentMovement(this->getCurrentMovement() - path->getMovementCosts());
-
-	delete path;
-
-	return true;
-}
-
-bool Unit::canAttack(Unit::Ptr const enemy)
-{
-	if(!_player->isActive())
-		return false;
-
-	if(! (this->getCurrentMovement() > 0))
-		return false;
-
-	if(enemy->getPlayer() == this->getPlayer())
-		return false;
-
-	int distance = getSquare()->getDistance(enemy->getSquare());
-	if(distance > this->getRange())
-		return false;
-
-	return true;
-}
-
 Unit::AttackResult Unit::attack(Unit::Ptr enemy)
 {
 	AttackResult attackResult;
-
-	if(!canAttack(enemy))
-	{
-		attackResult.attackPerformed = false;
-		return attackResult;
-	}
 
 	this->setCurrentMovement(0);
 
@@ -244,16 +189,8 @@ int Unit::doAttack(Unit::Ptr enemy)
 	damage = damage < 0 ? 0 : damage;
 
 	enemy->setHP(enemy->getHP() - damage);
-	if(enemy->getHP() == 0)
-		enemy->removeFromBoard();
 
 	return damage;
 }
 
-// void Unit::move(int distance)
-// {
-// 	currentmovement -= distance;
-// 	if(currentmovement == 0)
-// 		currentmovement = 0;
-// }
-}
+} // namespace qrw

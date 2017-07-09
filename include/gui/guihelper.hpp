@@ -17,14 +17,14 @@ namespace qrw
 class GuiHelper
 {
 public:
-    /**
-     * @brief Get texture of a Unit.
-     * @param unit Pointer to a Unit.
-     * @return Pointer to the Unit's texture.
-     */
-    static const sf::Texture* getUnitTexture(Unit::Ptr unit);
+	/**
+	 * @brief Get texture of a Unit.
+	 * @param unit Pointer to a Unit.
+	 * @return Pointer to the Unit's texture.
+	 */
+	static const sf::Texture* getUnitTexture(UNITTYPES type, Player::Ptr player);
 
-    /**
+	/**
      * @brief Get the name of a Unit.
      * @param unit Pointer to a Unit.
      * @return String containing the Unit's name.

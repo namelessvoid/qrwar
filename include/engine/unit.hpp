@@ -4,6 +4,8 @@
 #include <string>
 #include <memory>
 
+#include <SFML/Graphics/RectangleShape.hpp>
+
 #include "engine/unittypes.hpp"
 #include "engine/board.hpp"
 #include "engine/player.hpp"
@@ -13,7 +15,7 @@ namespace qrw
 {
 class Path;
 
-class Unit
+class Unit : public sf::RectangleShape
 {
 public:
 	/**
@@ -88,7 +90,7 @@ public:
 
 	void setPosition(const Coordinates& position);
 
-	static 	std::string UNITNAMES[EUT_NUMBEROFUNITTYPES];
+	static std::string UNITNAMES[EUT_NUMBEROFUNITTYPES];
 
 	/**
 	 * @brief Get the square on which Unit currently stands.
@@ -101,32 +103,6 @@ public:
 	 * @param square The new square.
 	 */
 	void setSquare(Square* _square);
-
-	/**
-	 * @brief Removes the unit from the board.
-	 */
-	void removeFromBoard();
-
-	/**
-	 * @brief Check if the unit can move to given destination Coordinates.
-	 * @param destination Coordinates of the destination.
-	 * @return Path that leads to destination or nullptr if destination is unreachable.
-	 */
-	Path* canMoveTo(const Coordinates& destination);
-
-	/**
-	 * @brief Move the unit to the given destination.
-	 * @param destination Coordinates of the destination.
-	 * @return True if movement was successful.
-	 */
-	bool moveTo(const Coordinates& destination);
-
-	/**
-	 * @brief Check if the Unit can attack the given enemy.
-	 * @param enemy Enemy Unit to be attacket
-	 * @return True if enemy Unit can be attacked.
-	 */
-	bool canAttack(Unit::Ptr const enemy);
 
 	/**
 	 * @brief Attack an enemy Unit which then counter attacks.
@@ -147,7 +123,8 @@ private:
 	 * @param board Reference to the board on which the unit should be placed.
 	 */
 	Unit(UNITTYPES type, int hp, int attack, int defense,
-		int range, int movement, Player::Ptr player, Board::Ptr board);
+		int range, int movement, Player::Ptr player, Board::Ptr board,
+		 const sf::Texture* texture);
 
 	/**
 	 * @brief Executes the actual attack of the Unit against the enemy.
@@ -165,6 +142,8 @@ private:
 	int _movement;
 	int _currentmovement;
 	Player::Ptr _player;
+
+	static const float _dimension;
 
 	Board::Ptr _board;
 //	Square* _square;
