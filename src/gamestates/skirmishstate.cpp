@@ -154,10 +154,8 @@ void SkirmishState::slotCursorLeftClicked(const Coordinates &boardPosition)
 
 bool SkirmishState::handleEvent(sf::Event& event)
 {
-	bool stopEventPropagation = SceneState::handleEvent(event);
-
-	if(stopEventPropagation)
-		return stopEventPropagation;
+	if(SceneState::handleEvent(event))
+		return true;
 
 	if(event.type == sf::Event::MouseButtonReleased)
 	{
@@ -168,7 +166,7 @@ bool SkirmishState::handleEvent(sf::Event& event)
 		}
 	}
 
-	return stopEventPropagation;
+	return false;
 }
 
 void SkirmishState::endTurn()
