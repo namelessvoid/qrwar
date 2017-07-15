@@ -108,7 +108,12 @@ void Scene::removeTerrainEntityAt(const Coordinates& boardPosition)
 
 Coordinates Scene::getCursorPosition()
 {
-    return _cursor.getBoardPosition();
+	return _cursor.getBoardPosition();
+}
+
+Cursor& Scene::getCursor()
+{
+	return _cursor;
 }
 
 

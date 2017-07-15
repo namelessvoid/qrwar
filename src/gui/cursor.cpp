@@ -53,7 +53,26 @@ void Cursor::handleEvent(const sf::Event& event)
 			signalLeftClicked.emit(_boardPosition);
 		else if(event.mouseButton.button == sf::Mouse::Button::Right)
 			signalRightClicked.emit(_boardPosition);
-    }
+	}
+}
+
+void Cursor::setFillColor(Cursor::Color color)
+{
+	sf::Color newColor;
+	switch(color)
+	{
+	case Color::ESC_DEFAULT:
+		newColor = sf::Color(218, 218, 0, 120);
+		break;
+	case Color::ESC_WARNING:
+		newColor = sf::Color(218, 100, 100, 120);
+		break;
+	case Color::ESC_DANGER:
+		newColor = sf::Color(218, 0, 0, 120);
+		break;
+	}
+
+	SquareMarker::setFillColor(newColor);
 }
 
 } // namespace qrwar

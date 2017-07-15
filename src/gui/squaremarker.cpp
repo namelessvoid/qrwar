@@ -7,11 +7,10 @@ namespace qrw
 
 SquareMarker::SquareMarker()
 	: sf::RectangleShape(),
-	  _color(218, 218, 0, 120),
 	  _boardPosition(0, 0),
 	  _visible(true)
 {
-	setFillColor(_color);
+	setFillColor(sf::Color(218, 218, 0, 120));
 	setSize({32.0f, 32.0f});
 }
 

@@ -86,7 +86,17 @@ void SkirmishState::slotCursorMoved(const Coordinates &boardPosition, bool isOnB
 	{
         _squareDetailWindow->setSquare(_board->getSquare(boardPosition));
 		if(_selectedUnit)
+		{
 			_path.reset(_board->findPath(_selectedUnit->getPosition(), boardPosition));
+
+			if(_path)
+			{
+				if(_path->getMovementCosts() > _selectedUnit->getCurrentMovement())
+					_scene->getCursor().setFillColor(Cursor::Color::ESC_WARNING);
+				else
+					_scene->getCursor().setFillColor(Cursor::Color::ESC_DEFAULT);
+			}
+		}
 	}
     else
         _squareDetailWindow->setSquare(nullptr);
@@ -109,8 +119,6 @@ void SkirmishState::moveUnit()
 	_board->getSquare(_squareMarker->getBoardPosition())->setUnit(nullptr);
 	_board->getSquare(_path->getTargetPosition())->setUnit(_selectedUnit);
 
-	deselectUnit();
-
 	std::cout << "Move unit." << std::endl;
 }
 
@@ -129,6 +137,7 @@ void SkirmishState::slotCursorLeftClicked(const Coordinates &boardPosition)
 	{
 		// Move unit
 		moveUnit();
+		deselectUnit();
 		return;
 	}
 
@@ -246,6 +255,7 @@ void SkirmishState::deselectUnit()
 {
 	_selectedUnit = nullptr;
 	_squareMarker->setVisible(false);
+	_scene->getCursor().setFillColor(Cursor::Color::ESC_DEFAULT);
 	_path.reset();
 }
 

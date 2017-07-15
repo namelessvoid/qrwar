@@ -23,6 +23,13 @@ class Board;
 class Cursor : public SquareMarker
 {
 public:
+	enum class Color
+	{
+		ESC_DEFAULT,
+		ESC_WARNING,
+		ESC_DANGER
+	};
+
 	Cursor();
 
 	~Cursor();
@@ -41,6 +48,8 @@ public:
      * cursor is on the board.
      */
     namelessgui::Signal<const Coordinates&, bool> signalMoved;
+
+	void setFillColor(Color color);
 };
 } // namespace qrw
 

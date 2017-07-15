@@ -46,6 +46,8 @@ public:
 
     Coordinates getCursorPosition();
 
+	Cursor& getCursor();
+
 private:
 	sf::RenderTarget* _renderTarget;
 
