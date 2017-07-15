@@ -109,6 +109,8 @@ void SkirmishState::moveUnit()
 	_board->getSquare(_squareMarker->getBoardPosition())->setUnit(nullptr);
 	_board->getSquare(_path->getTargetPosition())->setUnit(_selectedUnit);
 
+	deselectUnit();
+
 	std::cout << "Move unit." << std::endl;
 }
 
