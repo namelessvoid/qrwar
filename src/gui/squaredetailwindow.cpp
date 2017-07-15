@@ -38,6 +38,14 @@ SquareDetailWindow::SquareDetailWindow()
     _unitHealthLabel = label;
     addWidget(_unitHealthLabel);
 
+	label = new namelessgui::Label();
+	label->setSize({100, labelHeight});
+	label->setText("movement");
+	label->setImage(TextureManager::getInstance()->getTexture("movement"));
+	label->setRelativePosition({150, labelHeight});
+	_unitMovementLabel = label;
+	addWidget(_unitMovementLabel);
+
     label = new namelessgui::Label();
     label->setSize({100, labelHeight});
     label->setText("3");
@@ -50,7 +58,7 @@ SquareDetailWindow::SquareDetailWindow()
     label->setSize({100, labelHeight});
     label->setText("2");
     label->setImage(TextureManager::getInstance()->getTexture("defense"));
-    label->setRelativePosition({100, 2 * labelHeight});
+	label->setRelativePosition({150, 2 * labelHeight});
     _unitDefenseLabel = label;
     addWidget(_unitDefenseLabel);
 
@@ -111,7 +119,10 @@ void SquareDetailWindow::setUnit(Unit::Ptr unit)
         _unitTitleLabel->setText(GuiHelper::getUnitName(unit));
 
         _unitHealthLabel->setVisible(true);
-        _unitHealthLabel->setText(std::to_string(unit->getHP()) + "/" + std::to_string(unit->getMaxHp()) + "HP");
+		_unitHealthLabel->setText(std::to_string(unit->getHP()) + "/" + std::to_string(unit->getMaxHp()));
+
+		_unitMovementLabel->setVisible(true);
+		_unitMovementLabel->setText(std::to_string(unit->getCurrentMovement()) + "/" + std::to_string(unit->getMovement()));
 
         _unitAttackLabel->setVisible(true);
         _unitAttackLabel->setText(std::to_string(unit->getBaseAttack()));
@@ -123,6 +134,7 @@ void SquareDetailWindow::setUnit(Unit::Ptr unit)
     {
         _unitTitleLabel->setVisible(false);
         _unitHealthLabel->setVisible(false);
+		_unitMovementLabel->setVisible(false);
         _unitAttackLabel->setVisible(false);
         _unitDefenseLabel->setVisible(false);
     }

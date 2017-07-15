@@ -32,6 +32,7 @@ private:
 
     namelessgui::Label* _unitTitleLabel;
     namelessgui::Label* _unitHealthLabel;
+	namelessgui::Label* _unitMovementLabel;
     namelessgui::Label* _unitAttackLabel;
     namelessgui::Label* _unitDefenseLabel;
 
