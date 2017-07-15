@@ -138,6 +138,7 @@ void SkirmishState::slotCursorLeftClicked(const Coordinates &boardPosition)
 		// Move unit
 		moveUnit();
 		deselectUnit();
+		_squareDetailWindow->setSquare(squareUnderCursor);
 		return;
 	}
 
