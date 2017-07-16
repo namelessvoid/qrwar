@@ -127,6 +127,19 @@ void SkirmishState::performAttack()
 	std::cout << "Attack unit." << std::endl;
 }
 
+void SkirmishState::replenishTroops()
+{
+	for(int w = 0; w < _board->getWidth(); ++w)
+	{
+		for(int h = 0; h < _board->getHeight(); ++h)
+		{
+			auto unit = _board->getSquare(Coordinates(w, h))->getUnit();
+			if(unit)
+				unit->setCurrentMovement(unit->getMovement());
+		}
+	}
+}
+
 void SkirmishState::slotCursorLeftClicked(const Coordinates &boardPosition)
 {
 	// Case 1: Unit is selected and instructed to attack enemy unit
@@ -185,6 +198,7 @@ void SkirmishState::endTurn()
 	_playerNameText->setText(_players[_currentPlayer]->getName());
 
 	deselectUnit();
+	replenishTroops();
 }
 
 void SkirmishState::drawPath()

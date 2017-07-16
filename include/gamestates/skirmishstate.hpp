@@ -46,6 +46,8 @@ private:
 
 	void performAttack();
 
+	void replenishTroops();
+
     std::vector<Player::Ptr> _players;
 	int _currentPlayer;
 	namelessgui::Text* _playerNameText;
