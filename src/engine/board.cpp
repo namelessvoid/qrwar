@@ -117,11 +117,6 @@ namespace qrw
 		return true;
 	}
 
-	bool Board::isAccessible(const Coordinates& coordinates)
-	{
-		return getSquare(coordinates)->getUnit() == nullptr;
-	}
-
 	Path* Board::findPath(const Coordinates &start, const Coordinates &end)
 	{
 		return _pathfinder->findPath(start, end);

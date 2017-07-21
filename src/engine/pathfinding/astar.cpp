@@ -75,7 +75,7 @@ namespace qrw
 				// If the sqare is accessible but was not added to closedlist yet
 				if(_closedlist.find(tmpcoords) == _closedlist.end()
 					&& _board->isOnBoard(*tmpcoords)
-					&& _board->isAccessible(*tmpcoords))
+					&& !_board->isUnitAt(*tmpcoords))
 				{
 					// Coordinates are not put into openlist
 					if(_openlist.find(tmpcoords) == _openlist.end())

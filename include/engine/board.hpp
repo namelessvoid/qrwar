@@ -38,8 +38,6 @@ namespace qrw
 
 			bool isOnBoard(Coordinates coordinates);
 
-			bool isAccessible(const Coordinates& coordinates);
-
 			/**
 			 * @brief Call pathfinding algorithm to find path from start to end.
 			 * @param start Coordinates of the start.
