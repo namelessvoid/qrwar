@@ -13,6 +13,7 @@ namespace qrw
 	class Coordinates;
 	class Square;
 	class Unit;
+	class Terrain;
 
 	class Board
 	{
@@ -22,16 +23,18 @@ namespace qrw
 			Board(int width, int height);
 			~Board();
 
-			Square* getSquare(int x, int y);
-			Square* getSquare(sf::Vector2i pos);
-			Square* getSquare(const Coordinates& coordinates);
-
 			void setUnit(const Coordinates& position, std::shared_ptr<Unit>& unit);
 			void removeUnit(const Coordinates& position);
 			void moveUnit(const Coordinates& source, const Coordinates& destination);
 			bool isUnitAt(const Coordinates& position);
 			std::shared_ptr<Unit> getUnit(const Coordinates& position);
 			const std::map<Coordinates, std::shared_ptr<Unit>>& getUnits() const;
+
+			void setTerrain(const Coordinates& position, std::shared_ptr<Terrain>& terrain);
+			void removeTerrain(const Coordinates& position);
+			bool isTerrainAt(const Coordinates& position);
+			std::shared_ptr<Terrain> getTerrain(const Coordinates& position);
+			const std::map<Coordinates, std::shared_ptr<Terrain> > &getTerrains() const;
 
 			int getWidth();
 			int getHeight();
@@ -47,9 +50,8 @@ namespace qrw
 			Path* findPath(const Coordinates& start, const Coordinates& end);
 
 		private:
-			Square** _squares;
-
 			std::map<Coordinates, std::shared_ptr<Unit>> _units;
+			std::map<Coordinates, std::shared_ptr<Terrain>> _terrains;
 
 			int _width;
 			int _height;

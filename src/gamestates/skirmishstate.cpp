@@ -62,7 +62,7 @@ void SkirmishState::init(GameState *previousState)
     // Initialize square detail window.
     Coordinates cursorPosition = _scene->getCursorPosition();
 	Unit::Ptr unit = _board->getUnit(cursorPosition);
-	Terrain::Ptr terrain = _board->getSquare(cursorPosition)->getTerrain();
+	Terrain::Ptr terrain = _board->getTerrain(cursorPosition);
 	_squareDetailWindow->setUnitAndTerrain(unit, terrain);
 }
 
@@ -86,7 +86,7 @@ void SkirmishState::slotCursorMoved(const Coordinates &boardPosition, bool isOnB
     if(isOnBoard)
 	{
 		Unit::Ptr unitUnderCursor = _board->getUnit(boardPosition);
-		Terrain::Ptr terrainUnderCursor = _board->getSquare(boardPosition)->getTerrain();
+		Terrain::Ptr terrainUnderCursor = _board->getTerrain(boardPosition);
 		_squareDetailWindow->setUnitAndTerrain(unitUnderCursor, terrainUnderCursor);
 
 		if(_selectedUnit)
@@ -120,8 +120,8 @@ void SkirmishState::moveUnit()
 	int remainingMovement = maxDistance - pathCosts;
 	_selectedUnit->setCurrentMovement(remainingMovement);
 
-	_board->moveUnit(_squareMarker->getBoardPosition(), _path->getTargetPosition());
-	_selectedUnit->setPosition(_path->getTargetPosition());
+	_board->moveUnit(_squareMarker->getBoardPosition(), _path->getTarget());
+	_selectedUnit->setPosition(_path->getTarget());
 
 	std::cout << "Move unit." << std::endl;
 }
@@ -133,21 +133,18 @@ void SkirmishState::performAttack()
 
 void SkirmishState::replenishTroops()
 {
-	for(int w = 0; w < _board->getWidth(); ++w)
+	Unit* unit;
+	for(auto unitIter : _board->getUnits())
 	{
-		for(int h = 0; h < _board->getHeight(); ++h)
-		{
-			auto unit = _board->getSquare(Coordinates(w, h))->getUnit();
-			if(unit)
-				unit->setCurrentMovement(unit->getMovement());
-		}
+		unit = unitIter.second.get();
+		unit->setCurrentMovement(unit->getMovement());
 	}
 }
 
 void SkirmishState::slotCursorLeftClicked(const Coordinates &boardPosition)
 {
 	Unit::Ptr unitUnderCursor = _board->getUnit(boardPosition);
-	Terrain::Ptr terrainUnderCursor = _board->getSquare(boardPosition)->getTerrain();
+	Terrain::Ptr terrainUnderCursor = _board->getTerrain(boardPosition);
 
 	_squareDetailWindow->setUnitAndTerrain(unitUnderCursor, terrainUnderCursor);
 
@@ -214,9 +211,9 @@ void SkirmishState::drawPath()
 
 	const int pathLength = _path->getLength();
 
-	Square* previous = 0;
-	Square* current  = _path->getStep(0);
-	Square* next     = _path->getStep(1);
+	const Coordinates* previous = nullptr;
+	const Coordinates* current  = &_path->getStep(0);
+	const Coordinates* next     = &_path->getStep(1);
 
 	sf::Sprite footstep = sf::Sprite(*TextureManager::getInstance()->getTexture("footstep"));
 
@@ -232,7 +229,7 @@ void SkirmishState::drawPath()
 		footstep.setRotation(0);
 
 		// Transformations relative to the previous step
-		Coordinates prevDelta(previous->getCoordinates() - current->getCoordinates());
+		Coordinates prevDelta(*previous - *current);
 		if(prevDelta.getX() != 0)
 			footstep.rotate(-90 * prevDelta.getX());
 		if(prevDelta.getY() != 0)
@@ -241,9 +238,9 @@ void SkirmishState::drawPath()
 		// Transformations relative to the next step (if possible)
 		if(i < pathLength - 1)
 		{
-			next = _path->getStep(i+1);
+			next = &_path->getStep(i+1);
 
-			Coordinates prevNextDelta(previous->getCoordinates() - next->getCoordinates());
+			Coordinates prevNextDelta(*previous - *next);
 
 			// If the path has a corner at this position
 			if(prevNextDelta.getX() != 0 && prevNextDelta.getY() != 0)
@@ -264,8 +261,8 @@ void SkirmishState::drawPath()
 		}
 
 		footstep.setPosition(
-			32 * (0.5f + current->getXPosition()),
-			32 * (0.5f + current->getYPosition())
+			32 * (0.5f + current->getX()),
+			32 * (0.5f + current->getY())
 		);
 
 		_renderWindow->draw(footstep);

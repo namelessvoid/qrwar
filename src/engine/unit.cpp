@@ -81,8 +81,8 @@ int Unit::getModifiedAttack()
 {
 	int modifiedAttack = getBaseAttack();
 
-	if(getSquare()->getTerrain())
-		modifiedAttack += getSquare()->getTerrain()->getModificator(EM_ATTACK);
+	if(_board->isTerrainAt(getPosition()))
+		modifiedAttack += _board->getTerrain(getPosition())->getModificator(EM_ATTACK);
 
 	return modifiedAttack < 0 ? 0 : modifiedAttack;
 }
@@ -96,8 +96,8 @@ int Unit::getModifiedDefense()
 {
 	int modifiedDefense = getBaseDefense();
 
-	if(getSquare()->getTerrain())
-		modifiedDefense += getSquare()->getTerrain()->getModificator(EM_DEFENSE);
+	if(_board->isTerrainAt(getPosition()))
+		modifiedDefense += _board->getTerrain(getPosition())->getModificator(EM_DEFENSE);
 
 	return modifiedDefense < 0 ? 0 : modifiedDefense;
 }
@@ -160,11 +160,6 @@ void Unit::setCurrentMovement(int movement)
 		_currentmovement = movement;
 }
 
-Square* Unit::getSquare() const
-{
-	return _board->getSquare(_position);
-}
-
 Unit::AttackResult Unit::attack(Unit::Ptr enemy)
 {
 	AttackResult attackResult;
@@ -174,7 +169,7 @@ Unit::AttackResult Unit::attack(Unit::Ptr enemy)
 	// Attack and counter attack
 	attackResult.defenderHPDelta = this->doAttack(enemy);
 												// Hacky access to shared ptr of this
-	attackResult.attackerHPDelta = enemy->doAttack(getSquare()->getUnit());
+	attackResult.attackerHPDelta = enemy->doAttack(_board->getUnit(getPosition()));
 
 	attackResult.attackPerformed = true;
 	return attackResult;

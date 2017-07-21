@@ -1,5 +1,7 @@
 #include "engine/pathfinding/astar.hpp"
 
+#include <cmath>
+
 #include "engine/board.hpp"
 #include "engine/square.hpp"
 #include "engine/unit.hpp"
@@ -51,7 +53,7 @@ namespace qrw
 		Coordinates* tmpcoords = 0;
 
 		currentnode->setG(0);
-		currentnode->setH(_board->getSquare(*currentcoords)->getDistance(_board->getSquare(end)));
+		currentnode->setH(getDistance(*currentcoords, end));
 
 		_nodemap[currentcoords] = currentnode;
 		_openlist.insert(currentcoords);
@@ -82,7 +84,7 @@ namespace qrw
 					{
 						tmpnode = new Node(*tmpcoords);
 						tmpnode->setG(currentnode->getG() + 1);
-						tmpnode->setH(_board->getSquare(*tmpcoords)->getDistance(_board->getSquare(end)));
+						tmpnode->setH(getDistance(*tmpcoords, end));
 						tmpnode->setParent(currentnode);
 
 						_nodemap[tmpcoords] = tmpnode;
@@ -114,9 +116,9 @@ namespace qrw
 			currentnode->getParent() != 0;
 			currentnode = currentnode->getParent())
 		{
-			path->prependStep(_board->getSquare(*currentnode));
+			path->prependStep(*currentnode);
 		}
-		path->prependStep(_board->getSquare(start));
+		path->prependStep(start);
 
 		// Cleanup and return.
 		delete endcoords;
@@ -146,6 +148,13 @@ namespace qrw
 		}
 
 		return lowestcoordinate;
+	}
+
+	int AStar::getDistance(const Coordinates &a, const Coordinates &b)
+	{
+		int dx = std::abs(a.getX()) - std::abs(b.getX());
+		int dy = std::abs(a.getY()) - std::abs(b.getY());
+		return ceilf(sqrt(dx * dx + dy * dy));
 	}
 
 

@@ -23,19 +23,19 @@ namespace qrw
 		return steps.end();
 	};
 
-	Square* Path::getStep(int n) const
+	const Coordinates &Path::getStep(int n) const
 	{
 		return steps.at(n);
 	}
 
-	void Path::prependStep(Square* square)
+	void Path::prependStep(const Coordinates& position)
 	{
-		steps.insert(steps.begin(), square);
+		steps.insert(steps.begin(), position);
 	}
 
-	void Path::appendStep(Square* square)
+	void Path::appendStep(const Coordinates& position)
 	{
-		steps.push_back(square);
+		steps.push_back(position);
 	};
 
 	int Path::getLength()
@@ -48,8 +48,8 @@ namespace qrw
 		return getLength() - 1;
 	}
 
-	const Coordinates& Path::getTargetPosition() const
+	const Coordinates& Path::getTarget() const
 	{
-		return steps.back()->getCoordinates();
+		return steps.back();
 	}
 }

@@ -105,11 +105,9 @@ Board::Ptr MapEditorState::getBoard() const
 void MapEditorState::slotCursorLeftClicked(const Coordinates& boardPosition)
 {
     // Erase terrain
-    if(_eraseMode)
+	if(_eraseMode && _spBoard->isTerrainAt(boardPosition))
     {
-        Terrain::Ptr terrain = _spBoard->getSquare(boardPosition)->getTerrain();
-        _spBoard->getSquare(boardPosition)->setTerrain(nullptr);
-        _scene->removeTerrainEntityAt(boardPosition);
+		_spBoard->removeTerrain(boardPosition);
     }
     // Place terrain
     else
@@ -121,16 +119,17 @@ void MapEditorState::slotCursorLeftClicked(const Coordinates& boardPosition)
         Terrain::Ptr terrain = Terrain::createTerrain(_activeTerrainType);
         if(terrain != nullptr)
         {
-            _spBoard->getSquare(boardPosition)->setTerrain(terrain);
-            _scene->addTerrainEntity(TerrainEntity::createTerrainEntity(terrain, 32));
+			if(_spBoard->isTerrainAt(boardPosition))
+				_spBoard->removeTerrain(boardPosition);
+			_spBoard->setTerrain(boardPosition, terrain);
         }
     }
 }
 
 void MapEditorState::slotCursorRightClicked(const Coordinates& boardPosition)
 {
-	_spBoard->getSquare(boardPosition)->setTerrain(nullptr);
-	_scene->removeTerrainEntityAt(boardPosition);
+	if(_spBoard->isTerrainAt(boardPosition))
+		_spBoard->removeTerrain(boardPosition);
 }
 
 void MapEditorState::slotTerrainButtonChanged(const namelessgui::RadioToggleButton& activeTerrainButton)

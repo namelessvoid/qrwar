@@ -36,24 +36,6 @@ void Scene::setBoard(Board::Ptr board)
     _cursor.signalLeftClicked.connect(std::bind(&namelessgui::Signal<Coordinates>::emit, &signalCursorLeftClicked, std::placeholders::_1));
     _cursor.signalRightClicked.connect(std::bind(&namelessgui::Signal<Coordinates>::emit, &signalCursorRightClicked, std::placeholders::_1));
     _cursor.signalMoved.connect(std::bind(&namelessgui::Signal<Coordinates,bool>::emit, &signalCursorMoved, std::placeholders::_1, std::placeholders::_2));
-
-    // Initialize entities
-    // First: Destroy old entities.
-    _terrainEntities.clear();
-
-    // Second: Initialize new entities.
-    Square* square;
-    for(int r = 0; r < _board->getHeight(); ++r)
-    {
-        for(int c = 0; c < _board->getWidth(); ++c)
-        {
-            square = _board->getSquare(c, r);
-
-            // Add terrain entities
-            if(square->getTerrain() != nullptr)
-                addTerrainEntity(TerrainEntity::createTerrainEntity(square->getTerrain(), 32));
-        }
-    }
 }
 
 void Scene::render()

@@ -11,22 +11,6 @@ namespace qrw
 	:	_width(width),
 	  _height(height)
 	{
-		int arraysize = height * width;
-		_squares = new Square*[arraysize];
-
-		for(int i = 0; i < width; ++i)
-			for(int j = 0; j < height; ++j)
-				_squares[j * width + i] = new Square(i, j);
-		// squares = new Square[arraysize];
-		// printf("Array size (height*widht): %i\n", arraysize);
-		// printf("array pointer: %i", squares);
-		// for(int i = 0; i < arraysize; ++i)
-		// {
-		// 	squares[i] = new Square();
-		// 	printf("current i: %i", i);
-		// 	printf(" with pointer: %i\n", squares[i]);
-		// }
-
 		// Initialize pathfinding
 		_pathfinder = new AStar;
 		_pathfinder->setBoard(this);
@@ -34,30 +18,9 @@ namespace qrw
 
 	Board::~Board()
 	{
-		for(int i = 0; i < _height*_width; ++i)
-			delete _squares[i];
-		delete[] _squares;
+		_units.clear();
+		_terrains.clear();
 		delete _pathfinder;
-	}
-
-	/*
-	 * Returns 0 if indexes are out of range.
-	 */
-	Square* Board::getSquare(int x, int y)
-	{
-		if(!isOnBoard({x, y}))
-			return nullptr;
-		return _squares[x+y*_width];
-	}
-
-	Square* Board::getSquare(sf::Vector2i pos)
-	{
-		return getSquare(pos.x, pos.y);
-	}
-
-	Square* Board::getSquare(const Coordinates& coordinates)
-	{
-		return getSquare(coordinates.getX(), coordinates.getY());
 	}
 
 	void Board::setUnit(const Coordinates &position, std::shared_ptr<Unit>& unit)
@@ -96,6 +59,29 @@ namespace qrw
 	const std::map<Coordinates, std::shared_ptr<Unit> > &Board::getUnits() const
 	{
 		return _units;
+	}
+
+	void Board::setTerrain(const Coordinates &position, std::shared_ptr<Terrain> &terrain)
+	{
+		assert(!isTerrainAt(position));
+		_terrains[position] = terrain;
+	}
+
+	void Board::removeTerrain(const Coordinates &position)
+	{
+		assert(isTerrainAt(position));
+		_terrains.erase(position);
+	}
+
+	bool Board::isTerrainAt(const Coordinates &position)
+	{
+		return _terrains.find(position) != _terrains.end();
+	}
+
+	std::shared_ptr<Terrain> Board::getTerrain(const Coordinates &position)
+	{
+		auto iterator = _terrains.find(position);
+		return iterator == _terrains.end() ? nullptr : iterator->second;
 	}
 
 	int Board::getWidth()

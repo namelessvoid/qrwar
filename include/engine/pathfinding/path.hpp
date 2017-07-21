@@ -11,8 +11,8 @@ namespace qrw
 	class Path
 	{
 		public:
-			typedef std::vector<Square*>::iterator iterator;
-			typedef std::vector<Square*>::const_iterator const_iterator;
+			typedef std::vector<Coordinates>::iterator iterator;
+			typedef std::vector<Coordinates>::const_iterator const_iterator;
 
 			iterator begin();
 			const_iterator begin() const;
@@ -20,18 +20,18 @@ namespace qrw
 			iterator end();
 			const_iterator end() const;
 
-			Square* getStep(int n) const;
+			const Coordinates& getStep(int n) const;
 
-			void prependStep(Square* square);
-			void appendStep(Square* square);
+			void prependStep(const Coordinates& position);
+			void appendStep(const Coordinates& position);
 
 			int getLength();
 			int getMovementCosts();
 
-			const Coordinates& getTargetPosition() const;
+			const Coordinates& getTarget() const;
 
 		private:
-			std::vector<Square*> steps;
+			std::vector<Coordinates> steps;
 	};
 }
 

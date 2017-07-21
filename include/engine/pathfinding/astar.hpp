@@ -22,6 +22,8 @@ namespace qrw
 
 		private:
 			Coordinates* findLowestFCoordinates();
+			int getDistance(const Coordinates& a, const Coordinates& b);
+
 			void clear();
 
 			Board* _board;
