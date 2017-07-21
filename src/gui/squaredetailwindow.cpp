@@ -135,7 +135,7 @@ void SquareDetailWindow::setTerrain(Terrain::Ptr terrain)
 	if(terrain != nullptr)
     {
         _terrainTitleLabel->setVisible(true);
-        _terrainTitleLabel->setImage(GuiHelper::getTerrainTexture(terrain));
+		_terrainTitleLabel->setImage(GuiHelper::getTerrainTexture(terrain->getType()));
         _terrainTitleLabel->setText(GuiHelper::getTerrainName(terrain));
 
         _terrainAttackLabel->setVisible(true);

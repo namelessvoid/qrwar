@@ -36,7 +36,7 @@ public:
      * @param terrain Pointer to a Terrain.
      * @return Pointer to the Terrain's texture.
      */
-    static const sf::Texture* getTerrainTexture(Terrain::Ptr terrain);
+	static const sf::Texture* getTerrainTexture(TERRAINTYPES terrainType);
 
     /**
      * @brief Get the name of a Terrain.

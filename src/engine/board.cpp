@@ -84,6 +84,11 @@ namespace qrw
 		return iterator == _terrains.end() ? nullptr : iterator->second;
 	}
 
+	const std::map<Coordinates, std::shared_ptr<Terrain> > &Board::getTerrains() const
+	{
+		return _terrains;
+	}
+
 	int Board::getWidth()
 	{
 		return _width;

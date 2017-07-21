@@ -44,8 +44,8 @@ void Scene::render()
 
 	_renderTarget->draw(_background, renderStates);
 
-	for(auto entityIterator : _terrainEntities)
-		_renderTarget->draw(*(entityIterator.second));
+	for(auto entityIterator : _board->getTerrains())
+		_renderTarget->draw(*entityIterator.second);
 
 	for(auto unitIterator : _board->getUnits())
 		_renderTarget->draw(*unitIterator.second);
@@ -69,16 +69,6 @@ void Scene::handleEvent(const sf::Event& event)
 
 	// Propagate events
     _cursor.handleEvent(adjustedEvent);
-}
-
-void Scene::addTerrainEntity(TerrainEntity::Ptr terrainEntity)
-{
-	_terrainEntities[terrainEntity->getBoardPosition()] = terrainEntity;
-}
-
-void Scene::removeTerrainEntityAt(const Coordinates& boardPosition)
-{
-	_terrainEntities.erase(boardPosition);
 }
 
 Coordinates Scene::getCursorPosition()

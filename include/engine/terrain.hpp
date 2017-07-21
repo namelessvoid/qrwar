@@ -3,6 +3,8 @@
 
 #include <memory>
 
+#include <SFML/Graphics/RectangleShape.hpp>
+
 #include "engine/terraintypes.hpp"
 #include "engine/coordinates.hpp"
 
@@ -14,7 +16,7 @@ namespace qrw
 		EM_DEFENSE
 	};
 
-	class Terrain
+	class Terrain : public sf::RectangleShape
 	{
 		public:
 			typedef std::shared_ptr<Terrain> Ptr;
@@ -30,7 +32,7 @@ namespace qrw
 			const Coordinates& getPosition() const;
 
 		private:
-			Terrain(TERRAINTYPES _type, int attackmod, int defensemod);
+			Terrain(TERRAINTYPES _type, int attackmod, int defensemod, const sf::Texture* texture);
 
 			int _modificators[2];
 			TERRAINTYPES _type;

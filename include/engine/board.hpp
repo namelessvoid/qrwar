@@ -34,7 +34,7 @@ namespace qrw
 			void removeTerrain(const Coordinates& position);
 			bool isTerrainAt(const Coordinates& position);
 			std::shared_ptr<Terrain> getTerrain(const Coordinates& position);
-			const std::map<Coordinates, std::shared_ptr<Terrain> > &getTerrains() const;
+			const std::map<Coordinates, std::shared_ptr<Terrain>>& getTerrains() const;
 
 			int getWidth();
 			int getHeight();

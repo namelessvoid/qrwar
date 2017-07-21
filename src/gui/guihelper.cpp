@@ -45,9 +45,9 @@ std::string GuiHelper::getUnitName(Unit::Ptr unit)
     }
 }
 
-const sf::Texture *GuiHelper::getTerrainTexture(Terrain::Ptr terrain)
+const sf::Texture *GuiHelper::getTerrainTexture(TERRAINTYPES terrainType)
 {
-    switch(terrain->getType())
+	switch(terrainType)
     {
     case ET_WOOD:
         return TextureManager::getInstance()->getTexture("wood");

@@ -11,7 +11,6 @@
 #include "engine/coordinates.hpp"
 
 #include "gui/cursor.hpp"
-#include "gui/terrainentity.hpp"
 #include "gui/ng/signal.hpp"
 
 // Foreward declarations
@@ -41,9 +40,6 @@ public:
 	namelessgui::Signal<Coordinates> signalCursorRightClicked;
     namelessgui::Signal<Coordinates, bool> signalCursorMoved;
 
-	void addTerrainEntity(TerrainEntity::Ptr terrainEntity);
-	void removeTerrainEntityAt(const Coordinates& boardPosition);
-
     Coordinates getCursorPosition();
 
 	Cursor& getCursor();
@@ -55,8 +51,6 @@ private:
 
 	sf::RectangleShape _background;
 	Cursor _cursor;
-
-	std::map<const Coordinates, TerrainEntity::Ptr> _terrainEntities;
 };
 
 } // namespace qrw

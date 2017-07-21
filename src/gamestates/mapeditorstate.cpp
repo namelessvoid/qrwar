@@ -122,6 +122,7 @@ void MapEditorState::slotCursorLeftClicked(const Coordinates& boardPosition)
 			if(_spBoard->isTerrainAt(boardPosition))
 				_spBoard->removeTerrain(boardPosition);
 			_spBoard->setTerrain(boardPosition, terrain);
+			terrain->setPosition(boardPosition);
         }
     }
 }

@@ -12,7 +12,6 @@
 #include "gui/ng/radiotogglebutton.hpp"
 
 #include "gui/cursor.hpp"
-#include "gui/terrainentity.hpp"
 
 #include "engine/board.hpp"
 
