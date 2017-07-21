@@ -47,9 +47,9 @@ Unit::Ptr Unit::createUnit(UNITTYPES unitType, Player::Ptr player, Board::Ptr bo
 	case EUT_SWORDMAN:
 		return Ptr(new Unit(EUT_SWORDMAN, 5, 2, 1, 1, 3, player, board, texture));
 	case EUT_ARCHER:
-		return Ptr(new Unit(EUT_ARCHER, 5, 2, 1, 3, 2, player, board, texture));
+		return Ptr(new Unit(EUT_ARCHER, 5, 2, 1, 2, 2, player, board, texture));
 	default:
-		return Ptr(new Unit(EUT_SPEARMAN, 5, 2, 1, 2, 2, player, board, texture));
+		return Ptr(new Unit(EUT_SPEARMAN, 5, 2, 1, 1, 2, player, board, texture));
 	}
 }
 
