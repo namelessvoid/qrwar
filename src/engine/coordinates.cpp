@@ -19,16 +19,6 @@ namespace qrw
 		return _y;
 	}
 
-	void Coordinates::setX(int x)
-	{
-		_x = x;
-	}
-
-	void Coordinates::setY(int y)
-	{
-		_y = y;
-	}
-
 	bool Coordinates::operator==(const Coordinates& rhs) const
 	{
 		return getX() == rhs.getX() && getY() == rhs.getY();
@@ -56,7 +46,7 @@ namespace qrw
 		return Coordinates(getX() - rhs.getX(), getY() - rhs.getY());
 	}
 
-	int Coordinates::distanceTo(const Coordinates& b)
+	int Coordinates::distanceTo(const Coordinates& b) const
 	{
 			int dx = std::abs(getX()) - std::abs(b.getX());
 			int dy = std::abs(getY()) - std::abs(b.getY());
