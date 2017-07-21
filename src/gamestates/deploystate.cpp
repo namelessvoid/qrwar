@@ -185,4 +185,10 @@ void DeployState::slotCursorLeftClicked(const Coordinates& boardPosition)
 	unit->setPosition(boardPosition);
 }
 
+void DeployState::slotCursorRightClicked(const Coordinates &boardPosition)
+{
+	if(_board->isUnitAt(boardPosition))
+		_board->removeUnit(boardPosition);
+}
+
 } // namespace qrw

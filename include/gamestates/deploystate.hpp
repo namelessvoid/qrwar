@@ -45,6 +45,7 @@ private:
     void slotToSkirmishButtonClicked();
 
     virtual void slotCursorLeftClicked(const Coordinates& boardPosition) override;
+	virtual void slotCursorRightClicked(const Coordinates& boardPosition) override;
 
 	Board::Ptr _board;
 
