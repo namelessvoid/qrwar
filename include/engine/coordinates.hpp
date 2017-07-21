@@ -20,11 +20,6 @@ namespace qrw
 
 			int distanceTo(const Coordinates& b) const;
 
-			struct PtrCompLess
-			{
-				bool operator()(const Coordinates* lhs, const Coordinates* rhs) const;
-			};
-
 		private:
 			int _x;
 			int _y;

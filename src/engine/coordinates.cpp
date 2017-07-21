@@ -52,11 +52,4 @@ namespace qrw
 			int dy = std::abs(getY()) - std::abs(b.getY());
 			return ceilf(sqrt(dx * dx + dy * dy));
 	}
-
-	bool Coordinates::PtrCompLess::operator()(const Coordinates* lhs, const Coordinates* rhs) const
-	{
-		if(lhs->getX() != rhs->getX())
-			return lhs->getX() < rhs->getX();
-		return lhs->getY() < rhs->getY();
-	}
 }
