@@ -61,8 +61,9 @@ void SkirmishState::init(GameState *previousState)
 
     // Initialize square detail window.
     Coordinates cursorPosition = _scene->getCursorPosition();
-    if(_board->isOnBoard(cursorPosition))
-		_squareDetailWindow->setSquare(_board->getSquare(cursorPosition));
+	Unit::Ptr unit = _board->getUnit(cursorPosition);
+	Terrain::Ptr terrain = _board->getSquare(cursorPosition)->getTerrain();
+	_squareDetailWindow->setUnitAndTerrain(unit, terrain);
 }
 
 void SkirmishState::draw()
@@ -84,7 +85,10 @@ void SkirmishState::slotCursorMoved(const Coordinates &boardPosition, bool isOnB
 {
     if(isOnBoard)
 	{
-        _squareDetailWindow->setSquare(_board->getSquare(boardPosition));
+		Unit::Ptr unitUnderCursor = _board->getUnit(boardPosition);
+		Terrain::Ptr terrainUnderCursor = _board->getSquare(boardPosition)->getTerrain();
+		_squareDetailWindow->setUnitAndTerrain(unitUnderCursor, terrainUnderCursor);
+
 		if(_selectedUnit)
 		{
 			_path.reset(_board->findPath(_selectedUnit->getPosition(), boardPosition));
@@ -99,7 +103,7 @@ void SkirmishState::slotCursorMoved(const Coordinates &boardPosition, bool isOnB
 		}
 	}
     else
-        _squareDetailWindow->setSquare(nullptr);
+		_squareDetailWindow->setUnitAndTerrain(nullptr, nullptr);
 }
 
 void SkirmishState::moveUnit()
@@ -142,19 +146,21 @@ void SkirmishState::replenishTroops()
 
 void SkirmishState::slotCursorLeftClicked(const Coordinates &boardPosition)
 {
-	// Case 1: Unit is selected and instructed to attack enemy unit
-	Square* squareUnderCursor = _board->getSquare(boardPosition);
 	Unit::Ptr unitUnderCursor = _board->getUnit(boardPosition);
+	Terrain::Ptr terrainUnderCursor = _board->getSquare(boardPosition)->getTerrain();
 
+	_squareDetailWindow->setUnitAndTerrain(unitUnderCursor, terrainUnderCursor);
+
+	// Case 1: Unit is selected and instructed to move.
 	if(_selectedUnit && !unitUnderCursor)
 	{
 		// Move unit
 		moveUnit();
 		deselectUnit();
-		_squareDetailWindow->setSquare(squareUnderCursor);
 		return;
 	}
 
+	// Case 2: Unit is selected and instructed to attack enemy.
 	if(_selectedUnit && unitUnderCursor && unitUnderCursor->getPlayer() != _selectedUnit->getPlayer())
 	{
 		performAttack();

@@ -93,26 +93,16 @@ SquareDetailWindow::SquareDetailWindow()
     addWidget(_terrainDefenseLabel);
 }
 
-void SquareDetailWindow::setSquare(Square *square)
+void SquareDetailWindow::setUnitAndTerrain(Unit::Ptr unit, Terrain::Ptr terrain)
 {
-    if(square)
-    {
-        // Hide window if there's nothing to display
-        if(square->getUnit() == nullptr && square->getTerrain() == nullptr)
-            setVisible(false);
-        else
-            setVisible(true);
-
-        setUnit(square->getUnit());
-        setTerrain(square->getTerrain());
-    }
-    else
-        setVisible(false);
+	checkAndSetVisibility(unit, terrain);
+	setUnit(unit);
+	setTerrain(terrain);
 }
 
 void SquareDetailWindow::setUnit(Unit::Ptr unit)
 {
-    if(unit)
+	if(unit != nullptr)
     {
         _unitTitleLabel->setVisible(true);
 		_unitTitleLabel->setImage(unit->getTexture());
@@ -142,7 +132,7 @@ void SquareDetailWindow::setUnit(Unit::Ptr unit)
 
 void SquareDetailWindow::setTerrain(Terrain::Ptr terrain)
 {
-    if(terrain)
+	if(terrain != nullptr)
     {
         _terrainTitleLabel->setVisible(true);
         _terrainTitleLabel->setImage(GuiHelper::getTerrainTexture(terrain));
@@ -160,7 +150,12 @@ void SquareDetailWindow::setTerrain(Terrain::Ptr terrain)
         _terrainTitleLabel->setVisible(false);
         _terrainAttackLabel->setVisible(false);
         _terrainDefenseLabel->setVisible(false);
-    }
+	}
+}
+
+void SquareDetailWindow::checkAndSetVisibility(Unit::Ptr unit, Terrain::Ptr terrain)
+{
+	setVisible(unit != nullptr || terrain != nullptr);
 }
 
 } // namespace qrw
