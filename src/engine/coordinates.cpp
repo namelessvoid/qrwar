@@ -48,8 +48,8 @@ namespace qrw
 
 	int Coordinates::distanceTo(const Coordinates& b) const
 	{
-			int dx = std::abs(getX()) - std::abs(b.getX());
-			int dy = std::abs(getY()) - std::abs(b.getY());
-			return ceilf(sqrt(dx * dx + dy * dy));
+		int dx = std::abs(getX()) - std::abs(b.getX());
+		int dy = std::abs(getY()) - std::abs(b.getY());
+		return ceilf(sqrt(dx * dx + dy * dy));
 	}
 }
