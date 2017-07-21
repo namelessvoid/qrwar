@@ -1,5 +1,6 @@
 #include "engine/pathfinding/path.hpp"
-#include "engine/square.hpp"
+
+#include "engine/coordinates.hpp"
 
 namespace qrw
 {

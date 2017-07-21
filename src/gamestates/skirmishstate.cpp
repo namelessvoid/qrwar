@@ -1,7 +1,6 @@
 #include "gamestates/skirmishstate.hpp"
 
 #include "gamestates/deploystate.hpp"
-#include "engine/square.hpp"
 #include "engine/pathfinding/astar.hpp"
 #include "engine/pathfinding/path.hpp"
 #include "gui/texturemanager.hpp"

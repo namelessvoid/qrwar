@@ -4,7 +4,6 @@
 #include <cassert>
 
 #include "engine/unit.hpp"
-#include "engine/square.hpp"
 
 #include "gamestates/mapeditorstate.hpp"
 

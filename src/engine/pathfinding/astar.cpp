@@ -3,7 +3,6 @@
 #include <cmath>
 
 #include "engine/board.hpp"
-#include "engine/square.hpp"
 #include "engine/unit.hpp"
 #include "engine/pathfinding/path.hpp"
 #include "engine/pathfinding/node.hpp"

@@ -2,7 +2,6 @@
 #include <cassert>
 
 #include "engine/board.hpp"
-#include "engine/square.hpp"
 #include "engine/pathfinding/astar.hpp"
 
 namespace qrw
@@ -84,7 +83,7 @@ namespace qrw
 		return iterator == _terrains.end() ? nullptr : iterator->second;
 	}
 
-	const std::map<Coordinates, std::shared_ptr<Terrain> > &Board::getTerrains() const
+	const std::map<Coordinates, std::shared_ptr<Terrain>>& Board::getTerrains() const
 	{
 		return _terrains;
 	}

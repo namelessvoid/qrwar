@@ -1,7 +1,6 @@
 #include "gamestates/mapeditorstate.hpp"
 
 #include "engine/terrain.hpp"
-#include "engine/square.hpp"
 
 #include "gui/texturemanager.hpp"
 

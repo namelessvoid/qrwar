@@ -5,8 +5,6 @@
 #include "gui/texturemanager.hpp"
 #include "gui/guihelper.hpp"
 
-#include "engine/square.hpp"
-
 namespace qrw
 {
 

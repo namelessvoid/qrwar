@@ -5,7 +5,8 @@
 
 #include "gui/texturemanager.hpp"
 
-#include "engine/square.hpp"
+#include "engine/terrain.hpp"
+#include "engine/unit.hpp"
 
 namespace qrw
 {
@@ -44,8 +45,8 @@ void Scene::render()
 
 	_renderTarget->draw(_background, renderStates);
 
-	for(auto entityIterator : _board->getTerrains())
-		_renderTarget->draw(*entityIterator.second);
+	for(auto terrainIterator : _board->getTerrains())
+		_renderTarget->draw(*terrainIterator.second);
 
 	for(auto unitIterator : _board->getUnits())
 		_renderTarget->draw(*unitIterator.second);
