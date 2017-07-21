@@ -14,7 +14,6 @@ add_library(qrwarlib
 	engine/army.cpp
 	engine/board.cpp
 	engine/coordinates.cpp
-	engine/engine.cpp
 	engine/player.cpp
 	engine/square.cpp
 	engine/terrain.cpp
