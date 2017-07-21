@@ -1,5 +1,7 @@
 #include "engine/coordinates.hpp"
 
+#include <cmath>
+
 namespace qrw
 {
 	Coordinates::Coordinates(int x, int y)
@@ -52,6 +54,13 @@ namespace qrw
 	Coordinates Coordinates::operator-(const Coordinates& rhs) const
 	{
 		return Coordinates(getX() - rhs.getX(), getY() - rhs.getY());
+	}
+
+	int Coordinates::distanceTo(const Coordinates& b)
+	{
+			int dx = std::abs(getX()) - std::abs(b.getX());
+			int dy = std::abs(getY()) - std::abs(b.getY());
+			return ceilf(sqrt(dx * dx + dy * dy));
 	}
 
 	bool Coordinates::PtrCompLess::operator()(const Coordinates* lhs, const Coordinates* rhs) const

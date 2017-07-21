@@ -21,6 +21,8 @@ namespace qrw
 			Coordinates operator+(const Coordinates& rhs) const;
 			Coordinates operator-(const Coordinates& rhs) const;
 
+			int distanceTo(const Coordinates& b);
+
 			struct PtrCompLess
 			{
 				bool operator()(const Coordinates* lhs, const Coordinates* rhs) const;

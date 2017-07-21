@@ -1,7 +1,5 @@
 #include "engine/pathfinding/astar.hpp"
 
-#include <cmath>
-
 #include "engine/board.hpp"
 #include "engine/unit.hpp"
 #include "engine/pathfinding/path.hpp"
@@ -52,7 +50,7 @@ namespace qrw
 		Coordinates* tmpcoords = 0;
 
 		currentnode->setG(0);
-		currentnode->setH(getDistance(*currentcoords, end));
+		currentnode->setH(currentcoords->distanceTo(end));
 
 		_nodemap[currentcoords] = currentnode;
 		_openlist.insert(currentcoords);
@@ -83,7 +81,7 @@ namespace qrw
 					{
 						tmpnode = new Node(*tmpcoords);
 						tmpnode->setG(currentnode->getG() + 1);
-						tmpnode->setH(getDistance(*tmpcoords, end));
+						tmpnode->setH(tmpcoords->distanceTo(end));
 						tmpnode->setParent(currentnode);
 
 						_nodemap[tmpcoords] = tmpnode;
@@ -148,14 +146,6 @@ namespace qrw
 
 		return lowestcoordinate;
 	}
-
-	int AStar::getDistance(const Coordinates &a, const Coordinates &b)
-	{
-		int dx = std::abs(a.getX()) - std::abs(b.getX());
-		int dy = std::abs(a.getY()) - std::abs(b.getY());
-		return ceilf(sqrt(dx * dx + dy * dy));
-	}
-
 
 	void AStar::clear()
 	{
