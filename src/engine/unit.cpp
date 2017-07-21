@@ -121,6 +121,12 @@ void Unit::setMaxHp(int maxhp)
 {
 	this->_maxhp = maxhp;
 }
+
+void Unit::damage(int inflictedDamage)
+{
+	setHP(getHP() - inflictedDamage);
+}
+
 int Unit::getRange()
 {
 	return _range;

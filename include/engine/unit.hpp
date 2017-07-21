@@ -81,6 +81,9 @@ public:
 	void setHP(int hp);
 	int getMaxHp();
 	void setMaxHp(int maxhp);
+
+	void damage(int inflictedDamage);
+
 	int getMovement();
 	int getCurrentMovement();
 	void setCurrentMovement(int movement);

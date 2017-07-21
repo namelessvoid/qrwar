@@ -125,8 +125,38 @@ void SkirmishState::moveUnit()
 	std::cout << "Move unit." << std::endl;
 }
 
-void SkirmishState::performAttack()
+void SkirmishState::performAttack(std::shared_ptr<Unit> attackedUnit)
 {
+	if(_selectedUnit->getCurrentMovement() == 0)
+		return;
+	_selectedUnit->setCurrentMovement(0);
+
+	const Coordinates& positionOfAttackedUnit = attackedUnit->getPosition();
+
+	int inflictedDamage = _selectedUnit->getModifiedAttack() - attackedUnit->getModifiedDefense();
+	inflictedDamage = inflictedDamage < 0 ? 0 : inflictedDamage;
+	attackedUnit->damage(inflictedDamage);
+
+	if(attackedUnit->getHP() == 0)
+	{
+		_board->removeUnit(positionOfAttackedUnit);
+		_board->moveUnit(_selectedUnit->getPosition(), positionOfAttackedUnit);
+		_selectedUnit->setPosition(positionOfAttackedUnit);
+	}
+	else
+	{
+		inflictedDamage = attackedUnit->getModifiedAttack() - _selectedUnit->getModifiedDefense();
+		inflictedDamage = inflictedDamage < 0 ? 0 : inflictedDamage;
+		_selectedUnit->damage(inflictedDamage);
+
+		if(_selectedUnit->getHP() == 0)
+		{
+			_board->removeUnit(_selectedUnit->getPosition());
+		}
+	}
+
+	updateSquareDetailWindow(positionOfAttackedUnit);
+
 	std::cout << "Attack unit." << std::endl;
 }
 
@@ -140,6 +170,13 @@ void SkirmishState::replenishTroops()
 	}
 }
 
+void SkirmishState::updateSquareDetailWindow(const Coordinates& position)
+{
+	_squareDetailWindow->setUnitAndTerrain(
+				_board->getUnit(position),
+				_board->getTerrain(position));
+}
+
 void SkirmishState::slotCursorLeftClicked(const Coordinates &boardPosition)
 {
 	Unit::Ptr unitUnderCursor = _board->getUnit(boardPosition);
@@ -150,7 +187,6 @@ void SkirmishState::slotCursorLeftClicked(const Coordinates &boardPosition)
 	// Case 1: Unit is selected and instructed to move.
 	if(_selectedUnit && !unitUnderCursor)
 	{
-		// Move unit
 		moveUnit();
 		deselectUnit();
 		return;
@@ -159,7 +195,8 @@ void SkirmishState::slotCursorLeftClicked(const Coordinates &boardPosition)
 	// Case 2: Unit is selected and instructed to attack enemy.
 	if(_selectedUnit && unitUnderCursor && unitUnderCursor->getPlayer() != _selectedUnit->getPlayer())
 	{
-		performAttack();
+		performAttack(unitUnderCursor);
+		deselectUnit();
 		return;
 	}
 

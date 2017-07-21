@@ -44,9 +44,11 @@ private:
 
 	void moveUnit();
 
-	void performAttack();
+	void performAttack(std::shared_ptr<Unit> attackedUnit);
 
 	void replenishTroops();
+
+	void updateSquareDetailWindow(const Coordinates& position);
 
     std::vector<Player::Ptr> _players;
 	int _currentPlayer;
