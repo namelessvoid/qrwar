@@ -120,8 +120,8 @@ void SkirmishState::moveUnit()
 	int remainingMovement = maxDistance - pathCosts;
 	_selectedUnit->setCurrentMovement(remainingMovement);
 
-	_board->getSquare(_squareMarker->getBoardPosition())->setUnit(nullptr);
-	_board->getSquare(_path->getTargetPosition())->setUnit(_selectedUnit);
+	_board->moveUnit(_squareMarker->getBoardPosition(), _path->getTargetPosition());
+	_selectedUnit->setPosition(_path->getTargetPosition());
 
 	std::cout << "Move unit." << std::endl;
 }
