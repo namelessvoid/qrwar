@@ -144,7 +144,7 @@ void SkirmishState::slotCursorLeftClicked(const Coordinates &boardPosition)
 {
 	// Case 1: Unit is selected and instructed to attack enemy unit
 	Square* squareUnderCursor = _board->getSquare(boardPosition);
-	Unit::Ptr unitUnderCursor = squareUnderCursor->getUnit();
+	Unit::Ptr unitUnderCursor = _board->getUnit(boardPosition);
 
 	if(_selectedUnit && !unitUnderCursor)
 	{

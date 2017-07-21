@@ -32,14 +32,14 @@ namespace qrw
 	Path* AStar::findPath(const Coordinates& start, const Coordinates& end)
 	{
 		// Check pre conditions
-		if(_board == 0)
-			return 0;
+		if(_board == nullptr)
+			return nullptr;
 
-		if(_board->getSquare(start) == 0 || _board->getSquare(end) == 0)
-			return 0;
+		if(!_board->isOnBoard(start) || !_board->isOnBoard(end))
+			return nullptr;
 
 		if(start == end)
-			return 0;
+			return nullptr;
 
 		// Clear everything that remained from previous steps
 		clear();
@@ -74,8 +74,8 @@ namespace qrw
 
 				// If the sqare is accessible but was not added to closedlist yet
 				if(_closedlist.find(tmpcoords) == _closedlist.end()
-					&& _board->getSquare(*tmpcoords) != 0
-					&& _board->getSquare(*tmpcoords)->isAccessible())
+					&& _board->isOnBoard(*tmpcoords)
+					&& _board->isAccessible(*tmpcoords))
 				{
 					// Coordinates are not put into openlist
 					if(_openlist.find(tmpcoords) == _openlist.end())
@@ -106,7 +106,7 @@ namespace qrw
 
 		// Build the Path
 		if(_closedlist.find(endcoords) == _closedlist.end())
-			return 0;
+			return nullptr;
 
 		Path* path = new Path();
 

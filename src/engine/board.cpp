@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <cassert>
 
 #include "engine/board.hpp"
 #include "engine/square.hpp"
@@ -59,6 +60,44 @@ namespace qrw
 		return getSquare(coordinates.getX(), coordinates.getY());
 	}
 
+	void Board::setUnit(const Coordinates &position, std::shared_ptr<Unit>& unit)
+	{
+		assert(!isUnitAt(position));
+		_units[position] = unit;
+	}
+
+	void Board::removeUnit(const Coordinates &position)
+	{
+		assert(isUnitAt(position));
+		_units.erase(position);
+	}
+
+	void Board::moveUnit(const Coordinates &source, const Coordinates &destination)
+	{
+		assert(isUnitAt(source));
+		assert(!isUnitAt(destination));
+
+		auto unit = _units.at(source);
+		_units.erase(source);
+		_units[destination] = unit;
+	}
+
+	bool Board::isUnitAt(const Coordinates &position)
+	{
+		return _units.find(position) != _units.end();
+	}
+
+	std::shared_ptr<Unit> Board::getUnit(const Coordinates &position)
+	{
+		auto iterator = _units.find(position);
+		return iterator == _units.end() ? nullptr : iterator->second;
+	}
+
+	const std::map<Coordinates, std::shared_ptr<Unit> > &Board::getUnits() const
+	{
+		return _units;
+	}
+
 	int Board::getWidth()
 	{
 		return _width;
@@ -76,6 +115,11 @@ namespace qrw
 		if(coordinates.getY() < 0 || coordinates.getY() >= _height)
 			return false;
 		return true;
+	}
+
+	bool Board::isAccessible(const Coordinates& coordinates)
+	{
+		return getSquare(coordinates)->getUnit() == nullptr;
 	}
 
 	Path* Board::findPath(const Coordinates &start, const Coordinates &end)

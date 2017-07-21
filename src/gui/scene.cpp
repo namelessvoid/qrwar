@@ -65,15 +65,8 @@ void Scene::render()
 	for(auto entityIterator : _terrainEntities)
 		_renderTarget->draw(*(entityIterator.second));
 
-	for(int w = 0; w < _board->getWidth(); ++w)
-	{
-		for(int h = 0; h < _board->getHeight(); ++h)
-		{
-			Unit::Ptr unit = _board->getSquare(w, h)->getUnit();
-			if(unit)
-				_renderTarget->draw(*unit.get());
-		}
-	}
+	for(auto unitIterator : _board->getUnits())
+		_renderTarget->draw(*unitIterator.second);
 
 	_renderTarget->draw(_cursor, renderStates);
 }

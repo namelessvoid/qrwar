@@ -1,6 +1,7 @@
 #include "gamestates/deploystate.hpp"
 
 #include <memory>
+#include <cassert>
 
 #include "engine/unit.hpp"
 #include "engine/square.hpp"
@@ -174,11 +175,14 @@ void DeployState::slotToSkirmishButtonClicked()
 
 void DeployState::slotCursorLeftClicked(const Coordinates& boardPosition)
 {
-	if(!_selectedPlayer)
-		return;
+	assert(_selectedPlayer);
+
+	if(_board->isUnitAt(boardPosition))
+		_board->removeUnit(boardPosition);
 
 	Unit::Ptr unit = Unit::createUnit(_selectedUnitType, _selectedPlayer, _board);
-	_board->getSquare(boardPosition)->setUnit(unit);
+	_board->setUnit(boardPosition, unit);
+	unit->setPosition(boardPosition);
 }
 
 } // namespace qrw
