@@ -127,14 +127,14 @@ void Unit::damage(int inflictedDamage)
 	setHP(getHP() - inflictedDamage);
 }
 
-int Unit::getRange() const
+int Unit::getAttackRange() const
 {
 	return _range;
 }
 
 bool Unit::isTargetWithinAttackRange(const Coordinates &target) const
 {
-	return getPosition().distanceTo(target) <= getRange();
+	return getPosition().distanceTo(target) <= getAttackRange();
 }
 
 int Unit::getMovement()
