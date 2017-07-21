@@ -42,7 +42,7 @@ SquareDetailWindow::SquareDetailWindow()
 	label->setSize({100, labelHeight});
 	label->setText("movement");
 	label->setImage(TextureManager::getInstance()->getTexture("movement"));
-	label->setRelativePosition({150, labelHeight});
+	label->setRelativePosition({100, labelHeight});
 	_unitMovementLabel = label;
 	addWidget(_unitMovementLabel);
 
@@ -58,7 +58,7 @@ SquareDetailWindow::SquareDetailWindow()
     label->setSize({100, labelHeight});
     label->setText("2");
     label->setImage(TextureManager::getInstance()->getTexture("defense"));
-	label->setRelativePosition({150, 2 * labelHeight});
+	label->setRelativePosition({100, 2 * labelHeight});
     _unitDefenseLabel = label;
     addWidget(_unitDefenseLabel);
 
