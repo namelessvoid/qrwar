@@ -92,13 +92,13 @@ void SkirmishState::slotCursorMoved(const Coordinates &boardPosition, bool isOnB
 		{
 			_path.reset(_board->findPath(_selectedUnit->getPosition(), boardPosition));
 
-			if(_path)
-			{
-				if(_path->getMovementCosts() > _selectedUnit->getCurrentMovement())
-					_scene->getCursor().setFillColor(Cursor::Color::ESC_WARNING);
-				else
-					_scene->getCursor().setFillColor(Cursor::Color::ESC_DEFAULT);
-			}
+			Cursor::Color cursorColor = Cursor::Color::ESC_DEFAULT;
+			if(!_path || _path->getMovementCosts() > _selectedUnit->getCurrentMovement())
+				cursorColor = Cursor::Color::ESC_WARNING;
+			if(boardPosition == _squareMarker->getBoardPosition())
+				cursorColor = Cursor::Color::ESC_DEFAULT;
+
+			_scene->getCursor().setFillColor(cursorColor);
 		}
 	}
     else
