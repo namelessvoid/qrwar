@@ -76,7 +76,9 @@ public:
 	 */
 	int getModifiedDefense();
 
-	int getRange();
+	int getAttackRange() const;
+	bool isTargetWithinAttackRange(const Coordinates& target) const;
+
 	int getHP();
 	void setHP(int hp);
 	int getMaxHp();

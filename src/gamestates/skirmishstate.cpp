@@ -127,11 +127,14 @@ void SkirmishState::moveUnit()
 
 void SkirmishState::performAttack(std::shared_ptr<Unit> attackedUnit)
 {
+	const Coordinates& positionOfAttackedUnit = attackedUnit->getPosition();
+
+	if(!_selectedUnit->isTargetWithinAttackRange(positionOfAttackedUnit))
+		return;
+
 	if(_selectedUnit->getCurrentMovement() == 0)
 		return;
 	_selectedUnit->setCurrentMovement(0);
-
-	const Coordinates& positionOfAttackedUnit = attackedUnit->getPosition();
 
 	int inflictedDamage = _selectedUnit->getModifiedAttack() - attackedUnit->getModifiedDefense();
 	inflictedDamage = inflictedDamage < 0 ? 0 : inflictedDamage;
