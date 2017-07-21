@@ -174,7 +174,8 @@ void DeployState::slotToSkirmishButtonClicked()
 
 void DeployState::slotCursorLeftClicked(const Coordinates& boardPosition)
 {
-	assert(_selectedPlayer);
+	if(_selectedPlayer == nullptr)
+		return;
 
 	if(_board->isUnitAt(boardPosition))
 		_board->removeUnit(boardPosition);
