@@ -21,15 +21,15 @@ namespace qrw
 			Path* findPath(const Coordinates& start, const Coordinates& end);
 
 		private:
-			Coordinates* findLowestFCoordinates();
+			Coordinates findLowestFCoordinates();
 
 			void clear();
 
 			Board* _board;
 
-			std::map<Coordinates*, Node*, Coordinates::PtrCompLess> _nodemap;
-			std::set<Coordinates*, Coordinates::PtrCompLess> _openlist;
-			std::set<Coordinates*, Coordinates::PtrCompLess> _closedlist;
+			std::map<Coordinates, Node*> _nodemap;
+			std::set<Coordinates> _openlist;
+			std::set<Coordinates> _closedlist;
 
 			Coordinates* _directions[4];
 	};
