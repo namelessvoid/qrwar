@@ -103,7 +103,7 @@ void SquareDetailWindow::setUnit(Unit::Ptr unit)
 	if(unit != nullptr)
     {
         _unitTitleLabel->setVisible(true);
-		_unitTitleLabel->setImage(unit->getTexture());
+		_unitTitleLabel->setImage(GuiHelper::getUnitTexture(unit->getType(), unit->getPlayer()));
         _unitTitleLabel->setText(GuiHelper::getUnitName(unit));
 
         _unitHealthLabel->setVisible(true);

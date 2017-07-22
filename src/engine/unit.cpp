@@ -6,6 +6,8 @@
 #include "engine/player.hpp"
 #include "engine/pathfinding/path.hpp"
 
+#include "foundation/spritecomponent.hpp"
+
 #include "gui/guihelper.hpp"
 #include "gui/texturemanager.hpp"
 
@@ -33,9 +35,10 @@ Unit::Unit(UNITTYPES type, int hp, int attack, int defense,
 	_player(player),
 	_board(board)
 {
-	setSize(sf::Vector2f(_dimension, _dimension));
-
-	setTexture(texture);
+	_sprite = new SpriteComponent();
+	addComponent(_sprite);
+	_sprite->setSize(sf::Vector2f(_dimension, _dimension));
+	_sprite->setTexture(texture);
 }
 
 Unit::Ptr Unit::createUnit(UNITTYPES unitType, Player::Ptr player, Board::Ptr board)
@@ -54,7 +57,9 @@ Unit::Ptr Unit::createUnit(UNITTYPES unitType, Player::Ptr player, Board::Ptr bo
 }
 
 Unit::~Unit()
-{}
+{
+	delete _sprite;
+}
 
 Player::Ptr Unit::getPlayer() const
 {
@@ -158,7 +163,7 @@ const Coordinates& Unit::getPosition() const
 void Unit::setPosition(const Coordinates& position)
 {
 	_position = position;
-	sf::RectangleShape::setPosition(sf::Vector2f(_dimension * _position.getX(), _dimension * _position.getY()));
+	_sprite->setPosition(sf::Vector2f(_dimension * _position.getX(), _dimension * _position.getY()));
 }
 
 void Unit::setCurrentMovement(int movement)

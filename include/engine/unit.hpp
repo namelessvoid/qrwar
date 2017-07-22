@@ -11,11 +11,14 @@
 #include "engine/player.hpp"
 #include "engine/coordinates.hpp"
 
+#include "foundation/gameobject.hpp"
+
 namespace qrw
 {
 class Path;
+class SpriteComponent;
 
-class Unit : public sf::RectangleShape
+class Unit : public GameObject
 {
 public:
 	/**
@@ -119,6 +122,8 @@ private:
 	Board::Ptr _board;
 //	Square* _square;
 	Coordinates _position;
+
+	SpriteComponent* _sprite;
 };
 
 } // namespace qrw

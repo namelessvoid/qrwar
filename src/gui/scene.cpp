@@ -8,6 +8,8 @@
 #include "engine/terrain.hpp"
 #include "engine/unit.hpp"
 
+#include "foundation/spritecomponent.hpp"
+
 namespace qrw
 {
 
@@ -49,7 +51,7 @@ void Scene::render()
 		_renderTarget->draw(*terrainIterator.second);
 
 	for(auto unitIterator : _board->getUnits())
-		_renderTarget->draw(*unitIterator.second);
+		unitIterator.second->getComponent<SpriteComponent>()->render(_renderTarget);
 
 	_renderTarget->draw(_cursor, renderStates);
 }
