@@ -48,7 +48,7 @@ void Scene::render()
 	_renderTarget->draw(_background, renderStates);
 
 	for(auto terrainIterator : _board->getTerrains())
-		_renderTarget->draw(*terrainIterator.second);
+		terrainIterator.second->getComponent<SpriteComponent>()->render(_renderTarget);
 
 	for(auto unitIterator : _board->getUnits())
 		unitIterator.second->getComponent<SpriteComponent>()->render(_renderTarget);

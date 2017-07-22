@@ -8,15 +8,19 @@
 #include "engine/terraintypes.hpp"
 #include "engine/coordinates.hpp"
 
+#include "foundation/gameobject.hpp"
+
 namespace qrw
 {
+	class SpriteComponent;
+
 	enum MODIFICATORS
 	{
 		EM_ATTACK,
 		EM_DEFENSE
 	};
 
-	class Terrain : public sf::RectangleShape
+	class Terrain : public GameObject
 	{
 		public:
 			typedef std::shared_ptr<Terrain> Ptr;
@@ -38,6 +42,8 @@ namespace qrw
 			TERRAINTYPES _type;
 
 			Coordinates _position;
+
+			SpriteComponent* _sprite;
 	};
 }
 

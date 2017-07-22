@@ -2,6 +2,8 @@
 
 #include "gui/guihelper.hpp"
 
+#include "foundation/spritecomponent.hpp"
+
 namespace qrw
 {
 
@@ -30,8 +32,10 @@ Terrain::Terrain(TERRAINTYPES type, int attackmod, int defensemod, const sf::Tex
 	: _type(type),
 	  _position(0, 0)
 {
-	setSize(sf::Vector2f(32, 32));
-	setTexture(texture);
+	_sprite = new SpriteComponent();
+	addComponent(_sprite);
+	_sprite->setSize(sf::Vector2f(32, 32));
+	_sprite->setTexture(texture);
 
 	_modificators[EM_ATTACK] = attackmod;
 	_modificators[EM_DEFENSE] = defensemod;
@@ -59,7 +63,7 @@ TERRAINTYPES Terrain::getType()
 void Terrain::setPosition(const Coordinates& position)
 {
 	_position = position;
-	sf::RectangleShape::setPosition(sf::Vector2f(32 * _position.getX(), 32 * _position.getY()));
+	_sprite->setPosition(sf::Vector2f(32 * _position.getX(), 32 * _position.getY()));
 }
 
 const Coordinates& Terrain::getPosition() const
