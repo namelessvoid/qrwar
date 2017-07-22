@@ -56,11 +56,6 @@ Unit::Ptr Unit::createUnit(UNITTYPES unitType, Player::Ptr player, Board::Ptr bo
 	}
 }
 
-Unit::~Unit()
-{
-	delete _sprite;
-}
-
 Player::Ptr Unit::getPlayer() const
 {
 	return _player;

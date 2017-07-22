@@ -5,6 +5,12 @@
 namespace qrw
 {
 
+GameObject::~GameObject()
+{
+	for(auto componentIterator : _components)
+		delete componentIterator.second;
+}
+
 void GameObject::addComponent(qrw::GameComponent* component)
 {
 	assert(component!=nullptr);

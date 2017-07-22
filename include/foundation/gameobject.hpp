@@ -17,7 +17,7 @@ class GameComponent;
 class GameObject
 {
 public:
-	virtual ~GameObject() {}
+	virtual ~GameObject();
 
 	void addComponent(GameComponent* component);
 

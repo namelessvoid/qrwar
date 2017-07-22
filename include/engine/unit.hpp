@@ -28,7 +28,7 @@ public:
 
 	static Ptr createUnit(UNITTYPES unitType, Player::Ptr player, Board::Ptr board);
 
-	~Unit();
+	~Unit() {}
 
 	Player::Ptr getPlayer() const;
 	void setPlayer(Player::Ptr _player);
