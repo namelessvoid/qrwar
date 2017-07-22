@@ -19,27 +19,6 @@ class Unit : public sf::RectangleShape
 {
 public:
 	/**
-	 * @brief The AttackResult struct to return results of the Unit::attack() method.
-	 */
-	struct AttackResult
-	{
-		/**
-		 * @brief True if the attack could be performed or false if one requirement (e.g. not the active player)
-		 * was not fullfilled.
-		 */
-		bool attackPerformed = false;
-
-		/**
-		 * @brief Hit points the attacker lost.
-		 */
-		int attackerHPDelta = 0;
-		/**
-		 * @brief Hit points the defender lost.
-		 */
-		int defenderHPDelta = 0;
-	};
-
-	/**
 	 * @brief Shared pointer to a Unit.
 	 */
 	typedef std::shared_ptr<Unit> Ptr;
@@ -109,12 +88,6 @@ public:
 	 */
 	void setSquare(Square* _square);
 
-	/**
-	 * @brief Attack an enemy Unit which then counter attacks.
-	 * @param enemy The enemy which is attacked.
-	 */
-	AttackResult attack(Ptr enemy);
-
 private:
 	/**
 	 * @brief Private Unit constructor.
@@ -130,13 +103,6 @@ private:
 	Unit(UNITTYPES type, int hp, int attack, int defense,
 		int range, int movement, Player::Ptr player, Board::Ptr board,
 		 const sf::Texture* texture);
-
-	/**
-	 * @brief Executes the actual attack of the Unit against the enemy.
-	 * @param The enemy that is being attacked.
-	 * @return The damage dealt.
-	 */
-	int doAttack(Ptr enemy);
 
 	UNITTYPES _type;
 	int _hp;

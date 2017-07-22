@@ -171,32 +171,4 @@ void Unit::setCurrentMovement(int movement)
 		_currentmovement = movement;
 }
 
-Unit::AttackResult Unit::attack(Unit::Ptr enemy)
-{
-	AttackResult attackResult;
-
-	this->setCurrentMovement(0);
-
-	// Attack and counter attack
-	attackResult.defenderHPDelta = this->doAttack(enemy);
-												// Hacky access to shared ptr of this
-	attackResult.attackerHPDelta = enemy->doAttack(_board->getUnit(getPosition()));
-
-	attackResult.attackPerformed = true;
-	return attackResult;
-}
-
-int Unit::doAttack(Unit::Ptr enemy)
-{
-	if(this->getHP() == 0)
-		return 0;
-
-	int damage = this->getModifiedAttack() - enemy->getModifiedDefense();
-	damage = damage < 0 ? 0 : damage;
-
-	enemy->setHP(enemy->getHP() - damage);
-
-	return damage;
-}
-
 } // namespace qrw
