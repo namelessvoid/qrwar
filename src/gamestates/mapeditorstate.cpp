@@ -75,7 +75,7 @@ void MapEditorState::init(GameState* previousState)
 
 	_toDeployment = false;
 	_spBoard = std::make_shared<Board>(16, 9);
-    _scene->setBoard(_spBoard);
+	g_scene.setBoard(_spBoard);
 }
 
 EGameStateId MapEditorState::update()

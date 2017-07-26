@@ -20,12 +20,14 @@ namespace qrw
 {
 
 RenderSystem g_renderSystem;
+Scene g_scene;
 
 QRWar::QRWar()
 {
 	// Init
 	g_renderSystem.startUp();
 	preloadResources();
+	g_scene.setRenderTarget(&_renderWindow);
 
 	// Initialize game states
 	GameState* gameState;
@@ -97,6 +99,7 @@ void QRWar::run()
 		// Perform a state change
 		else
 		{
+			g_scene.reset();
 			GameState* previousState = _currentState;
 			_currentState = _gameStates[nextStateId];
 			_currentState->init(previousState);

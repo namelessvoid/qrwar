@@ -13,13 +13,15 @@
 namespace qrw
 {
 
-Scene::Scene(sf::RenderTarget* renderTarget)
-    : _renderTarget(renderTarget)
+Scene::Scene()
+	: _cursor(nullptr)
 {
 }
 
 Scene::~Scene()
 {
+	_board.reset();
+	delete _cursor;
 }
 
 void Scene::setBoard(Board::Ptr board)
@@ -35,14 +37,19 @@ void Scene::setBoard(Board::Ptr board)
     _background.setTextureRect(sf::IntRect(0, 0, backgroundSize.x, backgroundSize.y));
 
     // Set up corser and connect cursor slots
-    _cursor.setBoard(board);
+	_cursor->setBoard(board);
+}
+
+void Scene::setRenderTarget(sf::RenderTarget* renderTarget)
+{
+	_renderTarget = renderTarget;
 }
 
 void Scene::render()
 {
 	sf::RenderStates renderStates = sf::RenderStates::Default;
 	_renderTarget->draw(_background, renderStates);
-	_renderTarget->draw(_cursor, renderStates);
+	_renderTarget->draw(*_cursor, renderStates);
 }
 
 void Scene::handleEvent(const sf::Event& event)
@@ -60,18 +67,23 @@ void Scene::handleEvent(const sf::Event& event)
 	}
 
 	// Propagate events
-    _cursor.handleEvent(adjustedEvent);
+	_cursor->handleEvent(adjustedEvent);
 }
 
 Coordinates Scene::getCursorPosition()
 {
-	return _cursor.getBoardPosition();
+	return _cursor->getBoardPosition();
 }
 
 Cursor& Scene::getCursor()
 {
-	return _cursor;
+	return *_cursor;
 }
 
+void Scene::reset()
+{
+	delete _cursor;
+	_cursor = new Cursor();
+}
 
 } // namespace qrw

@@ -125,7 +125,7 @@ void DeployState::init(GameState* previousState)
 	if(previousState->getId() == EGameStateId::EGSID_MAP_EDITOR_STATE)
 	{
 		_board = static_cast<MapEditorState*>(previousState)->getBoard();
-        _scene->setBoard(_board);
+		g_scene.setBoard(_board);
 	}
 
 	// Create new players

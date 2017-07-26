@@ -26,11 +26,13 @@ namespace qrw
 class Scene
 {
 public:
-    Scene(sf::RenderTarget* rendertarget);
+	Scene();
 
 	~Scene();
 
     void setBoard(Board::Ptr board);
+
+	void setRenderTarget(sf::RenderTarget* renderTarget);
 
 	void render();
 
@@ -40,14 +42,18 @@ public:
 
 	Cursor& getCursor();
 
+	void reset();
+
 private:
 	sf::RenderTarget* _renderTarget;
 
 	Board::Ptr _board;
 
 	sf::RectangleShape _background;
-	Cursor _cursor;
+	Cursor* _cursor;
 };
+
+extern Scene g_scene;
 
 } // namespace qrw
 
