@@ -1,9 +1,10 @@
 #ifndef QRW_SPRITECOMPONENT_HPP
 #define QRW_SPRITECOMPONENT_HPP
 
-#include "foundation/gamecomponent.hpp"
-
 #include <SFML/System/Vector2.hpp>
+
+#include "foundation/gamecomponent.hpp"
+#include "rendering/renderable.hpp"
 
 namespace sf
 {
@@ -15,7 +16,7 @@ class RenderTarget;
 namespace qrw
 {
 
-class SpriteComponent : public GameComponent
+class SpriteComponent : public GameComponent, public Renderable
 {
 public:
 	SpriteComponent();
@@ -28,7 +29,7 @@ public:
 
 	void setPosition(const sf::Vector2f& position);
 
-	void render(sf::RenderTarget* renderTarget);
+	virtual void render(sf::RenderTarget& renderTarget) override;
 
 private:
 	sf::RectangleShape* _rectangle;

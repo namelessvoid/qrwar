@@ -23,6 +23,8 @@ add_library(qrwarlib
 	engine/pathfinding/node.cpp
 	engine/pathfinding/path.cpp
 
+        rendering/rendersystem.cpp
+
         foundation/gameobject.cpp
         foundation/gamecomponent.cpp
         foundation/spritecomponent.cpp

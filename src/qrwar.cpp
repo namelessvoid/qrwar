@@ -8,6 +8,8 @@
 
 #include "gui/texturemanager.hpp"
 
+#include "rendering/rendersystem.hpp"
+
 #include "gamestates/introstate.hpp"
 #include "gamestates/mainmenustate.hpp"
 #include "gamestates/mapeditorstate.hpp"
@@ -17,11 +19,13 @@
 namespace qrw
 {
 
+RenderSystem g_renderSystem;
+
 QRWar::QRWar()
 {
-	// Load resources
+	// Init
+	g_renderSystem.startUp();
 	preloadResources();
-
 
 	// Initialize game states
 	GameState* gameState;
@@ -55,6 +59,8 @@ QRWar::~QRWar()
 {
 	for(auto iter : _gameStates)
 		delete iter.second;
+
+	g_renderSystem.shutDown();
 }
 
 void QRWar::run()
@@ -83,7 +89,9 @@ void QRWar::run()
 		// If no state change occured: draw the current state
 		else if(nextStateId == EGameStateId::EGSID_NO_CHANGE)
 		{
+			// Todo: Remove _currentState->draw();
 			_currentState->draw();
+			g_renderSystem.renderAll(_renderWindow);
 			_renderWindow.display();
 		}
 		// Perform a state change

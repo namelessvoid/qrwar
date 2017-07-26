@@ -44,15 +44,7 @@ void Scene::setBoard(Board::Ptr board)
 void Scene::render()
 {
 	sf::RenderStates renderStates = sf::RenderStates::Default;
-
 	_renderTarget->draw(_background, renderStates);
-
-	for(auto terrainIterator : _board->getTerrains())
-		terrainIterator.second->getComponent<SpriteComponent>()->render(_renderTarget);
-
-	for(auto unitIterator : _board->getUnits())
-		unitIterator.second->getComponent<SpriteComponent>()->render(_renderTarget);
-
 	_renderTarget->draw(_cursor, renderStates);
 }
 
