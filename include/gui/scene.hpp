@@ -36,10 +36,6 @@ public:
 
 	void handleEvent(const sf::Event& event);
 
-	namelessgui::Signal<Coordinates> signalCursorLeftClicked;
-	namelessgui::Signal<Coordinates> signalCursorRightClicked;
-    namelessgui::Signal<Coordinates, bool> signalCursorMoved;
-
     Coordinates getCursorPosition();
 
 	Cursor& getCursor();
