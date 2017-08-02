@@ -38,6 +38,8 @@ void Scene::setBoard(Board::Ptr board)
 
     // Set up corser and connect cursor slots
 	_cursor->setBoard(board);
+
+	addGameObject(board.get());
 }
 
 void Scene::setRenderTarget(sf::RenderTarget* renderTarget)
@@ -78,6 +80,13 @@ Coordinates Scene::getCursorPosition()
 Cursor& Scene::getCursor()
 {
 	return *_cursor;
+}
+
+void Scene::addGameObject(GameObject* gameObject)
+{
+	assert(gameObject!=nullptr);
+
+	m_gameObjects[typeid(*gameObject)].insert(gameObject);
 }
 
 void Scene::reset()

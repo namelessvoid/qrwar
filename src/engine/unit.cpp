@@ -7,6 +7,7 @@
 #include "engine/pathfinding/path.hpp"
 
 #include "foundation/spritecomponent.hpp"
+#include "gui/scene.hpp"
 
 #include "gui/guihelper.hpp"
 #include "gui/texturemanager.hpp"
@@ -22,7 +23,7 @@ std::string Unit::UNITNAMES[] =
 };
 
 Unit::Unit(UNITTYPES type, int hp, int attack, int defense,
-			int range, int movement, Player::Ptr player, Board::Ptr board,
+			int range, int movement, Player::Ptr player,
 			const sf::Texture* texture)
 :	_type(type),
 	_hp(hp),
@@ -32,8 +33,7 @@ Unit::Unit(UNITTYPES type, int hp, int attack, int defense,
 	_range(range),
 	_movement(movement),
 	_currentmovement(movement),
-	_player(player),
-	_board(board)
+	_player(player)
 {
 	_sprite = new SpriteComponent();
 	addComponent(_sprite);
@@ -41,18 +41,18 @@ Unit::Unit(UNITTYPES type, int hp, int attack, int defense,
 	_sprite->setTexture(texture);
 }
 
-Unit::Ptr Unit::createUnit(UNITTYPES unitType, Player::Ptr player, Board::Ptr board)
+Unit::Ptr Unit::createUnit(UNITTYPES unitType, Player::Ptr player)
 {
 	const sf::Texture* texture = GuiHelper::getUnitTexture(unitType, player);
 
 	switch(unitType)
 	{
 	case EUT_SWORDMAN:
-		return Ptr(new Unit(EUT_SWORDMAN, 5, 2, 1, 1, 3, player, board, texture));
+		return Ptr(new Unit(EUT_SWORDMAN, 5, 2, 1, 1, 3, player, texture));
 	case EUT_ARCHER:
-		return Ptr(new Unit(EUT_ARCHER, 5, 2, 1, 2, 2, player, board, texture));
+		return Ptr(new Unit(EUT_ARCHER, 5, 2, 1, 2, 2, player, texture));
 	default:
-		return Ptr(new Unit(EUT_SPEARMAN, 5, 2, 1, 1, 2, player, board, texture));
+		return Ptr(new Unit(EUT_SPEARMAN, 5, 2, 1, 1, 2, player, texture));
 	}
 }
 
@@ -80,8 +80,9 @@ int Unit::getModifiedAttack()
 {
 	int modifiedAttack = getBaseAttack();
 
-	if(_board->isTerrainAt(getPosition()))
-		modifiedAttack += _board->getTerrain(getPosition())->getModificator(EM_ATTACK);
+	Board* board = g_scene.getSingleGameObject<Board>();
+	if(board && board->isTerrainAt(getPosition()))
+		modifiedAttack += board->getTerrain(getPosition())->getModificator(EM_ATTACK);
 
 	return modifiedAttack < 0 ? 0 : modifiedAttack;
 }
@@ -95,8 +96,9 @@ int Unit::getModifiedDefense()
 {
 	int modifiedDefense = getBaseDefense();
 
-	if(_board->isTerrainAt(getPosition()))
-		modifiedDefense += _board->getTerrain(getPosition())->getModificator(EM_DEFENSE);
+	Board* board = g_scene.getSingleGameObject<Board>();
+	if(board && board->isTerrainAt(getPosition()))
+		modifiedDefense += board->getTerrain(getPosition())->getModificator(EM_DEFENSE);
 
 	return modifiedDefense < 0 ? 0 : modifiedDefense;
 }

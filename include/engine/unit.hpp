@@ -26,7 +26,7 @@ public:
 	 */
 	typedef std::shared_ptr<Unit> Ptr;
 
-	static Ptr createUnit(UNITTYPES unitType, Player::Ptr player, Board::Ptr board);
+	static Ptr createUnit(UNITTYPES unitType, Player::Ptr player);
 
 	~Unit() {}
 
@@ -104,7 +104,7 @@ private:
 	 * @param board Reference to the board on which the unit should be placed.
 	 */
 	Unit(UNITTYPES type, int hp, int attack, int defense,
-		int range, int movement, Player::Ptr player, Board::Ptr board,
+		int range, int movement, Player::Ptr player,
 		 const sf::Texture* texture);
 
 	UNITTYPES _type;
@@ -119,8 +119,6 @@ private:
 
 	static const float _dimension;
 
-	Board::Ptr _board;
-//	Square* _square;
 	Coordinates _position;
 
 	SpriteComponent* _sprite;

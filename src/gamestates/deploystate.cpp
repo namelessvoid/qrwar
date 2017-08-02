@@ -180,7 +180,7 @@ void DeployState::slotCursorLeftClicked(const Coordinates& boardPosition)
 	if(_board->isUnitAt(boardPosition))
 		_board->removeUnit(boardPosition);
 
-	Unit::Ptr unit = Unit::createUnit(_selectedUnitType, _selectedPlayer, _board);
+	Unit::Ptr unit = Unit::createUnit(_selectedUnitType, _selectedPlayer);
 	_board->setUnit(boardPosition, unit);
 	unit->setPosition(boardPosition);
 }

@@ -6,6 +6,8 @@
 
 #include <SFML/System/Vector2.hpp>
 
+#include "foundation/gameobject.hpp"
+
 namespace qrw
 {
 	class AbstractPathfinder;
@@ -15,7 +17,7 @@ namespace qrw
 	class Unit;
 	class Terrain;
 
-	class Board
+	class Board : public GameObject
 	{
 		public:
 			typedef std::shared_ptr<Board> Ptr;
