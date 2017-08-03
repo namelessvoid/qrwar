@@ -3,6 +3,10 @@
 #include <SFML/Graphics/RenderWindow.hpp>
 #include <SFML/Window/Event.hpp>
 
+#include <iostream>
+
+#include "eventsystem/event.hpp"
+
 #include "config/settings.hpp"
 
 namespace qrw
@@ -36,6 +40,12 @@ bool GameState::handleEvent(sf::Event& event)
 	}
 
 	return _guiUptr->handleEvent(event);
+}
+
+bool GameState::handleEvent(const Event& event)
+{
+	std::cout << "Handling QRW event of tpye " << event.type << std::endl << std::flush;
+	return false;
 }
 
 EGameStateId GameState::getId()

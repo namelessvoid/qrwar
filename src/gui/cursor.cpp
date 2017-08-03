@@ -9,6 +9,8 @@
 
 #include "engine/board.hpp"
 
+#include "eventsystem/eventsystem.hpp"
+
 namespace qrw
 {
 
@@ -45,6 +47,7 @@ void Cursor::handleEvent(const sf::Event& event)
             }
 
             signalMoved.emit(_boardPosition, _visible);
+			g_eventSystem.pushEvent({Event::EEventType::CursorMoved, _boardPosition});
         }
     }
 	else if( _visible == true && event.type == sf::Event::MouseButtonPressed)

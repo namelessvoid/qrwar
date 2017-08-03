@@ -5,6 +5,8 @@
 
 #include "gui/ng/gui.hpp"
 
+#include "eventsystem/eventhandler.hpp"
+
 // Foreward declarations
 namespace sf
 {
@@ -68,7 +70,7 @@ enum EGameStateId
  * It is used to encapuslate all data and methods required for a specific
  * state.
  */
-class GameState
+class GameState : public EventHandler
 {
 public:
 	/**
@@ -114,6 +116,8 @@ public:
 	 * @return Whether the event propagation should be stopped or not.
 	 */
 	virtual bool handleEvent(sf::Event& event);
+
+	virtual bool handleEvent(const Event& event) override;
 
 	/**
 	 * Get the ID of the GameState.

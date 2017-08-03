@@ -10,6 +10,8 @@
 
 #include "rendering/rendersystem.hpp"
 
+#include "eventsystem/eventsystem.hpp"
+
 #include "gamestates/introstate.hpp"
 #include "gamestates/mainmenustate.hpp"
 #include "gamestates/mapeditorstate.hpp"
@@ -21,6 +23,7 @@ namespace qrw
 
 RenderSystem g_renderSystem;
 Scene g_scene;
+EventSystem g_eventSystem;
 
 QRWar::QRWar()
 {
@@ -68,6 +71,8 @@ QRWar::~QRWar()
 void QRWar::run()
 {
 	sf::Event event;
+	Event qrwEvent;
+
 	bool quit = false;
 	EGameStateId nextStateId;
 
@@ -82,6 +87,9 @@ void QRWar::run()
 
 			_currentState->handleEvent(event);
         }
+
+		while(g_eventSystem.popEvent(qrwEvent))
+			_currentState->handleEvent(qrwEvent);
 
 		nextStateId = _currentState->update();
 
