@@ -42,9 +42,8 @@ bool GameState::handleEvent(sf::Event& event)
 	return _guiUptr->handleEvent(event);
 }
 
-bool GameState::handleEvent(const Event& event)
+bool GameState::handleEvent(const Event &event)
 {
-	std::cout << "Handling QRW event of tpye " << event.type << std::endl << std::flush;
 	return false;
 }
 

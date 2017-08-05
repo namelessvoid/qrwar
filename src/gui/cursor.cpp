@@ -46,16 +46,16 @@ void Cursor::handleEvent(const sf::Event& event)
                 _visible = false;
             }
 
-            signalMoved.emit(_boardPosition, _visible);
-			g_eventSystem.pushEvent({Event::EEventType::CursorMoved, _boardPosition});
+			//signalMoved.emit(_boardPosition, _visible);
+			g_eventSystem.pushEvent({Event::CursorMoved, _boardPosition});
         }
     }
 	else if( _visible == true && event.type == sf::Event::MouseButtonPressed)
 	{
 		if(event.mouseButton.button == sf::Mouse::Button::Left)
-			signalLeftClicked.emit(_boardPosition);
+			g_eventSystem.pushEvent({Event::CursorLeftClicked, _boardPosition});
 		else if(event.mouseButton.button == sf::Mouse::Button::Right)
-			signalRightClicked.emit(_boardPosition);
+			g_eventSystem.pushEvent({Event::CursorRightClicked, _boardPosition});
 	}
 }
 

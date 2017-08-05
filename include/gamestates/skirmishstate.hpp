@@ -30,7 +30,7 @@ public:
 	virtual void draw() override;
 
 private:
-    virtual void slotCursorMoved(const Coordinates& boardPosition, bool isOnBoard) override;
+	virtual void slotCursorMoved(const Coordinates& boardPosition) override;
     virtual void slotCursorLeftClicked(const Coordinates& boardPosition) override;
 
 	virtual bool handleEvent(sf::Event &event);

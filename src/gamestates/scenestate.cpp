@@ -3,6 +3,7 @@
 #include <SFML/Graphics/RenderWindow.hpp>
 
 #include "config/settings.hpp"
+#include "eventsystem/event.hpp"
 
 namespace qrw
 {
@@ -37,11 +38,6 @@ SceneState::~SceneState()
 void SceneState::init(GameState* previousState)
 {
 	_backToMainMenu = false;
-
-	// Set up cursor signals
-	g_scene.getCursor().signalLeftClicked.connect(std::bind(&SceneState::slotCursorLeftClicked, this, std::placeholders::_1));
-	g_scene.getCursor().signalRightClicked.connect(std::bind(&SceneState::slotCursorRightClicked, this, std::placeholders::_1));
-	g_scene.getCursor().signalMoved.connect(std::bind(&SceneState::slotCursorMoved, this, std::placeholders::_1, std::placeholders::_2));
 }
 
 void SceneState::draw()
@@ -63,6 +59,19 @@ bool SceneState::handleEvent(sf::Event& event)
 		g_scene.handleEvent(event);
 
 	return stopEventPropagation;
+}
+
+bool SceneState::handleEvent(const Event &event)
+{
+	GameState::handleEvent(event);
+	if(event.type == Event::CursorLeftClicked) {
+		slotCursorLeftClicked(event.coordinates);
+	} else if (event.type == Event::CursorMoved) {
+		slotCursorMoved(event.coordinates);
+	} else if (event.type == Event::CursorRightClicked) {
+		slotCursorRightClicked(event.coordinates);
+	}
+	return false;
 }
 
 void SceneState::slotBackToMainMenu()

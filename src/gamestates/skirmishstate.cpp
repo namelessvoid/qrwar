@@ -80,9 +80,9 @@ EGameStateId SkirmishState::update()
     return EGameStateId::EGSID_NO_CHANGE;
 }
 
-void SkirmishState::slotCursorMoved(const Coordinates &boardPosition, bool isOnBoard)
+void SkirmishState::slotCursorMoved(const Coordinates &boardPosition)
 {
-    if(isOnBoard)
+	if(_board->isOnBoard(boardPosition))
 	{
 		Unit::Ptr unitUnderCursor = _board->getUnit(boardPosition);
 		Terrain::Ptr terrainUnderCursor = _board->getTerrain(boardPosition);

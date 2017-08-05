@@ -21,6 +21,8 @@ public:
 
 	virtual bool handleEvent(sf::Event& event) override;
 
+	virtual bool handleEvent(const Event& event) override;
+
 protected:
 	SceneState(sf::RenderWindow* renderWindow, EGameStateId gameStateId);
 
@@ -30,7 +32,7 @@ protected:
 
     virtual void slotCursorLeftClicked(const Coordinates& boardPosition) {}
     virtual void slotCursorRightClicked(const Coordinates& boardPosition) {}
-    virtual void slotCursorMoved(const Coordinates& boardPosition, bool isOnBoard) {}
+	virtual void slotCursorMoved(const Coordinates& boardPosition) {}
 
 private:
 	void slotBackToMainMenu();
