@@ -31,11 +31,16 @@ add_subdirectory(src)
 #add_subdirectory(test)
 
 # IDE stuff: Show headers and resources in IDEs like QtCreator or Visual Studio
-file(GLOB_RECURSE ide_files RELATIVE ${QuadRuledWar_SOURCE_DIR}
-	# glob expressions
-	${QuadRuledWar_SOURCE_DIR}/include/*.hpp
-	${QuadRuledWar_SOURCE_DIR}/res/*
-        ${QuadRuledWar_SOURCE_DIR}/.travis-scripts/*
-        ${QuadRuledWar_SOURCE_DIR}/.travis.yml
+file(GLOB_RECURSE resource_files RELATIVE ${QuadRuledWar_SOURCE_DIR}
+    ${QuadRuledWar_SOURCE_DIR}/res/*
 )
-add_custom_target(QuadRuledWar SOURCES ${ide_files})
+
+add_custom_target(res SOURCES
+    ${resource_files}
+)
+
+add_custom_target(travis SOURCES
+    .travis-scripts/before-install-sfml.sh
+    .travis-scripts/before-install-tinyxml2.sh
+    .travis.yml
+)
