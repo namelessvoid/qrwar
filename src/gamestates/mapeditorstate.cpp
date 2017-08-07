@@ -71,6 +71,7 @@ MapEditorState::~MapEditorState()
 
 void MapEditorState::init(GameState* previousState)
 {
+	g_scene.reset();
 	SceneState::init(previousState);
 
 	_toDeployment = false;
@@ -122,6 +123,7 @@ void MapEditorState::slotCursorLeftClicked(const Coordinates& boardPosition)
 				_spBoard->removeTerrain(boardPosition);
 			_spBoard->setTerrain(boardPosition, terrain);
 			terrain->setPosition(boardPosition);
+			g_scene.addGameObject(terrain);
         }
     }
 }

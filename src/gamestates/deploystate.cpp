@@ -183,6 +183,7 @@ void DeployState::slotCursorLeftClicked(const Coordinates& boardPosition)
 	Unit* unit = Unit::createUnit(_selectedUnitType, _selectedPlayer);
 	_board->setUnit(boardPosition, unit);
 	unit->setPosition(boardPosition);
+	g_scene.addGameObject(unit);
 }
 
 void DeployState::slotCursorRightClicked(const Coordinates &boardPosition)

@@ -20,8 +20,7 @@ Scene::Scene()
 
 Scene::~Scene()
 {
-	_board.reset();
-	delete _cursor;
+	reset();
 }
 
 void Scene::setBoard(Board* board)
@@ -93,6 +92,15 @@ void Scene::reset()
 {
 	delete _cursor;
 	_cursor = new Cursor();
+
+	for(auto gameObjectsIter : m_gameObjects)
+	{
+		for(auto gameObject : gameObjectsIter.second)
+		{
+			delete gameObject;
+		}
+	}
+	m_gameObjects.clear();
 }
 
 } // namespace qrw

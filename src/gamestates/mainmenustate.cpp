@@ -8,6 +8,8 @@
 #include "gui/texturemanager.hpp"
 #include "gui/ng/button.hpp"
 
+#include "gui/scene.hpp"
+
 namespace qrw
 {
 
@@ -90,6 +92,7 @@ void MainMenuState::init(GameState* previousState)
 	}
 
 	GameState::init();
+	g_scene.reset();
 
 	_newGameClicked = false;
 }
