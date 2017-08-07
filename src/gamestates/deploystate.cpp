@@ -140,7 +140,7 @@ void DeployState::init(GameState* previousState)
     _toSkirmish = false;
 }
 
-Board::Ptr DeployState::getBoard() const
+Board* DeployState::getBoard() const
 {
     return _board;
 }
@@ -180,7 +180,7 @@ void DeployState::slotCursorLeftClicked(const Coordinates& boardPosition)
 	if(_board->isUnitAt(boardPosition))
 		_board->removeUnit(boardPosition);
 
-	Unit::Ptr unit = Unit::createUnit(_selectedUnitType, _selectedPlayer);
+	Unit* unit = Unit::createUnit(_selectedUnitType, _selectedPlayer);
 	_board->setUnit(boardPosition, unit);
 	unit->setPosition(boardPosition);
 }

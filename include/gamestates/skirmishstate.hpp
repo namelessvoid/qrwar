@@ -44,7 +44,7 @@ private:
 
 	void moveUnit();
 
-	void performAttack(std::shared_ptr<Unit> attackedUnit);
+	void performAttack(Unit* attackedUnit);
 
 	void replenishTroops();
 
@@ -54,9 +54,9 @@ private:
 	int _currentPlayer;
 	namelessgui::Text* _playerNameText;
 
-    Board::Ptr _board;
+    Board* _board;
 
-    Unit::Ptr _selectedUnit;
+	Unit* _selectedUnit;
 
 	std::shared_ptr<class Path> _path;
 

@@ -23,8 +23,7 @@ namespace qrw
 	class Terrain : public GameObject
 	{
 		public:
-			typedef std::shared_ptr<Terrain> Ptr;
-			static Ptr createTerrain(TERRAINTYPES terrainType);
+			static Terrain* createTerrain(TERRAINTYPES terrainType);
 
 			~Terrain();
 

@@ -24,12 +24,12 @@ class SquareDetailWindow : public namelessgui::Window
 public:
     SquareDetailWindow();
 
-	void setUnitAndTerrain(Unit::Ptr unit, Terrain::Ptr terrain);
+	void setUnitAndTerrain(Unit*unit, Terrain* terrain);
 
 private:
-	void setUnit(Unit::Ptr unit);
-    void setTerrain(Terrain::Ptr terrain);
-	void checkAndSetVisibility(Unit::Ptr unit, Terrain::Ptr terrain);
+	void setUnit(Unit* unit);
+	void setTerrain(Terrain* terrain);
+	void checkAndSetVisibility(Unit* unit, Terrain* terrain);
 
     namelessgui::Label* _unitTitleLabel;
     namelessgui::Label* _unitHealthLabel;

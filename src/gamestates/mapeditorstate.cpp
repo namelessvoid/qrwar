@@ -74,7 +74,7 @@ void MapEditorState::init(GameState* previousState)
 	SceneState::init(previousState);
 
 	_toDeployment = false;
-	_spBoard = std::make_shared<Board>(16, 9);
+	_spBoard = new Board(16, 9);
 	g_scene.setBoard(_spBoard);
 }
 
@@ -96,7 +96,7 @@ bool MapEditorState::handleEvent(sf::Event& event)
 	return stopEventPropagation;
 }
 
-Board::Ptr MapEditorState::getBoard() const
+Board* MapEditorState::getBoard() const
 {
 	return _spBoard;
 }
@@ -115,7 +115,7 @@ void MapEditorState::slotCursorLeftClicked(const Coordinates& boardPosition)
         if(_activeTerrainType == ET_NUMBEROFTERRAINTYPES)
             return;
 
-        Terrain::Ptr terrain = Terrain::createTerrain(_activeTerrainType);
+        Terrain* terrain = Terrain::createTerrain(_activeTerrainType);
         if(terrain != nullptr)
         {
 			if(_spBoard->isTerrainAt(boardPosition))

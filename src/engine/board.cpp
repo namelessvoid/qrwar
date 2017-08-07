@@ -22,7 +22,7 @@ namespace qrw
 		delete _pathfinder;
 	}
 
-	void Board::setUnit(const Coordinates &position, std::shared_ptr<Unit>& unit)
+	void Board::setUnit(const Coordinates &position, Unit* unit)
 	{
 		assert(!isUnitAt(position));
 		_units[position] = unit;
@@ -49,18 +49,18 @@ namespace qrw
 		return _units.find(position) != _units.end();
 	}
 
-	std::shared_ptr<Unit> Board::getUnit(const Coordinates &position)
+	Unit* Board::getUnit(const Coordinates &position)
 	{
 		auto iterator = _units.find(position);
 		return iterator == _units.end() ? nullptr : iterator->second;
 	}
 
-	const std::map<Coordinates, std::shared_ptr<Unit> > &Board::getUnits() const
+	const std::map<Coordinates, Unit*> &Board::getUnits() const
 	{
 		return _units;
 	}
 
-	void Board::setTerrain(const Coordinates &position, std::shared_ptr<Terrain> &terrain)
+	void Board::setTerrain(const Coordinates &position, Terrain* terrain)
 	{
 		assert(!isTerrainAt(position));
 		_terrains[position] = terrain;
@@ -77,13 +77,13 @@ namespace qrw
 		return _terrains.find(position) != _terrains.end();
 	}
 
-	std::shared_ptr<Terrain> Board::getTerrain(const Coordinates &position)
+	Terrain* Board::getTerrain(const Coordinates &position)
 	{
 		auto iterator = _terrains.find(position);
 		return iterator == _terrains.end() ? nullptr : iterator->second;
 	}
 
-	const std::map<Coordinates, std::shared_ptr<Terrain>>& Board::getTerrains() const
+	const std::map<Coordinates, Terrain*>& Board::getTerrains() const
 	{
 		return _terrains;
 	}

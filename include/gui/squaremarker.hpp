@@ -18,7 +18,7 @@ public:
 
 	virtual ~SquareMarker() {}
 
-	void setBoard(std::shared_ptr<Board> spBoard);
+	void setBoard(Board* spBoard);
 
 	void setDimensions(float dimensions);
 
@@ -37,7 +37,7 @@ protected:
 
 	Coordinates _boardPosition;
 
-	std::shared_ptr<Board> _board;
+	Board* _board;
 
 	bool _visible;
 };

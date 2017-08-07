@@ -14,7 +14,7 @@ SquareMarker::SquareMarker()
 	setSize({32.0f, 32.0f});
 }
 
-void SquareMarker::setBoard(std::shared_ptr<Board> spBoard)
+void SquareMarker::setBoard(Board* spBoard)
 {
 	_board = spBoard;
 }

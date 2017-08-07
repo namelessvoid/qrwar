@@ -31,7 +31,7 @@ public:
 
 	virtual bool handleEvent(sf::Event& event) override;
 
-	Board::Ptr getBoard() const;
+	Board* getBoard() const;
 
 private:
     virtual void slotCursorLeftClicked(const Coordinates& boardPosition) override;
@@ -51,7 +51,7 @@ private:
      */
     bool _eraseMode;
 
-	std::shared_ptr<Board> _spBoard;
+	Board* _spBoard;
 };
 
 } // namespace qrw

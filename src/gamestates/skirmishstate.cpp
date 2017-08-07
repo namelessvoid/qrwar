@@ -60,8 +60,8 @@ void SkirmishState::init(GameState *previousState)
 
     // Initialize square detail window.
 	Coordinates cursorPosition = g_scene.getCursorPosition();
-	Unit::Ptr unit = _board->getUnit(cursorPosition);
-	Terrain::Ptr terrain = _board->getTerrain(cursorPosition);
+	Unit* unit = _board->getUnit(cursorPosition);
+	Terrain* terrain = _board->getTerrain(cursorPosition);
 	_squareDetailWindow->setUnitAndTerrain(unit, terrain);
 }
 
@@ -84,8 +84,8 @@ void SkirmishState::slotCursorMoved(const Coordinates &boardPosition)
 {
 	if(_board->isOnBoard(boardPosition))
 	{
-		Unit::Ptr unitUnderCursor = _board->getUnit(boardPosition);
-		Terrain::Ptr terrainUnderCursor = _board->getTerrain(boardPosition);
+		Unit* unitUnderCursor = _board->getUnit(boardPosition);
+		Terrain* terrainUnderCursor = _board->getTerrain(boardPosition);
 		_squareDetailWindow->setUnitAndTerrain(unitUnderCursor, terrainUnderCursor);
 
 		if(_selectedUnit)
@@ -125,7 +125,7 @@ void SkirmishState::moveUnit()
 	std::cout << "Move unit." << std::endl;
 }
 
-void SkirmishState::performAttack(std::shared_ptr<Unit> attackedUnit)
+void SkirmishState::performAttack(Unit* attackedUnit)
 {
 	const Coordinates& positionOfAttackedUnit = attackedUnit->getPosition();
 
@@ -168,7 +168,7 @@ void SkirmishState::replenishTroops()
 	Unit* unit;
 	for(auto unitIter : _board->getUnits())
 	{
-		unit = unitIter.second.get();
+		unit = unitIter.second;
 		unit->setCurrentMovement(unit->getMovement());
 	}
 }
@@ -182,8 +182,8 @@ void SkirmishState::updateSquareDetailWindow(const Coordinates& position)
 
 void SkirmishState::slotCursorLeftClicked(const Coordinates &boardPosition)
 {
-	Unit::Ptr unitUnderCursor = _board->getUnit(boardPosition);
-	Terrain::Ptr terrainUnderCursor = _board->getTerrain(boardPosition);
+	Unit* unitUnderCursor = _board->getUnit(boardPosition);
+	Terrain* terrainUnderCursor = _board->getTerrain(boardPosition);
 
 	_squareDetailWindow->setUnitAndTerrain(unitUnderCursor, terrainUnderCursor);
 

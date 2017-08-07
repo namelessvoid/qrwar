@@ -91,14 +91,14 @@ SquareDetailWindow::SquareDetailWindow()
     addWidget(_terrainDefenseLabel);
 }
 
-void SquareDetailWindow::setUnitAndTerrain(Unit::Ptr unit, Terrain::Ptr terrain)
+void SquareDetailWindow::setUnitAndTerrain(Unit* unit, Terrain* terrain)
 {
 	checkAndSetVisibility(unit, terrain);
 	setUnit(unit);
 	setTerrain(terrain);
 }
 
-void SquareDetailWindow::setUnit(Unit::Ptr unit)
+void SquareDetailWindow::setUnit(Unit* unit)
 {
 	if(unit != nullptr)
     {
@@ -128,7 +128,7 @@ void SquareDetailWindow::setUnit(Unit::Ptr unit)
     }
 }
 
-void SquareDetailWindow::setTerrain(Terrain::Ptr terrain)
+void SquareDetailWindow::setTerrain(Terrain* terrain)
 {
 	if(terrain != nullptr)
     {
@@ -151,7 +151,7 @@ void SquareDetailWindow::setTerrain(Terrain::Ptr terrain)
 	}
 }
 
-void SquareDetailWindow::checkAndSetVisibility(Unit::Ptr unit, Terrain::Ptr terrain)
+void SquareDetailWindow::checkAndSetVisibility(Unit *unit, Terrain* terrain)
 {
 	setVisible(unit != nullptr || terrain != nullptr);
 }

@@ -35,7 +35,7 @@ public:
 
 	~Scene();
 
-    void setBoard(Board::Ptr board);
+	void setBoard(Board* board);
 
 	void setRenderTarget(sf::RenderTarget* renderTarget);
 
@@ -60,7 +60,7 @@ public:
 private:
 	sf::RenderTarget* _renderTarget;
 
-	Board::Ptr _board;
+	Board* _board;
 
 	sf::RectangleShape _background;
 	Cursor* _cursor;

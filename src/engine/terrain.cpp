@@ -7,21 +7,21 @@
 namespace qrw
 {
 
-Terrain::Ptr Terrain::createTerrain(TERRAINTYPES terrainType)
+Terrain* Terrain::createTerrain(TERRAINTYPES terrainType)
 {
-	Terrain::Ptr terrain = nullptr;
+	Terrain* terrain = nullptr;
 	const sf::Texture* texture = GuiHelper::getTerrainTexture(terrainType);
 
 	switch(terrainType)
 	{
 	case ET_WOOD:
-		terrain = Terrain::Ptr(new Terrain(ET_WOOD, -1, 1, texture));
+		terrain = new Terrain(ET_WOOD, -1, 1, texture);
 		break;
 	case ET_HILL:
-		terrain = Terrain::Ptr(new Terrain(ET_HILL, 1, -1, texture));
+		terrain = new Terrain(ET_HILL, 1, -1, texture);
 		break;
 	default:
-		terrain = Terrain::Ptr(new Terrain(ET_WALL, 1, 1, texture));
+		terrain = new Terrain(ET_WALL, 1, 1, texture);
 		break;
 	}
 

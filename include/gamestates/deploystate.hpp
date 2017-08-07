@@ -32,7 +32,7 @@ public:
      * @brief Get the board.
      * @return Returns the board currently used by this game state.
      */
-    Board::Ptr getBoard() const;
+    Board* getBoard() const;
 
     /**
      * @brief Return the players.
@@ -47,7 +47,7 @@ private:
     virtual void slotCursorLeftClicked(const Coordinates& boardPosition) override;
 	virtual void slotCursorRightClicked(const Coordinates& boardPosition) override;
 
-	Board::Ptr _board;
+	Board* _board;
 
 	std::vector<Player::Ptr> _players;
 

@@ -24,7 +24,7 @@ Scene::~Scene()
 	delete _cursor;
 }
 
-void Scene::setBoard(Board::Ptr board)
+void Scene::setBoard(Board* board)
 {
     _board = board;
 
@@ -39,7 +39,7 @@ void Scene::setBoard(Board::Ptr board)
     // Set up corser and connect cursor slots
 	_cursor->setBoard(board);
 
-	addGameObject(board.get());
+	addGameObject(board);
 }
 
 void Scene::setRenderTarget(sf::RenderTarget* renderTarget)

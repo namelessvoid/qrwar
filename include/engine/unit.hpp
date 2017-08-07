@@ -21,12 +21,7 @@ class SpriteComponent;
 class Unit : public GameObject
 {
 public:
-	/**
-	 * @brief Shared pointer to a Unit.
-	 */
-	typedef std::shared_ptr<Unit> Ptr;
-
-	static Ptr createUnit(UNITTYPES unitType, Player::Ptr player);
+	static Unit* createUnit(UNITTYPES unitType, Player::Ptr player);
 
 	~Unit() {}
 

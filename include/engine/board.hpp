@@ -20,23 +20,21 @@ namespace qrw
 	class Board : public GameObject
 	{
 		public:
-			typedef std::shared_ptr<Board> Ptr;
-
 			Board(int width, int height);
 			~Board();
 
-			void setUnit(const Coordinates& position, std::shared_ptr<Unit>& unit);
+			void setUnit(const Coordinates& position, Unit* unit);
 			void removeUnit(const Coordinates& position);
 			void moveUnit(const Coordinates& source, const Coordinates& destination);
 			bool isUnitAt(const Coordinates& position);
-			std::shared_ptr<Unit> getUnit(const Coordinates& position);
-			const std::map<Coordinates, std::shared_ptr<Unit>>& getUnits() const;
+			Unit* getUnit(const Coordinates& position);
+			const std::map<Coordinates, Unit*>& getUnits() const;
 
-			void setTerrain(const Coordinates& position, std::shared_ptr<Terrain>& terrain);
+			void setTerrain(const Coordinates& position, Terrain* terrain);
 			void removeTerrain(const Coordinates& position);
 			bool isTerrainAt(const Coordinates& position);
-			std::shared_ptr<Terrain> getTerrain(const Coordinates& position);
-			const std::map<Coordinates, std::shared_ptr<Terrain>>& getTerrains() const;
+			Terrain* getTerrain(const Coordinates& position);
+			const std::map<Coordinates, Terrain*>& getTerrains() const;
 
 			int getWidth();
 			int getHeight();
@@ -52,8 +50,8 @@ namespace qrw
 			Path* findPath(const Coordinates& start, const Coordinates& end);
 
 		private:
-			std::map<Coordinates, std::shared_ptr<Unit>> _units;
-			std::map<Coordinates, std::shared_ptr<Terrain>> _terrains;
+			std::map<Coordinates, Unit*> _units;
+			std::map<Coordinates, Terrain*> _terrains;
 
 			int _width;
 			int _height;

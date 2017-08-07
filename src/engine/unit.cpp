@@ -41,18 +41,18 @@ Unit::Unit(UNITTYPES type, int hp, int attack, int defense,
 	_sprite->setTexture(texture);
 }
 
-Unit::Ptr Unit::createUnit(UNITTYPES unitType, Player::Ptr player)
+Unit* Unit::createUnit(UNITTYPES unitType, Player::Ptr player)
 {
 	const sf::Texture* texture = GuiHelper::getUnitTexture(unitType, player);
 
 	switch(unitType)
 	{
 	case EUT_SWORDMAN:
-		return Ptr(new Unit(EUT_SWORDMAN, 5, 2, 1, 1, 3, player, texture));
+		return new Unit(EUT_SWORDMAN, 5, 2, 1, 1, 3, player, texture);
 	case EUT_ARCHER:
-		return Ptr(new Unit(EUT_ARCHER, 5, 2, 1, 2, 2, player, texture));
+		return new Unit(EUT_ARCHER, 5, 2, 1, 2, 2, player, texture);
 	default:
-		return Ptr(new Unit(EUT_SPEARMAN, 5, 2, 1, 1, 2, player, texture));
+		return new Unit(EUT_SPEARMAN, 5, 2, 1, 1, 2, player, texture);
 	}
 }
 
