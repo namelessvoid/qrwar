@@ -24,7 +24,7 @@ namespace qrw
 
 	ImageManager* ImageManager::getInstance()
 	{
-		if(imagemanager == false)
+		if(!imagemanager)
 			imagemanager = new ImageManager();
 		return imagemanager;
 	}
