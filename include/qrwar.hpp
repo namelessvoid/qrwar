@@ -23,9 +23,10 @@ public:
 private:
 	void preloadResources();
 
+	GameState* createGameState(EGameStateId id);
+
 	sf::RenderWindow _renderWindow;
 
-	std::map<EGameStateId, GameState*> _gameStates;
 	GameState* _currentState;
 };
 

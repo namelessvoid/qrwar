@@ -32,39 +32,13 @@ QRWar::QRWar()
 	preloadResources();
 	g_scene.setRenderTarget(&_renderWindow);
 
-	// Initialize game states
-	GameState* gameState;
-
-	// Intro state
-	gameState = new IntroState(&_renderWindow);
-	_gameStates[gameState->getId()] = gameState;
-
-	// Main menu state
-	gameState = new MainMenuState(&_renderWindow);
-	_gameStates[gameState->getId()] = gameState;
-
-	// Map editor state
-	gameState = new MapEditorState(&_renderWindow);
-	_gameStates[gameState->getId()] = gameState;
-
-	// Deploy state
-	gameState = new DeployState(&_renderWindow);
-	_gameStates[gameState->getId()] = gameState;
-
-    // Skirmish state
-    gameState = new SkirmishState(&_renderWindow);
-    _gameStates[gameState->getId()] = gameState;
-
 	// Set and initialize start state
-	_currentState = _gameStates[EGameStateId::EGSID_INTRO_STATE];
+	_currentState = createGameState(EGSID_INTRO_STATE);
 	_currentState->init(nullptr);
 }
 
 QRWar::~QRWar()
 {
-	for(auto iter : _gameStates)
-		delete iter.second;
-
 	g_renderSystem.shutDown();
 }
 
@@ -95,7 +69,11 @@ void QRWar::run()
 
 		// Quit the application
 		if(nextStateId == EGameStateId::EGSID_QUIT)
+		{
 			quit = true;
+			delete _currentState;
+			g_scene.reset();
+		}
 		// If no state change occured: draw the current state
 		else if(nextStateId == EGameStateId::EGSID_NO_CHANGE)
 		{
@@ -107,10 +85,10 @@ void QRWar::run()
 		// Perform a state change
 		else
 		{
-			g_scene.reset();
 			GameState* previousState = _currentState;
-			_currentState = _gameStates[nextStateId];
+			_currentState = createGameState(nextStateId);
 			_currentState->init(previousState);
+			delete previousState;
 		}
 	}
 }
@@ -128,6 +106,19 @@ void QRWar::preloadResources()
 	qrw::TilesetProcessor tilesetprocessor;
 	tilesetprocessor.loadTileset(settings->getEntityTilesetPath());
 	tilesetprocessor.loadTileset(settings->getGuiTilesetPath());
+}
+
+GameState* QRWar::createGameState(EGameStateId id)
+{
+	switch(id)
+	{
+	case EGSID_INTRO_STATE: return new IntroState(&_renderWindow);
+	case EGSID_MAIN_MENU_STATE: return new MainMenuState(&_renderWindow);
+	case EGSID_MAP_EDITOR_STATE: return new MapEditorState(&_renderWindow);
+	case EGSID_DEPLOY_STATE: return new DeployState(&_renderWindow);
+	case EGSID_SKIRMISH_STATE: return new SkirmishState(&_renderWindow);
+	default: return nullptr;
+	}
 }
 
 } // namespace qrw
