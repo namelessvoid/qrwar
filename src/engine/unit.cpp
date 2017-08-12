@@ -12,6 +12,8 @@
 #include "gui/guihelper.hpp"
 #include "gui/texturemanager.hpp"
 
+#include "game/renderlayers.hpp"
+
 namespace qrw
 {
 
@@ -35,7 +37,7 @@ Unit::Unit(UNITTYPES type, int hp, int attack, int defense,
 	_currentmovement(movement),
 	_player(player)
 {
-	_sprite = new SpriteComponent(2);
+	_sprite = new SpriteComponent(RENDER_LAYER_UNIT);
 	addComponent(_sprite);
 	_sprite->setSize(sf::Vector2f(_dimension, _dimension));
 	_sprite->setTexture(texture);
