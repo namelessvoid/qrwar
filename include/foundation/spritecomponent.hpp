@@ -19,7 +19,7 @@ namespace qrw
 class SpriteComponent : public GameComponent, public Renderable
 {
 public:
-	SpriteComponent();
+	SpriteComponent(Layer layer);
 
 	virtual ~SpriteComponent();
 

@@ -32,7 +32,7 @@ Terrain::Terrain(TERRAINTYPES type, int attackmod, int defensemod, const sf::Tex
 	: _type(type),
 	  _position(0, 0)
 {
-	_sprite = new SpriteComponent();
+	_sprite = new SpriteComponent(Layer(1));
 	addComponent(_sprite);
 	_sprite->setSize(sf::Vector2f(32, 32));
 	_sprite->setTexture(texture);

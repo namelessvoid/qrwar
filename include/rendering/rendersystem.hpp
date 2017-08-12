@@ -1,6 +1,7 @@
 #ifndef QRW_RENDERSYSTEM_HPP
 #define QRW_RENDERSYSTEM_HPP
 
+#include <map>
 #include <set>
 
 #include "rendering/renderable.hpp"
@@ -24,7 +25,7 @@ public:
 private:
 	RenderSystem(const RenderSystem&) = delete;
 
-	std::set<Renderable*>* m_renderables;
+	std::map<unsigned char, std::set<Renderable*>> m_renderables;
 };
 
 extern RenderSystem g_renderSystem;

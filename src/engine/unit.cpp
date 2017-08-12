@@ -35,7 +35,7 @@ Unit::Unit(UNITTYPES type, int hp, int attack, int defense,
 	_currentmovement(movement),
 	_player(player)
 {
-	_sprite = new SpriteComponent();
+	_sprite = new SpriteComponent(2);
 	addComponent(_sprite);
 	_sprite->setSize(sf::Vector2f(_dimension, _dimension));
 	_sprite->setTexture(texture);

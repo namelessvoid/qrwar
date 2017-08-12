@@ -8,7 +8,8 @@
 namespace qrw
 {
 
-SpriteComponent::SpriteComponent()
+SpriteComponent::SpriteComponent(Layer layer)
+	: Renderable(layer)
 {
 	_rectangle = new sf::RectangleShape();
 	g_renderSystem.registerRenderable(this);

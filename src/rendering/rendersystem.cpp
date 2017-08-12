@@ -7,32 +7,35 @@ namespace qrw
 
 void RenderSystem::startUp()
 {
-	m_renderables = new std::set<Renderable*>();
 }
 
 void RenderSystem::shutDown()
 {
-	delete m_renderables;
+	m_renderables.clear();
 }
 
 void RenderSystem::registerRenderable(Renderable* renderable)
 {
-	assert(m_renderables!=nullptr);
+	assert(renderable!=nullptr);
 
-	m_renderables->insert(renderable);
+	m_renderables[renderable->getLayer()].insert(renderable);
 }
 
 void RenderSystem::deregisterRenderable(Renderable* renderable)
 {
-	assert(m_renderables!=nullptr);
-	m_renderables->erase(renderable);
+	assert(renderable!=nullptr);
+
+	m_renderables[renderable->getLayer()].erase(renderable);
 }
 
 void RenderSystem::renderAll(sf::RenderTarget& renderTarget)
 {
-	for(Renderable* renderable : *m_renderables)
+	for(auto layerIterator = m_renderables.begin(); layerIterator != m_renderables.end(); ++layerIterator)
 	{
-		renderable->render(renderTarget);
+		for(Renderable* renderable : layerIterator->second)
+		{
+			renderable->render(renderTarget);
+		}
 	}
 }
 
