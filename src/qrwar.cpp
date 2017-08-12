@@ -78,8 +78,8 @@ void QRWar::run()
 		else if(nextStateId == EGameStateId::EGSID_NO_CHANGE)
 		{
 			// Todo: Remove _currentState->draw();
-			_currentState->draw();
 			g_renderSystem.renderAll(_renderWindow);
+			_currentState->draw();
 			_renderWindow.display();
 		}
 		// Perform a state change
