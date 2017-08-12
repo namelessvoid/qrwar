@@ -62,7 +62,6 @@ private:
 
 	Board* _board;
 
-	sf::RectangleShape _background;
 	Cursor* _cursor;
 
 	std::map<std::type_index,std::set<GameObject*>> m_gameObjects;

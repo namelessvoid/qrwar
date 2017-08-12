@@ -27,14 +27,6 @@ void Scene::setBoard(Board* board)
 {
     _board = board;
 
-    // Set up background
-    _background.setTexture(TextureManager::getInstance()->getTexture("plainsquare"));
-
-    sf::Vector2u spriteSize = _background.getTexture()->getSize();
-    sf::Vector2f backgroundSize = sf::Vector2f(board->getWidth() * spriteSize.x, board->getHeight() * spriteSize.y);
-    _background.setSize(backgroundSize);
-    _background.setTextureRect(sf::IntRect(0, 0, backgroundSize.x, backgroundSize.y));
-
     // Set up corser and connect cursor slots
 	_cursor->setBoard(board);
 
@@ -49,7 +41,6 @@ void Scene::setRenderTarget(sf::RenderTarget* renderTarget)
 void Scene::render()
 {
 	sf::RenderStates renderStates = sf::RenderStates::Default;
-	_renderTarget->draw(_background, renderStates);
 	_renderTarget->draw(*_cursor, renderStates);
 }
 

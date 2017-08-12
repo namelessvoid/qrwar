@@ -25,6 +25,8 @@ public:
 
 	void setTexture(const sf::Texture* texture);
 
+	void setRepeateTexture(bool repeate);
+
 	void setSize(const sf::Vector2f& size);
 
 	void setPosition(const sf::Vector2f& position);

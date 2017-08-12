@@ -4,6 +4,12 @@
 #include "engine/board.hpp"
 #include "engine/pathfinding/astar.hpp"
 
+#include "foundation/spritecomponent.hpp"
+
+#include "gui/texturemanager.hpp"
+
+#include "game/renderlayers.hpp"
+
 namespace qrw
 {
 	Board::Board(int width, int height)
@@ -13,6 +19,12 @@ namespace qrw
 		// Initialize pathfinding
 		_pathfinder = new AStar;
 		_pathfinder->setBoard(this);
+
+		SpriteComponent* backgroundComponent = new SpriteComponent(RENDER_LAYER_BACKGROUND);
+		backgroundComponent->setTexture(TextureManager::getInstance()->getTexture("plainsquare"));
+		backgroundComponent->setSize({32.0f * width, 32.0f * height});
+		backgroundComponent->setRepeateTexture(true);
+		addComponent(backgroundComponent);
 	}
 
 	Board::~Board()
