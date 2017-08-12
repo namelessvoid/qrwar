@@ -18,9 +18,12 @@ MainMenuState::MainMenuState(sf::RenderWindow* renderWindow)
 	  _quitClicked(false),
 	  _newGameClicked(false)
 {
+	Settings* settings = Settings::getInstance();
+
 	// Set up background
 	TextureManager* textureManager = TextureManager::getInstance();
 	_background.setTexture(textureManager->getTexture("mainmenubackground"));
+	_background.setSize(sf::Vector2f(settings->getResolutionX(), settings->getResolutionY()));
 
 	// Create main menu window
 	namelessgui::Window* mainWindow = new namelessgui::Window();
@@ -86,9 +89,6 @@ void MainMenuState::init(GameState* previousState)
 			"QRW",
 			style
 		);
-
-		// Set background texture
-		_background.setSize(sf::Vector2f(settings->getResolutionX(), settings->getResolutionY()));
 	}
 
 	GameState::init();
