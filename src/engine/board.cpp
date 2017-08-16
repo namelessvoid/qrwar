@@ -46,16 +46,6 @@ namespace qrw
 		_units.erase(position);
 	}
 
-	void Board::moveUnit(const Coordinates &source, const Coordinates &destination)
-	{
-		assert(isUnitAt(source));
-		assert(!isUnitAt(destination));
-
-		auto unit = _units.at(source);
-		_units.erase(source);
-		_units[destination] = unit;
-	}
-
 	bool Board::isUnitAt(const Coordinates &position)
 	{
 		return _units.find(position) != _units.end();

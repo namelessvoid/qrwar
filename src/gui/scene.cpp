@@ -79,6 +79,13 @@ void Scene::addGameObject(GameObject* gameObject)
 	m_gameObjects[typeid(*gameObject)].insert(gameObject);
 }
 
+void Scene::removeGameObject(GameObject *gameObject)
+{
+	assert(gameObject!=nullptr);
+
+	m_gameObjects[typeid(*gameObject)].erase(gameObject);
+}
+
 void Scene::reset()
 {
 	delete _cursor;

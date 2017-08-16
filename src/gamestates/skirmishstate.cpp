@@ -119,8 +119,6 @@ void SkirmishState::moveUnit()
 
 	int remainingMovement = maxDistance - pathCosts;
 	_selectedUnit->setCurrentMovement(remainingMovement);
-
-	_board->moveUnit(_squareMarker->getBoardPosition(), _path->getTarget());
 	_selectedUnit->setPosition(_path->getTarget());
 
 	std::cout << "Move unit." << std::endl;
@@ -143,8 +141,7 @@ void SkirmishState::performAttack(Unit* attackedUnit)
 
 	if(attackedUnit->getHP() == 0)
 	{
-		_board->removeUnit(positionOfAttackedUnit);
-		_board->moveUnit(_selectedUnit->getPosition(), positionOfAttackedUnit);
+		delete _board->getUnit(positionOfAttackedUnit);
 		_selectedUnit->setPosition(positionOfAttackedUnit);
 	}
 	else
@@ -155,7 +152,8 @@ void SkirmishState::performAttack(Unit* attackedUnit)
 
 		if(_selectedUnit->getHP() == 0)
 		{
-			_board->removeUnit(_selectedUnit->getPosition());
+			delete _selectedUnit;
+			_selectedUnit = nullptr;
 		}
 	}
 

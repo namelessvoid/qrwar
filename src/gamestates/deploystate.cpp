@@ -177,19 +177,18 @@ void DeployState::slotCursorLeftClicked(const Coordinates& boardPosition)
 	if(_selectedPlayer == nullptr)
 		return;
 
-	if(_board->isUnitAt(boardPosition))
-		_board->removeUnit(boardPosition);
+	if(Unit* unit = _board->getUnit(boardPosition))
+		delete unit;
 
 	Unit* unit = Unit::createUnit(_selectedUnitType, _selectedPlayer);
-	_board->setUnit(boardPosition, unit);
 	unit->setPosition(boardPosition);
 	g_scene.addGameObject(unit);
 }
 
 void DeployState::slotCursorRightClicked(const Coordinates &boardPosition)
 {
-	if(_board->isUnitAt(boardPosition))
-		_board->removeUnit(boardPosition);
+	if(Unit* unit = _board->getUnit(boardPosition))
+		delete unit;
 }
 
 } // namespace qrw

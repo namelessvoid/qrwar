@@ -49,6 +49,8 @@ public:
 
 	void addGameObject(GameObject* gameObject);
 
+	void removeGameObject(GameObject* gameObject);
+
 	template<class T>
 	std::set<GameObject*>& getGameObjects();
 

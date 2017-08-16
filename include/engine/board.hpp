@@ -25,7 +25,6 @@ namespace qrw
 
 			void setUnit(const Coordinates& position, Unit* unit);
 			void removeUnit(const Coordinates& position);
-			void moveUnit(const Coordinates& source, const Coordinates& destination);
 			bool isUnitAt(const Coordinates& position);
 			Unit* getUnit(const Coordinates& position);
 			const std::map<Coordinates, Unit*>& getUnits() const;

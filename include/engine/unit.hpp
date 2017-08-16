@@ -23,7 +23,7 @@ class Unit : public GameObject
 public:
 	static Unit* createUnit(UNITTYPES unitType, Player::Ptr player);
 
-	~Unit() {}
+	~Unit();
 
 	Player::Ptr getPlayer() const;
 	void setPlayer(Player::Ptr _player);

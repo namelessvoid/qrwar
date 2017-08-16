@@ -58,6 +58,15 @@ Unit* Unit::createUnit(UNITTYPES unitType, Player::Ptr player)
 	}
 }
 
+Unit::~Unit()
+{
+	Board* board = g_scene.getSingleGameObject<Board>();
+	if(board->getUnit(_position) == this)
+		board->removeUnit(_position);
+
+	g_scene.removeGameObject(this);
+}
+
 Player::Ptr Unit::getPlayer() const
 {
 	return _player;
@@ -161,7 +170,12 @@ const Coordinates& Unit::getPosition() const
 
 void Unit::setPosition(const Coordinates& position)
 {
+	Board* board = g_scene.getSingleGameObject<Board>();
+	if(board->getUnit(_position) == this)
+		board->removeUnit(_position);
+
 	_position = position;
+	board->setUnit(_position, this);
 	_sprite->setPosition(sf::Vector2f(_dimension * _position.getX(), _dimension * _position.getY()));
 }
 

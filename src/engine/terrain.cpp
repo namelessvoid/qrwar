@@ -1,6 +1,7 @@
 #include "engine/terrain.hpp"
 
 #include "gui/guihelper.hpp"
+#include "gui/scene.hpp"
 
 #include "foundation/spritecomponent.hpp"
 
@@ -45,6 +46,11 @@ Terrain::Terrain(TERRAINTYPES type, int attackmod, int defensemod, const sf::Tex
 
 Terrain::~Terrain()
 {
+	Board* board = g_scene.getSingleGameObject<Board>();
+	if(board->getTerrain(_position) == this)
+		board->removeTerrain(_position);
+
+	g_scene.removeGameObject(this);
 }
 
 int Terrain::getModificator(MODIFICATORS type)
