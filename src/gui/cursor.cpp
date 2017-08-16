@@ -11,6 +11,8 @@
 
 #include "eventsystem/eventsystem.hpp"
 
+#include "game/events.hpp"
+
 namespace qrw
 {
 
@@ -46,16 +48,16 @@ void Cursor::handleEvent(const sf::Event& event)
                 _visible = false;
             }
 
-			//signalMoved.emit(_boardPosition, _visible);
-			g_eventSystem.pushEvent({Event::CursorMoved, _boardPosition});
+			CursorMovedEvent* event = new CursorMovedEvent(_boardPosition);
+			g_eventSystem.pushEvent(event);
         }
     }
 	else if( _visible == true && event.type == sf::Event::MouseButtonPressed)
 	{
 		if(event.mouseButton.button == sf::Mouse::Button::Left)
-			g_eventSystem.pushEvent({Event::CursorLeftClicked, _boardPosition});
+			g_eventSystem.pushEvent(new CursorLeftClickedEvent(_boardPosition));
 		else if(event.mouseButton.button == sf::Mouse::Button::Right)
-			g_eventSystem.pushEvent({Event::CursorRightClicked, _boardPosition});
+			g_eventSystem.pushEvent(new CursorRightClickedEvent(_boardPosition));
 	}
 }
 

@@ -5,17 +5,17 @@
 namespace qrw
 {
 
-void EventSystem::pushEvent(const Event& event)
+void EventSystem::pushEvent(const Event* event)
 {
 	m_eventQueue.push(event);
 }
 
-bool EventSystem::popEvent(Event& outEvent)
+bool EventSystem::popEvent(std::shared_ptr<const Event> &eventOut)
 {
 	if(m_eventQueue.size() == 0)
 		return false;
 
-	outEvent = m_eventQueue.front();
+	eventOut.reset(m_eventQueue.front());
 	m_eventQueue.pop();
 	return true;
 }

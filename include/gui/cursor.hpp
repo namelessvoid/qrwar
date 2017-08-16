@@ -10,6 +10,8 @@
 #include "engine/coordinates.hpp"
 #include "gui/squaremarker.hpp"
 
+#include "eventsystem/event.hpp"
+
 namespace sf
 {
 class Event;

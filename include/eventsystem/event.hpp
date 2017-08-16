@@ -6,9 +6,8 @@
 namespace qrw
 {
 
-class Event
+struct Event
 {
-public:
 	enum EEventType
 	{
 		Invalid,
@@ -17,33 +16,15 @@ public:
 		CursorRightClicked
 	};
 
-	Event()
-		: type(EEventType::Invalid)
-	{
-	}
+	Event() :
+		type(EEventType::Invalid)
+	{}
 
-	Event(EEventType type, const Coordinates& coordinates)
-		: type(type),
-		  coordinates(coordinates)
-	{
-	}
-
-	Event(const Event& rhs)
-		: type(rhs.type),
-		  coordinates(rhs.coordinates)
-	{
-	}
-
-	Event& operator=(const Event& rhs)
-	{
-		type = rhs.type;
-		coordinates = rhs.coordinates;
-		return *this;
-	}
+	Event(EEventType type)
+		: type(type)
+	{}
 
 	EEventType type;
-
-	Coordinates coordinates;
 };
 
 } // namespace qrw

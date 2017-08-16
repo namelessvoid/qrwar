@@ -2,6 +2,7 @@
 #define QRW_EVENTSYSTEM_HPP
 
 #include <queue>
+#include <memory>
 
 #include "eventsystem/event.hpp"
 
@@ -11,12 +12,12 @@ namespace qrw
 class EventSystem
 {
 public:
-	void pushEvent(const Event& event);
+	void pushEvent(const Event* event);
 
-	bool popEvent(Event& outEvent);
+	bool popEvent(std::shared_ptr<const Event> &eventOut);
 
 private:
-	std::queue<Event> m_eventQueue;
+	std::queue<const Event*> m_eventQueue;
 };
 
 extern EventSystem g_eventSystem;

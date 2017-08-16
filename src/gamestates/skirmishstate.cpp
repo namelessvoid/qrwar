@@ -19,8 +19,8 @@ namespace qrw
 
 SkirmishState::SkirmishState(sf::RenderWindow* renderWindow)
 	: SceneState(renderWindow, EGameStateId::EGSID_SKIRMISH_STATE),
-	  _squareMarker(new SquareMarker()),
-	  _selectedUnit(nullptr)
+	  _selectedUnit(nullptr),
+	  _squareMarker(new SquareMarker())
 {
     _squareDetailWindow = new SquareDetailWindow();
     _guiUptr->addWidget(_squareDetailWindow);

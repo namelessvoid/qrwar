@@ -4,6 +4,7 @@
 
 #include "config/settings.hpp"
 #include "eventsystem/event.hpp"
+#include "game/events.hpp"
 
 namespace qrw
 {
@@ -64,12 +65,17 @@ bool SceneState::handleEvent(sf::Event& event)
 bool SceneState::handleEvent(const Event &event)
 {
 	GameState::handleEvent(event);
-	if(event.type == Event::CursorLeftClicked) {
-		slotCursorLeftClicked(event.coordinates);
-	} else if (event.type == Event::CursorMoved) {
-		slotCursorMoved(event.coordinates);
-	} else if (event.type == Event::CursorRightClicked) {
-		slotCursorRightClicked(event.coordinates);
+	if(event.type == Event::CursorMoved)
+	{
+		slotCursorMoved(static_cast<const CursorMovedEvent&>(event).coordinates);
+	}
+	else if(event.type == Event::CursorLeftClicked)
+	{
+		slotCursorLeftClicked(static_cast<const CursorLeftClickedEvent&>(event).coordinates);
+	}
+	else if (event.type == Event::CursorRightClicked)
+	{
+		slotCursorRightClicked(static_cast<const CursorRightClickedEvent&>(event).coordinates);
 	}
 	return false;
 }

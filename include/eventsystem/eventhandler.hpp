@@ -3,6 +3,7 @@
 
 namespace qrw
 {
+
 class Event;
 
 class EventHandler
