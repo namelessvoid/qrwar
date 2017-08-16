@@ -65,15 +65,15 @@ bool SceneState::handleEvent(sf::Event& event)
 bool SceneState::handleEvent(const Event &event)
 {
 	GameState::handleEvent(event);
-	if(event.type == Event::CursorMoved)
+	if(event.name == SID("CURSOR_MOVED"))
 	{
 		slotCursorMoved(static_cast<const CursorMovedEvent&>(event).coordinates);
 	}
-	else if(event.type == Event::CursorLeftClicked)
+	else if(event.name == SID("CURSOR_LEFT_CLICKED"))
 	{
 		slotCursorLeftClicked(static_cast<const CursorLeftClickedEvent&>(event).coordinates);
 	}
-	else if (event.type == Event::CursorRightClicked)
+	else if (event.name == SID("CURSOR_RIGHT_CLICKED"))
 	{
 		slotCursorRightClicked(static_cast<const CursorRightClickedEvent&>(event).coordinates);
 	}

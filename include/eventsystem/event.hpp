@@ -3,28 +3,18 @@
 
 #include "engine/coordinates.hpp"
 
+#include "core/sid.hpp"
+
 namespace qrw
 {
 
 struct Event
 {
-	enum EEventType
-	{
-		Invalid,
-		CursorMoved,
-		CursorLeftClicked,
-		CursorRightClicked
-	};
-
-	Event() :
-		type(EEventType::Invalid)
+	Event(const std::string& name)
+		: name(name)
 	{}
 
-	Event(EEventType type)
-		: type(type)
-	{}
-
-	EEventType type;
+	SID name;
 };
 
 } // namespace qrw
