@@ -9,8 +9,8 @@
 #include "gui/texturemanager.hpp"
 
 #include "rendering/rendersystem.hpp"
-
 #include "eventsystem/eventsystem.hpp"
+#include "animation/animationsystem.hpp"
 
 #include "gamestates/introstate.hpp"
 #include "gamestates/mainmenustate.hpp"
@@ -24,6 +24,7 @@ namespace qrw
 RenderSystem g_renderSystem;
 Scene g_scene;
 EventSystem g_eventSystem;
+AnimationSystem g_animationSystem;
 
 QRWar::QRWar()
 {
@@ -92,6 +93,8 @@ void QRWar::run()
 			_currentState->init(previousState);
 			delete previousState;
 		}
+
+		g_animationSystem.update(0);
 	}
 }
 
