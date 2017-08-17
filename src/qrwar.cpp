@@ -2,6 +2,7 @@
 
 #include <SFML/Graphics/RenderWindow.hpp>
 #include <SFML/Window/Event.hpp>
+#include <SFML/System/Time.hpp>
 
 #include "config/settings.hpp"
 #include "config/tilesetprocessor.hpp"
@@ -45,6 +46,7 @@ QRWar::~QRWar()
 
 void QRWar::run()
 {
+	sf::Clock timer;
 	sf::Event event;
 	std::shared_ptr<const Event> qrwEvent;
 
@@ -53,6 +55,8 @@ void QRWar::run()
 
 	while(!quit)
 	{
+		sf::Time elapsedTime = timer.restart();
+
 		_renderWindow.clear(sf::Color::Black);
 
 		while(_renderWindow.pollEvent(event))
@@ -94,7 +98,7 @@ void QRWar::run()
 			delete previousState;
 		}
 
-		g_animationSystem.update(0);
+		g_animationSystem.update(elapsedTime.asSeconds());
 	}
 }
 
