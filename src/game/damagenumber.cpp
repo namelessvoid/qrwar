@@ -1,6 +1,7 @@
 #include "game/damagenumber.hpp"
 
 #include "foundation/textcomponent.hpp"
+#include "foundation/transformanimationcomponent.hpp"
 
 #include "game/renderlayers.hpp"
 
@@ -14,6 +15,9 @@ DamageNumber::DamageNumber(int inflictedDamage)
 	textComponent->setText("-" + std::to_string(inflictedDamage));
 	textComponent->setPosition({50, 50});
 	textComponent->setFillColor(sf::Color::Red);
+
+	TransformAnimationComponent* animation = new TransformAnimationComponent(textComponent);
+	addComponent(animation);
 }
 
 } // namespace qrw
