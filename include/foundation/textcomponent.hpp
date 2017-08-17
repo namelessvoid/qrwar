@@ -17,6 +17,7 @@ public:
     TextComponent(Layer layer);
 
     void setText(const std::string& text);
+    void setFillColor(const sf::Color& color);
 
     virtual void render(sf::RenderTarget &renderTarget) override;
     virtual void setPosition(const sf::Vector2f &position) override;

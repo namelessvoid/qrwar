@@ -17,6 +17,10 @@ void qrw::TextComponent::setText(const std::string &text)
 	m_text.setString(text);
 }
 
+void TextComponent::setFillColor(const sf::Color& color)
+{
+	m_text.setFillColor(color);
+}
 
 void qrw::TextComponent::render(sf::RenderTarget &renderTarget)
 {
