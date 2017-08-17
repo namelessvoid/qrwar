@@ -10,14 +10,19 @@ namespace qrw
 
 DamageNumber::DamageNumber(int inflictedDamage)
 {
-	TextComponent* textComponent = new TextComponent(RENDER_LAYER_BILLBOARD);
-	addComponent(textComponent);
-	textComponent->setText("-" + std::to_string(inflictedDamage));
-	textComponent->setPosition({50, 50});
-	textComponent->setFillColor(sf::Color::Red);
+	m_textComponent = new TextComponent(RENDER_LAYER_BILLBOARD);
+	addComponent(m_textComponent);
+	m_textComponent->setText("-" + std::to_string(inflictedDamage));
+	m_textComponent->setPosition({50, 50});
+	m_textComponent->setFillColor(sf::Color::Red);
 
-	TransformAnimationComponent* animation = new TransformAnimationComponent(textComponent);
+	TransformAnimationComponent* animation = new TransformAnimationComponent(m_textComponent);
 	addComponent(animation);
+}
+
+void DamageNumber::setPosition(const sf::Vector2f& position)
+{
+	m_textComponent->setPosition(position);
 }
 
 } // namespace qrw

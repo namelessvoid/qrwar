@@ -139,7 +139,9 @@ void Unit::setMaxHp(int maxhp)
 void Unit::damage(int inflictedDamage)
 {
 	setHP(getHP() - inflictedDamage);
+
 	DamageNumber* damageNumber = new DamageNumber(inflictedDamage);
+	damageNumber->setPosition(_sprite->getPosition() + sf::Vector2f{16, -16});
 	g_scene.addGameObject(damageNumber);
 }
 
