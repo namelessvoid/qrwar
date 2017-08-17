@@ -43,6 +43,8 @@ add_library(qrwarlib
         gamestates/deploystate.cpp
         gamestates/skirmishstate.cpp
 
+        game/damagenumber.cpp
+
 #	gui/animation.cpp
 #	gui/boardwidget.cpp
         gui/scene.cpp

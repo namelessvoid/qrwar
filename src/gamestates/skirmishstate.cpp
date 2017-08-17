@@ -1,5 +1,7 @@
 #include "gamestates/skirmishstate.hpp"
 
+#include <SFML/Graphics/Sprite.hpp>
+
 #include "gamestates/deploystate.hpp"
 #include "engine/pathfinding/astar.hpp"
 #include "engine/pathfinding/path.hpp"
@@ -8,11 +10,6 @@
 #include "gui/ng/spritewidget.hpp"
 #include "gui/ng/button.hpp"
 #include "gui/squaredetailwindow.hpp"
-
-#include <SFML/Graphics/Sprite.hpp>
-
-#include <iostream>
-#include <memory>
 
 namespace qrw
 {
@@ -120,8 +117,6 @@ void SkirmishState::moveUnit()
 	int remainingMovement = maxDistance - pathCosts;
 	_selectedUnit->setCurrentMovement(remainingMovement);
 	_selectedUnit->setPosition(_path->getTarget());
-
-	std::cout << "Move unit." << std::endl;
 }
 
 void SkirmishState::performAttack(Unit* attackedUnit)
@@ -158,8 +153,6 @@ void SkirmishState::performAttack(Unit* attackedUnit)
 	}
 
 	updateSquareDetailWindow(positionOfAttackedUnit);
-
-	std::cout << "Attack unit." << std::endl;
 }
 
 void SkirmishState::replenishTroops()

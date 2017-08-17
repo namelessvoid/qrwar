@@ -13,6 +13,7 @@
 #include "gui/texturemanager.hpp"
 
 #include "game/renderlayers.hpp"
+#include "game/damagenumber.hpp"
 
 namespace qrw
 {
@@ -138,6 +139,8 @@ void Unit::setMaxHp(int maxhp)
 void Unit::damage(int inflictedDamage)
 {
 	setHP(getHP() - inflictedDamage);
+	DamageNumber* damageNumber = new DamageNumber(inflictedDamage);
+	g_scene.addGameObject(damageNumber);
 }
 
 int Unit::getAttackRange() const
