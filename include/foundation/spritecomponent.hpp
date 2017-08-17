@@ -29,7 +29,9 @@ public:
 
 	void setSize(const sf::Vector2f& size);
 
-	void setPosition(const sf::Vector2f& position);
+	void setPosition(const sf::Vector2f& position) override;
+
+	const sf::Vector2f& getPosition() const override;
 
 	virtual void render(sf::RenderTarget& renderTarget) override;
 

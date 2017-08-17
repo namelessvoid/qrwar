@@ -43,6 +43,11 @@ void SpriteComponent::setPosition(const sf::Vector2f& position)
 	_rectangle->setPosition(position);
 }
 
+const sf::Vector2f& SpriteComponent::getPosition() const
+{
+	return _rectangle->getPosition();
+}
+
 void SpriteComponent::render(sf::RenderTarget &renderTarget)
 {
 	renderTarget.draw(*_rectangle);
