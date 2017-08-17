@@ -48,7 +48,6 @@ add_library(qrwarlib
         gui/squaremarker.cpp
         gui/cursor.cpp
         gui/squaredetailwindow.cpp
-#	gui/damagenumber.cpp
 #	gui/deploywindow.cpp
 #	gui/guihandler.cpp
 #	gui/ingamewindow.cpp
