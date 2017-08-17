@@ -33,6 +33,7 @@ add_library(qrwarlib
         foundation/gameobject.cpp
         foundation/gamecomponent.cpp
         foundation/spritecomponent.cpp
+        foundation/textcomponent.cpp
 
         gamestates/gamestate.cpp
         gamestates/scenestate.cpp
