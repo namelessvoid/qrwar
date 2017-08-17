@@ -10,8 +10,6 @@ qrw::TextComponent::TextComponent(Layer layer)
 	m_text.setFont(m_font);
 	m_text.setCharacterSize(20);
 	m_text.setString("DUMMY_TEXT");
-
-	g_renderSystem.registerRenderable(this);
 }
 
 void qrw::TextComponent::setText(const std::string &text)
@@ -19,10 +17,6 @@ void qrw::TextComponent::setText(const std::string &text)
 	m_text.setString(text);
 }
 
-qrw::TextComponent::~TextComponent()
-{
-	g_renderSystem.deregisterRenderable(this);
-}
 
 void qrw::TextComponent::render(sf::RenderTarget &renderTarget)
 {

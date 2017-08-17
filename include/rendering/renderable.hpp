@@ -16,13 +16,13 @@ typedef unsigned char Layer;
 class Renderable
 {
 public:
-	Renderable(Layer layer)
-		: m_layer(layer)
-	{}
+	Renderable(Layer layer);
+
+	virtual ~Renderable();
 
 	virtual void render(sf::RenderTarget& renderTarget) = 0;
 
-	inline Layer getLayer() { return m_layer; }
+	Layer getLayer();
 
 	virtual void setPosition(const sf::Vector2f& position) = 0;
 	virtual const sf::Vector2f& getPosition() const = 0;

@@ -16,8 +16,6 @@ class TextComponent : public GameComponent, public Renderable
 public:
     TextComponent(Layer layer);
 
-    virtual ~TextComponent();
-
     void setText(const std::string& text);
 
     virtual void render(sf::RenderTarget &renderTarget) override;

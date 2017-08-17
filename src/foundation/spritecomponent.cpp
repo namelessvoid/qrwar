@@ -13,12 +13,10 @@ SpriteComponent::SpriteComponent(Layer layer)
 	: Renderable(layer)
 {
 	_rectangle = new sf::RectangleShape();
-	g_renderSystem.registerRenderable(this);
 }
 
 SpriteComponent::~SpriteComponent()
 {
-	g_renderSystem.deregisterRenderable(this);
 	delete _rectangle;
 }
 

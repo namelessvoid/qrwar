@@ -24,6 +24,7 @@ add_library(qrwarlib
 	engine/pathfinding/path.cpp
 
         rendering/rendersystem.cpp
+        rendering/renderable.cpp
 
         animation/animationsystem.cpp
 
