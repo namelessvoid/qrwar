@@ -13,11 +13,11 @@
 #include "eventsystem/eventsystem.hpp"
 #include "animation/animationsystem.hpp"
 
-#include "gamestates/introstate.hpp"
-#include "gamestates/mainmenustate.hpp"
-#include "gamestates/mapeditorstate.hpp"
-#include "gamestates/deploystate.hpp"
-#include "gamestates/skirmishstate.hpp"
+#include "game/states/introstate.hpp"
+#include "game/states/mainmenustate.hpp"
+#include "game/states/mapeditorstate.hpp"
+#include "game/states/deploystate.hpp"
+#include "game/states/skirmishstate.hpp"
 
 namespace qrw
 {

@@ -36,13 +36,13 @@ add_library(qrwarlib
         foundation/textcomponent.cpp
 
         gamestates/gamestate.cpp
-        gamestates/scenestate.cpp
-        gamestates/introstate.cpp
-        gamestates/mainmenustate.cpp
-        gamestates/mapeditorstate.cpp
-        gamestates/deploystate.cpp
-        gamestates/skirmishstate.cpp
 
+        game/states/scenestate.cpp
+        game/states/introstate.cpp
+        game/states/mainmenustate.cpp
+        game/states/mapeditorstate.cpp
+        game/states/deploystate.cpp
+        game/states/skirmishstate.cpp
         game/damagenumber.cpp
 
 #	gui/animation.cpp
@@ -56,7 +56,7 @@ add_library(qrwarlib
 #	gui/ingamewindow.cpp
 #	gui/mainwindow.cpp
 #	gui/settingswindow.cpp
-#	gui/startgamewindow.cppr
+#	gui/startgamewindow.cpp
         gui/imagemanager.cpp
 	gui/texturemanager.cpp
         gui/guihelper.cpp

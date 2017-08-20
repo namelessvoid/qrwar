@@ -3,7 +3,7 @@
 
 #include <vector>
 
-#include "gamestates/scenestate.hpp"
+#include "game/states/scenestate.hpp"
 
 #include "engine/board.hpp"
 #include "engine/player.hpp"

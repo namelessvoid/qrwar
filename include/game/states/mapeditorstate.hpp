@@ -3,7 +3,7 @@
 
 #include <memory>
 
-#include "gamestates/scenestate.hpp"
+#include "game/states/scenestate.hpp"
 
 #include "engine/terraintypes.hpp"
 

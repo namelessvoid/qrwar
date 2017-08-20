@@ -1,7 +1,7 @@
 #ifndef SKIRMISHSTATE_H
 #define SKIRMISHSTATE_H
 
-#include "gamestates/scenestate.hpp"
+#include "game/states/scenestate.hpp"
 
 #include "engine/board.hpp"
 #include "engine/unit.hpp"
