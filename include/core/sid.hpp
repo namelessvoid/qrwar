@@ -2,6 +2,7 @@
 #define QRW_SID_HPP
 
 #include <functional>
+#include <iostream>
 
 namespace qrw
 {
@@ -21,6 +22,12 @@ public:
     {
         return m_hashId == rhs.m_hashId;
     }
+
+	friend std::ostream& operator<<(std::ostream& os, const SID& sid)
+	{
+		os << sid.m_stringId;
+		return os;
+	}
 
 private:
     const std::string m_stringId;
