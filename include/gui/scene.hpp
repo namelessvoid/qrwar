@@ -13,13 +13,12 @@
 #include "engine/board.hpp"
 #include "engine/coordinates.hpp"
 
-#include "gui/cursor.hpp"
-#include "gui/ng/signal.hpp"
 
 // Foreward declarations
 namespace sf
 {
 class RenderTarget;
+class Event;
 }
 
 
@@ -43,10 +42,6 @@ public:
 
 	void handleEvent(const sf::Event& event);
 
-    Coordinates getCursorPosition();
-
-	Cursor& getCursor();
-
 	void addGameObject(GameObject* gameObject);
 
 	void removeGameObject(GameObject* gameObject);
@@ -63,8 +58,6 @@ private:
 	sf::RenderTarget* _renderTarget;
 
 	Board* _board;
-
-	Cursor* _cursor;
 
 	std::map<std::type_index,std::set<GameObject*>> m_gameObjects;
 };

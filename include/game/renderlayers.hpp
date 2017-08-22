@@ -5,6 +5,7 @@
 
 #define RENDER_LAYER_BACKGROUND Layer(0)
 #define RENDER_LAYER_TERRAIN    Layer(10)
+#define RENDER_LAYER_CURSOR     Layer(15)
 #define RENDER_LAYER_UNIT       Layer(20)
 #define RENDER_LAYER_BILLBOARD  Layer(50)
 

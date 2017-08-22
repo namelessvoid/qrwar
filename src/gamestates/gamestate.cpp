@@ -42,11 +42,6 @@ bool GameState::handleEvent(sf::Event& event)
 	return _guiUptr->handleEvent(event);
 }
 
-bool GameState::handleEvent(const Event &event)
-{
-	return false;
-}
-
 EGameStateId GameState::getId()
 {
 	return _id;

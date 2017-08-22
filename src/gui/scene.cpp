@@ -8,13 +8,15 @@
 #include "engine/terrain.hpp"
 #include "engine/unit.hpp"
 
+#include "eventsystem/eventsystem.hpp"
+#include "eventsystem/inputevents.hpp"
+
 #include "foundation/spritecomponent.hpp"
 
 namespace qrw
 {
 
 Scene::Scene()
-	: _cursor(nullptr)
 {
 }
 
@@ -27,9 +29,6 @@ void Scene::setBoard(Board* board)
 {
     _board = board;
 
-    // Set up corser and connect cursor slots
-	_cursor->setBoard(board);
-
 	addGameObject(board);
 }
 
@@ -40,36 +39,19 @@ void Scene::setRenderTarget(sf::RenderTarget* renderTarget)
 
 void Scene::render()
 {
-	sf::RenderStates renderStates = sf::RenderStates::Default;
-	_renderTarget->draw(*_cursor, renderStates);
 }
 
 void Scene::handleEvent(const sf::Event& event)
 {
-	sf::Event adjustedEvent = event;
-
 	// If mouse moved, convert screen coordinates to world coordinates
 	if(event.type == sf::Event::MouseMoved)
 	{
-		sf::Vector2i mousePixelCoordinates(event.mouseMove.x, event.mouseMove.y);
-		sf::Vector2f mouseWorldCoordinates = _renderTarget->mapPixelToCoords(mousePixelCoordinates);
+		sf::Vector2i screenCoordinates(event.mouseMove.x, event.mouseMove.y);
+		sf::Vector2f worldCoordinates = _renderTarget->mapPixelToCoords(screenCoordinates);
 
-		adjustedEvent.mouseMove.x = mouseWorldCoordinates.x;
-		adjustedEvent.mouseMove.y = mouseWorldCoordinates.y;
+		Event* event = new MouseMovedEvent(screenCoordinates, {(int)worldCoordinates.x, (int)worldCoordinates.y});
+		g_eventSystem.pushEvent(event);
 	}
-
-	// Propagate events
-	_cursor->handleEvent(adjustedEvent);
-}
-
-Coordinates Scene::getCursorPosition()
-{
-	return _cursor->getBoardPosition();
-}
-
-Cursor& Scene::getCursor()
-{
-	return *_cursor;
 }
 
 void Scene::addGameObject(GameObject* gameObject)
@@ -88,9 +70,6 @@ void Scene::removeGameObject(GameObject *gameObject)
 
 void Scene::reset()
 {
-	delete _cursor;
-	_cursor = new Cursor();
-
 	for(auto gameObjectsIter : m_gameObjects)
 	{
 		for(auto gameObject : gameObjectsIter.second)

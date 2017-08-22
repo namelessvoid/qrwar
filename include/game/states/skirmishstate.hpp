@@ -62,7 +62,7 @@ private:
 
     class SquareDetailWindow* _squareDetailWindow;
 
-	std::unique_ptr<class SquareMarker> _squareMarker;
+	class SquareMarker* _squareMarker;
 };
 
 } // namespace qrw

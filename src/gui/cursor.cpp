@@ -1,4 +1,4 @@
-#include <stdio.h>
+#include <iostream>
 
 #include <SFML/Graphics/Color.hpp>
 #include <SFML/Graphics/RectangleShape.hpp>
@@ -6,10 +6,14 @@
 #include <SFML/Window/Event.hpp>
 
 #include "gui/cursor.hpp"
+#include "gui/scene.hpp"
 
 #include "engine/board.hpp"
 
 #include "eventsystem/eventsystem.hpp"
+#include "eventsystem/inputevents.hpp"
+
+#include "foundation/spritecomponent.hpp"
 
 #include "game/events.hpp"
 
@@ -17,48 +21,54 @@ namespace qrw
 {
 
 Cursor::Cursor()
-	: SquareMarker()
+	: SquareMarker(),
+	  EventHandler()
 {}
 
 Cursor::~Cursor()
 {
 }
 
-void Cursor::handleEvent(const sf::Event& event)
+bool Cursor::handleEvent(const Event& event)
 {
-    if(event.type == sf::Event::MouseMoved)
+	if(event.name == SID("MOUSE_MOVED"))
     {
-        sf::Vector2f newPosition;
-        sf::Vector2f size = getSize();
+		const MouseMovedEvent& moveEvent = static_cast<const MouseMovedEvent&>(event);
 
-        newPosition.x = event.mouseMove.x - (event.mouseMove.x % (int)size.x);
-        newPosition.y = event.mouseMove.y - (event.mouseMove.y % (int)size.y);
+        sf::Vector2f newPosition;
+		sf::Vector2f size = m_spriteComponent->getSize();
+
+		newPosition.x = moveEvent.worldCoordinates.x - (moveEvent.worldCoordinates.x % (int)size.x);
+		newPosition.y = moveEvent.worldCoordinates.y - (moveEvent.worldCoordinates.y % (int)size.y);
 
         Coordinates newBoardPosition((int)newPosition.x / size.x, (int)newPosition.y / size.y);
 
-        if(newBoardPosition != _boardPosition)
+		if(newBoardPosition != m_boardPosition)
         {
-			if(_board->isOnBoard(newBoardPosition))
+			Board* board = g_scene.getSingleGameObject<Board>();
+			if(board->isOnBoard(newBoardPosition))
             {
 				setBoardPosition(newBoardPosition);
-                 _visible = true;
+				 m_visible = true;
             }
             else
             {
-                _visible = false;
+				m_visible = false;
             }
 
-			CursorMovedEvent* event = new CursorMovedEvent(_boardPosition);
+			CursorMovedEvent* event = new CursorMovedEvent(m_boardPosition);
 			g_eventSystem.pushEvent(event);
         }
     }
-	else if( _visible == true && event.type == sf::Event::MouseButtonPressed)
+	else if(m_visible == true)
 	{
-		if(event.mouseButton.button == sf::Mouse::Button::Left)
-			g_eventSystem.pushEvent(new CursorLeftClickedEvent(_boardPosition));
-		else if(event.mouseButton.button == sf::Mouse::Button::Right)
-			g_eventSystem.pushEvent(new CursorRightClickedEvent(_boardPosition));
+		if(event.name == SID("LEFT_MOUSE_BUTTON_CLICKED"))
+			g_eventSystem.pushEvent(new CursorLeftClickedEvent(m_boardPosition));
+		else if(event.name == SID("RIGHT_MOUSE_BUTTON_CLICKED"))
+			g_eventSystem.pushEvent(new CursorRightClickedEvent(m_boardPosition));
 	}
+
+	return false;
 }
 
 void Cursor::setFillColor(Cursor::Color color)
@@ -77,7 +87,7 @@ void Cursor::setFillColor(Cursor::Color color)
 		break;
 	}
 
-	SquareMarker::setFillColor(newColor);
+	m_spriteComponent->setFillColor(newColor);
 }
 
 } // namespace qrwar

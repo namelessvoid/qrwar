@@ -10,19 +10,22 @@
 #include "gui/ng/spritewidget.hpp"
 #include "gui/ng/button.hpp"
 #include "gui/squaredetailwindow.hpp"
+#include "gui/cursor.hpp"
+#include "gui/squaremarker.hpp"
 
 namespace qrw
 {
 
 SkirmishState::SkirmishState(sf::RenderWindow* renderWindow)
 	: SceneState(renderWindow, EGameStateId::EGSID_SKIRMISH_STATE),
-	  _selectedUnit(nullptr),
-	  _squareMarker(new SquareMarker())
+	  _selectedUnit(nullptr)
 {
     _squareDetailWindow = new SquareDetailWindow();
     _guiUptr->addWidget(_squareDetailWindow);
 
+	_squareMarker = new SquareMarker();
 	_squareMarker->setVisible(false);
+	g_scene.addGameObject(_squareMarker);
 
 	_playerNameText = new namelessgui::Text();
 	_playerNameText->setText("Player Name");
@@ -57,7 +60,7 @@ void SkirmishState::init(GameState *previousState)
 	_playerNameText->setText(_players[_currentPlayer]->getName());
 
     // Initialize square detail window.
-	Coordinates cursorPosition = g_scene.getCursorPosition();
+	const Coordinates& cursorPosition = m_cursor->getBoardPosition();
 	Unit* unit = _board->getUnit(cursorPosition);
 	Terrain* terrain = _board->getTerrain(cursorPosition);
 	_squareDetailWindow->setUnitAndTerrain(unit, terrain);
@@ -66,7 +69,6 @@ void SkirmishState::init(GameState *previousState)
 void SkirmishState::draw()
 {
 	SceneState::draw();
-	_squareMarker->draw(*_renderWindow, sf::RenderStates::Default);
 	drawPath();
 }
 
@@ -96,7 +98,7 @@ void SkirmishState::slotCursorMoved(const Coordinates &boardPosition)
 			if(boardPosition == _squareMarker->getBoardPosition())
 				cursorColor = Cursor::Color::ESC_DEFAULT;
 
-			g_scene.getCursor().setFillColor(cursorColor);
+			m_cursor->setFillColor(cursorColor);
 		}
 	}
     else
@@ -304,7 +306,7 @@ void SkirmishState::deselectUnit()
 {
 	_selectedUnit = nullptr;
 	_squareMarker->setVisible(false);
-	g_scene.getCursor().setFillColor(Cursor::Color::ESC_DEFAULT);
+	m_cursor->setFillColor(Cursor::Color::ESC_DEFAULT);
 	_path.reset();
 }
 

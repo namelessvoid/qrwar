@@ -36,6 +36,11 @@ void SpriteComponent::setSize(const sf::Vector2f& size)
 	_rectangle->setSize(size);
 }
 
+const sf::Vector2f &SpriteComponent::getSize()
+{
+	return _rectangle->getSize();
+}
+
 void SpriteComponent::setPosition(const sf::Vector2f& position)
 {
 	_rectangle->setPosition(position);
@@ -44,6 +49,11 @@ void SpriteComponent::setPosition(const sf::Vector2f& position)
 const sf::Vector2f& SpriteComponent::getPosition() const
 {
 	return _rectangle->getPosition();
+}
+
+void SpriteComponent::setFillColor(const sf::Color &color)
+{
+	_rectangle->setFillColor(color);
 }
 
 void SpriteComponent::render(sf::RenderTarget &renderTarget)

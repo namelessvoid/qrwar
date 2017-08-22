@@ -2,56 +2,50 @@
 
 #include <SFML/Graphics/RenderTarget.hpp>
 
+#include "foundation/spritecomponent.hpp"
+
+#include "game/renderlayers.hpp"
+
 namespace qrw
 {
 
 SquareMarker::SquareMarker()
-	: sf::RectangleShape(),
-	  _boardPosition(0, 0),
-	  _visible(true)
+	: m_boardPosition(0, 0),
+	  m_visible(true)
 {
-	setFillColor(sf::Color(218, 218, 0, 120));
-	setSize({32.0f, 32.0f});
-}
-
-void SquareMarker::setBoard(Board* spBoard)
-{
-	_board = spBoard;
+	m_spriteComponent = new SpriteComponent(RENDER_LAYER_CURSOR);
+	m_spriteComponent->setFillColor(sf::Color(218, 218, 0, 120));
+	m_spriteComponent->setSize({32.0f, 32.0f});
+	addComponent(m_spriteComponent);
 }
 
 void SquareMarker::setDimensions(float dimensions)
 {
-	RectangleShape::setSize({dimensions, dimensions});
-}
-
-void SquareMarker::draw(sf::RenderTarget &target, sf::RenderStates states) const
-{
-	if(_visible)
-		target.draw((sf::RectangleShape)*this, states);
+	m_spriteComponent->setSize({dimensions, dimensions});
 }
 
 Coordinates SquareMarker::getBoardPosition() const
 {
-	return _boardPosition;
+	return m_boardPosition;
 }
 
 void SquareMarker::setBoardPosition(const Coordinates& boardPosition)
 {
-	_boardPosition = boardPosition;
+	m_boardPosition = boardPosition;
 
-	float dimension = getSize().x;
+	float dimension = m_spriteComponent->getSize().x;
 
-	setPosition({dimension * _boardPosition.getX(), dimension * _boardPosition.getY()});
+	m_spriteComponent->setPosition({dimension * m_boardPosition.getX(), dimension * m_boardPosition.getY()});
 }
 
 bool SquareMarker::isVisible() const
 {
-	return _visible;
+	return m_visible;
 }
 
 void SquareMarker::setVisible(bool visible)
 {
-	_visible = visible;
+	m_visible = visible;
 }
 
 } // namespace qrw

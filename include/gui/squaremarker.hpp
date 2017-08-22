@@ -6,19 +6,19 @@
 
 #include "engine/coordinates.hpp"
 
+#include "foundation/gameobject.hpp"
+
 namespace qrw
 {
 
-class Board;
+class SpriteComponent;
 
-class SquareMarker : public sf::RectangleShape
+class SquareMarker : public GameObject
 {
 public:
 	SquareMarker();
 
 	virtual ~SquareMarker() {}
-
-	void setBoard(Board* spBoard);
 
 	void setDimensions(float dimensions);
 
@@ -33,13 +33,13 @@ public:
 	void setVisible(bool visible);
 
 protected:
-	sf::Color _color;
+	sf::Color m_color;
 
-	Coordinates _boardPosition;
+	Coordinates m_boardPosition;
 
-	Board* _board;
+	SpriteComponent* m_spriteComponent;
 
-	bool _visible;
+	bool m_visible;
 };
 
 } // namespace qrw

@@ -11,6 +11,7 @@ namespace sf
 class RectangleShape;
 class Texture;
 class RenderTarget;
+class Color;
 }
 
 namespace qrw
@@ -29,9 +30,13 @@ public:
 
 	void setSize(const sf::Vector2f& size);
 
+	const sf::Vector2f& getSize();
+
 	void setPosition(const sf::Vector2f& position) override;
 
 	const sf::Vector2f& getPosition() const override;
+
+	void setFillColor(const sf::Color& color);
 
 	virtual void render(sf::RenderTarget& renderTarget) override;
 

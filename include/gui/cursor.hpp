@@ -10,7 +10,9 @@
 #include "engine/coordinates.hpp"
 #include "gui/squaremarker.hpp"
 
-#include "eventsystem/event.hpp"
+#include "eventsystem/eventhandler.hpp"
+
+#include "foundation/gameobject.hpp"
 
 namespace sf
 {
@@ -21,7 +23,7 @@ namespace qrw
 {
 class Board;
 
-class Cursor : public SquareMarker
+class Cursor : public SquareMarker, public EventHandler
 {
 public:
 	enum class Color
@@ -33,9 +35,9 @@ public:
 
 	Cursor();
 
-	~Cursor();
+	virtual ~Cursor();
 
-	void handleEvent(const sf::Event& event);
+	virtual bool handleEvent(const qrw::Event& event) override;
 
 	void setFillColor(Color color);
 };

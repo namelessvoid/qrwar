@@ -5,6 +5,7 @@
 #include "config/settings.hpp"
 #include "eventsystem/event.hpp"
 #include "game/events.hpp"
+#include "gui/cursor.hpp"
 
 namespace qrw
 {
@@ -34,11 +35,14 @@ SceneState::SceneState(sf::RenderWindow* renderWindow, qrw::EGameStateId gameSta
 
 SceneState::~SceneState()
 {
+	delete m_cursor;
 }
 
 void SceneState::init(GameState* previousState)
 {
 	_backToMainMenu = false;
+
+	m_cursor = new Cursor();
 }
 
 void SceneState::draw()
@@ -64,7 +68,6 @@ bool SceneState::handleEvent(sf::Event& event)
 
 bool SceneState::handleEvent(const Event &event)
 {
-	GameState::handleEvent(event);
 	if(event.name == SID("CURSOR_MOVED"))
 	{
 		slotCursorMoved(static_cast<const CursorMovedEvent&>(event).coordinates);
