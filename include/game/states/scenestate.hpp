@@ -28,8 +28,6 @@ public:
 protected:
 	SceneState(sf::RenderWindow* renderWindow, EGameStateId gameStateId);
 
-	class Cursor* m_cursor;
-
 	namelessgui::Window* _toolBar;
 
 	bool _backToMainMenu;

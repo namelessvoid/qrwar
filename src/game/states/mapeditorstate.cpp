@@ -75,6 +75,8 @@ void MapEditorState::init(GameState* previousState)
 	_toDeployment = false;
 	_spBoard = new Board(16, 9);
 	g_scene.setBoard(_spBoard);
+
+	g_scene.addGameObject(new Cursor());
 }
 
 EGameStateId MapEditorState::update()

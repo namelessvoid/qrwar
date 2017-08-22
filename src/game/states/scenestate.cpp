@@ -35,14 +35,11 @@ SceneState::SceneState(sf::RenderWindow* renderWindow, qrw::EGameStateId gameSta
 
 SceneState::~SceneState()
 {
-	delete m_cursor;
 }
 
 void SceneState::init(GameState* previousState)
 {
 	_backToMainMenu = false;
-
-	m_cursor = new Cursor();
 }
 
 void SceneState::draw()

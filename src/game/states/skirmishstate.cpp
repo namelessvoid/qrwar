@@ -60,7 +60,7 @@ void SkirmishState::init(GameState *previousState)
 	_playerNameText->setText(_players[_currentPlayer]->getName());
 
     // Initialize square detail window.
-	const Coordinates& cursorPosition = m_cursor->getBoardPosition();
+	const Coordinates& cursorPosition = g_scene.getSingleGameObject<Cursor>()->getBoardPosition();
 	Unit* unit = _board->getUnit(cursorPosition);
 	Terrain* terrain = _board->getTerrain(cursorPosition);
 	_squareDetailWindow->setUnitAndTerrain(unit, terrain);
@@ -98,7 +98,7 @@ void SkirmishState::slotCursorMoved(const Coordinates &boardPosition)
 			if(boardPosition == _squareMarker->getBoardPosition())
 				cursorColor = Cursor::Color::ESC_DEFAULT;
 
-			m_cursor->setFillColor(cursorColor);
+			g_scene.getSingleGameObject<Cursor>()->setFillColor(cursorColor);
 		}
 	}
     else
@@ -306,7 +306,7 @@ void SkirmishState::deselectUnit()
 {
 	_selectedUnit = nullptr;
 	_squareMarker->setVisible(false);
-	m_cursor->setFillColor(Cursor::Color::ESC_DEFAULT);
+	g_scene.getSingleGameObject<Cursor>()->setFillColor(Cursor::Color::ESC_DEFAULT);
 	_path.reset();
 }
 
