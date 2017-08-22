@@ -8,6 +8,11 @@ class Event;
 
 class EventHandler
 {
+public:
+	EventHandler();
+
+	virtual ~EventHandler();
+
 	virtual bool handleEvent(const Event& event) = 0;
 };
 

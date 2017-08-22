@@ -48,7 +48,6 @@ void QRWar::run()
 {
 	sf::Clock timer;
 	sf::Event event;
-	std::shared_ptr<const Event> qrwEvent;
 
 	bool quit = false;
 	EGameStateId nextStateId;
@@ -64,13 +63,11 @@ void QRWar::run()
             if (event.type == sf::Event::Closed)
                 quit = true;
 
+			g_eventSystem.pushSfEvent(event);
 			_currentState->handleEvent(event);
         }
 
-		while(g_eventSystem.popEvent(qrwEvent))
-			_currentState->handleEvent(*qrwEvent);
-
-		qrwEvent.reset();
+		g_eventSystem.processEventQueue();
 
 		nextStateId = _currentState->update();
 

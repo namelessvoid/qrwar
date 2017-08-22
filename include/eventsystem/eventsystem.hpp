@@ -2,22 +2,37 @@
 #define QRW_EVENTSYSTEM_HPP
 
 #include <queue>
-#include <memory>
+#include <set>
 
 #include "eventsystem/event.hpp"
 
+namespace sf
+{
+class Event;
+}
+
 namespace qrw
 {
+
+class EventHandler;
 
 class EventSystem
 {
 public:
 	void pushEvent(const Event* event);
 
-	bool popEvent(std::shared_ptr<const Event> &eventOut);
+	void pushSfEvent(const sf::Event& event);
+
+	void processEventQueue();
+
+	void registerEventHandler(EventHandler* eventHandler);
+
+	void deregisterEventHandler(EventHandler* eventHandler);
 
 private:
 	std::queue<const Event*> m_eventQueue;
+
+	std::set<EventHandler*> m_eventHandlers;
 };
 
 extern EventSystem g_eventSystem;
