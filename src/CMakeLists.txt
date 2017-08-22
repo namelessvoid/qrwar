@@ -29,6 +29,7 @@ add_library(qrwarlib
         animation/animationsystem.cpp
 
         eventsystem/eventsystem.cpp
+        eventsystem/eventhandler.cpp
 
         foundation/gameobject.cpp
         foundation/gamecomponent.cpp
