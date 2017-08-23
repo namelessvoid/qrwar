@@ -44,7 +44,6 @@ void SceneState::init(GameState* previousState)
 
 void SceneState::draw()
 {
-	g_scene.render();
 	_guiUptr->render(*_renderWindow, sf::RenderStates::Default);
 }
 

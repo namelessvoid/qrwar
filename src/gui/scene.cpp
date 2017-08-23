@@ -37,10 +37,6 @@ void Scene::setRenderTarget(sf::RenderTarget* renderTarget)
 	_renderTarget = renderTarget;
 }
 
-void Scene::render()
-{
-}
-
 void Scene::handleEvent(const sf::Event& event)
 {
 	// If mouse moved, convert screen coordinates to world coordinates
