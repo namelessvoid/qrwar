@@ -49,18 +49,18 @@ bool Cursor::handleEvent(const Event& event)
 			if(board->isOnBoard(newBoardPosition))
             {
 				setBoardPosition(newBoardPosition);
-				 m_visible = true;
+				 setVisible(true);
             }
             else
             {
-				m_visible = false;
+				setVisible(false);
             }
 
 			CursorMovedEvent* event = new CursorMovedEvent(m_boardPosition);
 			g_eventSystem.pushEvent(event);
         }
     }
-	else if(m_visible == true)
+	else if(isVisible())
 	{
 		if(event.name == SID("LEFT_MOUSE_BUTTON_CLICKED"))
 			g_eventSystem.pushEvent(new CursorLeftClickedEvent(m_boardPosition));

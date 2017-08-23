@@ -24,11 +24,16 @@ public:
 
 	Layer getLayer();
 
+	inline bool isVisible() const { return m_visible; }
+	void setVisible(bool visible) { m_visible = visible; }
+
 	virtual void setPosition(const sf::Vector2f& position) = 0;
 	virtual const sf::Vector2f& getPosition() const = 0;
 
 private:
 	unsigned char m_layer;
+
+	bool m_visible;
 };
 
 } // namespace qrw

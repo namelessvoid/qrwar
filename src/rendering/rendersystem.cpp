@@ -34,7 +34,8 @@ void RenderSystem::renderAll(sf::RenderTarget& renderTarget)
 	{
 		for(Renderable* renderable : layerIterator->second)
 		{
-			renderable->render(renderTarget);
+			if(renderable->isVisible())
+				renderable->render(renderTarget);
 		}
 	}
 }

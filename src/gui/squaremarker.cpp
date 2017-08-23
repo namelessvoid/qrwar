@@ -10,8 +10,7 @@ namespace qrw
 {
 
 SquareMarker::SquareMarker()
-	: m_boardPosition(0, 0),
-	  m_visible(true)
+	: m_boardPosition(0, 0)
 {
 	m_spriteComponent = new SpriteComponent(RENDER_LAYER_CURSOR);
 	m_spriteComponent->setFillColor(sf::Color(218, 218, 0, 120));
@@ -40,12 +39,12 @@ void SquareMarker::setBoardPosition(const Coordinates& boardPosition)
 
 bool SquareMarker::isVisible() const
 {
-	return m_visible;
+	return m_spriteComponent->isVisible();
 }
 
 void SquareMarker::setVisible(bool visible)
 {
-	m_visible = visible;
+	m_spriteComponent->setVisible(visible);
 }
 
 } // namespace qrw

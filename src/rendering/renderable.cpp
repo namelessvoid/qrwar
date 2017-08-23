@@ -6,7 +6,8 @@ namespace qrw
 {
 
 Renderable::Renderable(Layer layer)
-	: m_layer(layer)
+	: m_layer(layer),
+	  m_visible(true)
 {
 	g_renderSystem.registerRenderable(this);
 }

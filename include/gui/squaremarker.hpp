@@ -38,8 +38,6 @@ protected:
 	Coordinates m_boardPosition;
 
 	SpriteComponent* m_spriteComponent;
-
-	bool m_visible;
 };
 
 } // namespace qrw
