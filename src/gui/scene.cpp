@@ -37,19 +37,6 @@ void Scene::setRenderTarget(sf::RenderTarget* renderTarget)
 	_renderTarget = renderTarget;
 }
 
-void Scene::handleEvent(const sf::Event& event)
-{
-	// If mouse moved, convert screen coordinates to world coordinates
-	if(event.type == sf::Event::MouseMoved)
-	{
-		sf::Vector2i screenCoordinates(event.mouseMove.x, event.mouseMove.y);
-		sf::Vector2f worldCoordinates = _renderTarget->mapPixelToCoords(screenCoordinates);
-
-		Event* event = new MouseMovedEvent(screenCoordinates, {(int)worldCoordinates.x, (int)worldCoordinates.y});
-		g_eventSystem.pushEvent(event);
-	}
-}
-
 void Scene::addGameObject(GameObject* gameObject)
 {
 	assert(gameObject!=nullptr);

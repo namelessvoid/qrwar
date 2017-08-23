@@ -11,25 +11,38 @@
 namespace qrw
 {
 
+void EventSystem::startUp(SystemEventSource *systemEventSource)
+{
+	assert(systemEventSource!=nullptr);
+	m_systemEventSource = systemEventSource;
+}
+
+void EventSystem::shutDown()
+{
+	assert(m_systemEventSource!=nullptr);
+	delete m_systemEventSource;
+
+	while(m_eventQueue.size() > 0)
+	{
+		delete m_eventQueue.front();
+		m_eventQueue.pop();
+	}
+}
+
 void EventSystem::pushEvent(const Event* event)
 {
 	m_eventQueue.push(event);
 }
 
-void EventSystem::pushSfEvent(const sf::Event &event)
-{
-	if(event.type == sf::Event::MouseButtonPressed)
-	{
-		if(event.mouseButton.button == sf::Mouse::Button::Left)
-			pushEvent(new LeftMouseButtonClickedEvent());
-		else if(event.mouseButton.button == sf::Mouse::Button::Right)
-			pushEvent(new RightMouseButtonClickedEvent());
-	}
-}
-
-void EventSystem::processEventQueue()
+void EventSystem::processEvents()
 {
 	const Event* event = nullptr;
+
+	while((event = m_systemEventSource->pollEvent()) != nullptr)
+	{
+		pushEvent(event);
+	}
+
 	while(m_eventQueue.size() > 0)
 	{
 		event = m_eventQueue.front();

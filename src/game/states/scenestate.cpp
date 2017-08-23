@@ -55,10 +55,6 @@ bool SceneState::handleEvent(sf::Event& event)
 		if(event.key.code == sf::Keyboard::Escape)
 			_backToMainMenuDialog->setVisible(true);
 
-	// Scene must only handle events that are not consumed by the gui.
-	if(!stopEventPropagation)
-		g_scene.handleEvent(event);
-
 	return stopEventPropagation;
 }
 

@@ -11,6 +11,7 @@
 
 #include "rendering/rendersystem.hpp"
 #include "eventsystem/eventsystem.hpp"
+#include "eventsystem/sfeventsource.hpp"
 #include "animation/animationsystem.hpp"
 
 #include "game/states/introstate.hpp"
@@ -33,6 +34,7 @@ QRWar::QRWar()
 	g_renderSystem.startUp();
 	preloadResources();
 	g_scene.setRenderTarget(&_renderWindow);
+	g_eventSystem.startUp(new SfEventSource(_renderWindow));
 
 	// Set and initialize start state
 	_currentState = createGameState(EGSID_INTRO_STATE);
@@ -41,13 +43,13 @@ QRWar::QRWar()
 
 QRWar::~QRWar()
 {
+	g_eventSystem.shutDown();
 	g_renderSystem.shutDown();
 }
 
 void QRWar::run()
 {
 	sf::Clock timer;
-	sf::Event event;
 
 	bool quit = false;
 	EGameStateId nextStateId;
@@ -58,16 +60,7 @@ void QRWar::run()
 
 		_renderWindow.clear(sf::Color::Black);
 
-		while(_renderWindow.pollEvent(event))
-        {
-            if (event.type == sf::Event::Closed)
-                quit = true;
-
-			g_eventSystem.pushSfEvent(event);
-			_currentState->handleEvent(event);
-        }
-
-		g_eventSystem.processEventQueue();
+		g_eventSystem.processEvents();
 
 		nextStateId = _currentState->update();
 

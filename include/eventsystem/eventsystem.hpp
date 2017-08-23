@@ -3,8 +3,10 @@
 
 #include <queue>
 #include <set>
+#include <cassert>
 
 #include "eventsystem/event.hpp"
+#include "eventsystem/systemeventsource.hpp"
 
 namespace sf
 {
@@ -19,11 +21,13 @@ class EventHandler;
 class EventSystem
 {
 public:
+	void startUp(SystemEventSource* systemEventSource);
+
+	void shutDown();
+
 	void pushEvent(const Event* event);
 
-	void pushSfEvent(const sf::Event& event);
-
-	void processEventQueue();
+	void processEvents();
 
 	void registerEventHandler(EventHandler* eventHandler);
 
@@ -33,6 +37,8 @@ private:
 	std::queue<const Event*> m_eventQueue;
 
 	std::set<EventHandler*> m_eventHandlers;
+
+	SystemEventSource* m_systemEventSource;
 };
 
 extern EventSystem g_eventSystem;

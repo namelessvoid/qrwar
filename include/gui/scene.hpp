@@ -38,8 +38,6 @@ public:
 
 	void setRenderTarget(sf::RenderTarget* renderTarget);
 
-	void handleEvent(const sf::Event& event);
-
 	void addGameObject(GameObject* gameObject);
 
 	void removeGameObject(GameObject* gameObject);
