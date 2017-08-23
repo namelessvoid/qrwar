@@ -30,6 +30,7 @@ add_library(qrwarlib
 
         eventsystem/eventsystem.cpp
         eventsystem/eventhandler.cpp
+        eventsystem/sfeventsource.cpp
 
         foundation/gameobject.cpp
         foundation/gamecomponent.cpp
