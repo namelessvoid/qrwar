@@ -35,6 +35,35 @@ struct RightMouseButtonClickedEvent : Event
     {}
 };
 
+struct LeftMouseButtonReleasedEvent : Event
+{
+	LeftMouseButtonReleasedEvent()
+		: Event("LEFT_MOUSE_BUTTON_RELEASED")
+	{}
+};
+
+struct RightMouseButtonReleasedEvent : Event
+{
+	RightMouseButtonReleasedEvent()
+		: Event("RIGHT_MOUSE_BUTTON_RELEASED")
+	{}
+};
+
+struct KeyPressedEvent : Event
+{
+	enum class Key
+	{
+		Esc
+	};
+
+	KeyPressedEvent(Key key)
+		: Event("KEY_PRESSED"),
+		  key(key)
+	{}
+
+	Key key;
+};
+
 } // namespace qrw
 
 #endif // QRW_INPUTEVENT_HPP

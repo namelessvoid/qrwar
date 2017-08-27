@@ -24,8 +24,16 @@ const Event* SfEventSource::pollEvent()
 	{
 		if(event.mouseButton.button == sf::Mouse::Button::Left)
 			return new LeftMouseButtonClickedEvent();
-		else if(event.mouseButton.button == sf::Mouse::Button::Right)
+		if(event.mouseButton.button == sf::Mouse::Button::Right)
 			return new RightMouseButtonClickedEvent();
+	}
+
+	if(event.type == sf::Event::MouseButtonReleased)
+	{
+		if(event.mouseButton.button == sf::Mouse::Button::Left)
+			return new LeftMouseButtonReleasedEvent();
+		if(event.mouseButton.button == sf::Mouse::Button::Right)
+			return new RightMouseButtonReleasedEvent();
 	}
 
 	if(event.type == sf::Event::MouseMoved)
@@ -34,6 +42,12 @@ const Event* SfEventSource::pollEvent()
 		sf::Vector2f worldCoordinates = m_window.mapPixelToCoords(screenCoordinates);
 
 		return new MouseMovedEvent(screenCoordinates, {(int)worldCoordinates.x, (int)worldCoordinates.y});
+	}
+
+	if(event.type == sf::Event::KeyPressed)
+	{
+		if(event.key.code == sf::Keyboard::Escape)
+			return new KeyPressedEvent(KeyPressedEvent::Key::Esc);
 	}
 
 	return nullptr;
