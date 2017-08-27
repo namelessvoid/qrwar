@@ -38,8 +38,7 @@ bool GameState::handleEvent(sf::Event& event)
 		_renderWindow->setView(sf::View(sf::FloatRect(0.0f, 0.0f, event.size.width, event.size.height)));
 		_guiUptr->setSize({(float)event.size.width, (float)event.size.height});
 	}
-
-	return _guiUptr->handleEvent(event);
+	return false;
 }
 
 EGameStateId GameState::getId()

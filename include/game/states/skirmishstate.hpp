@@ -29,11 +29,11 @@ public:
 
 	virtual void draw() override;
 
+	virtual bool handleEvent(const Event &event) override;
+
 private:
 	virtual void slotCursorMoved(const Coordinates& boardPosition) override;
     virtual void slotCursorLeftClicked(const Coordinates& boardPosition) override;
-
-	virtual bool handleEvent(sf::Event &event);
 
 	// Triggerd via signal of end turn button.
 	void endTurn();

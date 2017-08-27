@@ -29,8 +29,6 @@ public:
 
 	virtual EGameStateId update();
 
-	virtual bool handleEvent(sf::Event& event) override;
-
 	Board* getBoard() const;
 
 private:

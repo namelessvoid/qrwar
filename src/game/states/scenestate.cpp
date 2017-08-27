@@ -4,6 +4,7 @@
 
 #include "config/settings.hpp"
 #include "eventsystem/event.hpp"
+#include "eventsystem/inputevents.hpp"
 #include "game/events.hpp"
 #include "gui/cursor.hpp"
 
@@ -47,17 +48,6 @@ void SceneState::draw()
 	_guiUptr->render(*_renderWindow, sf::RenderStates::Default);
 }
 
-bool SceneState::handleEvent(sf::Event& event)
-{
-	bool stopEventPropagation = GameState::handleEvent(event);
-
-	if(event.type == sf::Event::KeyPressed)
-		if(event.key.code == sf::Keyboard::Escape)
-			_backToMainMenuDialog->setVisible(true);
-
-	return stopEventPropagation;
-}
-
 bool SceneState::handleEvent(const Event &event)
 {
 	if(event.name == SID("CURSOR_MOVED"))
@@ -68,9 +58,14 @@ bool SceneState::handleEvent(const Event &event)
 	{
 		slotCursorLeftClicked(static_cast<const CursorLeftClickedEvent&>(event).coordinates);
 	}
-	else if (event.name == SID("CURSOR_RIGHT_CLICKED"))
+	else if(event.name == SID("CURSOR_RIGHT_CLICKED"))
 	{
 		slotCursorRightClicked(static_cast<const CursorRightClickedEvent&>(event).coordinates);
+	}
+	else if(event.name == SID("KEY_PRESSED"))
+	{
+		if(static_cast<const KeyPressedEvent&>(event).key == KeyPressedEvent::Key::Esc)
+			_backToMainMenuDialog->setVisible(true);
 	}
 	return false;
 }

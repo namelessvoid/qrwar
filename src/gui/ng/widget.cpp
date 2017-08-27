@@ -3,6 +3,9 @@
 #include <SFML/Window/Mouse.hpp>
 #include <SFML/Graphics/RenderWindow.hpp>
 
+#include "eventsystem/event.hpp"
+#include "eventsystem/inputevents.hpp"
+
 namespace namelessgui
 {
 	Widget::Widget(std::string id)
@@ -80,7 +83,7 @@ namespace namelessgui
 		}
 	}
 
-	bool Widget::handleEvent(const sf::Event& event)
+	bool Widget::handleEvent(const qrw::Event& event)
     {
 		bool stopEventPropagation = false;
         // A widget that is not visible cannot handle any event
@@ -92,9 +95,10 @@ namespace namelessgui
 			stopEventPropagation |= (*iter)->handleEvent(event);
 
         // Handle mouse move evets
-        if(event.type == sf::Event::MouseMoved)
+		if(event.name == qrw::SID("MOUSE_MOVED"))
         {
-			if(!getGlobalBounds().contains(event.mouseMove.x, event.mouseMove.y))
+			const qrw::MouseMovedEvent& moveEvent = static_cast<const qrw::MouseMovedEvent&>(event);
+			if(!getGlobalBounds().contains(moveEvent.screenCoordinates.x, moveEvent.screenCoordinates.y))
             {
                 // Mouse focus lost
                 if(_mouseFocus)
@@ -119,45 +123,37 @@ namespace namelessgui
                 }
             } // else(hasMouseFocus)
         } // if(MouseMoveEvent)
-        else if(event.type == sf::Event::MouseButtonPressed)
-        {
-            if(_mouseFocus)
-            {
-                if(event.mouseButton.button == sf::Mouse::Left)
-                {
-                    signalleftmousebuttonpressed.emit();
-                    _leftMouseButtonPressRegistered = true;
-					stopEventPropagation = true;
-                }
-                else if(event.mouseButton.button == sf::Mouse::Right)
-                {
-                    _rightMouseButtonPressRegistered = true;
-					stopEventPropagation = true;
-                }
-            }
-        } // else if(MouseButtonPressed)
-        else if(event.type == sf::Event::MouseButtonReleased)
-        {
-            if(_mouseFocus)
-            {
-                if(event.mouseButton.button == sf::Mouse::Left
-                    && _leftMouseButtonPressRegistered)
-                {
-                    signalclicked.emit();
-					stopEventPropagation = true;
-                }
-                else if(event.mouseButton.button == sf::Mouse::Right)
-                {
-                    signalrightclicked.emit();
-					stopEventPropagation = true;
-                }
-            }
-        } // else(MouseButtonReleased)
-        else if(event.type == sf::Event::KeyPressed)
-        {
-            // TODO: check for keyboard focus.
-            signalkeypressed.emit(event);
-        }
+
+		if(_mouseFocus)
+		{
+			if(event.name == qrw::SID("LEFT_MOUSE_BUTTON_CLICKED"))
+			{
+				signalleftmousebuttonpressed.emit();
+				_leftMouseButtonPressRegistered = true;
+				stopEventPropagation = true;
+			}
+			else if(event.name == qrw::SID("RIGHT_MOUSE_BUTTON_CLICKED"))
+			{
+				_rightMouseButtonPressRegistered = true;
+				stopEventPropagation = true;
+			}
+			else if(event.name == qrw::SID("LEFT_MOUSE_BUTTON_RELEASED") && _leftMouseButtonPressRegistered)
+			{
+				signalclicked.emit();
+				stopEventPropagation = true;
+			}
+			else if(event.name == qrw::SID("RIGHT_MOUSE_BUTTON_RELEASED") && _rightMouseButtonPressRegistered)
+			{
+				signalrightclicked.emit();
+				stopEventPropagation = true;
+			}
+		}
+
+//        else if(event.type == sf::Event::KeyPressed)
+//        {
+//            // TODO: check for keyboard focus.
+//            signalkeypressed.emit(event);
+//        }
 
 		return stopEventPropagation;
     }

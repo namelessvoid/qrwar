@@ -21,8 +21,6 @@ public:
 
 	virtual void draw() override;
 
-	virtual bool handleEvent(sf::Event& event) override;
-
 	virtual bool handleEvent(const Event& event) override;
 
 protected:

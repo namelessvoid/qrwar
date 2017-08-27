@@ -8,6 +8,8 @@
 
 #include "gui/ng/signal.hpp"
 
+#include "eventsystem/eventhandler.hpp"
+
 namespace sf
 {
 class RenderWindow;
@@ -15,7 +17,7 @@ class RenderWindow;
 
 namespace namelessgui
 {
-class Widget
+class Widget : public qrw::EventHandler
 {
 	public:
 			/**
@@ -43,7 +45,7 @@ class Widget
 			 * @param event The event that is handled.
 			 * @return Whether the event propagation should be stopped or not.
 			 */
-			virtual bool handleEvent(const sf::Event& event);
+			virtual bool handleEvent(const qrw::Event& event) override;
 
             void setVisible(bool visibility = true);
 			bool isVisible();

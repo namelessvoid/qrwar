@@ -13,6 +13,8 @@
 #include "gui/cursor.hpp"
 #include "gui/squaremarker.hpp"
 
+#include "eventsystem/event.hpp"
+
 namespace qrw
 {
 
@@ -70,6 +72,16 @@ void SkirmishState::draw()
 {
 	SceneState::draw();
 	drawPath();
+}
+
+bool SkirmishState::handleEvent(const Event &event)
+{
+	SceneState::handleEvent(event);
+
+	if(event.name == SID("RIGHT_MOUSE_BUTTON_RELEASED"))
+		deselectUnit();
+
+	return false;
 }
 
 EGameStateId SkirmishState::update()
@@ -209,23 +221,6 @@ void SkirmishState::slotCursorLeftClicked(const Coordinates &boardPosition)
 	}
 
 	deselectUnit();
-}
-
-bool SkirmishState::handleEvent(sf::Event& event)
-{
-	if(SceneState::handleEvent(event))
-		return true;
-
-	if(event.type == sf::Event::MouseButtonReleased)
-	{
-		if(event.mouseButton.button == sf::Mouse::Right)
-		{
-			deselectUnit();
-			return true;
-		}
-	}
-
-	return false;
 }
 
 void SkirmishState::endTurn()

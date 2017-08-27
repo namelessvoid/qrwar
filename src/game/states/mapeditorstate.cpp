@@ -90,13 +90,6 @@ EGameStateId MapEditorState::update()
 	return EGameStateId::EGSID_NO_CHANGE;
 }
 
-bool MapEditorState::handleEvent(sf::Event& event)
-{
-	bool stopEventPropagation = SceneState::handleEvent(event);
-
-	return stopEventPropagation;
-}
-
 Board* MapEditorState::getBoard() const
 {
 	return _spBoard;
