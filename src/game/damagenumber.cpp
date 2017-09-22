@@ -1,5 +1,7 @@
 #include "game/damagenumber.hpp"
 
+#include "gui/scene.hpp"
+
 #include "foundation/textcomponent.hpp"
 #include "foundation/transformanimationcomponent.hpp"
 
@@ -16,8 +18,15 @@ DamageNumber::DamageNumber(int inflictedDamage)
 	m_textComponent->setPosition({50, 50});
 	m_textComponent->setFillColor(sf::Color::Red);
 
-	TransformAnimationComponent* animation = new TransformAnimationComponent(m_textComponent);
-	addComponent(animation);
+	m_animation = new TransformAnimationComponent(m_textComponent);
+	m_animation->setDuration(1);
+	addComponent(m_animation);
+}
+
+void DamageNumber::update()
+{
+	if(!m_animation->isRunning())
+		g_scene.scheduleForDeferredDeletion(this);
 }
 
 void DamageNumber::setPosition(const sf::Vector2f& position)

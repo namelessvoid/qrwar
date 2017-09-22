@@ -19,6 +19,11 @@ public:
 
     virtual void animate(float deltaTime) override
     {
+		Animation::animate(deltaTime);
+
+		if(!isRunning())
+			return;
+
         sf::Vector2f positionDelta = sf::Vector2f(0, -32) * deltaTime;
         m_animationTarget->setPosition(m_animationTarget->getPosition() + positionDelta);
     }
