@@ -63,4 +63,27 @@ void Scene::reset()
 	m_gameObjects.clear();
 }
 
+void Scene::update()
+{
+	for(GameObject*& gameObject : m_toDeleteOnNextFrame)
+	{
+		removeGameObject(gameObject);
+		delete gameObject;
+	}
+	m_toDeleteOnNextFrame.clear();
+
+	for(auto& gameObjectsIter : m_gameObjects)
+	{
+		for(auto& gameObject : gameObjectsIter.second)
+		{
+			gameObject->update();
+		}
+	}
+}
+
+void Scene::scheduleForDeferredDeletion(GameObject *gameObject)
+{
+	m_toDeleteOnNextFrame.push_back(gameObject);
+}
+
 } // namespace qrw

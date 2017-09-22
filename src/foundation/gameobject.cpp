@@ -2,6 +2,8 @@
 
 #include "foundation/gamecomponent.hpp"
 
+#include "gui/scene.hpp"
+
 namespace qrw
 {
 

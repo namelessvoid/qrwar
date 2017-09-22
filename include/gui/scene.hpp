@@ -50,12 +50,18 @@ public:
 
 	void reset();
 
+	void update();
+
+	void scheduleForDeferredDeletion(GameObject* gameObject);
+
 private:
 	sf::RenderTarget* _renderTarget;
 
 	Board* _board;
 
 	std::map<std::type_index,std::set<GameObject*>> m_gameObjects;
+
+	std::vector<GameObject*> m_toDeleteOnNextFrame;
 };
 
 template<class T>

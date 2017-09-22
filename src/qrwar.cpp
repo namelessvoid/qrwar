@@ -88,6 +88,7 @@ void QRWar::run()
 			delete previousState;
 		}
 
+		g_scene.update();
 		g_animationSystem.update(elapsedTime.asSeconds());
 	}
 }
