@@ -12,6 +12,9 @@ public:
     Animation()
     {
         g_animationSystem.addAnimation(this);
+		m_currentRunTime = 0;
+		m_duration = 0;
+		m_isRunning = true;
     }
 
     virtual ~Animation()
@@ -19,7 +22,30 @@ public:
         g_animationSystem.removeAnimation(this);
     }
 
-    virtual void animate(float deltaTime) = 0;
+	virtual void animate(float deltaTime)
+	{
+		m_currentRunTime += deltaTime;
+
+		if(m_currentRunTime >= m_duration)
+			m_isRunning = false;
+	}
+
+	bool isRunning()
+	{
+		return m_isRunning;
+	}
+
+	void setDuration(float duration)
+	{
+		m_duration = duration;
+	}
+
+private:
+	bool m_isRunning;
+
+	float m_duration;
+
+	float m_currentRunTime;
 };
 
 } // namespace qrw
