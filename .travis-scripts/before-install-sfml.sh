@@ -12,6 +12,6 @@ cd SFML
 cmake . && make && sudo make install
 
 # copy FindSFML.cmake
-sudo cp cmake/Modules/FindSFML.cmake /usr/share/cmake-2.8/Modules
+sudo cp cmake/Modules/FindSFML.cmake /usr/share/cmake-3.2/Modules
 
 cd $TRAVIS_BUILD_DIR
