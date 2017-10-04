@@ -63,6 +63,8 @@ private:
     class SquareDetailWindow* _squareDetailWindow;
 
 	class SquareMarker* _squareMarker;
+
+	class VictoryDialog* m_victoryDialog;
 };
 
 } // namespace qrw

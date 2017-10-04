@@ -2,9 +2,12 @@
 
 #include <SFML/Graphics/Sprite.hpp>
 
+#include "game/gui/victorydialog.hpp"
 #include "game/states/deploystate.hpp"
+
 #include "engine/pathfinding/astar.hpp"
 #include "engine/pathfinding/path.hpp"
+
 #include "gui/texturemanager.hpp"
 #include "gui/ng/label.hpp"
 #include "gui/ng/spritewidget.hpp"
@@ -43,6 +46,10 @@ SkirmishState::SkirmishState(sf::RenderWindow* renderWindow)
 	endTurnButton->setRelativePosition({0.0f, -5.0f});
 	endTurnButton->signalclicked.connect(std::bind(&SkirmishState::endTurn, this));
 	_toolBar->addWidget(endTurnButton);
+
+	m_victoryDialog = new VictoryDialog();
+	_guiUptr->addWidget(m_victoryDialog);
+	//m_victoryDialog->setVisible(false);
 }
 
 void SkirmishState::init(GameState *previousState)
