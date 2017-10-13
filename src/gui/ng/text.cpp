@@ -40,9 +40,10 @@ namespace namelessgui
 	{
 		_stdText = text;
 		_text.setString(text);
+		updatePosition();
 	}
 
-	const std::string&Text::getText() const
+	const std::string& Text::getText() const
 	{
 		return _stdText;
 	}
