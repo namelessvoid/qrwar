@@ -46,6 +46,8 @@ private:
 
 	void performAttack(Unit* attackedUnit);
 
+	void checkVictory();
+
 	void replenishTroops();
 
 	void updateSquareDetailWindow(const Coordinates& position);

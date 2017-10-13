@@ -7,6 +7,7 @@
 
 #include "engine/pathfinding/astar.hpp"
 #include "engine/pathfinding/path.hpp"
+#include "engine/player.hpp"
 
 #include "gui/texturemanager.hpp"
 #include "gui/ng/label.hpp"
@@ -48,8 +49,9 @@ SkirmishState::SkirmishState(sf::RenderWindow* renderWindow)
 	_toolBar->addWidget(endTurnButton);
 
 	m_victoryDialog = new VictoryDialog();
+	m_victoryDialog->signalCloseClicked.connect(std::bind(&SceneState::slotBackToMainMenu, this));
 	_guiUptr->addWidget(m_victoryDialog);
-	//m_victoryDialog->setVisible(false);
+	m_victoryDialog->setVisible(false);
 }
 
 void SkirmishState::init(GameState *previousState)
@@ -174,6 +176,32 @@ void SkirmishState::performAttack(Unit* attackedUnit)
 	}
 
 	updateSquareDetailWindow(positionOfAttackedUnit);
+}
+
+void SkirmishState::checkVictory()
+{
+	bool playersHaveUnits[] = {false, false};
+
+	for(auto unitIter : _board->getUnits())
+	{
+		playersHaveUnits[unitIter.second->getPlayer()->getId() - 1] = true;
+	}
+
+	if(!playersHaveUnits[0])
+	{
+		m_victoryDialog->setLoserName(_players[0]->getName());
+		m_victoryDialog->setWinnerName(_players[1]->getName());
+		m_victoryDialog->setVisible(true);
+		return;
+	}
+
+	if(!playersHaveUnits[1])
+	{
+		m_victoryDialog->setLoserName(_players[1]->getName());
+		m_victoryDialog->setWinnerName(_players[0]->getName());
+		m_victoryDialog->setVisible(true);
+		return;
+	}
 }
 
 void SkirmishState::replenishTroops()

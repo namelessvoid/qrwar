@@ -23,6 +23,8 @@ public:
 
 	virtual bool handleEvent(const Event& event) override;
 
+	void slotBackToMainMenu();
+
 protected:
 	SceneState(sf::RenderWindow* renderWindow, EGameStateId gameStateId);
 
@@ -35,8 +37,6 @@ protected:
 	virtual void slotCursorMoved(const Coordinates& boardPosition) {}
 
 private:
-	void slotBackToMainMenu();
-
 	namelessgui::ConfirmationDialog* _backToMainMenuDialog;
 };
 
