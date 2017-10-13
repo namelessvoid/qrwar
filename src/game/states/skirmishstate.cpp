@@ -191,22 +191,13 @@ void SkirmishState::checkVictory()
 		playersHaveUnits[unitIter.second->getPlayer()->getId() - 1] = true;
 	}
 
-	if(!playersHaveUnits[0])
+	bool gameEnded = !playersHaveUnits[0] || !playersHaveUnits[1];
+	if(gameEnded)
 	{
-		m_victoryDialog->setLoserName(_players[0]->getName());
-		m_victoryDialog->setWinnerName(_players[1]->getName());
+		m_victoryDialog->setLoserName(!playersHaveUnits[0] ? _players[0]->getName() : _players[1]->getName());
+		m_victoryDialog->setWinnerName(!playersHaveUnits[0] ? _players[1]->getName() : _players[0]->getName());
 		m_victoryGui->setVisible(true);
 		_guiUptr->setVisible(false);
-		return;
-	}
-
-	if(!playersHaveUnits[1])
-	{
-		m_victoryDialog->setLoserName(_players[1]->getName());
-		m_victoryDialog->setWinnerName(_players[0]->getName());
-		m_victoryGui->setVisible(true);
-		_guiUptr->setVisible(false);
-		return;
 	}
 }
 
