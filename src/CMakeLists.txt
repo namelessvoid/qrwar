@@ -46,6 +46,7 @@ add_library(qrwarlib
         game/states/deploystate.cpp
         game/states/skirmishstate.cpp
         game/damagenumber.cpp
+        game/gui/victorydialog.cpp
 
 #	gui/animation.cpp
 #	gui/boardwidget.cpp
