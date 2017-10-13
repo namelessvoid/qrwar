@@ -213,11 +213,12 @@ void SkirmishState::slotCursorLeftClicked(const Coordinates &boardPosition)
 	{
 		performAttack(unitUnderCursor);
 		deselectUnit();
+		checkVictory();
 		return;
 	}
 
-	// Do not allow to select units of other player
-	if(unitUnderCursor && unitUnderCursor->getPlayer() != _players[_currentPlayer])
+	// Select unit if it belongs to current player
+	if(unitUnderCursor && unitUnderCursor->getPlayer() == _players[_currentPlayer])
 	{
 		// Select unit
 		_selectedUnit = unitUnderCursor;
