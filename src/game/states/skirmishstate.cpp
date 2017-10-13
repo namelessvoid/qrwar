@@ -24,7 +24,8 @@ namespace qrw
 
 SkirmishState::SkirmishState(sf::RenderWindow* renderWindow)
 	: SceneState(renderWindow, EGameStateId::EGSID_SKIRMISH_STATE),
-	  _selectedUnit(nullptr)
+	  _selectedUnit(nullptr),
+	  m_victoryGui(new namelessgui::Gui(renderWindow))
 {
     _squareDetailWindow = new SquareDetailWindow();
     _guiUptr->addWidget(_squareDetailWindow);
@@ -50,8 +51,7 @@ SkirmishState::SkirmishState(sf::RenderWindow* renderWindow)
 
 	m_victoryDialog = new VictoryDialog();
 	m_victoryDialog->signalCloseClicked.connect(std::bind(&SceneState::slotBackToMainMenu, this));
-	_guiUptr->addWidget(m_victoryDialog);
-	m_victoryDialog->setVisible(false);
+	m_victoryGui->addWidget(m_victoryDialog);
 }
 
 void SkirmishState::init(GameState *previousState)
@@ -75,12 +75,16 @@ void SkirmishState::init(GameState *previousState)
 	Unit* unit = _board->getUnit(cursorPosition);
 	Terrain* terrain = _board->getTerrain(cursorPosition);
 	_squareDetailWindow->setUnitAndTerrain(unit, terrain);
+
+	// Change visibility of guis
+	m_victoryGui->setVisible(false);
 }
 
 void SkirmishState::draw()
 {
 	SceneState::draw();
 	drawPath();
+	m_victoryGui->render(*_renderWindow);
 }
 
 bool SkirmishState::handleEvent(const Event &event)
@@ -191,7 +195,8 @@ void SkirmishState::checkVictory()
 	{
 		m_victoryDialog->setLoserName(_players[0]->getName());
 		m_victoryDialog->setWinnerName(_players[1]->getName());
-		m_victoryDialog->setVisible(true);
+		m_victoryGui->setVisible(true);
+		_guiUptr->setVisible(false);
 		return;
 	}
 
@@ -199,7 +204,8 @@ void SkirmishState::checkVictory()
 	{
 		m_victoryDialog->setLoserName(_players[1]->getName());
 		m_victoryDialog->setWinnerName(_players[0]->getName());
-		m_victoryDialog->setVisible(true);
+		m_victoryGui->setVisible(true);
+		_guiUptr->setVisible(false);
 		return;
 	}
 }

@@ -66,6 +66,8 @@ private:
 
 	class SquareMarker* _squareMarker;
 
+	std::unique_ptr<namelessgui::Gui> m_victoryGui;
+
 	class VictoryDialog* m_victoryDialog;
 };
 

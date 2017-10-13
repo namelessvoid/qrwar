@@ -40,6 +40,8 @@ SceneState::~SceneState()
 
 void SceneState::init(GameState* previousState)
 {
+	_guiUptr->setVisible(true);
+	_backToMainMenuDialog->setVisible(false);
 	_backToMainMenu = false;
 }
 
