@@ -3,6 +3,8 @@
 
 #include "gui/ng/window.hpp"
 
+#include "gui/ng/signal.hpp"
+
 namespace namelessgui {
 class Text;
 }
@@ -18,7 +20,11 @@ public:
 
     void setLoserName(const std::string& name);
 
+	namelessgui::Signal<> signalCloseClicked;
+
 private:
+	void slotCloseClicked();
+
     namelessgui::Text* m_winnerNameText;
     namelessgui::Text* m_loserNameText;
 };
