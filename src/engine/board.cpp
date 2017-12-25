@@ -13,11 +13,11 @@
 namespace qrw
 {
 	Board::Board(int width, int height)
-	:	_width(width),
+	: _width(width),
 	  _height(height)
 	{
 		// Initialize pathfinding
-		_pathfinder = new AStar;
+		_pathfinder = new pathfinding::AStar;
 		_pathfinder->setBoard(this);
 
 		SpriteComponent* backgroundComponent = new SpriteComponent(RENDER_LAYER_BACKGROUND);
@@ -109,7 +109,7 @@ namespace qrw
 		return true;
 	}
 
-	Path* Board::findPath(const Coordinates &start, const Coordinates &end)
+	pathfinding::Path* Board::findPath(const Coordinates &start, const Coordinates &end)
 	{
 		return _pathfinder->findPath(start, end);
 	}

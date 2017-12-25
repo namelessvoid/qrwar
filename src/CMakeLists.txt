@@ -48,6 +48,9 @@ add_library(qrwarlib
         game/damagenumber.cpp
         game/gui/victorydialog.cpp
 
+        game/path.cpp
+        game/pathrendercomponent.cpp
+
 #	gui/animation.cpp
 #	gui/boardwidget.cpp
         gui/scene.cpp

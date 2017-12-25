@@ -38,8 +38,6 @@ private:
 	// Triggerd via signal of end turn button.
 	void endTurn();
 
-	void drawPath();
-
 	void deselectUnit();
 
 	void moveUnit();
@@ -60,7 +58,8 @@ private:
 
 	Unit* _selectedUnit;
 
-	std::shared_ptr<class Path> _path;
+	// For visualizing the movement path of a unit
+	class Path* path_;
 
     class SquareDetailWindow* _squareDetailWindow;
 

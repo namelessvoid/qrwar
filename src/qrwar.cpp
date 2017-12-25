@@ -20,6 +20,8 @@
 #include "game/states/deploystate.hpp"
 #include "game/states/skirmishstate.hpp"
 
+#include "game/path.hpp"
+
 namespace qrw
 {
 

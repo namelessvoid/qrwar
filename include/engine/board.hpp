@@ -10,8 +10,13 @@
 
 namespace qrw
 {
-	class AbstractPathfinder;
-	class Path;
+
+namespace pathfinding
+{
+class AbstractPathfinder;
+class Path;
+}
+
 	class Coordinates;
 	class Square;
 	class Unit;
@@ -46,7 +51,7 @@ namespace qrw
 			 * @param end Coordinates of the end.
 			 * @return Pointer to found path or nullptr if no path could be found.
 			 */
-			Path* findPath(const Coordinates& start, const Coordinates& end);
+			pathfinding::Path* findPath(const Coordinates& start, const Coordinates& end);
 
 		private:
 			std::map<Coordinates, Unit*> _units;
@@ -55,7 +60,7 @@ namespace qrw
 			int _width;
 			int _height;
 
-			AbstractPathfinder* _pathfinder;
+			pathfinding::AbstractPathfinder* _pathfinder;
 	};
 }
 

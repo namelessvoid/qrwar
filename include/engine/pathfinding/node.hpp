@@ -1,32 +1,37 @@
-#ifndef QRW_NODE_HPP
-#define QRW_NODE_HPP
+#ifndef QRW_PATHFINDING_NODE_HPP
+#define QRW_PATHFINDING_NODE_HPP
 
 #include "engine/coordinates.hpp"
 
 namespace qrw
 {
-	class Node : public Coordinates
-	{
-		public:
-			Node(int x, int y);
-			Node(const Coordinates& coordinates);
+namespace pathfinding
+{
 
-			void setParent(Node* _parent);
-			Node* getParent();
+class Node : public qrw::Coordinates
+{
+	public:
+		Node(int x, int y);
+		Node(const Coordinates& coordinates);
 
-			void setG(int g);
-			int getG();
+		void setParent(Node* parent);
+		Node* getParent();
 
-			void setH(int h);
+		void setG(int g);
+		int getG();
 
-			int getF();
+		void setH(int h);
 
-		private:
-			Node* _parent;
+		int getF();
 
-			int _g;
-			int _h;
-	};
-}
+	private:
+		Node* parent_;
 
-#endif
+		int g_;
+		int h_;
+};
+
+} // namespace pathfinding
+} // namespace qrw
+
+#endif // QRW_PATHFINDING_NODE_HPP

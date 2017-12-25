@@ -1,5 +1,5 @@
-#ifndef QRW_ASTAR_HPP
-#define QRW_ASTAR_HPP
+#ifndef QRW_PATHFINDING_ASTAR_HPP
+#define QRW_PATHFINDING_ASTAR_HPP
 
 #include <set>
 #include <map>
@@ -9,7 +9,10 @@
 
 namespace qrw
 {
+namespace pathfinding
+{
 	class Node;
+	class Path;
 
 	class AStar : public AbstractPathfinder
 	{
@@ -18,10 +21,10 @@ namespace qrw
 			~AStar();
 
 			void setBoard(Board* _board);
-			Path* findPath(const Coordinates& start, const Coordinates& end);
+			Path* findPath(const qrw::Coordinates& start, const qrw::Coordinates& end);
 
 		private:
-			Coordinates findLowestFCoordinates();
+			qrw::Coordinates findLowestFCoordinates();
 
 			void clear();
 
@@ -33,5 +36,7 @@ namespace qrw
 
 			Coordinates* _directions[4];
 	};
-}
-#endif
+} // namespace pathfinding
+} // namespace qrw
+
+#endif // QRW_PATHFINDING_ASTAR_HPP

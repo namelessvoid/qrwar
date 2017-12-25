@@ -2,42 +2,47 @@
 
 namespace qrw
 {
-	Node::Node(int x, int y)
-	 :	Coordinates(x, y),
-		_parent(0)
-	{}
+namespace pathfinding
+{
 
-	Node::Node(const Coordinates& coordinates)
-	 :	Node(coordinates.getX(), coordinates.getY())
-	{}
+Node::Node(int x, int y)
+ :	Coordinates(x, y),
+	parent_(0)
+{}
 
-	void Node::setParent(Node* parent)
-	{
-		this->_parent = parent;
-	}
+Node::Node(const Coordinates& coordinates)
+ :	Node(coordinates.getX(), coordinates.getY())
+{}
 
-	Node* Node::getParent()
-	{
-		return _parent;
-	}
-
-	void Node::setG(int g)
-	{
-		this->_g = g;
-	}
-
-	int Node::getG()
-	{
-		return _g;
-	}
-
-	void Node::setH(int h)
-	{
-		this->_h = h;
-	}
-
-	int Node::getF()
-	{
-		return this->getG() + _h;
-	}
+void Node::setParent(Node* parent)
+{
+	this->parent_ = parent;
 }
+
+Node* Node::getParent()
+{
+	return parent_;
+}
+
+void Node::setG(int g)
+{
+	this->g_ = g;
+}
+
+int Node::getG()
+{
+	return g_;
+}
+
+void Node::setH(int h)
+{
+	this->h_ = h;
+}
+
+int Node::getF()
+{
+	return this->getG() + h_;
+}
+
+} // namespace pathfinding
+} // namespace qrw

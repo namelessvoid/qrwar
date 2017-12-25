@@ -4,53 +4,57 @@
 
 namespace qrw
 {
+namespace pathfinding
+{
 	Path::iterator Path::begin()
 	{
-		return steps.begin();
+		return steps_.begin();
 	};
 
 	Path::const_iterator Path::begin() const
 	{
-		return steps.begin();
+		return steps_.begin();
 	};
 
 	Path::iterator Path::end()
 	{
-		return steps.end();
+		return steps_.end();
 	};
 
 	Path::const_iterator Path::end() const
 	{
-		return steps.end();
+		return steps_.end();
 	};
 
 	const Coordinates &Path::getStep(int n) const
 	{
-		return steps.at(n);
+		return steps_.at(n);
 	}
 
-	void Path::prependStep(const Coordinates& position)
+	void Path::prependStep(const qrw::Coordinates& position)
 	{
-		steps.insert(steps.begin(), position);
+		steps_.insert(steps_.begin(), position);
 	}
 
-	void Path::appendStep(const Coordinates& position)
+	void Path::appendStep(const qrw::Coordinates& position)
 	{
-		steps.push_back(position);
+		steps_.push_back(position);
 	};
 
-	int Path::getLength()
+	int Path::getLength() const
 	{
-		return steps.size();
+		return steps_.size();
 	}
 
-	int Path::getMovementCosts()
+	int Path::getMovementCosts() const
 	{
 		return getLength() - 1;
 	}
 
 	const Coordinates& Path::getTarget() const
 	{
-		return steps.back();
+		return steps_.back();
 	}
-}
+} // namespace pathfinding
+
+} // namespace qrw

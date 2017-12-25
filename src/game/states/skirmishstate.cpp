@@ -4,6 +4,7 @@
 
 #include "game/gui/victorydialog.hpp"
 #include "game/states/deploystate.hpp"
+#include "game/path.hpp"
 
 #include "engine/pathfinding/astar.hpp"
 #include "engine/pathfinding/path.hpp"
@@ -25,6 +26,7 @@ namespace qrw
 SkirmishState::SkirmishState(sf::RenderWindow* renderWindow)
 	: SceneState(renderWindow, EGameStateId::EGSID_SKIRMISH_STATE),
 	  _selectedUnit(nullptr),
+	  path_(nullptr),
 	  m_victoryGui(new namelessgui::Gui(renderWindow))
 {
     _squareDetailWindow = new SquareDetailWindow();
@@ -83,7 +85,6 @@ void SkirmishState::init(GameState *previousState)
 void SkirmishState::draw()
 {
 	SceneState::draw();
-	drawPath();
 	m_victoryGui->render(*_renderWindow);
 }
 
@@ -115,10 +116,10 @@ void SkirmishState::slotCursorMoved(const Coordinates &boardPosition)
 
 		if(_selectedUnit)
 		{
-			_path.reset(_board->findPath(_selectedUnit->getPosition(), boardPosition));
+			path_->set(_board->findPath(_selectedUnit->getPosition(), boardPosition));
 
 			Cursor::Color cursorColor = Cursor::Color::ESC_DEFAULT;
-			if(!_path || _path->getMovementCosts() > _selectedUnit->getCurrentMovement())
+			if(!path_ || path_->getMovementCosts() > _selectedUnit->getCurrentMovement())
 				cursorColor = Cursor::Color::ESC_WARNING;
 			if(boardPosition == _squareMarker->getBoardPosition())
 				cursorColor = Cursor::Color::ESC_DEFAULT;
@@ -133,9 +134,9 @@ void SkirmishState::slotCursorMoved(const Coordinates &boardPosition)
 void SkirmishState::moveUnit()
 {
 	if(!_selectedUnit) return;
-	if(!_path) return;
+	if(!path_) return;
 
-	int pathCosts = _path->getMovementCosts();
+	int pathCosts = path_->getMovementCosts();
 	if(pathCosts == 0) return;
 
 	int maxDistance = _selectedUnit->getCurrentMovement();
@@ -143,7 +144,7 @@ void SkirmishState::moveUnit()
 
 	int remainingMovement = maxDistance - pathCosts;
 	_selectedUnit->setCurrentMovement(remainingMovement);
-	_selectedUnit->setPosition(_path->getTarget());
+	_selectedUnit->setPosition(path_->getTarget());
 }
 
 void SkirmishState::performAttack(Unit* attackedUnit)
@@ -265,77 +266,12 @@ void SkirmishState::endTurn()
 	replenishTroops();
 }
 
-void SkirmishState::drawPath()
-{
-	if(!_path)
-		return;
-
-	const int pathLength = _path->getLength();
-
-	const Coordinates* previous = nullptr;
-	const Coordinates* current  = &_path->getStep(0);
-	const Coordinates* next     = &_path->getStep(1);
-
-	sf::Sprite footstep = sf::Sprite(*TextureManager::getInstance()->getTexture("footstep"));
-
-	// Do not render first step.
-	for(int i = 1; i < pathLength; ++i)
-	{
-		previous = current;
-		current  = next;
-
-		// Reset the previously applied transformations.
-		footstep.setOrigin(16, 16);
-		footstep.setScale(1, 1);
-		footstep.setRotation(0);
-
-		// Transformations relative to the previous step
-		Coordinates prevDelta(*previous - *current);
-		if(prevDelta.getX() != 0)
-			footstep.rotate(-90 * prevDelta.getX());
-		if(prevDelta.getY() != 0)
-			footstep.scale(1, prevDelta.getY());
-
-		// Transformations relative to the next step (if possible)
-		if(i < pathLength - 1)
-		{
-			next = &_path->getStep(i+1);
-
-			Coordinates prevNextDelta(*previous - *next);
-
-			// If the path has a corner at this position
-			if(prevNextDelta.getX() != 0 && prevNextDelta.getY() != 0)
-			{
-				int rotationdirection = 0;
-				// horizontal
-				if(prevDelta.getX() == 0)
-				{
-					rotationdirection = -1;
-				}
-				// vertical
-				else if(prevDelta.getY() == 0)
-				{
-					rotationdirection = +1;
-				}
-				footstep.rotate(rotationdirection * 45 * (prevNextDelta.getX() * prevNextDelta.getY()));
-			}
-		}
-
-		footstep.setPosition(
-			32 * (0.5f + current->getX()),
-			32 * (0.5f + current->getY())
-		);
-
-		_renderWindow->draw(footstep);
-	}
-}
-
 void SkirmishState::deselectUnit()
 {
 	_selectedUnit = nullptr;
 	_squareMarker->setVisible(false);
 	g_scene.getSingleGameObject<Cursor>()->setFillColor(Cursor::Color::ESC_DEFAULT);
-	_path.reset();
+	path_->set(nullptr);
 }
 
 } // namespace qrw

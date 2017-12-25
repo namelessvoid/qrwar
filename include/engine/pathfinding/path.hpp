@@ -1,38 +1,44 @@
-#ifndef QRW_PATH_HPP
-#define QRW_PATH_HPP
+#ifndef QRW_PATHFINDING_PATH_HPP
+#define QRW_PATHFINDING_PATH_HPP
 
 #include <vector>
 
+#include "engine/coordinates.hpp"
+
 namespace qrw
 {
-	class Square;
-	class Coordinates;
 
-	class Path
-	{
-		public:
-			typedef std::vector<Coordinates>::iterator iterator;
-			typedef std::vector<Coordinates>::const_iterator const_iterator;
+namespace pathfinding
+{
 
-			iterator begin();
-			const_iterator begin() const;
+class Path
+{
+	public:
+		typedef std::vector<Coordinates>::iterator iterator;
+		typedef std::vector<Coordinates>::const_iterator const_iterator;
 
-			iterator end();
-			const_iterator end() const;
+		iterator begin();
+		const_iterator begin() const;
 
-			const Coordinates& getStep(int n) const;
+		iterator end();
+		const_iterator end() const;
 
-			void prependStep(const Coordinates& position);
-			void appendStep(const Coordinates& position);
+		const Coordinates& getStep(int n) const;
 
-			int getLength();
-			int getMovementCosts();
+		void prependStep(const qrw::Coordinates& position);
+		void appendStep(const qrw::Coordinates& position);
 
-			const Coordinates& getTarget() const;
+		int getLength() const;
+		int getMovementCosts() const;
 
-		private:
-			std::vector<Coordinates> steps;
-	};
-}
+		const Coordinates& getTarget() const;
 
-#endif
+	private:
+		std::vector<qrw::Coordinates> steps_;
+};
+
+} // namespace pathfinding
+
+} // namespace qrw
+
+#endif // QRW_PATHFINDING_PATH_HPP
