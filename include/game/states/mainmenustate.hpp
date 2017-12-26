@@ -30,13 +30,13 @@ public:
 	void draw();
 
 private:
-	void quitClicked();
-	void newGameClicked();
+	inline void slotQuitClicked() { nextState_ = EGSID_QUIT; }
+	inline void slotNewGameClicked() { nextState_ = EGSID_SKIRMISH_PREPARATION_STATE; }
+	inline void slotMapEditorClicked() { nextState_ = EGSID_MAP_EDITOR_STATE; }
 
-	bool _quitClicked;
-	bool _newGameClicked;
+	EGameStateId nextState_;
 
-	sf::RectangleShape _background;
+	sf::RectangleShape background_;
 };
 
 } // namespace qrw
