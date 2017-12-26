@@ -21,17 +21,17 @@ struct MouseMovedEvent : Event
     }
 };
 
-struct LeftMouseButtonClickedEvent : Event
+struct LeftMouseButtonPressedEvent : Event
 {
-    LeftMouseButtonClickedEvent()
-        : Event("LEFT_MOUSE_BUTTON_CLICKED")
+	LeftMouseButtonPressedEvent()
+		: Event("LEFT_MOUSE_BUTTON_PRESSED")
     {}
 };
 
-struct RightMouseButtonClickedEvent : Event
+struct RightMouseButtonPressedEvent : Event
 {
-    RightMouseButtonClickedEvent()
-        : Event("RIGHT_MOUSE_BUTTON_CLICKED")
+	RightMouseButtonPressedEvent()
+		: Event("RIGHT_MOUSE_BUTTON_PRESSED")
     {}
 };
 

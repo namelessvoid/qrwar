@@ -23,9 +23,9 @@ const Event* SfEventSource::pollEvent()
 	if(event.type == sf::Event::MouseButtonPressed)
 	{
 		if(event.mouseButton.button == sf::Mouse::Button::Left)
-			return new LeftMouseButtonClickedEvent();
+			return new LeftMouseButtonPressedEvent();
 		if(event.mouseButton.button == sf::Mouse::Button::Right)
-			return new RightMouseButtonClickedEvent();
+			return new RightMouseButtonPressedEvent();
 	}
 
 	if(event.type == sf::Event::MouseButtonReleased)

@@ -126,13 +126,13 @@ namespace namelessgui
 
 		if(_mouseFocus)
 		{
-			if(event.name == qrw::SID("LEFT_MOUSE_BUTTON_CLICKED"))
+			if(event.name == qrw::SID("LEFT_MOUSE_BUTTON_PRESSED"))
 			{
 				signalleftmousebuttonpressed.emit();
 				_leftMouseButtonPressRegistered = true;
 				stopEventPropagation = true;
 			}
-			else if(event.name == qrw::SID("RIGHT_MOUSE_BUTTON_CLICKED"))
+			else if(event.name == qrw::SID("RIGHT_MOUSE_BUTTON_PRESSED"))
 			{
 				_rightMouseButtonPressRegistered = true;
 				stopEventPropagation = true;

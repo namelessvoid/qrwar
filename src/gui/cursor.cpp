@@ -62,9 +62,9 @@ bool Cursor::handleEvent(const Event& event)
     }
 	else if(isVisible())
 	{
-		if(event.name == SID("LEFT_MOUSE_BUTTON_CLICKED"))
+		if(event.name == SID("LEFT_MOUSE_BUTTON_PRESSED"))
 			g_eventSystem.pushEvent(new CursorLeftClickedEvent(m_boardPosition));
-		else if(event.name == SID("RIGHT_MOUSE_BUTTON_CLICKED"))
+		else if(event.name == SID("RIGHT_MOUSE_BUTTON_PRESSED"))
 			g_eventSystem.pushEvent(new CursorRightClickedEvent(m_boardPosition));
 	}
 
