@@ -102,7 +102,7 @@ EGameStateId MainMenuState::update()
 	if(_quitClicked)
 		return EGSID_QUIT;
 	if(_newGameClicked)
-		return EGSID_MAP_EDITOR_STATE;
+		return EGSID_SKIRMISH_PREPARATION_STATE;
 	return EGSID_NO_CHANGE;
 }
 

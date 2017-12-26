@@ -17,6 +17,7 @@
 #include "game/states/introstate.hpp"
 #include "game/states/mainmenustate.hpp"
 #include "game/states/mapeditorstate.hpp"
+#include "game/states/skirmishpreparationstate.hpp"
 #include "game/states/deploystate.hpp"
 #include "game/states/skirmishstate.hpp"
 
@@ -117,6 +118,7 @@ GameState* QRWar::createGameState(EGameStateId id)
 	case EGSID_INTRO_STATE: return new IntroState(&_renderWindow);
 	case EGSID_MAIN_MENU_STATE: return new MainMenuState(&_renderWindow);
 	case EGSID_MAP_EDITOR_STATE: return new MapEditorState(&_renderWindow);
+	case EGSID_SKIRMISH_PREPARATION_STATE: return new SkirmishPreparationState(&_renderWindow);
 	case EGSID_DEPLOY_STATE: return new DeployState(&_renderWindow);
 	case EGSID_SKIRMISH_STATE: return new SkirmishState(&_renderWindow);
 	default: return nullptr;

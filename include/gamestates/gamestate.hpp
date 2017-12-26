@@ -36,6 +36,11 @@ enum EGameStateId
 	EGSID_MAP_EDITOR_STATE,
 
 	/**
+	 * The ID of the SkirmishPreparationState
+	 */
+	EGSID_SKIRMISH_PREPARATION_STATE,
+
+	/**
 	 * The ID of the DeployGameState.
 	 */
 	EGSID_DEPLOY_STATE,

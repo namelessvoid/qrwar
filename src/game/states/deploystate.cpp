@@ -120,13 +120,16 @@ EGameStateId DeployState::update()
 
 void DeployState::init(GameState* previousState)
 {
+	assert(previousState->getId() == EGameStateId::EGSID_SKIRMISH_PREPARATION_STATE);
+
 	SceneState::init(previousState);
 
-	if(previousState->getId() == EGameStateId::EGSID_MAP_EDITOR_STATE)
-	{
-		_board = static_cast<MapEditorState*>(previousState)->getBoard();
-		g_scene.setBoard(_board);
-	}
+	// TODO: Load board from map file
+	board_ = new Board(16, 9);
+	g_scene.setBoard(board_);
+
+	Cursor* cursor = new Cursor();
+	g_scene.addGameObject(cursor);
 
 	// Create new players
 	_players.clear();
@@ -142,7 +145,7 @@ void DeployState::init(GameState* previousState)
 
 Board* DeployState::getBoard() const
 {
-    return _board;
+	return board_;
 }
 
 std::vector<Player::Ptr> DeployState::getPlayers() const
@@ -177,7 +180,7 @@ void DeployState::slotCursorLeftClicked(const Coordinates& boardPosition)
 	if(_selectedPlayer == nullptr)
 		return;
 
-	if(Unit* unit = _board->getUnit(boardPosition))
+	if(Unit* unit = board_->getUnit(boardPosition))
 		delete unit;
 
 	Unit* unit = Unit::createUnit(_selectedUnitType, _selectedPlayer);
@@ -187,7 +190,7 @@ void DeployState::slotCursorLeftClicked(const Coordinates& boardPosition)
 
 void DeployState::slotCursorRightClicked(const Coordinates &boardPosition)
 {
-	if(Unit* unit = _board->getUnit(boardPosition))
+	if(Unit* unit = board_->getUnit(boardPosition))
 		delete unit;
 }
 

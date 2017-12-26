@@ -47,7 +47,7 @@ private:
     virtual void slotCursorLeftClicked(const Coordinates& boardPosition) override;
 	virtual void slotCursorRightClicked(const Coordinates& boardPosition) override;
 
-	Board* _board;
+	Board* board_;
 
 	std::vector<Player::Ptr> _players;
 
