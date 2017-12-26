@@ -52,9 +52,6 @@ class Widget : public qrw::EventHandler
 
 			bool hasMouseFocues() const;
 
-//			void setState(EWidgetStates _state);
-//			EWidgetStates getState() const;
-
             void disconnectAllSignals();
 
             virtual sf::FloatRect getGlobalBounds() = 0;

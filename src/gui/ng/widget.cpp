@@ -64,16 +64,6 @@ namespace namelessgui
 		return _mouseFocus;
 	}
 
-//	void Widget::setState(Widget::EWidgetStates state)
-//	{
-//		this->_state = state;
-//	}
-
-//	Widget::EWidgetStates Widget::getState() const
-//	{
-//		return _state;
-//	}
-
 	void Widget::render(sf::RenderTarget& target, sf::RenderStates states) const
 	{
 		if(_visible)

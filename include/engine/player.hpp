@@ -4,8 +4,6 @@
 #include <string>
 #include <memory>
 
-#include "engine/army.hpp"
-
 namespace qrw
 {
 	class Player
@@ -33,15 +31,11 @@ namespace qrw
 			 */
 			void setActive(bool active);
 
-			Army& getArmy();
-
 	private:
 			std::string _name;
 			int _id;
 
 			bool _active;
-
-			Army _army;
 	};
 }
 

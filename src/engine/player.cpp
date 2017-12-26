@@ -11,7 +11,6 @@ namespace qrw
 
 	Player::~Player()
 	{
-		_army.deleteAllUnits();
 	}
 
 	std::string Player::getName()
@@ -42,10 +41,5 @@ namespace qrw
 	void Player::setActive(bool active)
 	{
 		this->_active = active;
-	}
-
-	Army& Player::getArmy()
-	{
-		return _army;
 	}
 }
