@@ -11,13 +11,11 @@ add_library(qrwarlib
 	config/videosettings.cpp
 	config/xmlhelper.cpp
 
-	engine/army.cpp
 	engine/board.cpp
 	engine/coordinates.cpp
 	engine/player.cpp
 	engine/terrain.cpp
 	engine/unit.cpp
-	engine/unitsmap.cpp
 
 	engine/pathfinding/astar.cpp
 	engine/pathfinding/node.cpp
@@ -51,19 +49,10 @@ add_library(qrwarlib
         game/path.cpp
         game/pathrendercomponent.cpp
 
-#	gui/animation.cpp
-#	gui/boardwidget.cpp
         gui/scene.cpp
         gui/squaremarker.cpp
         gui/cursor.cpp
         gui/squaredetailwindow.cpp
-#	gui/deploywindow.cpp
-#	gui/guihandler.cpp
-#	gui/ingamewindow.cpp
-#	gui/mainwindow.cpp
-#	gui/settingswindow.cpp
-#	gui/startgamewindow.cpp
-        gui/imagemanager.cpp
 	gui/texturemanager.cpp
         gui/guihelper.cpp
 )
