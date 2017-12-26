@@ -14,6 +14,7 @@ before_install:
 
     - chmod +x ".travis-scripts/before-install-sfml.sh"
     - chmod +x ".travis-scripts/before-install-tinyxml2.sh"
+
     - wget http://raw.github.com/Kitware/CMake/master/Modules/FindGLEW.cmake -O cmake/Modules/FindGLEW.cmake
 
 install:
