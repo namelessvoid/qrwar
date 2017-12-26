@@ -1,7 +1,5 @@
 #include "game/pathrendercomponent.hpp"
 
-#include <iostream>
-
 #include <SFML/Graphics/RectangleShape.hpp>
 #include <SFML/Graphics/RenderTarget.hpp>
 
@@ -91,7 +89,6 @@ void qrw::PathRenderComponent::render(sf::RenderTarget &renderTarget)
 
 void PathRenderComponent::setPath(const pathfinding::Path *path)
 {
-	std::cout << "PathRenderComponent::setPath()\n" << std::flush;
 	path_ = path;
 
 	setVisible(path != nullptr);
