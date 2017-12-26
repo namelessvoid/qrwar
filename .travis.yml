@@ -10,6 +10,8 @@ before_install:
     - $CXX --version
     - sudo apt-get install libcppunit-dev
 
+    - ls /usr/share/ | grep -i cmake
+
     - cmake --version
     - sudo wget http://raw.github.com/Kitware/CMake/master/Modules/FindGLEW.cmake -O /usr/share/cmake-3.9/Modules/FindGLEW.cmake
 
