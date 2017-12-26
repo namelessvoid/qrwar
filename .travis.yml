@@ -7,14 +7,15 @@ before_install:
     - sudo apt-get update -qq
     - if [ "$CXX" = "g++" ]; then sudo apt-get install -qq g++-6; fi
     - if [ "$CXX" = "g++" ]; then export CXX="g++-6" CC="gcc-6"; fi
-    - $CXX --version
     - sudo apt-get install libcppunit-dev
 
+    - $CXX --version
     - cmake --version
-    - sudo wget http://raw.github.com/Kitware/CMake/master/Modules/FindGLEW.cmake -O /usr/share/cmake-3.9/Modules/FindGLEW.cmake
 
     - chmod +x ".travis-scripts/before-install-sfml.sh"
     - chmod +x ".travis-scripts/before-install-tinyxml2.sh"
+
+    - wget http://raw.github.com/Kitware/CMake/master/Modules/FindGLEW.cmake -O cmake/Modules/FindGLEW.cmake
 
 install:
     - .travis-scripts/before-install-sfml.sh
