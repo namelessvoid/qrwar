@@ -15,14 +15,14 @@ class NodeTest : public CppUnit::TestFixture
 		void testCtorCoordinate()
 		{
 			qrw::Coordinates coord(2, 3);
-			qrw::Node node(coord);
+			qrw::pathfinding::Node node(coord);
 
 			CPPUNIT_ASSERT(node == coord);
 		}
 
 		void testGetF()
 		{
-			qrw::Node node(0, 0);
+			qrw::pathfinding::Node node(0, 0);
 			node.setG(2);
 			node.setH(10);
 

@@ -1,7 +1,6 @@
 add_executable(unittest
     main.cpp
 	engine/boardtest.cpp
-	engine/squaretest.cpp
 	engine/unittest.cpp
 	engine/coordinatestest.cpp
 	engine/pathfinding/nodetest.cpp

@@ -3,8 +3,6 @@
 
 #include "engine/pathfinding/path.hpp"
 
-#include "engine/square.hpp"
-
 class PathTest : public CppUnit::TestFixture
 {
 	CPPUNIT_TEST_SUITE(PathTest);
@@ -17,11 +15,11 @@ class PathTest : public CppUnit::TestFixture
 	public:
 		void testAppendStep()
 		{
-			qrw::Path path;
+			qrw::pathfinding::Path path;
 
 			CPPUNIT_ASSERT(path.getLength() == 0);
 
-			qrw::Square* step1 = new qrw::Square(0, 0);
+			qrw::Coordinates step1(12, 13);
 			path.appendStep(step1);
 			CPPUNIT_ASSERT(path.getLength() == 1);
 			CPPUNIT_ASSERT(path.getMovementCosts() == 0);
@@ -29,10 +27,10 @@ class PathTest : public CppUnit::TestFixture
 
 		void testPrependStep()
 		{
-			qrw::Path path;
+			qrw::pathfinding::Path path;
 
-			qrw::Square* step1 = new qrw::Square(0, 0);
-			qrw::Square* step2 = new qrw::Square(1, 0);
+			qrw::Coordinates step1(0, 0);
+			qrw::Coordinates step2(1, 0);
 
 			path.prependStep(step2);
 			path.prependStep(step1);
@@ -40,17 +38,17 @@ class PathTest : public CppUnit::TestFixture
 			int counter = 0;
 			for(auto step : path)
 			{
-				CPPUNIT_ASSERT(step->getXPosition() == counter);
+				CPPUNIT_ASSERT(step.getX() == counter);
 				++counter;
 			}
 		}
 
 		void testGetStep()
 		{
-			qrw::Path path;
+			qrw::pathfinding::Path path;
 
-			qrw::Square* step1 = new qrw::Square(0, 0);
-			qrw::Square* step2 = new qrw::Square(1, 0);
+			qrw::Coordinates step1(0, 0);
+			qrw::Coordinates step2(1, 0);
 
 			path.appendStep(step1);
 			path.appendStep(step2);
@@ -61,10 +59,10 @@ class PathTest : public CppUnit::TestFixture
 
 		void testForEach()
 		{
-			qrw::Path path;
+			qrw::pathfinding::Path path;
 
-			qrw::Square* step1 = new qrw::Square(0, 10);
-			qrw::Square* step2 = new qrw::Square(1, 11);
+			qrw::Coordinates step1(0, 10);
+			qrw::Coordinates step2(1, 11);
 
 			path.appendStep(step1);
 			path.appendStep(step2);
@@ -72,8 +70,8 @@ class PathTest : public CppUnit::TestFixture
 			int counter = 0;
 			for(auto step : path)
 			{
-				CPPUNIT_ASSERT(step->getXPosition() == counter);
-				CPPUNIT_ASSERT(step->getYPosition() == (counter + 10));
+				CPPUNIT_ASSERT(step.getX() == counter);
+				CPPUNIT_ASSERT(step.getY() == (counter + 10));
 				++counter;
 			}
 

@@ -7,7 +7,6 @@
 
 #include "config/settings.hpp"
 #include "config/tilesetprocessor.hpp"
-#include "gui/imagemanager.hpp"
 #include "gui/texturemanager.hpp"
 
 
