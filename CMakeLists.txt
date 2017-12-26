@@ -7,8 +7,6 @@ set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} ${QuadRuledWar_SOURCE_DIR}/cmake/Modu
 set(CMAKE_CXX_FLAGS "-std=c++11 -g")
 set(EXECUTABLE_OUTPUT_PATH ${CMAKE_SOURCE_DIR}/bin)
 
-message(${CMAKE_MODULE_PATH})
-
 add_definitions("-Wall")
 
 # extern libraries
