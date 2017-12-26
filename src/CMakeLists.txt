@@ -41,6 +41,7 @@ add_library(qrwarlib
         game/states/introstate.cpp
         game/states/mainmenustate.cpp
         game/states/mapeditorstate.cpp
+        game/states/skirmishpreparationstate.cpp
         game/states/deploystate.cpp
         game/states/skirmishstate.cpp
         game/damagenumber.cpp
