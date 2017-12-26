@@ -12,6 +12,10 @@ ConfirmationDialog::ConfirmationDialog(const std::string& text)
 
 	setSize({_label->getSize().x + 10, 75.0f});
 
+	// Default positioning: centered in parent widget
+	setAnchor({0.5f, 0.5f});
+	setParentAnchor({0.5f, 0.5f});
+
 	_yesButton->setText("Yes");
 	_yesButton->setSize({50.0f, 30.0f});
 	_yesButton->setAnchor({1.0f, 1.0f});

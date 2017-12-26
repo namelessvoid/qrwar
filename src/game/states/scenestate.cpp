@@ -28,8 +28,6 @@ SceneState::SceneState(sf::RenderWindow* renderWindow, qrw::EGameStateId gameSta
 	// Set up back to main menu dialog
 	_backToMainMenuDialog = new namelessgui::ConfirmationDialog("Really exit and go back to main menu?");
 	_backToMainMenuDialog->signalYesClicked.connect(std::bind(&SceneState::slotBackToMainMenu, this));
-	_backToMainMenuDialog->setAnchor({0.5f, 0.5f});
-	_backToMainMenuDialog->setParentAnchor({0.5f, 0.5f});
 	_guiUptr->addWidget(_backToMainMenuDialog);
 	_backToMainMenuDialog->setVisible(false);
 }
