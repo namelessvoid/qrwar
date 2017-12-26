@@ -2,23 +2,33 @@
 
 #include "gui/ng/window.hpp"
 #include "gui/ng/button.hpp"
+#include "gui/ng/confirmationdialog.hpp"
+
+#include "eventsystem/inputevents.hpp"
 
 namespace qrw
 {
 
 SkirmishPreparationState::SkirmishPreparationState(sf::RenderWindow* renderWindow)
 	: GameState(renderWindow, EGSID_SKIRMISH_PREPARATION_STATE),
-	  toSkirmishState_(false)
+	  nextState_(EGSID_NO_CHANGE)
 {
-	window_ = new namelessgui::Window();
-	window_->setSize({(float)renderWindow->getSize().x, (float)renderWindow->getSize().y});
+	namelessgui::Window* window = new namelessgui::Window();
+	window->setSize({(float)renderWindow->getSize().x, (float)renderWindow->getSize().y});
+	_guiUptr->addWidget(window);
 
 	namelessgui::Button* toSkirmisStateButton = new namelessgui::Button();
 	toSkirmisStateButton->signalclicked.connect(std::bind(&SkirmishPreparationState::slotToSkirmishStateClicked, this));
-	window_->addWidget(toSkirmisStateButton);
+	toSkirmisStateButton->setText("Start Skirmish");
+	window->addWidget(toSkirmisStateButton);
 
-	_guiUptr->addWidget(window_);
+	backToMainMenuDialog_ = new namelessgui::ConfirmationDialog("Really go back to main menu?");
+	backToMainMenuDialog_->signalYesClicked.connect(std::bind(&SkirmishPreparationState::slotBackToMainMenuClicked, this));
+	_guiUptr->addWidget(backToMainMenuDialog_);
+
 	_guiUptr->setVisible(true);
+
+	backToMainMenuDialog_->setVisible(false);
 }
 
 SkirmishPreparationState::~SkirmishPreparationState()
@@ -27,10 +37,7 @@ SkirmishPreparationState::~SkirmishPreparationState()
 
 EGameStateId SkirmishPreparationState::update()
 {
-	if(toSkirmishState_)
-		return EGameStateId::EGSID_DEPLOY_STATE;
-
-	return EGameStateId::EGSID_NO_CHANGE;
+	return nextState_;
 }
 
 void SkirmishPreparationState::draw()
@@ -38,9 +45,18 @@ void SkirmishPreparationState::draw()
 	_guiUptr->render(*_renderWindow, sf::RenderStates::Default);
 }
 
-void SkirmishPreparationState::slotToSkirmishStateClicked()
+bool SkirmishPreparationState::handleEvent(const Event& event)
 {
-	toSkirmishState_ = true;
+	if(event.name == SID("KEY_PRESSED"))
+	{
+		if(static_cast<const KeyPressedEvent&>(event).key == KeyPressedEvent::Key::Esc)
+		{
+			backToMainMenuDialog_->setVisible(true);
+			return true;
+		}
+	}
+
+	return false;
 }
 
 } // namespace qrw
