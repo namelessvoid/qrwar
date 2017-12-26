@@ -1,6 +1,10 @@
 #include "game/path.hpp"
 
+#include <limits>
+
 #include "engine/pathfinding/path.hpp"
+
+#include "game/pathrendercomponent.hpp"
 
 namespace qrw
 {
@@ -8,6 +12,8 @@ namespace qrw
 Path::Path()
 	: path_(nullptr)
 {
+	pathRenderComponent_ = new PathRenderComponent();
+	addComponent(pathRenderComponent_);
 }
 
 Path::~Path()
@@ -21,11 +27,13 @@ void Path::set(const pathfinding::Path* path)
 	if(path_)
 		delete path_;
 	path_ = path;
+	pathRenderComponent_->setPath(path);
 }
 
 int Path::getMovementCosts() const
 {
-	assert(path_ != nullptr);
+	if(!path_)
+		return std::numeric_limits<int>::max();
 	return path_->getMovementCosts();
 }
 

@@ -3,14 +3,13 @@
 
 #include "foundation/gameobject.hpp"
 
-#include "engine/pathfinding/path.hpp"
-
 namespace qrw {
-//namespace pathfinding {
-//class Path;
-//}
+namespace pathfinding {
+class Path;
+}
 
 class Coordinates;
+class PathRenderComponent;
 
 class Path : public GameObject
 {
@@ -31,6 +30,8 @@ private:
 	Path& operator=(const Path& rhs) = delete;
 
 	const pathfinding::Path* path_;
+
+	PathRenderComponent* pathRenderComponent_;
 };
 
 

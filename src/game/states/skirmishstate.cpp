@@ -26,11 +26,13 @@ namespace qrw
 SkirmishState::SkirmishState(sf::RenderWindow* renderWindow)
 	: SceneState(renderWindow, EGameStateId::EGSID_SKIRMISH_STATE),
 	  _selectedUnit(nullptr),
-	  path_(nullptr),
 	  m_victoryGui(new namelessgui::Gui(renderWindow))
 {
     _squareDetailWindow = new SquareDetailWindow();
     _guiUptr->addWidget(_squareDetailWindow);
+
+	path_ = new Path();
+	g_scene.addGameObject(path_);
 
 	_squareMarker = new SquareMarker();
 	_squareMarker->setVisible(false);
@@ -119,7 +121,7 @@ void SkirmishState::slotCursorMoved(const Coordinates &boardPosition)
 			path_->set(_board->findPath(_selectedUnit->getPosition(), boardPosition));
 
 			Cursor::Color cursorColor = Cursor::Color::ESC_DEFAULT;
-			if(!path_ || path_->getMovementCosts() > _selectedUnit->getCurrentMovement())
+			if(path_->getMovementCosts() > _selectedUnit->getCurrentMovement())
 				cursorColor = Cursor::Color::ESC_WARNING;
 			if(boardPosition == _squareMarker->getBoardPosition())
 				cursorColor = Cursor::Color::ESC_DEFAULT;
@@ -134,10 +136,8 @@ void SkirmishState::slotCursorMoved(const Coordinates &boardPosition)
 void SkirmishState::moveUnit()
 {
 	if(!_selectedUnit) return;
-	if(!path_) return;
 
 	int pathCosts = path_->getMovementCosts();
-	if(pathCosts == 0) return;
 
 	int maxDistance = _selectedUnit->getCurrentMovement();
 	if(pathCosts > maxDistance) return;

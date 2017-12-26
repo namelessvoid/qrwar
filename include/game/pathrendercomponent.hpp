@@ -5,6 +5,10 @@
 
 namespace qrw {
 
+namespace pathfinding {
+class Path;
+}
+
 class PathRenderComponent : public SpriteComponent
 {
 public:
@@ -12,14 +16,16 @@ public:
 
     virtual ~PathRenderComponent();
 
+	virtual void render(sf::RenderTarget &renderTarget) override;
+
+	void setPath(const pathfinding::Path* path);
+
 private:
     PathRenderComponent(const PathRenderComponent& rhs) = delete;
 
     PathRenderComponent& operator=(const PathRenderComponent& rhs) = delete;
 
-    // Renderable interface
-public:
-    virtual void render(sf::RenderTarget &renderTarget) override;
+	const pathfinding::Path* path_;
 };
 
 

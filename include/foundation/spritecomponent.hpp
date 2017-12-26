@@ -40,7 +40,7 @@ public:
 
 	virtual void render(sf::RenderTarget& renderTarget) override;
 
-private:
+protected:
 	sf::RectangleShape* _rectangle;
 };
 
