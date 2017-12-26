@@ -5,6 +5,7 @@
 #include "engine/pathfinding/path.hpp"
 
 #include "game/pathrendercomponent.hpp"
+#include "gui/scene.hpp"
 
 namespace qrw
 {
@@ -22,7 +23,19 @@ Path::~Path()
 		delete path_;
 }
 
-void Path::set(const pathfinding::Path* path)
+void Path::setStartAndEnd(const Coordinates& start, const Coordinates &end)
+{
+	Board* board = g_scene.getSingleGameObject<Board>();
+	pathfinding::Path* path = board->findPath(start, end);
+	setPath(path);
+}
+
+void Path::reset()
+{
+	setPath(nullptr);
+}
+
+void Path::setPath(const pathfinding::Path* path)
 {
 	if(path_)
 		delete path_;

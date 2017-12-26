@@ -18,7 +18,8 @@ public:
 
 	~Path();
 
-	void set(const pathfinding::Path* path);
+	void setStartAndEnd(const Coordinates& start, const Coordinates& end);
+	void reset();
 
 	int getMovementCosts() const;
 
@@ -28,6 +29,8 @@ private:
 	Path(const Path& rhs) = delete;
 
 	Path& operator=(const Path& rhs) = delete;
+
+	void setPath(const pathfinding::Path* path);
 
 	const pathfinding::Path* path_;
 
