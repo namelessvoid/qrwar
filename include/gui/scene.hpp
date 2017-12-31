@@ -38,23 +38,26 @@ public:
 
 	void setRenderTarget(sf::RenderTarget* renderTarget);
 
+	template<class TGameObject>
+	TGameObject* spawn();
+
 	void addGameObject(GameObject* gameObject);
 
-	void removeGameObject(GameObject* gameObject);
+	void despawnDelayed(GameObject* gameObject);
 
-	template<class T>
+	template<class TGameObject>
 	std::set<GameObject*>& getGameObjects();
 
-	template<class T>
-	T* getSingleGameObject();
+	template<class TGameObject>
+	TGameObject* getSingleGameObject();
 
 	void reset();
 
 	void update();
 
-	void scheduleForDeferredDeletion(GameObject* gameObject);
-
 private:
+	void removeGameObject(GameObject* gameObject);
+
 	sf::RenderTarget* _renderTarget;
 
 	Board* _board;
@@ -63,6 +66,14 @@ private:
 
 	std::vector<GameObject*> m_toDeleteOnNextFrame;
 };
+
+template<class TGameObject>
+TGameObject *Scene::spawn()
+{
+	TGameObject* gameObject = new TGameObject();
+	addGameObject(gameObject);
+	return gameObject;
+}
 
 template<class T>
 std::set<GameObject*>& Scene::getGameObjects()

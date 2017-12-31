@@ -13,7 +13,9 @@ class TransformAnimationComponent;
 class DamageNumber : public GameObject
 {
 public:
-    DamageNumber(int inflictedDamage);
+	DamageNumber();
+
+	void setDamage(int damage);
 
 	virtual void update() override;
 

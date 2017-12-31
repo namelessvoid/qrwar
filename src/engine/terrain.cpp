@@ -49,8 +49,6 @@ Terrain::~Terrain()
 	Board* board = g_scene.getSingleGameObject<Board>();
 	if(board->getTerrain(_position) == this)
 		board->removeTerrain(_position);
-
-	g_scene.removeGameObject(this);
 }
 
 int Terrain::getModificator(MODIFICATORS type)

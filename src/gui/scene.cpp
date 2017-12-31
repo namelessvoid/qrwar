@@ -37,6 +37,11 @@ void Scene::setRenderTarget(sf::RenderTarget* renderTarget)
 	_renderTarget = renderTarget;
 }
 
+void Scene::despawnDelayed(GameObject *gameObject)
+{
+	m_toDeleteOnNextFrame.push_back(gameObject);
+}
+
 void Scene::addGameObject(GameObject* gameObject)
 {
 	assert(gameObject!=nullptr);
@@ -79,11 +84,6 @@ void Scene::update()
 			gameObject->update();
 		}
 	}
-}
-
-void Scene::scheduleForDeferredDeletion(GameObject *gameObject)
-{
-	m_toDeleteOnNextFrame.push_back(gameObject);
 }
 
 } // namespace qrw

@@ -27,7 +27,7 @@ private:
 
     SkirmishPreparationState& operator=(const SkirmishPreparationState& rhs) = delete;
 
-    void slotToSkirmishStateClicked() { nextState_ = EGSID_SKIRMISH_STATE; }
+	void slotToSkirmishStateClicked() { nextState_ = EGSID_DEPLOY_STATE; }
 
     void slotBackToMainMenuClicked() { nextState_ = EGSID_MAIN_MENU_STATE; }
 

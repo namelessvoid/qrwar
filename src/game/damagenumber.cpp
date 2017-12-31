@@ -10,11 +10,10 @@
 namespace qrw
 {
 
-DamageNumber::DamageNumber(int inflictedDamage)
+DamageNumber::DamageNumber()
 {
 	m_textComponent = new TextComponent(RENDER_LAYER_BILLBOARD);
 	addComponent(m_textComponent);
-	m_textComponent->setText("-" + std::to_string(inflictedDamage));
 	m_textComponent->setPosition({50, 50});
 	m_textComponent->setFillColor(sf::Color::Red);
 
@@ -23,10 +22,15 @@ DamageNumber::DamageNumber(int inflictedDamage)
 	addComponent(m_animation);
 }
 
+void DamageNumber::setDamage(int damage)
+{
+	m_textComponent->setText("-" + std::to_string(damage));
+}
+
 void DamageNumber::update()
 {
 	if(!m_animation->isRunning())
-		g_scene.scheduleForDeferredDeletion(this);
+		g_scene.despawnDelayed(this);
 }
 
 void DamageNumber::setPosition(const sf::Vector2f& position)

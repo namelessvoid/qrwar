@@ -63,8 +63,6 @@ Unit::~Unit()
 	Board* board = g_scene.getSingleGameObject<Board>();
 	if(board->getUnit(_position) == this)
 		board->removeUnit(_position);
-
-	g_scene.removeGameObject(this);
 }
 
 Player::Ptr Unit::getPlayer() const
@@ -139,9 +137,9 @@ void Unit::damage(int inflictedDamage)
 {
 	setHP(getHP() - inflictedDamage);
 
-	DamageNumber* damageNumber = new DamageNumber(inflictedDamage);
+	DamageNumber* damageNumber = g_scene.spawn<DamageNumber>();
 	damageNumber->setPosition(_sprite->getPosition() + sf::Vector2f{16, -16});
-	g_scene.addGameObject(damageNumber);
+	damageNumber->setDamage(inflictedDamage);
 }
 
 int Unit::getAttackRange() const
