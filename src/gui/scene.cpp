@@ -42,6 +42,12 @@ void Scene::despawnDelayed(GameObject *gameObject)
 	m_toDeleteOnNextFrame.push_back(gameObject);
 }
 
+void Scene::despawn(GameObject *gameObject)
+{
+	removeGameObject(gameObject);
+	delete gameObject;
+}
+
 void Scene::addGameObject(GameObject* gameObject)
 {
 	assert(gameObject!=nullptr);
@@ -72,8 +78,7 @@ void Scene::update()
 {
 	for(GameObject*& gameObject : m_toDeleteOnNextFrame)
 	{
-		removeGameObject(gameObject);
-		delete gameObject;
+		despawn(gameObject);
 	}
 	m_toDeleteOnNextFrame.clear();
 

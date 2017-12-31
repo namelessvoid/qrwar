@@ -45,6 +45,8 @@ public:
 
 	void despawnDelayed(GameObject* gameObject);
 
+	void despawn(GameObject* gameObject);
+
 	template<class TGameObject>
 	std::set<GameObject*>& getGameObjects();
 
