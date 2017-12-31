@@ -164,7 +164,7 @@ void SkirmishState::performAttack(Unit* attackedUnit)
 
 	if(attackedUnit->getHP() == 0)
 	{
-		delete _board->getUnit(positionOfAttackedUnit);
+		g_scene.despawn(attackedUnit);
 		_selectedUnit->setPosition(positionOfAttackedUnit);
 	}
 	else
@@ -175,7 +175,7 @@ void SkirmishState::performAttack(Unit* attackedUnit)
 
 		if(_selectedUnit->getHP() == 0)
 		{
-			delete _selectedUnit;
+			g_scene.despawn(_selectedUnit);
 			_selectedUnit = nullptr;
 		}
 	}

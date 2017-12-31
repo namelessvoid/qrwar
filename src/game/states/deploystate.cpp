@@ -181,7 +181,7 @@ void DeployState::slotCursorLeftClicked(const Coordinates& boardPosition)
 		return;
 
 	if(Unit* unit = board_->getUnit(boardPosition))
-		delete unit;
+		g_scene.despawn(unit);
 
 	Unit* unit = Unit::createUnit(_selectedUnitType, _selectedPlayer);
 	unit->setPosition(boardPosition);
@@ -191,7 +191,7 @@ void DeployState::slotCursorLeftClicked(const Coordinates& boardPosition)
 void DeployState::slotCursorRightClicked(const Coordinates &boardPosition)
 {
 	if(Unit* unit = board_->getUnit(boardPosition))
-		delete unit;
+		g_scene.despawn(unit);
 }
 
 } // namespace qrw

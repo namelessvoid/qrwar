@@ -100,7 +100,7 @@ void MapEditorState::slotCursorLeftClicked(const Coordinates& boardPosition)
     // Erase terrain
 	if(_eraseMode && _spBoard->isTerrainAt(boardPosition))
     {
-		delete _spBoard->getTerrain(boardPosition);
+		g_scene.despawn(_spBoard->getTerrain(boardPosition));
     }
     // Place terrain
     else
@@ -113,7 +113,7 @@ void MapEditorState::slotCursorLeftClicked(const Coordinates& boardPosition)
         if(terrain != nullptr)
         {
 			if(Terrain* oldTerrain = _spBoard->getTerrain(boardPosition))
-				delete oldTerrain;
+				g_scene.despawn(oldTerrain);
 
 			_spBoard->setTerrain(boardPosition, terrain);
 			terrain->setPosition(boardPosition);
@@ -125,7 +125,7 @@ void MapEditorState::slotCursorLeftClicked(const Coordinates& boardPosition)
 void MapEditorState::slotCursorRightClicked(const Coordinates& boardPosition)
 {
 	if(Terrain* terrain = _spBoard->getTerrain(boardPosition))
-		delete terrain;
+		g_scene.despawn(terrain);
 }
 
 void MapEditorState::slotTerrainButtonChanged(const namelessgui::RadioToggleButton& activeTerrainButton)
