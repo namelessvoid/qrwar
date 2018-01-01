@@ -24,38 +24,62 @@ std::string Unit::UNITNAMES[] =
 	"Swordman", "Archer", "Spearman"
 };
 
-Unit::Unit(UNITTYPES type, int hp, int attack, int defense,
-			int range, int movement, Player::Ptr player,
-			const sf::Texture* texture)
-:	_type(type),
-	_hp(hp),
-	_maxhp(hp),
-	_attackvalue(attack),
-	_defensevalue(defense),
-	_range(range),
-	_movement(movement),
-	_currentmovement(movement),
-	_player(player)
-{
-	_sprite = new SpriteComponent(RENDER_LAYER_UNIT);
-	addComponent(_sprite);
-	_sprite->setSize(sf::Vector2f(_dimension, _dimension));
-	_sprite->setTexture(texture);
-}
-
 Unit* Unit::createUnit(UNITTYPES unitType, Player::Ptr player)
 {
 	const sf::Texture* texture = GuiHelper::getUnitTexture(unitType, player);
 
+	int maxHp = 0;
+	int attack = 0;
+	int defense = 0;
+	int range = 0;
+	int movement = 0;
+
 	switch(unitType)
 	{
 	case EUT_SWORDMAN:
-		return new Unit(EUT_SWORDMAN, 5, 2, 1, 1, 3, player, texture);
+		maxHp    = 5;
+		attack   = 2;
+		defense  = 1;
+		range    = 1;
+		movement = 3;
+		break;
 	case EUT_ARCHER:
-		return new Unit(EUT_ARCHER, 5, 2, 1, 2, 2, player, texture);
+		maxHp    = 5;
+		attack   = 2;
+		defense  = 1;
+		range    = 2;
+		movement = 2;
+		break;
+	case EUT_SPEARMAN:
+		maxHp    = 5;
+		attack   = 2;
+		defense  = 1;
+		range    = 1;
+		movement = 2;
+		break;
 	default:
-		return new Unit(EUT_SPEARMAN, 5, 2, 1, 1, 2, player, texture);
+		assert(false);
 	}
+
+	Unit* unit = g_scene.spawn<Unit>();
+	unit->setType(unitType);
+	unit->setMaxHp(maxHp);
+	unit->setHP(maxHp);
+	unit->setAttack(attack);
+	unit->setDefense(defense);
+	unit->setRange(range);
+	unit->setMovement(movement);
+	unit->setCurrentMovement(movement);
+	unit->setPlayer(player);
+	unit->setTexture(texture);
+	return unit;
+}
+
+Unit::Unit()
+{
+	_sprite = new SpriteComponent(RENDER_LAYER_UNIT);
+	addComponent(_sprite);
+	_sprite->setSize(sf::Vector2f(_dimension, _dimension));
 }
 
 Unit::~Unit()
@@ -68,11 +92,6 @@ Unit::~Unit()
 Player::Ptr Unit::getPlayer() const
 {
 	return _player;
-}
-
-void Unit::setPlayer(Player::Ptr player)
-{
-	this->_player = player;
 }
 
 UNITTYPES Unit::getType()
@@ -128,10 +147,6 @@ int Unit::getMaxHp()
 {
 	return _maxhp;
 }
-void Unit::setMaxHp(int maxhp)
-{
-	this->_maxhp = maxhp;
-}
 
 void Unit::damage(int inflictedDamage)
 {
@@ -179,6 +194,11 @@ void Unit::setPosition(const Coordinates& position)
 	_position = position;
 	board->setUnit(_position, this);
 	_sprite->setPosition(sf::Vector2f(_dimension * _position.getX(), _dimension * _position.getY()));
+}
+
+void Unit::setTexture(const sf::Texture *texture)
+{
+	_sprite->setTexture(texture);
 }
 
 void Unit::setCurrentMovement(int movement)

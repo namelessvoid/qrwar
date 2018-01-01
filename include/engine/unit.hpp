@@ -23,10 +23,11 @@ class Unit : public GameObject
 public:
 	static Unit* createUnit(UNITTYPES unitType, Player::Ptr player);
 
+	Unit();
+
 	~Unit();
 
 	Player::Ptr getPlayer() const;
-	void setPlayer(Player::Ptr _player);
 	UNITTYPES getType();
 
 	/**
@@ -59,7 +60,6 @@ public:
 	int getHP();
 	void setHP(int hp);
 	int getMaxHp();
-	void setMaxHp(int maxhp);
 
 	void damage(int inflictedDamage);
 
@@ -87,20 +87,21 @@ public:
 	void setSquare(Square* _square);
 
 private:
-	/**
-	 * @brief Private Unit constructor.
-	 * @param type The type of the unit, i.e. one of UNITTYPES.
-	 * @param hp Max HP of the unit.
-	 * @param attack Base attack of the unit.
-	 * @param defense Base defense of the unit.
-	 * @param range Base range of the unit.
-	 * @param movement Base movement of the unit.
-	 * @param player The player owning the unit.
-	 * @param board Reference to the board on which the unit should be placed.
-	 */
-	Unit(UNITTYPES type, int hp, int attack, int defense,
-		int range, int movement, Player::Ptr player,
-		 const sf::Texture* texture);
+	void setType(UNITTYPES type) { _type = type; }
+
+	void setMaxHp(int maxhp) { _maxhp = maxhp; }
+
+	void setAttack(int attack) { _attackvalue = attack; }
+
+	void setDefense(int defense) { _defensevalue = defense; }
+
+	void setRange(int range) { _range = range; }
+
+	void setMovement(int movement) { _movement = movement; }
+
+	void setPlayer(Player::Ptr player) { _player = player; }
+
+	void setTexture(const sf::Texture* texture);
 
 	UNITTYPES _type;
 	int _hp;
