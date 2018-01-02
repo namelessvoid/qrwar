@@ -20,6 +20,10 @@ SkirmishPreparationState::SkirmishPreparationState(sf::RenderWindow* renderWindo
 	namelessgui::Button* toSkirmisStateButton = new namelessgui::Button();
 	toSkirmisStateButton->signalclicked.connect(std::bind(&SkirmishPreparationState::slotToSkirmishStateClicked, this));
 	toSkirmisStateButton->setText("Start Skirmish");
+	toSkirmisStateButton->setSize({150, 30});
+	toSkirmisStateButton->setAnchor({1, 1});
+	toSkirmisStateButton->setParentAnchor({1, 1});
+	toSkirmisStateButton->setRelativePosition({-5, -5});
 	window->addWidget(toSkirmisStateButton);
 
 	backToMainMenuDialog_ = new namelessgui::ConfirmationDialog("Really go back to main menu?");
