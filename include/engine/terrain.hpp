@@ -16,8 +16,9 @@ namespace qrw
 
 	enum MODIFICATORS
 	{
-		EM_ATTACK,
-		EM_DEFENSE
+		EM_ATTACK = 0,
+		EM_DEFENSE,
+		EM_NUMMODIFICATORS
 	};
 
 	class Terrain : public GameObject
@@ -25,17 +26,21 @@ namespace qrw
 		public:
 			static Terrain* createTerrain(TERRAINTYPES terrainType);
 
+			Terrain();
+
 			~Terrain();
 
 			int getModificator(MODIFICATORS type);
-			int* getModificators();
+			const int* getModificators();
 			TERRAINTYPES getType();
 
 			void setPosition(const Coordinates& position);
 			const Coordinates& getPosition() const;
 
 		private:
-			Terrain(TERRAINTYPES _type, int attackmod, int defensemod, const sf::Texture* texture);
+			void setModificator(MODIFICATORS type, int value);
+
+			void setTexture(const sf::Texture* texture);
 
 			int _modificators[2];
 			TERRAINTYPES _type;
