@@ -48,6 +48,8 @@ const IEvent* SfEventSource::pollEvent()
 	{
 		if(event.key.code == sf::Keyboard::Escape)
 			return new KeyPressedEvent(KeyPressedEvent::Key::Esc);
+		else if(event.key.code == sf::Keyboard::BackSpace)
+			return new KeyPressedEvent(KeyPressedEvent::Key::Backspace);
 	}
 
 	if(event.type == sf::Event::TextEntered)

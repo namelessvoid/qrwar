@@ -44,6 +44,17 @@ bool LineInput::handleEvent(const qrw::IEvent &event)
 			return true;
 		}
 	}
+	else if(event.getName() == qrw::KeyPressedEvent::name)
+	{
+		qrw::KeyPressedEvent::Key key = static_cast<const qrw::KeyPressedEvent&>(event).key;
+		if(key == qrw::KeyPressedEvent::Key::Backspace)
+		{
+			std::string text = textWidget_->getText();
+			textWidget_->setText(text.substr(0, text.size() -1));
+
+			return true;
+		}
+	}
 
 	return Widget::handleEvent(event);
 }

@@ -49,7 +49,8 @@ struct KeyPressedEvent : EventBase<KeyPressedEvent>
 {
 	enum class Key
 	{
-		Esc
+		Esc,
+		Backspace
 	};
 
 	KeyPressedEvent(Key key)
