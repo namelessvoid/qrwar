@@ -36,11 +36,9 @@ private:
     virtual void slotCursorRightClicked(const Coordinates& boardPosition) override;
 
 	void slotTerrainButtonChanged(const namelessgui::RadioToggleButton& activeTerrainButton);
-	void slotToDeploymentButtonClicked();
+	void slotSaveButtonClicked();
 
 	TERRAINTYPES _activeTerrainType;
-
-	bool _toDeployment;
 
     /**
      * @brief Mode of the cursor.

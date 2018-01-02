@@ -54,12 +54,12 @@ MapEditorState::MapEditorState(sf::RenderWindow* renderWindow)
     _toolBar->addWidget(radioButton);
 
 	namelessgui::Button* toDeploymentButton = new namelessgui::Button();
-	toDeploymentButton->setText("Deploy Troops");
+	toDeploymentButton->setText("Save");
 	toDeploymentButton->setSize({buttonSize.x, 30.0f});
 	toDeploymentButton->setAnchor({0.5f, 1.0f});
 	toDeploymentButton->setParentAnchor({0.5f, 1.0f});
 	toDeploymentButton->setRelativePosition({0.0f, -5.0f});
-	toDeploymentButton->signalclicked.connect(std::bind(&MapEditorState::slotToDeploymentButtonClicked, this));
+	toDeploymentButton->signalclicked.connect(std::bind(&MapEditorState::slotSaveButtonClicked, this));
 	_toolBar->addWidget(toDeploymentButton);
 }
 
@@ -72,7 +72,6 @@ void MapEditorState::init(GameState* previousState)
 	g_scene.reset();
 	SceneState::init(previousState);
 
-	_toDeployment = false;
 	_spBoard = new Board(16, 9);
 	g_scene.setBoard(_spBoard);
 
@@ -83,9 +82,6 @@ EGameStateId MapEditorState::update()
 {
 	if(_backToMainMenu)
 		return EGameStateId::EGSID_MAIN_MENU_STATE;
-
-	if(_toDeployment)
-		return EGameStateId::EGSID_DEPLOY_STATE;
 
 	return EGameStateId::EGSID_NO_CHANGE;
 }
@@ -147,9 +143,8 @@ void MapEditorState::slotTerrainButtonChanged(const namelessgui::RadioToggleButt
         _eraseMode = false;
 }
 
-void MapEditorState::slotToDeploymentButtonClicked()
+void MapEditorState::slotSaveButtonClicked()
 {
-	_toDeployment = true;
 }
 
 } // namespace qrw
