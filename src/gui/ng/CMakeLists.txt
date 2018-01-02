@@ -4,7 +4,8 @@ add_library(namelessgui
 	buttongroup.cpp
         text.cpp
         label.cpp
-	radiotogglebutton.cpp
+        lineinput.cpp
+        radiotogglebutton.cpp
 	spritewidget.cpp
 	widget.cpp
 	window.cpp
