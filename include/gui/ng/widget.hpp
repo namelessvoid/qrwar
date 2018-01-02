@@ -45,7 +45,7 @@ class Widget : public qrw::EventHandler
 			 * @param event The event that is handled.
 			 * @return Whether the event propagation should be stopped or not.
 			 */
-			virtual bool handleEvent(const qrw::Event& event) override;
+			virtual bool handleEvent(const qrw::IEvent& event) override;
 
             void setVisible(bool visibility = true);
 			bool isVisible();

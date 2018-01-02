@@ -29,7 +29,7 @@ public:
 
 	virtual void draw() override;
 
-	virtual bool handleEvent(const Event &event) override;
+	virtual bool handleEvent(const IEvent &event) override;
 
 private:
 	virtual void slotCursorMoved(const Coordinates& boardPosition) override;

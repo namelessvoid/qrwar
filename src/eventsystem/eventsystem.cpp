@@ -29,14 +29,14 @@ void EventSystem::shutDown()
 	}
 }
 
-void EventSystem::pushEvent(const Event* event)
+void EventSystem::pushEvent(const IEvent* event)
 {
 	m_eventQueue.push(event);
 }
 
 void EventSystem::processEvents()
 {
-	const Event* event = nullptr;
+	const IEvent* event = nullptr;
 
 	while((event = m_systemEventSource->pollEvent()) != nullptr)
 	{

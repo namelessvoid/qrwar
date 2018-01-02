@@ -45,9 +45,9 @@ void SkirmishPreparationState::draw()
 	_guiUptr->render(*_renderWindow, sf::RenderStates::Default);
 }
 
-bool SkirmishPreparationState::handleEvent(const Event& event)
+bool SkirmishPreparationState::handleEvent(const IEvent& event)
 {
-	if(event.name == SID("KEY_PRESSED"))
+	if(event.getName() == KeyPressedEvent::name)
 	{
 		if(static_cast<const KeyPressedEvent&>(event).key == KeyPressedEvent::Key::Esc)
 		{

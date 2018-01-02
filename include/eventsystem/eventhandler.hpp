@@ -4,7 +4,7 @@
 namespace qrw
 {
 
-class Event;
+class IEvent;
 
 class EventHandler
 {
@@ -13,7 +13,7 @@ public:
 
 	virtual ~EventHandler();
 
-	virtual bool handleEvent(const Event& event) = 0;
+	virtual bool handleEvent(const IEvent& event) = 0;
 };
 
 }

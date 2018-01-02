@@ -8,13 +8,27 @@
 namespace qrw
 {
 
-struct Event
+struct IEvent
 {
-	Event(const std::string& name)
-		: name(name)
+	virtual ~IEvent()
 	{}
 
-	SID name;
+	virtual const SID& getName() const = 0;
+};
+
+template<class T>
+struct EventBase : IEvent
+{
+	virtual ~EventBase()
+	{}
+
+	virtual const SID& getName() const override
+	{
+		return name;
+	}
+
+
+	static const SID name;
 };
 
 } // namespace qrw

@@ -73,7 +73,7 @@ namespace namelessgui
 		}
 	}
 
-	bool Widget::handleEvent(const qrw::Event& event)
+	bool Widget::handleEvent(const qrw::IEvent& event)
     {
 		bool stopEventPropagation = false;
         // A widget that is not visible cannot handle any event
@@ -85,7 +85,7 @@ namespace namelessgui
 			stopEventPropagation |= (*iter)->handleEvent(event);
 
         // Handle mouse move evets
-		if(event.name == qrw::SID("MOUSE_MOVED"))
+		if(event.getName() == qrw::MouseMovedEvent::name)
         {
 			const qrw::MouseMovedEvent& moveEvent = static_cast<const qrw::MouseMovedEvent&>(event);
 			if(!getGlobalBounds().contains(moveEvent.screenCoordinates.x, moveEvent.screenCoordinates.y))
@@ -116,23 +116,23 @@ namespace namelessgui
 
 		if(_mouseFocus)
 		{
-			if(event.name == qrw::SID("LEFT_MOUSE_BUTTON_PRESSED"))
+			if(event.getName() == qrw::LeftMouseButtonPressedEvent::name)
 			{
 				signalleftmousebuttonpressed.emit();
 				_leftMouseButtonPressRegistered = true;
 				stopEventPropagation = true;
 			}
-			else if(event.name == qrw::SID("RIGHT_MOUSE_BUTTON_PRESSED"))
+			else if(event.getName() == qrw::RightMouseButtonPressedEvent::name)
 			{
 				_rightMouseButtonPressRegistered = true;
 				stopEventPropagation = true;
 			}
-			else if(event.name == qrw::SID("LEFT_MOUSE_BUTTON_RELEASED") && _leftMouseButtonPressRegistered)
+			else if(event.getName() == qrw::LeftMouseButtonReleasedEvent::name && _leftMouseButtonPressRegistered)
 			{
 				signalclicked.emit();
 				stopEventPropagation = true;
 			}
-			else if(event.name == qrw::SID("RIGHT_MOUSE_BUTTON_RELEASED") && _rightMouseButtonPressRegistered)
+			else if(event.getName() == qrw::RightMouseButtonReleasedEvent::name && _rightMouseButtonPressRegistered)
 			{
 				signalrightclicked.emit();
 				stopEventPropagation = true;

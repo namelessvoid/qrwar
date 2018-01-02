@@ -10,7 +10,7 @@
 
 namespace sf
 {
-class Event;
+class IEvent;
 }
 
 namespace qrw
@@ -25,7 +25,7 @@ public:
 
 	void shutDown();
 
-	void pushEvent(const Event* event);
+	void pushEvent(const IEvent* event);
 
 	void processEvents();
 
@@ -34,7 +34,7 @@ public:
 	void deregisterEventHandler(EventHandler* eventHandler);
 
 private:
-	std::queue<const Event*> m_eventQueue;
+	std::queue<const IEvent*> m_eventQueue;
 
 	std::set<EventHandler*> m_eventHandlers;
 

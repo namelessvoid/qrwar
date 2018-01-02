@@ -27,6 +27,7 @@ add_library(qrwarlib
         animation/animationsystem.cpp
 
         eventsystem/eventsystem.cpp
+        eventsystem/inputevents.cpp
         eventsystem/eventhandler.cpp
         eventsystem/sfeventsource.cpp
 
@@ -45,6 +46,7 @@ add_library(qrwarlib
         game/states/deploystate.cpp
         game/states/skirmishstate.cpp
         game/damagenumber.cpp
+        game/events.cpp
         game/gui/victorydialog.cpp
 
         game/path.cpp

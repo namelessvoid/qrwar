@@ -18,7 +18,7 @@
 #include "gui/cursor.hpp"
 #include "gui/squaremarker.hpp"
 
-#include "eventsystem/event.hpp"
+#include "eventsystem/inputevents.hpp"
 
 namespace qrw
 {
@@ -90,11 +90,11 @@ void SkirmishState::draw()
 	m_victoryGui->render(*_renderWindow);
 }
 
-bool SkirmishState::handleEvent(const Event &event)
+bool SkirmishState::handleEvent(const IEvent &event)
 {
 	SceneState::handleEvent(event);
 
-	if(event.name == SID("RIGHT_MOUSE_BUTTON_RELEASED"))
+	if(event.getName() == RightMouseButtonPressedEvent::name)
 		deselectUnit();
 
 	return false;

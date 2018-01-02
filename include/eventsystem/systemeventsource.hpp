@@ -9,7 +9,7 @@ class SystemEventSource
 public:
     virtual ~SystemEventSource() {}
 
-    virtual const class Event* pollEvent() = 0;
+	virtual const class IEvent* pollEvent() = 0;
 };
 
 }

@@ -37,7 +37,7 @@ public:
 
 	virtual ~Cursor();
 
-	virtual bool handleEvent(const qrw::Event& event) override;
+	virtual bool handleEvent(const qrw::IEvent& event) override;
 
 	void setFillColor(Color color);
 };

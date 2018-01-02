@@ -48,21 +48,21 @@ void SceneState::draw()
 	_guiUptr->render(*_renderWindow, sf::RenderStates::Default);
 }
 
-bool SceneState::handleEvent(const Event &event)
+bool SceneState::handleEvent(const IEvent &event)
 {
-	if(event.name == SID("CURSOR_MOVED"))
+	if(event.getName() == CursorMovedEvent::name)
 	{
 		slotCursorMoved(static_cast<const CursorMovedEvent&>(event).coordinates);
 	}
-	else if(event.name == SID("CURSOR_LEFT_CLICKED"))
+	else if(event.getName() == CursorLeftClickedEvent::name)
 	{
 		slotCursorLeftClicked(static_cast<const CursorLeftClickedEvent&>(event).coordinates);
 	}
-	else if(event.name == SID("CURSOR_RIGHT_CLICKED"))
+	else if(event.getName() == CursorRightClickedEvent::name)
 	{
 		slotCursorRightClicked(static_cast<const CursorRightClickedEvent&>(event).coordinates);
 	}
-	else if(event.name == SID("KEY_PRESSED"))
+	else if(event.getName() == KeyPressedEvent::name)
 	{
 		if(static_cast<const KeyPressedEvent&>(event).key == KeyPressedEvent::Key::Esc)
 			_backToMainMenuDialog->setVisible(true);

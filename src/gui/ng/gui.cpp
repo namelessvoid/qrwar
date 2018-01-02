@@ -42,7 +42,7 @@ sf::Vector2f Gui::getPosition() const
 	return {0.0f, 0.0f};
 }
 
-bool Gui::handleEvent(const qrw::Event& event)
+bool Gui::handleEvent(const qrw::IEvent& event)
 {
 	bool stopEventPropagation = false;
 

@@ -13,7 +13,7 @@ class SfEventSource : public SystemEventSource
 public:
     SfEventSource(sf::RenderWindow &window);
 
-    virtual const qrw::Event* pollEvent() override;
+	virtual const qrw::IEvent* pollEvent() override;
 
 private:
     sf::RenderWindow& m_window;

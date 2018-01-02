@@ -29,9 +29,9 @@ Cursor::~Cursor()
 {
 }
 
-bool Cursor::handleEvent(const Event& event)
+bool Cursor::handleEvent(const IEvent& event)
 {
-	if(event.name == SID("MOUSE_MOVED"))
+	if(event.getName() == MouseMovedEvent::name)
     {
 		const MouseMovedEvent& moveEvent = static_cast<const MouseMovedEvent&>(event);
 
@@ -62,9 +62,9 @@ bool Cursor::handleEvent(const Event& event)
     }
 	else if(isVisible())
 	{
-		if(event.name == SID("LEFT_MOUSE_BUTTON_PRESSED"))
+		if(event.getName() == LeftMouseButtonPressedEvent::name)
 			g_eventSystem.pushEvent(new CursorLeftClickedEvent(m_boardPosition));
-		else if(event.name == SID("RIGHT_MOUSE_BUTTON_PRESSED"))
+		else if(event.getName() == RightMouseButtonPressedEvent::name)
 			g_eventSystem.pushEvent(new CursorRightClickedEvent(m_boardPosition));
 	}
 

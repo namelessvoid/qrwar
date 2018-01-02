@@ -11,7 +11,7 @@ SfEventSource::SfEventSource(sf::RenderWindow& window)
 	: m_window(window)
 {}
 
-const Event* SfEventSource::pollEvent()
+const IEvent* SfEventSource::pollEvent()
 {
 	sf::Event event;
 	if(!m_window.pollEvent(event))

@@ -6,10 +6,13 @@
 namespace qrw
 {
 
-struct CoordinateEvent : Event
+template<class T>
+struct CoordinateEvent : EventBase<T>
 {
-    CoordinateEvent(const std::string& name, const Coordinates& coordinates)
-        : Event(name)
+	virtual ~CoordinateEvent()
+	{}
+
+	CoordinateEvent(const Coordinates& coordinates)
     {
         this->coordinates = coordinates;
     }
@@ -17,24 +20,24 @@ struct CoordinateEvent : Event
     Coordinates coordinates;
 };
 
-struct CursorMovedEvent : CoordinateEvent
+struct CursorMovedEvent : CoordinateEvent<CursorMovedEvent>
 {
     CursorMovedEvent(const Coordinates& coordinates)
-        : CoordinateEvent("CURSOR_MOVED", coordinates)
+		: CoordinateEvent(coordinates)
     {}
 };
 
-struct CursorLeftClickedEvent : CoordinateEvent
+struct CursorLeftClickedEvent : CoordinateEvent<CursorLeftClickedEvent>
 {
     CursorLeftClickedEvent(const Coordinates& coordinates)
-        : CoordinateEvent("CURSOR_LEFT_CLICKED", coordinates)
+		: CoordinateEvent(coordinates)
     {}
 };
 
-struct CursorRightClickedEvent : CoordinateEvent
+struct CursorRightClickedEvent : CoordinateEvent<CursorRightClickedEvent>
 {
     CursorRightClickedEvent(const Coordinates& coordinates)
-        : CoordinateEvent("CURSOR_RIGHT_CLICKED", coordinates)
+		: CoordinateEvent(coordinates)
     {}
 };
 
