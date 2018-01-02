@@ -76,13 +76,10 @@ namespace namelessgui
 	bool Widget::handleEvent(const qrw::IEvent& event)
     {
 		bool stopEventPropagation = false;
+
         // A widget that is not visible cannot handle any event
         if(!_visible)
 			return stopEventPropagation;
-
-		// Let sub widgets also handle the event
-		for(auto iter = _children.begin(); iter != _children.end(); ++iter)
-			stopEventPropagation |= (*iter)->handleEvent(event);
 
         // Handle mouse move evets
 		if(event.getName() == qrw::MouseMovedEvent::name)
@@ -138,12 +135,6 @@ namespace namelessgui
 				stopEventPropagation = true;
 			}
 		}
-
-//        else if(event.type == sf::Event::KeyPressed)
-//        {
-//            // TODO: check for keyboard focus.
-//            signalkeypressed.emit(event);
-//        }
 
 		return stopEventPropagation;
     }

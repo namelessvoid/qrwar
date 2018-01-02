@@ -27,8 +27,6 @@ public:
 
 	virtual sf::Vector2f getPosition() const override;
 
-	virtual bool handleEvent(const qrw::IEvent &event) override;
-
 private:
 	sf::RenderWindow* _renderWindow;
 
