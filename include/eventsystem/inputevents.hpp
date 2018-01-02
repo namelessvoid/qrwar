@@ -36,6 +36,15 @@ struct RightMouseButtonReleasedEvent : EventBase<RightMouseButtonReleasedEvent>
 {
 };
 
+struct AsciiInputEvent : EventBase<AsciiInputEvent>
+{
+	AsciiInputEvent(char character)
+		: character(character)
+	{}
+
+	char character;
+};
+
 struct KeyPressedEvent : EventBase<KeyPressedEvent>
 {
 	enum class Key

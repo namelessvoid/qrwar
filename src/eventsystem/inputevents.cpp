@@ -19,6 +19,9 @@ template<>
 const SID EventBase<RightMouseButtonReleasedEvent>::name("RIGHT_MOUSE_BUTTON_RELEASED");
 
 template<>
+const SID EventBase<AsciiInputEvent>::name("ASCII_INPUT");
+
+template<>
 const SID EventBase<KeyPressedEvent>::name("KEY_PRESSED");
 
 } // namespace qrw

@@ -50,6 +50,13 @@ const IEvent* SfEventSource::pollEvent()
 			return new KeyPressedEvent(KeyPressedEvent::Key::Esc);
 	}
 
+	if(event.type == sf::Event::TextEntered)
+	{
+		// Only handle ascii characters
+		if(event.text.unicode < 128)
+			return new AsciiInputEvent(static_cast<char>(event.text.unicode));
+	}
+
 	return nullptr;
 }
 
