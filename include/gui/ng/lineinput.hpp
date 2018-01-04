@@ -25,7 +25,11 @@ private:
 
     LineInput& operator=(const LineInput& rhs) = delete;
 
+	void updateCursorPosition();
+
     Text* textWidget_;
+
+	RectangleShape* cursor_;
 
     std::string allowedCharacters_;
 };

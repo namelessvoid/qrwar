@@ -13,6 +13,11 @@ LineInput::LineInput()
 	textWidget_->setText("DUMMY TEXT");
 	addWidget(textWidget_);
 
+	cursor_ = new RectangleShape();
+	cursor_->setFillColor(sf::Color::Red);
+	cursor_->setSize({5, 20});
+	updateCursorPosition();
+
 	allowedCharacters_ = "abcdefghijklmnopqrwstuvxyzABCDEFGHIJKLMNOPQRTUVWXYZ1234567890.-, ";
 }
 
@@ -28,6 +33,7 @@ const std::string& LineInput::getText() const
 void LineInput::setText(const std::string &text)
 {
 	textWidget_->setText(text);
+	updateCursorPosition();
 }
 
 bool LineInput::handleEvent(const qrw::IEvent &event)
@@ -57,6 +63,13 @@ bool LineInput::handleEvent(const qrw::IEvent &event)
 	}
 
 	return Widget::handleEvent(event);
+}
+
+void LineInput::updateCursorPosition()
+{
+	const sf::Vector2f& textSize = textWidget_->getSize();
+
+	cursor_->setPosition({textSize.x + 2, getPosition().y + 0.5f * cursor_->getSize().y});
 }
 
 } // namespace namelessgui
