@@ -70,6 +70,14 @@ bool LineInput::handleEvent(const qrw::IEvent &event)
 	return Widget::handleEvent(event);
 }
 
+void LineInput::render(sf::RenderTarget& renderTarget, sf::RenderStates renderStates) const
+{
+	RectangularWidget::render(renderTarget, renderStates);
+
+	if(hasKeyboardFocus())
+		renderTarget.draw(*cursor_, renderStates);
+}
+
 void LineInput::updateCursorPosition()
 {
 	const sf::Vector2f& textSize = textWidget_->getSize();

@@ -20,6 +20,8 @@ public:
 
     virtual bool handleEvent(const qrw::IEvent &event) override;
 
+	virtual void render(sf::RenderTarget& renderTarget, sf::RenderStates renderStates) const override;
+
 private:
     LineInput(const LineInput& rhs) = delete;
 
