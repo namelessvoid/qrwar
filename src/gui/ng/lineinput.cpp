@@ -38,29 +38,34 @@ void LineInput::setText(const std::string &text)
 
 bool LineInput::handleEvent(const qrw::IEvent &event)
 {
-	if(event.getName() == qrw::AsciiInputEvent::name)
+	if(hasKeyboardFocus())
 	{
-		char character = static_cast<const qrw::AsciiInputEvent&>(event).character;
-
-		if(allowedCharacters_.find(character) != std::string::npos)
+		if(event.getName() == qrw::AsciiInputEvent::name)
 		{
-			std::string text = textWidget_->getText() + character;
-			textWidget_->setText(text);
+			char character = static_cast<const qrw::AsciiInputEvent&>(event).character;
 
-			return true;
+			if(allowedCharacters_.find(character) != std::string::npos)
+			{
+				std::string text = textWidget_->getText() + character;
+				textWidget_->setText(text);
+				updateCursorPosition();
+
+				return true;
+			}
 		}
-	}
-	else if(event.getName() == qrw::KeyPressedEvent::name)
-	{
-		qrw::KeyPressedEvent::Key key = static_cast<const qrw::KeyPressedEvent&>(event).key;
-		if(key == qrw::KeyPressedEvent::Key::Backspace)
+		else if(event.getName() == qrw::KeyPressedEvent::name)
 		{
-			std::string text = textWidget_->getText();
-			textWidget_->setText(text.substr(0, text.size() -1));
+			qrw::KeyPressedEvent::Key key = static_cast<const qrw::KeyPressedEvent&>(event).key;
+			if(key == qrw::KeyPressedEvent::Key::Backspace)
+			{
+				std::string text = textWidget_->getText();
+				textWidget_->setText(text.substr(0, text.size() -1));
+				updateCursorPosition();
 
-			return true;
+				return true;
+			}
 		}
-	}
+	} // if(hasKeyboardFocus)
 
 	return Widget::handleEvent(event);
 }
