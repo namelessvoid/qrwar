@@ -22,6 +22,8 @@ public:
 
 	virtual void render(sf::RenderTarget& renderTarget, sf::RenderStates renderStates) const override;
 
+	virtual void setPosition(const sf::Vector2f& position) override;
+
 private:
     LineInput(const LineInput& rhs) = delete;
 

@@ -105,6 +105,12 @@ void LineInput::render(sf::RenderTarget& renderTarget, sf::RenderStates renderSt
 	}
 }
 
+void LineInput::setPosition(const sf::Vector2f& position)
+{
+	RectangularWidget::setPosition(position);
+	updateCursorPosition();
+}
+
 void LineInput::updateCursorPosition()
 {
 	const sf::Vector2f& textSize = textWidget_->getSize();
