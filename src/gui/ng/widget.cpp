@@ -15,6 +15,7 @@ namespace namelessgui
 		  _leftMouseButtonPressRegistered(false),
 		  _rightMouseButtonPressRegistered(false),
 		  _mouseFocus(false),
+		  keyboardFocus_(false),
 		  _parentAnchor(0, 0),
 		  _anchor(0, 0),
 		  _relativePosition(0, 0)
@@ -59,7 +60,7 @@ namespace namelessgui
 		return _visible;
 	}
 
-	bool Widget::hasMouseFocues() const
+	bool Widget::hasMouseFocus() const
 	{
 		return _mouseFocus;
 	}
@@ -117,6 +118,7 @@ namespace namelessgui
 			{
 				signalleftmousebuttonpressed.emit();
 				_leftMouseButtonPressRegistered = true;
+				keyboardFocus_ = true;
 				stopEventPropagation = true;
 			}
 			else if(event.getName() == qrw::RightMouseButtonPressedEvent::name)
@@ -133,6 +135,13 @@ namespace namelessgui
 			{
 				signalrightclicked.emit();
 				stopEventPropagation = true;
+			}
+		}
+		else // !mouseFocus
+		{
+			if(event.getName() == qrw::LeftMouseButtonPressedEvent::name)
+			{
+				keyboardFocus_ = false;
 			}
 		}
 

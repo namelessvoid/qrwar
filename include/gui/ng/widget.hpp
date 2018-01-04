@@ -50,7 +50,8 @@ class Widget : public qrw::EventHandler
             void setVisible(bool visibility = true);
 			bool isVisible();
 
-			bool hasMouseFocues() const;
+			bool hasMouseFocus() const;
+			bool hasKeyboardFocus() const { return keyboardFocus_; }
 
             void disconnectAllSignals();
 
@@ -116,6 +117,8 @@ class Widget : public qrw::EventHandler
              * cursor entered the widget or other way round left the widget.
              */
 			bool _mouseFocus;
+
+			bool keyboardFocus_;
 
 			sf::Vector2f _parentAnchor;
 

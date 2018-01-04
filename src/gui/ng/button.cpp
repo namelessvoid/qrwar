@@ -79,7 +79,7 @@ namespace namelessgui
 
 	void Button::clickedSlot()
 	{
-		if(!hasMouseFocues())
+		if(!hasMouseFocus())
 			this->setFillColor(sf::Color(60, 60, 60, 255));
 		else
 			this->setFillColor(sf::Color(80, 80, 80, 255));
