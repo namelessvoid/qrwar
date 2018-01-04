@@ -2,6 +2,7 @@
 
 #include "gui/ng/window.hpp"
 #include "gui/ng/button.hpp"
+#include "gui/ng/lineinput.hpp"
 #include "gui/ng/confirmationdialog.hpp"
 
 #include "eventsystem/inputevents.hpp"
@@ -25,6 +26,12 @@ SkirmishPreparationState::SkirmishPreparationState(sf::RenderWindow* renderWindo
 	toSkirmisStateButton->setParentAnchor({1, 1});
 	toSkirmisStateButton->setRelativePosition({-5, -5});
 	window->addWidget(toSkirmisStateButton);
+
+	namelessgui::LineInput* player1NameInput = new namelessgui::LineInput();
+	player1NameInput->setText("Sigurdson");
+	player1NameInput->setSize({100, 30});
+	player1NameInput->setRelativePosition({100, 100});
+	window->addWidget(player1NameInput);
 
 	backToMainMenuDialog_ = new namelessgui::ConfirmationDialog("Really go back to main menu?");
 	backToMainMenuDialog_->signalYesClicked.connect(std::bind(&SkirmishPreparationState::slotBackToMainMenuClicked, this));
