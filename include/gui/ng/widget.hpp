@@ -48,7 +48,7 @@ class Widget : public qrw::EventHandler
 			virtual bool handleEvent(const qrw::IEvent& event) override;
 
             void setVisible(bool visibility = true);
-			bool isVisible();
+			bool isVisible() const;
 
 			bool hasMouseFocus() const;
 			bool hasKeyboardFocus() const { return keyboardFocus_; }

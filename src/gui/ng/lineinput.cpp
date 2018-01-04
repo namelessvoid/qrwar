@@ -19,6 +19,10 @@ LineInput::LineInput()
 	updateCursorPosition();
 
 	allowedCharacters_ = "abcdefghijklmnopqrwstuvxyzABCDEFGHIJKLMNOPQRTUVWXYZ1234567890.-, ";
+
+	setFillColor(sf::Color(60, 60, 60, 255));
+	setOutlineThickness(1);
+	setOutlineColor(sf::Color(120, 120, 120));
 }
 
 LineInput::~LineInput()
@@ -72,17 +76,40 @@ bool LineInput::handleEvent(const qrw::IEvent &event)
 
 void LineInput::render(sf::RenderTarget& renderTarget, sf::RenderStates renderStates) const
 {
-	RectangularWidget::render(renderTarget, renderStates);
+	if(!isVisible())
+		return;
+
+	renderTarget.draw(*static_cast<const RectangleShape*>(this), renderStates);
+
+	sf::View prevView = renderTarget.getView();
+
+	sf::View lineInputView({getPosition().x, getPosition().y, getSize().x, getSize().y});
+
+	sf::FloatRect inputLineViewport({
+										getPosition().x / renderTarget.getSize().x,
+										getPosition().y / renderTarget.getSize().y,
+										getSize().x / renderTarget.getSize().x,
+										getSize().y / renderTarget.getSize().y
+									});
+
+	lineInputView.setViewport(inputLineViewport);
+	renderTarget.setView(lineInputView);
+
+	textWidget_->render(renderTarget, renderStates);
+
+	renderTarget.setView(prevView);
 
 	if(hasKeyboardFocus())
+	{
 		renderTarget.draw(*cursor_, renderStates);
+	}
 }
 
 void LineInput::updateCursorPosition()
 {
 	const sf::Vector2f& textSize = textWidget_->getSize();
 
-	cursor_->setPosition({textSize.x + 2, getPosition().y + 0.5f * cursor_->getSize().y});
+	cursor_->setPosition({getPosition().x + textSize.x + 2, getPosition().y + 0.5f * cursor_->getSize().y});
 }
 
 } // namespace namelessgui

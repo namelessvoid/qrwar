@@ -55,7 +55,7 @@ namespace namelessgui
 		}
 	}
 
-	bool Widget::isVisible()
+	bool Widget::isVisible() const
 	{
 		return _visible;
 	}
