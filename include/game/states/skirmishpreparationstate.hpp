@@ -5,6 +5,7 @@
 
 namespace namelessgui {
 class ConfirmationDialog;
+class LineInput;
 }
 
 namespace qrw {
@@ -22,6 +23,10 @@ public:
 
 	virtual bool handleEvent(const IEvent &event) override;
 
+	const std::string& getPlayerOneName() const;
+
+	const std::string& getPlayerTwoName() const;
+
 private:
     SkirmishPreparationState(const SkirmishPreparationState& rhs) = delete;
 
@@ -34,6 +39,9 @@ private:
     namelessgui::ConfirmationDialog* backToMainMenuDialog_;
 
     EGameStateId nextState_;
+
+	namelessgui::LineInput* playerOneName_;
+	namelessgui::LineInput* playerTwoName_;
 };
 
 

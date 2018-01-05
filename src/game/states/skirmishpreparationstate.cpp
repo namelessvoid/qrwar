@@ -27,11 +27,17 @@ SkirmishPreparationState::SkirmishPreparationState(sf::RenderWindow* renderWindo
 	toSkirmisStateButton->setRelativePosition({-5, -5});
 	window->addWidget(toSkirmisStateButton);
 
-	namelessgui::LineInput* player1NameInput = new namelessgui::LineInput();
-	player1NameInput->setText("Sigurdson");
-	player1NameInput->setSize({100, 30});
-	player1NameInput->setRelativePosition({100, 100});
-	window->addWidget(player1NameInput);
+	playerOneName_ = new namelessgui::LineInput();
+	playerOneName_->setText("Sigurdson");
+	playerOneName_->setSize({200, 30});
+	playerOneName_->setRelativePosition({100, 100});
+	window->addWidget(playerOneName_);
+
+	playerTwoName_ = new namelessgui::LineInput();
+	playerTwoName_->setText("King Karl XIII");
+	playerTwoName_->setSize({200, 30});
+	playerTwoName_->setRelativePosition({400, 100});
+	window->addWidget(playerTwoName_);
 
 	backToMainMenuDialog_ = new namelessgui::ConfirmationDialog("Really go back to main menu?");
 	backToMainMenuDialog_->signalYesClicked.connect(std::bind(&SkirmishPreparationState::slotBackToMainMenuClicked, this));
@@ -68,6 +74,16 @@ bool SkirmishPreparationState::handleEvent(const IEvent& event)
 	}
 
 	return false;
+}
+
+const std::string& SkirmishPreparationState::getPlayerOneName() const
+{
+	return playerOneName_->getText();
+}
+
+const std::string& SkirmishPreparationState::getPlayerTwoName() const
+{
+	return playerTwoName_->getText();
 }
 
 } // namespace qrw

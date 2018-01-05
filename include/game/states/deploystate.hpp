@@ -12,6 +12,7 @@
 namespace namelessgui
 {
 class RadioToggleButton;
+class Text;
 }
 
 namespace qrw
@@ -50,6 +51,9 @@ private:
 	Board* board_;
 
 	std::vector<Player::Ptr> _players;
+
+	namelessgui::Text* playerOneNameLabel_;
+	namelessgui::Text* playerTwoNameLabel_;
 
     /**
      * @brief If set to true, the update method will cause the game to switch

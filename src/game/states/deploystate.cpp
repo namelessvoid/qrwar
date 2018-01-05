@@ -5,11 +5,13 @@
 
 #include "engine/unit.hpp"
 
-#include "game/states/mapeditorstate.hpp"
+#include "game/states/skirmishpreparationstate.hpp"
 
 #include "gui/texturemanager.hpp"
 
 #include "gui/ng/radiotogglebutton.hpp"
+
+#include "gui/cursor.hpp"
 
 namespace qrw
 {
@@ -21,16 +23,15 @@ DeployState::DeployState(sf::RenderWindow* renderWindow)
 	// Initialize tool bar
 	sf::Vector2f buttonSize(140.0f, 50.0f);
 	namelessgui::RadioToggleButton* radioButton = nullptr;
-    namelessgui::Text* label = nullptr;
 	std::shared_ptr<namelessgui::ButtonGroup> unitButtonGroup = nullptr;
 	TextureManager* textureManager = TextureManager::getInstance();
 
 	// Player one tools
-    label = new namelessgui::Text();
-	label->setText("Player One");
-	label->setAnchor({0.5f, 0.0f});
-	label->setParentAnchor({0.5f, 0.0f});
-	_toolBar->addWidget(label);
+	playerOneNameLabel_ = new namelessgui::Text();
+	playerOneNameLabel_->setText("Player One");
+	playerOneNameLabel_->setAnchor({0.5f, 0.0f});
+	playerOneNameLabel_->setParentAnchor({0.5f, 0.0f});
+	_toolBar->addWidget(playerOneNameLabel_);
 
 	radioButton = new namelessgui::RadioToggleButton(nullptr, "p1swordman");
 	unitButtonGroup = radioButton->getButtonGroup();
@@ -58,11 +59,11 @@ DeployState::DeployState(sf::RenderWindow* renderWindow)
 	_toolBar->addWidget(radioButton);
 
 	// Player two tools
-    label = new namelessgui::Text();
-	label->setText("Player Two");
-	label->setAnchor({0.5f, 0.0f});
-	label->setParentAnchor({0.5f, 0.4f});
-	_toolBar->addWidget(label);
+	playerTwoNameLabel_ = new namelessgui::Text();
+	playerTwoNameLabel_->setText("Player Two");
+	playerTwoNameLabel_->setAnchor({0.5f, 0.0f});
+	playerTwoNameLabel_->setParentAnchor({0.5f, 0.4f});
+	_toolBar->addWidget(playerTwoNameLabel_);
 
 	radioButton = new namelessgui::RadioToggleButton(unitButtonGroup, "p2swordman");
 	radioButton->setText("Swordman");
@@ -121,6 +122,7 @@ EGameStateId DeployState::update()
 void DeployState::init(GameState* previousState)
 {
 	assert(previousState->getId() == EGameStateId::EGSID_SKIRMISH_PREPARATION_STATE);
+	const SkirmishPreparationState* preparationState = static_cast<const SkirmishPreparationState*>(previousState);
 
 	SceneState::init(previousState);
 
@@ -135,10 +137,13 @@ void DeployState::init(GameState* previousState)
 	_players.clear();
 	_players.push_back(Player::Ptr(new Player()));
 	_players[0]->setId(1);
-	_players[0]->setName("Sigurdson");
+	_players[0]->setName(preparationState->getPlayerOneName());
 	_players.push_back(Player::Ptr(new Player()));
 	_players[1]->setId(2);
-	_players[1]->setName("King Karl XI");
+	_players[1]->setName(preparationState->getPlayerTwoName());
+
+	playerOneNameLabel_->setText(preparationState->getPlayerOneName());
+	playerTwoNameLabel_->setText(preparationState->getPlayerTwoName());
 
     _toSkirmish = false;
 }
