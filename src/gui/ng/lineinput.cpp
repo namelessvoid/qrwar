@@ -18,7 +18,7 @@ LineInput::LineInput()
 	cursor_->setSize({5, 20});
 	updateCursorPosition();
 
-	allowedCharacters_ = "abcdefghijklmnopqrwstuvxyzABCDEFGHIJKLMNOPQRTUVWXYZ1234567890.-, ";
+	allowedCharacters_ = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890.-, ";
 
 	setFillColor(sf::Color(60, 60, 60, 255));
 	setOutlineThickness(1);
@@ -83,7 +83,15 @@ void LineInput::render(sf::RenderTarget& renderTarget, sf::RenderStates renderSt
 
 	sf::View prevView = renderTarget.getView();
 
+
 	sf::View lineInputView({getPosition().x, getPosition().y, getSize().x, getSize().y});
+
+	if(!textFitsIntoWidget())
+	{
+		// Apply text scrolling
+		float xOffset = textWidget_->getSize().x - (getSize().x - cursor_->getSize().x);
+		lineInputView.move({xOffset, 0});
+	}
 
 	sf::FloatRect inputLineViewport({
 										getPosition().x / renderTarget.getSize().x,
@@ -115,7 +123,17 @@ void LineInput::updateCursorPosition()
 {
 	const sf::Vector2f& textSize = textWidget_->getSize();
 
-	cursor_->setPosition({getPosition().x + textSize.x + 2, getPosition().y + 0.5f * cursor_->getSize().y});
+	const float cursorYPosition = getPosition().y + 0.5f * getSize().y - 0.5 * cursor_->getSize().y;
+
+	if(textFitsIntoWidget())
+		cursor_->setPosition({getPosition().x + textSize.x + 2, cursorYPosition});
+	else
+		cursor_->setPosition({getPosition().x + getSize().x - cursor_->getSize().x, cursorYPosition});
+}
+
+bool LineInput::textFitsIntoWidget() const
+{
+	return textWidget_->getSize().x < (getSize().x - cursor_->getSize().x);
 }
 
 } // namespace namelessgui

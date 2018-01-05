@@ -31,6 +31,8 @@ private:
 
 	void updateCursorPosition();
 
+	bool textFitsIntoWidget() const;
+
     Text* textWidget_;
 
 	RectangleShape* cursor_;
