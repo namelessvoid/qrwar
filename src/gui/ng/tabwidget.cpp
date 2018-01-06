@@ -19,14 +19,14 @@ TabWidget::~TabWidget()
 {
 }
 
-void TabWidget::addTab(const std::string& buttonName, Widget* widget)
+void TabWidget::addTab(const sf::Texture* buttonImage, Widget* widget)
 {
 	assert(widget != nullptr);
 
 	size_t index = buttons_.size();
 
 	RadioToggleButton* button = new RadioToggleButton(buttonGroup_);
-	button->setText(buttonName);
+	button->setImage(buttonImage);
 	button->setSize(buttonSize_);
 	button->setRelativePosition(getButtonRelativePosition(index));
 	button->signalActivated.connect(std::bind(&TabWidget::setActiveTab, this, index));

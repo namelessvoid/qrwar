@@ -19,7 +19,7 @@ public:
 
     ~TabWidget();
 
-    void addTab(const std::string& buttonName, Widget* widget);
+	void addTab(const sf::Texture* buttonImage, Widget* widget);
 
     void setButtonSize(const sf::Vector2f& buttonSize);
 
