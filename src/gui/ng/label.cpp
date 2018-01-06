@@ -29,12 +29,12 @@ void Label::setImage(const sf::Texture* image)
     if(!_image)
     {
         _image  = new RectangularWidget();
-        _image->setSize({getSize().y, getSize().y});
+		_image->setSize({getSize().y, getSize().y}); // Quadratic
         _image->setFillColor({255, 255, 255, 255});
         addWidget(_image);
     }
 
-    _image->setTexture(image);
+	_image->setTexture(image);
     _image->setVisible(true);
 }
 
@@ -47,7 +47,7 @@ void Label::setSize(const sf::Vector2f &size)
 {
     _size = size;
     if(_image != nullptr)
-        _image->setSize({size.y, size.y});
+		_image->setSize({size.y, size.y}); // Quadratic
 }
 
 sf::Vector2f Label::getSize() const
