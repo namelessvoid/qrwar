@@ -38,6 +38,9 @@ private:
 	void slotTerrainButtonChanged(const namelessgui::RadioToggleButton& activeTerrainButton);
 	void slotSaveButtonClicked();
 
+	namelessgui::Window* createConfigToolsWindow();
+	namelessgui::Window* createTerrainToolsWindow();
+
 	TERRAINTYPES _activeTerrainType;
 
     /**

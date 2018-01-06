@@ -5,6 +5,7 @@
 #include "gui/texturemanager.hpp"
 
 #include "gui/ng/buttongroup.hpp"
+#include "gui/ng/tabwidget.hpp"
 
 namespace qrw
 {
@@ -14,55 +15,12 @@ MapEditorState::MapEditorState(sf::RenderWindow* renderWindow)
       _activeTerrainType(ET_NUMBEROFTERRAINTYPES),
       _eraseMode(false)
 {
-	// Initialize toolbar
-    namelessgui::Text* label = new namelessgui::Text();
-	label->setText("Terrain");
-	label->setAnchor({0.5f, 0.0f});
-	label->setParentAnchor({0.5f, 0.0f});
-	_toolBar->addWidget(label);
-
-	sf::Vector2f buttonSize(140.0f, 50.0f);
-
-	std::shared_ptr<namelessgui::ButtonGroup> spTerrainButtonGroup = std::make_shared<namelessgui::ButtonGroup>();
-	namelessgui::RadioToggleButton* radioButton = new namelessgui::RadioToggleButton(spTerrainButtonGroup, "Wood");
-	radioButton->setText("Wood");
-	radioButton->setSize(buttonSize);
-	radioButton->setRelativePosition({5.0f, buttonSize.y});
-	radioButton->setImage(TextureManager::getInstance()->getTexture("wood"));
-	radioButton->signalActivated.connect(std::bind(&MapEditorState::slotTerrainButtonChanged, this, std::placeholders::_1));
-	_toolBar->addWidget(radioButton);
-
-	radioButton = new namelessgui::RadioToggleButton(spTerrainButtonGroup, "Hill");
-	radioButton->setText("Hill");
-	radioButton->setSize(buttonSize);
-	radioButton->setRelativePosition({5.0f, 2 * buttonSize.y});
-	radioButton->setImage(TextureManager::getInstance()->getTexture("hill"));
-	radioButton->signalActivated.connect(std::bind(&MapEditorState::slotTerrainButtonChanged, this, std::placeholders::_1));
-	_toolBar->addWidget(radioButton);
-
-	radioButton = new namelessgui::RadioToggleButton(spTerrainButtonGroup, "Wall");
-	radioButton->setText("Wall");
-	radioButton->setSize(buttonSize);
-	radioButton->setRelativePosition({5.0f, 3 * buttonSize.y});
-	radioButton->setImage(TextureManager::getInstance()->getTexture("wall"));
-	radioButton->signalActivated.connect(std::bind(&MapEditorState::slotTerrainButtonChanged, this, std::placeholders::_1));
-	_toolBar->addWidget(radioButton);
-
-    radioButton = new namelessgui::RadioToggleButton(spTerrainButtonGroup, "Erase");
-    radioButton->setText("Erase");
-    radioButton->setSize(buttonSize);
-    radioButton->setRelativePosition({5.0f, 4 * buttonSize.y});
-    radioButton->signalActivated.connect(std::bind(&MapEditorState::slotTerrainButtonChanged, this, std::placeholders::_1));
-    _toolBar->addWidget(radioButton);
-
-	namelessgui::Button* toDeploymentButton = new namelessgui::Button();
-	toDeploymentButton->setText("Save");
-	toDeploymentButton->setSize({buttonSize.x, 30.0f});
-	toDeploymentButton->setAnchor({0.5f, 1.0f});
-	toDeploymentButton->setParentAnchor({0.5f, 1.0f});
-	toDeploymentButton->setRelativePosition({0.0f, -5.0f});
-	toDeploymentButton->signalclicked.connect(std::bind(&MapEditorState::slotSaveButtonClicked, this));
-	_toolBar->addWidget(toDeploymentButton);
+	namelessgui::TabWidget* tabWidget = new namelessgui::TabWidget();
+	tabWidget->setSize(_toolBar->getSize());
+	tabWidget->setButtonSize({40, 30});
+	tabWidget->addTab("Config", createConfigToolsWindow());
+	tabWidget->addTab("Terrain", createTerrainToolsWindow());
+	_toolBar->addWidget(tabWidget);
 }
 
 MapEditorState::~MapEditorState()
@@ -147,6 +105,65 @@ void MapEditorState::slotTerrainButtonChanged(const namelessgui::RadioToggleButt
 
 void MapEditorState::slotSaveButtonClicked()
 {
+}
+
+namelessgui::Window* MapEditorState::createConfigToolsWindow()
+{
+	namelessgui::Window* configWindow = new namelessgui::Window();
+
+	sf::Vector2f buttonSize(140.0f, 50.0f);
+
+	namelessgui::Button* toDeploymentButton = new namelessgui::Button();
+	toDeploymentButton->setText("Save");
+	toDeploymentButton->setSize({buttonSize.x, 30.0f});
+	toDeploymentButton->setAnchor({0.5f, 1.0f});
+	toDeploymentButton->setParentAnchor({0.5f, 1.0f});
+	toDeploymentButton->setRelativePosition({0.0f, -5.0f});
+	toDeploymentButton->signalclicked.connect(std::bind(&MapEditorState::slotSaveButtonClicked, this));
+	configWindow->addWidget(toDeploymentButton);
+
+	return configWindow;
+}
+
+namelessgui::Window* MapEditorState::createTerrainToolsWindow()
+{
+	namelessgui::Window* terrainWindow = new namelessgui::Window();
+
+	sf::Vector2f buttonSize(140.0f, 50.0f);
+
+	std::shared_ptr<namelessgui::ButtonGroup> spTerrainButtonGroup = std::make_shared<namelessgui::ButtonGroup>();
+	namelessgui::RadioToggleButton* radioButton = new namelessgui::RadioToggleButton(spTerrainButtonGroup, "Wood");
+	radioButton->setText("Wood");
+	radioButton->setSize(buttonSize);
+	radioButton->setRelativePosition({5.0f, 0.0f});
+	radioButton->setImage(TextureManager::getInstance()->getTexture("wood"));
+	radioButton->signalActivated.connect(std::bind(&MapEditorState::slotTerrainButtonChanged, this, std::placeholders::_1));
+	terrainWindow->addWidget(radioButton);
+
+	radioButton = new namelessgui::RadioToggleButton(spTerrainButtonGroup, "Hill");
+	radioButton->setText("Hill");
+	radioButton->setSize(buttonSize);
+	radioButton->setRelativePosition({5.0f, 2 * buttonSize.y});
+	radioButton->setImage(TextureManager::getInstance()->getTexture("hill"));
+	radioButton->signalActivated.connect(std::bind(&MapEditorState::slotTerrainButtonChanged, this, std::placeholders::_1));
+	terrainWindow->addWidget(radioButton);
+
+	radioButton = new namelessgui::RadioToggleButton(spTerrainButtonGroup, "Wall");
+	radioButton->setText("Wall");
+	radioButton->setSize(buttonSize);
+	radioButton->setRelativePosition({5.0f, 3 * buttonSize.y});
+	radioButton->setImage(TextureManager::getInstance()->getTexture("wall"));
+	radioButton->signalActivated.connect(std::bind(&MapEditorState::slotTerrainButtonChanged, this, std::placeholders::_1));
+	terrainWindow->addWidget(radioButton);
+
+	radioButton = new namelessgui::RadioToggleButton(spTerrainButtonGroup, "Erase");
+	radioButton->setText("Erase");
+	radioButton->setSize(buttonSize);
+	radioButton->setRelativePosition({5.0f, 4 * buttonSize.y});
+	radioButton->signalActivated.connect(std::bind(&MapEditorState::slotTerrainButtonChanged, this, std::placeholders::_1));
+	terrainWindow->addWidget(radioButton);
+
+	return terrainWindow;
 }
 
 } // namespace qrw
