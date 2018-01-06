@@ -12,15 +12,14 @@ namespace qrw
 {
 
 SceneState::SceneState(sf::RenderWindow* renderWindow, qrw::EGameStateId gameStateId)
-	: GameState(renderWindow, gameStateId)
+	: GameState(renderWindow, gameStateId),
+	  _backToMainMenu(false)
 {
 	// Initialize toolbar
 	_toolBar = new namelessgui::Window();
-	_toolBar->setVisible(true);
 	_toolBar->setSize({150.0f, (float)Settings::getInstance()->getResolutionY()});
 	_toolBar->setAnchor({1.0f, 0.0f});
 	_toolBar->setParentAnchor({1.0f, 0.0f});
-	_toolBar->setVisible(true);
 	_guiUptr->addWidget(_toolBar);
 
 	_guiUptr->setVisible(true);
@@ -38,9 +37,6 @@ SceneState::~SceneState()
 
 void SceneState::init(GameState* previousState)
 {
-	_guiUptr->setVisible(true);
-	_backToMainMenuDialog->setVisible(false);
-	_backToMainMenu = false;
 }
 
 void SceneState::draw()
