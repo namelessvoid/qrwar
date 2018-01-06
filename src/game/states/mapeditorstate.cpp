@@ -17,7 +17,7 @@ MapEditorState::MapEditorState(sf::RenderWindow* renderWindow)
 {
 	namelessgui::TabWidget* tabWidget = new namelessgui::TabWidget();
 	tabWidget->setSize(_toolBar->getSize());
-	tabWidget->setButtonSize({40, 40});
+	tabWidget->setButtonSize({64, 64});
 	tabWidget->addTab(TextureManager::getInstance()->getTexture("wheel"), createConfigToolsWindow());
 	tabWidget->addTab(TextureManager::getInstance()->getTexture("wood"), createTerrainToolsWindow());
 	tabWidget->addTab(TextureManager::getInstance()->getTexture("wall"), createStructureToolsWindow());
