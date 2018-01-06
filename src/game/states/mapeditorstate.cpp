@@ -135,7 +135,7 @@ namelessgui::Window* MapEditorState::createTerrainToolsWindow()
 	namelessgui::RadioToggleButton* radioButton = new namelessgui::RadioToggleButton(spTerrainButtonGroup, "Wood");
 	radioButton->setText("Wood");
 	radioButton->setSize(buttonSize);
-	radioButton->setRelativePosition({5.0f, 0.0f});
+	radioButton->setRelativePosition({5.0f, 5.0f});
 	radioButton->setImage(TextureManager::getInstance()->getTexture("wood"));
 	radioButton->signalActivated.connect(std::bind(&MapEditorState::slotTerrainButtonChanged, this, std::placeholders::_1));
 	terrainWindow->addWidget(radioButton);
@@ -143,7 +143,7 @@ namelessgui::Window* MapEditorState::createTerrainToolsWindow()
 	radioButton = new namelessgui::RadioToggleButton(spTerrainButtonGroup, "Hill");
 	radioButton->setText("Hill");
 	radioButton->setSize(buttonSize);
-	radioButton->setRelativePosition({5.0f, 2 * buttonSize.y});
+	radioButton->setRelativePosition({5.0f, 1 * buttonSize.y + 5});
 	radioButton->setImage(TextureManager::getInstance()->getTexture("hill"));
 	radioButton->signalActivated.connect(std::bind(&MapEditorState::slotTerrainButtonChanged, this, std::placeholders::_1));
 	terrainWindow->addWidget(radioButton);
@@ -151,7 +151,7 @@ namelessgui::Window* MapEditorState::createTerrainToolsWindow()
 	radioButton = new namelessgui::RadioToggleButton(spTerrainButtonGroup, "Wall");
 	radioButton->setText("Wall");
 	radioButton->setSize(buttonSize);
-	radioButton->setRelativePosition({5.0f, 3 * buttonSize.y});
+	radioButton->setRelativePosition({5.0f, 2 * buttonSize.y + 5});
 	radioButton->setImage(TextureManager::getInstance()->getTexture("wall"));
 	radioButton->signalActivated.connect(std::bind(&MapEditorState::slotTerrainButtonChanged, this, std::placeholders::_1));
 	terrainWindow->addWidget(radioButton);
@@ -159,7 +159,7 @@ namelessgui::Window* MapEditorState::createTerrainToolsWindow()
 	radioButton = new namelessgui::RadioToggleButton(spTerrainButtonGroup, "Erase");
 	radioButton->setText("Erase");
 	radioButton->setSize(buttonSize);
-	radioButton->setRelativePosition({5.0f, 4 * buttonSize.y});
+	radioButton->setRelativePosition({5.0f, 3 * buttonSize.y + 5});
 	radioButton->signalActivated.connect(std::bind(&MapEditorState::slotTerrainButtonChanged, this, std::placeholders::_1));
 	terrainWindow->addWidget(radioButton);
 

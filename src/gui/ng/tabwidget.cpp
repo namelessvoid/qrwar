@@ -35,8 +35,8 @@ void TabWidget::addTab(const std::string& buttonName, Widget* widget)
 
 	widget->setAnchor({0, 0});
 	widget->setParentAnchor({0, 0});
-	widget->setSize({getSize().x, getSize().y - buttonSize_.y});
-	widget->setRelativePosition({0, buttonSize_.y});
+	widget->setSize({getSize().x, getSize().y - buttonSize_.y - 5});
+	widget->setRelativePosition({0, buttonSize_.y + 5 });
 	addWidget(widget);
 	widgets_.push_back(widget);
 	widget->setVisible(false);
