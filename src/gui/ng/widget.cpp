@@ -10,7 +10,7 @@ namespace namelessgui
 {
 	Widget::Widget(std::string id)
 		: _parent(nullptr),
-		  _visible(false),
+		  _visible(true),
 		  _id(id),
 		  _leftMouseButtonPressRegistered(false),
 		  _rightMouseButtonPressRegistered(false),
@@ -42,7 +42,6 @@ namespace namelessgui
 	void Widget::addWidget(Widget* widget)
 	{
 		_children.push_back(widget);
-		widget->setVisible(_visible);
 		widget->setParent(this);
 	}
 
