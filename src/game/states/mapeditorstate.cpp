@@ -17,9 +17,10 @@ MapEditorState::MapEditorState(sf::RenderWindow* renderWindow)
 {
 	namelessgui::TabWidget* tabWidget = new namelessgui::TabWidget();
 	tabWidget->setSize(_toolBar->getSize());
-	tabWidget->setButtonSize({64, 64});
+	tabWidget->setButtonSize({40, 40});
 	tabWidget->addTab(TextureManager::getInstance()->getTexture("wheel"), createConfigToolsWindow());
-	tabWidget->addTab(TextureManager::getInstance()->getTexture("wheel"), createTerrainToolsWindow());
+	tabWidget->addTab(TextureManager::getInstance()->getTexture("wood"), createTerrainToolsWindow());
+	tabWidget->addTab(TextureManager::getInstance()->getTexture("wall"), createStructureToolsWindow());
 	_toolBar->addWidget(tabWidget);
 }
 
@@ -113,6 +114,11 @@ namelessgui::Window* MapEditorState::createConfigToolsWindow()
 
 	sf::Vector2f buttonSize(140.0f, 50.0f);
 
+	namelessgui::Text* heading = new namelessgui::Text();
+	heading->setText("Settings");
+	heading->setRelativePosition({5.0f, 0});
+	configWindow->addWidget(heading);
+
 	namelessgui::Button* toDeploymentButton = new namelessgui::Button();
 	toDeploymentButton->setText("Save");
 	toDeploymentButton->setSize({buttonSize.x, 30.0f});
@@ -130,12 +136,18 @@ namelessgui::Window* MapEditorState::createTerrainToolsWindow()
 	namelessgui::Window* terrainWindow = new namelessgui::Window();
 
 	sf::Vector2f buttonSize(140.0f, 50.0f);
+	float buttonYOffset = 45;
+
+	namelessgui::Text* heading = new namelessgui::Text();
+	heading->setText("Terrain");
+	heading->setRelativePosition({5.0f, 0});
+	terrainWindow->addWidget(heading);
 
 	std::shared_ptr<namelessgui::ButtonGroup> spTerrainButtonGroup = std::make_shared<namelessgui::ButtonGroup>();
 	namelessgui::RadioToggleButton* radioButton = new namelessgui::RadioToggleButton(spTerrainButtonGroup, "Wood");
 	radioButton->setText("Wood");
 	radioButton->setSize(buttonSize);
-	radioButton->setRelativePosition({5.0f, 5.0f});
+	radioButton->setRelativePosition({5.0f, buttonYOffset});
 	radioButton->setImage(TextureManager::getInstance()->getTexture("wood"));
 	radioButton->signalActivated.connect(std::bind(&MapEditorState::slotTerrainButtonChanged, this, std::placeholders::_1));
 	terrainWindow->addWidget(radioButton);
@@ -143,7 +155,7 @@ namelessgui::Window* MapEditorState::createTerrainToolsWindow()
 	radioButton = new namelessgui::RadioToggleButton(spTerrainButtonGroup, "Hill");
 	radioButton->setText("Hill");
 	radioButton->setSize(buttonSize);
-	radioButton->setRelativePosition({5.0f, 1 * buttonSize.y + 5});
+	radioButton->setRelativePosition({5.0f, 1 * buttonSize.y + buttonYOffset});
 	radioButton->setImage(TextureManager::getInstance()->getTexture("hill"));
 	radioButton->signalActivated.connect(std::bind(&MapEditorState::slotTerrainButtonChanged, this, std::placeholders::_1));
 	terrainWindow->addWidget(radioButton);
@@ -151,7 +163,7 @@ namelessgui::Window* MapEditorState::createTerrainToolsWindow()
 	radioButton = new namelessgui::RadioToggleButton(spTerrainButtonGroup, "Wall");
 	radioButton->setText("Wall");
 	radioButton->setSize(buttonSize);
-	radioButton->setRelativePosition({5.0f, 2 * buttonSize.y + 5});
+	radioButton->setRelativePosition({5.0f, 2 * buttonSize.y + buttonYOffset});
 	radioButton->setImage(TextureManager::getInstance()->getTexture("wall"));
 	radioButton->signalActivated.connect(std::bind(&MapEditorState::slotTerrainButtonChanged, this, std::placeholders::_1));
 	terrainWindow->addWidget(radioButton);
@@ -159,11 +171,23 @@ namelessgui::Window* MapEditorState::createTerrainToolsWindow()
 	radioButton = new namelessgui::RadioToggleButton(spTerrainButtonGroup, "Erase");
 	radioButton->setText("Erase");
 	radioButton->setSize(buttonSize);
-	radioButton->setRelativePosition({5.0f, 3 * buttonSize.y + 5});
+	radioButton->setRelativePosition({5.0f, 3 * buttonSize.y + buttonYOffset});
 	radioButton->signalActivated.connect(std::bind(&MapEditorState::slotTerrainButtonChanged, this, std::placeholders::_1));
 	terrainWindow->addWidget(radioButton);
 
 	return terrainWindow;
+}
+
+namelessgui::Window* MapEditorState::createStructureToolsWindow()
+{
+	namelessgui::Window* structureWindow = new namelessgui::Window();
+
+	namelessgui::Text* heading = new namelessgui::Text();
+	heading->setText("Structures");
+	heading->setRelativePosition({5.0f, 0});
+	structureWindow->addWidget(heading);
+
+	return structureWindow;
 }
 
 } // namespace qrw

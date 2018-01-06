@@ -40,6 +40,7 @@ private:
 
 	namelessgui::Window* createConfigToolsWindow();
 	namelessgui::Window* createTerrainToolsWindow();
+	namelessgui::Window* createStructureToolsWindow();
 
 	TERRAINTYPES _activeTerrainType;
 
