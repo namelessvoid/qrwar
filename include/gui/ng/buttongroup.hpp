@@ -7,17 +7,19 @@
 
 namespace namelessgui
 {
-	class ButtonGroup
-	{
-		public:
-			ButtonGroup();
-			~ButtonGroup();
 
-			void addButton(RadioToggleButton* button);
+class ButtonGroup
+{
+public:
+	ButtonGroup() {}
+	~ButtonGroup() {}
 
-		private:
-			std::set<RadioToggleButton*> _buttons;
-	};
-}
+	void addButton(RadioToggleButton* button);
 
-#endif
+private:
+	std::set<RadioToggleButton*> buttons_;
+};
+
+} // namespace namelessgui
+
+#endif // NAMELESSGUI_BUTTONGROUP_HPP
