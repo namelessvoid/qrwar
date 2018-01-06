@@ -10,6 +10,7 @@
 #include "gui/texturemanager.hpp"
 
 #include "gui/ng/radiotogglebutton.hpp"
+#include "gui/ng/buttongroup.hpp"
 
 #include "gui/cursor.hpp"
 
@@ -23,7 +24,7 @@ DeployState::DeployState(sf::RenderWindow* renderWindow)
 	// Initialize tool bar
 	sf::Vector2f buttonSize(140.0f, 50.0f);
 	namelessgui::RadioToggleButton* radioButton = nullptr;
-	std::shared_ptr<namelessgui::ButtonGroup> unitButtonGroup = nullptr;
+	std::shared_ptr<namelessgui::ButtonGroup> unitButtonGroup = std::make_shared<namelessgui::ButtonGroup>();
 	TextureManager* textureManager = TextureManager::getInstance();
 
 	// Player one tools
@@ -33,8 +34,7 @@ DeployState::DeployState(sf::RenderWindow* renderWindow)
 	playerOneNameLabel_->setParentAnchor({0.5f, 0.0f});
 	_toolBar->addWidget(playerOneNameLabel_);
 
-	radioButton = new namelessgui::RadioToggleButton(nullptr, "p1swordman");
-	unitButtonGroup = radioButton->getButtonGroup();
+	radioButton = new namelessgui::RadioToggleButton(unitButtonGroup, "p1swordman");
 	radioButton->setText("Swordman");
 	radioButton->setSize(buttonSize);
 	radioButton->setRelativePosition({5.0f, buttonSize.y});

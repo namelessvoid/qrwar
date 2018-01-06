@@ -2,6 +2,8 @@
 
 #include "gui/ng/radiotogglebutton.hpp"
 
+#include <cassert>
+
 #include "gui/ng/buttongroup.hpp"
 
 namespace namelessgui
@@ -11,11 +13,9 @@ RadioToggleButton::RadioToggleButton(std::shared_ptr<ButtonGroup> spButtonGroup,
 	: Button(id),
 	  _isActive(false)
 {
-	// Set up button group
-	if(spButtonGroup != nullptr)
-		_spButtonGroup = spButtonGroup;
-	else
-		_spButtonGroup = std::make_shared<ButtonGroup>();
+	assert(spButtonGroup != nullptr);
+
+	_spButtonGroup = spButtonGroup;
 	_spButtonGroup->addButton(this);
 }
 

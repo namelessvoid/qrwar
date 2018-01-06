@@ -4,6 +4,8 @@
 
 #include "gui/texturemanager.hpp"
 
+#include "gui/ng/buttongroup.hpp"
+
 namespace qrw
 {
 
@@ -21,8 +23,8 @@ MapEditorState::MapEditorState(sf::RenderWindow* renderWindow)
 
 	sf::Vector2f buttonSize(140.0f, 50.0f);
 
-	namelessgui::RadioToggleButton* radioButton = new namelessgui::RadioToggleButton(nullptr, "Wood");
-	std::shared_ptr<namelessgui::ButtonGroup> spTerrainButtonGroup = radioButton->getButtonGroup();
+	std::shared_ptr<namelessgui::ButtonGroup> spTerrainButtonGroup = std::make_shared<namelessgui::ButtonGroup>();
+	namelessgui::RadioToggleButton* radioButton = new namelessgui::RadioToggleButton(spTerrainButtonGroup, "Wood");
 	radioButton->setText("Wood");
 	radioButton->setSize(buttonSize);
 	radioButton->setRelativePosition({5.0f, buttonSize.y});
