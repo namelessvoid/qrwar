@@ -18,6 +18,7 @@ class Button : public RectangularWidget
 
 		void setText(std::string text);
 		const std::string& getText() const;
+		void setFontSize(unsigned int fontSize);
 
 		void setImage(const sf::Texture* texture);
 

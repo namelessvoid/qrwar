@@ -21,7 +21,12 @@ void Label::setText(const std::string& text)
 
 const std::string &Label::getText() const
 {
-    return _text->getText();
+	return _text->getText();
+}
+
+void Label::setFontSize(unsigned int fontSize)
+{
+	_text->setCharacterSize(fontSize);
 }
 
 void Label::setImage(const sf::Texture* image)

@@ -41,6 +41,11 @@ namespace namelessgui
 		return _label->getText();
 	}
 
+	void Button::setFontSize(unsigned int fontSize)
+	{
+		_label->setFontSize(fontSize);
+	}
+
 	void Button::setImage(const sf::Texture* texture)
     {
         _label->setImage(texture);
