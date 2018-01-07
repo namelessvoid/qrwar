@@ -8,6 +8,7 @@ RectangularWidget::RectangularWidget(std::string id)
 	  sf::RectangleShape(sf::Vector2f())
 {
 	setFillColor(sf::Color(255, 255, 0, 0));
+	setSize({100, 100});
 }
 
 sf::Vector2f RectangularWidget::getSize() const
