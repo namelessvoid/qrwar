@@ -25,6 +25,7 @@ SpinBox::SpinBox()
 	addWidget(decrementButton_);
 
 	lineInput_ = new LineInput();
+	lineInput_->setAllowedCharacters("1234567890");
 	addWidget(lineInput_);
 
 	resizeButtons();

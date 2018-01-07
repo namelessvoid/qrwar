@@ -18,6 +18,8 @@ public:
 
     void setText(const std::string& text);
 
+	void setAllowedCharacters(const std::string& characters) { allowedCharacters_ = characters; }
+
     virtual bool handleEvent(const qrw::IEvent &event) override;
 
 	virtual void render(sf::RenderTarget& renderTarget, sf::RenderStates renderStates) const override;
