@@ -9,6 +9,9 @@ namespace namelessgui
 {
 
 SpinBox::SpinBox()
+	: value_(std::numeric_limits<unsigned int>::min()),
+	  minValue_(std::numeric_limits<unsigned int>::min()),
+	  maxValue_(std::numeric_limits<unsigned int>::max())
 {
 	incrementButton_ = new Button();
 	incrementButton_->setText("+");
@@ -29,7 +32,6 @@ SpinBox::SpinBox()
 	addWidget(lineInput_);
 
 	resizeButtons();
-	setValue(10);
 }
 
 SpinBox::~SpinBox()
@@ -44,8 +46,21 @@ void SpinBox::setSize(const sf::Vector2f &size)
 
 void SpinBox::setValue(unsigned int value)
 {
-	value_ = value;
-	lineInput_->setText(std::to_string(value));
+	value_ = std::min(std::max(value, minValue_), maxValue_);
+
+	lineInput_->setText(std::to_string(value_));
+}
+
+void SpinBox::setMinValue(unsigned int minValue)
+{
+	minValue_ = minValue;
+	setValue(value_);
+}
+
+void SpinBox::setMaxValue(unsigned int maxValue)
+{
+	maxValue_ = maxValue;
+	setValue(value_);
 }
 
 void SpinBox::resizeButtons()
@@ -61,7 +76,7 @@ void SpinBox::resizeButtons()
 
 void SpinBox::incrementValue()
 {
-	if(value_ == std::numeric_limits<unsigned int>::max())
+	if(value_ == maxValue_)
 		return;
 
 	setValue(value_ + 1);
@@ -69,7 +84,7 @@ void SpinBox::incrementValue()
 
 void SpinBox::decrementValue()
 {
-	if(value_ == std::numeric_limits<unsigned int>::min())
+	if(value_ == minValue_)
 		return;
 
 	setValue(value_ - 1);

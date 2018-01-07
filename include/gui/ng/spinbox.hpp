@@ -19,6 +19,10 @@ public:
 
 	void setValue(unsigned int value);
 
+	void setMinValue(unsigned int minValue);
+
+	void setMaxValue(unsigned int maxValue);
+
 private:
     SpinBox(const SpinBox& rhs) = delete;
 
@@ -31,6 +35,8 @@ private:
 	void decrementValue();
 
 	unsigned int value_;
+	unsigned int minValue_;
+	unsigned int maxValue_;
 
     Button* incrementButton_;
     Button* decrementButton_;
