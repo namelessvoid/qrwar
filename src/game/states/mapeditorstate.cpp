@@ -6,6 +6,7 @@
 
 #include "gui/ng/buttongroup.hpp"
 #include "gui/ng/tabwidget.hpp"
+#include "gui/ng/spinbox.hpp"
 
 namespace qrw
 {
@@ -118,6 +119,14 @@ namelessgui::Window* MapEditorState::createConfigToolsWindow()
 	heading->setText("Settings");
 	heading->setRelativePosition({5.0f, 0});
 	configWindow->addWidget(heading);
+
+	namelessgui::SpinBox* mapSizeBox = new namelessgui::SpinBox();
+	mapSizeBox->setFillColor(sf::Color::Green);
+	mapSizeBox->setSize({100.0f, 30.0f});
+	mapSizeBox->setMinValue(10);
+	mapSizeBox->setMaxValue(128);
+	mapSizeBox->setValue(2);
+	configWindow->addWidget(mapSizeBox);
 
 	namelessgui::Button* toDeploymentButton = new namelessgui::Button();
 	toDeploymentButton->setText("Save");
