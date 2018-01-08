@@ -44,7 +44,7 @@ void TabWidget::addTab(const sf::Texture* buttonImage, Widget* widget)
 	// If this is the first tab, make it active by default
 	if(index == 0)
 	{
-		button->signalclicked.emit();
+		button->signalClicked.emit();
 		widget->setVisible(true);
 	}
 }
@@ -71,7 +71,7 @@ void TabWidget::setActiveTab(size_t index)
 	}
 }
 
-sf::FloatRect TabWidget::getGlobalBounds()
+sf::FloatRect TabWidget::getWidgetArea()
 {
 	return sf::FloatRect(getPosition(), getSize());
 }

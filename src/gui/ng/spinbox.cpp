@@ -18,14 +18,14 @@ SpinBox::SpinBox()
 	incrementButton_->setText("+");
 	incrementButton_->setAnchor({1, 0});
 	incrementButton_->setParentAnchor({1, 0});
-	incrementButton_->signalclicked.connect(std::bind(&SpinBox::incrementValue, this));
+	incrementButton_->signalClicked.connect(std::bind(&SpinBox::incrementValue, this));
 	addWidget(incrementButton_);
 
 	decrementButton_ = new Button();
 	decrementButton_->setText("-");
 	decrementButton_->setAnchor({1, 1});
 	decrementButton_->setParentAnchor({1, 1});
-	decrementButton_->signalclicked.connect(std::bind(&SpinBox::decrementValue, this));
+	decrementButton_->signalClicked.connect(std::bind(&SpinBox::decrementValue, this));
 	addWidget(decrementButton_);
 
 	lineInput_ = new LineInput();

@@ -19,7 +19,7 @@ SkirmishPreparationState::SkirmishPreparationState(sf::RenderWindow* renderWindo
 	_guiUptr->addWidget(window);
 
 	namelessgui::Button* toSkirmisStateButton = new namelessgui::Button();
-	toSkirmisStateButton->signalclicked.connect(std::bind(&SkirmishPreparationState::slotToSkirmishStateClicked, this));
+	toSkirmisStateButton->signalClicked.connect(std::bind(&SkirmishPreparationState::slotToSkirmishStateClicked, this));
 	toSkirmisStateButton->setText("Start Skirmish");
 	toSkirmisStateButton->setSize({150, 30});
 	toSkirmisStateButton->setAnchor({1, 1});

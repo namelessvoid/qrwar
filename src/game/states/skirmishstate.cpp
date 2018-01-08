@@ -50,7 +50,7 @@ SkirmishState::SkirmishState(sf::RenderWindow* renderWindow)
 	endTurnButton->setParentAnchor({0.5, 1});
 	endTurnButton->setAnchor({0.5, 1.0});
 	endTurnButton->setRelativePosition({0.0f, -5.0f});
-	endTurnButton->signalclicked.connect(std::bind(&SkirmishState::endTurn, this));
+	endTurnButton->signalClicked.connect(std::bind(&SkirmishState::endTurn, this));
 	_toolBar->addWidget(endTurnButton);
 
 	m_victoryDialog = new VictoryDialog();

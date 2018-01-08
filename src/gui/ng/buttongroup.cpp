@@ -12,8 +12,8 @@ void ButtonGroup::addButton(RadioToggleButton* button)
 
 	for(auto iter : buttons_)
 	{
-		button->signalclicked.connect(std::bind(&RadioToggleButton::deactivate, iter));
-		iter->signalclicked.connect(std::bind(&RadioToggleButton::deactivate, button));
+		button->signalClicked.connect(std::bind(&RadioToggleButton::deactivate, iter));
+		iter->signalClicked.connect(std::bind(&RadioToggleButton::deactivate, button));
 	}
 
 	buttons_.insert(button);

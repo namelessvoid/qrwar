@@ -16,7 +16,7 @@ namespace namelessgui
 		target.draw(_text);
 	}
 
-	sf::FloatRect Text::getGlobalBounds()
+	sf::FloatRect Text::getWidgetArea()
 	{
 		return _text.getGlobalBounds();
 	}

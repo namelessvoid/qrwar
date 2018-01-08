@@ -8,6 +8,7 @@ add_library(namelessgui
         radiotogglebutton.cpp
 	spritewidget.cpp
 	widget.cpp
+        widgeteventmixin.cpp
 	window.cpp
         confirmationdialog.cpp
         tabwidget.cpp

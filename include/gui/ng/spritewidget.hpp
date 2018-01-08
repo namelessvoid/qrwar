@@ -40,7 +40,7 @@ public:
 	 *
 	 * @return The global boundary rectangle.
 	 */
-	virtual sf::FloatRect getGlobalBounds() override;
+	virtual sf::FloatRect getWidgetArea() override;
 
 	/**
 	 * Sets the texture of the widget.

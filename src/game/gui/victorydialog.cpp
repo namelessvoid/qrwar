@@ -48,7 +48,7 @@ VictoryDialog::VictoryDialog()
 	closeButton->setParentAnchor({1, 1});
 	closeButton->setSize({296, closeButton->getSize().y});
 	closeButton->setRelativePosition({-2, -2});
-	closeButton->signalclicked.connect(std::bind(&VictoryDialog::slotCloseClicked, this));
+	closeButton->signalClicked.connect(std::bind(&VictoryDialog::slotCloseClicked, this));
 	addWidget(closeButton);
 }
 

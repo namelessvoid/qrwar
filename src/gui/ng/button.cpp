@@ -18,10 +18,10 @@ namespace namelessgui
 		this->addWidget(this->_label);
 
 		// Connect signals to slots
-		this->signalleftmousebuttonpressed.connect(std::bind(&Button::leftMousebuttonPressedSlot, this));
-		this->signalmouseentered.connect(std::bind(&Button::mouseEnteredSlot, this));
-		this->signalclicked.connect(std::bind(&Button::clickedSlot, this));
-		this->signalmouseleft.connect(std::bind(&Button::mouseLeftSlot, this));
+		this->signalLeftMouseButtonPressed.connect(std::bind(&Button::leftMousebuttonPressedSlot, this));
+		this->signalMouseFocusGained.connect(std::bind(&Button::mouseEnteredSlot, this));
+		this->signalClicked.connect(std::bind(&Button::clickedSlot, this));
+		this->signalMouseFocusLost.connect(std::bind(&Button::mouseLeftSlot, this));
 
 		this->setFillColor(BUTTON_DEFAULT_FILL_COLOR);
 		this->setOutlineColor(BUTTON_OUTLINE_COLOR);

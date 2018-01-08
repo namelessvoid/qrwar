@@ -20,7 +20,7 @@ namespace namelessgui
 
 			virtual void render(sf::RenderTarget& target, sf::RenderStates states) const override;
 
-			sf::FloatRect getGlobalBounds();
+			sf::FloatRect getWidgetArea();
 
 			void setFont(sf::Font& font);
 

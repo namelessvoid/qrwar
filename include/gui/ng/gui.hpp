@@ -17,7 +17,7 @@ public:
 	Gui(sf::RenderWindow* renderWindow);
 	virtual ~Gui();
 
-	virtual sf::FloatRect getGlobalBounds() override;
+	virtual sf::FloatRect getWidgetArea() override;
 
 	virtual void setSize(const sf::Vector2f& size) override;
 

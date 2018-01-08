@@ -12,10 +12,6 @@ namespace namelessgui
 		: _parent(nullptr),
 		  _visible(true),
 		  _id(id),
-		  _leftMouseButtonPressRegistered(false),
-		  _rightMouseButtonPressRegistered(false),
-		  _mouseFocus(false),
-		  keyboardFocus_(false),
 		  _parentAnchor(0, 0),
 		  _anchor(0, 0),
 		  _relativePosition(0, 0)
@@ -59,11 +55,6 @@ namespace namelessgui
 		return _visible;
 	}
 
-	bool Widget::hasMouseFocus() const
-	{
-		return _mouseFocus;
-	}
-
 	void Widget::render(sf::RenderTarget& target, sf::RenderStates states) const
 	{
 		if(_visible)
@@ -73,87 +64,12 @@ namespace namelessgui
 		}
 	}
 
-	bool Widget::handleEvent(const qrw::IEvent& event)
-    {
-		bool stopEventPropagation = false;
-
-        // A widget that is not visible cannot handle any event
-        if(!_visible)
-			return stopEventPropagation;
-
-        // Handle mouse move evets
-		if(event.getName() == qrw::MouseMovedEvent::name)
-        {
-			const qrw::MouseMovedEvent& moveEvent = static_cast<const qrw::MouseMovedEvent&>(event);
-			if(!getGlobalBounds().contains(moveEvent.screenCoordinates.x, moveEvent.screenCoordinates.y))
-            {
-                // Mouse focus lost
-                if(_mouseFocus)
-                {
-                    _mouseFocus = false;
-                    signalmouseleft.emit();
-                    _leftMouseButtonPressRegistered = false;
-                }
-            } // if(!hasMouseFocus)
-            else
-            {
-                // Got mouse focus
-                if(!_mouseFocus)
-                {
-                    _mouseFocus = true;
-                    signalmouseentered.emit();
-                }
-                // just moved when already has mouse focus
-                else
-                {
-                    signalmousemoved.emit();
-                }
-            } // else(hasMouseFocus)
-        } // if(MouseMoveEvent)
-
-		if(_mouseFocus)
-		{
-			if(event.getName() == qrw::LeftMouseButtonPressedEvent::name)
-			{
-				signalleftmousebuttonpressed.emit();
-				_leftMouseButtonPressRegistered = true;
-				keyboardFocus_ = true;
-				stopEventPropagation = true;
-			}
-			else if(event.getName() == qrw::RightMouseButtonPressedEvent::name)
-			{
-				_rightMouseButtonPressRegistered = true;
-				stopEventPropagation = true;
-			}
-			else if(event.getName() == qrw::LeftMouseButtonReleasedEvent::name && _leftMouseButtonPressRegistered)
-			{
-				signalclicked.emit();
-				stopEventPropagation = true;
-			}
-			else if(event.getName() == qrw::RightMouseButtonReleasedEvent::name && _rightMouseButtonPressRegistered)
-			{
-				signalrightclicked.emit();
-				stopEventPropagation = true;
-			}
-		}
-		else // !mouseFocus
-		{
-			if(event.getName() == qrw::LeftMouseButtonPressedEvent::name)
-			{
-				keyboardFocus_ = false;
-				signalKeyboardFocusLost.emit();
-			}
-		}
-
-		return stopEventPropagation;
-    }
-
     void Widget::disconnectAllSignals()
     {
-        this->signalclicked.disconnectAll();
-        this->signalleftmousebuttonpressed.disconnectAll();
-        this->signalmouseleft.disconnectAll();
-		this->signalmouseentered.disconnectAll();
+		this->signalClicked.disconnectAll();
+		this->signalLeftMouseButtonPressed.disconnectAll();
+		this->signalMouseFocusLost.disconnectAll();
+		this->signalMouseFocusGained.disconnectAll();
 	}
 
 	void Widget::setParentAnchor(const sf::Vector2f& anchor)

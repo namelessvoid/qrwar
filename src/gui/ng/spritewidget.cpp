@@ -48,7 +48,7 @@ void RectangularWidget::setSize(const sf::Vector2f& size)
 	sf::RectangleShape::setSize(size);
 }
 
-sf::FloatRect RectangularWidget::getGlobalBounds()
+sf::FloatRect RectangularWidget::getWidgetArea()
 {
 	float outlineThickness = getOutlineThickness();
 	sf::FloatRect bounds = sf::RectangleShape::getGlobalBounds();

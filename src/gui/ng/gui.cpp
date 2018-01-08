@@ -16,7 +16,7 @@ Gui::~Gui()
 {
 }
 
-sf::FloatRect Gui::getGlobalBounds()
+sf::FloatRect Gui::getWidgetArea()
 {
 	return {getPosition().x, getPosition().y, getSize().x, getSize().y};
 }

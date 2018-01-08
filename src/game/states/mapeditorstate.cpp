@@ -125,7 +125,7 @@ namelessgui::Window* MapEditorState::createConfigToolsWindow()
 	toDeploymentButton->setAnchor({0.5f, 1.0f});
 	toDeploymentButton->setParentAnchor({0.5f, 1.0f});
 	toDeploymentButton->setRelativePosition({0.0f, -5.0f});
-	toDeploymentButton->signalclicked.connect(std::bind(&MapEditorState::slotSaveButtonClicked, this));
+	toDeploymentButton->signalClicked.connect(std::bind(&MapEditorState::slotSaveButtonClicked, this));
 	configWindow->addWidget(toDeploymentButton);
 
 	return configWindow;

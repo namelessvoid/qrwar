@@ -35,7 +35,7 @@ MainMenuState::MainMenuState(sf::RenderWindow* renderWindow)
 	sf::Vector2f buttonSize(139, 50);
 
 	button = new namelessgui::Button();
-	button->signalclicked.connect(std::bind(&MainMenuState::slotNewGameClicked, this));
+	button->signalClicked.connect(std::bind(&MainMenuState::slotNewGameClicked, this));
 	button->setText("New Match");
 	button->setSize(buttonSize);
 	button->setParentAnchor({0.5f, 0.01f});
@@ -44,7 +44,7 @@ MainMenuState::MainMenuState(sf::RenderWindow* renderWindow)
 	mainWindow->addWidget(button);
 
 	button = new namelessgui::Button();
-	button->signalclicked.connect(std::bind(&MainMenuState::slotMapEditorClicked, this));
+	button->signalClicked.connect(std::bind(&MainMenuState::slotMapEditorClicked, this));
 	button->setText("Map Editor");
 	button->setSize(buttonSize);
 	button->setParentAnchor({0.5f, 0.01});
@@ -69,7 +69,7 @@ MainMenuState::MainMenuState(sf::RenderWindow* renderWindow)
 	mainWindow->addWidget(button);
 
 	button = new namelessgui::Button();
-	button->signalclicked.connect(std::bind(&MainMenuState::slotQuitClicked, this));
+	button->signalClicked.connect(std::bind(&MainMenuState::slotQuitClicked, this));
 	button->setText("Quit");
 	button->setSize(buttonSize);
 	button->setParentAnchor({0.5f, 0.01f});

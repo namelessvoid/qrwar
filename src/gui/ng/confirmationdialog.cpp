@@ -28,8 +28,8 @@ ConfirmationDialog::ConfirmationDialog(const std::string& text)
 	_noButton->setParentAnchor({0.5f, 1.0f});
 	_noButton->setRelativePosition({5.0f, -5.0f});
 
-	_yesButton->signalclicked.connect(std::bind(&ConfirmationDialog::slotYesClicked, this));
-	_noButton->signalclicked.connect(std::bind(&ConfirmationDialog::slotNoClicked, this));
+	_yesButton->signalClicked.connect(std::bind(&ConfirmationDialog::slotYesClicked, this));
+	_noButton->signalClicked.connect(std::bind(&ConfirmationDialog::slotNoClicked, this));
 
 	addWidget(_label);
 	addWidget(_yesButton);

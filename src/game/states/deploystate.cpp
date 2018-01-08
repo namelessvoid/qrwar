@@ -99,7 +99,7 @@ DeployState::DeployState(sf::RenderWindow* renderWindow)
 	nextStepButton->setAnchor({0.5f, 1.0f});
 	nextStepButton->setParentAnchor({0.5f, 1.0f});
 	nextStepButton->setRelativePosition({0.0f, -5.0f});
-    nextStepButton->signalclicked.connect(std::bind(&DeployState::slotToSkirmishButtonClicked, this));
+    nextStepButton->signalClicked.connect(std::bind(&DeployState::slotToSkirmishButtonClicked, this));
 	_toolBar->addWidget(nextStepButton);
 }
 
