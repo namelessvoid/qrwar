@@ -1,5 +1,6 @@
 #include "gui/ng/lineinput.hpp"
 
+#include "gui/ng/colors.hpp"
 #include "gui/ng/text.hpp"
 
 #include "eventsystem/inputevents.hpp"
@@ -14,7 +15,7 @@ LineInput::LineInput()
 	addWidget(textWidget_);
 
 	cursor_ = new RectangleShape();
-	cursor_->setFillColor(sf::Color::Red);
+	cursor_->setFillColor(LINE_INPUT_CURSOR_COLOR);
 	cursor_->setSize({5, 20});
 	updateCursorPosition();
 
