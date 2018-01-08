@@ -27,6 +27,7 @@ LineInput::LineInput()
 
 LineInput::~LineInput()
 {
+	delete cursor_;
 }
 
 const std::string& LineInput::getText() const
