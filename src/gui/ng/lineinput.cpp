@@ -34,10 +34,11 @@ const std::string& LineInput::getText() const
 	return textWidget_->getText();
 }
 
-void LineInput::setText(const std::string &text)
+void LineInput::setText(const std::string& text)
 {
 	textWidget_->setText(text);
 	updateCursorPosition();
+	signalChanged.emit();
 }
 
 bool LineInput::handleEvent(const qrw::IEvent &event)
@@ -51,9 +52,7 @@ bool LineInput::handleEvent(const qrw::IEvent &event)
 			if(allowedCharacters_.find(character) != std::string::npos)
 			{
 				std::string text = textWidget_->getText() + character;
-				textWidget_->setText(text);
-				updateCursorPosition();
-
+				setText(text);
 				return true;
 			}
 		}
@@ -63,9 +62,7 @@ bool LineInput::handleEvent(const qrw::IEvent &event)
 			if(key == qrw::KeyPressedEvent::Key::Backspace)
 			{
 				std::string text = textWidget_->getText();
-				textWidget_->setText(text.substr(0, text.size() -1));
-				updateCursorPosition();
-
+				setText(text.substr(0, text.size() -1));
 				return true;
 			}
 		}

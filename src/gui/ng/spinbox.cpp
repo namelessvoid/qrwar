@@ -2,6 +2,7 @@
 
 #include <limits>
 
+#include "gui/ng/colors.hpp"
 #include "gui/ng/button.hpp"
 #include "gui/ng/lineinput.hpp"
 
@@ -29,6 +30,9 @@ SpinBox::SpinBox()
 
 	lineInput_ = new LineInput();
 	lineInput_->setAllowedCharacters("1234567890");
+	lineInput_->setText(std::to_string(value_));
+	lineInput_->signalChanged.connect([this]() { setValueFromLineInput(); });
+	lineInput_->signalKeyboardFocusLost.connect([this]() { lineInputLostFocus(); });
 	addWidget(lineInput_);
 
 	resizeButtons();
@@ -46,8 +50,10 @@ void SpinBox::setSize(const sf::Vector2f &size)
 
 void SpinBox::setValue(unsigned int value)
 {
+	// clamp to range
 	value_ = std::min(std::max(value, minValue_), maxValue_);
 
+	lineInput_->setOutlineColor(DEFAULT_OUTLINE_COLOR);
 	lineInput_->setText(std::to_string(value_));
 }
 
@@ -76,18 +82,64 @@ void SpinBox::resizeButtons()
 
 void SpinBox::incrementValue()
 {
-	if(value_ == maxValue_)
-		return;
-
-	setValue(value_ + 1);
+	value_ < maxValue_ ? setValue(value_ + 1) : setValue(maxValue_);
 }
 
 void SpinBox::decrementValue()
 {
-	if(value_ == minValue_)
-		return;
+	value_ > minValue_ ? setValue(value_ - 1) : setValue(minValue_);
+}
 
-	setValue(value_ - 1);
+void SpinBox::setValueFromLineInput()
+{
+	try
+	{
+		unsigned int newValue = std::stoi(lineInput_->getText());
+
+		if(newValue == value_)
+			return;
+
+		bool isNewValueValid = true;
+		if(newValue < minValue_)
+		{
+			isNewValueValid = false;
+			newValue = minValue_;
+		}
+		else if(newValue > maxValue_)
+		{
+			isNewValueValid = false;
+			newValue = maxValue_;
+		}
+
+		value_ = newValue;
+
+		isNewValueValid ?
+					lineInput_->setOutlineColor(DEFAULT_OUTLINE_COLOR)
+				  : lineInput_->setOutlineColor(ERROR_OUTLINE_COLOR);
+	}
+	catch(std::invalid_argument)
+	{
+		lineInput_->setOutlineColor(ERROR_OUTLINE_COLOR);
+	}
+}
+
+void SpinBox::lineInputLostFocus()
+{
+	try
+	{
+		unsigned int newValue = std::stoi(lineInput_->getText());
+
+		if(newValue < minValue_)
+			lineInput_->setText(std::to_string(minValue_));
+		else if(newValue > maxValue_)
+			lineInput_->setText(std::to_string(maxValue_));
+	}
+	catch(std::invalid_argument)
+	{
+		lineInput_->setText(std::to_string(minValue_));
+	}
+
+	lineInput_->setOutlineColor(DEFAULT_OUTLINE_COLOR);
 }
 
 } // namespace namelessgui

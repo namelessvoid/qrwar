@@ -141,6 +141,7 @@ namespace namelessgui
 			if(event.getName() == qrw::LeftMouseButtonPressedEvent::name)
 			{
 				keyboardFocus_ = false;
+				signalKeyboardFocusLost.emit();
 			}
 		}
 

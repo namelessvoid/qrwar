@@ -26,6 +26,8 @@ public:
 
 	virtual void setPosition(const sf::Vector2f& position) override;
 
+	Signal<> signalChanged;
+
 private:
     LineInput(const LineInput& rhs) = delete;
 

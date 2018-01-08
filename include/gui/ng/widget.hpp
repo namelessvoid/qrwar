@@ -78,6 +78,7 @@ class Widget : public qrw::EventHandler
 			Signal<> signalmouseleft;
 			Signal<> signalmousemoved;
 			Signal<> signalleftmousebuttonpressed;
+			Signal<> signalKeyboardFocusLost;
 			Signal<const sf::Event&> signalkeypressed;
 
         protected:
