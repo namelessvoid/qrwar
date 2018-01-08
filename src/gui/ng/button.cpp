@@ -3,6 +3,7 @@
 #include <SFML/Window/Mouse.hpp>
 #include <SFML/Graphics/RectangleShape.hpp>
 
+#include "gui/ng/colors.hpp"
 #include "gui/ng/button.hpp"
 #include "gui/ng/label.hpp"
 
@@ -22,8 +23,8 @@ namespace namelessgui
 		this->signalclicked.connect(std::bind(&Button::clickedSlot, this));
 		this->signalmouseleft.connect(std::bind(&Button::mouseLeftSlot, this));
 
-		this->setFillColor(sf::Color(60, 60, 60, 255));
-		this->setOutlineColor(sf::Color(30, 30, 30, 255));
+		this->setFillColor(BUTTON_DEFAULT_FILL_COLOR);
+		this->setOutlineColor(BUTTON_OUTLINE_COLOR);
 		this->setOutlineThickness(2.0f);
 		this->setSize({100.0f, 30.0f});
 	}
@@ -74,20 +75,20 @@ namespace namelessgui
 
 	void Button::leftMousebuttonPressedSlot()
 	{
-		this->setFillColor(sf::Color(50, 50, 50, 255));
+		this->setFillColor(BUTTON_ACTIVE_FILL_COLOR);
 	}
 
 	void Button::mouseEnteredSlot()
 	{
-		this->setFillColor(sf::Color(80, 80, 80, 255));
+		this->setFillColor(BUTTON_HOVER_FILL_COLOR);
 	}
 
 	void Button::clickedSlot()
 	{
 		if(!hasMouseFocus())
-			this->setFillColor(sf::Color(60, 60, 60, 255));
+			this->setFillColor(BUTTON_DEFAULT_FILL_COLOR);
 		else
-			this->setFillColor(sf::Color(80, 80, 80, 255));
+			this->setFillColor(BUTTON_HOVER_FILL_COLOR);
 	}
 
 	void Button::mouseLeftSlot()
