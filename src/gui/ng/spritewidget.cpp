@@ -50,7 +50,13 @@ void RectangularWidget::setSize(const sf::Vector2f& size)
 
 sf::FloatRect RectangularWidget::getGlobalBounds()
 {
-	return sf::RectangleShape::getGlobalBounds();
+	float outlineThickness = getOutlineThickness();
+	sf::FloatRect bounds = sf::RectangleShape::getGlobalBounds();
+	bounds.top += outlineThickness;
+	bounds.left += outlineThickness;
+	bounds.height -= 2 * outlineThickness;
+	bounds.width -= 2 * outlineThickness;
+	return bounds;
 }
 
 void RectangularWidget::setTexture(const sf::Texture* texture, bool resetRect)
