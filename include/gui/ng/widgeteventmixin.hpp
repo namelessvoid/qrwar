@@ -28,7 +28,7 @@ public:
      *
      * @return The area defined as a rectangle.
      */
-    virtual sf::FloatRect getWidgetArea() = 0;
+    virtual sf::FloatRect getWidgetArea() const = 0;
 
     bool hasMouseFocus() const { return mouseFocus_; }
     bool hasKeyboardFocus() const { return keyboardFocus_; }

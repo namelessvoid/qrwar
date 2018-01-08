@@ -71,11 +71,6 @@ void TabWidget::setActiveTab(size_t index)
 	}
 }
 
-sf::FloatRect TabWidget::getWidgetArea()
-{
-	return sf::FloatRect(getPosition(), getSize());
-}
-
 void TabWidget::setSize(const sf::Vector2f &size)
 {
 	size_ = size;

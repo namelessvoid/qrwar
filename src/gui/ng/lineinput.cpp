@@ -41,6 +41,11 @@ void LineInput::setText(const std::string& text)
 	signalChanged.emit();
 }
 
+bool LineInput::isVisible() const
+{
+	return RectangularWidget::isVisible();
+}
+
 bool LineInput::handleEvent(const qrw::IEvent &event)
 {
 	if(hasKeyboardFocus())
@@ -68,7 +73,7 @@ bool LineInput::handleEvent(const qrw::IEvent &event)
 		}
 	} // if(hasKeyboardFocus)
 
-	return Widget::handleEvent(event);
+	return WidgetEventMixin::handleEvent(event);
 }
 
 void LineInput::render(sf::RenderTarget& renderTarget, sf::RenderStates renderStates) const

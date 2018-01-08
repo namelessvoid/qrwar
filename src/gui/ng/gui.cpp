@@ -16,11 +16,6 @@ Gui::~Gui()
 {
 }
 
-sf::FloatRect Gui::getWidgetArea()
-{
-	return {getPosition().x, getPosition().y, getSize().x, getSize().y};
-}
-
 void Gui::setSize(const sf::Vector2f& size)
 {
 	_size = size;

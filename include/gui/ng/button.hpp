@@ -10,7 +10,7 @@
 
 namespace namelessgui
 {
-class Button : public RectangularWidget
+class Button : public RectangularWidget, public WidgetEventMixin
 {
 	public:
 		Button(std::string id = "");
@@ -26,6 +26,10 @@ class Button : public RectangularWidget
 		virtual void setSize(const sf::Vector2f& size) override;
 
 		virtual void render(sf::RenderTarget& target, sf::RenderStates states = sf::RenderStates::Default) const override;
+
+		// WidgetEventMixin interface
+		virtual bool isVisible() const override { return RectangularWidget::isVisible(); }
+		virtual sf::FloatRect getWidgetArea() const override { return RectangularWidget::getWidgetArea(); }
 
 	protected:
         class Label* _label;

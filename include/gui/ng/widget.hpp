@@ -16,7 +16,7 @@ class RenderWindow;
 
 namespace namelessgui
 {
-class Widget : public WidgetEventMixin
+class Widget
 {
 	public:
 			/**
@@ -40,8 +40,6 @@ class Widget : public WidgetEventMixin
 
             void setVisible(bool visibility = true);
 			bool isVisible() const;
-
-            void disconnectAllSignals();
 
 			virtual void setSize(const sf::Vector2f& size) = 0;
 			virtual sf::Vector2f getSize() const = 0;

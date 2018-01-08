@@ -7,7 +7,7 @@ namespace namelessgui {
 
 class Text;
 
-class LineInput : public RectangularWidget
+class LineInput : public RectangularWidget, public WidgetEventMixin
 {
 public:
     LineInput();
@@ -20,11 +20,15 @@ public:
 
 	void setAllowedCharacters(const std::string& characters) { allowedCharacters_ = characters; }
 
+	virtual bool isVisible() const override;
+
     virtual bool handleEvent(const qrw::IEvent &event) override;
 
 	virtual void render(sf::RenderTarget& renderTarget, sf::RenderStates renderStates) const override;
 
 	virtual void setPosition(const sf::Vector2f& position) override;
+
+	virtual sf::FloatRect getWidgetArea() const override { return RectangularWidget::getWidgetArea(); }
 
 	Signal<> signalChanged;
 

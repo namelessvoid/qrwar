@@ -43,11 +43,6 @@ void Label::setImage(const sf::Texture* image)
     _image->setVisible(true);
 }
 
-sf::FloatRect Label::getWidgetArea()
-{
-    return {_position.x, _position.y, _size.x, _size.y};
-}
-
 void Label::setSize(const sf::Vector2f &size)
 {
     _size = size;

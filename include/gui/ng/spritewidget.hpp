@@ -35,12 +35,7 @@ public:
 
 	virtual void setSize(const sf::Vector2f& size) override;
 
-	/**
-	 * Returns the global boundaries of the widget.
-	 *
-	 * @return The global boundary rectangle.
-	 */
-	virtual sf::FloatRect getWidgetArea() override;
+	virtual sf::FloatRect getWidgetArea() const;
 
 	/**
 	 * Sets the texture of the widget.

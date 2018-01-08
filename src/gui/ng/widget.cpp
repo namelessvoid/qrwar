@@ -64,14 +64,6 @@ namespace namelessgui
 		}
 	}
 
-    void Widget::disconnectAllSignals()
-    {
-		this->signalClicked.disconnectAll();
-		this->signalLeftMouseButtonPressed.disconnectAll();
-		this->signalMouseFocusLost.disconnectAll();
-		this->signalMouseFocusGained.disconnectAll();
-	}
-
 	void Widget::setParentAnchor(const sf::Vector2f& anchor)
 	{
 		_parentAnchor = anchor;
