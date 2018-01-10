@@ -34,7 +34,7 @@ void MapEditorState::init(GameState* previousState)
 	g_scene.reset();
 	SceneState::init(previousState);
 
-	_spBoard = new Board(16, 9);
+	_spBoard = new Board(INITIAL_BOARD_WIDTH, INITIAL_BOARD_HEIGHT);
 	g_scene.setBoard(_spBoard);
 
 	g_scene.spawn<Cursor>();
@@ -86,6 +86,18 @@ void MapEditorState::slotCursorRightClicked(const Coordinates& boardPosition)
 		g_scene.despawn(terrain);
 }
 
+void MapEditorState::slotChangeBoardWidth(unsigned int width)
+{
+	std::cout << "slotChangeBoardWidth() " << width << std::endl << std::flush;
+	_spBoard->setWidth(width);
+}
+
+void MapEditorState::slotChangeBoardHeight(unsigned int height)
+{
+	std::cout << "slotChangeBoardHeight() " << height << std::endl << std::flush;
+	_spBoard->setHeight(height);
+}
+
 void MapEditorState::slotTerrainButtonChanged(const namelessgui::RadioToggleButton& activeTerrainButton)
 {
 	const std::string& buttonId = activeTerrainButton.getId();
@@ -120,13 +132,23 @@ namelessgui::Window* MapEditorState::createConfigToolsWindow()
 	heading->setRelativePosition({5.0f, 0});
 	configWindow->addWidget(heading);
 
-	namelessgui::SpinBox* mapSizeBox = new namelessgui::SpinBox();
-	mapSizeBox->setFillColor(sf::Color::Green);
-	mapSizeBox->setSize({100.0f, 30.0f});
-	mapSizeBox->setMinValue(10);
-	mapSizeBox->setMaxValue(128);
-	mapSizeBox->setValue(2);
-	configWindow->addWidget(mapSizeBox);
+	namelessgui::SpinBox* mapWidthBox = new namelessgui::SpinBox();
+	mapWidthBox->setSize({100.0f, 30.0f});
+	mapWidthBox->setMinValue(10);
+	mapWidthBox->setMaxValue(128);
+	mapWidthBox->setValue(INITIAL_BOARD_WIDTH);
+	mapWidthBox->signalChanged.connect([this] (unsigned int width) { slotChangeBoardWidth(width); });
+	configWindow->addWidget(mapWidthBox);
+
+	namelessgui::SpinBox* mapHeightBox = new namelessgui::SpinBox();
+	mapHeightBox->setSize({100.0f, 30.0f});
+	mapHeightBox->setMinValue(10);
+	mapHeightBox->setMaxValue(128);
+	mapHeightBox->setValue(INITIAL_BOARD_HEIGHT);
+	mapHeightBox->setAnchor({1, 0});
+	mapHeightBox->setParentAnchor({1, 0});
+	mapHeightBox->signalChanged.connect([this] (unsigned int height) { slotChangeBoardHeight(height); });
+	configWindow->addWidget(mapHeightBox);
 
 	namelessgui::Button* toDeploymentButton = new namelessgui::Button();
 	toDeploymentButton->setText("Save");

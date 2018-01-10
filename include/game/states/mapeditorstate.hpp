@@ -35,6 +35,9 @@ private:
     virtual void slotCursorLeftClicked(const Coordinates& boardPosition) override;
     virtual void slotCursorRightClicked(const Coordinates& boardPosition) override;
 
+	void slotChangeBoardWidth(unsigned int width);
+	void slotChangeBoardHeight(unsigned int height);
+
 	void slotTerrainButtonChanged(const namelessgui::RadioToggleButton& activeTerrainButton);
 	void slotSaveButtonClicked();
 
@@ -52,6 +55,9 @@ private:
     bool _eraseMode;
 
 	Board* _spBoard;
+
+	const unsigned int INITIAL_BOARD_WIDTH = 16;
+	const unsigned int INITIAL_BOARD_HEIGHT = 8;
 };
 
 } // namespace qrw

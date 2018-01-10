@@ -39,10 +39,10 @@ class Path;
 			Terrain* getTerrain(const Coordinates& position);
 			const std::map<Coordinates, Terrain*>& getTerrains() const;
 
-			int getWidth();
-			int getHeight();
-
 			bool isOnBoard(Coordinates coordinates);
+
+			void setWidth(unsigned int width);
+			void setHeight(unsigned int height);
 
 			/**
 			 * @brief Call pathfinding algorithm to find path from start to end.

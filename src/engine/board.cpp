@@ -90,16 +90,6 @@ namespace qrw
 		return _terrains;
 	}
 
-	int Board::getWidth()
-	{
-		return _width;
-	}
-
-	int Board::getHeight()
-	{
-		return _height;
-	}
-
 	bool Board::isOnBoard(Coordinates coordinates)
 	{
 		if(coordinates.getX() < 0 || static_cast<unsigned int>(coordinates.getX()) >= _width)
@@ -107,6 +97,16 @@ namespace qrw
 		if(coordinates.getY() < 0 || static_cast<unsigned int>(coordinates.getY()) >= _height)
 			return false;
 		return true;
+	}
+
+	void Board::setWidth(unsigned int width)
+	{
+		_width = width;
+	}
+
+	void Board::setHeight(unsigned int height)
+	{
+		_height = height;
 	}
 
 	pathfinding::Path* Board::findPath(const Coordinates &start, const Coordinates &end)
