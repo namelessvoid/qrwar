@@ -23,6 +23,8 @@ public:
 
 	void setMaxValue(unsigned int maxValue);
 
+	Signal<unsigned int> signalChanged;
+
 private:
     SpinBox(const SpinBox& rhs) = delete;
 

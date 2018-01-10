@@ -55,6 +55,8 @@ void SpinBox::setValue(unsigned int value)
 
 	lineInput_->setOutlineColor(DEFAULT_OUTLINE_COLOR);
 	lineInput_->setText(std::to_string(value_));
+
+	signalChanged.emit(value_);
 }
 
 void SpinBox::setMinValue(unsigned int minValue)
@@ -116,6 +118,8 @@ void SpinBox::setValueFromLineInput()
 		isNewValueValid ?
 					lineInput_->setOutlineColor(DEFAULT_OUTLINE_COLOR)
 				  : lineInput_->setOutlineColor(ERROR_OUTLINE_COLOR);
+
+		signalChanged.emit(value_);
 	}
 	catch(std::invalid_argument)
 	{
