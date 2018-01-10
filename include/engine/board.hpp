@@ -20,6 +20,7 @@ class Path;
 	class Coordinates;
 	class Unit;
 	class Terrain;
+	class SpriteComponent;
 
 	class Board : public GameObject
 	{
@@ -53,6 +54,10 @@ class Path;
 			pathfinding::Path* findPath(const Coordinates& start, const Coordinates& end);
 
 		private:
+			void resizeBackground();
+
+			SpriteComponent* backgroundComponent_;
+
 			std::map<Coordinates, Unit*> _units;
 			std::map<Coordinates, Terrain*> _terrains;
 

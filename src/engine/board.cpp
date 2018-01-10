@@ -20,11 +20,11 @@ namespace qrw
 		_pathfinder = new pathfinding::AStar;
 		_pathfinder->setBoard(this);
 
-		SpriteComponent* backgroundComponent = new SpriteComponent(RENDER_LAYER_BACKGROUND);
-		backgroundComponent->setTexture(TextureManager::getInstance()->getTexture("plainsquare"));
-		backgroundComponent->setSize({32.0f * width, 32.0f * height});
-		backgroundComponent->setRepeateTexture(true);
-		addComponent(backgroundComponent);
+		backgroundComponent_ = new SpriteComponent(RENDER_LAYER_BACKGROUND);
+		backgroundComponent_->setTexture(TextureManager::getInstance()->getTexture("plainsquare"));
+		addComponent(backgroundComponent_);
+
+		resizeBackground();
 	}
 
 	Board::~Board()
@@ -102,15 +102,24 @@ namespace qrw
 	void Board::setWidth(unsigned int width)
 	{
 		_width = width;
+		resizeBackground();
+
 	}
 
 	void Board::setHeight(unsigned int height)
 	{
 		_height = height;
+		resizeBackground();
 	}
 
 	pathfinding::Path* Board::findPath(const Coordinates &start, const Coordinates &end)
 	{
 		return _pathfinder->findPath(start, end);
+	}
+
+	void Board::resizeBackground()
+	{
+		backgroundComponent_->setSize({32.0f * _width, 32.0f * _height});
+		backgroundComponent_->setRepeateTexture(true);
 	}
 }
