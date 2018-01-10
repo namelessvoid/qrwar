@@ -12,7 +12,7 @@
 
 namespace qrw
 {
-	Board::Board(int width, int height)
+	Board::Board(unsigned int width, unsigned int height)
 	: _width(width),
 	  _height(height)
 	{
@@ -102,9 +102,9 @@ namespace qrw
 
 	bool Board::isOnBoard(Coordinates coordinates)
 	{
-		if(coordinates.getX() < 0 || coordinates.getX() >= _width)
+		if(coordinates.getX() < 0 || static_cast<unsigned int>(coordinates.getX()) >= _width)
 			return false;
-		if(coordinates.getY() < 0 || coordinates.getY() >= _height)
+		if(coordinates.getY() < 0 || static_cast<unsigned int>(coordinates.getY()) >= _height)
 			return false;
 		return true;
 	}

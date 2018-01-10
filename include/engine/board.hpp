@@ -24,7 +24,7 @@ class Path;
 	class Board : public GameObject
 	{
 		public:
-			Board(int width, int height);
+			Board(unsigned int width, unsigned int height);
 			~Board();
 
 			void setUnit(const Coordinates& position, Unit* unit);
@@ -56,8 +56,8 @@ class Path;
 			std::map<Coordinates, Unit*> _units;
 			std::map<Coordinates, Terrain*> _terrains;
 
-			int _width;
-			int _height;
+			unsigned int _width;
+			unsigned int _height;
 
 			pathfinding::AbstractPathfinder* _pathfinder;
 	};
