@@ -31,8 +31,8 @@ SpinBox::SpinBox()
 	lineInput_ = new LineInput();
 	lineInput_->setAllowedCharacters("1234567890");
 	lineInput_->setText(std::to_string(value_));
-	lineInput_->signalChanged.connect([this]() { validateLineInput(); });
-	lineInput_->signalKeyboardFocusLost.connect([this]() { setValueFromLineInput(); });
+	lineInput_->signalEdited.connect([this]() { validateLineInput(); });
+	lineInput_->signalDoneEditing.connect([this]() { setValueFromLineInput(); });
 	addWidget(lineInput_);
 
 	resizeButtons();

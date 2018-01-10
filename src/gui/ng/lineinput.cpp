@@ -21,6 +21,8 @@ LineInput::LineInput()
 
 	allowedCharacters_ = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890.-, ";
 
+	signalKeyboardFocusLost.connect([this] { signalDoneEditing.emit(); });
+
 	setFillColor(sf::Color(60, 60, 60, 255));
 	setOutlineThickness(1);
 	setOutlineColor(sf::Color(120, 120, 120));
@@ -40,7 +42,7 @@ void LineInput::setText(const std::string& text)
 {
 	textWidget_->setText(text);
 	updateCursorPosition();
-	signalChanged.emit();
+	signalEdited.emit();
 }
 
 bool LineInput::isVisible() const
@@ -70,6 +72,11 @@ bool LineInput::handleEvent(const qrw::IEvent &event)
 			{
 				std::string text = textWidget_->getText();
 				setText(text.substr(0, text.size() -1));
+				return true;
+			}
+			else if(key == qrw::KeyPressedEvent::Key::Return)
+			{
+				signalDoneEditing.emit();
 				return true;
 			}
 		}

@@ -30,7 +30,9 @@ public:
 
 	virtual sf::FloatRect getWidgetArea() const override { return RectangularWidget::getWidgetArea(); }
 
-	Signal<> signalChanged;
+	Signal<> signalEdited;
+
+	Signal<> signalDoneEditing;
 
 private:
     LineInput(const LineInput& rhs) = delete;
