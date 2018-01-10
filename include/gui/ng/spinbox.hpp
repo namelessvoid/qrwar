@@ -36,9 +36,9 @@ private:
 
 	void decrementValue();
 
-	void setValueFromLineInput();
+	void validateLineInput();
 
-	void lineInputLostFocus();
+	void setValueFromLineInput();
 
 	unsigned int value_;
 	unsigned int minValue_;

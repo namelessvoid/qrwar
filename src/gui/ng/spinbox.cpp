@@ -31,8 +31,8 @@ SpinBox::SpinBox()
 	lineInput_ = new LineInput();
 	lineInput_->setAllowedCharacters("1234567890");
 	lineInput_->setText(std::to_string(value_));
-	lineInput_->signalChanged.connect([this]() { setValueFromLineInput(); });
-	lineInput_->signalKeyboardFocusLost.connect([this]() { lineInputLostFocus(); });
+	lineInput_->signalChanged.connect([this]() { validateLineInput(); });
+	lineInput_->signalKeyboardFocusLost.connect([this]() { setValueFromLineInput(); });
 	addWidget(lineInput_);
 
 	resizeButtons();
@@ -92,6 +92,26 @@ void SpinBox::decrementValue()
 	value_ > minValue_ ? setValue(value_ - 1) : setValue(minValue_);
 }
 
+void SpinBox::validateLineInput()
+{
+	try
+	{
+		unsigned int newValue = std::stoi(lineInput_->getText());
+
+		if(newValue == value_)
+			return;
+
+		if(newValue < minValue_ || newValue > maxValue_)
+			lineInput_->setOutlineColor(ERROR_OUTLINE_COLOR);
+		else
+			lineInput_->setOutlineColor(DEFAULT_OUTLINE_COLOR);
+	}
+	catch(std::invalid_argument)
+	{
+		lineInput_->setOutlineColor(ERROR_OUTLINE_COLOR);
+	}
+}
+
 void SpinBox::setValueFromLineInput()
 {
 	try
@@ -101,42 +121,15 @@ void SpinBox::setValueFromLineInput()
 		if(newValue == value_)
 			return;
 
-		bool isNewValueValid = true;
 		if(newValue < minValue_)
-		{
-			isNewValueValid = false;
 			newValue = minValue_;
-		}
 		else if(newValue > maxValue_)
-		{
-			isNewValueValid = false;
 			newValue = maxValue_;
-		}
 
 		value_ = newValue;
-
-		isNewValueValid ?
-					lineInput_->setOutlineColor(DEFAULT_OUTLINE_COLOR)
-				  : lineInput_->setOutlineColor(ERROR_OUTLINE_COLOR);
+		lineInput_->setText(std::to_string(value_));
 
 		signalChanged.emit(value_);
-	}
-	catch(std::invalid_argument)
-	{
-		lineInput_->setOutlineColor(ERROR_OUTLINE_COLOR);
-	}
-}
-
-void SpinBox::lineInputLostFocus()
-{
-	try
-	{
-		unsigned int newValue = std::stoi(lineInput_->getText());
-
-		if(newValue < minValue_)
-			lineInput_->setText(std::to_string(minValue_));
-		else if(newValue > maxValue_)
-			lineInput_->setText(std::to_string(maxValue_));
 	}
 	catch(std::invalid_argument)
 	{
