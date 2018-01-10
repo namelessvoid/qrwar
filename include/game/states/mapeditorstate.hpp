@@ -37,6 +37,7 @@ private:
 
 	void slotChangeBoardWidth(unsigned int width);
 	void slotChangeBoardHeight(unsigned int height);
+	void despawnTerrainNotOnBoard();
 
 	void slotTerrainButtonChanged(const namelessgui::RadioToggleButton& activeTerrainButton);
 	void slotSaveButtonClicked();

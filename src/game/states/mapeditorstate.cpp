@@ -90,12 +90,26 @@ void MapEditorState::slotChangeBoardWidth(unsigned int width)
 {
 	std::cout << "slotChangeBoardWidth() " << width << std::endl << std::flush;
 	_spBoard->setWidth(width);
+	despawnTerrainNotOnBoard();
 }
 
 void MapEditorState::slotChangeBoardHeight(unsigned int height)
 {
 	std::cout << "slotChangeBoardHeight() " << height << std::endl << std::flush;
 	_spBoard->setHeight(height);
+	despawnTerrainNotOnBoard();
+}
+
+void MapEditorState::despawnTerrainNotOnBoard()
+{
+	for(auto& terrainIter : _spBoard->getTerrains())
+	{
+		if(!_spBoard->isOnBoard(terrainIter.first))
+		{
+			_spBoard->removeTerrain(terrainIter.first);
+			g_scene.despawn(terrainIter.second);
+		}
+	}
 }
 
 void MapEditorState::slotTerrainButtonChanged(const namelessgui::RadioToggleButton& activeTerrainButton)
