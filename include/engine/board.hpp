@@ -18,7 +18,6 @@ class Path;
 }
 
 	class Coordinates;
-	class Square;
 	class Unit;
 	class Terrain;
 

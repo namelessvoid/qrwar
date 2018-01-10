@@ -74,18 +74,6 @@ public:
 
 	static std::string UNITNAMES[EUT_NUMBEROFUNITTYPES];
 
-	/**
-	 * @brief Get the square on which Unit currently stands.
-	 * @return Pointer to Square.
-	 */
-	Square* getSquare() const;
-
-	/**
-	 * @brief Set the Square on which unit currently stands.
-	 * @param square The new square.
-	 */
-	void setSquare(Square* _square);
-
 private:
 	void setType(UNITTYPES type) { _type = type; }
 
