@@ -34,7 +34,7 @@ AnimationSystem g_animationSystem;
 QRWar::QRWar()
 {
 	// Init
-	g_renderSystem.startUp();
+	g_renderSystem.startUp(_renderWindow);
 	preloadResources();
 	g_scene.setRenderTarget(&_renderWindow);
 	g_eventSystem.startUp(new SfEventSource(_renderWindow));
@@ -77,8 +77,8 @@ void QRWar::run()
 		// If no state change occured: draw the current state
 		else if(nextStateId == EGameStateId::EGSID_NO_CHANGE)
 		{
-			// Todo: Remove _currentState->draw();
-			g_renderSystem.renderAll(_renderWindow);
+			g_renderSystem.renderAll();
+			// Todo: Remove _currentState->draw() which only renders gui
 			_currentState->draw();
 			_renderWindow.display();
 		}

@@ -5,8 +5,9 @@
 namespace qrw
 {
 
-void RenderSystem::startUp()
+void RenderSystem::startUp(sf::RenderTarget& renderTarget)
 {
+	renderTarget_ = &renderTarget;
 }
 
 void RenderSystem::shutDown()
@@ -28,14 +29,14 @@ void RenderSystem::deregisterRenderable(Renderable* renderable)
 	m_renderables[renderable->getLayer()].erase(renderable);
 }
 
-void RenderSystem::renderAll(sf::RenderTarget& renderTarget)
+void RenderSystem::renderAll()
 {
 	for(auto layerIterator = m_renderables.begin(); layerIterator != m_renderables.end(); ++layerIterator)
 	{
 		for(Renderable* renderable : layerIterator->second)
 		{
 			if(renderable->isVisible())
-				renderable->render(renderTarget);
+				renderable->render(*renderTarget_);
 		}
 	}
 }

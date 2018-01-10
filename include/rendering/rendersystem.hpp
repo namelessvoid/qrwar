@@ -14,18 +14,20 @@ class RenderSystem
 public:
 	RenderSystem() {}
 
-	void startUp();
+	void startUp(sf::RenderTarget& renderTarget);
 	void shutDown();
 
 	void registerRenderable(Renderable* renderable);
 	void deregisterRenderable(Renderable* renderable);
 
-	void renderAll(sf::RenderTarget& renderTarget);
+	void renderAll();
 
 private:
 	RenderSystem(const RenderSystem&) = delete;
 
 	std::map<unsigned char, std::set<Renderable*>> m_renderables;
+
+	sf::RenderTarget* renderTarget_;
 };
 
 extern RenderSystem g_renderSystem;
