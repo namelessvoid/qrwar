@@ -16,12 +16,21 @@ public:
     {
     }
 
-    SID(const SID& rhs) = delete;
+	SID(const SID& rhs)
+		: m_stringId(rhs.m_stringId),
+		  m_hashId(rhs.m_hashId)
+	{
+	}
 
     bool operator==(const SID& rhs) const
     {
         return m_hashId == rhs.m_hashId;
     }
+
+	bool operator<(const SID& rhs) const
+	{
+		return m_hashId < rhs.m_hashId;
+	}
 
 	friend std::ostream& operator<<(std::ostream& os, const SID& sid)
 	{
