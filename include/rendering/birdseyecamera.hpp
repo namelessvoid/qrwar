@@ -5,9 +5,11 @@
 
 #include "camera.hpp"
 
+#include "eventsystem/eventhandler.hpp"
+
 namespace qrw {
 
-class BirdsEyeCamera : public Camera
+class BirdsEyeCamera : public Camera, public EventHandler
 {
 public:
     BirdsEyeCamera();
@@ -17,6 +19,8 @@ public:
     void setCenter(const sf::Vector2f& center) { center_ = center; }
 
     virtual void applyTo(sf::RenderTarget& renderTarget) override;
+
+    virtual bool handleEvent(const IEvent &event) override;
 
 private:
     sf::Vector2f center_;

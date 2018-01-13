@@ -21,4 +21,9 @@ void BirdsEyeCamera::applyTo(sf::RenderTarget& renderTarget)
 	renderTarget.setView(view);
 }
 
+bool BirdsEyeCamera::handleEvent(const IEvent& event)
+{
+	return false;
+}
+
 } // namespace qrw

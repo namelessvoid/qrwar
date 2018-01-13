@@ -23,8 +23,6 @@ public:
 
 	void renderAll();
 
-	BirdsEyeCamera& getCamera();
-
 private:
 	RenderSystem(const RenderSystem&) = delete;
 
@@ -32,7 +30,7 @@ private:
 
 	sf::RenderTarget* renderTarget_;
 
-	BirdsEyeCamera camera_;
+	BirdsEyeCamera* camera_;
 };
 
 extern RenderSystem g_renderSystem;
