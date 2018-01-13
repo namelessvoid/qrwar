@@ -122,9 +122,6 @@ void QRWar::preloadResources()
 void QRWar::registerMetaTypes()
 {
 	MetaManager::registerMetaClass<BoardMetaClass>();
-
-	Board tmpInstance;
-	std::type_index type = typeid(tmpInstance);
 }
 
 GameState* QRWar::createGameState(EGameStateId id)

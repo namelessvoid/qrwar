@@ -15,19 +15,20 @@ namespace qrw {
 class MetaManager
 {
 public:
-    MetaManager();
-
-    ~MetaManager();
-
     template<class TMetaClass>
     static void registerMetaClass();
+
+    template<class TClass>
+    static const MetaClass* getMetaClassFor(const TClass& object);
 
 private:
     typedef std::map<std::type_index,std::unique_ptr<MetaClass> > MetaClassMap;
     static MetaClassMap metaClasses_;
 
+    // Pure static class
+    MetaManager();
+    ~MetaManager();
     MetaManager(const MetaManager& rhs) = delete;
-
     MetaManager& operator=(const MetaManager& rhs) = delete;
 };
 
@@ -41,6 +42,16 @@ void MetaManager::registerMetaClass()
     assert(metaClasses_.find(type) == metaClasses_.end());
 
     metaClasses_[type] = std::unique_ptr<MetaClass>(metaClass);
+}
+
+template<class TClass>
+const MetaClass* MetaManager::getMetaClassFor(const TClass& object)
+{
+    std::type_index type = typeid(object);
+
+    assert(metaClasses_.find(type) != metaClasses_.end());
+
+    return metaClasses_[type].get();
 }
 
 
