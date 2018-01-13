@@ -39,6 +39,7 @@ Terrain* Terrain::createTerrain(TERRAINTYPES terrainType)
 	terrain->setTexture(texture);
 	terrain->setModificator(EM_ATTACK, attackModifier);
 	terrain->setModificator(EM_DEFENSE, defenseModifier);
+	terrain->setType(terrainType);
 	return terrain;
 }
 
