@@ -121,7 +121,7 @@ void QRWar::preloadResources()
 
 void QRWar::registerMetaTypes()
 {
-	MetaManager::registerMetaClass<BoardMetaClass>();
+	MetaManager::registerMetaClass<BoardMetaClass>(Board::typeName);
 }
 
 GameState* QRWar::createGameState(EGameStateId id)

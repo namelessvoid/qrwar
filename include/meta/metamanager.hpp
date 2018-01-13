@@ -2,13 +2,12 @@
 #define QRW_METAMANAGER_HPP
 
 #include <map>
-#include <typeindex>
 #include <memory>
 #include <cassert>
 
-#include <iostream>
-
 #include "metaclass.hpp"
+
+#include "core/sid.hpp"
 
 namespace qrw {
 
@@ -16,13 +15,13 @@ class MetaManager
 {
 public:
     template<class TMetaClass>
-    static void registerMetaClass();
+    static void registerMetaClass(const SID& typeName);
 
     template<class TClass>
-    static const MetaClass* getMetaClassFor(const TClass& object);
+    static const MetaClass* getMetaClassFor();
 
 private:
-    typedef std::map<std::type_index,std::unique_ptr<MetaClass> > MetaClassMap;
+    typedef std::map<SID,std::unique_ptr<MetaClass> > MetaClassMap;
     static MetaClassMap metaClasses_;
 
     // Pure static class
@@ -33,25 +32,19 @@ private:
 };
 
 template<class TMetaClass>
-void MetaManager::registerMetaClass()
+void MetaManager::registerMetaClass(const SID& typeName)
 {
-    std::cout << "Registering meta class." << std::endl << std::flush;
-    MetaClass* metaClass = new TMetaClass();
-    std::type_index type = metaClass->getTypeIndex();
+    assert(metaClasses_.find(typeName) == metaClasses_.end());
 
-    assert(metaClasses_.find(type) == metaClasses_.end());
-
-    metaClasses_[type] = std::unique_ptr<MetaClass>(metaClass);
+    metaClasses_[typeName] = std::unique_ptr<TMetaClass>(new TMetaClass());
 }
 
 template<class TClass>
-const MetaClass* MetaManager::getMetaClassFor(const TClass& object)
+const MetaClass* MetaManager::getMetaClassFor()
 {
-    std::type_index type = typeid(object);
+    assert(metaClasses_.find(TClass::typeName) != metaClasses_.end());
 
-    assert(metaClasses_.find(type) != metaClasses_.end());
-
-    return metaClasses_[type].get();
+    return metaClasses_[TClass::typeName].get();
 }
 
 
