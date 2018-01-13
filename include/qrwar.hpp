@@ -3,9 +3,9 @@
 
 #include <SFML/Graphics/RenderWindow.hpp>
 
-#include <map>
-
 #include "gamestates/gamestate.hpp"
+
+#include "rendering/guicamera.hpp"
 
 namespace qrw
 {
@@ -19,7 +19,6 @@ public:
 
 	void run();
 
-
 private:
 	void preloadResources();
 
@@ -28,6 +27,8 @@ private:
 	sf::RenderWindow _renderWindow;
 
 	GameState* _currentState;
+
+	GuiCamera guiCamera_;
 };
 
 } // namespace qrw

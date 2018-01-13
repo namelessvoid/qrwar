@@ -31,6 +31,7 @@ void RenderSystem::deregisterRenderable(Renderable* renderable)
 
 void RenderSystem::renderAll()
 {
+	camera_.applyTo(*renderTarget_);
 	for(auto layerIterator = m_renderables.begin(); layerIterator != m_renderables.end(); ++layerIterator)
 	{
 		for(Renderable* renderable : layerIterator->second)

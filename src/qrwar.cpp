@@ -79,6 +79,7 @@ void QRWar::run()
 		{
 			g_renderSystem.renderAll();
 			// Todo: Remove _currentState->draw() which only renders gui
+			guiCamera_.applyTo(_renderWindow);
 			_currentState->draw();
 			_renderWindow.display();
 		}

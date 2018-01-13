@@ -5,6 +5,7 @@
 #include <set>
 
 #include "rendering/renderable.hpp"
+#include "rendering/birdseyecamera.hpp"
 
 namespace qrw
 {
@@ -22,12 +23,16 @@ public:
 
 	void renderAll();
 
+	BirdsEyeCamera& getCamera();
+
 private:
 	RenderSystem(const RenderSystem&) = delete;
 
 	std::map<unsigned char, std::set<Renderable*>> m_renderables;
 
 	sf::RenderTarget* renderTarget_;
+
+	BirdsEyeCamera camera_;
 };
 
 extern RenderSystem g_renderSystem;
