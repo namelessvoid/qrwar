@@ -22,6 +22,12 @@ if(TINYXML2_FOUND)
 	set(LIBS ${LIBS} ${TINYXML2_LIBRARIES})
 endif(TINYXML2_FOUND)
 
+find_package(yaml-cpp REQUIRED)
+if(yaml-cpp_FOUND)
+    include_directories(${YAML_CPP_INCLUDE_DIR})
+    set(LIBS ${LIBS} ${YAML_CPP_LIBRARIES})
+endif(yaml-cpp_FOUND)
+
 # set include path
 include_directories(${QuadRuledWar_SOURCE_DIR}/include)
 
