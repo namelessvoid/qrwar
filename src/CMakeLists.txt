@@ -60,6 +60,11 @@ add_library(qrwarlib
         gui/squaredetailwindow.cpp
 	gui/texturemanager.cpp
         gui/guihelper.cpp
+
+        meta/metamanager.cpp
+        meta/metaclass.cpp
+
+        game/meta/boardmetaclass.cpp
 )
 set_target_properties(qrwarlib PROPERTIES OUTPUT_NAME qrwar)
 target_link_libraries(qrwarlib ${LIBS} tostring namelessgui)

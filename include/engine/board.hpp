@@ -25,6 +25,10 @@ class Path;
 	class Board : public GameObject
 	{
 		public:
+			Board()
+				: Board(0, 0)
+			{}
+
 			Board(unsigned int width, unsigned int height);
 			~Board();
 

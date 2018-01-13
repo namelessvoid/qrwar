@@ -21,6 +21,7 @@ public:
 
 private:
 	void preloadResources();
+	void registerMetaTypes();
 
 	GameState* createGameState(EGameStateId id);
 

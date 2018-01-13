@@ -14,6 +14,9 @@
 #include "eventsystem/sfeventsource.hpp"
 #include "animation/animationsystem.hpp"
 
+#include "meta/metamanager.hpp"
+#include "game/meta/boardmetaclass.hpp"
+
 #include "game/states/introstate.hpp"
 #include "game/states/mainmenustate.hpp"
 #include "game/states/mapeditorstate.hpp"
@@ -34,6 +37,7 @@ AnimationSystem g_animationSystem;
 QRWar::QRWar()
 {
 	// Init
+	registerMetaTypes();
 	g_renderSystem.startUp(_renderWindow);
 	preloadResources();
 	g_scene.setRenderTarget(&_renderWindow);
@@ -113,6 +117,14 @@ void QRWar::preloadResources()
 	qrw::TilesetProcessor tilesetprocessor;
 	tilesetprocessor.loadTileset(settings->getEntityTilesetPath());
 	tilesetprocessor.loadTileset(settings->getGuiTilesetPath());
+}
+
+void QRWar::registerMetaTypes()
+{
+	MetaManager::registerMetaClass<BoardMetaClass>();
+
+	Board tmpInstance;
+	std::type_index type = typeid(tmpInstance);
 }
 
 GameState* QRWar::createGameState(EGameStateId id)
