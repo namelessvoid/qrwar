@@ -65,6 +65,7 @@ add_library(qrwarlib
         meta/metaclass.cpp
 
         game/meta/boardmetaclass.cpp
+        game/meta/terrainmetaclass.cpp
 )
 set_target_properties(qrwarlib PROPERTIES OUTPUT_NAME qrwar)
 target_link_libraries(qrwarlib ${LIBS} tostring namelessgui)
