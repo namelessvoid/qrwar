@@ -57,6 +57,8 @@ class Path;
 			 */
 			pathfinding::Path* findPath(const Coordinates& start, const Coordinates& end);
 
+			static SID typeName;
+
 		private:
 			void resizeBackground();
 

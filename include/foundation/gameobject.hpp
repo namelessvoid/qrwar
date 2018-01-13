@@ -26,6 +26,7 @@ public:
 	template<class T>
 	T* getComponent();
 
+private:
 	std::map<std::type_index, GameComponent*> _components;
 };
 

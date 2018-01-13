@@ -10,6 +10,8 @@
 namespace qrw
 {
 
+SID Terrain::typeName("qrw::Terrain");
+
 Terrain* Terrain::createTerrain(TERRAINTYPES terrainType)
 {
 	const sf::Texture* texture = GuiHelper::getTerrainTexture(terrainType);

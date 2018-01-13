@@ -26,6 +26,8 @@ namespace qrw
 		public:
 			static Terrain* createTerrain(TERRAINTYPES terrainType);
 
+			static SID typeName;
+
 			Terrain();
 
 			~Terrain();

@@ -12,6 +12,9 @@
 
 namespace qrw
 {
+
+SID Board::typeName("qrw::Board");
+
 	Board::Board(unsigned int width, unsigned int height)
 	: _width(width),
 	  _height(height)
