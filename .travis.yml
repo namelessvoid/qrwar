@@ -7,7 +7,7 @@ before_install:
     - sudo apt-get update -qq
     - if [ "$CXX" = "g++" ]; then sudo apt-get install -qq g++-6; fi
     - if [ "$CXX" = "g++" ]; then export CXX="g++-6" CC="gcc-6"; fi
-    - sudo apt-get install libcppunit-dev
+    - sudo apt-get install libcppunit-dev libyaml-cpp-dev
 
     - $CXX --version
     - cmake --version
