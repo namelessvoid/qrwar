@@ -71,7 +71,7 @@ const int* Terrain::getModificators()
 	return _modificators;
 }
 
-TERRAINTYPES Terrain::getType()
+TERRAINTYPES Terrain::getType() const
 {
 	return _type;
 }

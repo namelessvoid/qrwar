@@ -34,7 +34,7 @@ namespace qrw
 
 			int getModificator(MODIFICATORS type);
 			const int* getModificators();
-			TERRAINTYPES getType();
+			TERRAINTYPES getType() const;
 
 			void setPosition(const Coordinates& position);
 			const Coordinates& getPosition() const;
