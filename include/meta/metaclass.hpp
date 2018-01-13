@@ -7,6 +7,8 @@
 
 namespace qrw {
 
+class GameObject;
+
 class MetaClass
 {
 public:
@@ -14,7 +16,7 @@ public:
 
     virtual ~MetaClass();
 
-    virtual void serialze(YAML::Emitter& out) = 0;
+    virtual void serialze(GameObject* object, YAML::Emitter& out) const = 0;
 
     virtual std::type_index getTypeIndex() const = 0;
 
