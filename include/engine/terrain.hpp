@@ -10,6 +10,8 @@
 
 #include "foundation/gameobject.hpp"
 
+#include "core/sid.hpp"
+
 namespace qrw
 {
 	class SpriteComponent;
