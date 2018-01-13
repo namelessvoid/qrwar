@@ -51,7 +51,9 @@ struct KeyPressedEvent : EventBase<KeyPressedEvent>
 	{
 		Esc,
 		Backspace,
-		Return
+		Return,
+		A, D, S, W,
+		Left, Right, Up, Down
 	};
 
 	KeyPressedEvent(Key key)

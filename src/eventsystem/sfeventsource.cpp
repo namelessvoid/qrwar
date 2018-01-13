@@ -9,7 +9,21 @@ namespace qrw
 
 SfEventSource::SfEventSource(sf::RenderWindow& window)
 	: m_window(window)
-{}
+{
+	keyMap_[sf::Keyboard::Escape]    = KeyPressedEvent::Key::Esc;
+	keyMap_[sf::Keyboard::BackSpace] = KeyPressedEvent::Key::Backspace;
+	keyMap_[sf::Keyboard::Return]    = KeyPressedEvent::Key::Return;
+
+	keyMap_[sf::Keyboard::W] = KeyPressedEvent::Key::W;
+	keyMap_[sf::Keyboard::A] = KeyPressedEvent::Key::A;
+	keyMap_[sf::Keyboard::S] = KeyPressedEvent::Key::S;
+	keyMap_[sf::Keyboard::D] = KeyPressedEvent::Key::D;
+
+	keyMap_[sf::Keyboard::Left]  = KeyPressedEvent::Key::Left;
+	keyMap_[sf::Keyboard::Right] = KeyPressedEvent::Key::Right;
+	keyMap_[sf::Keyboard::Up]    = KeyPressedEvent::Key::Up;
+	keyMap_[sf::Keyboard::Down]  = KeyPressedEvent::Key::Down;
+}
 
 const IEvent* SfEventSource::pollEvent()
 {
@@ -46,17 +60,9 @@ const IEvent* SfEventSource::pollEvent()
 
 	if(event.type == sf::Event::KeyPressed)
 	{
-		switch(event.key.code)
-		{
-		case sf::Keyboard::Escape:
-			return new KeyPressedEvent(KeyPressedEvent::Key::Esc);
-		case sf::Keyboard::BackSpace:
-			return new KeyPressedEvent(KeyPressedEvent::Key::Backspace);
-		case sf::Keyboard::Return:
-			return new KeyPressedEvent(KeyPressedEvent::Key::Return);
-		default:
-			break;
-		}
+		auto iter = keyMap_.find(event.key.code);
+		if(iter != keyMap_.end())
+			return new KeyPressedEvent(iter->second);
 	}
 
 	if(event.type == sf::Event::TextEntered)

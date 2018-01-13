@@ -1,9 +1,13 @@
 #ifndef QRW_SFEVENTSOURCE_HPP
 #define QRW_SFEVENTSOURCE_HPP
 
+#include <map>
+
 #include <SFML/Graphics/RenderWindow.hpp>
+#include <SFML/Window/Event.hpp>
 
 #include "eventsystem/systemeventsource.hpp"
+#include "eventsystem/inputevents.hpp"
 
 namespace qrw
 {
@@ -17,6 +21,8 @@ public:
 
 private:
     sf::RenderWindow& m_window;
+
+	std::map<sf::Keyboard::Key,KeyPressedEvent::Key> keyMap_;
 };
 
 }
