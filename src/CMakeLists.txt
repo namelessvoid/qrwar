@@ -23,6 +23,8 @@ add_library(qrwarlib
 
         rendering/rendersystem.cpp
         rendering/renderable.cpp
+        rendering/guicamera.cpp
+        rendering/birdseyecamera.cpp
 
         animation/animationsystem.cpp
 
