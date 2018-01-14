@@ -21,7 +21,7 @@ public:
 
 	void addComponent(GameComponent* component);
 
-	virtual void update() {}
+	virtual void update(float elapsedTimeInSeconds) {}
 
 	template<class T>
 	T* getComponent();

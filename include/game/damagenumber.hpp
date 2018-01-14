@@ -17,7 +17,7 @@ public:
 
 	void setDamage(int damage);
 
-	virtual void update() override;
+	virtual void update(float elapsedTimeInSeconds) override;
 
     void setPosition(const sf::Vector2f& position);
 

@@ -60,7 +60,7 @@ bool SceneState::handleEvent(const IEvent &event)
 	}
 	else if(event.getName() == KeyPressedEvent::name)
 	{
-		if(static_cast<const KeyPressedEvent&>(event).key == KeyPressedEvent::Key::Esc)
+		if(static_cast<const KeyPressedEvent&>(event).key == KeyboardKey::Esc)
 			_backToMainMenuDialog->setVisible(true);
 	}
 	return false;

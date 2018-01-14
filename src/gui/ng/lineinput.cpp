@@ -67,14 +67,14 @@ bool LineInput::handleEvent(const qrw::IEvent &event)
 		}
 		else if(event.getName() == qrw::KeyPressedEvent::name)
 		{
-			qrw::KeyPressedEvent::Key key = static_cast<const qrw::KeyPressedEvent&>(event).key;
-			if(key == qrw::KeyPressedEvent::Key::Backspace)
+			qrw::KeyboardKey key = static_cast<const qrw::KeyPressedEvent&>(event).key;
+			if(key == qrw::KeyboardKey::Backspace)
 			{
 				std::string text = textWidget_->getText();
 				setText(text.substr(0, text.size() -1));
 				return true;
 			}
-			else if(key == qrw::KeyPressedEvent::Key::Return)
+			else if(key == qrw::KeyboardKey::Return)
 			{
 				signalDoneEditing.emit();
 				return true;

@@ -27,7 +27,7 @@ void DamageNumber::setDamage(int damage)
 	m_textComponent->setText("-" + std::to_string(damage));
 }
 
-void DamageNumber::update()
+void DamageNumber::update(float elapsedTimeInSeconds)
 {
 	if(!m_animation->isRunning())
 		g_scene.despawnDelayed(this);

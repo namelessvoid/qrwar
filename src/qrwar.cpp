@@ -66,7 +66,7 @@ void QRWar::run()
 
 	while(!quit)
 	{
-		sf::Time elapsedTime = timer.restart();
+		float elapsedTimeInSeconds = timer.restart().asSeconds();
 
 		_renderWindow.clear(sf::Color::Black);
 
@@ -102,8 +102,8 @@ void QRWar::run()
 			delete previousState;
 		}
 
-		g_scene.update();
-		g_animationSystem.update(elapsedTime.asSeconds());
+		g_scene.update(elapsedTimeInSeconds);
+		g_animationSystem.update(elapsedTimeInSeconds);
 	}
 }
 

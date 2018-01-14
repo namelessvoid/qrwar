@@ -22,7 +22,7 @@ public:
 private:
     sf::RenderWindow& m_window;
 
-	std::map<sf::Keyboard::Key,KeyPressedEvent::Key> keyMap_;
+	std::map<sf::Keyboard::Key,KeyboardKey> keyMap_;
 };
 
 }

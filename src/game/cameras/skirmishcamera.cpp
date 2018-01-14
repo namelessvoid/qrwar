@@ -8,6 +8,7 @@ namespace qrw
 {
 
 SkirmishCamera::SkirmishCamera()
+	: currentMovementDirection_(0, 0)
 {
 }
 
@@ -15,43 +16,41 @@ SkirmishCamera::~SkirmishCamera()
 {
 }
 
-void SkirmishCamera::update()
+void SkirmishCamera::update(float elapsedTimeInSeconds)
 {
+	BirdsEyeCamera& camera = g_renderSystem.getCamera();
+	camera.setCenter(camera.getCenter() + currentMovementDirection_ * (SCROLL_SPEED * elapsedTimeInSeconds));
 }
 
 bool SkirmishCamera::handleEvent(const IEvent &event)
 {
 	if(event.getName() == KeyPressedEvent::name)
 	{
-		KeyPressedEvent::Key key = static_cast<const KeyPressedEvent&>(event).key;
-
-		sf::Vector2f movementDirection(0, 0);
-		BirdsEyeCamera& camera = g_renderSystem.getCamera();
+		KeyboardKey key = static_cast<const KeyPressedEvent&>(event).key;
 
 		switch(key)
 		{
-		case KeyPressedEvent::Key::Right: //ft
-		case KeyPressedEvent::Key::D:
-			++movementDirection.x;
+		case KeyboardKey::Right: //ft
+		case KeyboardKey::D:
+			currentMovementDirection_.x = 1;
 			break;
-		case KeyPressedEvent::Key::Left: // ft
-		case KeyPressedEvent::Key::A:
-			--movementDirection.x;
+		case KeyboardKey::Left: // ft
+		case KeyboardKey::A:
+			currentMovementDirection_.x = -1;
 			break;
-		case KeyPressedEvent::Key::Up: //ft
-		case KeyPressedEvent::Key::W:
-			--movementDirection.y;
+		case KeyboardKey::Up: //ft
+		case KeyboardKey::W:
+			currentMovementDirection_.y = -1;
 			break;
-		case KeyPressedEvent::Key::Down: // ft
-		case KeyPressedEvent::Key::S:
-			++movementDirection.y;
+		case KeyboardKey::Down: // ft
+		case KeyboardKey::S:
+			currentMovementDirection_.y = 1;
 			break;
 		default:
 			break;
 		}
-
-		camera.setCenter(camera.getCenter() + movementDirection * 10.0f);
 	}
+
 	return false;
 }
 

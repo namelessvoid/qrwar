@@ -10,19 +10,19 @@ namespace qrw
 SfEventSource::SfEventSource(sf::RenderWindow& window)
 	: m_window(window)
 {
-	keyMap_[sf::Keyboard::Escape]    = KeyPressedEvent::Key::Esc;
-	keyMap_[sf::Keyboard::BackSpace] = KeyPressedEvent::Key::Backspace;
-	keyMap_[sf::Keyboard::Return]    = KeyPressedEvent::Key::Return;
+	keyMap_[sf::Keyboard::Escape]    = KeyboardKey::Esc;
+	keyMap_[sf::Keyboard::BackSpace] = KeyboardKey::Backspace;
+	keyMap_[sf::Keyboard::Return]    = KeyboardKey::Return;
 
-	keyMap_[sf::Keyboard::W] = KeyPressedEvent::Key::W;
-	keyMap_[sf::Keyboard::A] = KeyPressedEvent::Key::A;
-	keyMap_[sf::Keyboard::S] = KeyPressedEvent::Key::S;
-	keyMap_[sf::Keyboard::D] = KeyPressedEvent::Key::D;
+	keyMap_[sf::Keyboard::W] = KeyboardKey::W;
+	keyMap_[sf::Keyboard::A] = KeyboardKey::A;
+	keyMap_[sf::Keyboard::S] = KeyboardKey::S;
+	keyMap_[sf::Keyboard::D] = KeyboardKey::D;
 
-	keyMap_[sf::Keyboard::Left]  = KeyPressedEvent::Key::Left;
-	keyMap_[sf::Keyboard::Right] = KeyPressedEvent::Key::Right;
-	keyMap_[sf::Keyboard::Up]    = KeyPressedEvent::Key::Up;
-	keyMap_[sf::Keyboard::Down]  = KeyPressedEvent::Key::Down;
+	keyMap_[sf::Keyboard::Left]  = KeyboardKey::Left;
+	keyMap_[sf::Keyboard::Right] = KeyboardKey::Right;
+	keyMap_[sf::Keyboard::Up]    = KeyboardKey::Up;
+	keyMap_[sf::Keyboard::Down]  = KeyboardKey::Down;
 }
 
 const IEvent* SfEventSource::pollEvent()

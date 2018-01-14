@@ -74,7 +74,7 @@ void Scene::reset()
 	m_gameObjects.clear();
 }
 
-void Scene::update()
+void Scene::update(float elapsedTimeInSeconds)
 {
 	for(GameObject*& gameObject : m_toDeleteOnNextFrame)
 	{
@@ -86,7 +86,7 @@ void Scene::update()
 	{
 		for(auto& gameObject : gameObjectsIter.second)
 		{
-			gameObject->update();
+			gameObject->update(elapsedTimeInSeconds);
 		}
 	}
 }

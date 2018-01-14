@@ -66,7 +66,7 @@ bool SkirmishPreparationState::handleEvent(const IEvent& event)
 {
 	if(event.getName() == KeyPressedEvent::name)
 	{
-		if(static_cast<const KeyPressedEvent&>(event).key == KeyPressedEvent::Key::Esc)
+		if(static_cast<const KeyPressedEvent&>(event).key == KeyboardKey::Esc)
 		{
 			backToMainMenuDialog_->setVisible(true);
 			return true;

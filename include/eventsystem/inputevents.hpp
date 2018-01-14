@@ -8,6 +8,15 @@
 namespace qrw
 {
 
+enum class KeyboardKey
+{
+	Esc,
+	Backspace,
+	Return,
+	A, D, S, W,
+	Left, Right, Up, Down
+};
+
 struct MouseMovedEvent : EventBase<MouseMovedEvent>
 {
     sf::Vector2i screenCoordinates;
@@ -47,20 +56,11 @@ struct AsciiInputEvent : EventBase<AsciiInputEvent>
 
 struct KeyPressedEvent : EventBase<KeyPressedEvent>
 {
-	enum class Key
-	{
-		Esc,
-		Backspace,
-		Return,
-		A, D, S, W,
-		Left, Right, Up, Down
-	};
-
-	KeyPressedEvent(Key key)
+	KeyPressedEvent(KeyboardKey key)
 		: key(key)
 	{}
 
-	Key key;
+	KeyboardKey key;
 };
 
 } // namespace qrw

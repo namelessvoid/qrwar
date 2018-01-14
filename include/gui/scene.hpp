@@ -55,7 +55,7 @@ public:
 
 	void reset();
 
-	void update();
+	void update(float elapsedTimeInSeconds);
 
 private:
 	void removeGameObject(GameObject* gameObject);
