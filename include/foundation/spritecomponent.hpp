@@ -36,6 +36,8 @@ public:
 
 	const sf::Vector2f& getPosition() const override;
 
+	sf::Vector2f getCenter();
+
 	void setFillColor(const sf::Color& color);
 
 	virtual void render(sf::RenderTarget& renderTarget) override;

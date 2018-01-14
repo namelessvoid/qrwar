@@ -20,6 +20,8 @@ public:
 
     virtual bool handleEvent(const IEvent &event) override;
 
+    void setCenter(sf::Vector2f center);
+
 private:
     sf::Vector2f currentMovementDirection_;
 

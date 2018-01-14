@@ -75,4 +75,9 @@ bool SkirmishCamera::handleEvent(const IEvent &event)
 	return false;
 }
 
+void SkirmishCamera::setCenter(sf::Vector2f center)
+{
+	g_renderSystem.getCamera().setCenter(center);
+}
+
 } // namespace qrw

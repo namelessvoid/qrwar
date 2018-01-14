@@ -5,6 +5,8 @@
 
 #include "engine/unit.hpp"
 
+#include "foundation/spritecomponent.hpp"
+
 #include "game/states/skirmishpreparationstate.hpp"
 #include "game/cameras/skirmishcamera.hpp"
 
@@ -132,7 +134,9 @@ void DeployState::init(GameState* previousState)
 	g_scene.setBoard(board_);
 
 	g_scene.spawn<Cursor>();
-	g_scene.spawn<SkirmishCamera>();
+
+	SkirmishCamera* camera = g_scene.spawn<SkirmishCamera>();
+	camera->setCenter(board_->getComponent<SpriteComponent>()->getCenter());
 
 	// Create new players
 	_players.clear();
