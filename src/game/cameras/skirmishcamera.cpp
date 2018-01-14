@@ -50,6 +50,27 @@ bool SkirmishCamera::handleEvent(const IEvent &event)
 			break;
 		}
 	}
+	else if(event.getName() == KeyReleasedEvent::name)
+	{
+		KeyboardKey key = static_cast<const KeyReleasedEvent&>(event).key;
+
+		switch (key) {
+		case KeyboardKey::Right: // ft
+		case KeyboardKey::Left: // ft
+		case KeyboardKey::D: // ft
+		case KeyboardKey::A:
+			currentMovementDirection_.x = 0;
+			break;
+		case KeyboardKey::Up: // ft
+		case KeyboardKey::Down: // ft
+		case KeyboardKey::W: //ft
+		case KeyboardKey::S:
+			currentMovementDirection_.y = 0;
+			break;
+		default:
+			break;
+		}
+	}
 
 	return false;
 }

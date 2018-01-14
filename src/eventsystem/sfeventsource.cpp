@@ -42,7 +42,7 @@ const IEvent* SfEventSource::pollEvent()
 			return new RightMouseButtonPressedEvent();
 	}
 
-	if(event.type == sf::Event::MouseButtonReleased)
+	else if(event.type == sf::Event::MouseButtonReleased)
 	{
 		if(event.mouseButton.button == sf::Mouse::Button::Left)
 			return new LeftMouseButtonReleasedEvent();
@@ -50,7 +50,7 @@ const IEvent* SfEventSource::pollEvent()
 			return new RightMouseButtonReleasedEvent();
 	}
 
-	if(event.type == sf::Event::MouseMoved)
+	else if(event.type == sf::Event::MouseMoved)
 	{
 		sf::Vector2i screenCoordinates(event.mouseMove.x, event.mouseMove.y);
 		sf::Vector2f worldCoordinates = m_window.mapPixelToCoords(screenCoordinates);
@@ -58,14 +58,21 @@ const IEvent* SfEventSource::pollEvent()
 		return new MouseMovedEvent(screenCoordinates, {(int)worldCoordinates.x, (int)worldCoordinates.y});
 	}
 
-	if(event.type == sf::Event::KeyPressed)
+	else if(event.type == sf::Event::KeyPressed)
 	{
 		auto iter = keyMap_.find(event.key.code);
 		if(iter != keyMap_.end())
 			return new KeyPressedEvent(iter->second);
 	}
 
-	if(event.type == sf::Event::TextEntered)
+	else if(event.type == sf::Event::KeyReleased)
+	{
+		auto iter = keyMap_.find(event.key.code);
+		if(iter != keyMap_.end())
+			return new KeyReleasedEvent(iter->second);
+	}
+
+	else if(event.type == sf::Event::TextEntered)
 	{
 		// Only handle ascii characters
 		if(event.text.unicode < 128)

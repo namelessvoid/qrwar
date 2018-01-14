@@ -63,6 +63,15 @@ struct KeyPressedEvent : EventBase<KeyPressedEvent>
 	KeyboardKey key;
 };
 
+struct KeyReleasedEvent : EventBase<KeyReleasedEvent>
+{
+	KeyReleasedEvent(KeyboardKey key)
+		: key(key)
+	{}
+
+	KeyboardKey key;
+};
+
 } // namespace qrw
 
 #endif // QRW_INPUTEVENT_HPP

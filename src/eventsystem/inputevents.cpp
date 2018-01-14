@@ -24,4 +24,7 @@ const SID EventBase<AsciiInputEvent>::name("ASCII_INPUT");
 template<>
 const SID EventBase<KeyPressedEvent>::name("KEY_PRESSED");
 
+template<>
+const SID EventBase<KeyReleasedEvent>::name("KEY_RELEASED");
+
 } // namespace qrw
