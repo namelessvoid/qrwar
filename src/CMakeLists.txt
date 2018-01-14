@@ -54,6 +54,8 @@ add_library(qrwarlib
         game/path.cpp
         game/pathrendercomponent.cpp
 
+        game/cameras/skirmishcamera.cpp
+
         gui/scene.cpp
         gui/squaremarker.cpp
         gui/cursor.cpp

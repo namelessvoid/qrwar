@@ -8,6 +8,8 @@
 #include "gui/ng/tabwidget.hpp"
 #include "gui/ng/spinbox.hpp"
 
+#include "game/cameras/skirmishcamera.hpp"
+
 namespace qrw
 {
 
@@ -38,6 +40,7 @@ void MapEditorState::init(GameState* previousState)
 	g_scene.setBoard(_spBoard);
 
 	g_scene.spawn<Cursor>();
+	g_scene.spawn<SkirmishCamera>();
 }
 
 EGameStateId MapEditorState::update()

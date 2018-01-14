@@ -6,6 +6,7 @@
 #include "engine/unit.hpp"
 
 #include "game/states/skirmishpreparationstate.hpp"
+#include "game/cameras/skirmishcamera.hpp"
 
 #include "gui/texturemanager.hpp"
 
@@ -130,8 +131,8 @@ void DeployState::init(GameState* previousState)
 	board_ = new Board(16, 9);
 	g_scene.setBoard(board_);
 
-	Cursor* cursor = new Cursor();
-	g_scene.addGameObject(cursor);
+	g_scene.spawn<Cursor>();
+	g_scene.spawn<SkirmishCamera>();
 
 	// Create new players
 	_players.clear();

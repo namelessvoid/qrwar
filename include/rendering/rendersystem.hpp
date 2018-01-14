@@ -23,6 +23,8 @@ public:
 
 	void renderAll();
 
+	BirdsEyeCamera& getCamera() const { return *camera_; }
+
 private:
 	RenderSystem(const RenderSystem&) = delete;
 

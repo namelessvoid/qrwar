@@ -9,7 +9,7 @@
 
 namespace qrw {
 
-class BirdsEyeCamera : public Camera, public EventHandler
+class BirdsEyeCamera : public Camera
 {
 public:
     BirdsEyeCamera();
@@ -18,9 +18,9 @@ public:
 
     void setCenter(const sf::Vector2f& center) { center_ = center; }
 
-    virtual void applyTo(sf::RenderTarget& renderTarget) override;
+	const sf::Vector2f& getCenter() const { return center_; }
 
-    virtual bool handleEvent(const IEvent &event) override;
+    virtual void applyTo(sf::RenderTarget& renderTarget) override;
 
 private:
     sf::Vector2f center_;
