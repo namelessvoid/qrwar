@@ -51,6 +51,7 @@ add_library(qrwarlib
         game/states/skirmishstate.cpp
         game/damagenumber.cpp
         game/events.cpp
+        game/mapmanager.cpp
         game/gui/victorydialog.cpp
 
         game/path.cpp

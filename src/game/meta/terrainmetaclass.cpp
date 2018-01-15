@@ -13,14 +13,19 @@ TerrainMetaClass::~TerrainMetaClass()
 {
 }
 
-void TerrainMetaClass::serialze(GameObject* object, YAML::Emitter& out) const
+void TerrainMetaClass::serialize(const GameObject* object, YAML::Emitter& out) const
 {
-	const Terrain* terrain = dynamic_cast<Terrain*>(object);
+	const Terrain* terrain = dynamic_cast<const Terrain*>(object);
 	assert(terrain != nullptr);
 
-	out << YAML::BeginMap;
-	out << YAML::Key << "type" << YAML::Value << terrain->getType();
-	out << YAML::EndMap;
+	out << YAML::BeginMap
+			<< YAML::Key << "type" << YAML::Value << terrain->getType()
+			<< YAML::Key << "position"
+			<< YAML::BeginMap
+				<< YAML::Key << "x" << YAML::Value << terrain->getPosition().getX()
+				<< YAML::Key << "y" << YAML::Value << terrain->getPosition().getY()
+			<< YAML::EndMap
+		<< YAML::EndMap;
 }
 
 std::type_index TerrainMetaClass::getTypeIndex() const

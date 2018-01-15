@@ -16,7 +16,7 @@ public:
     ~BoardMetaClass()
     {}
 
-    virtual void serialze(GameObject* object, YAML::Emitter &out) const final override;
+	virtual void serialize(const GameObject* object, YAML::Emitter &out) const final override;
 
     virtual std::type_index getTypeIndex() const override;
 

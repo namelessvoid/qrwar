@@ -12,7 +12,7 @@ public:
 
     ~TerrainMetaClass();
 
-    virtual void serialze(GameObject* object, YAML::Emitter &out) const override;
+	virtual void serialize(const GameObject* object, YAML::Emitter &out) const override;
     virtual std::type_index getTypeIndex() const override;
 
 private:
