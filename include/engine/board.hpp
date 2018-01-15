@@ -49,7 +49,9 @@ class Path;
 			bool isOnBoard(Coordinates coordinates);
 
 			void setWidth(unsigned int width);
+			unsigned int getWidth() const { return _width; }
 			void setHeight(unsigned int height);
+			unsigned int getHeight() const { return _height; }
 
 			/**
 			 * @brief Call pathfinding algorithm to find path from start to end.
