@@ -15,6 +15,10 @@
 
 #include "engine/board.hpp"
 
+namespace namelessgui {
+class LineInput;
+}
+
 namespace qrw
 {
 
@@ -41,12 +45,15 @@ private:
 
 	void slotTerrainButtonChanged(const namelessgui::RadioToggleButton& activeTerrainButton);
 	void slotSaveButtonClicked();
+	void slotLoadButtonClicked();
 
 	namelessgui::Window* createConfigToolsWindow();
 	namelessgui::Window* createTerrainToolsWindow();
 	namelessgui::Window* createStructureToolsWindow();
 
 	TERRAINTYPES _activeTerrainType;
+
+	namelessgui::LineInput* mapNameInput_;
 
     /**
      * @brief Mode of the cursor.

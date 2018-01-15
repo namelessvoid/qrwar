@@ -7,8 +7,11 @@
 #include "gui/ng/buttongroup.hpp"
 #include "gui/ng/tabwidget.hpp"
 #include "gui/ng/spinbox.hpp"
+#include "gui/ng/lineinput.hpp"
 
 #include "game/cameras/skirmishcamera.hpp"
+#include "game/mapmanager.hpp"
+
 #include "foundation/spritecomponent.hpp"
 
 namespace qrw
@@ -137,6 +140,22 @@ void MapEditorState::slotTerrainButtonChanged(const namelessgui::RadioToggleButt
 
 void MapEditorState::slotSaveButtonClicked()
 {
+	MapManager* mapManager = MapManager::get();
+
+	mapManager->saveMap(mapNameInput_->getText(), *_spBoard);
+}
+
+void MapEditorState::slotLoadButtonClicked()
+{
+	MapManager* mapManager = MapManager::get();
+
+	if(!mapManager->doesMapExist(mapNameInput_->getText()))
+		return;
+
+	for(auto& terrainIter : _spBoard->getTerrains()) g_scene.despawn(terrainIter.second);
+	g_scene.despawn(_spBoard);
+	_spBoard = mapManager->loadMap(mapNameInput_->getText());
+	g_scene.addGameObject(_spBoard);
 }
 
 namelessgui::Window* MapEditorState::createConfigToolsWindow()
@@ -150,8 +169,14 @@ namelessgui::Window* MapEditorState::createConfigToolsWindow()
 	heading->setRelativePosition({5.0f, 0});
 	configWindow->addWidget(heading);
 
+	mapNameInput_ = new namelessgui::LineInput();
+	mapNameInput_->setSize({198, 30});
+	mapNameInput_->setText("Map Name");
+	configWindow->addWidget(mapNameInput_);
+
 	namelessgui::SpinBox* mapWidthBox = new namelessgui::SpinBox();
 	mapWidthBox->setSize({100.0f, 30.0f});
+	mapWidthBox->setRelativePosition({0, 50});
 	mapWidthBox->setMinValue(10);
 	mapWidthBox->setMaxValue(128);
 	mapWidthBox->setValue(INITIAL_BOARD_WIDTH);
@@ -160,6 +185,7 @@ namelessgui::Window* MapEditorState::createConfigToolsWindow()
 
 	namelessgui::SpinBox* mapHeightBox = new namelessgui::SpinBox();
 	mapHeightBox->setSize({100.0f, 30.0f});
+	mapHeightBox->setRelativePosition({0, 50});
 	mapHeightBox->setMinValue(10);
 	mapHeightBox->setMaxValue(128);
 	mapHeightBox->setValue(INITIAL_BOARD_HEIGHT);
@@ -168,14 +194,21 @@ namelessgui::Window* MapEditorState::createConfigToolsWindow()
 	mapHeightBox->signalChanged.connect([this] (unsigned int height) { slotChangeBoardHeight(height); });
 	configWindow->addWidget(mapHeightBox);
 
-	namelessgui::Button* toDeploymentButton = new namelessgui::Button();
-	toDeploymentButton->setText("Save");
-	toDeploymentButton->setSize({buttonSize.x, 30.0f});
-	toDeploymentButton->setAnchor({0.5f, 1.0f});
-	toDeploymentButton->setParentAnchor({0.5f, 1.0f});
-	toDeploymentButton->setRelativePosition({0.0f, -5.0f});
-	toDeploymentButton->signalClicked.connect(std::bind(&MapEditorState::slotSaveButtonClicked, this));
-	configWindow->addWidget(toDeploymentButton);
+	namelessgui::Button* saveButton = new namelessgui::Button();
+	saveButton->setText("Save");
+	saveButton->setSize({buttonSize.x, 30.0f});
+	saveButton->setAnchor({0.5f, 1.0f});
+	saveButton->setParentAnchor({0.5f, 1.0f});
+	saveButton->setRelativePosition({0.0f, -5.0f});
+	saveButton->signalClicked.connect(std::bind(&MapEditorState::slotSaveButtonClicked, this));
+	configWindow->addWidget(saveButton);
+
+	namelessgui::Button* loadButton = new namelessgui::Button();
+	loadButton->setText("Load");
+	loadButton->setRelativePosition({0, 150});
+	loadButton->setSize({150, 30});
+	loadButton->signalClicked.connect([this] { slotLoadButtonClicked(); });
+	configWindow->addWidget(loadButton);
 
 	return configWindow;
 }
