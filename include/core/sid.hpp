@@ -32,6 +32,11 @@ public:
 		return m_hashId < rhs.m_hashId;
 	}
 
+	const std::string& getStringId()
+	{
+		return m_stringId;
+	}
+
 	friend std::ostream& operator<<(std::ostream& os, const SID& sid)
 	{
 		os << sid.m_stringId;
