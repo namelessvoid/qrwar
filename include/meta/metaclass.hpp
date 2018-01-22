@@ -16,7 +16,7 @@ public:
 
     virtual ~MetaClass();
 
-    virtual void serialze(GameObject* object, YAML::Emitter& out) const = 0;
+	virtual void serialize(const GameObject* object, YAML::Emitter& out) const = 0;
 
     virtual std::type_index getTypeIndex() const = 0;
 
