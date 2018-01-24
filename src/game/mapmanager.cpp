@@ -1,6 +1,5 @@
 #include "game/mapmanager.hpp"
 
-#include <experimental/filesystem>
 #include <cstdlib>
 #include <fstream>
 
@@ -9,6 +8,8 @@
 #include "meta/metamanager.hpp"
 
 #include "engine/board.hpp"
+
+namespace fs = std::experimental::filesystem;
 
 namespace qrw
 {
@@ -47,13 +48,13 @@ Board* MapManager::loadMap(const std::string& mapName)
 
 bool MapManager::doesMapExist(const std::string& mapName)
 {
-	return true;
+	fs::path mapFilePath = getUserMapDir() / mapNameToFileName(mapName);
+
+	return fs::exists(mapFilePath);
 }
 
 void MapManager::saveMap(const std::string& mapName, const Board& board)
 {
-	namespace fs = std::experimental::filesystem;
-
 	const MetaClass* boardMetaClass = MetaManager::getMetaClassFor<Board>();
 	const std::string fileName = mapNameToFileName(mapName);
 
@@ -74,12 +75,12 @@ void MapManager::saveMap(const std::string& mapName, const Board& board)
 	std::cout << yaml.c_str() << std::endl << std::flush;
 
 	std::ofstream mapFile;
-	std::string userMapDir = getUserMapDir();
+	fs::path userMapDir = getUserMapDir();
 
 	if(!fs::exists(userMapDir))
 		fs::create_directories(userMapDir);
 
-	mapFile.open(userMapDir + "/" + fileName, std::ofstream::out | std::ofstream::trunc);
+	mapFile.open(userMapDir / fileName, std::ofstream::out | std::ofstream::trunc);
 	mapFile << yaml.c_str() << std::endl;
 	mapFile.close();
 }
@@ -92,7 +93,7 @@ std::string MapManager::mapNameToFileName(std::string mapName)
 	return mapName;
 }
 
-std::string MapManager::getUserMapDir()
+fs::path MapManager::getUserMapDir()
 {
 	return std::string(getenv("HOME")) + "/.qrw/maps";
 }

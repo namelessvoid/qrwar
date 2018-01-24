@@ -1,6 +1,7 @@
 #ifndef QRW_MAPMANAGER_HPP
 #define QRW_MAPMANAGER_HPP
 
+#include <experimental/filesystem>
 #include <string>
 
 namespace qrw {
@@ -25,7 +26,7 @@ private:
 
     std::string mapNameToFileName(std::string mapName);
 
-	std::string getUserMapDir();
+	std::experimental::filesystem::path getUserMapDir();
 
     static MapManager* instance_;
 
