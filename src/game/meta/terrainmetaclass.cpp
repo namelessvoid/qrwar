@@ -30,7 +30,9 @@ void TerrainMetaClass::serialize(const GameObject* object, YAML::Emitter& out) c
 
 GameObject* TerrainMetaClass::deserialize(const YAML::Node& in) const
 {
-	return nullptr;
+	Terrain* terrain = Terrain::createTerrain(static_cast<TERRAINTYPES>(in["type"].as<int>()));
+	terrain->setPosition({in["position"]["x"].as<int>(), in["position"]["y"].as<int>()});
+	return terrain;
 }
 
 std::type_index TerrainMetaClass::getTypeIndex() const

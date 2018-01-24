@@ -39,10 +39,20 @@ void BoardMetaClass::serialize(const GameObject* object, YAML::Emitter& out) con
 
 GameObject* BoardMetaClass::deserialize(const YAML::Node& in) const
 {
+	const MetaClass* terrainMetaClass = MetaManager::getMetaClassFor<Terrain>();
+
 	Board* board = new Board();
 
 	board->setWidth(in["size"]["width"].as<unsigned int>());
 	board->setHeight(in["size"]["height"].as<unsigned int>());
+
+	YAML::Node terrains = in["terrains"];
+
+	for(size_t i = 0; i < terrains.size(); ++i)
+	{
+		Terrain* terrain = static_cast<Terrain*>(terrainMetaClass->deserialize(terrains[i]));
+		board->setTerrain(terrain->getPosition(), terrain);
+	}
 
 	return board;
 }
