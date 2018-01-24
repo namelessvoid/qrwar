@@ -63,8 +63,7 @@ void SkirmishState::init(GameState *previousState)
 {
     SceneState::init(previousState);
 
-    if(previousState->getId() != EGameStateId::EGSID_DEPLOY_STATE)
-        return;
+	assert(previousState->getId() == EGameStateId::EGSID_DEPLOY_STATE);
 
     DeployState* deployState = static_cast<DeployState*>(previousState);
 
