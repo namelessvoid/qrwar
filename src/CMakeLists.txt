@@ -1,7 +1,5 @@
 add_subdirectory(gui/ng)
 
-add_library(tostring tostring.cpp)
-
 add_library(qrwarlib
         qrwar.cpp
 
@@ -73,7 +71,7 @@ add_library(qrwarlib
         game/meta/terrainmetaclass.cpp
 )
 set_target_properties(qrwarlib PROPERTIES OUTPUT_NAME qrwar)
-target_link_libraries(qrwarlib ${LIBS} stdc++fs tostring namelessgui)
+target_link_libraries(qrwarlib ${LIBS} stdc++fs namelessgui)
 
 add_executable(qrwar main.cpp)
 target_link_libraries(qrwar qrwarlib)
