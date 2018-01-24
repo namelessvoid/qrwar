@@ -27,6 +27,12 @@ SkirmishPreparationState::SkirmishPreparationState(sf::RenderWindow* renderWindo
 	toSkirmisStateButton->setRelativePosition({-5, -5});
 	window->addWidget(toSkirmisStateButton);
 
+	mapName_ = new namelessgui::LineInput();
+	mapName_->setText("Default Map");
+	mapName_->setSize({200, 30});
+	mapName_->setRelativePosition({10, 50});
+	window->addWidget(mapName_);
+
 	playerOneName_ = new namelessgui::LineInput();
 	playerOneName_->setText("Sigurdson");
 	playerOneName_->setSize({200, 30});
@@ -74,6 +80,11 @@ bool SkirmishPreparationState::handleEvent(const IEvent& event)
 	}
 
 	return false;
+}
+
+const std::string &SkirmishPreparationState::getMapName() const
+{
+	return mapName_->getText();
 }
 
 const std::string& SkirmishPreparationState::getPlayerOneName() const

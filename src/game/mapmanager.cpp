@@ -33,11 +33,13 @@ MapManager* MapManager::get()
 
 Board* MapManager::loadMap(const std::string& mapName)
 {
+	assert(doesMapExist(mapName));
+
 	const MetaClass* boardMetaClass = MetaManager::getMetaClassFor<Board>();
 
 	Board* board = new Board();
 
-	std::vector<YAML::Node> documents = YAML::LoadAllFromFile(mapNameToFileName(mapName));
+	std::vector<YAML::Node> documents = YAML::LoadAllFromFile(getUserMapDir() / mapNameToFileName(mapName));
 
 	std::cout << documents.at(1)[0]["qrw::Board"] << std::endl << std::flush;
 	board->setWidth(documents.at(1)[0]["qrw::Board"]["size"]["width"].as<unsigned int>());

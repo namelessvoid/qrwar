@@ -9,6 +9,7 @@
 
 #include "game/states/skirmishpreparationstate.hpp"
 #include "game/cameras/skirmishcamera.hpp"
+#include "game/mapmanager.hpp"
 
 #include "gui/texturemanager.hpp"
 
@@ -129,8 +130,8 @@ void DeployState::init(GameState* previousState)
 
 	SceneState::init(previousState);
 
-	// TODO: Load board from map file
-	board_ = new Board(16, 9);
+	// Load board
+	board_ = MapManager::get()->loadMap(preparationState->getMapName());
 	g_scene.setBoard(board_);
 
 	g_scene.spawn<Cursor>();

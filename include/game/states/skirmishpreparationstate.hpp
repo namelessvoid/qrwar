@@ -23,6 +23,8 @@ public:
 
 	virtual bool handleEvent(const IEvent &event) override;
 
+	const std::string& getMapName() const;
+
 	const std::string& getPlayerOneName() const;
 
 	const std::string& getPlayerTwoName() const;
@@ -40,6 +42,7 @@ private:
 
     EGameStateId nextState_;
 
+	namelessgui::LineInput* mapName_;
 	namelessgui::LineInput* playerOneName_;
 	namelessgui::LineInput* playerTwoName_;
 };
