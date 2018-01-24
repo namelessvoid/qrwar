@@ -37,13 +37,9 @@ Board* MapManager::loadMap(const std::string& mapName)
 
 	const MetaClass* boardMetaClass = MetaManager::getMetaClassFor<Board>();
 
-	Board* board = new Board();
-
 	std::vector<YAML::Node> documents = YAML::LoadAllFromFile(getUserMapDir() / mapNameToFileName(mapName));
 
-	std::cout << documents.at(1)[0]["qrw::Board"] << std::endl << std::flush;
-	board->setWidth(documents.at(1)[0]["qrw::Board"]["size"]["width"].as<unsigned int>());
-	board->setHeight(documents.at(1)[0]["qrw::Board"]["size"]["height"].as<unsigned int>());
+	Board* board = static_cast<Board*>(boardMetaClass->deserialize(documents.at(1)[0]["qrw::Board"]));
 
 	return board;
 }
