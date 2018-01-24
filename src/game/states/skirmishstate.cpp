@@ -56,6 +56,7 @@ SkirmishState::SkirmishState(sf::RenderWindow* renderWindow)
 	m_victoryDialog = new VictoryDialog();
 	m_victoryDialog->signalCloseClicked.connect(std::bind(&SceneState::slotBackToMainMenu, this));
 	m_victoryGui->addWidget(m_victoryDialog);
+	m_victoryGui->setVisible(false);
 }
 
 void SkirmishState::init(GameState *previousState)
@@ -79,9 +80,6 @@ void SkirmishState::init(GameState *previousState)
 	Unit* unit = _board->getUnit(cursorPosition);
 	Terrain* terrain = _board->getTerrain(cursorPosition);
 	_squareDetailWindow->setUnitAndTerrain(unit, terrain);
-
-	// Change visibility of guis
-	m_victoryGui->setVisible(false);
 }
 
 void SkirmishState::draw()
