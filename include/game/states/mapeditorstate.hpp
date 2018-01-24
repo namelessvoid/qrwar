@@ -47,6 +47,8 @@ private:
 	void slotSaveButtonClicked();
 	void slotLoadButtonClicked();
 
+	void saveMap();
+
 	namelessgui::Window* createConfigToolsWindow();
 	namelessgui::Window* createTerrainToolsWindow();
 	namelessgui::Window* createStructureToolsWindow();
@@ -54,6 +56,8 @@ private:
 	TERRAINTYPES _activeTerrainType;
 
 	namelessgui::LineInput* mapNameInput_;
+
+	namelessgui::ConfirmationDialog* mapOverwriteConfirmationDialog_;
 
     /**
      * @brief Mode of the cursor.

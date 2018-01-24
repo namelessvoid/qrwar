@@ -29,6 +29,12 @@ MapEditorState::MapEditorState(sf::RenderWindow* renderWindow)
 	tabWidget->addTab(TextureManager::getInstance()->getTexture("wood"), createTerrainToolsWindow());
 	tabWidget->addTab(TextureManager::getInstance()->getTexture("wall"), createStructureToolsWindow());
 	_toolBar->addWidget(tabWidget);
+
+	mapOverwriteConfirmationDialog_ = new namelessgui::ConfirmationDialog("Map already exists!\nOverwrite existing map?");
+	mapOverwriteConfirmationDialog_->setSize({250, 100});
+	mapOverwriteConfirmationDialog_->signalYesClicked.connect([this] { saveMap(); });
+	_guiUptr->addWidget(mapOverwriteConfirmationDialog_);
+	mapOverwriteConfirmationDialog_->setVisible(false);
 }
 
 MapEditorState::~MapEditorState()
@@ -142,7 +148,10 @@ void MapEditorState::slotSaveButtonClicked()
 {
 	MapManager* mapManager = MapManager::get();
 
-	mapManager->saveMap(mapNameInput_->getText(), *_spBoard);
+	if(!mapManager->doesMapExist(mapNameInput_->getText()))
+		saveMap();
+	else
+		mapOverwriteConfirmationDialog_->setVisible(true);
 }
 
 void MapEditorState::slotLoadButtonClicked()
@@ -156,6 +165,11 @@ void MapEditorState::slotLoadButtonClicked()
 	g_scene.despawn(_spBoard);
 	_spBoard = mapManager->loadMap(mapNameInput_->getText());
 	g_scene.addGameObject(_spBoard);
+}
+
+void MapEditorState::saveMap()
+{
+	MapManager::get()->saveMap(mapNameInput_->getText(), *_spBoard);
 }
 
 namelessgui::Window* MapEditorState::createConfigToolsWindow()
