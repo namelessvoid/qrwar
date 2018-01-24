@@ -72,11 +72,13 @@ bool WidgetEventMixin::handleEvent(const qrw::IEvent& event)
 		else if(event.getName() == qrw::LeftMouseButtonReleasedEvent::name && leftMouseButtonPressRegistered_)
 		{
 			signalClicked.emit();
+			leftMouseButtonPressRegistered_ = false;
 			stopEventPropagation = true;
 		}
 		else if(event.getName() == qrw::RightMouseButtonReleasedEvent::name && rightMouseButtonPressRegistered_)
 		{
 			signalRightClicked.emit();
+			rightMouseButtonPressRegistered_ = false;
 			stopEventPropagation = true;
 		}
 	}
