@@ -25,6 +25,8 @@ private:
 
     std::string mapNameToFileName(std::string mapName);
 
+	std::string getUserMapDir();
+
     static MapManager* instance_;
 
     MapManager(const MapManager& rhs) = delete;

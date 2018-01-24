@@ -1,5 +1,7 @@
 #include "game/mapmanager.hpp"
 
+#include <experimental/filesystem>
+#include <cstdlib>
 #include <fstream>
 
 #include "core/stringutils.hpp"
@@ -50,6 +52,8 @@ bool MapManager::doesMapExist(const std::string& mapName)
 
 void MapManager::saveMap(const std::string& mapName, const Board& board)
 {
+	namespace fs = std::experimental::filesystem;
+
 	const MetaClass* boardMetaClass = MetaManager::getMetaClassFor<Board>();
 	const std::string fileName = mapNameToFileName(mapName);
 
@@ -70,7 +74,12 @@ void MapManager::saveMap(const std::string& mapName, const Board& board)
 	std::cout << yaml.c_str() << std::endl << std::flush;
 
 	std::ofstream mapFile;
-	mapFile.open(fileName);
+	std::string userMapDir = getUserMapDir();
+
+	if(!fs::exists(userMapDir))
+		fs::create_directories(userMapDir);
+
+	mapFile.open(userMapDir + "/" + fileName, std::ofstream::out | std::ofstream::trunc);
 	mapFile << yaml.c_str() << std::endl;
 	mapFile.close();
 }
@@ -81,6 +90,11 @@ std::string MapManager::mapNameToFileName(std::string mapName)
 	toLower(mapName);
 	mapName += ".map";
 	return mapName;
+}
+
+std::string MapManager::getUserMapDir()
+{
+	return std::string(getenv("HOME")) + "/.qrw/maps";
 }
 
 } // namespace qrw
