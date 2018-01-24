@@ -4,10 +4,16 @@ project(QuadRuledWar)
 # set cmake stuff
 set(CMAKE_BUILD_TYPE Debug)
 set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} ${QuadRuledWar_SOURCE_DIR}/cmake/Modules)
-set(CMAKE_CXX_FLAGS "-std=c++17 -g")
+set(CMAKE_CXX_FLAGS "-g")
+set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(EXECUTABLE_OUTPUT_PATH ${CMAKE_SOURCE_DIR}/bin)
 
 add_definitions("-Wall")
+
+# filesystem library
+add_library(stdc++fs UNKNOWN IMPORTED)
+set_property(TARGET stdc++fs PROPERTY IMPORTED_LOCATION "/usr/lib/libstdc++fs.a")
 
 # extern libraries
 find_package(SFML 2 REQUIRED graphics system window audio)

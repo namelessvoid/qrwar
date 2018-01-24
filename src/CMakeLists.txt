@@ -73,7 +73,7 @@ add_library(qrwarlib
         game/meta/terrainmetaclass.cpp
 )
 set_target_properties(qrwarlib PROPERTIES OUTPUT_NAME qrwar)
-target_link_libraries(qrwarlib ${LIBS} tostring namelessgui)
+target_link_libraries(qrwarlib ${LIBS} stdc++fs tostring namelessgui)
 
 add_executable(qrwar main.cpp)
 target_link_libraries(qrwar qrwarlib)
