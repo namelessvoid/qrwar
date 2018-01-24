@@ -34,7 +34,12 @@ void BoardMetaClass::serialize(const GameObject* object, YAML::Emitter& out) con
 
 			out << YAML::EndSeq;
 		out << YAML::EndMap;
-	out << YAML::EndMap;
+		out << YAML::EndMap;
+}
+
+GameObject* BoardMetaClass::deserialize(const YAML::Node& in) const
+{
+	return nullptr;
 }
 
 std::type_index BoardMetaClass::getTypeIndex() const

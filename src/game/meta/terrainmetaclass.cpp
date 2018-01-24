@@ -25,7 +25,12 @@ void TerrainMetaClass::serialize(const GameObject* object, YAML::Emitter& out) c
 				<< YAML::Key << "x" << YAML::Value << terrain->getPosition().getX()
 				<< YAML::Key << "y" << YAML::Value << terrain->getPosition().getY()
 			<< YAML::EndMap
-		<< YAML::EndMap;
+			<< YAML::EndMap;
+}
+
+GameObject* TerrainMetaClass::deserialize(const YAML::Node& in) const
+{
+	return nullptr;
 }
 
 std::type_index TerrainMetaClass::getTypeIndex() const

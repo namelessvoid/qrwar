@@ -18,6 +18,8 @@ public:
 
 	virtual void serialize(const GameObject* object, YAML::Emitter& out) const = 0;
 
+	virtual GameObject* deserialize(const YAML::Node& in) const = 0;
+
     virtual std::type_index getTypeIndex() const = 0;
 
 private:
