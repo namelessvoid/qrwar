@@ -83,7 +83,15 @@ void MapManager::saveMap(const std::string& mapName, const Board& board)
 	mapFile.close();
 }
 
-std::string MapManager::mapNameToFileName(std::string mapName)
+std::vector<std::string> MapManager::getMapList() const
+{
+	for(auto& p: fs::directory_iterator(getUserMapDir()))
+		std::cout << p << '\n';
+
+	return std::vector<std::string>();
+}
+
+std::string MapManager::mapNameToFileName(std::string mapName) const
 {
 	replaceAll(mapName, " ", "-");
 	toLower(mapName);
@@ -91,7 +99,7 @@ std::string MapManager::mapNameToFileName(std::string mapName)
 	return mapName;
 }
 
-fs::path MapManager::getUserMapDir()
+fs::path MapManager::getUserMapDir() const
 {
 	return std::string(getenv("HOME")) + "/.qrw/maps";
 }

@@ -7,6 +7,8 @@
 
 #include "eventsystem/inputevents.hpp"
 
+#include "game/mapmanager.hpp"
+
 namespace qrw
 {
 
@@ -52,6 +54,8 @@ SkirmishPreparationState::SkirmishPreparationState(sf::RenderWindow* renderWindo
 	_guiUptr->setVisible(true);
 
 	backToMainMenuDialog_->setVisible(false);
+
+	MapManager::get()->getMapList();
 }
 
 SkirmishPreparationState::~SkirmishPreparationState()

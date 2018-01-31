@@ -21,12 +21,14 @@ public:
 
     void saveMap(const std::string& mapName, const Board& board);
 
+	std::vector<std::string> getMapList() const;
+
 private:
     MapManager();
 
-    std::string mapNameToFileName(std::string mapName);
+	std::string mapNameToFileName(std::string mapName) const;
 
-	std::experimental::filesystem::path getUserMapDir();
+	std::experimental::filesystem::path getUserMapDir() const;
 
     static MapManager* instance_;
 
