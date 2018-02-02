@@ -4,6 +4,7 @@
 #include "gui/ng/button.hpp"
 #include "gui/ng/lineinput.hpp"
 #include "gui/ng/confirmationdialog.hpp"
+#include "gui/ng/listwidget.hpp"
 
 #include "eventsystem/inputevents.hpp"
 
@@ -32,19 +33,19 @@ SkirmishPreparationState::SkirmishPreparationState(sf::RenderWindow* renderWindo
 	mapName_ = new namelessgui::LineInput();
 	mapName_->setText("Default Map");
 	mapName_->setSize({200, 30});
-	mapName_->setRelativePosition({10, 50});
+	mapName_->setRelativePosition({10, 150});
 	window->addWidget(mapName_);
 
 	playerOneName_ = new namelessgui::LineInput();
 	playerOneName_->setText("Sigurdson");
 	playerOneName_->setSize({200, 30});
-	playerOneName_->setRelativePosition({100, 100});
+	playerOneName_->setRelativePosition({100, 200});
 	window->addWidget(playerOneName_);
 
 	playerTwoName_ = new namelessgui::LineInput();
 	playerTwoName_->setText("King Karl XIII");
 	playerTwoName_->setSize({200, 30});
-	playerTwoName_->setRelativePosition({400, 100});
+	playerTwoName_->setRelativePosition({400, 200});
 	window->addWidget(playerTwoName_);
 
 	backToMainMenuDialog_ = new namelessgui::ConfirmationDialog("Really go back to main menu?");
@@ -55,7 +56,12 @@ SkirmishPreparationState::SkirmishPreparationState(sf::RenderWindow* renderWindo
 
 	backToMainMenuDialog_->setVisible(false);
 
-	MapManager::get()->getMapList();
+	namelessgui::ListWidget* mapList = new namelessgui::ListWidget();
+	mapList->setSize({100, 100});
+	std::vector<std::string> mapNames = MapManager::get()->getMapList();
+	for(auto& mapName : mapNames)
+		mapList->addItem(mapName);
+	_guiUptr->addWidget(mapList);
 }
 
 SkirmishPreparationState::~SkirmishPreparationState()
