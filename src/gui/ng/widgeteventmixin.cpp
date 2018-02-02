@@ -7,7 +7,6 @@ namespace namelessgui
 
 WidgetEventMixin::WidgetEventMixin()
 	: leftMouseButtonPressRegistered_(false),
-	  rightMouseButtonPressRegistered_(false),
 	  mouseFocus_(false),
 	  keyboardFocus_(false)
 {
@@ -45,12 +44,6 @@ bool WidgetEventMixin::handleEvent(const qrw::IEvent& event)
 			if(!mouseFocus_)
 			{
 				mouseFocus_ = true;
-				signalMouseFocusGained.emit();
-			}
-			// just moved when already has mouse focus
-			else
-			{
-				signalMouseMoved.emit();
 			}
 		} // else(hasMouseFocus)
 	} // if(MouseMoveEvent)
@@ -64,21 +57,10 @@ bool WidgetEventMixin::handleEvent(const qrw::IEvent& event)
 			keyboardFocus_ = true;
 			stopEventPropagation = true;
 		}
-		else if(event.getName() == qrw::RightMouseButtonPressedEvent::name)
-		{
-			rightMouseButtonPressRegistered_ = true;
-			stopEventPropagation = true;
-		}
 		else if(event.getName() == qrw::LeftMouseButtonReleasedEvent::name && leftMouseButtonPressRegistered_)
 		{
 			signalClicked.emit();
 			leftMouseButtonPressRegistered_ = false;
-			stopEventPropagation = true;
-		}
-		else if(event.getName() == qrw::RightMouseButtonReleasedEvent::name && rightMouseButtonPressRegistered_)
-		{
-			signalRightClicked.emit();
-			rightMouseButtonPressRegistered_ = false;
 			stopEventPropagation = true;
 		}
 	}

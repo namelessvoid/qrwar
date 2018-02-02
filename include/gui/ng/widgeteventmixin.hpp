@@ -35,10 +35,8 @@ public:
 
     // Signals
     Signal<> signalClicked;
-    Signal<> signalRightClicked;
     Signal<> signalMouseFocusGained;
     Signal<> signalMouseFocusLost;
-    Signal<> signalMouseMoved;
     Signal<> signalLeftMouseButtonPressed;
     Signal<> signalKeyboardFocusLost;
 
@@ -55,15 +53,6 @@ private:
      * mouse leaves focus.
      */
     bool leftMouseButtonPressRegistered_;
-
-    /**
-     * @brief Registeres when right mouse button is pressed.
-     *
-     * Is set to true if the right mouse button was pressed while mouse cursor was on the widget. If the mouse
-     * is released again while on the widget a click event took place. Reset leftMouseButtonpressRegistered if
-     * mouse leaves focus.
-     */
-    bool rightMouseButtonPressRegistered_;
 
     /**
      * @brief Saves the last known mouse focus state.
