@@ -23,7 +23,6 @@ public:
 
 	std::vector<std::string> getMapList() const;
 
-
 private:
     MapManager();
 

@@ -69,8 +69,6 @@ void MapManager::saveMap(const std::string& mapName, const Board& board)
 			boardMetaClass->serialize(&board, yaml);
 	yaml << YAML::EndSeq;
 
-	std::cout << yaml.c_str() << std::endl << std::flush;
-
 	std::ofstream mapFile;
 	fs::path userMapDir = getUserMapDir();
 
@@ -84,10 +82,12 @@ void MapManager::saveMap(const std::string& mapName, const Board& board)
 
 std::vector<std::string> MapManager::getMapList() const
 {
-	for(auto& p: fs::directory_iterator(getUserMapDir()))
-		std::cout << pathToMapName(p) << '\n';
+	std::vector<std::string> mapNames;
 
-	return std::vector<std::string>();
+	for(auto& p: fs::directory_iterator(getUserMapDir()))
+		mapNames.push_back(pathToMapName(p));
+
+	return mapNames;
 }
 
 std::string MapManager::mapNameToPath(const std::string& mapName) const
