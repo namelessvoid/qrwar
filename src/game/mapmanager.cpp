@@ -2,8 +2,7 @@
 
 #include <cstdlib>
 #include <fstream>
-
-#include "core/stringutils.hpp"
+#include <regex>
 
 #include "meta/metamanager.hpp"
 
@@ -37,7 +36,7 @@ Board* MapManager::loadMap(const std::string& mapName)
 
 	const MetaClass* boardMetaClass = MetaManager::getMetaClassFor<Board>();
 
-	std::vector<YAML::Node> documents = YAML::LoadAllFromFile(getUserMapDir() / mapNameToFileName(mapName));
+	std::vector<YAML::Node> documents = YAML::LoadAllFromFile(getUserMapDir() / mapNameToPath(mapName));
 
 	Board* board = static_cast<Board*>(boardMetaClass->deserialize(documents.at(1)[0]["qrw::Board"]));
 
@@ -46,7 +45,7 @@ Board* MapManager::loadMap(const std::string& mapName)
 
 bool MapManager::doesMapExist(const std::string& mapName)
 {
-	fs::path mapFilePath = getUserMapDir() / mapNameToFileName(mapName);
+	fs::path mapFilePath = getUserMapDir() / mapNameToPath(mapName);
 
 	return fs::exists(mapFilePath);
 }
@@ -54,7 +53,7 @@ bool MapManager::doesMapExist(const std::string& mapName)
 void MapManager::saveMap(const std::string& mapName, const Board& board)
 {
 	const MetaClass* boardMetaClass = MetaManager::getMetaClassFor<Board>();
-	const std::string fileName = mapNameToFileName(mapName);
+	const std::string fileName = mapNameToPath(mapName);
 
 	YAML::Emitter yaml;
 	yaml << YAML::BeginDoc
@@ -86,17 +85,21 @@ void MapManager::saveMap(const std::string& mapName, const Board& board)
 std::vector<std::string> MapManager::getMapList() const
 {
 	for(auto& p: fs::directory_iterator(getUserMapDir()))
-		std::cout << p << '\n';
+		std::cout << pathToMapName(p) << '\n';
 
 	return std::vector<std::string>();
 }
 
-std::string MapManager::mapNameToFileName(std::string mapName) const
+std::string MapManager::mapNameToPath(const std::string& mapName) const
 {
-	replaceAll(mapName, " ", "-");
-	toLower(mapName);
-	mapName += ".map";
-	return mapName;
+	std::regex whitespaceMatcher("\\s+");
+	return std::regex_replace(mapName, whitespaceMatcher, "-") += ".map";
+}
+
+std::string MapManager::pathToMapName(const fs::path& filePath) const
+{
+	std::regex dashMatcher("-");
+	return std::regex_replace(filePath.stem().string(), dashMatcher, " ");
 }
 
 fs::path MapManager::getUserMapDir() const

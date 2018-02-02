@@ -23,10 +23,12 @@ public:
 
 	std::vector<std::string> getMapList() const;
 
+
 private:
     MapManager();
 
-	std::string mapNameToFileName(std::string mapName) const;
+	std::string mapNameToPath(const std::string& mapName) const;
+	std::string pathToMapName(const std::experimental::filesystem::path& fileName) const;
 
 	std::experimental::filesystem::path getUserMapDir() const;
 
