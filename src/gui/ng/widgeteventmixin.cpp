@@ -44,6 +44,7 @@ bool WidgetEventMixin::handleEvent(const qrw::IEvent& event)
 			if(!mouseFocus_)
 			{
 				mouseFocus_ = true;
+				signalMouseFocusGained.emit();
 			}
 		} // else(hasMouseFocus)
 	} // if(MouseMoveEvent)
