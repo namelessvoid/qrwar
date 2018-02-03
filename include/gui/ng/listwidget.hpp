@@ -22,14 +22,20 @@ public:
 
     virtual sf::FloatRect getWidgetArea() const override;
 
+	Signal<const std::string&> signalItemSelected;
+
 private:
     void slotClicked();
+
+	void selectItem(Text& item);
 
     ListWidget(const ListWidget& rhs) = delete;
 
     ListWidget& operator=(const ListWidget& rhs) = delete;
 
     std::vector<std::unique_ptr<Text>> items_;
+
+	Text* selectedItem_;
 
     const float ITEM_HEIGHT = 30;
 };

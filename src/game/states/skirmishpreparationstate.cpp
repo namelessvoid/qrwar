@@ -30,12 +30,6 @@ SkirmishPreparationState::SkirmishPreparationState(sf::RenderWindow* renderWindo
 	toSkirmisStateButton->setRelativePosition({-5, -5});
 	window->addWidget(toSkirmisStateButton);
 
-	mapName_ = new namelessgui::LineInput();
-	mapName_->setText("Default Map");
-	mapName_->setSize({200, 30});
-	mapName_->setRelativePosition({10, 150});
-	window->addWidget(mapName_);
-
 	playerOneName_ = new namelessgui::LineInput();
 	playerOneName_->setText("Sigurdson");
 	playerOneName_->setSize({200, 30});
@@ -56,12 +50,15 @@ SkirmishPreparationState::SkirmishPreparationState(sf::RenderWindow* renderWindo
 
 	backToMainMenuDialog_->setVisible(false);
 
+	// In map list widget
 	namelessgui::ListWidget* mapList = new namelessgui::ListWidget();
+	mapList->signalItemSelected.connect([this] (const std::string& mapName) { slotMapSelected(mapName); });
 	mapList->setSize({100, 100});
+	_guiUptr->addWidget(mapList);
+
 	std::vector<std::string> mapNames = MapManager::get()->getMapList();
 	for(auto& mapName : mapNames)
 		mapList->addItem(mapName);
-	_guiUptr->addWidget(mapList);
 }
 
 SkirmishPreparationState::~SkirmishPreparationState()
@@ -90,11 +87,6 @@ bool SkirmishPreparationState::handleEvent(const IEvent& event)
 	}
 
 	return false;
-}
-
-const std::string &SkirmishPreparationState::getMapName() const
-{
-	return mapName_->getText();
 }
 
 const std::string& SkirmishPreparationState::getPlayerOneName() const

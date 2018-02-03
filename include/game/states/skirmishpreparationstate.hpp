@@ -23,7 +23,7 @@ public:
 
 	virtual bool handleEvent(const IEvent &event) override;
 
-	const std::string& getMapName() const;
+	const std::string& getMapName() const { return selectedMap_; }
 
 	const std::string& getPlayerOneName() const;
 
@@ -34,15 +34,18 @@ private:
 
     SkirmishPreparationState& operator=(const SkirmishPreparationState& rhs) = delete;
 
+	void slotMapSelected(const std::string& mapName) { selectedMap_ = mapName; }
+
 	void slotToSkirmishStateClicked() { nextState_ = EGSID_DEPLOY_STATE; }
 
     void slotBackToMainMenuClicked() { nextState_ = EGSID_MAIN_MENU_STATE; }
+
+	std::string selectedMap_;
 
     namelessgui::ConfirmationDialog* backToMainMenuDialog_;
 
     EGameStateId nextState_;
 
-	namelessgui::LineInput* mapName_;
 	namelessgui::LineInput* playerOneName_;
 	namelessgui::LineInput* playerTwoName_;
 };
