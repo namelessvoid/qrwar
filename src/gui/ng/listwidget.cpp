@@ -24,14 +24,15 @@ ListWidget::~ListWidget()
 
 void ListWidget::addItem(const std::string &content)
 {
-	Text* text = new Text();
-	text->setText(content);
-	text->setPosition({0, ITEM_HEIGHT * items_.size()});
-	items_.push_back(std::unique_ptr<Text>(text));
+	ListItem* item = new ListItem();
+	item->setText(content);
+	item->setRelativePosition({0, ITEM_HEIGHT * items_.size()});
+	item->setSize({this->getSize().x, ITEM_HEIGHT});
+	items_.push_back(std::unique_ptr<ListItem>(item));
 
 	// If this is the first item, select it
 	if(items_.size() == 1)
-		selectItem(*text);
+		selectItem(*item);
 }
 
 void ListWidget::render(sf::RenderTarget& renderTarget, sf::RenderStates renderStates) const
@@ -54,23 +55,22 @@ sf::FloatRect ListWidget::getWidgetArea() const
 
 void ListWidget::slotClicked()
 {
-	items_.at(0)->setColor(sf::Color::Red);
-	std::cout << qrw::Mouse::getPosition().x << "/" << qrw::Mouse::getPosition().y << std::endl << std::flush;
-
 	for(auto& item : items_)
 	{
 		sf::Vector2i mousePosition = qrw::Mouse::getPosition();
 		if(item->getWidgetArea().contains(mousePosition.x, mousePosition.y))
 			selectItem(*item);
-		else
-			item->setColor(sf::Color::White);
 	}
 }
 
-void ListWidget::selectItem(Text& item)
+void ListWidget::selectItem(ListItem& item)
 {
+	// Deselect currently selected item if necessary
+	if(selectedItem_ != nullptr)
+		selectedItem_->setTextColor(DEFAULT_TEXT_COLOR);
+
 	selectedItem_ = &item;
-	selectedItem_->setColor(sf::Color::Red);
+	selectedItem_->setTextColor(ACTIVE_TEXT_COLOR);
 	signalItemSelected.emit(selectedItem_->getText());
 }
 

@@ -14,5 +14,6 @@ add_library(namelessgui
         tabwidget.cpp
         spinbox.cpp
         listwidget.cpp
+        listitem.cpp
 )
 target_link_libraries(namelessgui ${SFML_LIBRARIES})

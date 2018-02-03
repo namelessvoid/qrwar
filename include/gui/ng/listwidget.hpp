@@ -2,8 +2,9 @@
 #define NAMELESSGUI_LISTWIDGET_HPP
 
 #include "spritewidget.hpp"
-#include "text.hpp"
 #include "widgeteventmixin.hpp"
+
+#include "listitem.hpp"
 
 namespace namelessgui {
 
@@ -27,15 +28,15 @@ public:
 private:
     void slotClicked();
 
-	void selectItem(Text& item);
+	void selectItem(ListItem& item);
 
     ListWidget(const ListWidget& rhs) = delete;
 
     ListWidget& operator=(const ListWidget& rhs) = delete;
 
-    std::vector<std::unique_ptr<Text>> items_;
+	std::vector<std::unique_ptr<ListItem>> items_;
 
-	Text* selectedItem_;
+	ListItem* selectedItem_;
 
     const float ITEM_HEIGHT = 30;
 };
