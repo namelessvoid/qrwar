@@ -2,6 +2,7 @@
 
 #include "gui/ng/colors.hpp"
 #include "gui/ng/text.hpp"
+#include "gui/ng/croppingviewfactory.hpp"
 
 #include "eventsystem/inputevents.hpp"
 
@@ -94,8 +95,8 @@ void LineInput::render(sf::RenderTarget& renderTarget, sf::RenderStates renderSt
 
 	sf::View prevView = renderTarget.getView();
 
-
-	sf::View lineInputView({getPosition().x, getPosition().y, getSize().x, getSize().y});
+	CroppingViewFactory croppingViewFactory;
+	sf::View lineInputView = croppingViewFactory.createView(renderTarget, getPosition(), getSize());
 
 	if(!textFitsIntoWidget())
 	{
@@ -104,14 +105,6 @@ void LineInput::render(sf::RenderTarget& renderTarget, sf::RenderStates renderSt
 		lineInputView.move({xOffset, 0});
 	}
 
-	sf::FloatRect inputLineViewport({
-										getPosition().x / renderTarget.getSize().x,
-										getPosition().y / renderTarget.getSize().y,
-										getSize().x / renderTarget.getSize().x,
-										getSize().y / renderTarget.getSize().y
-									});
-
-	lineInputView.setViewport(inputLineViewport);
 	renderTarget.setView(lineInputView);
 
 	textWidget_->render(renderTarget, renderStates);

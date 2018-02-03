@@ -15,5 +15,6 @@ add_library(namelessgui
         spinbox.cpp
         listwidget.cpp
         listitem.cpp
+        croppingviewfactory.cpp
 )
 target_link_libraries(namelessgui ${SFML_LIBRARIES})

@@ -1,6 +1,7 @@
 #include "gui/ng/listwidget.hpp"
 
 #include "gui/ng/colors.hpp"
+#include "gui/ng/croppingviewfactory.hpp"
 
 #include "core/mouse.hpp"
 
@@ -39,8 +40,18 @@ void ListWidget::render(sf::RenderTarget& renderTarget, sf::RenderStates renderS
 {
 	RectangularWidget::render(renderTarget, renderStates);
 
+	// Render list items with cropping view
+	sf::View prevView = renderTarget.getView();
+
+	CroppingViewFactory croppingViewFactory;
+	sf::View listItemView = croppingViewFactory.createView(renderTarget, getPosition(), getSize());
+
+	renderTarget.setView(listItemView);
+
 	for(auto& item : items_)
 		item->render(renderTarget, renderStates);
+
+	renderTarget.setView(prevView);
 }
 
 bool ListWidget::isVisible() const
