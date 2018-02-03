@@ -12,7 +12,12 @@ public:
 
 	~ScrollBar();
 
+	virtual void setSize(const sf::Vector2f& size) override;
+
 private:
+	class Button* scrollUpButton_;
+	class Button* scrollDownButton_;
+
 	ScrollBar(const ScrollBar& rhs) = delete;
 
 	ScrollBar& operator=(const ScrollBar& rhs) = delete;
