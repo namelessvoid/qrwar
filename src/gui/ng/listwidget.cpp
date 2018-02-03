@@ -12,16 +12,20 @@ namespace namelessgui
 {
 
 ListWidget::ListWidget()
+	: selectedItem_(nullptr),
+	  scrollValue_(0)
 {
 	setFillColor(DEFAULT_FILL_COLOR);
 	setOutlineColor(DEFAULT_OUTLINE_COLOR);
 	setOutlineThickness(DEFAULT_OUTLINE_THICKNESS);
 
-	ScrollBar* scrollBar = new ScrollBar();
-	scrollBar->setSize({SCROLLBAR_WIDTH, this->getSize().y});
-	scrollBar->setParentAnchor({1, 0});
-	scrollBar->setAnchor({1, 0});
-	addWidget(scrollBar);
+	scrollBar_ = new ScrollBar();
+	scrollBar_->signalValueChanged.connect([this] (float value) { slotScrollBarValueChanged(value); });
+	scrollBar_->setSize({SCROLLBAR_WIDTH, this->getSize().y});
+	scrollBar_->setParentAnchor({1, 0});
+	scrollBar_->setAnchor({1, 0});
+	scrollBar_->setStepSize(0.5f * ITEM_HEIGHT);
+	addWidget(scrollBar_);
 
 	signalClicked.connect([this] { slotClicked(); });
 }
@@ -41,6 +45,8 @@ void ListWidget::addItem(const std::string &content)
 	// If this is the first item, select it
 	if(items_.size() == 1)
 		selectItem(*item);
+
+	scrollBar_->setMaxValue(items_.size() * ITEM_HEIGHT - getSize().y);
 }
 
 void ListWidget::render(sf::RenderTarget& renderTarget, sf::RenderStates renderStates) const
@@ -53,6 +59,7 @@ void ListWidget::render(sf::RenderTarget& renderTarget, sf::RenderStates renderS
 	CroppingViewFactory croppingViewFactory;
 	sf::Vector2f viewportSize = getSize() - sf::Vector2f(SCROLLBAR_WIDTH, 0);
 	sf::View listItemView = croppingViewFactory.createView(renderTarget, getPosition(), viewportSize);
+	listItemView.move(0, scrollValue_);
 
 	renderTarget.setView(listItemView);
 

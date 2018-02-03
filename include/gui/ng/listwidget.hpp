@@ -27,6 +27,7 @@ public:
 
 private:
 	void slotClicked();
+	void slotScrollBarValueChanged(float value)	{ scrollValue_ = value; }
 
 	void selectItem(ListItem& item);
 
@@ -35,8 +36,11 @@ private:
 	ListWidget& operator=(const ListWidget& rhs) = delete;
 
 	std::vector<std::unique_ptr<ListItem>> items_;
-
 	ListItem* selectedItem_;
+
+	class ScrollBar* scrollBar_;
+
+	float scrollValue_;
 
 	const float ITEM_HEIGHT = 30;
 	const float SCROLLBAR_WIDTH = 10;

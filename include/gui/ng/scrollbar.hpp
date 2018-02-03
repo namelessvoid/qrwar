@@ -14,9 +14,21 @@ public:
 
 	virtual void setSize(const sf::Vector2f& size) override;
 
+	void setMaxValue(float maxValue) { maxValue_ = maxValue; }
+	void setStepSize(float stepSize) { stepSize_ = stepSize; }
+
+	Signal<float> signalValueChanged;
+
 private:
+	void slotScrollUpButtonClicked();
+	void slotScrollDownButtonClicked();
+
 	class Button* scrollUpButton_;
 	class Button* scrollDownButton_;
+
+	float currentValue_;
+	float maxValue_;
+	float stepSize_;
 
 	ScrollBar(const ScrollBar& rhs) = delete;
 
