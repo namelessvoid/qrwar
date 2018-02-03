@@ -1,6 +1,7 @@
 #include "gui/ng/listwidget.hpp"
 
 #include "gui/ng/colors.hpp"
+#include "gui/ng/scrollbar.hpp"
 #include "gui/ng/croppingviewfactory.hpp"
 
 #include "core/mouse.hpp"
@@ -16,6 +17,12 @@ ListWidget::ListWidget()
 	setOutlineColor(DEFAULT_OUTLINE_COLOR);
 	setOutlineThickness(DEFAULT_OUTLINE_THICKNESS);
 
+	ScrollBar* scrollBar = new ScrollBar();
+	scrollBar->setSize({SCROLLBAR_WIDTH, this->getSize().y});
+	scrollBar->setParentAnchor({1, 0});
+	scrollBar->setAnchor({1, 0});
+	addWidget(scrollBar);
+
 	signalClicked.connect([this] { slotClicked(); });
 }
 
@@ -28,7 +35,7 @@ void ListWidget::addItem(const std::string &content)
 	ListItem* item = new ListItem();
 	item->setText(content);
 	item->setRelativePosition({0, ITEM_HEIGHT * items_.size()});
-	item->setSize({this->getSize().x, ITEM_HEIGHT});
+	item->setSize({this->getSize().x - SCROLLBAR_WIDTH, ITEM_HEIGHT});
 	items_.push_back(std::unique_ptr<ListItem>(item));
 
 	// If this is the first item, select it
@@ -44,7 +51,8 @@ void ListWidget::render(sf::RenderTarget& renderTarget, sf::RenderStates renderS
 	sf::View prevView = renderTarget.getView();
 
 	CroppingViewFactory croppingViewFactory;
-	sf::View listItemView = croppingViewFactory.createView(renderTarget, getPosition(), getSize());
+	sf::Vector2f viewportSize = getSize() - sf::Vector2f(SCROLLBAR_WIDTH, 0);
+	sf::View listItemView = croppingViewFactory.createView(renderTarget, getPosition(), viewportSize);
 
 	renderTarget.setView(listItemView);
 

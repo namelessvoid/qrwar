@@ -16,5 +16,6 @@ add_library(namelessgui
         listwidget.cpp
         listitem.cpp
         croppingviewfactory.cpp
+        scrollbar.cpp
 )
 target_link_libraries(namelessgui ${SFML_LIBRARIES})

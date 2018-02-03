@@ -26,19 +26,20 @@ public:
 	Signal<const std::string&> signalItemSelected;
 
 private:
-    void slotClicked();
+	void slotClicked();
 
 	void selectItem(ListItem& item);
 
-    ListWidget(const ListWidget& rhs) = delete;
+	ListWidget(const ListWidget& rhs) = delete;
 
-    ListWidget& operator=(const ListWidget& rhs) = delete;
+	ListWidget& operator=(const ListWidget& rhs) = delete;
 
 	std::vector<std::unique_ptr<ListItem>> items_;
 
 	ListItem* selectedItem_;
 
-    const float ITEM_HEIGHT = 30;
+	const float ITEM_HEIGHT = 30;
+	const float SCROLLBAR_WIDTH = 10;
 };
 
 
