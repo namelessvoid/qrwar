@@ -84,6 +84,7 @@ void ListWidget::slotClicked()
 	for(auto& item : items_)
 	{
 		sf::Vector2i mousePosition = qrw::Mouse::getPosition();
+		mousePosition.y += scrollValue_;
 		if(item->getWidgetArea().contains(mousePosition.x, mousePosition.y))
 			selectItem(*item);
 	}
