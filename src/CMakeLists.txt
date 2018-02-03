@@ -3,6 +3,8 @@ add_subdirectory(gui/ng)
 add_library(qrwarlib
         qrwar.cpp
 
+        core/mouse.cpp
+
 	config/audiosettings.cpp
 	config/settings.cpp
 	config/tilesetprocessor.cpp

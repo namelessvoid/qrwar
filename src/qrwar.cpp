@@ -9,6 +9,8 @@
 
 #include "gui/texturemanager.hpp"
 
+#include "core/mouse.hpp"
+
 #include "rendering/rendersystem.hpp"
 #include "eventsystem/eventsystem.hpp"
 #include "eventsystem/sfeventsource.hpp"
@@ -45,6 +47,7 @@ QRWar::QRWar()
 	preloadResources();
 	g_scene.setRenderTarget(&_renderWindow);
 	g_eventSystem.startUp(new SfEventSource(_renderWindow));
+	Mouse::setWindow(_renderWindow);
 
 	// Set and initialize start state
 	_currentState = createGameState(EGSID_INTRO_STATE);
