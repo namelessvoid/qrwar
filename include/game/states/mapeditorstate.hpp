@@ -69,7 +69,7 @@ private:
 	Board* _spBoard;
 
 	const unsigned int INITIAL_BOARD_WIDTH = 16;
-	const unsigned int INITIAL_BOARD_HEIGHT = 8;
+	const unsigned int INITIAL_BOARD_HEIGHT = 10;
 };
 
 } // namespace qrw
