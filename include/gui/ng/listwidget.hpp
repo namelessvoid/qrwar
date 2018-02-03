@@ -21,6 +21,8 @@ public:
 
     virtual bool isVisible() const override;
 
+	virtual void setPosition(const sf::Vector2f& position) override;
+
     virtual sf::FloatRect getWidgetArea() const override;
 
 	Signal<const std::string&> signalItemSelected;
@@ -30,6 +32,8 @@ private:
 	void slotScrollBarValueChanged(float value)	{ scrollValue_ = value; }
 
 	void selectItem(ListItem& item);
+
+	sf::Vector2f computeItemPosition(int index);
 
 	ListWidget(const ListWidget& rhs) = delete;
 

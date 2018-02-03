@@ -38,7 +38,7 @@ void ListWidget::addItem(const std::string &content)
 {
 	ListItem* item = new ListItem();
 	item->setText(content);
-	item->setRelativePosition({0, ITEM_HEIGHT * items_.size()});
+	item->setRelativePosition(computeItemPosition(items_.size()));
 	item->setSize({this->getSize().x - SCROLLBAR_WIDTH, ITEM_HEIGHT});
 	items_.push_back(std::unique_ptr<ListItem>(item));
 
@@ -74,6 +74,14 @@ bool ListWidget::isVisible() const
 	return RectangularWidget::isVisible();
 }
 
+void ListWidget::setPosition(const sf::Vector2f& position)
+{
+	RectangularWidget::setPosition(position);
+
+	for(size_t i = 0; i < items_.size(); ++i)
+		items_.at(i)->setPosition(computeItemPosition(i));
+}
+
 sf::FloatRect ListWidget::getWidgetArea() const
 {
 	return RectangularWidget::getWidgetArea();
@@ -99,6 +107,11 @@ void ListWidget::selectItem(ListItem& item)
 	selectedItem_ = &item;
 	selectedItem_->setTextColor(ACTIVE_TEXT_COLOR);
 	signalItemSelected.emit(selectedItem_->getText());
+}
+
+sf::Vector2f ListWidget::computeItemPosition(int index)
+{
+	return {getPosition().x, getPosition().y + index * ITEM_HEIGHT};
 }
 
 } // namespace namelessgui

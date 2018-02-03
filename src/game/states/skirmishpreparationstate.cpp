@@ -53,7 +53,8 @@ SkirmishPreparationState::SkirmishPreparationState(sf::RenderWindow* renderWindo
 	// In map list widget
 	namelessgui::ListWidget* mapList = new namelessgui::ListWidget();
 	mapList->signalItemSelected.connect([this] (const std::string& mapName) { slotMapSelected(mapName); });
-	mapList->setSize({100, 100});
+	mapList->setSize({250, 100});
+	mapList->setPosition({10, 300});
 	_guiUptr->addWidget(mapList);
 
 	std::vector<std::string> mapNames = MapManager::get()->getMapList();
