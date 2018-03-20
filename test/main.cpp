@@ -8,6 +8,5 @@ int main(int argc, char* argv[])
     // Create testrunner, add registered methodes and run them.
     CppUnit::TextUi::TestRunner runner;
     runner.addTest(registry.makeTest());
-    runner.run();
-    return 0;
+    return !runner.run();
 }

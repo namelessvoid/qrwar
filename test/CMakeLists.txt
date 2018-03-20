@@ -11,3 +11,4 @@ add_executable(unittest
 	config/tilesetprocessortest.cpp
 )
 target_link_libraries(unittest ${LIBS} cppunit qrwarlib)
+add_test(NAME unittest COMMAND unittest)
