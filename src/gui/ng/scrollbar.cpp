@@ -54,7 +54,7 @@ void ScrollBar::setSize(const sf::Vector2f& size)
 void ScrollBar::stepScroll(float direction, float stepCount)
 {
 	currentValue_ += direction * stepCount * stepSize_;
-	currentValue_ = std::max(0.0f, currentValue_);
+	currentValue_ = std::min(std::max(0.0f, currentValue_), maxValue_);
 	signalValueChanged.emit(currentValue_);
 }
 
