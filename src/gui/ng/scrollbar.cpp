@@ -19,12 +19,16 @@ ScrollBar::ScrollBar()
 	scrollUpButton_->signalClicked.connect([this] { slotScrollUpButtonClicked(); });
 	scrollUpButton_->setText("^");
 	scrollUpButton_->setSize(this->getSize());
+	scrollUpButton_->setOutlineThickness(1);
+	scrollUpButton_->setOutlineColor(DEFAULT_OUTLINE_COLOR);
 	addWidget(scrollUpButton_);
 
 	scrollDownButton_ = new Button();
 	scrollDownButton_->signalClicked.connect([this] { slotScrollDownButtonClicked(); });
 	scrollDownButton_->setText("v");
 	scrollDownButton_->setSize(this->getSize());
+	scrollDownButton_->setOutlineThickness(1);
+	scrollDownButton_->setOutlineColor(DEFAULT_OUTLINE_COLOR);
 	scrollDownButton_->setAnchor({0, 1});
 	scrollDownButton_->setParentAnchor({0, 1});
 	addWidget(scrollDownButton_);
