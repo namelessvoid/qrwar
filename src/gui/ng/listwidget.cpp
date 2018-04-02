@@ -24,7 +24,6 @@ ListWidget::ListWidget()
 	scrollBar_->setSize({SCROLLBAR_WIDTH, this->getSize().y});
 	scrollBar_->setParentAnchor({1, 0});
 	scrollBar_->setAnchor({1, 0});
-	scrollBar_->setStepSize(0.5f * ITEM_HEIGHT);
 	addWidget(scrollBar_);
 
 	signalClicked.connect([this] { slotClicked(); });
@@ -46,7 +45,7 @@ void ListWidget::addItem(const std::string &content)
 	if(items_.size() == 1)
 		selectItem(*item);
 
-	scrollBar_->setMaxValue(items_.size() * ITEM_HEIGHT - getSize().y);
+	//scrollBar_->setMaxValue(items_.size() * ITEM_HEIGHT - getSize().y);
 }
 
 void ListWidget::render(sf::RenderTarget& renderTarget, sf::RenderStates renderStates) const
@@ -59,7 +58,7 @@ void ListWidget::render(sf::RenderTarget& renderTarget, sf::RenderStates renderS
 	CroppingViewFactory croppingViewFactory;
 	sf::Vector2f viewportSize = getSize() - sf::Vector2f(SCROLLBAR_WIDTH, 0);
 	sf::View listItemView = croppingViewFactory.createView(renderTarget, getPosition(), viewportSize);
-	listItemView.move(0, scrollValue_);
+	listItemView.move(0, scrollValue_ * items_.size() * ITEM_HEIGHT);
 
 	renderTarget.setView(listItemView);
 

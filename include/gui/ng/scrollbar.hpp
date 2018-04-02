@@ -23,8 +23,11 @@ private:
 	void stepScroll(float direction, float stepCount = 1);
 	void smoothScroll(float direction, float elapsedTimeInSeconds);
 
+	void updateScrollIndicator();
+
 	class Button* scrollUpButton_;
 	class Button* scrollDownButton_;
+	RectangularWidget* scrollIndicator_;
 
 	float currentValue_;
 	float maxValue_;
