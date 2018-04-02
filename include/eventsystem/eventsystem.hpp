@@ -27,7 +27,7 @@ public:
 
 	void pushEvent(const IEvent* event);
 
-	void processEvents();
+	void update(float elapsedTime);
 
 	void registerEventHandler(EventHandler* eventHandler);
 

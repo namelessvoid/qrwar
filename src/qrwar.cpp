@@ -73,7 +73,7 @@ void QRWar::run()
 
 		_renderWindow.clear(sf::Color::Black);
 
-		g_eventSystem.processEvents();
+		g_eventSystem.update(elapsedTimeInSeconds);
 
 		nextStateId = _currentState->update();
 

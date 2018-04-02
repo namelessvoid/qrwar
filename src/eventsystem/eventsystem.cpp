@@ -34,7 +34,7 @@ void EventSystem::pushEvent(const IEvent* event)
 	m_eventQueue.push(event);
 }
 
-void EventSystem::processEvents()
+void EventSystem::update(float elapsedTime)
 {
 	const IEvent* event = nullptr;
 
