@@ -16,7 +16,7 @@ ScrollBar::ScrollBar()
 	setOutlineThickness(DEFAULT_OUTLINE_THICKNESS);
 
 	scrollUpButton_ = new Button();
-	scrollUpButton_->signalClicked.connect([this] { stepScroll(UP); });
+	scrollUpButton_->signalLeftMouseButtonPressed.connect([this] { stepScroll(UP); });
 	scrollUpButton_->signalLeftMouseButtonHeld.connect([this] (float frameTimeInSeconds) { smoothScroll(UP, frameTimeInSeconds); });
 //	scrollUpButton_->setText("^");
 	scrollUpButton_->setSize(this->getSize());
@@ -25,7 +25,7 @@ ScrollBar::ScrollBar()
 	addWidget(scrollUpButton_);
 
 	scrollDownButton_ = new Button();
-	scrollDownButton_->signalClicked.connect([this] { stepScroll(DOWN); });
+	scrollDownButton_->signalLeftMouseButtonPressed.connect([this] { stepScroll(DOWN); });
 	scrollDownButton_->signalLeftMouseButtonHeld.connect([this] (float frameTimeInSeconds) { smoothScroll(DOWN, frameTimeInSeconds); });
 //	scrollDownButton_->setText("v");
 	scrollDownButton_->setSize(this->getSize());
@@ -60,7 +60,7 @@ void ScrollBar::stepScroll(float direction, float stepCount)
 
 void ScrollBar::smoothScroll(float direction, float elapsedTimeInSeconds)
 {
-	stepScroll(direction, elapsedTimeInSeconds * 10);
+	stepScroll(direction, elapsedTimeInSeconds * 20);
 }
 
 } // namespace namelessgui

@@ -47,6 +47,8 @@ private:
 	SystemEventSource* m_systemEventSource;
 
 	bool leftMouseButtonDown_;
+	float LEFT_MOUSE_BUTTON_HELD_TIMEOUT = 0.5;
+	float leftMouseButtonCurrentlyHeld_;
 };
 
 extern EventSystem g_eventSystem;

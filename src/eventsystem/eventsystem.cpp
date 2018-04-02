@@ -17,6 +17,7 @@ void EventSystem::startUp(SystemEventSource *systemEventSource)
 	m_systemEventSource = systemEventSource;
 
 	leftMouseButtonDown_ = false;
+	leftMouseButtonCurrentlyHeld_ = 0;
 }
 
 void EventSystem::shutDown()
@@ -99,9 +100,20 @@ void EventSystem::emitMouseButtonHeldEvent(float elapsedTimeInSeconds)
 {
 	if(leftMouseButtonDown_)
 	{
-		IEvent* event = new LeftMouseButtonHeldEvent(elapsedTimeInSeconds);
-		propagateEventToHandlers(event);
-		delete event;
+		if(leftMouseButtonCurrentlyHeld_ >= LEFT_MOUSE_BUTTON_HELD_TIMEOUT)
+		{
+			IEvent* event = new LeftMouseButtonHeldEvent(elapsedTimeInSeconds);
+			propagateEventToHandlers(event);
+			delete event;
+		}
+		else
+		{
+			leftMouseButtonCurrentlyHeld_ += elapsedTimeInSeconds;
+		}
+	}
+	else
+	{
+		leftMouseButtonCurrentlyHeld_ = 0;
 	}
 }
 
