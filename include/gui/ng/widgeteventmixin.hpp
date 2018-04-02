@@ -38,6 +38,7 @@ public:
     Signal<> signalMouseFocusGained;
     Signal<> signalMouseFocusLost;
     Signal<> signalLeftMouseButtonPressed;
+    Signal<float> signalLeftMouseButtonHeld;
     Signal<> signalKeyboardFocusLost;
 
 private:

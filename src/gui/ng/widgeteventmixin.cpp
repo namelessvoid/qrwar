@@ -64,6 +64,12 @@ bool WidgetEventMixin::handleEvent(const qrw::IEvent& event)
 			leftMouseButtonPressRegistered_ = false;
 			stopEventPropagation = true;
 		}
+		else if(event.getName() == qrw::LeftMouseButtonHeldEvent::name)
+		{
+			const qrw::LeftMouseButtonHeldEvent& lmbhEvent = static_cast<const qrw::LeftMouseButtonHeldEvent&>(event);
+			signalLeftMouseButtonHeld.emit(lmbhEvent.frameTimeInSeconds);
+			stopEventPropagation = true;
+		}
 	}
 	else // !mouseFocus
 	{

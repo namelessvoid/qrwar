@@ -10,10 +10,12 @@ template<>
 const SID EventBase<LeftMouseButtonPressedEvent>::name("LEFT_MOUSE_BUTTON_PRESSED");
 
 template<>
-const SID EventBase<RightMouseButtonPressedEvent>::name("RIGHT_MOUSE_BUTTON_PRESSED");
+const SID EventBase<LeftMouseButtonReleasedEvent>::name("LEFT_MOUSE_BUTTON_RELEASED");
 
 template<>
-const SID EventBase<LeftMouseButtonReleasedEvent>::name("LEFT_MOUSE_BUTTON_RELEASED");
+const SID EventBase<LeftMouseButtonHeldEvent>::name("LEFT_MOUSE_BUTTON_HELD");
+template<>
+const SID EventBase<RightMouseButtonPressedEvent>::name("RIGHT_MOUSE_BUTTON_PRESSED");
 
 template<>
 const SID EventBase<RightMouseButtonReleasedEvent>::name("RIGHT_MOUSE_BUTTON_RELEASED");

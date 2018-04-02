@@ -15,6 +15,8 @@ void EventSystem::startUp(SystemEventSource *systemEventSource)
 {
 	assert(systemEventSource!=nullptr);
 	m_systemEventSource = systemEventSource;
+
+	leftMouseButtonDown_ = false;
 }
 
 void EventSystem::shutDown()
@@ -34,7 +36,7 @@ void EventSystem::pushEvent(const IEvent* event)
 	m_eventQueue.push(event);
 }
 
-void EventSystem::update(float elapsedTime)
+void EventSystem::update(float elapsedTimeInSeconds)
 {
 	const IEvent* event = nullptr;
 
@@ -48,13 +50,13 @@ void EventSystem::update(float elapsedTime)
 		event = m_eventQueue.front();
 		m_eventQueue.pop();
 
-		for(auto handler : m_eventHandlers)
-		{
-			handler->handleEvent(*event);
-		}
+		updateButtonStates(event);
+		propagateEventToHandlers(event);
 
 		delete event;
 	}
+
+	emitMouseButtonHeldEvent(elapsedTimeInSeconds);
 }
 
 void EventSystem::registerEventHandler(EventHandler* eventHandler)
@@ -71,6 +73,36 @@ void EventSystem::deregisterEventHandler(EventHandler* eventHandler)
 	assert(eventHandler!=nullptr);
 	assert(m_eventHandlers.find(eventHandler)!=m_eventHandlers.end());
 	m_eventHandlers.erase(eventHandler);
+}
+
+void EventSystem::propagateEventToHandlers(const IEvent* event)
+{
+	for(auto handler : m_eventHandlers)
+	{
+		handler->handleEvent(*event);
+	}
+}
+
+void EventSystem::updateButtonStates(const IEvent* event)
+{
+	if(event->getName() == LeftMouseButtonPressedEvent::name)
+	{
+		leftMouseButtonDown_ = true;
+	}
+	else if(event->getName() == LeftMouseButtonReleasedEvent::name)
+	{
+		leftMouseButtonDown_ = false;
+	}
+}
+
+void EventSystem::emitMouseButtonHeldEvent(float elapsedTimeInSeconds)
+{
+	if(leftMouseButtonDown_)
+	{
+		IEvent* event = new LeftMouseButtonHeldEvent(elapsedTimeInSeconds);
+		propagateEventToHandlers(event);
+		delete event;
+	}
 }
 
 } // namespace qrw

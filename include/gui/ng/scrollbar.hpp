@@ -20,8 +20,8 @@ public:
 	Signal<float> signalValueChanged;
 
 private:
-	void slotScrollUpButtonClicked();
-	void slotScrollDownButtonClicked();
+	void stepScroll(float direction, float stepCount = 1);
+	void smoothScroll(float direction, float elapsedTimeInSeconds);
 
 	class Button* scrollUpButton_;
 	class Button* scrollDownButton_;
@@ -29,6 +29,9 @@ private:
 	float currentValue_;
 	float maxValue_;
 	float stepSize_;
+
+	const float UP = -1;
+	const float DOWN = 1;
 
 	ScrollBar(const ScrollBar& rhs) = delete;
 

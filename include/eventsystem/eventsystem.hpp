@@ -27,18 +27,26 @@ public:
 
 	void pushEvent(const IEvent* event);
 
-	void update(float elapsedTime);
+	void update(float elapsedTimeInSeconds);
 
 	void registerEventHandler(EventHandler* eventHandler);
 
 	void deregisterEventHandler(EventHandler* eventHandler);
 
 private:
+	void propagateEventToHandlers(const IEvent* event);
+	
+	void updateButtonStates(const IEvent* event);
+
+	void emitMouseButtonHeldEvent(float elapsedTimeInSeconds);
+
 	std::queue<const IEvent*> m_eventQueue;
 
 	std::set<EventHandler*> m_eventHandlers;
 
 	SystemEventSource* m_systemEventSource;
+
+	bool leftMouseButtonDown_;
 };
 
 extern EventSystem g_eventSystem;

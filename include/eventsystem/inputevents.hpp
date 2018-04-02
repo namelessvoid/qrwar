@@ -33,11 +33,21 @@ struct LeftMouseButtonPressedEvent : EventBase<LeftMouseButtonPressedEvent>
 {
 };
 
-struct RightMouseButtonPressedEvent : EventBase<RightMouseButtonPressedEvent>
+struct LeftMouseButtonHeldEvent : EventBase<LeftMouseButtonHeldEvent>
 {
+	float frameTimeInSeconds;
+
+	LeftMouseButtonHeldEvent(float frameTimeInSeconds)
+	{
+		this->frameTimeInSeconds = frameTimeInSeconds;
+	}
 };
 
 struct LeftMouseButtonReleasedEvent : EventBase<LeftMouseButtonReleasedEvent>
+{
+};
+
+struct RightMouseButtonPressedEvent : EventBase<RightMouseButtonPressedEvent>
 {
 };
 

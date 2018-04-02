@@ -16,16 +16,18 @@ ScrollBar::ScrollBar()
 	setOutlineThickness(DEFAULT_OUTLINE_THICKNESS);
 
 	scrollUpButton_ = new Button();
-	scrollUpButton_->signalClicked.connect([this] { slotScrollUpButtonClicked(); });
-	scrollUpButton_->setText("^");
+	scrollUpButton_->signalClicked.connect([this] { stepScroll(UP); });
+	scrollUpButton_->signalLeftMouseButtonHeld.connect([this] (float frameTimeInSeconds) { smoothScroll(UP, frameTimeInSeconds); });
+//	scrollUpButton_->setText("^");
 	scrollUpButton_->setSize(this->getSize());
 	scrollUpButton_->setOutlineThickness(1);
 	scrollUpButton_->setOutlineColor(DEFAULT_OUTLINE_COLOR);
 	addWidget(scrollUpButton_);
 
 	scrollDownButton_ = new Button();
-	scrollDownButton_->signalClicked.connect([this] { slotScrollDownButtonClicked(); });
-	scrollDownButton_->setText("v");
+	scrollDownButton_->signalClicked.connect([this] { stepScroll(DOWN); });
+	scrollDownButton_->signalLeftMouseButtonHeld.connect([this] (float frameTimeInSeconds) { smoothScroll(DOWN, frameTimeInSeconds); });
+//	scrollDownButton_->setText("v");
 	scrollDownButton_->setSize(this->getSize());
 	scrollDownButton_->setOutlineThickness(1);
 	scrollDownButton_->setOutlineColor(DEFAULT_OUTLINE_COLOR);
@@ -49,18 +51,16 @@ void ScrollBar::setSize(const sf::Vector2f& size)
 	scrollDownButton_->setFontSize(buttonSize.x);
 }
 
-void ScrollBar::slotScrollUpButtonClicked()
+void ScrollBar::stepScroll(float direction, float stepCount)
 {
-	currentValue_ -= stepSize_;
+	currentValue_ += direction * stepCount * stepSize_;
 	currentValue_ = std::max(0.0f, currentValue_);
 	signalValueChanged.emit(currentValue_);
 }
 
-void ScrollBar::slotScrollDownButtonClicked()
+void ScrollBar::smoothScroll(float direction, float elapsedTimeInSeconds)
 {
-	currentValue_ += stepSize_;
-	currentValue_ = std::min(maxValue_, currentValue_);
-	signalValueChanged.emit(currentValue_);
+	stepScroll(direction, elapsedTimeInSeconds * 10);
 }
 
 } // namespace namelessgui
