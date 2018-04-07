@@ -50,6 +50,8 @@ add_library(qrwarlib
         game/damagenumber.cpp
         game/events.cpp
         game/mapmanager.cpp
+        game/deploymentzone.cpp
+
         game/gui/victorydialog.cpp
 
         game/path.cpp
