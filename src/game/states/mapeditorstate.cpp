@@ -22,12 +22,15 @@ MapEditorState::MapEditorState(sf::RenderWindow* renderWindow)
       _activeTerrainType(ET_NUMBEROFTERRAINTYPES),
       _eraseMode(false)
 {
+	TextureManager* textureManager = TextureManager::getInstance();
+
 	namelessgui::TabWidget* tabWidget = new namelessgui::TabWidget();
 	tabWidget->setSize(_toolBar->getSize());
-	tabWidget->setButtonSize({64, 64});
-	tabWidget->addTab(TextureManager::getInstance()->getTexture("wheel"), createConfigToolsWindow());
-	tabWidget->addTab(TextureManager::getInstance()->getTexture("wood"), createTerrainToolsWindow());
-	tabWidget->addTab(TextureManager::getInstance()->getTexture("wall"), createStructureToolsWindow());
+	tabWidget->setButtonSize({48, 48});
+	tabWidget->addTab(textureManager->getTexture("wheel"), createConfigToolsWindow());
+	tabWidget->addTab(textureManager->getTexture("wood"), createTerrainToolsWindow());
+	tabWidget->addTab(textureManager->getTexture("wall"), createStructureToolsWindow());
+	tabWidget->addTab(textureManager->getTexture("default"), createDeploymentZoneToolsWindow());
 	_toolBar->addWidget(tabWidget);
 
 	mapOverwriteConfirmationDialog_ = new namelessgui::ConfirmationDialog("Map already exists!\nOverwrite existing map?");
@@ -268,6 +271,7 @@ namelessgui::Window* MapEditorState::createTerrainToolsWindow()
 	radioButton->setText("Erase");
 	radioButton->setSize(buttonSize);
 	radioButton->setRelativePosition({5.0f, 3 * buttonSize.y + buttonYOffset});
+	radioButton->setImage(TextureManager::getInstance()->getTexture("default"));
 	radioButton->signalActivated.connect(std::bind(&MapEditorState::slotTerrainButtonChanged, this, std::placeholders::_1));
 	terrainWindow->addWidget(radioButton);
 
@@ -284,6 +288,38 @@ namelessgui::Window* MapEditorState::createStructureToolsWindow()
 	structureWindow->addWidget(heading);
 
 	return structureWindow;
+}
+
+namelessgui::Window* MapEditorState::createDeploymentZoneToolsWindow()
+{
+	sf::Vector2f buttonSize(140.0f, 50.0f);
+	float buttonYOffset = 45;
+
+	namelessgui::Window* zoneWindow = new namelessgui::Window();
+
+	namelessgui::Text* heading = new namelessgui::Text();
+	heading->setText("Deployment Zones");
+	heading->setRelativePosition({5.0f, 0});
+	zoneWindow->addWidget(heading);
+
+	std::shared_ptr<namelessgui::ButtonGroup> zoneButtonGroup = std::make_shared<namelessgui::ButtonGroup>();
+	namelessgui::RadioToggleButton* radioButton = new namelessgui::RadioToggleButton(zoneButtonGroup, "Player1");
+	radioButton->setText("Player 1");
+	radioButton->setSize(buttonSize);
+	radioButton->setRelativePosition({5.0f, buttonYOffset});
+	radioButton->setImage(TextureManager::getInstance()->getTexture("default"));
+	//radioButton->signalActivated.connect(std::bind(&MapEditorState::slotTerrainButtonChanged, this, std::placeholders::_1));
+	zoneWindow->addWidget(radioButton);
+
+	radioButton = new namelessgui::RadioToggleButton(zoneButtonGroup, "Player2");
+	radioButton->setText("Player 2");
+	radioButton->setSize(buttonSize);
+	radioButton->setRelativePosition({5.0f, 1 * buttonSize.y + buttonYOffset});
+	radioButton->setImage(TextureManager::getInstance()->getTexture("default"));
+	//radioButton->signalActivated.connect(std::bind(&MapEditorState::slotTerrainButtonChanged, this, std::placeholders::_1));
+	zoneWindow->addWidget(radioButton);
+
+	return zoneWindow;
 }
 
 } // namespace qrw
