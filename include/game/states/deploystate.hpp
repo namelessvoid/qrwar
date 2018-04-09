@@ -42,7 +42,7 @@ public:
     std::vector<Player::Ptr> getPlayers() const;
 
 private:
-	void slotUnitButtonChanged(const namelessgui::RadioToggleButton& unitButton);
+	void slotUnitButtonChanged(UNITTYPES unittype, unsigned int playerNumber);
     void slotToSkirmishButtonClicked();
 
     virtual void slotCursorLeftClicked(const Coordinates& boardPosition) override;

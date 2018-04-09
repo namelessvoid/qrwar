@@ -43,7 +43,11 @@ private:
 	void slotChangeBoardHeight(unsigned int height);
 	void despawnTerrainNotOnBoard();
 
-	void slotTerrainButtonChanged(const namelessgui::RadioToggleButton& activeTerrainButton);
+	void setCursorModePlaceTerrain(TERRAINTYPES terrainType);
+	void setCursorModeEraseterrain();
+	void setCursorModePlaceDeploymentZone(unsigned int playerNumber);
+	void setCursorModeEraseDeploymentZone();
+
 	void slotSaveButtonClicked();
 	void slotLoadButtonClicked();
 
@@ -54,8 +58,6 @@ private:
 	namelessgui::Window* createStructureToolsWindow();
 	namelessgui::Window* createDeploymentZoneToolsWindow();
 
-	TERRAINTYPES _activeTerrainType;
-
 	namelessgui::LineInput* mapNameInput_;
 
 	namelessgui::ConfirmationDialog* mapOverwriteConfirmationDialog_;
@@ -65,7 +67,24 @@ private:
      *
      * If set to true, terrain is removed. Otherwise, terrain is placed.
      */
-    bool _eraseMode;
+	enum class CursorMode
+	{
+		PLACE_TERRAIN,
+		ERASE_TERRAIN,
+
+		PLACE_STRUCTURE,
+		ERASE_STRUCTURE,
+
+		PLACE_DEPLOYMENTZONE,
+		ERASE_DEPLOYMENTZONE
+	} cursorMode_;
+
+	union SelectedEntity
+	{
+		TERRAINTYPES terrainType;
+		unsigned int playerNumber;
+	} selectedEntity_;
+
 
 	Board* _spBoard;
 

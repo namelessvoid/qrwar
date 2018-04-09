@@ -18,10 +18,12 @@ namespace qrw
 {
 
 MapEditorState::MapEditorState(sf::RenderWindow* renderWindow)
-	: SceneState(renderWindow, EGameStateId::EGSID_MAP_EDITOR_STATE),
-      _activeTerrainType(ET_NUMBEROFTERRAINTYPES),
-      _eraseMode(false)
+	: SceneState(renderWindow, EGameStateId::EGSID_MAP_EDITOR_STATE)
 {
+	cursorMode_ = CursorMode::PLACE_TERRAIN;
+	selectedEntity_.terrainType = TERRAINTYPES::ET_WOOD;
+
+	// Gui
 	TextureManager* textureManager = TextureManager::getInstance();
 
 	namelessgui::TabWidget* tabWidget = new namelessgui::TabWidget();
@@ -74,18 +76,14 @@ Board* MapEditorState::getBoard() const
 void MapEditorState::slotCursorLeftClicked(const Coordinates& boardPosition)
 {
     // Erase terrain
-	if(_eraseMode && _spBoard->isTerrainAt(boardPosition))
+	if(cursorMode_ == CursorMode::ERASE_TERRAIN && _spBoard->isTerrainAt(boardPosition))
     {
 		g_scene.despawn(_spBoard->getTerrain(boardPosition));
     }
     // Place terrain
-    else
+    else if(cursorMode_ == CursorMode::PLACE_TERRAIN)
     {
-        // Do nothing if no terrain type was selected and erase mode is off.
-        if(_activeTerrainType == ET_NUMBEROFTERRAINTYPES)
-            return;
-
-        Terrain* terrain = Terrain::createTerrain(_activeTerrainType);
+        Terrain* terrain = Terrain::createTerrain(selectedEntity_.terrainType);
         if(terrain != nullptr)
         {
 			if(Terrain* oldTerrain = _spBoard->getTerrain(boardPosition))
@@ -128,23 +126,26 @@ void MapEditorState::despawnTerrainNotOnBoard()
 	}
 }
 
-void MapEditorState::slotTerrainButtonChanged(const namelessgui::RadioToggleButton& activeTerrainButton)
+void MapEditorState::setCursorModePlaceTerrain(TERRAINTYPES terrainType)
 {
-	const std::string& buttonId = activeTerrainButton.getId();
+	cursorMode_ = CursorMode::PLACE_TERRAIN;
+	selectedEntity_.terrainType = terrainType;
+}
 
-	if(buttonId == "Wood")
-		_activeTerrainType = ET_WOOD;
-	else if(buttonId == "Hill")
-		_activeTerrainType = ET_HILL;
-	else if(buttonId == "Wall")
-		_activeTerrainType = ET_WALL;
-    else
-		_activeTerrainType = ET_NUMBEROFTERRAINTYPES;
+void MapEditorState::setCursorModeEraseterrain()
+{
+	cursorMode_ = CursorMode::ERASE_TERRAIN;
+}
 
-    if(buttonId == "Erase")
-        _eraseMode = true;
-    else
-        _eraseMode = false;
+void MapEditorState::setCursorModePlaceDeploymentZone(unsigned int playerNumber)
+{
+	cursorMode_ = CursorMode::PLACE_DEPLOYMENTZONE;
+	selectedEntity_.playerNumber = playerNumber;
+}
+
+void MapEditorState::setCursorModeEraseDeploymentZone()
+{
+	cursorMode_ = CursorMode::ERASE_DEPLOYMENTZONE;	
 }
 
 void MapEditorState::slotSaveButtonClicked()
@@ -248,7 +249,7 @@ namelessgui::Window* MapEditorState::createTerrainToolsWindow()
 	radioButton->setSize(buttonSize);
 	radioButton->setRelativePosition({5.0f, buttonYOffset});
 	radioButton->setImage(TextureManager::getInstance()->getTexture("wood"));
-	radioButton->signalActivated.connect(std::bind(&MapEditorState::slotTerrainButtonChanged, this, std::placeholders::_1));
+	radioButton->signalActivated.connect([this] { setCursorModePlaceTerrain(TERRAINTYPES::ET_WOOD); });
 	terrainWindow->addWidget(radioButton);
 
 	radioButton = new namelessgui::RadioToggleButton(spTerrainButtonGroup, "Hill");
@@ -256,7 +257,7 @@ namelessgui::Window* MapEditorState::createTerrainToolsWindow()
 	radioButton->setSize(buttonSize);
 	radioButton->setRelativePosition({5.0f, 1 * buttonSize.y + buttonYOffset});
 	radioButton->setImage(TextureManager::getInstance()->getTexture("hill"));
-	radioButton->signalActivated.connect(std::bind(&MapEditorState::slotTerrainButtonChanged, this, std::placeholders::_1));
+	radioButton->signalActivated.connect([this] { setCursorModePlaceTerrain(TERRAINTYPES::ET_HILL); });
 	terrainWindow->addWidget(radioButton);
 
 	radioButton = new namelessgui::RadioToggleButton(spTerrainButtonGroup, "Wall");
@@ -264,7 +265,7 @@ namelessgui::Window* MapEditorState::createTerrainToolsWindow()
 	radioButton->setSize(buttonSize);
 	radioButton->setRelativePosition({5.0f, 2 * buttonSize.y + buttonYOffset});
 	radioButton->setImage(TextureManager::getInstance()->getTexture("wall"));
-	radioButton->signalActivated.connect(std::bind(&MapEditorState::slotTerrainButtonChanged, this, std::placeholders::_1));
+	radioButton->signalActivated.connect([this] { setCursorModePlaceTerrain(TERRAINTYPES::ET_WALL); });
 	terrainWindow->addWidget(radioButton);
 
 	radioButton = new namelessgui::RadioToggleButton(spTerrainButtonGroup, "Erase");
@@ -272,7 +273,7 @@ namelessgui::Window* MapEditorState::createTerrainToolsWindow()
 	radioButton->setSize(buttonSize);
 	radioButton->setRelativePosition({5.0f, 3 * buttonSize.y + buttonYOffset});
 	radioButton->setImage(TextureManager::getInstance()->getTexture("default"));
-	radioButton->signalActivated.connect(std::bind(&MapEditorState::slotTerrainButtonChanged, this, std::placeholders::_1));
+	radioButton->signalActivated.connect([this] { setCursorModeEraseterrain(); });
 	terrainWindow->addWidget(radioButton);
 
 	return terrainWindow;

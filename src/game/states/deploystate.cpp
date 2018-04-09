@@ -43,7 +43,7 @@ DeployState::DeployState(sf::RenderWindow* renderWindow)
 	radioButton->setSize(buttonSize);
 	radioButton->setRelativePosition({5.0f, buttonSize.y});
 	radioButton->setImage(textureManager->getTexture("p1swordman"));
-	radioButton->signalActivated.connect(std::bind(&DeployState::slotUnitButtonChanged, this, std::placeholders::_1));
+	radioButton->signalActivated.connect([this] { slotUnitButtonChanged(UNITTYPES::EUT_SWORDMAN, 0); });
 	_toolBar->addWidget(radioButton);
 
 	radioButton = new namelessgui::RadioToggleButton(unitButtonGroup, "p1archer");
@@ -51,7 +51,7 @@ DeployState::DeployState(sf::RenderWindow* renderWindow)
 	radioButton->setSize(buttonSize);
 	radioButton->setRelativePosition({5.0f, 2 * buttonSize.y});
 	radioButton->setImage(textureManager->getTexture("p1archer"));
-	radioButton->signalActivated.connect(std::bind(&DeployState::slotUnitButtonChanged, this, std::placeholders::_1));
+	radioButton->signalActivated.connect([this] { slotUnitButtonChanged(UNITTYPES::EUT_ARCHER, 0); });
 	_toolBar->addWidget(radioButton);
 
 	radioButton = new namelessgui::RadioToggleButton(unitButtonGroup, "p1spearman");
@@ -59,7 +59,7 @@ DeployState::DeployState(sf::RenderWindow* renderWindow)
 	radioButton->setSize(buttonSize);
 	radioButton->setRelativePosition({5.0f, 3 * buttonSize.y});
 	radioButton->setImage(textureManager->getTexture("p1spearman"));
-	radioButton->signalActivated.connect(std::bind(&DeployState::slotUnitButtonChanged, this, std::placeholders::_1));
+	radioButton->signalActivated.connect([this] { slotUnitButtonChanged(UNITTYPES::EUT_SPEARMAN, 0); });
 	_toolBar->addWidget(radioButton);
 
 	// Player two tools
@@ -75,7 +75,7 @@ DeployState::DeployState(sf::RenderWindow* renderWindow)
 	radioButton->setParentAnchor({0.0f, 0.4f});
 	radioButton->setRelativePosition({5.0f, buttonSize.y});
 	radioButton->setImage(textureManager->getTexture("p2swordman"));
-	radioButton->signalActivated.connect(std::bind(&DeployState::slotUnitButtonChanged, this, std::placeholders::_1));
+	radioButton->signalActivated.connect([this] { slotUnitButtonChanged(UNITTYPES::EUT_SWORDMAN, 1); });
 	_toolBar->addWidget(radioButton);
 
 	radioButton = new namelessgui::RadioToggleButton(unitButtonGroup, "p2archer");
@@ -84,7 +84,7 @@ DeployState::DeployState(sf::RenderWindow* renderWindow)
 	radioButton->setParentAnchor({0.0f, 0.4f});
 	radioButton->setRelativePosition({5.0f, 2 * buttonSize.y});
 	radioButton->setImage(textureManager->getTexture("p2archer"));
-	radioButton->signalActivated.connect(std::bind(&DeployState::slotUnitButtonChanged, this, std::placeholders::_1));
+	radioButton->signalActivated.connect([this] { slotUnitButtonChanged(UNITTYPES::EUT_ARCHER, 1); });
 	_toolBar->addWidget(radioButton);
 
 	radioButton = new namelessgui::RadioToggleButton(unitButtonGroup, "p2spearman");
@@ -93,7 +93,7 @@ DeployState::DeployState(sf::RenderWindow* renderWindow)
 	radioButton->setParentAnchor({0.0f, 0.4f});
 	radioButton->setRelativePosition({5.0f, 3 * buttonSize.y});
 	radioButton->setImage(textureManager->getTexture("p2spearman"));
-	radioButton->signalActivated.connect(std::bind(&DeployState::slotUnitButtonChanged, this, std::placeholders::_1));
+	radioButton->signalActivated.connect([this] { slotUnitButtonChanged(UNITTYPES::EUT_SPEARMAN, 1); });
 	_toolBar->addWidget(radioButton);
 
 	// Next step button
@@ -164,21 +164,10 @@ std::vector<Player::Ptr> DeployState::getPlayers() const
     return _players;
 }
 
-void DeployState::slotUnitButtonChanged(const namelessgui::RadioToggleButton& unitButton)
+void DeployState::slotUnitButtonChanged(UNITTYPES unitType, unsigned int playerNumber)
 {
-	std::string buttonId = unitButton.getId();
-	std::string unitName = buttonId.substr(2);
-
-	// Determine player id
-	_selectedPlayer = _players.at(buttonId.at(1) - 49);
-
-	// Determine unit type
-	if(unitName == "swordman")
-		_selectedUnitType = EUT_SWORDMAN;
-	else if(unitName == "archer")
-		_selectedUnitType = EUT_ARCHER;
-	else if(unitName == "spearman")
-        _selectedUnitType = EUT_SPEARMAN;
+	_selectedPlayer = _players.at(playerNumber);
+	_selectedUnitType = unitType;
 }
 
 void DeployState::slotToSkirmishButtonClicked()
