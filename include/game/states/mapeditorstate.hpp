@@ -2,6 +2,7 @@
 #define QRW_MAPEDITORSTATE_H
 
 #include <memory>
+#include <vector>
 
 #include "game/states/scenestate.hpp"
 
@@ -61,6 +62,8 @@ private:
 	namelessgui::LineInput* mapNameInput_;
 
 	namelessgui::ConfirmationDialog* mapOverwriteConfirmationDialog_;
+
+	std::vector<class DeploymentZone*> deploymentZones_;
 
     /**
      * @brief Mode of the cursor.

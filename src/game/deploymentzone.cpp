@@ -9,7 +9,8 @@ namespace qrw
 {
 
 DeploymentZone::DeploymentZone()
-    : Renderable(RENDER_LAYER_DEPLOYMENT_ZONE)
+    : Renderable(RENDER_LAYER_DEPLOYMENT_ZONE),
+      color_(sf::Color::Green)
 {
 }
 
@@ -21,7 +22,7 @@ void DeploymentZone::render(sf::RenderTarget& renderTarget)
 {
     sf::RectangleShape rectangle;
     rectangle.setSize({32, 32});
-    rectangle.setFillColor(sf::Color::Red);
+    rectangle.setFillColor(color_);
 
     for(auto& coordinate : zone_)
     {
@@ -38,6 +39,11 @@ void DeploymentZone::setPosition(const sf::Vector2f& position)
 const sf::Vector2f& DeploymentZone::getPosition() const
 {
     return position_;
+}
+
+void DeploymentZone::setColor(const sf::Color& color)
+{
+    color_ = color;
 }
 
 void DeploymentZone::addSquare(const Coordinates& coordinate)

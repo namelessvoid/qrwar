@@ -10,7 +10,9 @@
 #include "gui/ng/lineinput.hpp"
 
 #include "game/cameras/skirmishcamera.hpp"
+#include "game/deploymentzone.hpp"
 #include "game/mapmanager.hpp"
+#include "game/constants.hpp"
 
 #include "foundation/spritecomponent.hpp"
 
@@ -56,6 +58,11 @@ void MapEditorState::init(GameState* previousState)
 
 	g_scene.spawn<Cursor>();
 
+	deploymentZones_.push_back(g_scene.spawn<DeploymentZone>());
+	deploymentZones_.at(0)->setColor(PLAYER_ONE_COLOR);
+	deploymentZones_.push_back(g_scene.spawn<DeploymentZone>());
+	deploymentZones_.at(1)->setColor(PLAYER_TWO_COLOR);
+
 	SkirmishCamera* camera = g_scene.spawn<SkirmishCamera>();
 	camera->setCenter(_spBoard->getComponent<SpriteComponent>()->getCenter());
 }
@@ -75,15 +82,11 @@ Board* MapEditorState::getBoard() const
 
 void MapEditorState::slotCursorLeftClicked(const Coordinates& boardPosition)
 {
-    // Erase terrain
-	if(cursorMode_ == CursorMode::ERASE_TERRAIN && _spBoard->isTerrainAt(boardPosition))
-    {
-		g_scene.despawn(_spBoard->getTerrain(boardPosition));
-    }
-    // Place terrain
-    else if(cursorMode_ == CursorMode::PLACE_TERRAIN)
-    {
-        Terrain* terrain = Terrain::createTerrain(selectedEntity_.terrainType);
+	switch(cursorMode_)
+	{
+	case CursorMode::PLACE_TERRAIN:
+	{
+		Terrain* terrain = Terrain::createTerrain(selectedEntity_.terrainType);
         if(terrain != nullptr)
         {
 			if(Terrain* oldTerrain = _spBoard->getTerrain(boardPosition))
@@ -93,7 +96,28 @@ void MapEditorState::slotCursorLeftClicked(const Coordinates& boardPosition)
 			terrain->setPosition(boardPosition);
 			g_scene.addGameObject(terrain);
         }
-    }
+		break;
+	}
+	case CursorMode::ERASE_TERRAIN:
+	{
+		if(cursorMode_ == CursorMode::ERASE_TERRAIN && _spBoard->isTerrainAt(boardPosition))
+		{
+			g_scene.despawn(_spBoard->getTerrain(boardPosition));
+		}
+		break;
+	}
+	case CursorMode::PLACE_DEPLOYMENTZONE:
+	{
+		deploymentZones_.at(selectedEntity_.playerNumber)->addSquare(boardPosition);
+		break;
+	}
+	case CursorMode::ERASE_DEPLOYMENTZONE:
+	case CursorMode::PLACE_STRUCTURE:
+	case CursorMode::ERASE_STRUCTURE:
+	{
+		break;
+	}
+	} // switch
 }
 
 void MapEditorState::slotCursorRightClicked(const Coordinates& boardPosition)
@@ -309,7 +333,7 @@ namelessgui::Window* MapEditorState::createDeploymentZoneToolsWindow()
 	radioButton->setSize(buttonSize);
 	radioButton->setRelativePosition({5.0f, buttonYOffset});
 	radioButton->setImage(TextureManager::getInstance()->getTexture("default"));
-	//radioButton->signalActivated.connect(std::bind(&MapEditorState::slotTerrainButtonChanged, this, std::placeholders::_1));
+	radioButton->signalActivated.connect([this] { setCursorModePlaceDeploymentZone(0); });
 	zoneWindow->addWidget(radioButton);
 
 	radioButton = new namelessgui::RadioToggleButton(zoneButtonGroup, "Player2");
@@ -317,7 +341,15 @@ namelessgui::Window* MapEditorState::createDeploymentZoneToolsWindow()
 	radioButton->setSize(buttonSize);
 	radioButton->setRelativePosition({5.0f, 1 * buttonSize.y + buttonYOffset});
 	radioButton->setImage(TextureManager::getInstance()->getTexture("default"));
-	//radioButton->signalActivated.connect(std::bind(&MapEditorState::slotTerrainButtonChanged, this, std::placeholders::_1));
+	radioButton->signalActivated.connect([this] { setCursorModePlaceDeploymentZone(1); });
+	zoneWindow->addWidget(radioButton);
+
+	radioButton = new namelessgui::RadioToggleButton(zoneButtonGroup, "Erase");
+	radioButton->setText("Erase");
+	radioButton->setSize(buttonSize);
+	radioButton->setRelativePosition({5.0f, 2 * buttonSize.y + buttonYOffset});
+	radioButton->setImage(TextureManager::getInstance()->getTexture("default"));
+	radioButton->signalActivated.connect([this] { setCursorModeEraseDeploymentZone(); });
 	zoneWindow->addWidget(radioButton);
 
 	return zoneWindow;
