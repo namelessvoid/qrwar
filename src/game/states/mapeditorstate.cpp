@@ -85,33 +85,19 @@ void MapEditorState::slotCursorLeftClicked(const Coordinates& boardPosition)
 	switch(cursorMode_)
 	{
 	case CursorMode::PLACE_TERRAIN:
-	{
-		Terrain* terrain = Terrain::createTerrain(selectedEntity_.terrainType);
-        if(terrain != nullptr)
-        {
-			if(Terrain* oldTerrain = _spBoard->getTerrain(boardPosition))
-				g_scene.despawn(oldTerrain);
-
-			_spBoard->setTerrain(boardPosition, terrain);
-			terrain->setPosition(boardPosition);
-			g_scene.addGameObject(terrain);
-        }
+		placeTerrain(boardPosition, selectedEntity_.terrainType);
 		break;
-	}
 	case CursorMode::ERASE_TERRAIN:
-	{
-		if(cursorMode_ == CursorMode::ERASE_TERRAIN && _spBoard->isTerrainAt(boardPosition))
-		{
-			g_scene.despawn(_spBoard->getTerrain(boardPosition));
-		}
+		eraseTerrain(boardPosition);
 		break;
-	}
 	case CursorMode::PLACE_DEPLOYMENTZONE:
 	{
-		deploymentZones_.at(selectedEntity_.playerNumber)->addSquare(boardPosition);
+		placeDeploymentZone(boardPosition, selectedEntity_.playerNumber);
 		break;
 	}
 	case CursorMode::ERASE_DEPLOYMENTZONE:
+		eraseDeploymentZone(boardPosition);
+		break;
 	case CursorMode::PLACE_STRUCTURE:
 	case CursorMode::ERASE_STRUCTURE:
 	{
@@ -193,6 +179,42 @@ void MapEditorState::slotLoadButtonClicked()
 	g_scene.despawn(_spBoard);
 	_spBoard = mapManager->loadMap(mapNameInput_->getText());
 	g_scene.addGameObject(_spBoard);
+}
+
+void MapEditorState::placeTerrain(const Coordinates& boardPosition, TERRAINTYPES terrainType)
+{
+	Terrain* terrain = Terrain::createTerrain(terrainType);
+	if(terrain != nullptr)
+	{
+		if(Terrain* oldTerrain = _spBoard->getTerrain(boardPosition))
+			g_scene.despawn(oldTerrain);
+
+		_spBoard->setTerrain(boardPosition, terrain);
+		terrain->setPosition(boardPosition);
+		g_scene.addGameObject(terrain);
+	}
+}
+
+void MapEditorState::eraseTerrain(const Coordinates& boardPosition)
+{
+	if(_spBoard->isTerrainAt(boardPosition))
+	{
+		g_scene.despawn(_spBoard->getTerrain(boardPosition));
+	}
+}
+
+void MapEditorState::placeDeploymentZone(const Coordinates& boardPosition, unsigned int playerNumber)
+{
+	eraseDeploymentZone(boardPosition);
+	deploymentZones_.at(selectedEntity_.playerNumber)->addSquare(boardPosition);
+}
+
+void MapEditorState::eraseDeploymentZone(const Coordinates& boardPosition)
+{
+	for(auto& deploymentZone : deploymentZones_)
+	{
+		deploymentZone->removeSquare(boardPosition);
+	}
 }
 
 void MapEditorState::saveMap()

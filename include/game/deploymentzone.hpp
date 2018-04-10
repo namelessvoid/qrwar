@@ -28,6 +28,7 @@ public:
 	void setColor(const sf::Color& color);
 
 	void addSquare(const Coordinates& coordinate);
+	void removeSquare(const Coordinates& coordinate);
 
 	bool containsSquare(const Coordinates& coordinate);
 

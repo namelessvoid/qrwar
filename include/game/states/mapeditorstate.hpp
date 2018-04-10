@@ -49,6 +49,11 @@ private:
 	void setCursorModePlaceDeploymentZone(unsigned int playerNumber);
 	void setCursorModeEraseDeploymentZone();
 
+	void placeTerrain(const Coordinates& boardPosition, TERRAINTYPES terrainType);
+	void eraseTerrain(const Coordinates& boardPosition);
+	void placeDeploymentZone(const Coordinates& boardPosition, unsigned int playerNumber);
+	void eraseDeploymentZone(const Coordinates& boardPosition);
+
 	void slotSaveButtonClicked();
 	void slotLoadButtonClicked();
 

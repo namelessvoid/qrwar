@@ -51,6 +51,11 @@ void DeploymentZone::addSquare(const Coordinates& coordinate)
     zone_.insert(coordinate);
 }
 
+void DeploymentZone::removeSquare(const Coordinates& coordinate)
+{
+    zone_.erase(coordinate);
+}
+
 bool DeploymentZone::containsSquare(const Coordinates& coordinate)
 {
     return zone_.find(coordinate) != zone_.end();
