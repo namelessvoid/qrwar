@@ -26,7 +26,7 @@ void DeploymentZone::render(sf::RenderTarget& renderTarget)
 
     for(auto& coordinate : zone_)
     {
-        rectangle.setPosition({32 * coordinate.getX(), 32 * coordinate.getY()});
+        rectangle.setPosition({32.0f * coordinate.getX(), 32.0f * coordinate.getY()});
         renderTarget.draw(rectangle);
     }
 }
