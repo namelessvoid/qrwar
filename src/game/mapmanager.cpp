@@ -7,6 +7,7 @@
 #include "meta/metamanager.hpp"
 
 #include "engine/board.hpp"
+#include "game/deploymentzone.hpp"
 
 namespace fs = std::experimental::filesystem;
 
@@ -30,17 +31,38 @@ MapManager* MapManager::get()
 	return instance_;
 }
 
-Board* MapManager::loadMap(const std::string& mapName)
+MapManager::LoadErrors MapManager::loadMap(
+	const std::string& mapName,
+	Board*& board,
+	std::vector<DeploymentZone*>& deploymentZones)
 {
-	assert(doesMapExist(mapName));
+	assert(board == nullptr);
+	assert(deploymentZones.empty());
+
+	if(!doesMapExist(mapName)) return LoadErrors::MAP_NOT_FOUND;
 
 	const MetaClass* boardMetaClass = MetaManager::getMetaClassFor<Board>();
+	const MetaClass* deploymentZoneMetaClass = MetaManager::getMetaClassFor<DeploymentZone>();
 
 	std::vector<YAML::Node> documents = YAML::LoadAllFromFile(getUserMapDir() / mapNameToPath(mapName));
+	YAML::Node gameObjectsNode = documents.at(1);
+	
+	for(auto node : gameObjectsNode)
+	{
+		const std::string nodeType = node["type"].as<std::string>();
+		if(nodeType == DeploymentZone::typeName.getStringId())
+		{
+			DeploymentZone* zone = static_cast<DeploymentZone*>(deploymentZoneMetaClass->deserialize(node));
+			deploymentZones.push_back(zone);
+		}
+		else if(nodeType == Board::typeName.getStringId())
+		{
+			if(board != nullptr) return LoadErrors::MULTIPLE_BOARDS;
+			board = static_cast<Board*>(boardMetaClass->deserialize(node));
+		}
+	}
 
-	Board* board = static_cast<Board*>(boardMetaClass->deserialize(documents.at(1)[0]["qrw::Board"]));
-
-	return board;
+	return LoadErrors::SUCCESS;
 }
 
 bool MapManager::doesMapExist(const std::string& mapName)
@@ -50,9 +72,13 @@ bool MapManager::doesMapExist(const std::string& mapName)
 	return fs::exists(mapFilePath);
 }
 
-void MapManager::saveMap(const std::string& mapName, const Board& board)
+void MapManager::saveMap(
+	const std::string& mapName,
+	const Board& board,
+	const std::vector<DeploymentZone*>& deploymentZones)
 {
 	const MetaClass* boardMetaClass = MetaManager::getMetaClassFor<Board>();
+	const MetaClass* deploymentZoneMetaClass = MetaManager::getMetaClassFor<DeploymentZone>();
 	const std::string fileName = mapNameToPath(mapName);
 
 	YAML::Emitter yaml;
@@ -67,6 +93,8 @@ void MapManager::saveMap(const std::string& mapName, const Board& board)
 	yaml << YAML::BeginDoc
 		 << YAML::BeginSeq;
 			boardMetaClass->serialize(&board, yaml);
+			for(auto& zone : deploymentZones)
+				deploymentZoneMetaClass->serialize(zone, yaml);
 	yaml << YAML::EndSeq;
 
 	std::ofstream mapFile;

@@ -17,6 +17,7 @@ class Text;
 
 namespace qrw
 {
+class DeploymentZone;
 
 class DeployState : public SceneState
 {
@@ -49,6 +50,7 @@ private:
 	virtual void slotCursorRightClicked(const Coordinates& boardPosition) override;
 
 	Board* board_;
+    std::vector<DeploymentZone*> deploymentZones_;
 
 	std::vector<Player::Ptr> _players;
 

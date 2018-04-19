@@ -17,15 +17,16 @@ void BoardMetaClass::serialize(const GameObject* object, YAML::Emitter& out) con
 	const MetaClass* terrainMetaClass = MetaManager::getMetaClassFor<Terrain>();
 
 	out << YAML::BeginMap
-		<< YAML::Key << Board::typeName.getStringId()
+		<< YAML::Key << "type" << YAML::Value << Board::typeName.getStringId()
+		<< YAML::Key << "size"
 		<< YAML::Value
-		<< YAML::BeginMap
-			<< YAML::Key << "size" << YAML::BeginMap
+			<< YAML::BeginMap
 				<< YAML::Key << "width" << YAML::Value << board->getWidth()
 				<< YAML::Key << "height" << YAML::Value << board->getHeight()
 			<< YAML::EndMap
-			<< YAML::Key << "terrains"
-			<< YAML::Value << YAML::BeginSeq;
+		<< YAML::Key << "terrains"
+		<< YAML::Value
+			<< YAML::BeginSeq;
 
 				for(auto& terrainIter : board->getTerrains())
 				{
@@ -33,7 +34,6 @@ void BoardMetaClass::serialize(const GameObject* object, YAML::Emitter& out) con
 				}
 
 			out << YAML::EndSeq;
-		out << YAML::EndMap;
 		out << YAML::EndMap;
 }
 

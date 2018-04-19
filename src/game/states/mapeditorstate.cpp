@@ -175,10 +175,23 @@ void MapEditorState::slotLoadButtonClicked()
 	if(!mapManager->doesMapExist(mapNameInput_->getText()))
 		return;
 
+	// Clean up
 	for(auto& terrainIter : _spBoard->getTerrains()) g_scene.despawn(terrainIter.second);
 	g_scene.despawn(_spBoard);
-	_spBoard = mapManager->loadMap(mapNameInput_->getText());
+	_spBoard = nullptr;
+	for(auto& deploymentZone : deploymentZones_) g_scene.despawn(deploymentZone);
+	deploymentZones_.clear();
+
+	// Load and add objects
+	MapManager::LoadErrors error = mapManager->loadMap(
+		mapNameInput_->getText(),
+		_spBoard,
+		deploymentZones_);
+
+	// TODO error handling
+
 	g_scene.addGameObject(_spBoard);
+	for(auto& deploymentZone : deploymentZones_) g_scene.addGameObject(deploymentZone);
 }
 
 void MapEditorState::placeTerrain(const Coordinates& boardPosition, TERRAINTYPES terrainType)
@@ -219,7 +232,10 @@ void MapEditorState::eraseDeploymentZone(const Coordinates& boardPosition)
 
 void MapEditorState::saveMap()
 {
-	MapManager::get()->saveMap(mapNameInput_->getText(), *_spBoard);
+	MapManager::get()->saveMap(
+		mapNameInput_->getText(),
+		*_spBoard,
+		deploymentZones_);
 }
 
 namelessgui::Window* MapEditorState::createConfigToolsWindow()

@@ -10,6 +10,7 @@
 #include "game/states/skirmishpreparationstate.hpp"
 #include "game/cameras/skirmishcamera.hpp"
 #include "game/mapmanager.hpp"
+#include "game/deploymentzone.hpp"
 
 #include "gui/texturemanager.hpp"
 
@@ -23,7 +24,8 @@ namespace qrw
 
 DeployState::DeployState(sf::RenderWindow* renderWindow)
     : SceneState(renderWindow, EGameStateId::EGSID_DEPLOY_STATE),
-      _toSkirmish(false)
+      _toSkirmish(false),
+	  board_(nullptr)
 {
 	// Initialize tool bar
 	sf::Vector2f buttonSize(140.0f, 50.0f);
@@ -109,7 +111,8 @@ DeployState::DeployState(sf::RenderWindow* renderWindow)
 
 DeployState::~DeployState()
 {
-
+	for(auto& deploymentZone : deploymentZones_)
+		g_scene.despawn(deploymentZone);
 }
 
 EGameStateId DeployState::update()
@@ -131,8 +134,15 @@ void DeployState::init(GameState* previousState)
 	SceneState::init(previousState);
 
 	// Load board
-	board_ = MapManager::get()->loadMap(preparationState->getMapName());
+	MapManager::LoadErrors error = MapManager::get()->loadMap(
+		preparationState->getMapName(),
+		board_,
+		deploymentZones_);
+
+	// TODO show error
+
 	g_scene.setBoard(board_);
+	for(auto& deploymentZone : deploymentZones_) g_scene.addGameObject(deploymentZone);
 
 	g_scene.spawn<Cursor>();
 
