@@ -24,8 +24,8 @@ namespace qrw
 
 DeployState::DeployState(sf::RenderWindow* renderWindow)
     : SceneState(renderWindow, EGameStateId::EGSID_DEPLOY_STATE),
-      _toSkirmish(false),
-	  board_(nullptr)
+	  board_(nullptr),
+      _toSkirmish(false)
 {
 	// Initialize tool bar
 	sf::Vector2f buttonSize(140.0f, 50.0f);
