@@ -8,6 +8,8 @@
 namespace qrw
 {
 
+SID DeploymentZone::typeName("qrw::DeploymentZone");
+
 DeploymentZone::DeploymentZone()
     : Renderable(RENDER_LAYER_DEPLOYMENT_ZONE),
       color_(sf::Color::Green)

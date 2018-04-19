@@ -5,6 +5,7 @@
 
 #include <SFML/Graphics/Color.hpp>
 
+#include "core/sid.hpp"
 #include "foundation/gameobject.hpp"
 #include "rendering/renderable.hpp"
 
@@ -14,6 +15,8 @@ namespace qrw {
 
 class DeploymentZone : public GameObject, public Renderable
 {
+friend class DeploymentZoneMetaClass;
+
 public:
 	DeploymentZone();
 
@@ -31,6 +34,8 @@ public:
 	void removeSquare(const Coordinates& coordinate);
 
 	bool containsSquare(const Coordinates& coordinate);
+
+	static SID typeName;
 
 private:
 	sf::Vector2f position_;

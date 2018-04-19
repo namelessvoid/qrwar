@@ -19,6 +19,7 @@
 #include "meta/metamanager.hpp"
 #include "game/meta/boardmetaclass.hpp"
 #include "game/meta/terrainmetaclass.hpp"
+#include "game/meta/deploymentzonemetaclass.hpp"
 
 #include "game/states/introstate.hpp"
 #include "game/states/mainmenustate.hpp"
@@ -26,6 +27,7 @@
 #include "game/states/skirmishpreparationstate.hpp"
 #include "game/states/deploystate.hpp"
 #include "game/states/skirmishstate.hpp"
+#include "game/deploymentzone.hpp"
 
 #include "game/path.hpp"
 
@@ -129,6 +131,7 @@ void QRWar::registerMetaTypes()
 {
 	MetaManager::registerMetaClass<BoardMetaClass>(Board::typeName);
 	MetaManager::registerMetaClass<TerrainMetaClass>(Terrain::typeName);
+	MetaManager::registerMetaClass<DeploymentZoneMetaClass>(DeploymentZone::typeName);
 }
 
 GameState* QRWar::createGameState(EGameStateId id)
