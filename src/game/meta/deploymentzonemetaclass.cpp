@@ -22,6 +22,7 @@ void DeploymentZoneMetaClass::serialize(const GameObject* object, YAML::Emitter&
 
     out << YAML::BeginMap;
     out << YAML::Key << "type" << YAML::Value << DeploymentZone::typeName.getStringId()
+        << YAML::Key << "playerId" << YAML::Value << deploymentZone->getPlayerId()
         << YAML::Key << "zone_"
         << YAML::Value
             << YAML::BeginSeq;
@@ -49,6 +50,7 @@ GameObject* DeploymentZoneMetaClass::deserialize(const YAML::Node& in) const
     {
         zone->addSquare({squareNode["x"].as<int>(), squareNode["y"].as<int>()});
     }
+    zone->setPlayerId(in["playerId"].as<int>());
 
     return zone;
 }

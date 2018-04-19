@@ -59,9 +59,9 @@ void MapEditorState::init(GameState* previousState)
 	g_scene.spawn<Cursor>();
 
 	deploymentZones_.push_back(g_scene.spawn<DeploymentZone>());
-	deploymentZones_.at(0)->setColor(PLAYER_ONE_COLOR);
+	deploymentZones_.at(0)->setPlayerId(1);
 	deploymentZones_.push_back(g_scene.spawn<DeploymentZone>());
-	deploymentZones_.at(1)->setColor(PLAYER_TWO_COLOR);
+	deploymentZones_.at(1)->setPlayerId(2);
 
 	SkirmishCamera* camera = g_scene.spawn<SkirmishCamera>();
 	camera->setCenter(_spBoard->getComponent<SpriteComponent>()->getCenter());

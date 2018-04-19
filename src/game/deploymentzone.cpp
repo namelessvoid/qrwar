@@ -4,6 +4,7 @@
 #include <SFML/Graphics/RenderTarget.hpp>
 
 #include "game/renderlayers.hpp"
+#include "game/constants.hpp"
 
 namespace qrw
 {
@@ -12,6 +13,7 @@ SID DeploymentZone::typeName("qrw::DeploymentZone");
 
 DeploymentZone::DeploymentZone()
     : Renderable(RENDER_LAYER_DEPLOYMENT_ZONE),
+      playerId_(-1),
       color_(sf::Color::Green)
 {
 }
@@ -43,11 +45,6 @@ const sf::Vector2f& DeploymentZone::getPosition() const
     return position_;
 }
 
-void DeploymentZone::setColor(const sf::Color& color)
-{
-    color_ = color;
-}
-
 void DeploymentZone::addSquare(const Coordinates& coordinate)
 {
     zone_.insert(coordinate);
@@ -61,6 +58,18 @@ void DeploymentZone::removeSquare(const Coordinates& coordinate)
 bool DeploymentZone::containsSquare(const Coordinates& coordinate)
 {
     return zone_.find(coordinate) != zone_.end();
+}
+
+void DeploymentZone::setPlayerId(int playerId)
+{
+    playerId_ = playerId;
+
+    switch(playerId)
+    {
+        case 1: color_ = PLAYER_ONE_COLOR; break;
+        case 2: color_ = PLAYER_TWO_COLOR; break;
+        default: assert(playerId == 1 || playerId == 2);
+    }
 }
 
 } // namespace qrw

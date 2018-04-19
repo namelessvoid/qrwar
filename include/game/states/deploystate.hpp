@@ -50,7 +50,7 @@ private:
 	virtual void slotCursorRightClicked(const Coordinates& boardPosition) override;
 
 	Board* board_;
-    std::vector<DeploymentZone*> deploymentZones_;
+    std::map<int, DeploymentZone*> deploymentZones_;
 
 	std::vector<Player::Ptr> _players;
 

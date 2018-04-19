@@ -28,16 +28,19 @@ public:
 
 	virtual const sf::Vector2f& getPosition() const override;
 
-	void setColor(const sf::Color& color);
-
 	void addSquare(const Coordinates& coordinate);
 	void removeSquare(const Coordinates& coordinate);
 
 	bool containsSquare(const Coordinates& coordinate);
 
+	void setPlayerId(int playerId);
+	int getPlayerId() const { return playerId_; }
+
 	static SID typeName;
 
 private:
+	int playerId_;
+
 	sf::Vector2f position_;
 
 	std::set<Coordinates> zone_;

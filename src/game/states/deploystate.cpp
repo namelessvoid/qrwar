@@ -111,8 +111,8 @@ DeployState::DeployState(sf::RenderWindow* renderWindow)
 
 DeployState::~DeployState()
 {
-	for(auto& deploymentZone : deploymentZones_)
-		g_scene.despawn(deploymentZone);
+	for(auto& zoneIter : deploymentZones_)
+		g_scene.despawn(zoneIter.second);
 }
 
 EGameStateId DeployState::update()
@@ -134,15 +134,20 @@ void DeployState::init(GameState* previousState)
 	SceneState::init(previousState);
 
 	// Load board
+	std::vector<DeploymentZone*> deploymentZones;
 	MapManager::LoadErrors error = MapManager::get()->loadMap(
 		preparationState->getMapName(),
 		board_,
-		deploymentZones_);
+		deploymentZones);
 
 	// TODO show error
 
 	g_scene.setBoard(board_);
-	for(auto& deploymentZone : deploymentZones_) g_scene.addGameObject(deploymentZone);
+	for(auto& deploymentZone : deploymentZones)
+	{
+		g_scene.addGameObject(deploymentZone);
+		deploymentZones_[deploymentZone->getPlayerId()] = deploymentZone;
+	}
 
 	g_scene.spawn<Cursor>();
 
