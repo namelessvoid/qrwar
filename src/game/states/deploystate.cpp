@@ -195,6 +195,9 @@ void DeployState::slotCursorLeftClicked(const Coordinates& boardPosition)
 	if(_selectedPlayer == nullptr)
 		return;
 
+	if(!deploymentZones_.at(_selectedPlayer->getId())->containsSquare(boardPosition))
+		return;
+
 	if(Unit* unit = board_->getUnit(boardPosition))
 		g_scene.despawn(unit);
 
