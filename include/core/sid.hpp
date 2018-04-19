@@ -32,7 +32,7 @@ public:
 		return m_hashId < rhs.m_hashId;
 	}
 
-	const std::string& getStringId()
+	const std::string& getStringId() const
 	{
 		return m_stringId;
 	}
