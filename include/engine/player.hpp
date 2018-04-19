@@ -16,7 +16,7 @@ namespace qrw
 
 			std::string getName();
 			void setName(std::string name);
-			int getId();
+			int getId() const;
 			void setId(int id);
 
 			/**

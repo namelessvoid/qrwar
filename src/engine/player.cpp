@@ -23,7 +23,7 @@ namespace qrw
 		this->_name = name;
 	}
 
-	int Player::getId()
+	int Player::getId() const
 	{
 		return _id;
 	}
