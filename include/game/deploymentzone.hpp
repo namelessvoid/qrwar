@@ -20,7 +20,7 @@ friend class DeploymentZoneMetaClass;
 public:
 	DeploymentZone();
 
-	~DeploymentZone();
+	virtual ~DeploymentZone();
 
 	virtual void render(sf::RenderTarget& renderTarget) override;
 
