@@ -26,20 +26,11 @@ class Board;
 class Cursor : public SquareMarker, public EventHandler
 {
 public:
-	enum class Color
-	{
-		ESC_DEFAULT,
-		ESC_WARNING,
-		ESC_DANGER
-	};
-
 	Cursor();
 
 	virtual ~Cursor();
 
 	virtual bool handleEvent(const qrw::IEvent& event) override;
-
-	void setFillColor(Color color);
 };
 } // namespace qrw
 

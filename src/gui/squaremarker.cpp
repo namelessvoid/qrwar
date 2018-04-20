@@ -4,6 +4,8 @@
 
 #include "foundation/spritecomponent.hpp"
 
+#include "gui/texturemanager.hpp"
+
 #include "game/renderlayers.hpp"
 #include "game/constants.hpp"
 
@@ -14,8 +16,8 @@ SquareMarker::SquareMarker()
 	: m_boardPosition(0, 0)
 {
 	m_spriteComponent = new SpriteComponent(RENDER_LAYER_CURSOR);
-	m_spriteComponent->setFillColor(sf::Color(218, 218, 0, 120));
 	m_spriteComponent->setSize({SQUARE_DIMENSION, SQUARE_DIMENSION});
+	markValid();
 	addComponent(m_spriteComponent);
 }
 
@@ -46,6 +48,16 @@ bool SquareMarker::isVisible() const
 void SquareMarker::setVisible(bool visible)
 {
 	m_spriteComponent->setVisible(visible);
+}
+
+void SquareMarker::markValid()
+{
+	m_spriteComponent->setTexture(TextureManager::getInstance()->getTexture("squaremarker"));
+}
+
+void SquareMarker::markInvalid()
+{
+	m_spriteComponent->setTexture(TextureManager::getInstance()->getTexture("squaremarkerinvalid"));
 }
 
 } // namespace qrw

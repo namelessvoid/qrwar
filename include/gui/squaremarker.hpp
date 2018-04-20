@@ -32,6 +32,9 @@ public:
 
 	void setVisible(bool visible);
 
+	void markInvalid();
+	void markValid();
+
 protected:
 	sf::Color m_color;
 

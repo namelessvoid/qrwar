@@ -117,13 +117,12 @@ void SkirmishState::slotCursorMoved(const Coordinates &boardPosition)
 		{
 			path_->setStartAndEnd(_selectedUnit->getPosition(), boardPosition);
 
-			Cursor::Color cursorColor = Cursor::Color::ESC_DEFAULT;
+			Cursor* cursor = g_scene.getSingleGameObject<Cursor>();
+			cursor->markValid();
 			if(path_->getMovementCosts() > _selectedUnit->getCurrentMovement())
-				cursorColor = Cursor::Color::ESC_WARNING;
+				cursor->markInvalid();
 			if(boardPosition == _squareMarker->getBoardPosition())
-				cursorColor = Cursor::Color::ESC_DEFAULT;
-
-			g_scene.getSingleGameObject<Cursor>()->setFillColor(cursorColor);
+				cursor->markValid();
 		}
 	}
     else
@@ -267,7 +266,7 @@ void SkirmishState::deselectUnit()
 {
 	_selectedUnit = nullptr;
 	_squareMarker->setVisible(false);
-	g_scene.getSingleGameObject<Cursor>()->setFillColor(Cursor::Color::ESC_DEFAULT);
+	g_scene.getSingleGameObject<Cursor>()->markValid();
 	path_->reset();
 }
 
