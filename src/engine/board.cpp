@@ -124,6 +124,6 @@ SID Board::typeName("qrw::Board");
 	void Board::resizeBackground()
 	{
 		backgroundComponent_->setSize({SQUARE_DIMENSION * _width, SQUARE_DIMENSION * _height});
-		backgroundComponent_->setRepeateTexture(true);
+		backgroundComponent_->setRepeateTexture(true, 2.0f);
 	}
 }

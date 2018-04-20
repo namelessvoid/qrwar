@@ -44,7 +44,7 @@ void qrw::PathRenderComponent::render(sf::RenderTarget &renderTarget)
 		current  = next;
 
 		// Reset the previously applied transformations.
-		_rectangle->setOrigin(16, 16);
+		_rectangle->setOrigin(0.5f * SQUARE_DIMENSION, 0.5f * SQUARE_DIMENSION);
 		_rectangle->setScale(1, 1);
 		_rectangle->setRotation(0);
 
