@@ -118,11 +118,18 @@ void SkirmishState::slotCursorMoved(const Coordinates &boardPosition)
 			path_->setStartAndEnd(_selectedUnit->getPosition(), boardPosition);
 
 			Cursor* cursor = g_scene.getSingleGameObject<Cursor>();
-			cursor->markValid();
-			if(path_->getMovementCosts() > _selectedUnit->getCurrentMovement())
+
+			if(_selectedUnit && unitUnderCursor && unitUnderCursor->getPlayer() != _selectedUnit->getPlayer()
+			   && _selectedUnit->getCurrentMovement() > 0
+			   && _selectedUnit->getPosition().distanceTo(boardPosition) <= _selectedUnit->getAttackRange())
+			{
+				cursor->markAttackable();
+			}
+			else if(path_->getMovementCosts() > _selectedUnit->getCurrentMovement())
 				cursor->markInvalid();
-			if(boardPosition == _squareMarker->getBoardPosition())
+			else
 				cursor->markValid();
+			
 		}
 	}
     else

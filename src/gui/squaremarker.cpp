@@ -60,4 +60,9 @@ void SquareMarker::markInvalid()
 	m_spriteComponent->setTexture(TextureManager::getInstance()->getTexture("squaremarkerinvalid"));
 }
 
+void SquareMarker::markAttackable()
+{
+	m_spriteComponent->setTexture(TextureManager::getInstance()->getTexture("squaremarkerattack"));
+}
+
 } // namespace qrw
