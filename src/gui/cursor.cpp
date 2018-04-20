@@ -1,4 +1,5 @@
 #include <iostream>
+#include <math.h>
 
 #include <SFML/Graphics/Color.hpp>
 #include <SFML/Graphics/RectangleShape.hpp>
@@ -31,17 +32,17 @@ Cursor::~Cursor()
 
 bool Cursor::handleEvent(const IEvent& event)
 {
+	static int counter = 0;
+
 	if(event.getName() == MouseMovedEvent::name)
     {
 		const MouseMovedEvent& moveEvent = static_cast<const MouseMovedEvent&>(event);
 
-        sf::Vector2f newPosition;
 		sf::Vector2f size = m_spriteComponent->getSize();
 
-		newPosition.x = moveEvent.worldCoordinates.x - (moveEvent.worldCoordinates.x % (int)size.x);
-		newPosition.y = moveEvent.worldCoordinates.y - (moveEvent.worldCoordinates.y % (int)size.y);
-
-        Coordinates newBoardPosition((int)newPosition.x / size.x, (int)newPosition.y / size.y);
+        Coordinates newBoardPosition(
+			floor(moveEvent.worldCoordinates.x / size.x),
+			floor(moveEvent.worldCoordinates.y / size.y));
 
 		if(newBoardPosition != m_boardPosition)
         {
@@ -49,10 +50,11 @@ bool Cursor::handleEvent(const IEvent& event)
 			if(board->isOnBoard(newBoardPosition))
             {
 				setBoardPosition(newBoardPosition);
-				 setVisible(true);
+				setVisible(true);
             }
             else
             {
+				m_boardPosition = {-1, -1};
 				setVisible(false);
             }
 
