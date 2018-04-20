@@ -19,6 +19,8 @@ class GameObject
 public:
 	virtual ~GameObject();
 
+	virtual void onDestroy() {};
+
 	void addComponent(GameComponent* component);
 
 	virtual void update(float elapsedTimeInSeconds) {}

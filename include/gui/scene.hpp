@@ -43,9 +43,7 @@ public:
 
 	void addGameObject(GameObject* gameObject);
 
-	void despawnDelayed(GameObject* gameObject);
-
-	void despawn(GameObject* gameObject);
+	void destroy(GameObject* gameObject);
 
 	template<class TGameObject>
 	std::set<GameObject*>& getGameObjects();
@@ -58,7 +56,7 @@ public:
 	void update(float elapsedTimeInSeconds);
 
 private:
-	void removeGameObject(GameObject* gameObject);
+	void killPendingGameObjects();
 
 	sf::RenderTarget* _renderTarget;
 
@@ -66,7 +64,7 @@ private:
 
 	std::map<std::type_index,std::set<GameObject*>> m_gameObjects;
 
-	std::vector<GameObject*> m_toDeleteOnNextFrame;
+	std::set<GameObject*> m_toDeleteOnNextFrame;
 };
 
 template<class TGameObject>

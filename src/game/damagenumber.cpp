@@ -30,7 +30,7 @@ void DamageNumber::setDamage(int damage)
 void DamageNumber::update(float elapsedTimeInSeconds)
 {
 	if(!m_animation->isRunning())
-		g_scene.despawnDelayed(this);
+		g_scene.destroy(this);
 }
 
 void DamageNumber::setPosition(const sf::Vector2f& position)

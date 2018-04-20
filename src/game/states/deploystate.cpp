@@ -112,7 +112,7 @@ DeployState::DeployState(sf::RenderWindow* renderWindow)
 DeployState::~DeployState()
 {
 	for(auto& zoneIter : deploymentZones_)
-		g_scene.despawn(zoneIter.second);
+		g_scene.destroy(zoneIter.second);
 }
 
 EGameStateId DeployState::update()
@@ -199,7 +199,7 @@ void DeployState::slotCursorLeftClicked(const Coordinates& boardPosition)
 		return;
 
 	if(Unit* unit = board_->getUnit(boardPosition))
-		g_scene.despawn(unit);
+		g_scene.destroy(unit);
 
 	Unit* unit = Unit::createUnit(_selectedUnitType, _selectedPlayer);
 	unit->setPosition(boardPosition);
@@ -209,7 +209,7 @@ void DeployState::slotCursorLeftClicked(const Coordinates& boardPosition)
 void DeployState::slotCursorRightClicked(const Coordinates &boardPosition)
 {
 	if(Unit* unit = board_->getUnit(boardPosition))
-		g_scene.despawn(unit);
+		g_scene.destroy(unit);
 }
 
 } // namespace qrw

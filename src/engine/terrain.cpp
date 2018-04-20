@@ -58,6 +58,10 @@ Terrain::Terrain()
 
 Terrain::~Terrain()
 {
+}
+
+void Terrain::onDestroy()
+{
 	Board* board = g_scene.getSingleGameObject<Board>();
 	if(board->getTerrain(_position) == this)
 		board->removeTerrain(_position);

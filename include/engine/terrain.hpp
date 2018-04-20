@@ -32,7 +32,9 @@ namespace qrw
 
 			Terrain();
 
-			~Terrain();
+			virtual ~Terrain();
+
+			virtual void onDestroy() override;
 
 			int getModificator(MODIFICATORS type);
 			const int* getModificators();

@@ -83,6 +83,10 @@ Unit::Unit()
 
 Unit::~Unit()
 {
+}
+
+void Unit::onDestroy()
+{
 	Board* board = g_scene.getSingleGameObject<Board>();
 	if(board->getUnit(_position) == this)
 		board->removeUnit(_position);

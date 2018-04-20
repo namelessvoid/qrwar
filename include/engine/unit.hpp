@@ -27,6 +27,8 @@ public:
 
 	~Unit();
 
+	virtual void onDestroy() override;
+
 	Player::Ptr getPlayer() const;
 	UNITTYPES getType();
 

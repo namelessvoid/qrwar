@@ -109,7 +109,7 @@ void MapEditorState::slotCursorLeftClicked(const Coordinates& boardPosition)
 void MapEditorState::slotCursorRightClicked(const Coordinates& boardPosition)
 {
 	if(Terrain* terrain = _spBoard->getTerrain(boardPosition))
-		g_scene.despawn(terrain);
+		g_scene.destroy(terrain);
 }
 
 void MapEditorState::slotChangeBoardWidth(unsigned int width)
@@ -131,7 +131,7 @@ void MapEditorState::despawnTerrainNotOnBoard()
 		if(!_spBoard->isOnBoard(terrainIter.first))
 		{
 			_spBoard->removeTerrain(terrainIter.first);
-			g_scene.despawn(terrainIter.second);
+			g_scene.destroy(terrainIter.second);
 		}
 	}
 }
@@ -176,10 +176,10 @@ void MapEditorState::slotLoadButtonClicked()
 		return;
 
 	// Clean up
-	for(auto& terrainIter : _spBoard->getTerrains()) g_scene.despawn(terrainIter.second);
-	g_scene.despawn(_spBoard);
+	for(auto& terrainIter : _spBoard->getTerrains()) g_scene.destroy(terrainIter.second);
+	g_scene.destroy(_spBoard);
 	_spBoard = nullptr;
-	for(auto& deploymentZone : deploymentZones_) g_scene.despawn(deploymentZone);
+	for(auto& deploymentZone : deploymentZones_) g_scene.destroy(deploymentZone);
 	deploymentZones_.clear();
 
 	// Load and add objects
@@ -200,7 +200,7 @@ void MapEditorState::placeTerrain(const Coordinates& boardPosition, TERRAINTYPES
 	if(terrain != nullptr)
 	{
 		if(Terrain* oldTerrain = _spBoard->getTerrain(boardPosition))
-			g_scene.despawn(oldTerrain);
+			g_scene.destroy(oldTerrain);
 
 		_spBoard->setTerrain(boardPosition, terrain);
 		terrain->setPosition(boardPosition);
@@ -212,7 +212,7 @@ void MapEditorState::eraseTerrain(const Coordinates& boardPosition)
 {
 	if(_spBoard->isTerrainAt(boardPosition))
 	{
-		g_scene.despawn(_spBoard->getTerrain(boardPosition));
+		g_scene.destroy(_spBoard->getTerrain(boardPosition));
 	}
 }
 

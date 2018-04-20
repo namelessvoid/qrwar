@@ -37,15 +37,20 @@ void Scene::setRenderTarget(sf::RenderTarget* renderTarget)
 	_renderTarget = renderTarget;
 }
 
-void Scene::despawnDelayed(GameObject *gameObject)
+void Scene::destroy(GameObject *gameObject)
 {
-	m_toDeleteOnNextFrame.push_back(gameObject);
+	m_toDeleteOnNextFrame.insert(gameObject);
+	gameObject->onDestroy();
 }
 
-void Scene::despawn(GameObject *gameObject)
+void Scene::killPendingGameObjects()
 {
-	removeGameObject(gameObject);
-	delete gameObject;
+	for(auto& gameObject : m_toDeleteOnNextFrame)
+	{
+		m_gameObjects[typeid(*gameObject)].erase(gameObject);
+		delete gameObject;
+	}
+	m_toDeleteOnNextFrame.clear();
 }
 
 void Scene::addGameObject(GameObject* gameObject)
@@ -55,32 +60,20 @@ void Scene::addGameObject(GameObject* gameObject)
 	m_gameObjects[typeid(*gameObject)].insert(gameObject);
 }
 
-void Scene::removeGameObject(GameObject *gameObject)
-{
-	assert(gameObject!=nullptr);
-
-	m_gameObjects[typeid(*gameObject)].erase(gameObject);
-}
-
 void Scene::reset()
 {
 	for(auto gameObjectsIter : m_gameObjects)
 	{
 		for(auto gameObject : gameObjectsIter.second)
 		{
-			delete gameObject;
+			destroy(gameObject);
 		}
 	}
-	m_gameObjects.clear();
 }
 
 void Scene::update(float elapsedTimeInSeconds)
 {
-	for(GameObject*& gameObject : m_toDeleteOnNextFrame)
-	{
-		despawn(gameObject);
-	}
-	m_toDeleteOnNextFrame.clear();
+	killPendingGameObjects();
 
 	for(auto& gameObjectsIter : m_gameObjects)
 	{
