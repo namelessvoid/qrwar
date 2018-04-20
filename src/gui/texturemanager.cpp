@@ -9,21 +9,21 @@ namespace qrw
 	TextureManager::TextureManager()
 	{
 		sf::Image textureimage;
-		textureimage.create(32, 32, sf::Color(255, 0, 0));
+		textureimage.create(64, 64, sf::Color(255, 0, 0));
 
 		sf::Color col1(254, 254, 234);
 		sf::Color col2(0, 72, 180);
 
-		for(int i = 0; i < 32; ++i)
+		for(int i = 0; i < 64; ++i)
 		{
-			for(int j = i * 0.5; j < 32 - (i * 0.5); ++j) {
+			for(int j = i * 0.5; j < 64 - (i * 0.5); ++j) {
 				textureimage.setPixel(i, j, col1);
 			}
 		}
 
-		for(int i = 0; i < 32; ++i) {
-			textureimage.setPixel(31, i, col2);
-			textureimage.setPixel(i, 31, col2);
+		for(int i = 0; i < 64; ++i) {
+			textureimage.setPixel(63, i, col2);
+			textureimage.setPixel(i, 63, col2);
 		}
 
 		fallbacktexture.loadFromImage(textureimage);
