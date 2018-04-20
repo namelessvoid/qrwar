@@ -19,10 +19,11 @@ namespace qrw
 	int TilesetProcessor::loadTileset(std::string filepath)
 	{
 		tinyxml2::XMLDocument doc;
-		int error = doc.LoadFile(filepath.c_str());
-		if(error != 0)
+		tinyxml2::XMLError error = doc.LoadFile(filepath.c_str());
+		if(error != tinyxml2::XML_SUCCESS)
 		{
-			std::cout << "No such tileset file: '" << filepath << "'\n";
+			std::cout << "Error parsing tileset '" << filepath << "';\n";
+			std::cout << "   " << doc.ErrorStr() << "'\n";
 			return -1;
 		}
 
