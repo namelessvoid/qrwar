@@ -5,6 +5,7 @@
 #include "foundation/spritecomponent.hpp"
 
 #include "game/renderlayers.hpp"
+#include "game/constants.hpp"
 
 namespace qrw
 {
@@ -14,7 +15,7 @@ SquareMarker::SquareMarker()
 {
 	m_spriteComponent = new SpriteComponent(RENDER_LAYER_CURSOR);
 	m_spriteComponent->setFillColor(sf::Color(218, 218, 0, 120));
-	m_spriteComponent->setSize({32.0f, 32.0f});
+	m_spriteComponent->setSize({SQUARE_DIMENSION, SQUARE_DIMENSION});
 	addComponent(m_spriteComponent);
 }
 

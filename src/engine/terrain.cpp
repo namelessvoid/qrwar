@@ -6,6 +6,7 @@
 #include "foundation/spritecomponent.hpp"
 
 #include "game/renderlayers.hpp"
+#include "game/constants.hpp"
 
 namespace qrw
 {
@@ -49,7 +50,7 @@ Terrain::Terrain()
 {
 	_sprite = new SpriteComponent(RENDER_LAYER_TERRAIN);
 	addComponent(_sprite);
-	_sprite->setSize(sf::Vector2f(32, 32));
+	_sprite->setSize(sf::Vector2f(SQUARE_DIMENSION, SQUARE_DIMENSION));
 
 	_modificators[EM_ATTACK] = 0;
 	_modificators[EM_DEFENSE] = 0;
@@ -80,7 +81,7 @@ TERRAINTYPES Terrain::getType() const
 void Terrain::setPosition(const Coordinates& position)
 {
 	_position = position;
-	_sprite->setPosition(sf::Vector2f(32 * _position.getX(), 32 * _position.getY()));
+	_sprite->setPosition(sf::Vector2f(SQUARE_DIMENSION * _position.getX(), SQUARE_DIMENSION * _position.getY()));
 }
 
 const Coordinates& Terrain::getPosition() const

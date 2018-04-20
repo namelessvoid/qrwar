@@ -9,6 +9,7 @@
 #include "gui/texturemanager.hpp"
 
 #include "game/renderlayers.hpp"
+#include "game/constants.hpp"
 
 namespace qrw
 {
@@ -122,7 +123,7 @@ SID Board::typeName("qrw::Board");
 
 	void Board::resizeBackground()
 	{
-		backgroundComponent_->setSize({32.0f * _width, 32.0f * _height});
+		backgroundComponent_->setSize({SQUARE_DIMENSION * _width, SQUARE_DIMENSION * _height});
 		backgroundComponent_->setRepeateTexture(true);
 	}
 }

@@ -12,12 +12,11 @@
 #include "gui/texturemanager.hpp"
 
 #include "game/renderlayers.hpp"
+#include "game/constants.hpp"
 #include "game/damagenumber.hpp"
 
 namespace qrw
 {
-
-const float Unit::_dimension = 32;
 
 std::string Unit::UNITNAMES[] =
 {
@@ -79,7 +78,7 @@ Unit::Unit()
 {
 	_sprite = new SpriteComponent(RENDER_LAYER_UNIT);
 	addComponent(_sprite);
-	_sprite->setSize(sf::Vector2f(_dimension, _dimension));
+	_sprite->setSize({SQUARE_DIMENSION, SQUARE_DIMENSION});
 }
 
 Unit::~Unit()
@@ -193,7 +192,7 @@ void Unit::setPosition(const Coordinates& position)
 
 	_position = position;
 	board->setUnit(_position, this);
-	_sprite->setPosition(sf::Vector2f(_dimension * _position.getX(), _dimension * _position.getY()));
+	_sprite->setPosition({SQUARE_DIMENSION * _position.getX(), SQUARE_DIMENSION * _position.getY()});
 }
 
 void Unit::setTexture(const sf::Texture *texture)

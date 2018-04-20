@@ -25,12 +25,12 @@ DeploymentZone::~DeploymentZone()
 void DeploymentZone::render(sf::RenderTarget& renderTarget)
 {
     sf::RectangleShape rectangle;
-    rectangle.setSize({32, 32});
+    rectangle.setSize({SQUARE_DIMENSION, SQUARE_DIMENSION});
     rectangle.setFillColor(color_);
 
     for(auto& coordinate : zone_)
     {
-        rectangle.setPosition({32.0f * coordinate.getX(), 32.0f * coordinate.getY()});
+        rectangle.setPosition({SQUARE_DIMENSION * coordinate.getX(), SQUARE_DIMENSION * coordinate.getY()});
         renderTarget.draw(rectangle);
     }
 }

@@ -9,6 +9,8 @@
 
 #include "gui/texturemanager.hpp"
 
+#include "game/constants.hpp"
+
 namespace qrw
 {
 
@@ -17,7 +19,7 @@ PathRenderComponent::PathRenderComponent()
 {
 	setPath(nullptr);
 	setTexture(TextureManager::getInstance()->getTexture("footstep"));
-	setSize({32.0f, 32.0f});
+	setSize({SQUARE_DIMENSION, SQUARE_DIMENSION});
 }
 
 PathRenderComponent::~PathRenderComponent()
@@ -79,8 +81,8 @@ void qrw::PathRenderComponent::render(sf::RenderTarget &renderTarget)
 		}
 
 		_rectangle->setPosition(
-			32 * (0.5f + current->getX()),
-			32 * (0.5f + current->getY())
+			SQUARE_DIMENSION * (0.5f + current->getX()),
+			SQUARE_DIMENSION * (0.5f + current->getY())
 		);
 
 		renderTarget.draw(*_rectangle);
