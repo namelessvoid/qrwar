@@ -1,7 +1,6 @@
 #include "eventsystem/eventsystem.hpp"
 
 #include <cassert>
-#include <iostream>
 
 #include <SFML/Window/Event.hpp>
 
@@ -65,8 +64,6 @@ void EventSystem::registerEventHandler(EventHandler* eventHandler)
 	assert(eventHandler!=nullptr);
 	assert(m_eventHandlers.find(eventHandler)==m_eventHandlers.end());
 	m_eventHandlers.insert(eventHandler);
-
-	std::cout << "Registered event handler. Total count: " << m_eventHandlers.size() << std::endl << std::flush;
 }
 
 void EventSystem::deregisterEventHandler(EventHandler* eventHandler)
