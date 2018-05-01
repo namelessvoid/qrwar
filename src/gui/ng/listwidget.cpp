@@ -81,7 +81,9 @@ void ListWidget::setPosition(const sf::Vector2f& position)
 
 sf::FloatRect ListWidget::getWidgetArea() const
 {
-	return RectangularWidget::getWidgetArea();
+	sf::FloatRect area = RectangularWidget::getWidgetArea();
+	area.width -= SCROLLBAR_WIDTH;
+	return area;
 }
 
 void ListWidget::slotClicked()
@@ -89,7 +91,7 @@ void ListWidget::slotClicked()
 	for(auto& item : items_)
 	{
 		sf::Vector2i mousePosition = qrw::Mouse::getPosition();
-		mousePosition.y += scrollValue_;
+		mousePosition.y += scrollValue_ * (items_.size()  - 1) * ITEM_HEIGHT;
 		if(item->getWidgetArea().contains(mousePosition.x, mousePosition.y))
 			selectItem(*item);
 	}
