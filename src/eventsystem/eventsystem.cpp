@@ -77,7 +77,8 @@ void EventSystem::propagateEventToHandlers(const IEvent* event)
 {
 	for(auto handler : m_eventHandlers)
 	{
-		handler->handleEvent(*event);
+		if(handler->handleEvent(*event))
+			return;
 	}
 }
 
