@@ -19,6 +19,8 @@ public:
 
     virtual void render(sf::RenderTarget&, sf::RenderStates) const override;
 
+	virtual bool handleEvent(const qrw::IEvent& event) override;
+
     virtual bool isVisible() const override;
 
 	virtual void setPosition(const sf::Vector2f& position) override;

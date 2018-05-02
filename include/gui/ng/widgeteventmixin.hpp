@@ -9,14 +9,14 @@
 
 namespace namelessgui {
 
-class WidgetEventMixin : public qrw::EventHandler
+class WidgetEventMixin
 {
 public:
     WidgetEventMixin();
 
     ~WidgetEventMixin();
 
-    virtual bool handleEvent(const qrw::IEvent& event) override;
+    virtual bool handleEvent(const qrw::IEvent& event);
 
     virtual bool isVisible() const = 0;
 

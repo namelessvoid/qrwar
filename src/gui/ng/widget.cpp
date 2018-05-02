@@ -64,6 +64,17 @@ namespace namelessgui
 		}
 	}
 
+	bool Widget::handleEvent(const qrw::IEvent& event)
+	{
+		for(auto& child : _children)
+		{
+			if(child->handleEvent(event))
+				return true;
+		}
+
+		return false;
+	}
+
 	void Widget::setParentAnchor(const sf::Vector2f& anchor)
 	{
 		_parentAnchor = anchor;

@@ -31,6 +31,13 @@ class Button : public RectangularWidget, public WidgetEventMixin
 		virtual bool isVisible() const override { return RectangularWidget::isVisible(); }
 		virtual sf::FloatRect getWidgetArea() const override { return RectangularWidget::getWidgetArea(); }
 
+		virtual bool handleEvent(const qrw::IEvent& event) override
+		{
+			if(RectangularWidget::handleEvent(event))
+				return true;
+			return WidgetEventMixin::handleEvent(event);
+		}
+
 	protected:
         class Label* _label;
 

@@ -7,6 +7,7 @@ namespace namelessgui
 
 Gui::Gui(sf::RenderWindow* renderWindow)
 	: Widget(),
+	  EventHandler(),
 	  _renderWindow(renderWindow),
 	  _size(renderWindow->getSize())
 {

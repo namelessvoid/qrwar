@@ -66,6 +66,13 @@ void ListWidget::render(sf::RenderTarget& renderTarget, sf::RenderStates renderS
 	renderTarget.setView(prevView);
 }
 
+bool ListWidget::handleEvent(const qrw::IEvent& event)
+{
+	if(RectangularWidget::handleEvent(event))
+		return true;
+	return WidgetEventMixin::handleEvent(event);
+}
+
 bool ListWidget::isVisible() const
 {
 	return RectangularWidget::isVisible();

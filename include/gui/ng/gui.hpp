@@ -3,6 +3,8 @@
 
 #include "gui/ng/widget.hpp"
 
+#include "eventsystem/eventhandler.hpp"
+
 namespace sf
 {
 class RenderWindow;
@@ -11,7 +13,7 @@ class RenderWindow;
 namespace namelessgui
 {
 
-class Gui : public namelessgui::Widget
+class Gui : public Widget, public qrw::EventHandler
 {
 public:
 	Gui(sf::RenderWindow* renderWindow);
@@ -24,6 +26,11 @@ public:
 	virtual void setPosition(const sf::Vector2f& position) override;
 
 	virtual sf::Vector2f getPosition() const override;
+
+	virtual bool handleEvent(const qrw::IEvent& event) override
+	{
+		return Widget::handleEvent(event);
+	}
 
 private:
 	sf::RenderWindow* _renderWindow;

@@ -32,8 +32,6 @@ Cursor::~Cursor()
 
 bool Cursor::handleEvent(const IEvent& event)
 {
-	static int counter = 0;
-
 	if(event.getName() == MouseMovedEvent::name)
     {
 		const MouseMovedEvent& moveEvent = static_cast<const MouseMovedEvent&>(event);

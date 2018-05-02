@@ -55,6 +55,8 @@ class Widget
 
 			virtual void render(sf::RenderTarget&, sf::RenderStates = sf::RenderStates::Default) const;
 
+			virtual bool handleEvent(const qrw::IEvent& event);
+
         protected:
 			const Widget* _parent;
 			bool _visible;
