@@ -11,8 +11,8 @@
 namespace namelessgui
 {
 
-Window::Window()
-	:	RectangularWidget()
+Window::Window(const std::string& id)
+	:	RectangularWidget(id)
 {
 	setFillColor(DEFAULT_FILL_COLOR);
 	setOutlineThickness(1);

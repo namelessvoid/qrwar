@@ -10,7 +10,7 @@ namespace namelessgui
 class Window : public RectangularWidget
 {
 public:
-	Window();
+	Window(const std::string& id = "");
 	~Window();
 
 	bool handleEvent(const qrw::IEvent& event) override;

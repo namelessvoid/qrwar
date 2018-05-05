@@ -8,8 +8,9 @@
 namespace namelessgui
 {
 
-TabWidget::TabWidget()
-	: buttonSize_(20, 20)
+TabWidget::TabWidget(const std::string& id)
+	: Widget(id),
+	  buttonSize_(20, 20)
 {
 	setSize({100, 100});
 	buttonGroup_ = std::make_shared<ButtonGroup>();

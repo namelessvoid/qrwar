@@ -28,7 +28,7 @@ MapEditorState::MapEditorState(sf::RenderWindow* renderWindow)
 	// Gui
 	TextureManager* textureManager = TextureManager::getInstance();
 
-	namelessgui::TabWidget* tabWidget = new namelessgui::TabWidget();
+	namelessgui::TabWidget* tabWidget = new namelessgui::TabWidget("tabWidget");
 	tabWidget->setSize(_toolBar->getSize());
 	tabWidget->setButtonSize({48, 48});
 	tabWidget->addTab(textureManager->getTexture("wheel"), createConfigToolsWindow());
@@ -240,7 +240,7 @@ void MapEditorState::saveMap()
 
 namelessgui::Window* MapEditorState::createConfigToolsWindow()
 {
-	namelessgui::Window* configWindow = new namelessgui::Window();
+	namelessgui::Window* configWindow = new namelessgui::Window("configToolsWindow");
 
 	sf::Vector2f buttonSize(140.0f, 50.0f);
 
@@ -295,7 +295,7 @@ namelessgui::Window* MapEditorState::createConfigToolsWindow()
 
 namelessgui::Window* MapEditorState::createTerrainToolsWindow()
 {
-	namelessgui::Window* terrainWindow = new namelessgui::Window();
+	namelessgui::Window* terrainWindow = new namelessgui::Window("terrainToolsWindow");
 
 	sf::Vector2f buttonSize(140.0f, 50.0f);
 	float buttonYOffset = 45;
@@ -343,7 +343,7 @@ namelessgui::Window* MapEditorState::createTerrainToolsWindow()
 
 namelessgui::Window* MapEditorState::createStructureToolsWindow()
 {
-	namelessgui::Window* structureWindow = new namelessgui::Window();
+	namelessgui::Window* structureWindow = new namelessgui::Window("structureToolsWindow");
 
 	namelessgui::Text* heading = new namelessgui::Text();
 	heading->setText("Structures");
@@ -358,7 +358,7 @@ namelessgui::Window* MapEditorState::createDeploymentZoneToolsWindow()
 	sf::Vector2f buttonSize(140.0f, 50.0f);
 	float buttonYOffset = 45;
 
-	namelessgui::Window* zoneWindow = new namelessgui::Window();
+	namelessgui::Window* zoneWindow = new namelessgui::Window("deploymentZoneToolsWindow");
 
 	namelessgui::Text* heading = new namelessgui::Text();
 	heading->setText("Deployment Zones");

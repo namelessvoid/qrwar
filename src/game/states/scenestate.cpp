@@ -20,7 +20,7 @@ SceneState::SceneState(sf::RenderWindow* renderWindow, qrw::EGameStateId gameSta
 	  _backToMainMenu(false)
 {
 	// Initialize toolbar
-	_toolBar = new namelessgui::Window();
+	_toolBar = new namelessgui::Window("_toolBar");
 	_toolBar->setSize({200.0f, (float)Settings::getInstance()->getResolutionY()});
 	_toolBar->setAnchor({1.0f, 0.0f});
 	_toolBar->setParentAnchor({1.0f, 0.0f});

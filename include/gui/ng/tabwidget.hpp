@@ -15,7 +15,7 @@ class RadioToggleButton;
 class TabWidget : public Widget
 {
 public:
-    TabWidget();
+    TabWidget(const std::string& id = "");
 
     ~TabWidget();
 
