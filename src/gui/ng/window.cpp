@@ -26,6 +26,9 @@ Window::~Window()
 
 bool Window::handleEvent(const qrw::IEvent& event)
 {
+	if(!isVisible())
+		return false;
+
 	if(Widget::handleEvent(event))
 		return true;
 	

@@ -66,6 +66,9 @@ namespace namelessgui
 
 	bool Widget::handleEvent(const qrw::IEvent& event)
 	{
+		if(!isVisible())
+			return false;
+
 		for(auto& child : _children)
 		{
 			if(child->handleEvent(event))
