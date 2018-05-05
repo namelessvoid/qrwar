@@ -12,6 +12,8 @@ class Window : public RectangularWidget
 public:
 	Window();
 	~Window();
+
+	bool handleEvent(const qrw::IEvent& event) override;
 };
 }
 #endif

@@ -27,8 +27,6 @@ public:
 
 private:
 	static const sf::Window* window_;
-
-
 };
 
 } // namespace qrw
