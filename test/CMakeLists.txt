@@ -1,5 +1,10 @@
 add_executable(unittest
-    main.cpp
+	main.cpp
+
+	core/prioritylist_when_iterating.cpp
+	core/prioritylist_contains.cpp
+	core/prioritylistiterator_operator_equals.cpp
+
 	engine/boardtest.cpp
 	engine/unittest.cpp
 	engine/coordinatestest.cpp
