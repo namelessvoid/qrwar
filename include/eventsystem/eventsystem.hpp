@@ -3,7 +3,10 @@
 
 #include <queue>
 #include <set>
+#include <map>
 #include <cassert>
+
+#include "core/prioritylist.hpp"
 
 #include "eventsystem/event.hpp"
 #include "eventsystem/systemeventsource.hpp"
@@ -42,7 +45,7 @@ private:
 
 	std::queue<const IEvent*> m_eventQueue;
 
-	std::set<EventHandler*> m_eventHandlers;
+	PriorityList<EventHandler*> handlers_;
 
 	SystemEventSource* m_systemEventSource;
 

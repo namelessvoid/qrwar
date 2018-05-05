@@ -17,13 +17,14 @@
 #include "foundation/spritecomponent.hpp"
 
 #include "game/events.hpp"
+#include "game/eventhandlerpriority.hpp"
 
 namespace qrw
 {
 
 Cursor::Cursor()
 	: SquareMarker(),
-	  EventHandler()
+	  EventHandler(EventHandlerPriority::DEFAULT)
 {}
 
 Cursor::~Cursor()

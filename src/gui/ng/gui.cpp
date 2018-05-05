@@ -1,13 +1,15 @@
 #include "gui/ng/gui.hpp"
 
-#include "SFML/Graphics/RenderWindow.hpp"
+#include <SFML/Graphics/RenderWindow.hpp>
+
+#include "game/eventhandlerpriority.hpp"
 
 namespace namelessgui
 {
 
 Gui::Gui(sf::RenderWindow* renderWindow)
 	: Widget(),
-	  EventHandler(),
+	  EventHandler(qrw::EventHandlerPriority::HIGH),
 	  _renderWindow(renderWindow),
 	  _size(renderWindow->getSize())
 {

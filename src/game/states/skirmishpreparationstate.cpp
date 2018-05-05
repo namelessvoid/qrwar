@@ -9,12 +9,14 @@
 #include "eventsystem/inputevents.hpp"
 
 #include "game/mapmanager.hpp"
+#include "game/eventhandlerpriority.hpp"
 
 namespace qrw
 {
 
 SkirmishPreparationState::SkirmishPreparationState(sf::RenderWindow* renderWindow)
 	: GameState(renderWindow, EGSID_SKIRMISH_PREPARATION_STATE),
+	  EventHandler(EventHandlerPriority::DEFAULT),
 	  nextState_(EGSID_NO_CHANGE)
 {
 	namelessgui::Window* window = new namelessgui::Window();

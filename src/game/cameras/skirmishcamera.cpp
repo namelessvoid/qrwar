@@ -4,11 +4,14 @@
 
 #include "rendering/rendersystem.hpp"
 
+#include "game/eventhandlerpriority.hpp"
+
 namespace qrw
 {
 
 SkirmishCamera::SkirmishCamera()
-	: currentMovementDirection_(0, 0)
+	: EventHandler(EventHandlerPriority::DEFAULT),
+	  currentMovementDirection_(0, 0)
 {
 }
 

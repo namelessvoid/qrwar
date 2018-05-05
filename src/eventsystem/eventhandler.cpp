@@ -5,7 +5,8 @@
 namespace qrw
 {
 
-EventHandler::EventHandler()
+EventHandler::EventHandler(int priority)
+	: priority_(priority)
 {
 	g_eventSystem.registerEventHandler(this);
 }

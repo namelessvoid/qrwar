@@ -5,7 +5,10 @@
 #include "config/settings.hpp"
 #include "eventsystem/event.hpp"
 #include "eventsystem/inputevents.hpp"
+
 #include "game/events.hpp"
+#include "game/eventhandlerpriority.hpp"
+
 #include "gui/cursor.hpp"
 
 namespace qrw
@@ -13,6 +16,7 @@ namespace qrw
 
 SceneState::SceneState(sf::RenderWindow* renderWindow, qrw::EGameStateId gameStateId)
 	: GameState(renderWindow, gameStateId),
+	  EventHandler(EventHandlerPriority::DEFAULT),
 	  _backToMainMenu(false)
 {
 	// Initialize toolbar

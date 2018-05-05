@@ -62,20 +62,18 @@ void EventSystem::update(float elapsedTimeInSeconds)
 void EventSystem::registerEventHandler(EventHandler* eventHandler)
 {
 	assert(eventHandler!=nullptr);
-	assert(m_eventHandlers.find(eventHandler)==m_eventHandlers.end());
-	m_eventHandlers.insert(eventHandler);
+	handlers_.insert(eventHandler->getPriority(), eventHandler);
 }
 
 void EventSystem::deregisterEventHandler(EventHandler* eventHandler)
 {
-	assert(eventHandler!=nullptr);
-	assert(m_eventHandlers.find(eventHandler)!=m_eventHandlers.end());
-	m_eventHandlers.erase(eventHandler);
+ 	assert(eventHandler!=nullptr);
+	handlers_.erase(eventHandler->getPriority(), eventHandler);
 }
 
 void EventSystem::propagateEventToHandlers(const IEvent* event)
 {
-	for(auto handler : m_eventHandlers)
+	for(auto& handler : handlers_)
 	{
 		if(handler->handleEvent(*event))
 			return;

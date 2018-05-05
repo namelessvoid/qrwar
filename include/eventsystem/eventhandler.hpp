@@ -11,9 +11,16 @@ class EventHandler
 public:
 	EventHandler();
 
+	EventHandler(int priority);
+
 	virtual ~EventHandler();
 
 	virtual bool handleEvent(const IEvent& event) = 0;
+
+	inline int getPriority() { return priority_; }
+
+private:
+	const int priority_;
 };
 
 }
