@@ -7,8 +7,6 @@
 
 #include "eventsystem/event.hpp"
 
-#include "config/settings.hpp"
-
 namespace qrw
 {
 
@@ -17,9 +15,7 @@ GameState::GameState(sf::RenderWindow* renderWindow, EGameStateId id)
 	  _guiUptr(new namelessgui::Gui(renderWindow)),
 	  _id(id)
 {
-	Settings* settings = Settings::getInstance();
-
-	_guiUptr->setSize(sf::Vector2f(settings->getResolutionX(), settings->getResolutionY()));
+	_guiUptr->setSize(sf::Vector2f(renderWindow->getSize()));
 }
 
 GameState::~GameState()
@@ -28,7 +24,6 @@ GameState::~GameState()
 
 void GameState::init(GameState*)
 {
-	_guiUptr->setSize(sf::Vector2f(_renderWindow->getSize()));
 }
 
 bool GameState::handleEvent(sf::Event& event)
