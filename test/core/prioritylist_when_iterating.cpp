@@ -42,7 +42,7 @@ public:
         priorityList.insert(110, "110:a");
 
         std::string result = "";
-        std::string expectedResult = "110:a,100:a,100:b,90:a,";
+        std::string expectedResult = "90:a,100:a,100:b,110:a,";
 
         for(auto& item : priorityList)
         {

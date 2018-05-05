@@ -45,7 +45,7 @@ public:
     iterator end();
 
 private:
-    std::map<int,std::set<T>,std::greater<int>> items_;
+    std::map<int,std::set<T>> items_;
 };
 
 template<class T>
