@@ -4,6 +4,7 @@ add_library(qrwarlib
         qrwar.cpp
 
         core/mouse.cpp
+        core/logger.cpp
 
 	config/audiosettings.cpp
 	config/settings.cpp
