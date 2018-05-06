@@ -4,6 +4,7 @@ add_executable(unittest
 	core/prioritylist_when_iterating.cpp
 	core/prioritylist_contains.cpp
 	core/prioritylistiterator_operator_equals.cpp
+	core/prioritylist_clear.cpp
 
 	engine/boardtest.cpp
 	engine/unittest.cpp

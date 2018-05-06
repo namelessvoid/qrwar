@@ -39,6 +39,7 @@ public:
 
     void insert(int priority, T value);
     void erase(int priority, T value);
+    void clear();
     bool contains(int priority, T value);
 
     iterator begin();
@@ -116,6 +117,12 @@ void PriorityList<T>::erase(int priority, T value)
     items_[priority].erase(value);
     if(items_[priority].size() == 0)
         items_.erase(priority);
+}
+
+template<class T>
+void PriorityList<T>::clear()
+{
+    items_.clear();
 }
 
 template<class T>
