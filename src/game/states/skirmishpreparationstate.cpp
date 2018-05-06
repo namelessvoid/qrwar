@@ -8,7 +8,7 @@
 
 #include "eventsystem/inputevents.hpp"
 
-#include "game/mapmanager.hpp"
+#include "game/skirmish/mapmanager.hpp"
 #include "game/eventhandlerpriority.hpp"
 
 namespace qrw

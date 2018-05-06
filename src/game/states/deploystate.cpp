@@ -9,7 +9,7 @@
 
 #include "game/states/skirmishpreparationstate.hpp"
 #include "game/cameras/skirmishcamera.hpp"
-#include "game/mapmanager.hpp"
+#include "game/skirmish/mapmanager.hpp"
 #include "game/deploymentzone.hpp"
 
 #include "gui/texturemanager.hpp"

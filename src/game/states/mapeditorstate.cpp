@@ -11,7 +11,7 @@
 
 #include "game/cameras/skirmishcamera.hpp"
 #include "game/deploymentzone.hpp"
-#include "game/mapmanager.hpp"
+#include "game/skirmish/mapmanager.hpp"
 #include "game/constants.hpp"
 
 #include "foundation/spritecomponent.hpp"

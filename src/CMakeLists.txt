@@ -50,8 +50,9 @@ add_library(qrwarlib
         game/states/skirmishstate.cpp
         game/damagenumber.cpp
         game/events.cpp
-        game/mapmanager.cpp
         game/deploymentzone.cpp
+
+        game/skirmish/mapmanager.cpp
 
         game/gui/victorydialog.cpp
 

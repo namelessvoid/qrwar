@@ -17,9 +17,7 @@ public:
     {
         SUCCESS,
         MAP_NOT_FOUND,
-        MISSING_BOARD,
-        MULTIPLE_BOARDS,
-        MISSING_DEPLOYMENT_ZONE
+        MAP_VALIDATION_FAILED
     };
 
     ~MapManager();
