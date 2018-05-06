@@ -8,6 +8,8 @@ add_executable(unittest
 
 	core/logger_log.cpp
 
+	game/skirmish/mapvalidator_validate.cpp
+
 	engine/boardtest.cpp
 	engine/unittest.cpp
 	engine/coordinatestest.cpp
