@@ -4,6 +4,8 @@
 #include <map>
 #include <set>
 
+#include "core/prioritylist.hpp"
+
 #include "rendering/renderable.hpp"
 #include "rendering/birdseyecamera.hpp"
 
@@ -28,7 +30,7 @@ public:
 private:
 	RenderSystem(const RenderSystem&) = delete;
 
-	std::map<unsigned char, std::set<Renderable*>> m_renderables;
+	PriorityList<Renderable*> renderables_;
 
 	sf::RenderTarget* renderTarget_;
 

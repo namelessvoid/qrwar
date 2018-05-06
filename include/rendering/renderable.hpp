@@ -11,7 +11,7 @@ class RenderTarget;
 namespace qrw
 {
 
-typedef unsigned char Layer;
+typedef int Layer;
 
 class Renderable
 {

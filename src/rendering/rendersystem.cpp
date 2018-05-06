@@ -14,33 +14,30 @@ void RenderSystem::startUp(sf::RenderTarget& renderTarget)
 void RenderSystem::shutDown()
 {
 	delete camera_;
-	m_renderables.clear();
+	renderables_.clear();
 }
 
 void RenderSystem::registerRenderable(Renderable* renderable)
 {
 	assert(renderable!=nullptr);
 
-	m_renderables[renderable->getLayer()].insert(renderable);
+	renderables_.insert(renderable->getLayer(), renderable);
 }
 
 void RenderSystem::deregisterRenderable(Renderable* renderable)
 {
 	assert(renderable!=nullptr);
 
-	m_renderables[renderable->getLayer()].erase(renderable);
+	renderables_.erase(renderable->getLayer(), renderable);
 }
 
 void RenderSystem::renderAll()
 {
 	camera_->applyTo(*renderTarget_);
-	for(auto layerIterator = m_renderables.begin(); layerIterator != m_renderables.end(); ++layerIterator)
+	for(auto& renderable : renderables_)
 	{
-		for(Renderable* renderable : layerIterator->second)
-		{
-			if(renderable->isVisible())
-				renderable->render(*renderTarget_);
-		}
+		if(renderable->isVisible())
+			renderable->render(*renderTarget_);
 	}
 }
 
