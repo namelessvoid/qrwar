@@ -6,6 +6,15 @@ namespace qrw
 {
 
 Logger::Logger()
+  : Logger(std::cout, std::cerr, std::cerr)
+{
+}
+
+Logger::Logger(std::ostream& informationStream, std::ostream& warningStream, std::ostream& errorStream)
+  : prefix_("DefaultLogger"),
+    informationStream_(informationStream),
+    warningStream_(warningStream),
+    errorStream_(errorStream)
 {
 }
 
@@ -13,19 +22,24 @@ Logger::~Logger()
 {
 }
 
-void Logger::Information(const std::string& message) const
+void Logger::logInformation(const std::string& message) const
 {
-    std::cout << message << std::endl;
+    informationStream_ << "(info) " << prefix_ << ": " << message << std::endl;
 }
 
-void Logger::Waring(const std::string& message) const
+void Logger::logWarning(const std::string& message) const
 {
-    std::cerr << message << std::endl;
+    warningStream_ << "(warn) " << prefix_ << ": " << message << std::endl;
 }
 
-void Logger::Error(const std::string& message) const
+void Logger::logError(const std::string& message) const
 {
-    std::cerr << message << std::endl << std::flush;
+    errorStream_ << "(err) " << prefix_ << ": " << message << std::endl << std::flush;
+}
+
+void Logger::setPrefix(const std::string& prefix)
+{
+    prefix_ = prefix;
 }
 
 } // namespace qrw
