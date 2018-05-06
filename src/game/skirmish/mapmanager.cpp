@@ -1,4 +1,4 @@
-#include "game/mapmanager.hpp"
+#include "game/skirmish/mapmanager.hpp"
 
 #include <cstdlib>
 #include <fstream>
@@ -57,7 +57,6 @@ MapManager::LoadErrors MapManager::loadMap(
 		}
 		else if(nodeType == Board::typeName.getStringId())
 		{
-			if(board != nullptr) return LoadErrors::MULTIPLE_BOARDS;
 			board = static_cast<Board*>(boardMetaClass->deserialize(node));
 		}
 	}
