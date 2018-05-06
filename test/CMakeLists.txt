@@ -6,6 +6,8 @@ add_executable(unittest
 	core/prioritylistiterator_operator_equals.cpp
 	core/prioritylist_clear.cpp
 
+	core/logger_log.cpp
+
 	engine/boardtest.cpp
 	engine/unittest.cpp
 	engine/coordinatestest.cpp
