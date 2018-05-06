@@ -17,6 +17,7 @@ namespace qrw
 MapManager* MapManager::instance_ = nullptr;
 
 MapManager::MapManager()
+  : mapValidator_(new MapValidator())
 {
 }
 
@@ -39,12 +40,16 @@ MapManager::LoadErrors MapManager::loadMap(
 	assert(board == nullptr);
 	assert(deploymentZones.empty());
 
-	if(!doesMapExist(mapName)) return LoadErrors::MAP_NOT_FOUND;
+	if(!doesMapExist(mapName))
+		return LoadErrors::MAP_NOT_FOUND;
 
 	const MetaClass* boardMetaClass = MetaManager::getMetaClassFor<Board>();
 	const MetaClass* deploymentZoneMetaClass = MetaManager::getMetaClassFor<DeploymentZone>();
 
 	std::vector<YAML::Node> documents = YAML::LoadAllFromFile(getUserMapDir() / mapNameToPath(mapName));
+	if(!mapValidator_->validate(documents))
+		return LoadErrors::MAP_VALIDATION_FAILED;
+
 	YAML::Node gameObjectsNode = documents.at(1);
 	
 	for(auto node : gameObjectsNode)

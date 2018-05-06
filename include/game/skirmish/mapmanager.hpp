@@ -5,6 +5,8 @@
 #include <string>
 #include <vector>
 
+#include "game/skirmish/mapvalidator.hpp"
+
 namespace qrw {
 
 class Board;
@@ -45,6 +47,8 @@ private:
 	std::string pathToMapName(const std::experimental::filesystem::path& fileName) const;
 
 	std::experimental::filesystem::path getUserMapDir() const;
+
+    std::unique_ptr<MapValidator> mapValidator_;
 
     static MapManager* instance_;
 
