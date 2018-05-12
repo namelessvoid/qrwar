@@ -55,6 +55,11 @@ sf::Vector2f Label::getSize() const
     return _size;
 }
 
+sf::Vector2f Label::getTextSize() const
+{
+    return _text->getSize();
+}
+
 void Label::setPosition(const sf::Vector2f& position)
 {
     _position = position;

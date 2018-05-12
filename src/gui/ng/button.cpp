@@ -34,7 +34,10 @@ namespace namelessgui
 
 	void Button::setText(std::string text)
 	{
-		this->_label->setText(text);
+		_label->setText(text);
+		if(_label->getTextSize().x > getSize().x)
+			setSize({_label->getTextSize().x + 10.0f, getSize().y});
+		updatePosition();
 	}
 
 	const std::string& Button::getText() const

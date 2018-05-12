@@ -20,6 +20,7 @@ public:
 
     virtual void setSize(const sf::Vector2f& size) override;
     virtual sf::Vector2f getSize() const override;
+    sf::Vector2f getTextSize() const;
 
     virtual void setPosition(const sf::Vector2f& position) override;
     virtual sf::Vector2f getPosition() const override;
