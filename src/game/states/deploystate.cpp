@@ -107,6 +107,14 @@ DeployState::DeployState(sf::RenderWindow* renderWindow)
 	nextStepButton->setRelativePosition({0.0f, -5.0f});
     nextStepButton->signalClicked.connect(std::bind(&DeployState::slotToSkirmishButtonClicked, this));
 	_toolBar->addWidget(nextStepButton);
+
+	// Error dialog
+	errorDialog_ = new namelessgui::MessageDialog();
+	errorDialog_->signalClosed.connect([this] { _backToMainMenu = true; });
+	errorDialog_->setAnchor({0.5, 0.5});
+	errorDialog_->setParentAnchor({0.5, 0.5});
+	errorDialog_->setVisible(false);
+	_guiUptr->addWidget(errorDialog_);
 }
 
 DeployState::~DeployState()
@@ -141,6 +149,14 @@ void DeployState::init(GameState* previousState)
 		deploymentZones);
 
 	// TODO show error
+	if(error != MapManager::LoadErrors::SUCCESS)
+	{
+		errorDialog_->setVisible();
+		errorDialog_->setMessage("");
+		errorDialog_->setButtonText("Back to main menu");
+		_toolBar->setVisible(false);
+		return;
+	}
 
 	g_scene.setBoard(board_);
 	for(auto& deploymentZone : deploymentZones)

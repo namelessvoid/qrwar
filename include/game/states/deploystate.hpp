@@ -9,6 +9,8 @@
 #include "engine/player.hpp"
 #include "engine/unittypes.hpp"
 
+#include "gui/ng/messagedialog.hpp"
+
 namespace namelessgui
 {
 class RadioToggleButton;
@@ -56,6 +58,8 @@ private:
 
 	namelessgui::Text* playerOneNameLabel_;
 	namelessgui::Text* playerTwoNameLabel_;
+
+    namelessgui::MessageDialog* errorDialog_;
 
     /**
      * @brief If set to true, the update method will cause the game to switch
