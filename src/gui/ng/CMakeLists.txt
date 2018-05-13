@@ -11,6 +11,7 @@ add_library(namelessgui
         widgeteventmixin.cpp
 	window.cpp
         confirmationdialog.cpp
+        messagedialog.cpp
         tabwidget.cpp
         spinbox.cpp
         listwidget.cpp
