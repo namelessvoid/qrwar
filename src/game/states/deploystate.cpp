@@ -151,10 +151,7 @@ void DeployState::init(GameState* previousState)
 	// TODO show error
 	if(error != MapManager::LoadErrors::SUCCESS)
 	{
-		errorDialog_->setVisible();
-		errorDialog_->setMessage("The selected map could not be loaded. Please report this to the author of the map.");
-		errorDialog_->setButtonText("Back to main menu");
-		_toolBar->setVisible(false);
+		handleMapLoadingError();
 		return;
 	}
 
@@ -226,6 +223,14 @@ void DeployState::slotCursorRightClicked(const Coordinates &boardPosition)
 {
 	if(Unit* unit = board_->getUnit(boardPosition))
 		g_scene.destroy(unit);
+}
+
+void DeployState::handleMapLoadingError()
+{
+	errorDialog_->setVisible();
+	errorDialog_->setMessage("The selected map could not be loaded. Please report this to the author of the map.");
+	errorDialog_->setButtonText("Back to main menu");
+	_toolBar->setVisible(false);
 }
 
 } // namespace qrw

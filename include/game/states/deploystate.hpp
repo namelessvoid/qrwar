@@ -51,6 +51,8 @@ private:
     virtual void slotCursorLeftClicked(const Coordinates& boardPosition) override;
 	virtual void slotCursorRightClicked(const Coordinates& boardPosition) override;
 
+    void handleMapLoadingError();
+
 	Board* board_;
     std::map<int, DeploymentZone*> deploymentZones_;
 
