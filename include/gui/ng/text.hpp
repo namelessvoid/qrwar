@@ -23,12 +23,14 @@ namespace namelessgui
 			sf::FloatRect getWidgetArea();
 
 			void setFont(sf::Font& font);
+			const sf::Font* getFont() const { return _text.getFont(); }
 
 			void setColor(const sf::Color& color);
 
 			void setCharacterSize(unsigned int _size);
+			unsigned int getCharacterSize() const { return _text.getCharacterSize(); }
 
-			void setText(const std::string text);
+			void setText(const std::string& text);
 			const std::string& getText() const;
 
 			void setPosition(const sf::Vector2f& position);

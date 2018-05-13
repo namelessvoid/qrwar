@@ -36,10 +36,10 @@ namespace namelessgui
 		_text.setCharacterSize(size);
 	}
 
-	void Text::setText(const std::string text)
+	void Text::setText(const std::string& text)
 	{
 		_stdText = text;
-		_text.setString(text);
+		_text.setString(_stdText);
 		updatePosition();
 	}
 

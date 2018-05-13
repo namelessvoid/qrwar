@@ -9,14 +9,18 @@ namespace namelessgui
 
 Label::Label()
     : _text(new Text()),
-      _image(nullptr)
+      _image(nullptr),
+      wordWrap_(false)
 {
     addWidget(_text);
 }
 
 void Label::setText(const std::string& text)
 {
-    _text->setText(text);
+    if(wordWrap_)
+        _text->setText(applyWordWrap(text));
+    else
+        _text->setText(text);
 }
 
 const std::string &Label::getText() const
@@ -85,6 +89,35 @@ void Label::setPosition(const sf::Vector2f& position)
 sf::Vector2f Label::getPosition() const
 {
     return _position;
+}
+
+std::string Label::applyWordWrap(const std::string& original)
+{
+    const sf::Font* font = _text->getFont();
+
+    std::string wrapped = original;
+    float currentLineLength = 0;
+    size_t lastSpacePos = wrapped.find(" ");
+
+    for(size_t currentIndex = lastSpacePos; currentIndex < wrapped.size(); ++currentIndex)
+    {
+        char currentCharacter = wrapped[currentIndex];
+        if(currentCharacter == ' ')
+            lastSpacePos = currentIndex;
+
+        const sf::Glyph& glyph = font->getGlyph(currentCharacter, _text->getCharacterSize(), false);
+        currentLineLength += glyph.advance;
+
+        if(currentLineLength > getSize().x && lastSpacePos != std::string::npos)
+        {
+            wrapped.replace(lastSpacePos, 1, "\n");
+            currentLineLength = 0;
+            currentIndex = lastSpacePos;
+            lastSpacePos = std::string::npos;
+        }
+    }
+
+    return wrapped;
 }
 
 } // namespace namelessgui

@@ -15,6 +15,7 @@ public:
     const std::string& getText() const;
 
 	void setFontSize(unsigned int fontSize);
+    inline void setWordWrap(bool wordWrap) { wordWrap_ = wordWrap; }
 
     void setImage(const sf::Texture* image);
 
@@ -26,11 +27,15 @@ public:
     virtual sf::Vector2f getPosition() const override;
 
 private:
+    std::string applyWordWrap(const std::string& original);
+
     class Text* _text;
     class RectangularWidget* _image;
 
     sf::Vector2f _position;
     sf::Vector2f _size;
+
+    bool wordWrap_;
 };
 
 } // namespace namelessgui
