@@ -73,13 +73,13 @@ bool LineInput::handleEvent(const qrw::IEvent &event)
 			{
 				std::string text = textWidget_->getText();
 				setText(text.substr(0, text.size() -1));
-				return true;
 			}
-			else if(key == qrw::KeyboardKey::Return)
+			else if(key == qrw::KeyboardKey::Return || key == qrw::KeyboardKey::Esc)
 			{
 				signalDoneEditing.emit();
-				return true;
+				setKeyboardFocus(false);
 			}
+			return true;
 		}
 	} // if(hasKeyboardFocus)
 

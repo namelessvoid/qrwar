@@ -41,6 +41,9 @@ public:
     Signal<float> signalLeftMouseButtonHeld;
     Signal<> signalKeyboardFocusLost;
 
+protected:
+    inline void setKeyboardFocus(bool focus) { keyboardFocus_ = focus; }
+
 private:
     WidgetEventMixin(const WidgetEventMixin& rhs) = delete;
 
