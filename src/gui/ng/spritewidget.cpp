@@ -38,7 +38,7 @@ void RectangularWidget::setPosition(const sf::Vector2f& position)
 
 void RectangularWidget::render(sf::RenderTarget& target, sf::RenderStates states) const
 {
-	if(_visible)
+	if(visible_)
 		target.draw(static_cast<sf::RectangleShape>(*this), states);
 	Widget::render(target, states);
 }

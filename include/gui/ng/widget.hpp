@@ -58,21 +58,21 @@ class Widget
 			virtual bool handleEvent(const qrw::IEvent& event);
 
         protected:
-			const Widget* _parent;
-			bool _visible;
-			std::vector<Widget*> _children;
+			const Widget* parent_;
+			bool visible_;
+			std::vector<Widget*> children_;
 
         private:
 			/**
 			 * @brief _id Used to identify a widget.
 			 */
-			std::string _id;
+			std::string id_;
 
-			sf::Vector2f _parentAnchor;
+			sf::Vector2f parentAnchor_;
 
-			sf::Vector2f _anchor;
+			sf::Vector2f anchor_;
 
-			sf::Vector2f _relativePosition;
+			sf::Vector2f relativePosition_;
     };
 }
 #endif

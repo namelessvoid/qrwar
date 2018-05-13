@@ -69,7 +69,7 @@ namespace namelessgui
 
 	void Button::render(sf::RenderTarget& target, sf::RenderStates states) const
     {
-		if(!_visible)
+		if(!visible_)
 			return;
 
 		target.draw(static_cast<sf::RectangleShape>(*this));

@@ -9,42 +9,42 @@
 namespace namelessgui
 {
 	Widget::Widget(std::string id)
-		: _parent(nullptr),
-		  _visible(true),
-		  _id(id),
-		  _parentAnchor(0, 0),
-		  _anchor(0, 0),
-		  _relativePosition(0, 0)
+		: parent_(nullptr),
+		  visible_(true),
+		  id_(id),
+		  parentAnchor_(0, 0),
+		  anchor_(0, 0),
+		  relativePosition_(0, 0)
     {
     }
 
     Widget::~Widget()
     {
-		for(auto widget : _children)
+		for(auto widget : children_)
 			delete widget;
 	}
 
 	const std::string& Widget::getId() const
 	{
-		return _id;
+		return id_;
 	}
 
 	void Widget::setParent(const Widget* parent)
 	{
-		_parent = parent;
+		parent_ = parent;
 		setRelativePosition(getPosition());
 	}
 
 	void Widget::addWidget(Widget* widget)
 	{
-		_children.push_back(widget);
+		children_.push_back(widget);
 		widget->setParent(this);
 	}
 
 	void Widget::setVisible(bool visible)
 	{
-		this->_visible = visible;
-		for(std::vector<Widget*>::iterator iter = _children.begin(); iter != _children.end(); ++iter)
+		this->visible_ = visible;
+		for(std::vector<Widget*>::iterator iter = children_.begin(); iter != children_.end(); ++iter)
 		{
 			(*iter)->setVisible(visible);
 		}
@@ -52,14 +52,14 @@ namespace namelessgui
 
 	bool Widget::isVisible() const
 	{
-		return _visible;
+		return visible_;
 	}
 
 	void Widget::render(sf::RenderTarget& target, sf::RenderStates states) const
 	{
-		if(_visible)
+		if(visible_)
 		{
-			for(auto iter = _children.begin(); iter != _children.end(); ++iter)
+			for(auto iter = children_.begin(); iter != children_.end(); ++iter)
 				(*iter)->render(target, states);
 		}
 	}
@@ -69,7 +69,7 @@ namespace namelessgui
 		if(!isVisible())
 			return false;
 
-		for(auto& child : _children)
+		for(auto& child : children_)
 		{
 			if(child->handleEvent(event))
 				return true;
@@ -80,42 +80,42 @@ namespace namelessgui
 
 	void Widget::setParentAnchor(const sf::Vector2f& anchor)
 	{
-		_parentAnchor = anchor;
+		parentAnchor_ = anchor;
 		updatePosition();
 	}
 
 	void Widget::setAnchor(const sf::Vector2f& anchor)
 	{
-		_anchor = anchor;
+		anchor_ = anchor;
 		updatePosition();
 	}
 
 	void Widget::setRelativePosition(const sf::Vector2f& relativePosition)
 	{
-		_relativePosition = relativePosition;
+		relativePosition_ = relativePosition;
 		updatePosition();
 	}
 
 	void Widget::updatePosition()
 	{
-		if(_parent == nullptr)
+		if(parent_ == nullptr)
 		{
-			setPosition(_relativePosition);
+			setPosition(relativePosition_);
 		}
 		else
 		{
-			sf::Vector2f parentPosition = _parent->getPosition();
-			sf::Vector2f parentSize = _parent->getSize();
+			sf::Vector2f parentPosition = parent_->getPosition();
+			sf::Vector2f parentSize = parent_->getSize();
 
 			sf::Vector2f position = {
-				parentPosition.x + _parentAnchor.x * parentSize.x - _anchor.x * getSize().x,
-				parentPosition.y + _parentAnchor.y * parentSize.y - _anchor.y * getSize().y
+				parentPosition.x + parentAnchor_.x * parentSize.x - anchor_.x * getSize().x,
+				parentPosition.y + parentAnchor_.y * parentSize.y - anchor_.y * getSize().y
 			};
 
-			setPosition(_relativePosition + position);
+			setPosition(relativePosition_ + position);
 		}
 
-		for(auto child : _children)
+		for(auto child : children_)
 			child->updatePosition();
 	}
 }
