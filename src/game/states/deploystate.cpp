@@ -152,7 +152,7 @@ void DeployState::init(GameState* previousState)
 	if(error != MapManager::LoadErrors::SUCCESS)
 	{
 		errorDialog_->setVisible();
-		errorDialog_->setMessage("");
+		errorDialog_->setMessage("The selected map could not be loaded. Please report this to the author of the map.");
 		errorDialog_->setButtonText("Back to main menu");
 		_toolBar->setVisible(false);
 		return;
