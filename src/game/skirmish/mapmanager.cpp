@@ -6,6 +6,10 @@
 
 #include "meta/metamanager.hpp"
 
+// <delete>
+#include "meta/properties/tproperty.hpp"
+// </delete>
+
 #include "engine/board.hpp"
 #include "game/deploymentzone.hpp"
 
@@ -85,14 +89,22 @@ void MapManager::saveMap(
 	const MetaClass* deploymentZoneMetaClass = MetaManager::getMetaClassFor<DeploymentZone>();
 	const std::string fileName = mapNameToPath(mapName);
 
+class PlayerCount : public Reflectable
+{
+public:
+	int count = 2;
+};
+PlayerCount playerCount;
+TProperty<PlayerCount,int> playerCountProperty(&PlayerCount::count, "count");
+
 	YAML::Emitter yaml;
 	yaml << YAML::BeginDoc
 		 << YAML::Comment("Description")
 		 << YAML::BeginMap
 			<< YAML::Key << "name" << YAML::Value << mapName
-			<< YAML::Key << "short-description" << YAML::Value << "Here goes the short description"
-			<< YAML::Key << "player-count" << YAML::Value << 2
-		 << YAML::EndMap;
+			<< YAML::Key << "short-description" << YAML::Value << "Here goes the short description";
+			playerCountProperty.serialize(&playerCount, yaml);
+	yaml << YAML::EndMap;
 
 	yaml << YAML::BeginDoc
 		 << YAML::BeginSeq;
