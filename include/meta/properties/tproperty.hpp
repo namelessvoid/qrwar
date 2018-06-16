@@ -15,7 +15,7 @@ public:
 		member_ = member;
 	}
 
-	virtual void serialize(const Reflectable* object, YAML::Emitter& out) const
+	void serialize(const Reflectable* object, YAML::Emitter& out) const override
 	{
 		assert(dynamic_cast<const TClassType*>(object)!=nullptr);
 
@@ -24,7 +24,7 @@ public:
 		out << YAML::Key << getName() << YAML::Value << binding();
 	}
 
-	virtual void deserialize(Reflectable* object, const YAML::Node& in) const
+	void deserialize(Reflectable* object, const YAML::Node& in) const override
 	{
 		
 	};

@@ -1,6 +1,7 @@
 #ifndef QRW_DEPLOYMENTZONEMETACLASS_HPP
 #define QRW_DEPLOYMENTZONEMETACLASS_HPP
 
+#include "meta/reflectable.hpp"
 #include "meta/metaclass.hpp"
 
 namespace qrw {
@@ -12,9 +13,9 @@ public:
 
 	virtual ~DeploymentZoneMetaClass();
 
-	virtual void serialize(const GameObject* object, YAML::Emitter& out) const;
+	virtual void serialize(const Reflectable* object, YAML::Emitter& out) const;
 
-	virtual GameObject* deserialize(const YAML::Node& in) const;
+	virtual void deserialize(Reflectable* gameObject, const YAML::Node& in) const;
 
     virtual std::type_index getTypeIndex() const;
 

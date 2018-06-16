@@ -5,15 +5,14 @@ namespace qrw {
 
 class Reflectable
 {
-protected:
-	Reflectable() {}
-
-	virtual ~Reflectable() {}
-
-private:
+public:
 	Reflectable(const Reflectable& rhs) = delete;
 
 	Reflectable& operator=(const Reflectable& rhs) = delete;
+
+	Reflectable() = default;
+
+	virtual ~Reflectable() = default;
 };
 
 

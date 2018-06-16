@@ -9,7 +9,7 @@
 namespace qrw
 {
 
-void BoardMetaClass::serialize(const GameObject* object, YAML::Emitter& out) const
+void BoardMetaClass::serialize(const Reflectable* object, YAML::Emitter& out) const
 {
 	const Board* board = dynamic_cast<const Board*>(object);
 	assert(board != nullptr);
@@ -37,7 +37,7 @@ void BoardMetaClass::serialize(const GameObject* object, YAML::Emitter& out) con
 		out << YAML::EndMap;
 }
 
-GameObject* BoardMetaClass::deserialize(const YAML::Node& in) const
+void BoardMetaClass::deserialize(Reflectable* gameObject, const YAML::Node& in) const
 {
 	const MetaClass* terrainMetaClass = MetaManager::getMetaClassFor<Terrain>();
 
@@ -50,11 +50,10 @@ GameObject* BoardMetaClass::deserialize(const YAML::Node& in) const
 
 	for(size_t i = 0; i < terrains.size(); ++i)
 	{
-		Terrain* terrain = static_cast<Terrain*>(terrainMetaClass->deserialize(terrains[i]));
+		Terrain* terrain = new Terrain();
+		terrainMetaClass->deserialize(terrain, terrains[i]);
 		board->setTerrain(terrain->getPosition(), terrain);
 	}
-
-	return board;
 }
 
 std::type_index BoardMetaClass::getTypeIndex() const

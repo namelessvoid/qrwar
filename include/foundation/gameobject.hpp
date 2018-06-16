@@ -9,12 +9,14 @@
 
 #include <foundation/gamecomponent.hpp>
 
+#include "meta/reflectable.hpp"
+
 namespace qrw
 {
 
 class GameComponent;
 
-class GameObject
+class GameObject : public Reflectable
 {
 public:
 	virtual ~GameObject();

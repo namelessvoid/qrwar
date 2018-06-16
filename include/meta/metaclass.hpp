@@ -4,6 +4,7 @@
 #include <yaml-cpp/yaml.h>
 
 #include <typeindex>
+#include "reflectable.hpp"
 
 namespace qrw {
 
@@ -16,9 +17,9 @@ public:
 
     virtual ~MetaClass();
 
-	virtual void serialize(const GameObject* object, YAML::Emitter& out) const = 0;
+	virtual void serialize(const Reflectable* object, YAML::Emitter& out) const = 0;
 
-	virtual GameObject* deserialize(const YAML::Node& in) const = 0;
+	virtual void deserialize(Reflectable* gameObject, const YAML::Node& in) const = 0;
 
     virtual std::type_index getTypeIndex() const = 0;
 

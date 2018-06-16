@@ -61,12 +61,14 @@ MapManager::LoadErrors MapManager::loadMap(
 		const std::string nodeType = node["type"].as<std::string>();
 		if(nodeType == DeploymentZone::typeName.getStringId())
 		{
-			DeploymentZone* zone = static_cast<DeploymentZone*>(deploymentZoneMetaClass->deserialize(node));
+			DeploymentZone* zone = new DeploymentZone();
+			deploymentZoneMetaClass->deserialize(zone, node);
 			deploymentZones.push_back(zone);
 		}
 		else if(nodeType == Board::typeName.getStringId())
 		{
-			board = static_cast<Board*>(boardMetaClass->deserialize(node));
+			board = new Board();
+			boardMetaClass->deserialize(board, node);
 		}
 	}
 
