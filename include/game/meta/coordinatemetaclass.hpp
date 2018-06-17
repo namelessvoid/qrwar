@@ -19,7 +19,7 @@ public:
 
 	void serialize(const Reflectable* in, YAML::Emitter& yaml) const override;
 
-	void deserialize(Reflectable* gameObject, const YAML::Node& yaml) const override;
+	void deserialize(Reflectable* out, const YAML::Node& yaml) const override;
 
 	std::type_index getTypeIndex() const override;
 

@@ -19,7 +19,9 @@ add_executable(unittest
 	gui/buttongrouptest.cpp
 	gui/texturemanagertest.cpp
 	config/tilesetprocessortest.cpp
-	game/meta/coordinatemetaclass_serialize.cpp)
+
+	game/meta/coordinatemetaclass_serialize.cpp
+	game/meta/coordinatemetaclass_deserialize.cpp)
 
 target_link_libraries(unittest ${LIBS} cppunit qrwarlib)
 add_test(

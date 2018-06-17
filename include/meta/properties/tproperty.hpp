@@ -32,7 +32,11 @@ public:
 
 	void deserialize(Reflectable* object, const YAML::Node& in) const override
 	{
-		
+		assert(dynamic_cast<TClassType*>(object)!=nullptr);
+
+		TClassType* typedObject = static_cast<TClassType*>(object);
+		auto binding = std::bind(TProperty<TClassType,TPropertyType>::member_, typedObject);
+		binding() = in[getName()].as<TPropertyType>();
 	};
 
 private:
