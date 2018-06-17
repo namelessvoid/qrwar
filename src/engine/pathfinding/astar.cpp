@@ -50,7 +50,7 @@ Path* AStar::findPath(const qrw::Coordinates& start, const qrw::Coordinates& end
 	qrw::Coordinates currentcoords = start;
 	Node* currentnode = new Node(currentcoords);
 	Node* tmpnode = 0;
-	qrw::Coordinates tmpcoords = 0;
+	qrw::Coordinates tmpcoords;
 
 	currentnode->setG(0);
 	currentnode->setH(currentcoords.distanceTo(end));
@@ -123,7 +123,7 @@ Path* AStar::findPath(const qrw::Coordinates& start, const qrw::Coordinates& end
 qrw::Coordinates AStar::findLowestFCoordinates()
 {
 	if(_openlist.size() == 0)
-		return 0;
+		return Coordinates(0, 0);
 	else if(_openlist.size() == 1)
 		return *_openlist.begin();
 

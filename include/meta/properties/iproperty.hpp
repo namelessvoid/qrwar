@@ -16,6 +16,11 @@ class Reflectable;
 class IProperty
 {
 public:
+	IProperty(const IProperty& rhs) = delete;
+	IProperty& operator=(const IProperty& rhs) = delete;
+
+	virtual ~IProperty() = default;
+
 	virtual void serialize(const Reflectable* object, YAML::Emitter& out) const = 0;
 
 	virtual void deserialize(Reflectable* object, const YAML::Node& in) const = 0;
@@ -23,15 +28,9 @@ public:
 	const std::string& getName() const { return name_; }
 
 protected:
-	IProperty(const std::string& name) { name_ = name; }
-
-	virtual ~IProperty() {};
+	explicit IProperty(const std::string& name) { name_ = name; }
 
 private:
-	IProperty(const IProperty& rhs) = delete;
-
-	IProperty& operator=(const IProperty& rhs) = delete;
-
 	std::string name_;
 };
 

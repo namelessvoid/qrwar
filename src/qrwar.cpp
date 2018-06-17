@@ -20,6 +20,7 @@
 #include "game/meta/boardmetaclass.hpp"
 #include "game/meta/terrainmetaclass.hpp"
 #include "game/meta/deploymentzonemetaclass.hpp"
+#include "game/meta/coordinatemetaclass.hpp"
 
 #include "game/states/introstate.hpp"
 #include "game/states/mainmenustate.hpp"
@@ -132,6 +133,7 @@ void QRWar::registerMetaTypes()
 	MetaManager::registerMetaClass<BoardMetaClass>(Board::typeName);
 	MetaManager::registerMetaClass<TerrainMetaClass>(Terrain::typeName);
 	MetaManager::registerMetaClass<DeploymentZoneMetaClass>(DeploymentZone::typeName);
+	MetaManager::registerMetaClass<CoordinateMetaClass>(Coordinates::typeName);
 }
 
 GameState* QRWar::createGameState(EGameStateId id)

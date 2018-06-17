@@ -1,6 +1,8 @@
 #ifndef QRW_TPROPERTY_HPP
 #define QRW_TPROPERTY_HPP
 
+#include <cassert>
+
 #include "meta/properties/iproperty.hpp"
 
 namespace qrw {
@@ -14,6 +16,10 @@ public:
 	{
 		member_ = member;
 	}
+
+	TProperty(const TProperty& rhs) = delete;
+
+	TProperty& operator=(const TProperty& rhs) = delete;
 
 	void serialize(const Reflectable* object, YAML::Emitter& out) const override
 	{
@@ -30,10 +36,6 @@ public:
 	};
 
 private:
-	TProperty(const TProperty& rhs) = delete;
-
-	TProperty& operator=(const TProperty& rhs) = delete;
-
 	TPropertyType TClassType::* member_;
 };
 

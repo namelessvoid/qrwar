@@ -4,6 +4,12 @@
 
 namespace qrw
 {
+SID Coordinates::typeName("qrw::Coordinates");
+
+	Coordinates::Coordinates()
+	 : Coordinates(0, 0)
+	{}
+	
 	Coordinates::Coordinates(int x, int y)
 	 :	_x(x),
 		_y(y)
