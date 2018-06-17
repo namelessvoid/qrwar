@@ -1,10 +1,10 @@
 add_subdirectory(gui/ng)
 
 add_library(qrwarlib
-        qrwar.cpp
+	qrwar.cpp
 
-        core/mouse.cpp
-        core/logger.cpp
+	core/mouse.cpp
+	core/logger.cpp
 
 	config/audiosettings.cpp
 	config/settings.cpp
@@ -22,59 +22,59 @@ add_library(qrwarlib
 	engine/pathfinding/node.cpp
 	engine/pathfinding/path.cpp
 
-        rendering/rendersystem.cpp
-        rendering/renderable.cpp
-        rendering/guicamera.cpp
-        rendering/birdseyecamera.cpp
+	rendering/rendersystem.cpp
+	rendering/renderable.cpp
+	rendering/guicamera.cpp
+	rendering/birdseyecamera.cpp
 
-        animation/animationsystem.cpp
+	animation/animationsystem.cpp
 
-        eventsystem/eventsystem.cpp
-        eventsystem/inputevents.cpp
-        eventsystem/eventhandler.cpp
-        eventsystem/sfeventsource.cpp
+	eventsystem/eventsystem.cpp
+	eventsystem/inputevents.cpp
+	eventsystem/eventhandler.cpp
+	eventsystem/sfeventsource.cpp
 
-        foundation/gameobject.cpp
-        foundation/gamecomponent.cpp
-        foundation/spritecomponent.cpp
-        foundation/textcomponent.cpp
+	foundation/gameobject.cpp
+	foundation/gamecomponent.cpp
+	foundation/spritecomponent.cpp
+	foundation/textcomponent.cpp
 
-        gamestates/gamestate.cpp
+	gamestates/gamestate.cpp
 
-        game/states/scenestate.cpp
-        game/states/introstate.cpp
-        game/states/mainmenustate.cpp
-        game/states/mapeditorstate.cpp
-        game/states/skirmishpreparationstate.cpp
-        game/states/deploystate.cpp
-        game/states/skirmishstate.cpp
-        game/damagenumber.cpp
-        game/events.cpp
-        game/deploymentzone.cpp
+	game/states/scenestate.cpp
+	game/states/introstate.cpp
+	game/states/mainmenustate.cpp
+	game/states/mapeditorstate.cpp
+	game/states/skirmishpreparationstate.cpp
+	game/states/deploystate.cpp
+	game/states/skirmishstate.cpp
+	game/damagenumber.cpp
+	game/events.cpp
+	game/deploymentzone.cpp
 
-        game/skirmish/mapmanager.cpp
-        game/skirmish/mapvalidator.cpp
+	game/skirmish/mapmanager.cpp
+	game/skirmish/mapvalidator.cpp
 
-        game/gui/victorydialog.cpp
+	game/gui/victorydialog.cpp
 
-        game/path.cpp
-        game/pathrendercomponent.cpp
+	game/path.cpp
+	game/pathrendercomponent.cpp
 
-        game/cameras/skirmishcamera.cpp
+	game/cameras/skirmishcamera.cpp
 
-        gui/scene.cpp
-        gui/squaremarker.cpp
-        gui/cursor.cpp
-        gui/squaredetailwindow.cpp
+	gui/scene.cpp
+	gui/squaremarker.cpp
+	gui/cursor.cpp
+	gui/squaredetailwindow.cpp
 	gui/texturemanager.cpp
-        gui/guihelper.cpp
+	gui/guihelper.cpp
 
-        meta/metamanager.cpp
-        meta/metaclass.cpp
+	meta/metamanager.cpp
+	meta/metaclass.cpp
 
-        game/meta/boardmetaclass.cpp
-        game/meta/terrainmetaclass.cpp
-        game/meta/deploymentzonemetaclass.cpp
+	game/meta/boardmetaclass.cpp
+	game/meta/terrainmetaclass.cpp
+	game/meta/deploymentzonemetaclass.cpp
 	game/meta/coordinatemetaclass.cpp
 )
 set_target_properties(qrwarlib PROPERTIES OUTPUT_NAME qrwar)
