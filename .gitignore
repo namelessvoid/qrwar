@@ -16,3 +16,9 @@ qrwar.layout
 qrwar.layout.save
 obj/
 CMakeLists.txt.user
+
+# IDE stuff
+.idea/
+.vscode/
+cmake-build-debug/
+
