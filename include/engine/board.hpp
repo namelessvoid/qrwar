@@ -27,6 +27,8 @@ class Path;
 	class Board : public GameObject
 	{
 		public:
+			friend class BoardMetaClass;
+
 			Board()
 				: Board(0, 0)
 			{}

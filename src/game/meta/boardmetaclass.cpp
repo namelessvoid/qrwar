@@ -1,6 +1,7 @@
 #include "game/meta/boardmetaclass.hpp"
 
 #include "meta/metamanager.hpp"
+#include "meta/properties/tproperty.hpp"
 
 #include "engine/terrain.hpp"
 
@@ -8,6 +9,12 @@
 
 namespace qrw
 {
+
+BoardMetaClass::BoardMetaClass()
+{
+	properties_[0].reset(new TProperty<Board,unsigned int>(&Board::_width, "_width"));
+	properties_[1].reset(new TProperty<Board,unsigned int>(&Board::_height, "_height"));
+}
 
 void BoardMetaClass::serialize(const Reflectable* object, YAML::Emitter& out) const
 {
@@ -17,14 +24,10 @@ void BoardMetaClass::serialize(const Reflectable* object, YAML::Emitter& out) co
 	const MetaClass* terrainMetaClass = MetaManager::getMetaClassFor<Terrain>();
 
 	out << YAML::BeginMap
-		<< YAML::Key << "type" << YAML::Value << Board::typeName.getStringId()
-		<< YAML::Key << "size"
-		<< YAML::Value
-			<< YAML::BeginMap
-				<< YAML::Key << "width" << YAML::Value << board->getWidth()
-				<< YAML::Key << "height" << YAML::Value << board->getHeight()
-			<< YAML::EndMap
-		<< YAML::Key << "terrains"
+		<< YAML::Key << "type" << YAML::Value << Board::typeName.getStringId();
+		properties_[0]->serialize(object, out);
+		properties_[1]->serialize(object, out);
+	out << YAML::Key << "terrains"
 		<< YAML::Value
 			<< YAML::BeginSeq;
 
@@ -43,8 +46,8 @@ void BoardMetaClass::deserialize(Reflectable* gameObject, const YAML::Node& in) 
 
 	Board* board = new Board();
 
-	board->setWidth(in["size"]["width"].as<unsigned int>());
-	board->setHeight(in["size"]["height"].as<unsigned int>());
+	properties_[0]->deserialize(gameObject, in);
+	properties_[1]->deserialize(gameObject, in);
 
 	YAML::Node terrains = in["terrains"];
 

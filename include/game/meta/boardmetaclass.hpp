@@ -2,6 +2,7 @@
 #define QRW_BOARDMETACLASS_HPP
 
 #include "meta/metaclass.hpp"
+#include "meta/properties/iproperty.hpp"
 
 #include "engine/board.hpp"
 
@@ -10,11 +11,9 @@ namespace qrw {
 class BoardMetaClass final : public MetaClass
 {
 public:
-    BoardMetaClass()
-    {}
+    BoardMetaClass();
 
-    ~BoardMetaClass()
-    {}
+    ~BoardMetaClass() override = default;
 
 	virtual void serialize(const Reflectable* object, YAML::Emitter& out) const final override;
 
@@ -23,9 +22,7 @@ public:
     virtual std::type_index getTypeIndex() const override;
 
 private:
-    BoardMetaClass(const BoardMetaClass& rhs) = delete;
-
-    BoardMetaClass& operator=(const BoardMetaClass& rhs) = delete;
+    std::array<std::unique_ptr<IProperty>,2> properties_;
 };
 
 
