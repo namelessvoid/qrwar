@@ -36,7 +36,7 @@ Terrain* Terrain::createTerrain(TERRAINTYPES terrainType)
 		break;
 	}
 
-	Terrain* terrain = g_scene.spawn<Terrain>();
+	Terrain* terrain = new Terrain();
 	terrain->setTexture(texture);
 	terrain->setModificator(EM_ATTACK, attackModifier);
 	terrain->setModificator(EM_DEFENSE, defenseModifier);
