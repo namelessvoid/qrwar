@@ -7,6 +7,7 @@
 
 #include "game/meta/terrainmetaclass.hpp"
 #include "game/meta/boardmetaclass.hpp"
+#include "game/meta/coordinatemetaclass.hpp"
 
 #include "engine/terrain.hpp"
 #include "engine/board.hpp"
@@ -33,6 +34,7 @@ void registerMetaClasses()
 {
     qrw::MetaManager::registerMetaClass<qrw::TerrainMetaClass>(qrw::Terrain::typeName);
     qrw::MetaManager::registerMetaClass<qrw::BoardMetaClass>(qrw::Board::typeName);
+    qrw::MetaManager::registerMetaClass<qrw::CoordinateMetaClass>(qrw::Coordinates::typeName);
 }
 
 int main(int argc, char* argv[])
