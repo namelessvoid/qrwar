@@ -7,7 +7,8 @@
 namespace qrw
 {
 
-DeploymentZoneMetaClass::DeploymentZoneMetaClass()
+DeploymentZoneMetaClass::DeploymentZoneMetaClass(const MetaManager& metaManager)
+    : MetaClass(metaManager)
 {
 }
 

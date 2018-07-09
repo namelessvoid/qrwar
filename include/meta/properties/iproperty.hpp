@@ -12,6 +12,7 @@ class Node;
 namespace qrw {
 
 class Reflectable;
+class MetaManager;
 
 class IProperty
 {
@@ -27,11 +28,18 @@ public:
 
 	const std::string& getName() const { return name_; }
 
+	const MetaManager& getMetaManager() const { return metaManager_; }
+
 protected:
-	explicit IProperty(const std::string& name) { name_ = name; }
+	explicit IProperty(const std::string& name, const MetaManager& metaManager)
+		: name_(name),
+		  metaManager_(metaManager)
+	{}
 
 private:
 	std::string name_;
+
+	const MetaManager& metaManager_;
 };
 
 

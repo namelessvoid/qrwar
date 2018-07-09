@@ -47,8 +47,8 @@ MapManager::LoadErrors MapManager::loadMap(
 	if(!doesMapExist(mapName))
 		return LoadErrors::MAP_NOT_FOUND;
 
-	const MetaClass* boardMetaClass = MetaManager::getMetaClassFor<Board>();
-	const MetaClass* deploymentZoneMetaClass = MetaManager::getMetaClassFor<DeploymentZone>();
+	const MetaClass* boardMetaClass = g_metaManager.getMetaClassFor<Board>();
+	const MetaClass* deploymentZoneMetaClass = g_metaManager.getMetaClassFor<DeploymentZone>();
 
 	std::vector<YAML::Node> documents = YAML::LoadAllFromFile(getUserMapDir() / mapNameToPath(mapName));
 	if(!mapValidator_->validate(documents))
@@ -87,8 +87,8 @@ void MapManager::saveMap(
 	const Board& board,
 	const std::vector<DeploymentZone*>& deploymentZones)
 {
-	const MetaClass* boardMetaClass = MetaManager::getMetaClassFor<Board>();
-	const MetaClass* deploymentZoneMetaClass = MetaManager::getMetaClassFor<DeploymentZone>();
+	const MetaClass* boardMetaClass = g_metaManager.getMetaClassFor<Board>();
+	const MetaClass* deploymentZoneMetaClass = g_metaManager.getMetaClassFor<DeploymentZone>();
 	const std::string fileName = mapNameToPath(mapName);
 
 	YAML::Emitter yaml;

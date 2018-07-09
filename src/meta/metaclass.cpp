@@ -5,7 +5,8 @@
 namespace qrw
 {
 
-MetaClass::MetaClass()
+MetaClass::MetaClass(const MetaManager& metaManager)
+	: metaManager_(metaManager)
 {
 }
 

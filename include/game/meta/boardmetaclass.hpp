@@ -11,7 +11,7 @@ namespace qrw {
 class BoardMetaClass final : public MetaClass
 {
 public:
-    BoardMetaClass();
+    BoardMetaClass(const MetaManager& metaManager);
 
     ~BoardMetaClass() override = default;
 

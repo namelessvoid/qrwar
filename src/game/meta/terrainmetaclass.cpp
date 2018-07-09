@@ -5,7 +5,8 @@
 namespace qrw
 {
 
-TerrainMetaClass::TerrainMetaClass()
+TerrainMetaClass::TerrainMetaClass(const MetaManager& metaManager)
+	: MetaClass(metaManager)
 {
 }
 

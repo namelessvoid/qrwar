@@ -12,11 +12,12 @@
 namespace qrw
 {
 
-BoardMetaClass::BoardMetaClass()
+BoardMetaClass::BoardMetaClass(const MetaManager& metaManager)
+	: MetaClass(metaManager)
 {
-	properties_[0] = std::make_unique<TProperty<Board, unsigned int>>(&Board::_width, "_width");
-	properties_[1] = std::make_unique<TProperty<Board, unsigned int>>(&Board::_height, "_height");
-	properties_[2] = std::make_unique<StdMapProperty<Board, Coordinates, Terrain>>(&Board::_terrains, "_terrains");
+	properties_[0] = std::make_unique<TProperty<Board, unsigned int>>(&Board::_width, "_width", getMetaManager());
+	properties_[1] = std::make_unique<TProperty<Board, unsigned int>>(&Board::_height, "_height", getMetaManager());
+	properties_[2] = std::make_unique<StdMapProperty<Board, Coordinates, Terrain>>(&Board::_terrains, "_terrains", getMetaManager());
 }
 
 void BoardMetaClass::serialize(const Reflectable* object, YAML::Emitter& out) const

@@ -11,6 +11,4 @@ MetaManager::~MetaManager()
 {
 }
 
-MetaManager::MetaClassMap MetaManager::metaClasses_;
-
 } // namespace qrw

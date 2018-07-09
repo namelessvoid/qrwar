@@ -1,6 +1,8 @@
 #include <gtest/gtest.h>
 
 #include "game/meta/boardmetaclass.hpp"
+#include "game/meta/coordinatemetaclass.hpp"
+#include "game/meta/terrainmetaclass.hpp"
 
 #include "meta/metamanager.hpp"
 
@@ -13,9 +15,14 @@
 
 TEST(BoardMetaClass_Serialize, IncludesAllProperties)
 {
+	qrw::MetaManager metaManager;
+	metaManager.registerMetaClass<qrw::BoardMetaClass>(qrw::Board::typeName);
+	metaManager.registerMetaClass<qrw::CoordinateMetaClass>(qrw::Coordinates::typeName);
+	metaManager.registerMetaClass<qrw::TerrainMetaClass>(qrw::Terrain::typeName);
+
 	qrw::Board board(100, 200);
 	board.setTerrain({0, 0}, qrw::Terrain::createTerrain(qrw::TERRAINTYPES::ET_HILL));
-	const qrw::MetaClass* boardMetaClass = qrw::MetaManager::getMetaClassFor<qrw::Board>();
+	const qrw::MetaClass* boardMetaClass = metaManager.getMetaClassFor<qrw::Board>();
 	YAML::Emitter emitter;
 
 	boardMetaClass->serialize(&board, emitter);

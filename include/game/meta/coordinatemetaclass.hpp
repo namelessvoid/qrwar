@@ -13,7 +13,7 @@ namespace qrw {
 class CoordinateMetaClass : public MetaClass
 {
 public:
-	CoordinateMetaClass();
+	CoordinateMetaClass(const MetaManager& metaManager);
 
 	~CoordinateMetaClass() override = default;
 

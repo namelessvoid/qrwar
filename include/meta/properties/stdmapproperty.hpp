@@ -13,8 +13,8 @@ template<typename TClass, typename TKey,typename TValue>
 class StdMapProperty : public IProperty
 {
 public:
-	StdMapProperty(std::map<TKey,TValue*> TClass::* member, const std::string name)
-		: IProperty(name)
+	StdMapProperty(std::map<TKey,TValue*> TClass::* member, const std::string name, const MetaManager& metaManager)
+		: IProperty(name, metaManager)
 	{
 		member_ = member;
 	}
@@ -27,8 +27,8 @@ public:
 	{
 		assert(dynamic_cast<const TClass*>(object)!=nullptr);
 
-		const MetaClass* keyMetaClass = MetaManager::getMetaClassFor<TKey>();
-		const MetaClass* valueMetaClass = MetaManager::getMetaClassFor<TValue>();
+		const MetaClass* keyMetaClass = getMetaManager().getMetaClassFor<TKey>();
+		const MetaClass* valueMetaClass = getMetaManager().getMetaClassFor<TValue>();
 
 		const TClass* typedObject = static_cast<const TClass*>(object);
 		auto binding = std::bind(StdMapProperty<TClass,TKey,TValue>::member_, typedObject);
@@ -51,8 +51,8 @@ public:
 	{
 		assert(dynamic_cast<TClass*>(object)!=nullptr);
 
-		const MetaClass* keyMetaClass = MetaManager::getMetaClassFor<TKey>();
-		const MetaClass* valueMetaClass = MetaManager::getMetaClassFor<TValue>();
+		const MetaClass* keyMetaClass = getMetaManager().getMetaClassFor<TKey>();
+		const MetaClass* valueMetaClass = getMetaManager().getMetaClassFor<TValue>();
 
 		TClass* typedObject = static_cast<TClass*>(object);
 		auto binding = std::bind(StdMapProperty<TClass,TKey,TValue>::member_, typedObject);

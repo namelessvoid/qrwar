@@ -11,8 +11,8 @@ template<typename TClassType, typename TPropertyType>
 class TProperty : public IProperty
 {
 public:
-	TProperty(TPropertyType TClassType::*member, const std::string& name)
-		: IProperty(name)
+	TProperty(TPropertyType TClassType::*member, const std::string& name, const MetaManager& metaManager)
+		: IProperty(name, metaManager)
 	{
 		member_ = member;
 	}

@@ -9,7 +9,7 @@ namespace qrw {
 class TerrainMetaClass : public MetaClass
 {
 public:
-    TerrainMetaClass();
+    TerrainMetaClass(const MetaManager& metaManager);
 
     ~TerrainMetaClass();
 

@@ -5,10 +5,11 @@
 namespace qrw
 {
 
-CoordinateMetaClass::CoordinateMetaClass()
+CoordinateMetaClass::CoordinateMetaClass(const MetaManager& metaManager)
+	: MetaClass(metaManager)
 {
-	properties_[0] = std::make_unique<TProperty<Coordinates, int>>(&Coordinates::_x, "_x");
-	properties_[1] = std::make_unique<TProperty<Coordinates, int>>(&Coordinates::_y, "_y");
+	properties_[0] = std::make_unique<TProperty<Coordinates, int>>(&Coordinates::_x, "_x", getMetaManager());
+	properties_[1] = std::make_unique<TProperty<Coordinates, int>>(&Coordinates::_y, "_y", getMetaManager());
 }
 
 void CoordinateMetaClass::serialize(const Reflectable* in, YAML::Emitter& yaml) const

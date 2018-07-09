@@ -3,15 +3,6 @@
 
 #include <gtest/gtest.h>
 
-#include "meta/metamanager.hpp"
-
-#include "game/meta/terrainmetaclass.hpp"
-#include "game/meta/boardmetaclass.hpp"
-#include "game/meta/coordinatemetaclass.hpp"
-
-#include "engine/terrain.hpp"
-#include "engine/board.hpp"
-
 // Return 0 if tests failed.
 int runCppUnit()
 {
@@ -30,16 +21,7 @@ int runGtest(int argc, char* argv[])
     return RUN_ALL_TESTS();
 }
 
-void registerMetaClasses()
-{
-    qrw::MetaManager::registerMetaClass<qrw::TerrainMetaClass>(qrw::Terrain::typeName);
-    qrw::MetaManager::registerMetaClass<qrw::BoardMetaClass>(qrw::Board::typeName);
-    qrw::MetaManager::registerMetaClass<qrw::CoordinateMetaClass>(qrw::Coordinates::typeName);
-}
-
 int main(int argc, char* argv[])
 {
-	registerMetaClasses();
-
     return runCppUnit() && runGtest(argc, argv);
 }

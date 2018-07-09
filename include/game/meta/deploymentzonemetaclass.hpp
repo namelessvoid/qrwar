@@ -9,7 +9,7 @@ namespace qrw {
 class DeploymentZoneMetaClass final : public MetaClass
 {
 public:
-	DeploymentZoneMetaClass();
+	DeploymentZoneMetaClass(const MetaManager& metaManager);
 
 	virtual ~DeploymentZoneMetaClass();
 

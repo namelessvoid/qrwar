@@ -1,6 +1,7 @@
 #include <cppunit/extensions/HelperMacros.h>
 #include <cppunit/TestFixture.h>
 
+#include "meta/metamanager.hpp"
 #include "game/meta/coordinatemetaclass.hpp"
 
 class CoordinateMetaClass_Deserialize : public CppUnit::TestFixture
@@ -12,7 +13,8 @@ class CoordinateMetaClass_Deserialize : public CppUnit::TestFixture
 public:
 	void Then_x_and_y_are_deserialized()
 	{
-		qrw::CoordinateMetaClass metaClass;
+		qrw::MetaManager metaManager;
+		qrw::CoordinateMetaClass metaClass(metaManager);
 		YAML::Node node;
 		node["_x"] = 12;
 		node["_y"] = 13;
