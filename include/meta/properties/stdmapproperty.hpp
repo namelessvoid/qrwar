@@ -34,7 +34,7 @@ public:
 		auto binding = std::bind(StdMapProperty<TClass,TKey,TValue>::member_, typedObject);
 
 		out << YAML::Key << getName() << YAML::Value << YAML::BeginSeq;
-		for(auto iter : binding())
+		for(auto& iter : binding())
 		{
 			out << YAML::BeginMap;
 				out << YAML::Key << "key" << YAML::Value;
