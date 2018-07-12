@@ -119,7 +119,7 @@ class AStarTest : public CppUnit::TestFixture
 		void testFindLowestFCoordinates()
 		{
 			// Test with an empty list
-			CPPUNIT_ASSERT(astar->findLowestFCoordinates() == 0);
+			CPPUNIT_ASSERT(astar->findLowestFCoordinates() == qrw::Coordinates(0, 0));
 
 			// Test with only one element on openlist
 			astar->_openlist.insert(start);

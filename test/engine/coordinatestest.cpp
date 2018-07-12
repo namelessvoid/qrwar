@@ -30,7 +30,7 @@ class CoordinatesTest : public CppUnit::TestFixture
 
 		void test()
 		{
-			qrw::Coordinates coord1(3);
+			qrw::Coordinates coord1(3, 0);
 
 			CPPUNIT_ASSERT(coord1.getX() == 3);
 			CPPUNIT_ASSERT(coord1.getY() == 0);

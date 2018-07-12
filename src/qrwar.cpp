@@ -20,6 +20,7 @@
 #include "game/meta/boardmetaclass.hpp"
 #include "game/meta/terrainmetaclass.hpp"
 #include "game/meta/deploymentzonemetaclass.hpp"
+#include "game/meta/coordinatemetaclass.hpp"
 
 #include "game/states/introstate.hpp"
 #include "game/states/mainmenustate.hpp"
@@ -40,6 +41,7 @@ RenderSystem g_renderSystem;
 Scene g_scene;
 EventSystem g_eventSystem;
 AnimationSystem g_animationSystem;
+MetaManager g_metaManager;
 
 QRWar::QRWar()
 {
@@ -129,9 +131,10 @@ void QRWar::preloadResources()
 
 void QRWar::registerMetaTypes()
 {
-	MetaManager::registerMetaClass<BoardMetaClass>(Board::typeName);
-	MetaManager::registerMetaClass<TerrainMetaClass>(Terrain::typeName);
-	MetaManager::registerMetaClass<DeploymentZoneMetaClass>(DeploymentZone::typeName);
+	g_metaManager.registerMetaClass<BoardMetaClass>(Board::typeName);
+	g_metaManager.registerMetaClass<TerrainMetaClass>(Terrain::typeName);
+	g_metaManager.registerMetaClass<DeploymentZoneMetaClass>(DeploymentZone::typeName);
+	g_metaManager.registerMetaClass<CoordinateMetaClass>(Coordinates::typeName);
 }
 
 GameState* QRWar::createGameState(EGameStateId id)

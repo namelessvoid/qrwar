@@ -1,12 +1,34 @@
 #ifndef QRW_COORDINATES_HPP
 #define QRW_COORDINATES_HPP
 
+#include "core/sid.hpp"
+
+#include "meta/reflectable.hpp"
+
 namespace qrw
 {
-	class Coordinates
+	class Coordinates : public Reflectable
 	{
 		public:
-			Coordinates(int x = 0, int y = 0);
+			friend class CoordinateMetaClass;
+			static SID typeName;
+
+			Coordinates();
+
+			Coordinates(int x, int y);
+
+			Coordinates(const Coordinates& rhs)
+			{
+				_x = rhs._x;
+				_y = rhs._y;
+			}
+
+			Coordinates& operator=(const Coordinates& rhs)
+			{
+				_x = rhs._x;
+				_y = rhs._y;
+				return *this;
+			}
 
 			int getX() const;
 			int getY() const;

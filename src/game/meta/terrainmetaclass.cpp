@@ -5,7 +5,8 @@
 namespace qrw
 {
 
-TerrainMetaClass::TerrainMetaClass()
+TerrainMetaClass::TerrainMetaClass(const MetaManager& metaManager)
+	: MetaClass(metaManager)
 {
 }
 
@@ -13,26 +14,28 @@ TerrainMetaClass::~TerrainMetaClass()
 {
 }
 
-void TerrainMetaClass::serialize(const GameObject* object, YAML::Emitter& out) const
+void TerrainMetaClass::serialize(const Reflectable* object, YAML::Emitter& out) const
 {
 	const Terrain* terrain = dynamic_cast<const Terrain*>(object);
 	assert(terrain != nullptr);
 
 	out << YAML::BeginMap
-			<< YAML::Key << "type" << YAML::Value << terrain->getType()
-			<< YAML::Key << "position"
+			<< YAML::Key << "type_" << YAML::Value << static_cast<int>(terrain->getType())
+			<< YAML::Key << "position_"
 			<< YAML::BeginMap
-				<< YAML::Key << "x" << YAML::Value << terrain->getPosition().getX()
-				<< YAML::Key << "y" << YAML::Value << terrain->getPosition().getY()
+				<< YAML::Key << "x_" << YAML::Value << terrain->getPosition().getX()
+				<< YAML::Key << "y_" << YAML::Value << terrain->getPosition().getY()
 			<< YAML::EndMap
-			<< YAML::EndMap;
+		<< YAML::EndMap;
 }
 
-GameObject* TerrainMetaClass::deserialize(const YAML::Node& in) const
+void TerrainMetaClass::deserialize(Reflectable* gameObject, const YAML::Node& in) const
 {
-	Terrain* terrain = Terrain::createTerrain(static_cast<TERRAINTYPES>(in["type"].as<int>()));
-	terrain->setPosition({in["position"]["x"].as<int>(), in["position"]["y"].as<int>()});
-	return terrain;
+	assert(dynamic_cast<Terrain*>(gameObject)!=nullptr);
+
+	Terrain* terrain = static_cast<Terrain*>(gameObject);
+	terrain->setPosition({in["position_"]["x_"].as<int>(), in["position_"]["y_"].as<int>()});
+	terrain->setType(static_cast<TERRAINTYPES>(in["type_"].as<int>()));
 }
 
 std::type_index TerrainMetaClass::getTypeIndex() const

@@ -6,11 +6,14 @@
 #include <vector>
 
 #include "game/skirmish/mapvalidator.hpp"
+#include "meta/metamanager.hpp"
 
 namespace qrw {
 
 class Board;
 class DeploymentZone;
+
+extern MetaManager g_metaManager;
 
 class MapManager
 {

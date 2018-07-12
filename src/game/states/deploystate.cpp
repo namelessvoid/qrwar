@@ -162,6 +162,8 @@ void DeployState::init(GameState* previousState)
 		deploymentZones_[deploymentZone->getPlayerId()] = deploymentZone;
 	}
 
+	// TODO: Add terrain as well
+
 	g_scene.spawn<Cursor>();
 
 	SkirmishCamera* camera = g_scene.spawn<SkirmishCamera>();

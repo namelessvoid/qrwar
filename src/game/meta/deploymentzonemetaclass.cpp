@@ -7,7 +7,8 @@
 namespace qrw
 {
 
-DeploymentZoneMetaClass::DeploymentZoneMetaClass()
+DeploymentZoneMetaClass::DeploymentZoneMetaClass(const MetaManager& metaManager)
+    : MetaClass(metaManager)
 {
 }
 
@@ -15,7 +16,7 @@ DeploymentZoneMetaClass::~DeploymentZoneMetaClass()
 {
 }
 
-void DeploymentZoneMetaClass::serialize(const GameObject* object, YAML::Emitter& out) const
+void DeploymentZoneMetaClass::serialize(const Reflectable* object, YAML::Emitter& out) const
 {
     const DeploymentZone* deploymentZone = dynamic_cast<const DeploymentZone*>(object);
     assert(deploymentZone != nullptr);
@@ -39,7 +40,7 @@ void DeploymentZoneMetaClass::serialize(const GameObject* object, YAML::Emitter&
     out << YAML::EndMap;
 }
 
-GameObject* DeploymentZoneMetaClass::deserialize(const YAML::Node& in) const
+void DeploymentZoneMetaClass::deserialize(Reflectable* gameObject, const YAML::Node& in) const
 {
     DeploymentZone* zone = new DeploymentZone();
 
@@ -51,8 +52,6 @@ GameObject* DeploymentZoneMetaClass::deserialize(const YAML::Node& in) const
         zone->addSquare({squareNode["x"].as<int>(), squareNode["y"].as<int>()});
     }
     zone->setPlayerId(in["playerId"].as<int>());
-
-    return zone;
 }
 
 std::type_index DeploymentZoneMetaClass::getTypeIndex() const

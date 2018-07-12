@@ -22,11 +22,11 @@ Terrain* Terrain::createTerrain(TERRAINTYPES terrainType)
 
 	switch(terrainType)
 	{
-	case ET_WOOD:
+	case TERRAINTYPES::ET_WOOD:
 		attackModifier = -1;
 		defenseModifier = 1;
 		break;
-	case ET_HILL:
+	case TERRAINTYPES::ET_HILL:
 		attackModifier = 1;
 		defenseModifier = -1;
 		break;
@@ -36,7 +36,7 @@ Terrain* Terrain::createTerrain(TERRAINTYPES terrainType)
 		break;
 	}
 
-	Terrain* terrain = g_scene.spawn<Terrain>();
+	Terrain* terrain = new Terrain();
 	terrain->setTexture(texture);
 	terrain->setModificator(EM_ATTACK, attackModifier);
 	terrain->setModificator(EM_DEFENSE, defenseModifier);
@@ -45,7 +45,7 @@ Terrain* Terrain::createTerrain(TERRAINTYPES terrainType)
 }
 
 Terrain::Terrain()
-	: _type(ET_NUMBEROFTERRAINTYPES),
+	: _type(TERRAINTYPES::ET_NUMBEROFTERRAINTYPES),
 	  _position(0, 0)
 {
 	_sprite = new SpriteComponent(RENDER_LAYER_TERRAIN);

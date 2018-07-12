@@ -6,6 +6,10 @@
 
 #include "meta/metamanager.hpp"
 
+// <delete>
+#include "meta/properties/tproperty.hpp"
+// </delete>
+
 #include "engine/board.hpp"
 #include "game/deploymentzone.hpp"
 
@@ -43,8 +47,8 @@ MapManager::LoadErrors MapManager::loadMap(
 	if(!doesMapExist(mapName))
 		return LoadErrors::MAP_NOT_FOUND;
 
-	const MetaClass* boardMetaClass = MetaManager::getMetaClassFor<Board>();
-	const MetaClass* deploymentZoneMetaClass = MetaManager::getMetaClassFor<DeploymentZone>();
+	const MetaClass* boardMetaClass = g_metaManager.getMetaClassFor<Board>();
+	const MetaClass* deploymentZoneMetaClass = g_metaManager.getMetaClassFor<DeploymentZone>();
 
 	std::vector<YAML::Node> documents = YAML::LoadAllFromFile(getUserMapDir() / mapNameToPath(mapName));
 	if(!mapValidator_->validate(documents))
@@ -57,12 +61,14 @@ MapManager::LoadErrors MapManager::loadMap(
 		const std::string nodeType = node["type"].as<std::string>();
 		if(nodeType == DeploymentZone::typeName.getStringId())
 		{
-			DeploymentZone* zone = static_cast<DeploymentZone*>(deploymentZoneMetaClass->deserialize(node));
+			DeploymentZone* zone = new DeploymentZone();
+			deploymentZoneMetaClass->deserialize(zone, node);
 			deploymentZones.push_back(zone);
 		}
 		else if(nodeType == Board::typeName.getStringId())
 		{
-			board = static_cast<Board*>(boardMetaClass->deserialize(node));
+			board = new Board();
+			boardMetaClass->deserialize(board, node);
 		}
 	}
 
@@ -81,8 +87,8 @@ void MapManager::saveMap(
 	const Board& board,
 	const std::vector<DeploymentZone*>& deploymentZones)
 {
-	const MetaClass* boardMetaClass = MetaManager::getMetaClassFor<Board>();
-	const MetaClass* deploymentZoneMetaClass = MetaManager::getMetaClassFor<DeploymentZone>();
+	const MetaClass* boardMetaClass = g_metaManager.getMetaClassFor<Board>();
+	const MetaClass* deploymentZoneMetaClass = g_metaManager.getMetaClassFor<DeploymentZone>();
 	const std::string fileName = mapNameToPath(mapName);
 
 	YAML::Emitter yaml;
@@ -91,8 +97,8 @@ void MapManager::saveMap(
 		 << YAML::BeginMap
 			<< YAML::Key << "name" << YAML::Value << mapName
 			<< YAML::Key << "short-description" << YAML::Value << "Here goes the short description"
-			<< YAML::Key << "player-count" << YAML::Value << 2
-		 << YAML::EndMap;
+			<< YAML::Key << "playerCount" << YAML::Value << 2
+	    << YAML::EndMap;
 
 	yaml << YAML::BeginDoc
 		 << YAML::BeginSeq;

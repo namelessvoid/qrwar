@@ -1,3 +1,9 @@
+find_package(GTest REQUIRED)
+include_directories(${GTEST_INCLUDE_DIR})
+
+find_package(GMock REQUIRED)
+include_directories(${GMOCK_INCLUDE_DIR})
+
 add_executable(unittest
 	main.cpp
 
@@ -19,9 +25,16 @@ add_executable(unittest
 	gui/buttongrouptest.cpp
 	gui/texturemanagertest.cpp
 	config/tilesetprocessortest.cpp
-)
-target_link_libraries(unittest ${LIBS} cppunit qrwarlib)
-add_test(
-	NAME unittest
-	COMMAND unittest
-	WORKING_DIRECTORY ${PROJECT_SOURCE_DIR})
+
+	game/meta/coordinatemetaclass_serialize.cpp
+	game/meta/coordinatemetaclass_deserialize.cpp
+	game/meta/boardmetaclass_serialize.cpp
+	game/meta/boardmetaclass_deserialize.cpp
+
+	meta/properties/testdoubles.cpp
+	meta/properties/stdmapproperty_serialize.cpp
+	meta/properties/stdmapproperty_deserialize.cpp
+	game/meta/terrainmetaclass_serialize.cpp
+	game/meta/terrainmetaclass_deserialize.cpp)
+
+target_link_libraries(unittest ${GTEST_LIBRARIES} ${GMOCK_LIBRARIES} cppunit pthread qrwarlib)
