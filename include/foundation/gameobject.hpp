@@ -21,7 +21,9 @@ class GameObject : public Reflectable
 public:
 	virtual ~GameObject();
 
-	virtual void onDestroy() {};
+	virtual void onDestroy() {}
+
+	virtual void onAddToScene() {}
 
 	void addComponent(GameComponent* component);
 

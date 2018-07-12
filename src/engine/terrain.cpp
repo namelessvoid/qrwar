@@ -15,8 +15,6 @@ SID Terrain::typeName("qrw::Terrain");
 
 Terrain* Terrain::createTerrain(TERRAINTYPES terrainType)
 {
-	const sf::Texture* texture = GuiHelper::getTerrainTexture(terrainType);
-
 	int attackModifier = 0;
 	int defenseModifier = 0;
 
@@ -37,7 +35,6 @@ Terrain* Terrain::createTerrain(TERRAINTYPES terrainType)
 	}
 
 	Terrain* terrain = new Terrain();
-	terrain->setTexture(texture);
 	terrain->setModificator(EM_ATTACK, attackModifier);
 	terrain->setModificator(EM_DEFENSE, defenseModifier);
 	terrain->setType(terrainType);
@@ -104,6 +101,13 @@ void Terrain::setModificator(MODIFICATORS type, int value)
 void Terrain::setTexture(const sf::Texture* texture)
 {
 	_sprite->setTexture(texture);
+}
+
+void Terrain::onAddToScene()
+{
+	GameObject::onAddToScene();
+	const sf::Texture* texture = GuiHelper::getTerrainTexture(_type);
+	setTexture(texture);
 }
 
 } // namespace qrw

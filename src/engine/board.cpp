@@ -89,7 +89,7 @@ SID Board::typeName("qrw::Board");
 		return iterator == _terrains.end() ? nullptr : iterator->second;
 	}
 
-	const std::map<Coordinates, Terrain*>& Board::getTerrains() const
+	std::map<Coordinates, Terrain*>& Board::getTerrains()
 	{
 		return _terrains;
 	}
@@ -125,5 +125,11 @@ SID Board::typeName("qrw::Board");
 	{
 		backgroundComponent_->setSize({SQUARE_DIMENSION * _width, SQUARE_DIMENSION * _height});
 		backgroundComponent_->setRepeateTexture(true, 2.0f);
+	}
+
+	void Board::onAddToScene()
+	{
+		GameObject::onAddToScene();
+		resizeBackground();
 	}
 }

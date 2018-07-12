@@ -4,6 +4,7 @@
 #include <cassert>
 
 #include "engine/unit.hpp"
+#include "engine/terrain.hpp"
 
 #include "foundation/spritecomponent.hpp"
 
@@ -162,7 +163,10 @@ void DeployState::init(GameState* previousState)
 		deploymentZones_[deploymentZone->getPlayerId()] = deploymentZone;
 	}
 
-	// TODO: Add terrain as well
+	for(const auto& terrainIter : board_->getTerrains())
+	{
+		g_scene.addGameObject(terrainIter.second);
+	}
 
 	g_scene.spawn<Cursor>();
 

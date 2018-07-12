@@ -58,14 +58,14 @@ MapManager::LoadErrors MapManager::loadMap(
 	
 	for(auto node : gameObjectsNode)
 	{
-		const std::string nodeType = node["type"].as<std::string>();
-		if(nodeType == DeploymentZone::typeName.getStringId())
+		const SID nodeType(node["type"].as<std::string>());
+		if(nodeType == DeploymentZone::typeName)
 		{
 			DeploymentZone* zone = new DeploymentZone();
 			deploymentZoneMetaClass->deserialize(zone, node);
 			deploymentZones.push_back(zone);
 		}
-		else if(nodeType == Board::typeName.getStringId())
+		else if(nodeType == Board::typeName)
 		{
 			board = new Board();
 			boardMetaClass->deserialize(board, node);

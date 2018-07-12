@@ -58,6 +58,7 @@ void Scene::addGameObject(GameObject* gameObject)
 	assert(gameObject!=nullptr);
 
 	m_gameObjects[typeid(*gameObject)].insert(gameObject);
+	gameObject->onAddToScene();
 }
 
 void Scene::reset()

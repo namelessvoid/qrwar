@@ -36,6 +36,8 @@ class Path;
 			Board(unsigned int width, unsigned int height);
 			~Board();
 
+			void onAddToScene() override;
+
 			void setUnit(const Coordinates& position, Unit* unit);
 			void removeUnit(const Coordinates& position);
 			bool isUnitAt(const Coordinates& position);
@@ -46,7 +48,7 @@ class Path;
 			void removeTerrain(const Coordinates& position);
 			bool isTerrainAt(const Coordinates& position);
 			Terrain* getTerrain(const Coordinates& position);
-			const std::map<Coordinates, Terrain*>& getTerrains() const;
+			std::map<Coordinates, Terrain*>& getTerrains();
 
 			bool isOnBoard(Coordinates coordinates);
 
