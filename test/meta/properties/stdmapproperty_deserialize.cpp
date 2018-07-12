@@ -8,7 +8,7 @@ using testing::WhenDynamicCastTo;
 using testing::IsEmpty;
 using testing::Property;
 
-TEST(StdMapProperty_Deserialize, DeserializesKeyAndValue)
+TEST(StdMapProperty_Deserialize, Then_key_and_value_are_deserialized)
 {
 	// Arrange
 	YAML::Node node;
@@ -47,7 +47,7 @@ TEST(StdMapProperty_Deserialize, DeserializesKeyAndValue)
 	EXPECT_EQ(reflectableStub.mapProperty.at(KeyStub(2))->id, 2);
 }
 
-TEST(StdMapProperty_Deserialize, IfYamlNodeIsEmpty_ThenMapIsEmpty)
+TEST(StdMapProperty_Deserialize, If_yaml_node_is_empty_Then_property_is_empty)
 {
 	// Arrange
 	YAML::Node node;

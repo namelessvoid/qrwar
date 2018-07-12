@@ -11,7 +11,7 @@ using ::testing::Field;
 using ::testing::WhenDynamicCastTo;
 using ::testing::Invoke;
 
-TEST(StdMapProperty_Serialize, SerializesKeyAndValue)
+TEST(StdMapProperty_Serialize, Then_yaml_contains_keys_and_values)
 {
 	// Arrange
 	qrw::MetaManager metaManager;
@@ -63,7 +63,7 @@ TEST(StdMapProperty_Serialize, SerializesKeyAndValue)
 	EXPECT_EQ(result["mapProperty"][1]["value"].as<std::string>(), "secondValue");
 }
 
-TEST(StdMapProperty_Serialize, IfMapIsEmpty_ThenYamlNodeIsEmpty)
+TEST(StdMapProperty_Serialize, If_property_is_empty_Then_yaml_node_is_empty)
 {
 	// Arrange
 	qrw::MetaManager metaManager;

@@ -11,7 +11,7 @@
 #include "engine/board.hpp"
 #include "engine/terrain.hpp"
 
-TEST(BoardMetaClass_Deserialize, InitializesAllProperties)
+TEST(BoardMetaClass_Deserialize, Then_all_properties_are_initialized)
 {
 	qrw::MetaManager metaManager;
 	metaManager.registerMetaClass<qrw::BoardMetaClass>(qrw::Board::typeName);

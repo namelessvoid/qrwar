@@ -13,7 +13,7 @@
 #include "engine/terraintypes.hpp"
 #include "engine/coordinates.hpp"
 
-TEST(BoardMetaClass_Serialize, IncludesAllProperties)
+TEST(BoardMetaClass_Serialize, Then_all_properties_are_included)
 {
 	qrw::MetaManager metaManager;
 	metaManager.registerMetaClass<qrw::BoardMetaClass>(qrw::Board::typeName);
