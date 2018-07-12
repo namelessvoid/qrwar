@@ -27,9 +27,9 @@ TEST(BoardMetaClass_Deserialize, Then_all_properties_are_initialized)
 	node["_height"] = 13;
 	node["_terrains"][0]["key"]["_x"] = 10;
 	node["_terrains"][0]["key"]["_y"] = 11;
-	node["_terrains"][0]["value"]["type"] = 1;
-	node["_terrains"][0]["value"]["position"]["x"] = 10;
-	node["_terrains"][0]["value"]["position"]["y"] = 11;
+	node["_terrains"][0]["value"]["type_"] = 1;
+	node["_terrains"][0]["value"]["position_"]["x_"] = 10;
+	node["_terrains"][0]["value"]["position_"]["y_"] = 11;
 
 	boardMetaClass->deserialize(&board, node);
 

@@ -4,7 +4,7 @@
 namespace qrw
 {
 
-enum TERRAINTYPES
+enum class TERRAINTYPES
 {
 	ET_WOOD,
 	ET_HILL,
