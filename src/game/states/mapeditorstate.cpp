@@ -252,11 +252,12 @@ namelessgui::Window* MapEditorState::createConfigToolsWindow()
 	mapNameInput_ = new namelessgui::LineInput();
 	mapNameInput_->setSize({198, 30});
 	mapNameInput_->setText("Map Name");
+	mapNameInput_->setRelativePosition({0, 50});
 	configWindow->addWidget(mapNameInput_);
 
 	namelessgui::SpinBox* mapWidthBox = new namelessgui::SpinBox();
 	mapWidthBox->setSize({100.0f, 30.0f});
-	mapWidthBox->setRelativePosition({0, 50});
+	mapWidthBox->setRelativePosition({0, 100});
 	mapWidthBox->setMinValue(10);
 	mapWidthBox->setMaxValue(128);
 	mapWidthBox->setValue(INITIAL_BOARD_WIDTH);
@@ -265,7 +266,7 @@ namelessgui::Window* MapEditorState::createConfigToolsWindow()
 
 	namelessgui::SpinBox* mapHeightBox = new namelessgui::SpinBox();
 	mapHeightBox->setSize({100.0f, 30.0f});
-	mapHeightBox->setRelativePosition({0, 50});
+	mapHeightBox->setRelativePosition({0, 100});
 	mapHeightBox->setMinValue(10);
 	mapHeightBox->setMaxValue(128);
 	mapHeightBox->setValue(INITIAL_BOARD_HEIGHT);
