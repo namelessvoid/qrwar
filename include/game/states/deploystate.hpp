@@ -3,6 +3,7 @@
 
 #include <vector>
 
+#include "game/skirmish/mapmanager.hpp"
 #include "game/states/scenestate.hpp"
 
 #include "engine/board.hpp"
@@ -24,7 +25,7 @@ class DeploymentZone;
 class DeployState : public SceneState
 {
 public:
-	DeployState(sf::RenderWindow* renderWindow);
+	DeployState(sf::RenderWindow* renderWindow, MapManager& mapManager);
 
 	virtual ~DeployState();
 
@@ -52,6 +53,8 @@ private:
 	virtual void slotCursorRightClicked(const Coordinates& boardPosition) override;
 
     void handleMapLoadingError();
+
+    MapManager& mapManager_;
 
 	Board* board_;
     std::map<int, DeploymentZone*> deploymentZones_;

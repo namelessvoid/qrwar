@@ -11,7 +11,6 @@
 
 #include "game/cameras/skirmishcamera.hpp"
 #include "game/deploymentzone.hpp"
-#include "game/skirmish/mapmanager.hpp"
 #include "game/constants.hpp"
 
 #include "foundation/spritecomponent.hpp"
@@ -19,8 +18,9 @@
 namespace qrw
 {
 
-MapEditorState::MapEditorState(sf::RenderWindow* renderWindow)
-	: SceneState(renderWindow, EGameStateId::EGSID_MAP_EDITOR_STATE)
+MapEditorState::MapEditorState(sf::RenderWindow* renderWindow, MapManager& mapManager)
+	: SceneState(renderWindow, EGameStateId::EGSID_MAP_EDITOR_STATE),
+	  mapManager(mapManager)
 {
 	cursorMode_ = CursorMode::PLACE_TERRAIN;
 	selectedEntity_.terrainType = TERRAINTYPES::ET_WOOD;
@@ -160,9 +160,7 @@ void MapEditorState::setCursorModeEraseDeploymentZone()
 
 void MapEditorState::slotSaveButtonClicked()
 {
-	MapManager* mapManager = MapManager::get();
-
-	if(!mapManager->doesMapExist(mapNameInput_->getText()))
+	if(!mapManager.doesMapExist(mapNameInput_->getText()))
 		saveMap();
 	else
 		mapOverwriteConfirmationDialog_->setVisible(true);
@@ -170,9 +168,7 @@ void MapEditorState::slotSaveButtonClicked()
 
 void MapEditorState::slotLoadButtonClicked()
 {
-	MapManager* mapManager = MapManager::get();
-
-	if(!mapManager->doesMapExist(mapNameInput_->getText()))
+	if(!mapManager.doesMapExist(mapNameInput_->getText()))
 		return;
 
 	// Clean up
@@ -183,7 +179,7 @@ void MapEditorState::slotLoadButtonClicked()
 	deploymentZones_.clear();
 
 	// Load and add objects
-	MapManager::LoadErrors error = mapManager->loadMap(
+	MapManager::LoadErrors error = mapManager.loadMap(
 		mapNameInput_->getText(),
 		_spBoard,
 		deploymentZones_);
@@ -232,7 +228,7 @@ void MapEditorState::eraseDeploymentZone(const Coordinates& boardPosition)
 
 void MapEditorState::saveMap()
 {
-	MapManager::get()->saveMap(
+	mapManager.saveMap(
 		mapNameInput_->getText(),
 		*_spBoard,
 		deploymentZones_);

@@ -23,8 +23,9 @@
 namespace qrw
 {
 
-DeployState::DeployState(sf::RenderWindow* renderWindow)
+DeployState::DeployState(sf::RenderWindow* renderWindow, MapManager& mapManager)
     : SceneState(renderWindow, EGameStateId::EGSID_DEPLOY_STATE),
+	  mapManager_(mapManager),
 	  board_(nullptr),
       _toSkirmish(false)
 {
@@ -144,7 +145,7 @@ void DeployState::init(GameState* previousState)
 
 	// Load board
 	std::vector<DeploymentZone*> deploymentZones;
-	MapManager::LoadErrors error = MapManager::get()->loadMap(
+	MapManager::LoadErrors error = mapManager_.loadMap(
 		preparationState->getMapName(),
 		board_,
 		deploymentZones);

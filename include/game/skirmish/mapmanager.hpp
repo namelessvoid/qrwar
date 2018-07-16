@@ -25,9 +25,8 @@ public:
         MAP_VALIDATION_FAILED
     };
 
+	MapManager();
     ~MapManager();
-
-    static MapManager* get();
 
     bool doesMapExist(const std::string& mapName);
 
@@ -44,16 +43,12 @@ public:
 	std::vector<std::string> getMapList() const;
 
 private:
-    MapManager();
-
 	std::string mapNameToPath(const std::string& mapName) const;
 	std::string pathToMapName(const std::experimental::filesystem::path& fileName) const;
 
 	std::experimental::filesystem::path getUserMapDir() const;
 
     std::unique_ptr<MapValidator> mapValidator_;
-
-    static MapManager* instance_;
 
     MapManager(const MapManager& rhs) = delete;
     MapManager& operator=(const MapManager& rhs) = delete;

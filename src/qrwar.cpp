@@ -37,11 +37,15 @@
 namespace qrw
 {
 
+// Globals within the engine
 RenderSystem g_renderSystem;
 Scene g_scene;
 EventSystem g_eventSystem;
 AnimationSystem g_animationSystem;
 MetaManager g_metaManager;
+
+// Globals within this file
+MapManager mapManager;
 
 QRWar::QRWar()
 {
@@ -143,9 +147,9 @@ GameState* QRWar::createGameState(EGameStateId id)
 	{
 	case EGSID_INTRO_STATE: return new IntroState(&_renderWindow);
 	case EGSID_MAIN_MENU_STATE: return new MainMenuState(&_renderWindow);
-	case EGSID_MAP_EDITOR_STATE: return new MapEditorState(&_renderWindow);
-	case EGSID_SKIRMISH_PREPARATION_STATE: return new SkirmishPreparationState(&_renderWindow);
-	case EGSID_DEPLOY_STATE: return new DeployState(&_renderWindow);
+	case EGSID_MAP_EDITOR_STATE: return new MapEditorState(&_renderWindow, mapManager);
+	case EGSID_SKIRMISH_PREPARATION_STATE: return new SkirmishPreparationState(&_renderWindow, mapManager);
+	case EGSID_DEPLOY_STATE: return new DeployState(&_renderWindow, mapManager);
 	case EGSID_SKIRMISH_STATE: return new SkirmishState(&_renderWindow);
 	default: return nullptr;
 	}

@@ -14,9 +14,10 @@
 namespace qrw
 {
 
-SkirmishPreparationState::SkirmishPreparationState(sf::RenderWindow* renderWindow)
+SkirmishPreparationState::SkirmishPreparationState(sf::RenderWindow* renderWindow, MapManager& mapManager)
 	: GameState(renderWindow, EGSID_SKIRMISH_PREPARATION_STATE),
 	  EventHandler(EventHandlerPriority::DEFAULT),
+	  mapManager_(mapManager),
 	  nextState_(EGSID_NO_CHANGE)
 {
 	namelessgui::Window* window = new namelessgui::Window();
@@ -59,7 +60,7 @@ SkirmishPreparationState::SkirmishPreparationState(sf::RenderWindow* renderWindo
 	mapList->setPosition({10, 300});
 	window->addWidget(mapList);
 
-	std::vector<std::string> mapNames = MapManager::get()->getMapList();
+	std::vector<std::string> mapNames = mapManager_.getMapList();
 	for(auto& mapName : mapNames)
 		mapList->addItem(mapName);
 }

@@ -3,6 +3,8 @@
 
 #include "gamestates/gamestate.hpp"
 
+#include "game/skirmish/mapmanager.hpp"
+
 namespace namelessgui {
 class ConfirmationDialog;
 class LineInput;
@@ -14,7 +16,7 @@ class SkirmishPreparationState : public GameState, public EventHandler
 
 {
 public:
-    SkirmishPreparationState(sf::RenderWindow* renderWindow);
+    SkirmishPreparationState(sf::RenderWindow* renderWindow, MapManager& mapManager);
 
     virtual ~SkirmishPreparationState();
 
@@ -39,6 +41,8 @@ private:
 	void slotToSkirmishStateClicked() { nextState_ = EGSID_DEPLOY_STATE; }
 
     void slotBackToMainMenuClicked() { nextState_ = EGSID_MAIN_MENU_STATE; }
+
+    MapManager& mapManager_;
 
 	std::string selectedMap_;
 

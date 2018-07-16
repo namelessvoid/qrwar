@@ -18,8 +18,6 @@ namespace fs = std::experimental::filesystem;
 namespace qrw
 {
 
-MapManager* MapManager::instance_ = nullptr;
-
 MapManager::MapManager()
   : mapValidator_(new MapValidator())
 {
@@ -27,13 +25,6 @@ MapManager::MapManager()
 
 MapManager::~MapManager()
 {
-}
-
-MapManager* MapManager::get()
-{
-	if(instance_ == nullptr)
-		instance_ = new MapManager();
-	return instance_;
 }
 
 MapManager::LoadErrors MapManager::loadMap(

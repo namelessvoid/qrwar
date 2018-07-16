@@ -6,7 +6,10 @@
 
 #include "game/states/scenestate.hpp"
 
+#include "game/skirmish/mapmanager.hpp"
+
 #include "engine/terraintypes.hpp"
+#include "engine/board.hpp"
 
 #include "gui/ng/confirmationdialog.hpp"
 #include "gui/ng/spritewidget.hpp"
@@ -14,7 +17,6 @@
 
 #include "gui/cursor.hpp"
 
-#include "engine/board.hpp"
 
 namespace namelessgui {
 class LineInput;
@@ -26,7 +28,7 @@ namespace qrw
 class MapEditorState : public SceneState
 {
 public:
-	MapEditorState(sf::RenderWindow* renderWindow);
+	MapEditorState(sf::RenderWindow* renderWindow, MapManager& mapManager);
 
 	virtual ~MapEditorState();
 
@@ -63,6 +65,8 @@ private:
 	namelessgui::Window* createTerrainToolsWindow();
 	namelessgui::Window* createStructureToolsWindow();
 	namelessgui::Window* createDeploymentZoneToolsWindow();
+
+	MapManager& mapManager;
 
 	namelessgui::LineInput* mapNameInput_;
 
