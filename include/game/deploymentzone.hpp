@@ -20,18 +20,18 @@ friend class DeploymentZoneMetaClass;
 public:
 	DeploymentZone();
 
-	virtual ~DeploymentZone();
+	~DeploymentZone() override;
 
-	virtual void render(sf::RenderTarget& renderTarget) override;
+	void render(sf::RenderTarget& renderTarget) override;
 
-	virtual void setPosition(const sf::Vector2f& position) override;
-
-	virtual const sf::Vector2f& getPosition() const override;
+	void setPosition(const sf::Vector2f& position) override;
+	const sf::Vector2f& getPosition() const override;
 
 	void addSquare(const Coordinates& coordinate);
 	void removeSquare(const Coordinates& coordinate);
-
 	bool containsSquare(const Coordinates& coordinate);
+
+	size_t getSize() const { return zone_.size(); }
 
 	void setPlayerId(int playerId);
 	int getPlayerId() const { return playerId_; }

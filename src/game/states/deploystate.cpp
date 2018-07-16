@@ -156,9 +156,21 @@ void DeployState::init(GameState* previousState)
 		return;
 	}
 
+	if(deploymentZones.size() < 2)
+	{
+		handleMapLoadingError();
+		return;
+	}
+
 	g_scene.setBoard(board_);
 	for(auto& deploymentZone : deploymentZones)
 	{
+		if(deploymentZone->getSize() < 1)
+		{
+			handleMapLoadingError();
+			return;
+		}
+
 		g_scene.addGameObject(deploymentZone);
 		deploymentZones_[deploymentZone->getPlayerId()] = deploymentZone;
 	}
@@ -175,10 +187,10 @@ void DeployState::init(GameState* previousState)
 
 	// Create new players
 	_players.clear();
-	_players.push_back(Player::Ptr(new Player()));
+	_players.push_back(std::make_shared<Player>());
 	_players[0]->setId(1);
 	_players[0]->setName(preparationState->getPlayerOneName());
-	_players.push_back(Player::Ptr(new Player()));
+	_players.push_back(std::make_shared<Player>());
 	_players[1]->setId(2);
 	_players[1]->setName(preparationState->getPlayerTwoName());
 
