@@ -166,12 +166,6 @@ void DeployState::init(GameState* previousState)
 	g_scene.setBoard(board_);
 	for(auto& deploymentZone : deploymentZones)
 	{
-		if(deploymentZone->getSize() < 1)
-		{
-			handleMapLoadingError();
-			return;
-		}
-
 		g_scene.addGameObject(deploymentZone);
 		deploymentZones_[deploymentZone->getPlayerId()] = deploymentZone;
 	}

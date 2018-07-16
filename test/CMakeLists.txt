@@ -14,8 +14,6 @@ add_executable(unittest
 
 	core/logger_log.cpp
 
-	game/skirmish/mapvalidator_validate.cpp
-
 	engine/boardtest.cpp
 	engine/unittest.cpp
 	engine/coordinatestest.cpp
@@ -30,13 +28,17 @@ add_executable(unittest
 	game/meta/coordinatemetaclass_deserialize.cpp
 	game/meta/boardmetaclass_serialize.cpp
 	game/meta/boardmetaclass_deserialize.cpp
-
-	meta/properties/testdoubles.cpp
-	meta/properties/stdmapproperty_serialize.cpp
-	meta/properties/stdmapproperty_deserialize.cpp
 	game/meta/terrainmetaclass_serialize.cpp
 	game/meta/terrainmetaclass_deserialize.cpp
 	game/meta/deploymentzonemetaclass_serialize.cpp
-	game/meta/deploymentzonemetaclass_deserialize.cpp)
+	game/meta/deploymentzonemetaclass_deserialize.cpp
+
+	game/states/deploystate_init.cpp
+
+	game/skirmish/mapvalidator_validate.cpp
+
+	meta/properties/testdoubles.cpp
+	meta/properties/stdmapproperty_serialize.cpp
+	meta/properties/stdmapproperty_deserialize.cpp)
 
 target_link_libraries(unittest ${GTEST_LIBRARIES} ${GMOCK_LIBRARIES} cppunit pthread qrwarlib)

@@ -3,6 +3,10 @@
 
 #include <gtest/gtest.h>
 
+#include <SFML/Graphics/RenderWindow.hpp>
+
+#include "rendering/rendersystem.hpp"
+
 // Return 0 if tests failed.
 int runCppUnit()
 {
@@ -23,5 +27,8 @@ int runGtest(int argc, char* argv[])
 
 int main(int argc, char* argv[])
 {
+	sf::RenderWindow renderWindow;
+	qrw::g_renderSystem.startUp(renderWindow);
+
     return runCppUnit() && runGtest(argc, argv);
 }

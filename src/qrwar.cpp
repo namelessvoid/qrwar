@@ -45,7 +45,7 @@ AnimationSystem g_animationSystem;
 MetaManager g_metaManager;
 
 // Globals within this file
-MapManager mapManager;
+MapManager mapManager(g_metaManager);
 
 QRWar::QRWar()
 {

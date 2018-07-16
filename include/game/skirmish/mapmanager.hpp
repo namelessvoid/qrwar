@@ -13,8 +13,6 @@ namespace qrw {
 class Board;
 class DeploymentZone;
 
-extern MetaManager g_metaManager;
-
 class MapManager
 {
 public:
@@ -25,12 +23,12 @@ public:
         MAP_VALIDATION_FAILED
     };
 
-	MapManager();
-    ~MapManager();
+	MapManager(MetaManager& metaManager);
+    virtual ~MapManager();
 
     bool doesMapExist(const std::string& mapName);
 
-    LoadErrors loadMap(
+    virtual LoadErrors loadMap(
         const std::string& mapName,
         Board*& board,
         std::vector<DeploymentZone*>& deploymentZones);
@@ -40,13 +38,15 @@ public:
         const Board& board,
         const std::vector<DeploymentZone*>& deploymentZones);
 
-	std::vector<std::string> getMapList() const;
+	virtual std::vector<std::string> getMapList() const;
 
 private:
 	std::string mapNameToPath(const std::string& mapName) const;
 	std::string pathToMapName(const std::experimental::filesystem::path& fileName) const;
 
 	std::experimental::filesystem::path getUserMapDir() const;
+
+	MetaManager& metaManager_;
 
     std::unique_ptr<MapValidator> mapValidator_;
 
