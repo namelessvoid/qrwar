@@ -42,16 +42,17 @@ void DeploymentZoneMetaClass::serialize(const Reflectable* object, YAML::Emitter
 
 void DeploymentZoneMetaClass::deserialize(Reflectable* gameObject, const YAML::Node& in) const
 {
-    DeploymentZone* zone = new DeploymentZone();
-
     assert(in["type"].as<std::string>() == DeploymentZone::typeName.getStringId());
+    assert(dynamic_cast<DeploymentZone*>(gameObject) != nullptr);
+
+    auto typedObject = static_cast<DeploymentZone*>(gameObject);
 
     YAML::Node squareNodes = in["zone_"];
     for(auto squareNode : squareNodes)
     {
-        zone->addSquare({squareNode["x"].as<int>(), squareNode["y"].as<int>()});
+        typedObject->addSquare({squareNode["x"].as<int>(), squareNode["y"].as<int>()});
     }
-    zone->setPlayerId(in["playerId"].as<int>());
+    typedObject->setPlayerId(in["playerId"].as<int>());
 }
 
 std::type_index DeploymentZoneMetaClass::getTypeIndex() const

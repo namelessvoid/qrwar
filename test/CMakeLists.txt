@@ -35,6 +35,8 @@ add_executable(unittest
 	meta/properties/stdmapproperty_serialize.cpp
 	meta/properties/stdmapproperty_deserialize.cpp
 	game/meta/terrainmetaclass_serialize.cpp
-	game/meta/terrainmetaclass_deserialize.cpp)
+	game/meta/terrainmetaclass_deserialize.cpp
+	game/meta/deploymentzonemetaclass_serialize.cpp
+	game/meta/deploymentzonemetaclass_deserialize.cpp)
 
 target_link_libraries(unittest ${GTEST_LIBRARIES} ${GMOCK_LIBRARIES} cppunit pthread qrwarlib)
