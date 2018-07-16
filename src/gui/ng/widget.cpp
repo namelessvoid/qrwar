@@ -69,9 +69,9 @@ namespace namelessgui
 		if(!isVisible())
 			return false;
 
-		for(auto& child : children_)
+		for(auto iter = children_.rbegin(); iter != children_.rend(); ++iter)
 		{
-			if(child->handleEvent(event))
+			if((*iter)->handleEvent(event))
 				return true;
 		}
 
