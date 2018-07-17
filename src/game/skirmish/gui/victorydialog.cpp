@@ -1,4 +1,4 @@
-#include "game/gui/victorydialog.hpp"
+#include "game/skirmish/gui/victorydialog.hpp"
 
 #include "gui/ng/text.hpp"
 #include "gui/ng/button.hpp"

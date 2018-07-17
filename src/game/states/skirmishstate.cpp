@@ -2,7 +2,7 @@
 
 #include <SFML/Graphics/Sprite.hpp>
 
-#include "game/gui/victorydialog.hpp"
+#include "game/skirmish/gui/victorydialog.hpp"
 #include "game/states/deploystate.hpp"
 #include "game/path.hpp"
 

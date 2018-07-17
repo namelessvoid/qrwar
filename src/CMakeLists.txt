@@ -55,7 +55,7 @@ add_library(qrwarlib
 	game/skirmish/mapmanager.cpp
 	game/skirmish/mapvalidator.cpp
 
-	game/gui/victorydialog.cpp
+	game/skirmish/gui/victorydialog.cpp
 
 	game/path.cpp
 	game/pathrendercomponent.cpp
