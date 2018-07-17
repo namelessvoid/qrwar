@@ -11,7 +11,7 @@ class RenderTarget;
 namespace qrw
 {
 
-typedef int Layer;
+typedef unsigned int Layer;
 
 class Renderable
 {
@@ -31,7 +31,7 @@ public:
 	virtual const sf::Vector2f& getPosition() const = 0;
 
 private:
-	unsigned char m_layer;
+	Layer m_layer;
 
 	bool m_visible;
 };
