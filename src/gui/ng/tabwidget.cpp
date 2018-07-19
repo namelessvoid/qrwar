@@ -75,6 +75,10 @@ void TabWidget::setActiveTab(size_t index)
 void TabWidget::setSize(const sf::Vector2f &size)
 {
 	size_ = size;
+
+	sf::Vector2f widgetSize(size_.x, size.y - buttonSize_.y);
+	for(auto& widget : widgets_)
+		widget->setSize(widgetSize);
 }
 
 sf::Vector2f TabWidget::getSize() const
