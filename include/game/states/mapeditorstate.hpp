@@ -17,11 +17,6 @@
 
 #include "gui/cursor.hpp"
 
-
-namespace namelessgui {
-class LineInput;
-}
-
 namespace qrw
 {
 
@@ -29,8 +24,6 @@ class MapEditorState : public SceneState
 {
 public:
 	MapEditorState(sf::RenderWindow* renderWindow, MapManager& mapManager);
-
-	virtual ~MapEditorState();
 
 	virtual void init(GameState *previousState);
 
@@ -56,19 +49,13 @@ private:
 	void placeDeploymentZone(const Coordinates& boardPosition, unsigned int playerNumber);
 	void eraseDeploymentZone(const Coordinates& boardPosition);
 
-	void slotSaveButtonClicked();
-	void slotLoadButtonClicked();
+	void slotSaveClicked(const std::string& mapName);
+	void slotLoadClicked(const std::string& mapName);
 
-	void saveMap();
-
-	namelessgui::Window* createConfigToolsWindow();
-	namelessgui::Window* createTerrainToolsWindow();
-	namelessgui::Window* createStructureToolsWindow();
-	namelessgui::Window* createDeploymentZoneToolsWindow();
+	void saveMap(const std::string(&mapName));
+	std::string mapNameForSaveConfirmation_;
 
 	MapManager& mapManager;
-
-	namelessgui::LineInput* mapNameInput_;
 
 	namelessgui::ConfirmationDialog* mapOverwriteConfirmationDialog_;
 

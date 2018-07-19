@@ -4,14 +4,10 @@
 
 #include "gui/texturemanager.hpp"
 
-#include "gui/ng/buttongroup.hpp"
-#include "gui/ng/tabwidget.hpp"
-#include "gui/ng/spinbox.hpp"
-#include "gui/ng/lineinput.hpp"
-
 #include "game/cameras/skirmishcamera.hpp"
 #include "game/deploymentzone.hpp"
 #include "game/constants.hpp"
+#include "game/skirmish/gui/mapeditortoolbar.hpp"
 
 #include "foundation/spritecomponent.hpp"
 
@@ -26,26 +22,23 @@ MapEditorState::MapEditorState(sf::RenderWindow* renderWindow, MapManager& mapMa
 	selectedEntity_.terrainType = TERRAINTYPES::ET_WOOD;
 
 	// Gui
-	TextureManager* textureManager = TextureManager::getInstance();
-
-	namelessgui::TabWidget* tabWidget = new namelessgui::TabWidget("tabWidget");
-	tabWidget->setSize(_toolBar->getSize());
-	tabWidget->setButtonSize({48, 48});
-	tabWidget->addTab(textureManager->getTexture("wheel"), createConfigToolsWindow());
-	tabWidget->addTab(textureManager->getTexture("wood"), createTerrainToolsWindow());
-	tabWidget->addTab(textureManager->getTexture("wall"), createStructureToolsWindow());
-	tabWidget->addTab(textureManager->getTexture("default"), createDeploymentZoneToolsWindow());
-	_toolBar->addWidget(tabWidget);
+	auto mapEditorToolBar = new MapEditorToolBar(INITIAL_BOARD_WIDTH, INITIAL_BOARD_HEIGHT);
+	mapEditorToolBar->setSize(_toolBar->getSize());
+	mapEditorToolBar->signalLoadClicked.connect([this] (const std::string mapName) { slotLoadClicked(mapName); });
+	mapEditorToolBar->signalSaveClicked.connect([this] (const std::string mapName) { slotSaveClicked(mapName); });
+	mapEditorToolBar->signalBoardWidthChanged.connect([this] (unsigned int width) { slotChangeBoardWidth(width); });
+	mapEditorToolBar->signalBoardHeightChanged.connect([this] (unsigned int height) { slotChangeBoardHeight(height); });
+	mapEditorToolBar->signalTerrainTypeClicked.connect([this] (TERRAINTYPES terrainType) { setCursorModePlaceTerrain(terrainType); });
+	mapEditorToolBar->signalEraseTerrainClicked.connect([this] () { setCursorModeEraseterrain(); });
+	mapEditorToolBar->signalDeploymentZoneClicked.connect([this] (unsigned int playerNumber) { setCursorModePlaceDeploymentZone(playerNumber); });
+	mapEditorToolBar->signalEraseDeploymentZoneClicked.connect([this] () { setCursorModeEraseDeploymentZone(); });
+	_toolBar->addWidget(mapEditorToolBar);
 
 	mapOverwriteConfirmationDialog_ = new namelessgui::ConfirmationDialog("Map already exists!\nOverwrite existing map?");
 	mapOverwriteConfirmationDialog_->setSize({250, 100});
-	mapOverwriteConfirmationDialog_->signalYesClicked.connect([this] { saveMap(); });
+	mapOverwriteConfirmationDialog_->signalYesClicked.connect([this] () { saveMap(mapNameForSaveConfirmation_); });
 	_guiUptr->addWidget(mapOverwriteConfirmationDialog_);
 	mapOverwriteConfirmationDialog_->setVisible(false);
-}
-
-MapEditorState::~MapEditorState()
-{
 }
 
 void MapEditorState::init(GameState* previousState)
@@ -158,17 +151,20 @@ void MapEditorState::setCursorModeEraseDeploymentZone()
 	cursorMode_ = CursorMode::ERASE_DEPLOYMENTZONE;	
 }
 
-void MapEditorState::slotSaveButtonClicked()
+void MapEditorState::slotSaveClicked(const std::string& mapName)
 {
-	if(!mapManager.doesMapExist(mapNameInput_->getText()))
-		saveMap();
+	if(!mapManager.doesMapExist(mapName))
+		saveMap(mapName);
 	else
+	{
+		mapNameForSaveConfirmation_ = mapName;
 		mapOverwriteConfirmationDialog_->setVisible(true);
+	}
 }
 
-void MapEditorState::slotLoadButtonClicked()
+void MapEditorState::slotLoadClicked(const std::string& mapName)
 {
-	if(!mapManager.doesMapExist(mapNameInput_->getText()))
+	if(!mapManager.doesMapExist(mapName))
 		return;
 
 	// Clean up
@@ -179,10 +175,7 @@ void MapEditorState::slotLoadButtonClicked()
 	deploymentZones_.clear();
 
 	// Load and add objects
-	MapManager::LoadErrors error = mapManager.loadMap(
-		mapNameInput_->getText(),
-		_spBoard,
-		deploymentZones_);
+	MapManager::LoadErrors error = mapManager.loadMap(mapName, _spBoard, deploymentZones_);
 
 	// TODO error handling
 
@@ -226,168 +219,9 @@ void MapEditorState::eraseDeploymentZone(const Coordinates& boardPosition)
 	}
 }
 
-void MapEditorState::saveMap()
+void MapEditorState::saveMap(const std::string& mapName)
 {
-	mapManager.saveMap(
-		mapNameInput_->getText(),
-		*_spBoard,
-		deploymentZones_);
-}
-
-namelessgui::Window* MapEditorState::createConfigToolsWindow()
-{
-	namelessgui::Window* configWindow = new namelessgui::Window("configToolsWindow");
-
-	sf::Vector2f buttonSize(140.0f, 50.0f);
-
-	namelessgui::Text* heading = new namelessgui::Text();
-	heading->setText("Settings");
-	heading->setRelativePosition({5.0f, 0});
-	configWindow->addWidget(heading);
-
-	mapNameInput_ = new namelessgui::LineInput();
-	mapNameInput_->setSize({198, 30});
-	mapNameInput_->setText("Map Name");
-	mapNameInput_->setRelativePosition({0, 50});
-	configWindow->addWidget(mapNameInput_);
-
-	namelessgui::SpinBox* mapWidthBox = new namelessgui::SpinBox();
-	mapWidthBox->setSize({100.0f, 30.0f});
-	mapWidthBox->setRelativePosition({0, 100});
-	mapWidthBox->setMinValue(10);
-	mapWidthBox->setMaxValue(128);
-	mapWidthBox->setValue(INITIAL_BOARD_WIDTH);
-	mapWidthBox->signalChanged.connect([this] (unsigned int width) { slotChangeBoardWidth(width); });
-	configWindow->addWidget(mapWidthBox);
-
-	namelessgui::SpinBox* mapHeightBox = new namelessgui::SpinBox();
-	mapHeightBox->setSize({100.0f, 30.0f});
-	mapHeightBox->setRelativePosition({0, 100});
-	mapHeightBox->setMinValue(10);
-	mapHeightBox->setMaxValue(128);
-	mapHeightBox->setValue(INITIAL_BOARD_HEIGHT);
-	mapHeightBox->setAnchor({1, 0});
-	mapHeightBox->setParentAnchor({1, 0});
-	mapHeightBox->signalChanged.connect([this] (unsigned int height) { slotChangeBoardHeight(height); });
-	configWindow->addWidget(mapHeightBox);
-
-	namelessgui::Button* saveButton = new namelessgui::Button();
-	saveButton->setText("Save");
-	saveButton->setSize({buttonSize.x, 30.0f});
-	saveButton->setAnchor({0.5f, 1.0f});
-	saveButton->setParentAnchor({0.5f, 1.0f});
-	saveButton->setRelativePosition({0.0f, -5.0f});
-	saveButton->signalClicked.connect(std::bind(&MapEditorState::slotSaveButtonClicked, this));
-	configWindow->addWidget(saveButton);
-
-	namelessgui::Button* loadButton = new namelessgui::Button();
-	loadButton->setText("Load");
-	loadButton->setRelativePosition({0, 150});
-	loadButton->setSize({150, 30});
-	loadButton->signalClicked.connect([this] { slotLoadButtonClicked(); });
-	configWindow->addWidget(loadButton);
-
-	return configWindow;
-}
-
-namelessgui::Window* MapEditorState::createTerrainToolsWindow()
-{
-	namelessgui::Window* terrainWindow = new namelessgui::Window("terrainToolsWindow");
-
-	sf::Vector2f buttonSize(140.0f, 50.0f);
-	float buttonYOffset = 45;
-
-	namelessgui::Text* heading = new namelessgui::Text();
-	heading->setText("Terrain");
-	heading->setRelativePosition({5.0f, 0});
-	terrainWindow->addWidget(heading);
-
-	std::shared_ptr<namelessgui::ButtonGroup> spTerrainButtonGroup = std::make_shared<namelessgui::ButtonGroup>();
-	namelessgui::RadioToggleButton* radioButton = new namelessgui::RadioToggleButton(spTerrainButtonGroup, "Wood");
-	radioButton->setText("Wood");
-	radioButton->setSize(buttonSize);
-	radioButton->setRelativePosition({5.0f, buttonYOffset});
-	radioButton->setImage(TextureManager::getInstance()->getTexture("wood"));
-	radioButton->signalActivated.connect([this] { setCursorModePlaceTerrain(TERRAINTYPES::ET_WOOD); });
-	terrainWindow->addWidget(radioButton);
-
-	radioButton = new namelessgui::RadioToggleButton(spTerrainButtonGroup, "Hill");
-	radioButton->setText("Hill");
-	radioButton->setSize(buttonSize);
-	radioButton->setRelativePosition({5.0f, 1 * buttonSize.y + buttonYOffset});
-	radioButton->setImage(TextureManager::getInstance()->getTexture("hill"));
-	radioButton->signalActivated.connect([this] { setCursorModePlaceTerrain(TERRAINTYPES::ET_HILL); });
-	terrainWindow->addWidget(radioButton);
-
-	radioButton = new namelessgui::RadioToggleButton(spTerrainButtonGroup, "Wall");
-	radioButton->setText("Wall");
-	radioButton->setSize(buttonSize);
-	radioButton->setRelativePosition({5.0f, 2 * buttonSize.y + buttonYOffset});
-	radioButton->setImage(TextureManager::getInstance()->getTexture("wall"));
-	radioButton->signalActivated.connect([this] { setCursorModePlaceTerrain(TERRAINTYPES::ET_WALL); });
-	terrainWindow->addWidget(radioButton);
-
-	radioButton = new namelessgui::RadioToggleButton(spTerrainButtonGroup, "Erase");
-	radioButton->setText("Erase");
-	radioButton->setSize(buttonSize);
-	radioButton->setRelativePosition({5.0f, 3 * buttonSize.y + buttonYOffset});
-	radioButton->setImage(TextureManager::getInstance()->getTexture("default"));
-	radioButton->signalActivated.connect([this] { setCursorModeEraseterrain(); });
-	terrainWindow->addWidget(radioButton);
-
-	return terrainWindow;
-}
-
-namelessgui::Window* MapEditorState::createStructureToolsWindow()
-{
-	namelessgui::Window* structureWindow = new namelessgui::Window("structureToolsWindow");
-
-	namelessgui::Text* heading = new namelessgui::Text();
-	heading->setText("Structures");
-	heading->setRelativePosition({5.0f, 0});
-	structureWindow->addWidget(heading);
-
-	return structureWindow;
-}
-
-namelessgui::Window* MapEditorState::createDeploymentZoneToolsWindow()
-{
-	sf::Vector2f buttonSize(140.0f, 50.0f);
-	float buttonYOffset = 45;
-
-	namelessgui::Window* zoneWindow = new namelessgui::Window("deploymentZoneToolsWindow");
-
-	namelessgui::Text* heading = new namelessgui::Text();
-	heading->setText("Deployment Zones");
-	heading->setRelativePosition({5.0f, 0});
-	zoneWindow->addWidget(heading);
-
-	std::shared_ptr<namelessgui::ButtonGroup> zoneButtonGroup = std::make_shared<namelessgui::ButtonGroup>();
-	namelessgui::RadioToggleButton* radioButton = new namelessgui::RadioToggleButton(zoneButtonGroup, "Player1");
-	radioButton->setText("Player 1");
-	radioButton->setSize(buttonSize);
-	radioButton->setRelativePosition({5.0f, buttonYOffset});
-	radioButton->setImage(TextureManager::getInstance()->getTexture("default"));
-	radioButton->signalActivated.connect([this] { setCursorModePlaceDeploymentZone(0); });
-	zoneWindow->addWidget(radioButton);
-
-	radioButton = new namelessgui::RadioToggleButton(zoneButtonGroup, "Player2");
-	radioButton->setText("Player 2");
-	radioButton->setSize(buttonSize);
-	radioButton->setRelativePosition({5.0f, 1 * buttonSize.y + buttonYOffset});
-	radioButton->setImage(TextureManager::getInstance()->getTexture("default"));
-	radioButton->signalActivated.connect([this] { setCursorModePlaceDeploymentZone(1); });
-	zoneWindow->addWidget(radioButton);
-
-	radioButton = new namelessgui::RadioToggleButton(zoneButtonGroup, "Erase");
-	radioButton->setText("Erase");
-	radioButton->setSize(buttonSize);
-	radioButton->setRelativePosition({5.0f, 2 * buttonSize.y + buttonYOffset});
-	radioButton->setImage(TextureManager::getInstance()->getTexture("default"));
-	radioButton->signalActivated.connect([this] { setCursorModeEraseDeploymentZone(); });
-	zoneWindow->addWidget(radioButton);
-
-	return zoneWindow;
+   mapManager.saveMap(mapName, *_spBoard, deploymentZones_);
 }
 
 } // namespace qrw
