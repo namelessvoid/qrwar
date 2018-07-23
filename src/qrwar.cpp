@@ -29,6 +29,7 @@
 #include "game/states/deploystate.hpp"
 #include "game/states/skirmishstate.hpp"
 #include "game/deploymentzone.hpp"
+#include "game/skirmish/gui/skirmishguifactory.hpp"
 
 #include "game/path.hpp"
 
@@ -143,11 +144,13 @@ void QRWar::registerMetaTypes()
 
 GameState* QRWar::createGameState(EGameStateId id)
 {
+	SkirmishGuiFactory guiFactory;
+
 	switch(id)
 	{
 	case EGSID_INTRO_STATE: return new IntroState(&_renderWindow);
 	case EGSID_MAIN_MENU_STATE: return new MainMenuState(&_renderWindow);
-	case EGSID_MAP_EDITOR_STATE: return new MapEditorState(&_renderWindow, mapManager);
+	case EGSID_MAP_EDITOR_STATE: return new MapEditorState(&_renderWindow, mapManager, guiFactory);
 	case EGSID_SKIRMISH_PREPARATION_STATE: return new SkirmishPreparationState(&_renderWindow, mapManager);
 	case EGSID_DEPLOY_STATE: return new DeployState(&_renderWindow, mapManager);
 	case EGSID_SKIRMISH_STATE: return new SkirmishState(&_renderWindow);

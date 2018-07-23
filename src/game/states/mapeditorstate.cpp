@@ -14,7 +14,7 @@
 namespace qrw
 {
 
-MapEditorState::MapEditorState(sf::RenderWindow* renderWindow, MapManager& mapManager)
+MapEditorState::MapEditorState(sf::RenderWindow* renderWindow, MapManager& mapManager, SkirmishGuiFactory& guiFactory)
 	: SceneState(renderWindow, EGameStateId::EGSID_MAP_EDITOR_STATE),
 	  mapManager(mapManager)
 {
@@ -22,7 +22,7 @@ MapEditorState::MapEditorState(sf::RenderWindow* renderWindow, MapManager& mapMa
 	selectedEntity_.terrainType = TERRAINTYPES::ET_WOOD;
 
 	// Gui
-	auto mapEditorToolBar = new MapEditorToolBar(INITIAL_BOARD_WIDTH, INITIAL_BOARD_HEIGHT);
+	auto mapEditorToolBar = guiFactory.createMapEditorToolBar(INITIAL_BOARD_WIDTH, INITIAL_BOARD_HEIGHT);
 	mapEditorToolBar->setSize(_toolBar->getSize());
 	mapEditorToolBar->signalLoadClicked.connect([this] (const std::string mapName) { slotLoadClicked(mapName); });
 	mapEditorToolBar->signalSaveClicked.connect([this] (const std::string mapName) { slotSaveClicked(mapName); });

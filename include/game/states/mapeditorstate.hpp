@@ -8,6 +8,8 @@
 
 #include "game/skirmish/mapmanager.hpp"
 
+#include "game/skirmish/gui/skirmishguifactory.hpp"
+
 #include "engine/terraintypes.hpp"
 #include "engine/board.hpp"
 
@@ -23,7 +25,7 @@ namespace qrw
 class MapEditorState : public SceneState
 {
 public:
-	MapEditorState(sf::RenderWindow* renderWindow, MapManager& mapManager);
+	MapEditorState(sf::RenderWindow* renderWindow, MapManager& mapManager, SkirmishGuiFactory& guiFactory);
 
 	virtual void init(GameState *previousState);
 
