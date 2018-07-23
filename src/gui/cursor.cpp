@@ -45,7 +45,7 @@ bool Cursor::handleEvent(const IEvent& event)
 
 		if(newBoardPosition != m_boardPosition)
         {
-			Board* board = g_scene.getSingleGameObject<Board>();
+			Board* board = g_scene.findSingleGameObject<Board>();
 			if(board->isOnBoard(newBoardPosition))
             {
 				setBoardPosition(newBoardPosition);

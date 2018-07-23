@@ -46,10 +46,10 @@ public:
 	void destroy(GameObject* gameObject);
 
 	template<class TGameObject>
-	std::set<GameObject*>& getGameObjects();
+	std::set<GameObject*>& findGameObjects();
 
 	template<class TGameObject>
-	TGameObject* getSingleGameObject();
+	TGameObject* findSingleGameObject();
 
 	void reset();
 
@@ -76,20 +76,18 @@ TGameObject *Scene::spawn()
 }
 
 template<class T>
-std::set<GameObject*>& Scene::getGameObjects()
+std::set<GameObject*>& Scene::findGameObjects()
 {
-	assert(m_gameObjects.find(typeid(T))!=m_gameObjects.end());
 	return m_gameObjects.find(typeid(T))->second;
 }
 
-template<class T>
-T* Scene::getSingleGameObject()
+template<class TGameObject>
+TGameObject* Scene::findSingleGameObject()
 {
-	auto gameObjects = getGameObjects<T>();
-
-	assert(gameObjects.size()==1);
-
-	return static_cast<T*>(*gameObjects.begin());
+	auto gameObjects = findGameObjects<TGameObject>();
+	if (gameObjects.size() == 0)
+		return nullptr;
+	return static_cast<TGameObject*>(*gameObjects.begin());
 }
 
 extern Scene g_scene;

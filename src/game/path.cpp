@@ -25,7 +25,7 @@ Path::~Path()
 
 void Path::setStartAndEnd(const Coordinates& start, const Coordinates &end)
 {
-	Board* board = g_scene.getSingleGameObject<Board>();
+	Board* board = g_scene.findSingleGameObject<Board>();
 	pathfinding::Path* path = board->findPath(start, end);
 	setPath(path);
 }

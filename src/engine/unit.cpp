@@ -87,8 +87,8 @@ Unit::~Unit()
 
 void Unit::onDestroy()
 {
-	Board* board = g_scene.getSingleGameObject<Board>();
-	if(board->getUnit(_position) == this)
+	Board* board = g_scene.findSingleGameObject<Board>();
+	if(board && board->getUnit(_position) == this)
 		board->removeUnit(_position);
 }
 
@@ -111,7 +111,7 @@ int Unit::getModifiedAttack()
 {
 	int modifiedAttack = getBaseAttack();
 
-	Board* board = g_scene.getSingleGameObject<Board>();
+	Board* board = g_scene.findSingleGameObject<Board>();
 	if(board && board->isTerrainAt(getPosition()))
 		modifiedAttack += board->getTerrain(getPosition())->getModificator(EM_ATTACK);
 
@@ -127,7 +127,7 @@ int Unit::getModifiedDefense()
 {
 	int modifiedDefense = getBaseDefense();
 
-	Board* board = g_scene.getSingleGameObject<Board>();
+	Board* board = g_scene.findSingleGameObject<Board>();
 	if(board && board->isTerrainAt(getPosition()))
 		modifiedDefense += board->getTerrain(getPosition())->getModificator(EM_DEFENSE);
 
@@ -190,7 +190,7 @@ const Coordinates& Unit::getPosition() const
 
 void Unit::setPosition(const Coordinates& position)
 {
-	Board* board = g_scene.getSingleGameObject<Board>();
+	Board* board = g_scene.findSingleGameObject<Board>();
 	if(board->getUnit(_position) == this)
 		board->removeUnit(_position);
 
