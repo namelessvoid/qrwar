@@ -17,6 +17,8 @@
 
 using ::testing::_;
 using ::testing::Return;
+using ::testing::ElementsAreArray;
+using ::testing::ElementsAre;
 
 class MapManagerMock : public qrw::MapManager
 {
@@ -33,24 +35,6 @@ ACTION_P2(LoadMapStub, board, deploymentZones)
 	arg2 = deploymentZones;
 	return qrw::MapManager::LoadErrors::SUCCESS;
 }
-
-class BoardMock : public qrw::Board
-{
-public:
-	MOCK_METHOD0(onAddToScene, void());
-};
-
-class DeploymentZoneMock : public qrw::DeploymentZone
-{
-public:
-	MOCK_METHOD0(onAddToScene, void());
-};
-
-class TerrainMock : public qrw::Terrain
-{
-public:
-	MOCK_METHOD0(onAddToScene, void());
-};
 
 TEST(DeployState_Init, Then_game_objects_are_added_to_scene)
 {
@@ -79,17 +63,20 @@ TEST(DeployState_Init, Then_game_objects_are_added_to_scene)
 
 	sf::RenderWindow renderWindow;
 
-	qrw::DeployState deployState(&renderWindow, mapManager);
+	auto deployState = new qrw::DeployState(&renderWindow, mapManager);
 
 	qrw::SkirmishPreparationState skirmishPreparationState(&renderWindow, mapManager);
 
 	// Act
-	deployState.init(&skirmishPreparationState);
+	deployState->init(&skirmishPreparationState);
 
 	// Assert
-	EXPECT_TRUE(qrw::g_scene.findSingleGameObject<qrw::Board>()!=nullptr);
-	EXPECT_EQ(qrw::g_scene.findGameObjects<qrw::DeploymentZone>().size(), 2);
+	EXPECT_EQ(qrw::g_scene.findSingleGameObject<qrw::Board>(), board);
+	EXPECT_THAT(qrw::g_scene.findGameObjects<qrw::DeploymentZone>(), ElementsAreArray(deploymentZones.data(), 2));
+	EXPECT_THAT(qrw::g_scene.findGameObjects<qrw::Terrain>(), ElementsAre(terrain1, terrain2));
 
 	// Cleanup
+	delete deployState;
 	qrw::g_scene.reset();
+	qrw::g_scene.update(0);
 }
