@@ -61,25 +61,21 @@ TEST(DeployState_Init, Then_game_objects_are_added_to_scene)
 	metaManager.registerMetaClass<qrw::DeploymentZoneMetaClass>(qrw::DeploymentZone::typeName);
 	metaManager.registerMetaClass<qrw::CoordinateMetaClass>(qrw::Coordinates::typeName);
 
-	BoardMock board;
-	TerrainMock terrain1, terrain2;
-	board.setTerrain({0, 0}, &terrain1);
-	board.setTerrain({1, 0}, &terrain2);
-	DeploymentZoneMock deploymentZone1, deploymentZone2;
-	std::vector<qrw::DeploymentZone*> deploymentZones { &deploymentZone1, &deploymentZone2 };
+	auto board = new qrw::Board();
+	auto terrain1 = new qrw::Terrain();
+	auto terrain2 = new qrw::Terrain();
+	board->setTerrain({0, 0}, terrain1);
+	board->setTerrain({1, 0}, terrain2);
+	auto deploymentZone1 = new qrw::DeploymentZone();
+	auto deploymentZone2 = new qrw::DeploymentZone();
+	std::vector<qrw::DeploymentZone*> deploymentZones { deploymentZone1, deploymentZone2 };
 
 	// Assert Mocks
 	MapManagerMock mapManager(metaManager);
 	EXPECT_CALL(mapManager, getMapList())
 		.WillOnce(Return(std::vector<std::string>{"HelloMap"}));
 	EXPECT_CALL(mapManager, loadMap("HelloMap", _, _))
-		.WillOnce(LoadMapStub(&board, deploymentZones));
-
-	EXPECT_CALL(board, onAddToScene());
-	EXPECT_CALL(terrain1, onAddToScene());
-	EXPECT_CALL(terrain2, onAddToScene());
-	EXPECT_CALL(deploymentZone1, onAddToScene());
-	EXPECT_CALL(deploymentZone2, onAddToScene());
+		.WillOnce(LoadMapStub(board, deploymentZones));
 
 	sf::RenderWindow renderWindow;
 
@@ -89,4 +85,11 @@ TEST(DeployState_Init, Then_game_objects_are_added_to_scene)
 
 	// Act
 	deployState.init(&skirmishPreparationState);
+
+	// Assert
+	EXPECT_TRUE(qrw::g_scene.findSingleGameObject<qrw::Board>()!=nullptr);
+	EXPECT_EQ(qrw::g_scene.findGameObjects<qrw::DeploymentZone>().size(), 2);
+
+	// Cleanup
+	qrw::g_scene.reset();
 }
