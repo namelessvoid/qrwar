@@ -181,6 +181,7 @@ void MapEditorState::slotLoadClicked(const std::string& mapName)
 
 	g_scene.addGameObject(_spBoard);
 	for(auto& deploymentZone : deploymentZones_) g_scene.addGameObject(deploymentZone);
+	for(auto& terrainIter : _spBoard->getTerrains()) g_scene.addGameObject(terrainIter.second);
 }
 
 void MapEditorState::placeTerrain(const Coordinates& boardPosition, TERRAINTYPES terrainType)

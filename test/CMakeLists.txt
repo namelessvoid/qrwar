@@ -34,6 +34,7 @@ add_executable(unittest
 	game/meta/deploymentzonemetaclass_deserialize.cpp
 
 	game/states/deploystate_init.cpp
+	game/states/mapeditorstate_loadmap.cpp
 
 	game/skirmish/mapvalidator_validate.cpp
 

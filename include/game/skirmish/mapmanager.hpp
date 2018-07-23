@@ -26,7 +26,7 @@ public:
 	MapManager(MetaManager& metaManager);
     virtual ~MapManager();
 
-    bool doesMapExist(const std::string& mapName);
+    virtual bool doesMapExist(const std::string& mapName);
 
     virtual LoadErrors loadMap(
         const std::string& mapName,
