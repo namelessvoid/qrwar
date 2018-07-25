@@ -24,6 +24,8 @@ add_executable(unittest
 	gui/texturemanagertest.cpp
 	config/tilesetprocessortest.cpp
 
+	foundation/followrouteanimationcomponent_animate.cpp
+
 	game/meta/coordinatemetaclass_serialize.cpp
 	game/meta/coordinatemetaclass_deserialize.cpp
 	game/meta/boardmetaclass_serialize.cpp

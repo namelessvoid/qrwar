@@ -10,11 +10,11 @@ class Animation
 {
 public:
     Animation()
+		: m_isRunning(false),
+		  durationInSeconds_(0),
+		  m_currentRunTime(0)
     {
         g_animationSystem.addAnimation(this);
-		m_currentRunTime = 0;
-		m_duration = 0;
-		m_isRunning = true;
     }
 
     virtual ~Animation()
@@ -24,26 +24,56 @@ public:
 
 	virtual void animate(float deltaTime)
 	{
+		if(!m_isRunning) return;
+
+		if(m_currentRunTime >= durationInSeconds_)
+		{
+			m_isRunning = false;
+			return;
+		}
+
 		m_currentRunTime += deltaTime;
 
-		if(m_currentRunTime >= m_duration)
-			m_isRunning = false;
+		if(m_currentRunTime > durationInSeconds_)
+		{
+			m_currentRunTime = durationInSeconds_;
+		}
 	}
 
-	bool isRunning()
+	virtual void start()
+	{
+		m_isRunning = true;
+	}
+
+	virtual void stop()
+	{
+		m_isRunning = false;
+	}
+
+	bool isRunning() const
 	{
 		return m_isRunning;
 	}
 
-	void setDuration(float duration)
+	void setDuration(float durationInSeconds)
 	{
-		m_duration = duration;
+		durationInSeconds_ = durationInSeconds;
+	}
+
+	float getDurationInSeconds() const
+	{
+		return durationInSeconds_;
+	}
+
+	float getCurrentRunTime() const
+	{
+		return m_currentRunTime;
 	}
 
 private:
 	bool m_isRunning;
 
-	float m_duration;
+	float durationInSeconds_;
 
 	float m_currentRunTime;
 };

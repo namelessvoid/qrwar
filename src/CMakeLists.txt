@@ -38,6 +38,7 @@ add_library(qrwarlib
 	foundation/gamecomponent.cpp
 	foundation/spritecomponent.cpp
 	foundation/textcomponent.cpp
+	foundation/followrouteanimationcomponent.cpp
 
 	gamestates/gamestate.cpp
 
