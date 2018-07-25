@@ -6,6 +6,7 @@
 #include "engine/player.hpp"
 
 #include "foundation/spritecomponent.hpp"
+#include "foundation/followrouteanimationcomponent.hpp"
 #include "gui/scene.hpp"
 
 #include "gui/guihelper.hpp"
@@ -14,6 +15,7 @@
 #include "game/renderlayers.hpp"
 #include "game/constants.hpp"
 #include "game/damagenumber.hpp"
+#include "game/path.hpp"
 
 namespace qrw
 {
@@ -79,6 +81,9 @@ Unit::Unit()
 	_sprite = new SpriteComponent(RENDER_LAYER_UNIT);
 	addComponent(_sprite);
 	_sprite->setSize({SQUARE_DIMENSION, SQUARE_DIMENSION});
+
+	followRouteAnimationComponent_ = new FollowRouteAnimationComponent(_sprite);
+	addComponent(followRouteAnimationComponent_);
 }
 
 Unit::~Unit()
@@ -190,12 +195,7 @@ const Coordinates& Unit::getPosition() const
 
 void Unit::setPosition(const Coordinates& position)
 {
-	Board* board = g_scene.findSingleGameObject<Board>();
-	if(board->getUnit(_position) == this)
-		board->removeUnit(_position);
-
-	_position = position;
-	board->setUnit(_position, this);
+	setPosition_(position);
 	_sprite->setPosition({SQUARE_DIMENSION * _position.getX(), SQUARE_DIMENSION * _position.getY()});
 }
 
@@ -212,6 +212,27 @@ void Unit::setCurrentMovement(int movement)
 		_currentmovement = this->_movement;
 	else
 		_currentmovement = movement;
+}
+
+void Unit::setPosition_(const Coordinates& position)
+{
+	Board* board = g_scene.findSingleGameObject<Board>();
+	if (board->getUnit(_position) == this)
+		board->removeUnit(_position);
+
+	_position = position;
+	board->setUnit(_position, this);
+}
+
+void Unit::move(const Path& path)
+{
+	setPosition_(path.last());
+
+	for(auto& step : path)
+	{
+		followRouteAnimationComponent_->addEdge(sf::Vector2f{step.getX() * SQUARE_DIMENSION, step.getY() * SQUARE_DIMENSION});
+	}
+	followRouteAnimationComponent_->start();
 }
 
 } // namespace qrw

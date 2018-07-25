@@ -17,6 +17,7 @@ namespace qrw
 {
 class Path;
 class SpriteComponent;
+class FollowRouteAnimationComponent;
 
 class Unit : public GameObject
 {
@@ -73,10 +74,13 @@ public:
 	const Coordinates& getPosition() const;
 
 	void setPosition(const Coordinates& position);
+	void move(const Path& path);
 
 	static std::string UNITNAMES[EUT_NUMBEROFUNITTYPES];
 
 private:
+	void setPosition_(const Coordinates& position);
+
 	void setType(UNITTYPES type) { _type = type; }
 
 	void setMaxHp(int maxhp) { _maxhp = maxhp; }
@@ -108,6 +112,7 @@ private:
 	Coordinates _position;
 
 	SpriteComponent* _sprite;
+	FollowRouteAnimationComponent* followRouteAnimationComponent_;
 };
 
 } // namespace qrw

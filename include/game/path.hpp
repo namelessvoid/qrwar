@@ -1,12 +1,10 @@
 #ifndef QRW_PATH_HPP
 #define QRW_PATH_HPP
 
+#include "engine/pathfinding/path.hpp"
 #include "foundation/gameobject.hpp"
 
 namespace qrw {
-namespace pathfinding {
-class Path;
-}
 
 class Coordinates;
 class PathRenderComponent;
@@ -16,7 +14,10 @@ class Path : public GameObject
 public:
 	Path();
 
-	~Path();
+	~Path() override;
+
+	Path(const Path& rhs) = delete;
+	Path& operator=(const Path& rhs) = delete;
 
 	void setStartAndEnd(const Coordinates& start, const Coordinates& end);
 	void reset();
@@ -25,10 +26,10 @@ public:
 
 	const Coordinates& last() const;
 
-private:
-	Path(const Path& rhs) = delete;
+	pathfinding::Path::const_iterator begin() const { return path_->begin(); };
+	pathfinding::Path::const_iterator end() const { return path_->end(); };
 
-	Path& operator=(const Path& rhs) = delete;
+private:
 
 	void setPath(const pathfinding::Path* path);
 

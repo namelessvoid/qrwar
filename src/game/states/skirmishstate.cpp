@@ -147,7 +147,7 @@ void SkirmishState::moveUnit()
 
 	int remainingMovement = maxDistance - pathCosts;
 	_selectedUnit->setCurrentMovement(remainingMovement);
-	_selectedUnit->setPosition(path_->last());
+	_selectedUnit->move(*path_);
 }
 
 void SkirmishState::performAttack(Unit* attackedUnit)

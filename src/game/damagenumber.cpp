@@ -19,6 +19,7 @@ DamageNumber::DamageNumber()
 
 	m_animation = new TransformAnimationComponent(m_textComponent);
 	m_animation->setDuration(1);
+	m_animation->start();
 	addComponent(m_animation);
 }
 
