@@ -23,7 +23,7 @@ public:
 
 	int getMovementCosts() const;
 
-	const Coordinates& getTarget() const;
+	const Coordinates& last() const;
 
 private:
 	Path(const Path& rhs) = delete;

@@ -50,7 +50,7 @@ int Path::getMovementCosts() const
 	return path_->getMovementCosts();
 }
 
-const Coordinates& Path::getTarget() const
+const Coordinates& Path::last() const
 {
 	assert(path_ != nullptr);
 	return path_->getTarget();
