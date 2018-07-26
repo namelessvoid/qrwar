@@ -1,7 +1,3 @@
-//
-// Created by pommes on 17.07.18.
-//
-
 #ifndef QRW_MAPEDITORTOOLBAR_HPP
 #define QRW_MAPEDITORTOOLBAR_HPP
 

@@ -1,7 +1,3 @@
-//
-// Created by pommes on 23.07.18.
-//
-
 #ifndef QRW_FOLLOWROUTECOMPONENT_HPP
 #define QRW_FOLLOWROUTECOMPONENT_HPP
 
@@ -33,9 +29,6 @@ private:
 	Renderable* renderable_;
 
 	std::vector<sf::Vector2f> corners_;
-
-	size_t currentSource_;
-	size_t currentDestination_;
 };
 
 } // namespace qrw
