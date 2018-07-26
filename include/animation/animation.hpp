@@ -28,7 +28,7 @@ public:
 
 		if(m_currentRunTime >= durationInSeconds_)
 		{
-			m_isRunning = false;
+			stop();
 			return;
 		}
 
@@ -43,6 +43,7 @@ public:
 	virtual void start()
 	{
 		m_isRunning = true;
+		m_currentRunTime = 0;
 	}
 
 	virtual void stop()

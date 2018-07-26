@@ -46,8 +46,9 @@ void FollowRouteAnimationComponent::animate(float deltaTime)
 	sf::Vector2f end   = corners_[currentEndIndex];
 	sf::Vector2f direction = end - start;
 
-	float percentPerEdge = getDurationInSeconds() / (float)edgeCount;
-	float currentEdgePercentage = (percentage - percentPerEdge * currentStartIndex) / percentPerEdge;
+	float timePerEdge = getDurationInSeconds() / (float)edgeCount;
+	float currentEdgeTime = (getCurrentRunTime() - timePerEdge * currentStartIndex);
+	float currentEdgePercentage =  currentEdgeTime / timePerEdge;
 
 	sf::Vector2f newPosition = start + currentEdgePercentage * direction;
 	renderable_->setPosition(newPosition);
