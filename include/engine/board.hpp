@@ -15,7 +15,9 @@ namespace qrw
 
 namespace pathfinding
 {
+template<class TWorldQUery, class TSpatialRepresentation>
 class AbstractPathfinder;
+
 class Path;
 }
 
@@ -40,7 +42,7 @@ class Path;
 
 			void setUnit(const Coordinates& position, Unit* unit);
 			void removeUnit(const Coordinates& position);
-			bool isUnitAt(const Coordinates& position);
+			bool isUnitAt(const Coordinates& position) const;
 			Unit* getUnit(const Coordinates& position);
 			const std::map<Coordinates, Unit*>& getUnits() const;
 
@@ -50,7 +52,7 @@ class Path;
 			Terrain* getTerrain(const Coordinates& position);
 			std::map<Coordinates, Terrain*>& getTerrains();
 
-			bool isOnBoard(Coordinates coordinates);
+			bool isOnBoard(Coordinates coordinates) const;
 
 			void setWidth(unsigned int width);
 			unsigned int getWidth() const { return _width; }
@@ -78,7 +80,7 @@ class Path;
 			unsigned int _width;
 			unsigned int _height;
 
-			pathfinding::AbstractPathfinder* _pathfinder;
+			pathfinding::AbstractPathfinder<Board,Coordinates>* _pathfinder;
 	};
 }
 

@@ -26,18 +26,9 @@ AStar::~AStar()
 		 delete _directions[i];
 }
 
-void AStar::setBoard(Board* board)
-{
-	this->_board = board;
-}
-
 Path* AStar::findPath(const qrw::Coordinates& start, const qrw::Coordinates& end)
 {
-	// Check pre conditions
-	if(_board == nullptr)
-		return nullptr;
-
-	if(!_board->isOnBoard(start) || !_board->isOnBoard(end))
+	if(!worldAdapter_->isOnBoard(start) || !worldAdapter_->isOnBoard(end))
 		return nullptr;
 
 	if(start == end)
@@ -75,8 +66,8 @@ Path* AStar::findPath(const qrw::Coordinates& start, const qrw::Coordinates& end
 
 			// If the sqare is accessible but was not added to closedlist yet
 			if(_closedlist.find(tmpcoords) == _closedlist.end()
-				&& _board->isOnBoard(tmpcoords)
-				&& !_board->isUnitAt(tmpcoords))
+				&& worldAdapter_->isOnBoard(tmpcoords)
+				&& !worldAdapter_->isUnitAt(tmpcoords))
 			{
 				// Coordinates are not put into openlist
 				if(_openlist.find(tmpcoords) == _openlist.end())

@@ -22,7 +22,7 @@ SID Board::typeName("qrw::Board");
 	{
 		// Initialize pathfinding
 		_pathfinder = new pathfinding::AStar;
-		_pathfinder->setBoard(this);
+		_pathfinder->setWorldAdapter(*this);
 
 		backgroundComponent_ = new SpriteComponent(RENDER_LAYER_BACKGROUND);
 		backgroundComponent_->setTexture(TextureManager::getInstance()->getTexture("plainsquare"));
@@ -50,7 +50,7 @@ SID Board::typeName("qrw::Board");
 		_units.erase(position);
 	}
 
-	bool Board::isUnitAt(const Coordinates &position)
+	bool Board::isUnitAt(const Coordinates &position) const
 	{
 		return _units.find(position) != _units.end();
 	}
@@ -94,7 +94,7 @@ SID Board::typeName("qrw::Board");
 		return _terrains;
 	}
 
-	bool Board::isOnBoard(Coordinates coordinates)
+	bool Board::isOnBoard(Coordinates coordinates) const
 	{
 		if(coordinates.getX() < 0 || static_cast<unsigned int>(coordinates.getX()) >= _width)
 			return false;

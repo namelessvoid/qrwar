@@ -11,13 +11,17 @@ namespace pathfinding
 
 class Path;
 
+template<class TWorldAdapter, class TSpatialRepresentation>
 class AbstractPathfinder
 {
-	public:
-		virtual ~AbstractPathfinder() {}
+public:
+	virtual ~AbstractPathfinder() = default;
 
-		virtual void setBoard(Board* board) = 0;
-		virtual Path* findPath(const Coordinates& start, const Coordinates& end) = 0;
+	virtual void setWorldAdapter(const TWorldAdapter& worldAdapter) { worldAdapter_ = &worldAdapter; }
+	virtual Path* findPath(const TSpatialRepresentation& start, const TSpatialRepresentation& end) = 0;
+
+protected:
+	const TWorldAdapter* worldAdapter_;
 };
 
 } // namespace pathfinding

@@ -14,21 +14,18 @@ namespace pathfinding
 	class Node;
 	class Path;
 
-	class AStar : public AbstractPathfinder
+class AStar : public AbstractPathfinder<Board, Coordinates>
 	{
 		public:
 			AStar();
-			~AStar();
+			~AStar() override;
 
-			void setBoard(Board* _board);
-			Path* findPath(const qrw::Coordinates& start, const qrw::Coordinates& end);
+			Path* findPath(const qrw::Coordinates& start, const qrw::Coordinates& end) override;
 
 		private:
 			qrw::Coordinates findLowestFCoordinates();
 
 			void clear();
-
-			Board* _board;
 
 			std::map<Coordinates, Node*> _nodemap;
 			std::set<Coordinates> _openlist;
