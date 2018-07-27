@@ -48,9 +48,8 @@ Path* AStar<TSpatialRepresentation>::findPath(const TSpatialRepresentation& star
 
 	// Initialize the algorithm
 	TSpatialRepresentation currentcoords = start;
-	Node<TSpatialRepresentation>* currentnode = new Node<TSpatialRepresentation>(currentcoords);
+	auto currentnode = new Node<TSpatialRepresentation>(currentcoords);
 	Node<TSpatialRepresentation>* tmpnode = 0;
-	TSpatialRepresentation neighbor;
 
 	currentnode->setG(0);
 	currentnode->setH(currentcoords.distanceTo(end));
@@ -69,7 +68,7 @@ Path* AStar<TSpatialRepresentation>::findPath(const TSpatialRepresentation& star
 		_closedlist.insert(currentcoords);
 
 		// Check the neighbors
-		for(auto neighbor : AbstractPathfinder<TSpatialRepresentation>::worldAdapter_->getNeighborLocationsFor(currentcoords))
+		for(const auto& neighbor : AbstractPathfinder<TSpatialRepresentation>::worldAdapter_->getNeighborLocationsFor(currentcoords))
 		{
 			// If the sqare is accessible but was not added to closedlist yet
 			if(_closedlist.find(neighbor) == _closedlist.end()
@@ -104,7 +103,7 @@ Path* AStar<TSpatialRepresentation>::findPath(const TSpatialRepresentation& star
 	if(_closedlist.find(end) == _closedlist.end())
 		return nullptr;
 
-	Path* path = new Path();
+	auto path = new Path();
 
 	for(currentnode = _nodemap[end];
 		currentnode->getParent() != 0;
