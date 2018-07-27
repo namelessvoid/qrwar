@@ -12,23 +12,16 @@ namespace pathfinding
 
 AStar::AStar()
 {
-	_directions[0] = new qrw::Coordinates(-1,  0);
-	_directions[1] = new qrw::Coordinates( 0, -1);
-	_directions[2] = new qrw::Coordinates(+1,  0);
-	_directions[3] = new qrw::Coordinates( 0, +1);
 }
 
 AStar::~AStar()
 {
 	clear();
-
-	for(int i = 0; i < 4; ++i)
-		 delete _directions[i];
 }
 
 Path* AStar::findPath(const qrw::Coordinates& start, const qrw::Coordinates& end)
 {
-	if(!worldAdapter_->isOnBoard(start) || !worldAdapter_->isOnBoard(end))
+	if(!worldAdapter_->isAccessible(end))
 		return nullptr;
 
 	if(start == end)
@@ -39,9 +32,9 @@ Path* AStar::findPath(const qrw::Coordinates& start, const qrw::Coordinates& end
 
 	// Initialize the algorithm
 	qrw::Coordinates currentcoords = start;
-	Node* currentnode = new Node(currentcoords);
-	Node* tmpnode = 0;
-	qrw::Coordinates tmpcoords;
+	Node<Coordinates>* currentnode = new Node<Coordinates>(currentcoords);
+	Node<Coordinates>* tmpnode = 0;
+	qrw::Coordinates neighbor;
 
 	currentnode->setG(0);
 	currentnode->setH(currentcoords.distanceTo(end));
@@ -59,30 +52,27 @@ Path* AStar::findPath(const qrw::Coordinates& start, const qrw::Coordinates& end
 		currentnode = _nodemap[currentcoords];
 		_closedlist.insert(currentcoords);
 
-		// Check the neighbours
-		for(auto direction : _directions)
+		// Check the neighbors
+		for(auto neighbor : worldAdapter_->getNeighborLocationsFor(currentcoords))
 		{
-			tmpcoords = currentcoords + *direction;
-
 			// If the sqare is accessible but was not added to closedlist yet
-			if(_closedlist.find(tmpcoords) == _closedlist.end()
-				&& worldAdapter_->isOnBoard(tmpcoords)
-				&& !worldAdapter_->isUnitAt(tmpcoords))
+			if(_closedlist.find(neighbor) == _closedlist.end()
+				&& worldAdapter_->isAccessible(neighbor))
 			{
 				// Coordinates are not put into openlist
-				if(_openlist.find(tmpcoords) == _openlist.end())
+				if(_openlist.find(neighbor) == _openlist.end())
 				{
-					tmpnode = new Node(tmpcoords);
+					tmpnode = new Node(neighbor);
 					tmpnode->setG(currentnode->getG() + 1);
-					tmpnode->setH(tmpcoords.distanceTo(end));
+					tmpnode->setH(neighbor.distanceTo(end));
 					tmpnode->setParent(currentnode);
 
-					_nodemap[tmpcoords] = tmpnode;
-					_openlist.insert(tmpcoords);
+					_nodemap[neighbor] = tmpnode;
+					_openlist.insert(neighbor);
 				}
 				else
 				{
-					tmpnode = _nodemap[tmpcoords];
+					tmpnode = _nodemap[neighbor];
 
 					if(currentnode->getG() + 1 < tmpnode->getG())
 					{
@@ -104,7 +94,7 @@ Path* AStar::findPath(const qrw::Coordinates& start, const qrw::Coordinates& end
 		currentnode->getParent() != 0;
 		currentnode = currentnode->getParent())
 	{
-		path->prependStep(*currentnode);
+		path->prependStep(currentnode->getLocation());
 	}
 	path->prependStep(start);
 
@@ -119,8 +109,8 @@ qrw::Coordinates AStar::findLowestFCoordinates()
 		return *_openlist.begin();
 
 	qrw::Coordinates lowestcoordinate = *_openlist.begin();
-	Node* lowestfnode = _nodemap[lowestcoordinate];
-	Node * currentnode =  0;
+	Node<Coordinates>* lowestfnode = _nodemap[lowestcoordinate];
+	Node<Coordinates>* currentnode =  0;
 
 	for(auto coordinate : _openlist)
 	{

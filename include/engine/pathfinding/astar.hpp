@@ -11,10 +11,11 @@ namespace qrw
 {
 namespace pathfinding
 {
+	template<class TSpatialRepresentation>
 	class Node;
 	class Path;
 
-class AStar : public AbstractPathfinder<Board, Coordinates>
+class AStar : public AbstractPathfinder<Coordinates>
 	{
 		public:
 			AStar();
@@ -27,11 +28,9 @@ class AStar : public AbstractPathfinder<Board, Coordinates>
 
 			void clear();
 
-			std::map<Coordinates, Node*> _nodemap;
+			std::map<Coordinates, Node<Coordinates>*> _nodemap;
 			std::set<Coordinates> _openlist;
 			std::set<Coordinates> _closedlist;
-
-			Coordinates* _directions[4];
 	};
 } // namespace pathfinding
 } // namespace qrw

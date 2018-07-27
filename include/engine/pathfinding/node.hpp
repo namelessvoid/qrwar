@@ -8,24 +8,34 @@ namespace qrw
 namespace pathfinding
 {
 
-class Node : public qrw::Coordinates
+template<class TSpatialRepresentation>
+class Node
 {
 	public:
-		Node(int x, int y);
-		Node(const Coordinates& coordinates);
+		explicit Node(const TSpatialRepresentation& location)
+			: location_(location),
+			  parent_(nullptr),
+			  g_(0),
+			  h_(0)
+		{}
 
-		void setParent(Node* parent);
-		Node* getParent();
+		TSpatialRepresentation getLocation() const { return location_; }
 
-		void setG(int g);
-		int getG();
+		inline void setParent(Node<TSpatialRepresentation>* parent) { parent_ = parent; }
 
-		void setH(int h);
+		inline Node<TSpatialRepresentation>* getParent() const { return parent_; }
 
-		int getF();
+		inline void setG(int g) { g_ = g; }
+		inline int getG() { return g_; }
+
+		inline void setH(int h) { h_ = h; }
+
+		inline int getF() { return this->getG() + h_; }
 
 	private:
-		Node* parent_;
+		TSpatialRepresentation location_;
+
+		Node<TSpatialRepresentation>* parent_;
 
 		int g_;
 		int h_;

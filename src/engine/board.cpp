@@ -18,11 +18,12 @@ SID Board::typeName("qrw::Board");
 
 	Board::Board(unsigned int width, unsigned int height)
 	: _width(width),
-	  _height(height)
+	  _height(height),
+	  pathfindingAdapter_(*this)
 	{
 		// Initialize pathfinding
 		_pathfinder = new pathfinding::AStar;
-		_pathfinder->setWorldAdapter(*this);
+		_pathfinder->setWorldAdapter(pathfindingAdapter_);
 
 		backgroundComponent_ = new SpriteComponent(RENDER_LAYER_BACKGROUND);
 		backgroundComponent_->setTexture(TextureManager::getInstance()->getTexture("plainsquare"));

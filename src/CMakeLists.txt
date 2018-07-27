@@ -19,7 +19,6 @@ add_library(qrwarlib
 	engine/unit.cpp
 
 	engine/pathfinding/astar.cpp
-	engine/pathfinding/node.cpp
 	engine/pathfinding/path.cpp
 
 	rendering/rendersystem.cpp
@@ -58,6 +57,8 @@ add_library(qrwarlib
 
 	game/skirmish/gui/victorydialog.cpp
 	game/skirmish/gui/mapeditortoolbar.cpp
+
+	game/skirmish/pathfinding/boardworldadapter.cpp
 
 	game/path.cpp
 	game/pathrendercomponent.cpp

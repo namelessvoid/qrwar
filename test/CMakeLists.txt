@@ -44,6 +44,8 @@ add_executable(unittest
 
 	game/skirmish/mapvalidator_validate.cpp
 
+	game/skirmish/pathfinding/boardworldadapter_getneighborlocationsfor.cpp
+
 	meta/properties/testdoubles.cpp
 	meta/properties/stdmapproperty_serialize.cpp
 	meta/properties/stdmapproperty_deserialize.cpp)

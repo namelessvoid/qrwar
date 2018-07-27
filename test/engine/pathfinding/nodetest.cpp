@@ -1,33 +1,19 @@
-#include <cppunit/extensions/HelperMacros.h>
-#include <cppunit/TestFixture.h>
+#include <gtest/gtest.h>
 
 #include "engine/pathfinding/node.hpp"
-#include "engine/coordinates.hpp"
 
-class NodeTest : public CppUnit::TestFixture
+TEST(Node_GetLocation, Then_correct_location_is_returned)
 {
-	CPPUNIT_TEST_SUITE(NodeTest);
-	CPPUNIT_TEST(testCtorCoordinate);
-	CPPUNIT_TEST(testGetF);
-	CPPUNIT_TEST_SUITE_END();
+	qrw::pathfinding::Node<int> node(100);
 
-	public:
-		void testCtorCoordinate()
-		{
-			qrw::Coordinates coord(2, 3);
-			qrw::pathfinding::Node node(coord);
+	EXPECT_EQ(node.getLocation(), 100);
+}
 
-			CPPUNIT_ASSERT(node == coord);
-		}
+TEST(Node_GetF, Then_f_is_calculated_correctly)
+{
+	qrw::pathfinding::Node<int> node(100);
+	node.setG(2);
+	node.setH(10);
 
-		void testGetF()
-		{
-			qrw::pathfinding::Node node(0, 0);
-			node.setG(2);
-			node.setH(10);
-
-			CPPUNIT_ASSERT(node.getF() == 12);
-		}
+	EXPECT_EQ(node.getF(), 12);
 };
-
-CPPUNIT_TEST_SUITE_REGISTRATION(NodeTest);

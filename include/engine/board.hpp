@@ -10,12 +10,14 @@
 
 #include "core/sid.hpp"
 
+#include "game/skirmish/pathfinding/boardworldadapter.hpp"
+
 namespace qrw
 {
 
 namespace pathfinding
 {
-template<class TWorldQUery, class TSpatialRepresentation>
+template<class TSpatialRepresentation>
 class AbstractPathfinder;
 
 class Path;
@@ -80,7 +82,8 @@ class Path;
 			unsigned int _width;
 			unsigned int _height;
 
-			pathfinding::AbstractPathfinder<Board,Coordinates>* _pathfinder;
+			BoardWorldAdapter pathfindingAdapter_;
+			pathfinding::AbstractPathfinder<Coordinates>* _pathfinder;
 	};
 }
 

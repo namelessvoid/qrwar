@@ -1,6 +1,8 @@
 #ifndef QRW_PATHFINDING_ABSTRACTALGORITHM_HPP
 #define QRW_PATHFINDING_ABSTRACTALGORITHM_HPP
 
+#include "iworldadapter.hpp"
+
 namespace qrw
 {
 class Board;
@@ -11,17 +13,17 @@ namespace pathfinding
 
 class Path;
 
-template<class TWorldAdapter, class TSpatialRepresentation>
+template<class TSpatialRepresentation>
 class AbstractPathfinder
 {
 public:
 	virtual ~AbstractPathfinder() = default;
 
-	virtual void setWorldAdapter(const TWorldAdapter& worldAdapter) { worldAdapter_ = &worldAdapter; }
+	void setWorldAdapter(const IWorldAdapter<TSpatialRepresentation>& worldAdapter) { worldAdapter_ = &worldAdapter; }
 	virtual Path* findPath(const TSpatialRepresentation& start, const TSpatialRepresentation& end) = 0;
 
 protected:
-	const TWorldAdapter* worldAdapter_;
+	const IWorldAdapter<TSpatialRepresentation>* worldAdapter_;
 };
 
 } // namespace pathfinding
