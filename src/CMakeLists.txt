@@ -18,7 +18,6 @@ add_library(qrwarlib
 	engine/terrain.cpp
 	engine/unit.cpp
 
-	engine/pathfinding/astar.cpp
 	engine/pathfinding/path.cpp
 
 	rendering/rendersystem.cpp

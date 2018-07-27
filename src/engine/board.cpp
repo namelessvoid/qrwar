@@ -22,7 +22,7 @@ SID Board::typeName("qrw::Board");
 	  pathfindingAdapter_(*this)
 	{
 		// Initialize pathfinding
-		_pathfinder = new pathfinding::AStar;
+		_pathfinder = new pathfinding::AStar<Coordinates>;
 		_pathfinder->setWorldAdapter(pathfindingAdapter_);
 
 		backgroundComponent_ = new SpriteComponent(RENDER_LAYER_BACKGROUND);

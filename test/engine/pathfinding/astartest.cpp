@@ -45,7 +45,7 @@ TEST(AStar_FindPath, If_no_obstacles_block_the_way_Then_straight_path_is_found)
 	board.setUnit({0, 0}, &unit);
 
 	qrw::BoardWorldAdapter boardWorldAdapter(board);
-	qrw::pathfinding::AStar astar;
+	qrw::pathfinding::AStar<qrw::Coordinates> astar;
 	astar.setWorldAdapter(boardWorldAdapter);
 
 	qrw::pathfinding::Path* path = astar.findPath(qrw::Coordinates(0, 0), qrw::Coordinates(9, 9));
@@ -83,7 +83,7 @@ TEST(AStar_FindPath, If_obastacles_block_the_way_Then_path_is_found)
 	qrw::Unit blocker;
 
 	qrw::BoardWorldAdapter boardWorldAdapter(board);
-	qrw::pathfinding::AStar astar;
+	qrw::pathfinding::AStar<qrw::Coordinates> astar;
 	astar.setWorldAdapter(boardWorldAdapter);
 
 	// Prepare board
@@ -126,7 +126,7 @@ TEST(AStar_FindPath, If_end_is_not_accessible_Then_null_is_returned)
 	board.setUnit({0, 0}, &unit);
 
 	BoardWorldAdapterMock boardWorldAdapter(board);
-	qrw::pathfinding::AStar astar;
+	qrw::pathfinding::AStar<qrw::Coordinates> astar;
 	astar.setWorldAdapter(boardWorldAdapter);
 
 	qrw::Coordinates invalid(0, 0);
@@ -142,7 +142,7 @@ TEST(AStar_FindPath, If_start_equals_end_Then_null_is_returned)
 	board.setUnit({0, 0}, &unit);
 
 	qrw::BoardWorldAdapter boardWorldAdapter(board);
-	qrw::pathfinding::AStar astar;
+	qrw::pathfinding::AStar<qrw::Coordinates> astar;
 	astar.setWorldAdapter(boardWorldAdapter);
 
 	ASSERT_THAT(astar.findPath({1, 1}, {1, 1}), IsNull());
@@ -160,7 +160,7 @@ TEST(AStar_FindPath, If_subsequent_calls_cannot_find_valid_paths_Then_all_return
 	board.setUnit({0, 1}, &unit);
 
 	qrw::BoardWorldAdapter boardWorldAdapter(board);
-	qrw::pathfinding::AStar astar;
+	qrw::pathfinding::AStar<qrw::Coordinates> astar;
 	astar.setWorldAdapter(boardWorldAdapter);
 
 	EXPECT_THAT(astar.findPath({0, 0}, {0, 1}), IsNull());
@@ -171,11 +171,11 @@ TEST(AStar_FindPath, If_subsequent_calls_cannot_find_valid_paths_Then_all_return
 //void testFindLowestFCoordinates()
 //{
 //	// Test with an empty list
-//	CPPUNIT_ASSERT(astar->findLowestFCoordinates() == qrw::Coordinates(0, 0));
+//	CPPUNIT_ASSERT(astar->findLowestF() == qrw::Coordinates(0, 0));
 //
 //	// Test with only one element on openlist
 //	astar->_openlist.insert(start);
-//	CPPUNIT_ASSERT(astar->findLowestFCoordinates() == start);
+//	CPPUNIT_ASSERT(astar->findLowestF() == start);
 //
 //	// Test with more than one element on openlist
 //	qrw::Coordinates coords2(1, 1);
@@ -192,7 +192,7 @@ TEST(AStar_FindPath, If_subsequent_calls_cannot_find_valid_paths_Then_all_return
 //	astar->_nodemap[coords3] = new qrw::pathfinding::Node(coords3);
 //	astar->_nodemap[coords3]->setG(9);
 //
-//	CPPUNIT_ASSERT(astar->findLowestFCoordinates() == coords2);
+//	CPPUNIT_ASSERT(astar->findLowestF() == coords2);
 //}
 //
 //void testClear()
