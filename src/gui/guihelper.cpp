@@ -53,8 +53,6 @@ const sf::Texture *GuiHelper::getTerrainTexture(TERRAINTYPES terrainType)
         return TextureManager::getInstance()->getTexture("wood");
     case TERRAINTYPES::ET_HILL:
         return TextureManager::getInstance()->getTexture("hill");
-    case TERRAINTYPES::ET_WALL:
-        return TextureManager::getInstance()->getTexture("wall");
     default:
         return TextureManager::getInstance()->getFallbackTexture();
     }
@@ -68,8 +66,6 @@ std::string GuiHelper::getTerrainName(Terrain* terrain)
         return "Wood";
     case TERRAINTYPES::ET_HILL:
         return "Hill";
-    case TERRAINTYPES::ET_WALL:
-        return "Wall";
     default:
         return "Unknown Terrain Type";
     }

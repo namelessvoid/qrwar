@@ -31,6 +31,8 @@ MapEditorState::MapEditorState(sf::RenderWindow* renderWindow, MapManager& mapMa
 	mapEditorToolBar->signalBoardHeightChanged.connect([this] (unsigned int height) { slotChangeBoardHeight(height); });
 	mapEditorToolBar->signalTerrainTypeClicked.connect([this] (TERRAINTYPES terrainType) { setCursorModePlaceTerrain(terrainType); });
 	mapEditorToolBar->signalEraseTerrainClicked.connect([this] () { setCursorModeEraseterrain(); });
+	mapEditorToolBar->signalStructureClicked.connect([this] (unsigned int type) { setCursorModePlaceStructure(type); });
+	mapEditorToolBar->signalEraseStructureClicked.connect([this] () { setCursorModeEraseStructure(); });
 	mapEditorToolBar->signalDeploymentZoneClicked.connect([this] (unsigned int playerNumber) { setCursorModePlaceDeploymentZone(playerNumber); });
 	mapEditorToolBar->signalEraseDeploymentZoneClicked.connect([this] () { setCursorModeEraseDeploymentZone(); });
 	_toolBar->addWidget(mapEditorToolBar);
@@ -141,6 +143,16 @@ void MapEditorState::setCursorModeEraseterrain()
 	cursorMode_ = CursorMode::ERASE_TERRAIN;
 }
 
+void MapEditorState::setCursorModePlaceStructure(unsigned int)
+{
+	cursorMode_ = CursorMode::PLACE_STRUCTURE;
+}
+
+void MapEditorState::setCursorModeEraseStructure()
+{
+	cursorMode_ = CursorMode::ERASE_STRUCTURE;
+}
+
 void MapEditorState::setCursorModePlaceDeploymentZone(unsigned int playerNumber)
 {
 	cursorMode_ = CursorMode::PLACE_DEPLOYMENTZONE;
@@ -223,7 +235,7 @@ void MapEditorState::eraseDeploymentZone(const Coordinates& boardPosition)
 
 void MapEditorState::saveMap(const std::string& mapName)
 {
-   mapManager.saveMap(mapName, *_spBoard, deploymentZones_);
+	mapManager.saveMap(mapName, *_spBoard, deploymentZones_);
 }
 
 } // namespace qrw

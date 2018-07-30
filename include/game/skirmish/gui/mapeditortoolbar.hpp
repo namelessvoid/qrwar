@@ -29,6 +29,8 @@ public:
 
 	namelessgui::Signal<TERRAINTYPES> signalTerrainTypeClicked;
 	namelessgui::Signal<> signalEraseTerrainClicked;
+	namelessgui::Signal<unsigned int> signalStructureClicked;
+	namelessgui::Signal<> signalEraseStructureClicked;
 	namelessgui::Signal<unsigned int> signalDeploymentZoneClicked;
 	namelessgui::Signal<> signalEraseDeploymentZoneClicked;
 

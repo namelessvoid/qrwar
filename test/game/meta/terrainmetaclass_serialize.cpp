@@ -9,7 +9,7 @@
 TEST(TerrainMetaClass_Serialize, Then_yaml_contains_all_properties)
 {
 	// Arrange
-	std::unique_ptr<qrw::Terrain> terrain(qrw::Terrain::createTerrain(qrw::TERRAINTYPES::ET_WALL));
+	std::unique_ptr<qrw::Terrain> terrain(qrw::Terrain::createTerrain(qrw::TERRAINTYPES::ET_HILL));
 	terrain->setPosition({10, 11});
 
 	qrw::MetaManager metaManager;
