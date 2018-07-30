@@ -39,6 +39,9 @@ private:
 	namelessgui::Window* createDeploymentZoneToolsWindow();
 
 	namelessgui::LineInput* mapNameInput_;
+
+	const sf::Vector2f BUTTON_SIZE = sf::Vector2f(140.0f, 50.0f);
+	const float BUTTON_Y_OFFSET = 45;
 };
 
 } // namespace qrw

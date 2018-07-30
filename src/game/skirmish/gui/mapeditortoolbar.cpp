@@ -28,8 +28,6 @@ namelessgui::Window* MapEditorToolBar::createConfigToolsWindow(unsigned int init
 {
 	namelessgui::Window* configWindow = new namelessgui::Window("configToolsWindow");
 
-	sf::Vector2f buttonSize(140.0f, 50.0f);
-
 	namelessgui::Text* heading = new namelessgui::Text();
 	heading->setText("Settings");
 	heading->setRelativePosition({5.0f, 0});
@@ -63,7 +61,7 @@ namelessgui::Window* MapEditorToolBar::createConfigToolsWindow(unsigned int init
 
 	namelessgui::Button* saveButton = new namelessgui::Button();
 	saveButton->setText("Save");
-	saveButton->setSize({buttonSize.x, 30.0f});
+	saveButton->setSize({BUTTON_SIZE.x, 30.0f});
 	saveButton->setAnchor({0.5f, 1.0f});
 	saveButton->setParentAnchor({0.5f, 1.0f});
 	saveButton->setRelativePosition({0.0f, -5.0f});
@@ -84,9 +82,6 @@ namelessgui::Window* MapEditorToolBar::createTerrainToolsWindow()
 {
 	namelessgui::Window* terrainWindow = new namelessgui::Window("terrainToolsWindow");
 
-	sf::Vector2f buttonSize(140.0f, 50.0f);
-	float buttonYOffset = 45;
-
 	namelessgui::Text* heading = new namelessgui::Text();
 	heading->setText("Terrain");
 	heading->setRelativePosition({5.0f, 0});
@@ -95,32 +90,24 @@ namelessgui::Window* MapEditorToolBar::createTerrainToolsWindow()
 	std::shared_ptr<namelessgui::ButtonGroup> spTerrainButtonGroup = std::make_shared<namelessgui::ButtonGroup>();
 	namelessgui::RadioToggleButton* radioButton = new namelessgui::RadioToggleButton(spTerrainButtonGroup, "Wood");
 	radioButton->setText("Wood");
-	radioButton->setSize(buttonSize);
-	radioButton->setRelativePosition({5.0f, buttonYOffset});
+	radioButton->setSize(BUTTON_SIZE);
+	radioButton->setRelativePosition({5.0f, BUTTON_Y_OFFSET});
 	radioButton->setImage(TextureManager::getInstance()->getTexture("wood"));
 	radioButton->signalActivated.connect([this] { signalTerrainTypeClicked.emit(TERRAINTYPES::ET_WOOD); });
 	terrainWindow->addWidget(radioButton);
 
 	radioButton = new namelessgui::RadioToggleButton(spTerrainButtonGroup, "Hill");
 	radioButton->setText("Hill");
-	radioButton->setSize(buttonSize);
-	radioButton->setRelativePosition({5.0f, 1 * buttonSize.y + buttonYOffset});
+	radioButton->setSize(BUTTON_SIZE);
+	radioButton->setRelativePosition({5.0f, 1 * BUTTON_SIZE.y + BUTTON_Y_OFFSET});
 	radioButton->setImage(TextureManager::getInstance()->getTexture("hill"));
 	radioButton->signalActivated.connect([this] { signalTerrainTypeClicked.emit(TERRAINTYPES::ET_HILL); });
 	terrainWindow->addWidget(radioButton);
 
-	radioButton = new namelessgui::RadioToggleButton(spTerrainButtonGroup, "Wall");
-	radioButton->setText("Wall");
-	radioButton->setSize(buttonSize);
-	radioButton->setRelativePosition({5.0f, 2 * buttonSize.y + buttonYOffset});
-	radioButton->setImage(TextureManager::getInstance()->getTexture("wall"));
-	radioButton->signalActivated.connect([this] { signalTerrainTypeClicked.emit(TERRAINTYPES::ET_WALL); });
-	terrainWindow->addWidget(radioButton);
-
 	radioButton = new namelessgui::RadioToggleButton(spTerrainButtonGroup, "Erase");
 	radioButton->setText("Erase");
-	radioButton->setSize(buttonSize);
-	radioButton->setRelativePosition({5.0f, 3 * buttonSize.y + buttonYOffset});
+	radioButton->setSize(BUTTON_SIZE);
+	radioButton->setRelativePosition({5.0f, 3 * BUTTON_SIZE.y + BUTTON_Y_OFFSET});
 	radioButton->setImage(TextureManager::getInstance()->getTexture("default"));
 	radioButton->signalActivated.connect([this] { signalEraseTerrainClicked.emit(); });
 	terrainWindow->addWidget(radioButton);
@@ -136,6 +123,24 @@ namelessgui::Window* MapEditorToolBar::createStructureToolsWindow()
 	heading->setText("Structures");
 	heading->setRelativePosition({5.0f, 0});
 	structureWindow->addWidget(heading);
+
+
+	std::shared_ptr<namelessgui::ButtonGroup> structureButtonGroup = std::make_shared<namelessgui::ButtonGroup>();
+	auto radioButton = new namelessgui::RadioToggleButton(structureButtonGroup, "Wall");
+	radioButton->setText("Wall");
+	radioButton->setSize(BUTTON_SIZE);
+	radioButton->setRelativePosition({5.0f, 2 * BUTTON_SIZE.y + BUTTON_Y_OFFSET});
+	radioButton->setImage(TextureManager::getInstance()->getTexture("wall"));
+	radioButton->signalActivated.connect([this] { signalTerrainTypeClicked.emit(TERRAINTYPES::ET_WALL); });
+	structureWindow->addWidget(radioButton);
+
+	radioButton = new namelessgui::RadioToggleButton(structureButtonGroup, "Erase");
+	radioButton->setText("Erase");
+	radioButton->setSize(BUTTON_SIZE);
+	radioButton->setRelativePosition({5.0f, 3 * BUTTON_SIZE.y + BUTTON_Y_OFFSET});
+	radioButton->setImage(TextureManager::getInstance()->getTexture("default"));
+	radioButton->signalActivated.connect([this] { signalEraseTerrainClicked.emit(); });
+	structureWindow->addWidget(radioButton);
 
 	return structureWindow;
 }
