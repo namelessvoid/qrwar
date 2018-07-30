@@ -7,6 +7,7 @@
 #include "game/cameras/skirmishcamera.hpp"
 #include "game/deploymentzone.hpp"
 #include "game/constants.hpp"
+#include "game/skirmish/structure.hpp"
 #include "game/skirmish/gui/mapeditortoolbar.hpp"
 
 #include "foundation/spritecomponent.hpp"
