@@ -14,6 +14,7 @@
 
 using ::testing::_;
 using ::testing::Return;
+using ::testing::NotNull;
 
 TEST(MapEditorState_PlaceStructure, Then_structure_is_on_scene_and_board)
 {
@@ -40,6 +41,8 @@ TEST(MapEditorState_PlaceStructure, Then_structure_is_on_scene_and_board)
 	// Assert
 	auto structures = qrw::g_scene.findGameObjects<qrw::Structure>();
 	ASSERT_EQ(structures.size(), 1);
+
+	EXPECT_THAT(board->getStructure({1, 2}), NotNull());
 
 	// Clean up
 	qrw::g_scene.reset();

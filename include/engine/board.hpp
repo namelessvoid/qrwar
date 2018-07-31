@@ -23,10 +23,11 @@ class AbstractPathfinder;
 class Path;
 }
 
-	class Coordinates;
-	class Unit;
-	class Terrain;
-	class SpriteComponent;
+class Coordinates;
+class Unit;
+class Terrain;
+class Structure;
+class SpriteComponent;
 
 	class Board : public GameObject
 	{
@@ -38,7 +39,7 @@ class Path;
 			{}
 
 			Board(unsigned int width, unsigned int height);
-			~Board();
+			~Board() override;
 
 			void onAddToScene() override;
 
@@ -53,6 +54,10 @@ class Path;
 			bool isTerrainAt(const Coordinates& position);
 			Terrain* getTerrain(const Coordinates& position);
 			std::map<Coordinates, Terrain*>& getTerrains();
+
+			void setStructure(const Coordinates& position, Structure* structure);
+			Structure* getStructure(const Coordinates& position) const;
+			bool isStructureAt(const Coordinates& position) const;
 
 			bool isOnBoard(Coordinates coordinates) const;
 
@@ -78,6 +83,7 @@ class Path;
 
 			std::map<Coordinates, Unit*> _units;
 			std::map<Coordinates, Terrain*> _terrains;
+			std::map<Coordinates, Structure*> structures_;
 
 			unsigned int _width;
 			unsigned int _height;

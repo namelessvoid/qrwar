@@ -217,6 +217,9 @@ void MapEditorState::placeStructure(const Coordinates& position, unsigned int st
 {
 	auto structure = g_scene.spawn<Structure>();
 	structure->setPosition(position);
+
+	if(auto board = g_scene.findSingleGameObject<Board>())
+		board->setStructure(position, structure);
 }
 
 void MapEditorState::eraseStructure(const Coordinates& position)

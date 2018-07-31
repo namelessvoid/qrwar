@@ -95,6 +95,23 @@ SID Board::typeName("qrw::Board");
 		return _terrains;
 	}
 
+void Board::setStructure(const Coordinates& position, Structure* structure)
+{
+	assert(!isStructureAt(position));
+	structures_[position] = structure;
+}
+
+Structure* Board::getStructure(const Coordinates& position) const
+{
+	auto iterator = structures_.find(position);
+	return iterator == structures_.end() ? nullptr : iterator->second;
+}
+
+bool Board::isStructureAt(const Coordinates& position) const
+{
+	return structures_.find(position) != structures_.end();
+}
+
 	bool Board::isOnBoard(Coordinates coordinates) const
 	{
 		if(coordinates.getX() < 0 || static_cast<unsigned int>(coordinates.getX()) >= _width)
