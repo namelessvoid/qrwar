@@ -46,7 +46,7 @@ public:
 	void destroy(GameObject* gameObject);
 
 	template<class TGameObject>
-	std::set<GameObject*>& findGameObjects();
+	std::set<GameObject*> findGameObjects();
 
 	template<class TGameObject>
 	TGameObject* findSingleGameObject();
@@ -76,9 +76,14 @@ TGameObject *Scene::spawn()
 }
 
 template<class T>
-std::set<GameObject*>& Scene::findGameObjects()
+std::set<GameObject*> Scene::findGameObjects()
 {
-	return m_gameObjects.find(typeid(T))->second;
+	auto iter = m_gameObjects.find(typeid(T));
+
+	if(iter == m_gameObjects.end())
+		return {};
+
+	return iter->second;
 }
 
 template<class TGameObject>
