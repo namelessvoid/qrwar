@@ -74,7 +74,7 @@ TEST(DeployState_Init, Then_game_objects_are_added_to_scene)
 	EXPECT_EQ(qrw::g_scene.findSingleGameObject<qrw::Board>(), board);
 	EXPECT_THAT(qrw::g_scene.findGameObjects<qrw::DeploymentZone>(), ElementsAreArray(deploymentZones.data(), 2));
 
-	std::set<qrw::GameObject*>& terrainsInScene = qrw::g_scene.findGameObjects<qrw::Terrain>();
+	std::set<qrw::GameObject*> terrainsInScene = qrw::g_scene.findGameObjects<qrw::Terrain>();
 	EXPECT_EQ(terrainsInScene.size(), 2);
 	EXPECT_THAT(terrainsInScene, Contains(terrain1));
 	EXPECT_THAT(terrainsInScene, Contains(terrain2));
