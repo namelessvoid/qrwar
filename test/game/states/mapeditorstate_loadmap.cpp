@@ -6,6 +6,8 @@
 #include "game/deploymentzone.hpp"
 #include "engine/terrain.hpp"
 
+#include "__mocks__/game/skirmish/gui/skirmishguifactorymock.hpp"
+
 using ::testing::_;
 using ::testing::Return;
 using ::testing::ElementsAreArray;
@@ -29,12 +31,6 @@ ACTION_P2(LoadMapStub, board, deploymentZones)
 	arg2 = deploymentZones;
 	return qrw::MapManager::LoadErrors::SUCCESS;
 }
-
-class SkirmishGuiFactoryMock : public qrw::SkirmishGuiFactory
-{
-public:
-	MOCK_CONST_METHOD2(createMapEditorToolBar, qrw::MapEditorToolBar*(unsigned int initialBoardWidth, unsigned int initialBoardHeight));
-};
 
 TEST(MapEditorState_LoadMap, Then_only_loaded_game_objects_are_in_scene)
 {
