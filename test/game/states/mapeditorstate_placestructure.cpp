@@ -11,6 +11,7 @@
 #include "game/events.hpp"
 
 #include "__mocks__/game/skirmish/gui/skirmishguifactorymock.hpp"
+#include "__mocks__/game/skirmish/mapmanagermock.hpp"
 
 using ::testing::_;
 using ::testing::Return;
@@ -19,18 +20,17 @@ using ::testing::NotNull;
 TEST(MapEditorState_PlaceStructure, Then_structure_is_on_scene_and_board)
 {
 	// Arrange
-	qrw::Board* board = qrw::g_scene.spawn<qrw::Board>();
+	auto board = qrw::g_scene.spawn<qrw::Board>();
 	board->setHeight(10);
 	board->setWidth(10);
 
 	SkirmishGuiFactoryMock skirmishGuiFactoryMock;
-	qrw::MapEditorToolBar* mapEditorToolBar = new qrw::MapEditorToolBar(10, 10);
+	auto mapEditorToolBar = new qrw::MapEditorToolBar(10, 10);
 	EXPECT_CALL(skirmishGuiFactoryMock, createMapEditorToolBar(_, _)).WillOnce(Return(mapEditorToolBar));
 
-	qrw::MetaManager metaManager;
-	qrw::MapManager mapManager(metaManager);
+	MapManagerMock mapManagerMock;
 	sf::RenderWindow renderWindow;
-	qrw::MapEditorState mapEditorState(&renderWindow, mapManager, skirmishGuiFactoryMock);
+	qrw::MapEditorState mapEditorState(&renderWindow, mapManagerMock, skirmishGuiFactoryMock);
 
 	mapEditorState.init(nullptr);
 

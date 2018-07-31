@@ -1,11 +1,12 @@
 #include <gtest/gtest.h>
 #include <gmock/gmock.h>
-#include <game/meta/boardmetaclass.hpp>
-#include <game/meta/terrainmetaclass.hpp>
-#include <engine/terrain.hpp>
-#include <game/meta/deploymentzonemetaclass.hpp>
-#include <game/deploymentzone.hpp>
-#include <game/meta/coordinatemetaclass.hpp>
+
+#include "game/meta/boardmetaclass.hpp"
+#include "game/meta/terrainmetaclass.hpp"
+#include "engine/terrain.hpp"
+#include "game/meta/deploymentzonemetaclass.hpp"
+#include "game/deploymentzone.hpp"
+#include "game/meta/coordinatemetaclass.hpp"
 
 #include "game/states/skirmishpreparationstate.hpp"
 #include "game/states/deploystate.hpp"
@@ -15,19 +16,12 @@
 #include "engine/board.hpp"
 #include "game/deploymentzone.hpp"
 
+#include "__mocks__/game/skirmish/mapmanagermock.hpp"
+
 using ::testing::_;
 using ::testing::Return;
 using ::testing::ElementsAreArray;
 using ::testing::Contains;
-
-class MapManagerMock : public qrw::MapManager
-{
-public:
-	MapManagerMock(qrw::MetaManager& metaManager) : MapManager(metaManager) {}
-
-	MOCK_METHOD3(loadMap, qrw::MapManager::LoadErrors(const std::string& mapName, qrw::Board*& board, std::vector<qrw::DeploymentZone*>& deploymentZones));
-	MOCK_CONST_METHOD0(getMapList, std::vector<std::string>());
-};
 
 ACTION_P2(LoadMapStub, board, deploymentZones)
 {
