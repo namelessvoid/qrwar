@@ -27,15 +27,13 @@ class MapEditorState : public SceneState
 public:
 	MapEditorState(sf::RenderWindow* renderWindow, MapManager& mapManager, SkirmishGuiFactory& guiFactory);
 
-	virtual void init(GameState *previousState);
+	void init(GameState *previousState) override;
 
-	virtual EGameStateId update();
-
-	Board* getBoard() const;
+	EGameStateId update() override;
 
 private:
-    virtual void slotCursorLeftClicked(const Coordinates& boardPosition) override;
-    virtual void slotCursorRightClicked(const Coordinates& boardPosition) override;
+    void slotCursorLeftClicked(const Coordinates& boardPosition) override;
+    void slotCursorRightClicked(const Coordinates& boardPosition) override;
 
 	void slotChangeBoardWidth(unsigned int width);
 	void slotChangeBoardHeight(unsigned int height);
@@ -50,6 +48,8 @@ private:
 
 	void placeTerrain(const Coordinates& boardPosition, TERRAINTYPES terrainType);
 	void eraseTerrain(const Coordinates& boardPosition);
+	void placeStructure(const Coordinates& position, unsigned int structureId);
+	void eraseStructure(const Coordinates& position);
 	void placeDeploymentZone(const Coordinates& boardPosition, unsigned int playerNumber);
 	void eraseDeploymentZone(const Coordinates& boardPosition);
 
@@ -85,6 +85,7 @@ private:
 	union SelectedEntity
 	{
 		TERRAINTYPES terrainType;
+		unsigned int structure;
 		unsigned int playerNumber;
 	} selectedEntity_;
 

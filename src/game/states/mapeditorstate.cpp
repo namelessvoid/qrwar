@@ -71,11 +71,6 @@ EGameStateId MapEditorState::update()
 	return EGameStateId::EGSID_NO_CHANGE;
 }
 
-Board* MapEditorState::getBoard() const
-{
-	return _spBoard;
-}
-
 void MapEditorState::slotCursorLeftClicked(const Coordinates& boardPosition)
 {
 	switch(cursorMode_)
@@ -87,18 +82,17 @@ void MapEditorState::slotCursorLeftClicked(const Coordinates& boardPosition)
 		eraseTerrain(boardPosition);
 		break;
 	case CursorMode::PLACE_DEPLOYMENTZONE:
-	{
 		placeDeploymentZone(boardPosition, selectedEntity_.playerNumber);
 		break;
-	}
 	case CursorMode::ERASE_DEPLOYMENTZONE:
 		eraseDeploymentZone(boardPosition);
 		break;
 	case CursorMode::PLACE_STRUCTURE:
-	case CursorMode::ERASE_STRUCTURE:
-	{
+		placeStructure(boardPosition, selectedEntity_.structure);
 		break;
-	}
+	case CursorMode::ERASE_STRUCTURE:
+		eraseStructure(boardPosition);
+		break;
 	} // switch
 }
 
@@ -217,6 +211,17 @@ void MapEditorState::eraseTerrain(const Coordinates& boardPosition)
 	{
 		g_scene.destroy(_spBoard->getTerrain(boardPosition));
 	}
+}
+
+void MapEditorState::placeStructure(const Coordinates& position, unsigned int structureId)
+{
+	auto structure = g_scene.spawn<Structure>();
+	structure->setPosition(position);
+}
+
+void MapEditorState::eraseStructure(const Coordinates& position)
+{
+
 }
 
 void MapEditorState::placeDeploymentZone(const Coordinates& boardPosition, unsigned int playerNumber)
