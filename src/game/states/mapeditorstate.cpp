@@ -197,8 +197,8 @@ void MapEditorState::placeTerrain(const Coordinates& boardPosition, TERRAINTYPES
 	Terrain* terrain = Terrain::createTerrain(terrainType);
 	if(terrain != nullptr)
 	{
-		if(Terrain* oldTerrain = _spBoard->getTerrain(boardPosition))
-			g_scene.destroy(oldTerrain);
+		eraseTerrain(boardPosition);
+		eraseStructure(boardPosition);
 
 		_spBoard->setTerrain(boardPosition, terrain);
 		terrain->setPosition(boardPosition);

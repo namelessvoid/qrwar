@@ -43,6 +43,7 @@ add_executable(unittest
 
 	game/states/deploystate_init.cpp
 	game/states/mapeditorstate_loadmap.cpp
+	game/states/mapeditorstate_placeterrain.cpp
 	game/states/mapeditorstate_placestructure.cpp
 
 	game/skirmish/mapvalidator_validate.cpp
