@@ -11,7 +11,7 @@
 #include "engine/board.hpp"
 #include "engine/terrain.hpp"
 #include "engine/terraintypes.hpp"
-#include "engine/coordinates.hpp"
+#include "game/skirmish/coordinates.hpp"
 
 TEST(BoardMetaClass_Serialize, Then_all_properties_are_included)
 {

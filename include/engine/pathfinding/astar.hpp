@@ -8,7 +8,7 @@
 #include "engine/pathfinding/path.hpp"
 #include "engine/pathfinding/node.hpp"
 
-#include "engine/coordinates.hpp"
+#include "game/skirmish/coordinates.hpp"
 
 namespace qrw
 {

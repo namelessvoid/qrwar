@@ -3,7 +3,7 @@
 
 #include <vector>
 
-#include "engine/coordinates.hpp"
+#include "game/skirmish/coordinates.hpp"
 
 namespace qrw
 {

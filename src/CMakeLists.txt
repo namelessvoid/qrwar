@@ -13,7 +13,6 @@ add_library(qrwarlib
 	config/xmlhelper.cpp
 
 	engine/board.cpp
-	engine/coordinates.cpp
 	engine/player.cpp
 	engine/terrain.cpp
 	engine/unit.cpp
@@ -54,6 +53,7 @@ add_library(qrwarlib
 	game/skirmish/mapmanager.cpp
 	game/skirmish/mapvalidator.cpp
 	game/skirmish/structure.cpp
+	game/skirmish/coordinates.cpp
 
 	game/skirmish/gui/victorydialog.cpp
 	game/skirmish/gui/mapeditortoolbar.cpp

@@ -1,7 +1,7 @@
 #ifndef QRW_EVENT_HPP
 #define QRW_EVENT_HPP
 
-#include "engine/coordinates.hpp"
+#include "game/skirmish/coordinates.hpp"
 
 #include "core/sid.hpp"
 

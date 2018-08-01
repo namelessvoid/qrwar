@@ -1,6 +1,6 @@
 #include "engine/pathfinding/path.hpp"
 
-#include "engine/coordinates.hpp"
+#include "game/skirmish/coordinates.hpp"
 
 namespace qrw
 {

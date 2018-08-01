@@ -1,7 +1,7 @@
 #ifndef QRW_STRUCTURE_HPP
 #define QRW_STRUCTURE_HPP
 
-#include "engine/coordinates.hpp"
+#include "game/skirmish/coordinates.hpp"
 #include "foundation/gameobject.hpp"
 
 namespace qrw

@@ -6,7 +6,7 @@
 #include <SFML/Graphics/RectangleShape.hpp>
 
 #include "engine/terraintypes.hpp"
-#include "engine/coordinates.hpp"
+#include "game/skirmish/coordinates.hpp"
 
 #include "foundation/gameobject.hpp"
 

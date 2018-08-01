@@ -11,7 +11,7 @@
 #include <SFML/Graphics/RectangleShape.hpp>
 
 #include "engine/board.hpp"
-#include "engine/coordinates.hpp"
+#include "game/skirmish/coordinates.hpp"
 
 
 // Foreward declarations

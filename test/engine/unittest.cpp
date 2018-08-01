@@ -5,7 +5,7 @@
 #include "engine/board.hpp"
 #include "engine/player.hpp"
 #include "engine/terrain.hpp"
-#include "engine/coordinates.hpp"
+#include "game/skirmish/coordinates.hpp"
 
 class UnitTest : public CppUnit::TestFixture
 {

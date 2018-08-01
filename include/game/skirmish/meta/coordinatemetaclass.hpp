@@ -6,7 +6,7 @@
 #include "meta/metaclass.hpp"
 #include "meta/properties/iproperty.hpp"
 
-#include "engine/coordinates.hpp"
+#include "game/skirmish/coordinates.hpp"
 
 namespace qrw {
 

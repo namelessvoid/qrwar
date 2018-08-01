@@ -1,7 +1,7 @@
 #ifndef QRW_PATHFINDING_NODE_HPP
 #define QRW_PATHFINDING_NODE_HPP
 
-#include "engine/coordinates.hpp"
+#include "game/skirmish/coordinates.hpp"
 
 namespace qrw
 {

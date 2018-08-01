@@ -3,7 +3,7 @@
 
 #include <set>
 
-#include "engine/coordinates.hpp"
+#include "game/skirmish/coordinates.hpp"
 
 class CoordinatesTest : public CppUnit::TestFixture
 {

@@ -9,7 +9,7 @@
 #include "foundation/gameobject.hpp"
 #include "rendering/renderable.hpp"
 
-#include "engine/coordinates.hpp"
+#include "game/skirmish/coordinates.hpp"
 
 namespace qrw {
 

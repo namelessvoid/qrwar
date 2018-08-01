@@ -2,7 +2,7 @@
 #include <cppunit/TestFixture.h>
 
 #include "engine/board.hpp"
-#include "engine/coordinates.hpp"
+#include "game/skirmish/coordinates.hpp"
 #include "engine/pathfinding/path.hpp"
 
 class BoardTest : public CppUnit::TestFixture

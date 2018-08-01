@@ -1,4 +1,4 @@
-#include "engine/coordinates.hpp"
+#include "game/skirmish/coordinates.hpp"
 
 #include <cmath>
 

@@ -9,7 +9,7 @@
 #include "engine/unittypes.hpp"
 #include "engine/board.hpp"
 #include "engine/player.hpp"
-#include "engine/coordinates.hpp"
+#include "game/skirmish/coordinates.hpp"
 
 #include "foundation/gameobject.hpp"
 

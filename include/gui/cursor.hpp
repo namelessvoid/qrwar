@@ -7,7 +7,7 @@
 
 #include <memory>
 
-#include "engine/coordinates.hpp"
+#include "game/skirmish/coordinates.hpp"
 #include "gui/squaremarker.hpp"
 
 #include "eventsystem/eventhandler.hpp"
