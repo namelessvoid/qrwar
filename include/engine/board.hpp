@@ -58,6 +58,7 @@ class SpriteComponent;
 			void setStructure(const Coordinates& position, Structure* structure);
 			Structure* getStructure(const Coordinates& position) const;
 			bool isStructureAt(const Coordinates& position) const;
+			void removeStructureAt(const Coordinates& position);
 
 			bool isOnBoard(Coordinates coordinates) const;
 

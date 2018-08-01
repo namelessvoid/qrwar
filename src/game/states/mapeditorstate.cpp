@@ -49,8 +49,9 @@ void MapEditorState::init(GameState* previousState)
 	g_scene.reset();
 	SceneState::init(previousState);
 
-	_spBoard = new Board(INITIAL_BOARD_WIDTH, INITIAL_BOARD_HEIGHT);
-	g_scene.setBoard(_spBoard);
+	_spBoard = g_scene.spawn<qrw::Board>();
+	_spBoard->setWidth(INITIAL_BOARD_WIDTH);
+	_spBoard->setHeight(INITIAL_BOARD_HEIGHT);
 
 	g_scene.spawn<Cursor>();
 
@@ -215,16 +216,21 @@ void MapEditorState::eraseTerrain(const Coordinates& boardPosition)
 
 void MapEditorState::placeStructure(const Coordinates& position, unsigned int structureId)
 {
+	eraseTerrain(position);
+	eraseStructure(position);
+
 	auto structure = g_scene.spawn<Structure>();
 	structure->setPosition(position);
-
-	if(auto board = g_scene.findSingleGameObject<Board>())
-		board->setStructure(position, structure);
+	_spBoard->setStructure(position, structure);
 }
 
 void MapEditorState::eraseStructure(const Coordinates& position)
 {
-
+	if(auto structure = _spBoard->getStructure(position))
+	{
+		_spBoard->removeStructureAt(position);
+		g_scene.destroy(structure);
+	}
 }
 
 void MapEditorState::placeDeploymentZone(const Coordinates& boardPosition, unsigned int playerNumber)

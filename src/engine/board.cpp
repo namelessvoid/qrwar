@@ -112,6 +112,12 @@ bool Board::isStructureAt(const Coordinates& position) const
 	return structures_.find(position) != structures_.end();
 }
 
+void Board::removeStructureAt(const Coordinates& position)
+{
+	assert(isStructureAt(position));
+	structures_.erase(position);
+}
+
 	bool Board::isOnBoard(Coordinates coordinates) const
 	{
 		if(coordinates.getX() < 0 || static_cast<unsigned int>(coordinates.getX()) >= _width)

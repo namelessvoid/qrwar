@@ -36,6 +36,7 @@ namespace qrw
 			bool operator==(const Coordinates& rhs) const;
 			bool operator!=(const Coordinates& rhs) const;
 			bool operator<(const Coordinates& rhs) const;
+			bool operator>(const Coordinates& rhs) const;
 
 			Coordinates operator+(const Coordinates& rhs) const;
 			Coordinates operator-(const Coordinates& rhs) const;

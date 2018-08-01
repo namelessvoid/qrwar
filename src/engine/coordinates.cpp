@@ -42,6 +42,11 @@ SID Coordinates::typeName("qrw::Coordinates");
 		return getY() < rhs.getY();
 	}
 
+	bool Coordinates::operator>(const Coordinates& rhs) const
+	{
+		return rhs < *this;
+	}
+
 	Coordinates Coordinates::operator+(const Coordinates& rhs) const
 	{
 		return Coordinates(getX() + rhs.getX(), getY() + rhs.getY());
