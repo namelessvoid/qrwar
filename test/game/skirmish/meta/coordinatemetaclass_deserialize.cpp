@@ -2,7 +2,7 @@
 #include <cppunit/TestFixture.h>
 
 #include "meta/metamanager.hpp"
-#include "game/meta/coordinatemetaclass.hpp"
+#include "game/skirmish/meta/coordinatemetaclass.hpp"
 
 class CoordinateMetaClass_Deserialize : public CppUnit::TestFixture
 {

@@ -2,7 +2,7 @@
 
 #include "meta/metamanager.hpp"
 
-#include "game/meta/deploymentzonemetaclass.hpp"
+#include "game/skirmish/meta/deploymentzonemetaclass.hpp"
 #include "game/deploymentzone.hpp"
 
 TEST(DeploymentZoneMetaClass_Deserialize, Then_all_properties_are_initialized)

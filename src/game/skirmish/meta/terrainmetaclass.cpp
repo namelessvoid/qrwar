@@ -1,4 +1,4 @@
-#include "game/meta/terrainmetaclass.hpp"
+#include "game/skirmish/meta/terrainmetaclass.hpp"
 
 #include "engine/terrain.hpp"
 

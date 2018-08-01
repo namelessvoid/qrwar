@@ -1,6 +1,6 @@
 #include <gtest/gtest.h>
 
-#include "game/meta/terrainmetaclass.hpp"
+#include "game/skirmish/meta/terrainmetaclass.hpp"
 
 #include "meta/metamanager.hpp"
 

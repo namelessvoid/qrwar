@@ -32,14 +32,14 @@ add_executable(unittest
 	foundation/followrouteanimationcomponent_animate.cpp
 	foundation/followrouteanimationcomponent_stop.cpp
 
-	game/meta/coordinatemetaclass_serialize.cpp
-	game/meta/coordinatemetaclass_deserialize.cpp
-	game/meta/boardmetaclass_serialize.cpp
-	game/meta/boardmetaclass_deserialize.cpp
-	game/meta/terrainmetaclass_serialize.cpp
-	game/meta/terrainmetaclass_deserialize.cpp
-	game/meta/deploymentzonemetaclass_serialize.cpp
-	game/meta/deploymentzonemetaclass_deserialize.cpp
+	game/skirmish/meta/coordinatemetaclass_serialize.cpp
+	game/skirmish/meta/coordinatemetaclass_deserialize.cpp
+	game/skirmish/meta/boardmetaclass_serialize.cpp
+	game/skirmish/meta/boardmetaclass_deserialize.cpp
+	game/skirmish/meta/terrainmetaclass_serialize.cpp
+	game/skirmish/meta/terrainmetaclass_deserialize.cpp
+	game/skirmish/meta/deploymentzonemetaclass_serialize.cpp
+	game/skirmish/meta/deploymentzonemetaclass_deserialize.cpp
 
 	game/states/deploystate_init.cpp
 	game/states/mapeditorstate_loadmap.cpp

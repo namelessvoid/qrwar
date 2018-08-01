@@ -1,8 +1,8 @@
 #include <gtest/gtest.h>
 
-#include "game/meta/boardmetaclass.hpp"
-#include "game/meta/coordinatemetaclass.hpp"
-#include "game/meta/terrainmetaclass.hpp"
+#include "game/skirmish/meta/boardmetaclass.hpp"
+#include "game/skirmish/meta/coordinatemetaclass.hpp"
+#include "game/skirmish/meta/terrainmetaclass.hpp"
 
 #include "meta/metamanager.hpp"
 

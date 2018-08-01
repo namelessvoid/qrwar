@@ -1,4 +1,4 @@
-#include "game/meta/deploymentzonemetaclass.hpp"
+#include "game/skirmish/meta/deploymentzonemetaclass.hpp"
 
 #include <string>
 

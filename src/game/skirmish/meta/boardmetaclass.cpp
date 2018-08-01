@@ -1,4 +1,4 @@
-#include "game/meta/boardmetaclass.hpp"
+#include "game/skirmish/meta/boardmetaclass.hpp"
 
 #include "meta/metamanager.hpp"
 #include "meta/properties/tproperty.hpp"

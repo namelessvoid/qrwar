@@ -1,12 +1,12 @@
 #include <gtest/gtest.h>
 #include <gmock/gmock.h>
 
-#include "game/meta/boardmetaclass.hpp"
-#include "game/meta/terrainmetaclass.hpp"
+#include "game/skirmish/meta/boardmetaclass.hpp"
+#include "game/skirmish/meta/terrainmetaclass.hpp"
+#include "game/skirmish/meta/deploymentzonemetaclass.hpp"
+#include "game/skirmish/meta/coordinatemetaclass.hpp"
 #include "engine/terrain.hpp"
-#include "game/meta/deploymentzonemetaclass.hpp"
 #include "game/deploymentzone.hpp"
-#include "game/meta/coordinatemetaclass.hpp"
 
 #include "game/states/skirmishpreparationstate.hpp"
 #include "game/states/deploystate.hpp"

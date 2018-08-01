@@ -60,6 +60,11 @@ add_library(qrwarlib
 
 	game/skirmish/pathfinding/boardworldadapter.cpp
 
+	game/skirmish/meta/boardmetaclass.cpp
+	game/skirmish/meta/terrainmetaclass.cpp
+	game/skirmish/meta/deploymentzonemetaclass.cpp
+	game/skirmish/meta/coordinatemetaclass.cpp
+
 	game/path.cpp
 	game/pathrendercomponent.cpp
 
@@ -73,12 +78,7 @@ add_library(qrwarlib
 	gui/guihelper.cpp
 
 	meta/metamanager.cpp
-	meta/metaclass.cpp
-
-	game/meta/boardmetaclass.cpp
-	game/meta/terrainmetaclass.cpp
-	game/meta/deploymentzonemetaclass.cpp
-	game/meta/coordinatemetaclass.cpp)
+	meta/metaclass.cpp)
 set_target_properties(qrwarlib PROPERTIES OUTPUT_NAME qrwar)
 target_link_libraries(qrwarlib ${LIBS} stdc++fs namelessgui)
 

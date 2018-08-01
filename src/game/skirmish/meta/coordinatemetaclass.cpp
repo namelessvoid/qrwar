@@ -1,5 +1,5 @@
 #include <memory>
-#include "game/meta/coordinatemetaclass.hpp"
+#include "game/skirmish/meta/coordinatemetaclass.hpp"
 #include "meta/properties/tproperty.hpp"
 
 namespace qrw

@@ -3,7 +3,7 @@
 #include "meta/metamanager.hpp"
 
 #include "game/deploymentzone.hpp"
-#include "game/meta/deploymentzonemetaclass.hpp"
+#include "game/skirmish/meta/deploymentzonemetaclass.hpp"
 
 TEST(DeploymentZoneMetaClass_Serialize, Then_all_properties_are_included)
 {

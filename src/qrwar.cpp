@@ -17,10 +17,10 @@
 #include "animation/animationsystem.hpp"
 
 #include "meta/metamanager.hpp"
-#include "game/meta/boardmetaclass.hpp"
-#include "game/meta/terrainmetaclass.hpp"
-#include "game/meta/deploymentzonemetaclass.hpp"
-#include "game/meta/coordinatemetaclass.hpp"
+#include "game/skirmish/meta/boardmetaclass.hpp"
+#include "game/skirmish/meta/terrainmetaclass.hpp"
+#include "game/skirmish/meta/deploymentzonemetaclass.hpp"
+#include "game/skirmish/meta/coordinatemetaclass.hpp"
 
 #include "game/states/introstate.hpp"
 #include "game/states/mainmenustate.hpp"
