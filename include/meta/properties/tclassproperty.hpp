@@ -37,7 +37,14 @@ public:
 
 	void deserialize(Reflectable* object, const YAML::Node& in) const override
 	{
+		assert(dynamic_cast<TClass*>(object));
 
+		auto typedObject = static_cast<TClass*>(object);
+		auto binding = std::bind(TClassProperty<TClass,TPropertyClass>::member_, typedObject);
+
+		auto metaClass = getMetaManager().getMetaClassFor<TPropertyClass>();
+
+		metaClass->deserialize(&binding(), in[getName()]);
 	}
 
 private:

@@ -54,6 +54,7 @@ add_executable(unittest
 	meta/properties/testdoubles.cpp
 	meta/properties/stdmapproperty_serialize.cpp
 	meta/properties/stdmapproperty_deserialize.cpp
-	meta/properties/tclassproperty_serialize.cpp)
+	meta/properties/tclassproperty_serialize.cpp
+	meta/properties/tclassproperty_deserialize.cpp)
 
 target_link_libraries(unittest ${GTEST_LIBRARIES} ${GMOCK_LIBRARIES} cppunit pthread qrwarlib)
