@@ -29,6 +29,7 @@ public:
 class ReflectableStub : public qrw::Reflectable
 {
 public:
+	ValueStub classProperty;
 	std::map<KeyStub,ValueStub*> mapProperty;
 };
 
