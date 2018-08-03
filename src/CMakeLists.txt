@@ -62,6 +62,7 @@ add_library(qrwarlib
 
 	game/skirmish/meta/boardmetaclass.cpp
 	game/skirmish/meta/terrainmetaclass.cpp
+	game/skirmish/meta/structuremetaclass.cpp
 	game/skirmish/meta/deploymentzonemetaclass.cpp
 	game/skirmish/meta/coordinatemetaclass.cpp
 

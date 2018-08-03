@@ -10,6 +10,8 @@ class SpriteComponent;
 
 class Structure : public GameObject
 {
+friend class StructureMetaClass;
+
 public:
 	Structure();
 

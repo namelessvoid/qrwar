@@ -38,6 +38,7 @@ add_executable(unittest
 	game/skirmish/meta/boardmetaclass_deserialize.cpp
 	game/skirmish/meta/terrainmetaclass_serialize.cpp
 	game/skirmish/meta/terrainmetaclass_deserialize.cpp
+	game/skirmish/meta/structuremetaclass_serialize.cpp
 	game/skirmish/meta/deploymentzonemetaclass_serialize.cpp
 	game/skirmish/meta/deploymentzonemetaclass_deserialize.cpp
 
