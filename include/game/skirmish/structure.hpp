@@ -16,6 +16,7 @@ public:
 	Structure();
 
 	void setPosition(const Coordinates& position);
+	const Coordinates& getPosition() const { return position_; }
 
 private:
 	SpriteComponent* spriteComponent_;
