@@ -22,7 +22,7 @@ public:
     virtual std::type_index getTypeIndex() const override;
 
 private:
-    std::array<std::unique_ptr<IProperty>,3> properties_;
+    std::array<std::unique_ptr<IProperty>,4> properties_;
 };
 
 

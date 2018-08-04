@@ -13,6 +13,8 @@ class Structure : public GameObject
 friend class StructureMetaClass;
 
 public:
+	static SID typeName;
+
 	Structure();
 
 	void setPosition(const Coordinates& position);

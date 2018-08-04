@@ -10,6 +10,8 @@
 namespace qrw
 {
 
+SID Structure::typeName("qrw::Structure");
+
 Structure::Structure()
 {
 	spriteComponent_ = new SpriteComponent(RENDER_LAYER_STRUCTURE);

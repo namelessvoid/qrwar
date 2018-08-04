@@ -19,6 +19,7 @@
 #include "meta/metamanager.hpp"
 #include "game/skirmish/meta/boardmetaclass.hpp"
 #include "game/skirmish/meta/terrainmetaclass.hpp"
+#include "game/skirmish/meta/structuremetaclass.hpp"
 #include "game/skirmish/meta/deploymentzonemetaclass.hpp"
 #include "game/skirmish/meta/coordinatemetaclass.hpp"
 
@@ -28,11 +29,12 @@
 #include "game/states/skirmishpreparationstate.hpp"
 #include "game/states/deploystate.hpp"
 #include "game/states/skirmishstate.hpp"
-#include "game/deploymentzone.hpp"
 #include "game/skirmish/gui/skirmishguifactory.hpp"
 
 #include "game/path.hpp"
 
+#include "game/skirmish/structure.hpp"
+#include "game/deploymentzone.hpp"
 #include "engine/terrain.hpp"
 
 namespace qrw
@@ -138,6 +140,7 @@ void QRWar::registerMetaTypes()
 {
 	g_metaManager.registerMetaClass<BoardMetaClass>(Board::typeName);
 	g_metaManager.registerMetaClass<TerrainMetaClass>(Terrain::typeName);
+	g_metaManager.registerMetaClass<StructureMetaClass>(Structure::typeName);
 	g_metaManager.registerMetaClass<DeploymentZoneMetaClass>(DeploymentZone::typeName);
 	g_metaManager.registerMetaClass<CoordinateMetaClass>(Coordinates::typeName);
 }
