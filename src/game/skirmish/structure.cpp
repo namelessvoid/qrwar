@@ -20,6 +20,12 @@ Structure::Structure()
 	addComponent(spriteComponent_);
 }
 
+void Structure::onAddToScene()
+{
+	GameObject::onAddToScene();
+	setPosition(getPosition());
+}
+
 void Structure::setPosition(const Coordinates& position)
 {
 	position_ = position;

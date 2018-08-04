@@ -17,6 +17,8 @@ public:
 
 	Structure();
 
+	void onAddToScene() override;
+
 	void setPosition(const Coordinates& position);
 	const Coordinates& getPosition() const { return position_; }
 
