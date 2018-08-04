@@ -6,6 +6,7 @@
 #include "game/skirmish/meta/deploymentzonemetaclass.hpp"
 #include "game/skirmish/meta/coordinatemetaclass.hpp"
 #include "engine/terrain.hpp"
+#include "game/skirmish/structure.hpp"
 #include "game/deploymentzone.hpp"
 
 #include "game/states/skirmishpreparationstate.hpp"
@@ -44,6 +45,10 @@ TEST(DeployState_Init, Then_game_objects_are_added_to_scene)
 	auto terrain2 = new qrw::Terrain();
 	board->setTerrain({0, 0}, terrain1);
 	board->setTerrain({1, 0}, terrain2);
+	auto structure1 = new qrw::Structure();
+	auto structure2 = new qrw::Structure();
+	board->setStructure({2, 0}, structure1);
+	board->setStructure({3, 0}, structure2);
 	auto deploymentZone1 = new qrw::DeploymentZone();
 	auto deploymentZone2 = new qrw::DeploymentZone();
 	std::vector<qrw::DeploymentZone*> deploymentZones { deploymentZone1, deploymentZone2 };
@@ -72,6 +77,11 @@ TEST(DeployState_Init, Then_game_objects_are_added_to_scene)
 	EXPECT_EQ(terrainsInScene.size(), 2);
 	EXPECT_THAT(terrainsInScene, Contains(terrain1));
 	EXPECT_THAT(terrainsInScene, Contains(terrain2));
+
+	std::set<qrw::GameObject*> structuresInScene = qrw::g_scene.findGameObjects<qrw::Structure>();
+	EXPECT_EQ(structuresInScene.size(), 2);
+	EXPECT_THAT(structuresInScene, Contains(structure1));
+	EXPECT_THAT(structuresInScene, Contains(structure2));
 
 	// Cleanup
 	delete deployState;

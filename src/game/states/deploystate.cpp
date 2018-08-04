@@ -5,6 +5,7 @@
 
 #include "engine/unit.hpp"
 #include "engine/terrain.hpp"
+#include "game/skirmish/structure.hpp"
 
 #include "foundation/spritecomponent.hpp"
 
@@ -173,6 +174,11 @@ void DeployState::init(GameState* previousState)
 	for(const auto& terrainIter : board_->getTerrains())
 	{
 		g_scene.addGameObject(terrainIter.second);
+	}
+
+	for(const auto& structureIter : board_->getStructures())
+	{
+		g_scene.addGameObject(structureIter.second);
 	}
 
 	g_scene.spawn<Cursor>();

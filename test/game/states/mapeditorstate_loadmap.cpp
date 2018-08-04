@@ -5,6 +5,7 @@
 
 #include "game/deploymentzone.hpp"
 #include "engine/terrain.hpp"
+#include "game/skirmish/structure.hpp"
 
 #include "__mocks__/game/skirmish/gui/skirmishguifactorymock.hpp"
 #include "__mocks__/game/skirmish/mapmanagermock.hpp"
@@ -45,6 +46,10 @@ TEST(MapEditorState_LoadMap, Then_only_loaded_game_objects_are_in_scene)
 	auto terrain2 = new qrw::Terrain();
 	board->setTerrain({0, 0}, terrain1);
 	board->setTerrain({1, 0}, terrain2);
+	auto structure1 = new qrw::Structure();
+	auto structure2 = new qrw::Structure();
+	board->setStructure({2, 0}, structure1);
+	board->setStructure({3, 0}, structure2);
 	auto deploymentZone1 = new qrw::DeploymentZone();
 	auto deploymentZone2 = new qrw::DeploymentZone();
 	std::vector<qrw::DeploymentZone*> deploymentZones{deploymentZone1, deploymentZone2};
@@ -65,6 +70,7 @@ TEST(MapEditorState_LoadMap, Then_only_loaded_game_objects_are_in_scene)
 	EXPECT_TRUE(qrw::g_scene.findSingleGameObject<qrw::Board>()!=nullptr);
 	EXPECT_THAT(qrw::g_scene.findGameObjects<qrw::DeploymentZone>(), ElementsAreArray(deploymentZones.data(), 2));
 	EXPECT_THAT(qrw::g_scene.findGameObjects<qrw::Terrain>(), ElementsAre(terrain1, terrain2));
+	EXPECT_THAT(qrw::g_scene.findGameObjects<qrw::Structure>(), ElementsAre(structure1, structure2));
 
 	// Clean Up
 	qrw::g_scene.reset();

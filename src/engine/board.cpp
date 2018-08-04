@@ -118,6 +118,11 @@ void Board::removeStructureAt(const Coordinates& position)
 	structures_.erase(position);
 }
 
+std::map<Coordinates, Structure*> Board::getStructures()
+{
+	return structures_;
+}
+
 	bool Board::isOnBoard(Coordinates coordinates) const
 	{
 		if(coordinates.getX() < 0 || static_cast<unsigned int>(coordinates.getX()) >= _width)
@@ -131,7 +136,6 @@ void Board::removeStructureAt(const Coordinates& position)
 	{
 		_width = width;
 		resizeBackground();
-
 	}
 
 	void Board::setHeight(unsigned int height)

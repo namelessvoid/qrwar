@@ -177,9 +177,11 @@ void MapEditorState::slotLoadClicked(const std::string& mapName)
 
 	// Clean up
 	for(auto& terrainIter : _spBoard->getTerrains()) g_scene.destroy(terrainIter.second);
+	for(auto& deploymentZone : deploymentZones_) g_scene.destroy(deploymentZone);
+	for(auto& structureIter : _spBoard->getStructures()) g_scene.destroy(structureIter.second);
+
 	g_scene.destroy(_spBoard);
 	_spBoard = nullptr;
-	for(auto& deploymentZone : deploymentZones_) g_scene.destroy(deploymentZone);
 	deploymentZones_.clear();
 
 	// Load and add objects
@@ -190,6 +192,7 @@ void MapEditorState::slotLoadClicked(const std::string& mapName)
 	g_scene.addGameObject(_spBoard);
 	for(auto& deploymentZone : deploymentZones_) g_scene.addGameObject(deploymentZone);
 	for(auto& terrainIter : _spBoard->getTerrains()) g_scene.addGameObject(terrainIter.second);
+	for(auto& structureIter : _spBoard->getStructures()) g_scene.addGameObject(structureIter.second);
 }
 
 void MapEditorState::placeTerrain(const Coordinates& boardPosition, TERRAINTYPES terrainType)
