@@ -48,8 +48,6 @@ private:
 
 	void replenishTroops();
 
-	void updateSquareDetailWindow(const Coordinates& position);
-
     std::vector<Player::Ptr> _players;
 	int _currentPlayer;
 	namelessgui::Text* _playerNameText;

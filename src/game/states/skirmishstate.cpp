@@ -76,9 +76,7 @@ void SkirmishState::init(GameState *previousState)
 
     // Initialize square detail window.
 	const Coordinates& cursorPosition = g_scene.findSingleGameObject<Cursor>()->getBoardPosition();
-	Unit* unit = _board->getUnit(cursorPosition);
-	Terrain* terrain = _board->getTerrain(cursorPosition);
-	_squareDetailWindow->setUnitAndTerrain(unit, terrain);
+	_squareDetailWindow->display(cursorPosition, *_board);
 }
 
 void SkirmishState::draw()
@@ -107,17 +105,16 @@ EGameStateId SkirmishState::update()
 
 void SkirmishState::slotCursorMoved(const Coordinates &boardPosition)
 {
+	_squareDetailWindow->display(boardPosition, *_board);
+
 	if(_board->isOnBoard(boardPosition))
 	{
-		Unit* unitUnderCursor = _board->getUnit(boardPosition);
-		Terrain* terrainUnderCursor = _board->getTerrain(boardPosition);
-		_squareDetailWindow->setUnitAndTerrain(unitUnderCursor, terrainUnderCursor);
-
 		if(_selectedUnit)
 		{
 			path_->setStartAndEnd(_selectedUnit->getPosition(), boardPosition);
 
 			Cursor* cursor = g_scene.findSingleGameObject<Cursor>();
+			Unit* unitUnderCursor = _board->getUnit(boardPosition);
 
 			if(_selectedUnit && unitUnderCursor && unitUnderCursor->getPlayer() != _selectedUnit->getPlayer()
 			   && _selectedUnit->getCurrentMovement() > 0
@@ -132,8 +129,6 @@ void SkirmishState::slotCursorMoved(const Coordinates &boardPosition)
 			
 		}
 	}
-    else
-		_squareDetailWindow->setUnitAndTerrain(nullptr, nullptr);
 }
 
 void SkirmishState::moveUnit()
@@ -183,7 +178,7 @@ void SkirmishState::performAttack(Unit* attackedUnit)
 		}
 	}
 
-	updateSquareDetailWindow(positionOfAttackedUnit);
+	_squareDetailWindow->display(positionOfAttackedUnit, *_board);
 }
 
 void SkirmishState::checkVictory()
@@ -215,19 +210,11 @@ void SkirmishState::replenishTroops()
 	}
 }
 
-void SkirmishState::updateSquareDetailWindow(const Coordinates& position)
-{
-	_squareDetailWindow->setUnitAndTerrain(
-				_board->getUnit(position),
-				_board->getTerrain(position));
-}
-
 void SkirmishState::slotCursorLeftClicked(const Coordinates &boardPosition)
 {
-	Unit* unitUnderCursor = _board->getUnit(boardPosition);
-	Terrain* terrainUnderCursor = _board->getTerrain(boardPosition);
+	_squareDetailWindow->display(boardPosition, *_board);
 
-	_squareDetailWindow->setUnitAndTerrain(unitUnderCursor, terrainUnderCursor);
+	Unit* unitUnderCursor = _board->getUnit(boardPosition);
 
 	// Case 1: Unit is selected and instructed to move.
 	if(_selectedUnit && !unitUnderCursor)

@@ -5,6 +5,10 @@
 #include "gui/texturemanager.hpp"
 #include "gui/guihelper.hpp"
 
+#include "engine/unit.hpp"
+#include "engine/terrain.hpp"
+#include "game/skirmish/structure.hpp"
+
 namespace qrw
 {
 
@@ -25,40 +29,40 @@ SquareDetailWindow::SquareDetailWindow()
     label->setText("Unit name");
     label->setImage(TextureManager::getInstance()->getTexture("p1swordman"));
     label->setRelativePosition({0, 0});
-    _unitTitleLabel = label;
-    addWidget(_unitTitleLabel);
+    unitTitleLabel_ = label;
+    addWidget(unitTitleLabel_);
 
     label = new namelessgui::Label();
     label->setSize({100, labelHeight});
     label->setText("20 / 100 HP");
     label->setImage(TextureManager::getInstance()->getTexture("health"));
     label->setRelativePosition({0, labelHeight});
-    _unitHealthLabel = label;
-    addWidget(_unitHealthLabel);
+    unitHealthLabel_ = label;
+    addWidget(unitHealthLabel_);
 
 	label = new namelessgui::Label();
 	label->setSize({100, labelHeight});
 	label->setText("movement");
 	label->setImage(TextureManager::getInstance()->getTexture("movement"));
 	label->setRelativePosition({100, labelHeight});
-	_unitMovementLabel = label;
-	addWidget(_unitMovementLabel);
+	unitMovementLabel_ = label;
+	addWidget(unitMovementLabel_);
 
     label = new namelessgui::Label();
     label->setSize({100, labelHeight});
     label->setText("3");
     label->setImage(TextureManager::getInstance()->getTexture("attack"));
     label->setRelativePosition({0, 2 * labelHeight});
-    _unitAttackLabel = label;
-    addWidget(_unitAttackLabel);
+    unitAttackLabel_ = label;
+    addWidget(unitAttackLabel_);
 
     label = new namelessgui::Label();
     label->setSize({100, labelHeight});
     label->setText("2");
     label->setImage(TextureManager::getInstance()->getTexture("defense"));
 	label->setRelativePosition({100, 2 * labelHeight});
-    _unitDefenseLabel = label;
-    addWidget(_unitDefenseLabel);
+    unitDefenseLabel_ = label;
+    addWidget(unitDefenseLabel_);
 
     // ------------------
     // Labels for displaying terrain information
@@ -69,8 +73,8 @@ SquareDetailWindow::SquareDetailWindow()
     label->setImage(TextureManager::getInstance()->getTexture("wall"));
     label->setParentAnchor({1, 0});
     label->setRelativePosition({-200, 0});
-    _terrainTitleLabel = label;
-    addWidget(_terrainTitleLabel);
+    environmentTitleLabel_ = label;
+    addWidget(environmentTitleLabel_);
 
     label = new namelessgui::Label();
     label->setSize({100, labelHeight});
@@ -78,8 +82,8 @@ SquareDetailWindow::SquareDetailWindow()
     label->setImage(TextureManager::getInstance()->getTexture("attack"));
     label->setParentAnchor({1, 0});
     label->setRelativePosition({-200, labelHeight});
-    _terrainAttackLabel = label;
-    addWidget(_terrainAttackLabel);
+    environmentAttackLabel_ = label;
+    addWidget(environmentAttackLabel_);
 
     label = new namelessgui::Label();
     label->setSize({100, labelHeight});
@@ -87,73 +91,76 @@ SquareDetailWindow::SquareDetailWindow()
     label->setImage(TextureManager::getInstance()->getTexture("defense"));
     label->setParentAnchor({1, 0});
     label->setRelativePosition({-100, labelHeight});
-    _terrainDefenseLabel = label;
-    addWidget(_terrainDefenseLabel);
+    environmentDefenseLabel_ = label;
+    addWidget(environmentDefenseLabel_);
 }
 
-void SquareDetailWindow::setUnitAndTerrain(Unit* unit, Terrain* terrain)
+void SquareDetailWindow::setUnit(const Unit& unit)
 {
-	checkAndSetVisibility(unit, terrain);
-	setUnit(unit);
-	setTerrain(terrain);
+	unitTitleLabel_->setVisible(true);
+	unitTitleLabel_->setImage(GuiHelper::getUnitTexture(unit.getType(), unit.getPlayer()));
+	unitTitleLabel_->setText(GuiHelper::getUnitName(&unit));
+
+	unitHealthLabel_->setVisible(true);
+	unitHealthLabel_->setText(std::to_string(unit.getHP()) + "/" + std::to_string(unit.getMaxHp()));
+
+	unitMovementLabel_->setVisible(true);
+	unitMovementLabel_->setText(std::to_string(unit.getCurrentMovement()) + "/" + std::to_string(unit.getMovement()));
+
+	unitAttackLabel_->setVisible(true);
+	unitAttackLabel_->setText(std::to_string(unit.getBaseAttack()));
+
+	unitDefenseLabel_->setVisible(true);
+	unitDefenseLabel_->setText(std::to_string(unit.getBaseDefense()));
 }
 
-void SquareDetailWindow::setUnit(Unit* unit)
+void SquareDetailWindow::hideUnitWidgets()
 {
-	if(unit != nullptr)
-    {
-        _unitTitleLabel->setVisible(true);
-		_unitTitleLabel->setImage(GuiHelper::getUnitTexture(unit->getType(), unit->getPlayer()));
-        _unitTitleLabel->setText(GuiHelper::getUnitName(unit));
-
-        _unitHealthLabel->setVisible(true);
-		_unitHealthLabel->setText(std::to_string(unit->getHP()) + "/" + std::to_string(unit->getMaxHp()));
-
-		_unitMovementLabel->setVisible(true);
-		_unitMovementLabel->setText(std::to_string(unit->getCurrentMovement()) + "/" + std::to_string(unit->getMovement()));
-
-        _unitAttackLabel->setVisible(true);
-        _unitAttackLabel->setText(std::to_string(unit->getBaseAttack()));
-
-        _unitDefenseLabel->setVisible(true);
-        _unitDefenseLabel->setText(std::to_string(unit->getBaseDefense()));
-    }
-    else
-    {
-        _unitTitleLabel->setVisible(false);
-        _unitHealthLabel->setVisible(false);
-		_unitMovementLabel->setVisible(false);
-        _unitAttackLabel->setVisible(false);
-        _unitDefenseLabel->setVisible(false);
-    }
+	unitTitleLabel_->setVisible(false);
+	unitHealthLabel_->setVisible(false);
+	unitMovementLabel_->setVisible(false);
+	unitAttackLabel_->setVisible(false);
+	unitDefenseLabel_->setVisible(false);
 }
 
-void SquareDetailWindow::setTerrain(Terrain* terrain)
+void SquareDetailWindow::setTerrain(const Terrain& terrain)
 {
-	if(terrain != nullptr)
-    {
-        _terrainTitleLabel->setVisible(true);
-		_terrainTitleLabel->setImage(GuiHelper::getTerrainTexture(terrain->getType()));
-        _terrainTitleLabel->setText(GuiHelper::getTerrainName(terrain));
+	environmentTitleLabel_->setVisible(true);
+	environmentTitleLabel_->setImage(GuiHelper::getTerrainTexture(terrain.getType()));
+	environmentTitleLabel_->setText(GuiHelper::getTerrainName(&terrain));
 
-        _terrainAttackLabel->setVisible(true);
-        _terrainAttackLabel->setText(std::to_string(terrain->getModificator(MODIFICATORS::EM_ATTACK)));
+	environmentAttackLabel_->setVisible(true);
+	environmentAttackLabel_->setText(std::to_string(terrain.getModificator(MODIFICATORS::EM_ATTACK)));
 
-        _terrainDefenseLabel->setVisible(true);
-        _terrainDefenseLabel->setText(std::to_string(terrain->getModificator(MODIFICATORS::EM_DEFENSE)));
-
-    }
-    else
-    {
-        _terrainTitleLabel->setVisible(false);
-        _terrainAttackLabel->setVisible(false);
-        _terrainDefenseLabel->setVisible(false);
-	}
+	environmentDefenseLabel_->setVisible(true);
+	environmentDefenseLabel_->setText(std::to_string(terrain.getModificator(MODIFICATORS::EM_DEFENSE)));
 }
 
-void SquareDetailWindow::checkAndSetVisibility(Unit *unit, Terrain* terrain)
+void SquareDetailWindow::setStructure(const Structure& structure)
 {
-	setVisible(unit != nullptr || terrain != nullptr);
+
+}
+
+void SquareDetailWindow::hideEnvironmentWidgets()
+{
+	environmentTitleLabel_->setVisible(false);
+	environmentAttackLabel_->setVisible(false);
+	environmentDefenseLabel_->setVisible(false);
+}
+
+void SquareDetailWindow::display(const Coordinates& position, Board& board)
+{
+	if(Unit* unit = board.getUnit(position))
+		setUnit(*unit);
+	else
+		hideUnitWidgets();
+
+	if(Terrain* terrain = board.getTerrain(position))
+		setTerrain(*terrain);
+	else if(Structure* structure = board.getStructure(position))
+		setStructure(*structure);
+	else
+		hideEnvironmentWidgets();
 }
 
 } // namespace qrw

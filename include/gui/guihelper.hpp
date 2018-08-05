@@ -29,7 +29,7 @@ public:
      * @param unit Pointer to a Unit.
      * @return String containing the Unit's name.
      */
-	static std::string getUnitName(Unit* unit);
+	static std::string getUnitName(const Unit* unit);
 
     /**
      * @brief Get texture of a Terrain.
@@ -43,7 +43,7 @@ public:
      * @param terrain Pointer to a Terrain.
      * @return String containing the Terrain's name.
      */
-	static std::string getTerrainName(Terrain* terrain);
+	static std::string getTerrainName(const Terrain* terrain);
 
 
 private:

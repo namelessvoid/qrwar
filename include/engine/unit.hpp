@@ -31,13 +31,13 @@ public:
 	virtual void onDestroy() override;
 
 	Player::Ptr getPlayer() const;
-	UNITTYPES getType();
+	UNITTYPES getType() const;
 
 	/**
 	 * @brief Get unit base attack value.
 	 * @return Base attack value set by constructor.
 	 */
-	int getBaseAttack();
+	int getBaseAttack() const;
 
 	/**
 	 * @brief Get attack value after applying modifiers.
@@ -49,7 +49,7 @@ public:
 	 * @brief Get unit base defense value.
 	 * @return Base defense value set by constructor.
 	 */
-	int getBaseDefense();
+	int getBaseDefense() const;
 
 	/**
 	 * @brief Get defense value after applying modifiers.
@@ -60,14 +60,14 @@ public:
 	int getAttackRange() const;
 	bool isTargetWithinAttackRange(const Coordinates& target) const;
 
-	int getHP();
+	int getHP() const;
 	void setHP(int hp);
-	int getMaxHp();
+	int getMaxHp() const;
 
 	void damage(int inflictedDamage);
 
-	int getMovement();
-	int getCurrentMovement();
+	int getMovement() const;
+	int getCurrentMovement() const;
 	void setCurrentMovement(int movement);
 	std::string getName();
 

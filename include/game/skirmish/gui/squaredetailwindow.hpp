@@ -3,9 +3,6 @@
 
 #include "gui/ng/window.hpp"
 
-#include "engine/unit.hpp"
-#include "engine/terrain.hpp"
-
 namespace namelessgui
 {
 class Label;
@@ -13,33 +10,36 @@ class Label;
 
 namespace qrw
 {
+class Coordinates;
+class Board;
+class Unit;
+class Terrain;
+class Structure;
 
-/**
- * @brief The SquareDetailWindow displays details about a square in the UI.
- *
- * It holds images and stats of the unit and terrain placed on a specific square.
- */
 class SquareDetailWindow : public namelessgui::Window
 {
 public:
-    SquareDetailWindow();
+	SquareDetailWindow();
 
-	void setUnitAndTerrain(Unit*unit, Terrain* terrain);
+	void display(const Coordinates& position, Board& board);
 
 private:
-	void setUnit(Unit* unit);
-	void setTerrain(Terrain* terrain);
-	void checkAndSetVisibility(Unit* unit, Terrain* terrain);
+	void setUnit(const Unit& unit);
+	void hideUnitWidgets();
 
-    namelessgui::Label* _unitTitleLabel;
-    namelessgui::Label* _unitHealthLabel;
-	namelessgui::Label* _unitMovementLabel;
-    namelessgui::Label* _unitAttackLabel;
-    namelessgui::Label* _unitDefenseLabel;
+	void setTerrain(const Terrain& terrain);
+	void setStructure(const Structure& structure);
+	void hideEnvironmentWidgets();
 
-    namelessgui::Label* _terrainTitleLabel;
-    namelessgui::Label* _terrainAttackLabel;
-    namelessgui::Label* _terrainDefenseLabel;
+	namelessgui::Label* unitTitleLabel_;
+	namelessgui::Label* unitHealthLabel_;
+	namelessgui::Label* unitMovementLabel_;
+	namelessgui::Label* unitAttackLabel_;
+	namelessgui::Label* unitDefenseLabel_;
+
+	namelessgui::Label* environmentTitleLabel_;
+	namelessgui::Label* environmentAttackLabel_;
+	namelessgui::Label* environmentDefenseLabel_;
 };
 
 } // namespace qrw

@@ -37,7 +37,7 @@ namespace qrw
 			void onDestroy() override;
 			void onAddToScene() override;
 
-			int getModificator(MODIFICATORS type);
+			int getModificator(MODIFICATORS type) const;
 			const int* getModificators();
 
 			void setType(TERRAINTYPES type) { _type = type; }

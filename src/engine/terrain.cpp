@@ -64,7 +64,7 @@ void Terrain::onDestroy()
 		board->removeTerrain(_position);
 }
 
-int Terrain::getModificator(MODIFICATORS type)
+int Terrain::getModificator(MODIFICATORS type) const
 {
 	return _modificators[type];
 }

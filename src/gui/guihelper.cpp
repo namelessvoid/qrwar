@@ -30,7 +30,7 @@ const sf::Texture* GuiHelper::getUnitTexture(UNITTYPES type, Player::Ptr player)
     return texture;
 }
 
-std::string GuiHelper::getUnitName(Unit* unit)
+std::string GuiHelper::getUnitName(const Unit* unit)
 {
     switch(unit->getType())
     {
@@ -58,7 +58,7 @@ const sf::Texture *GuiHelper::getTerrainTexture(TERRAINTYPES terrainType)
     }
 }
 
-std::string GuiHelper::getTerrainName(Terrain* terrain)
+std::string GuiHelper::getTerrainName(const Terrain* terrain)
 {
     switch(terrain->getType())
     {

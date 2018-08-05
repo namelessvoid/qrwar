@@ -1,4 +1,4 @@
-#include <stdio.h>
+#include <cstdio>
 
 #include "engine/unit.hpp"
 #include "engine/board.hpp"
@@ -102,12 +102,12 @@ Player::Ptr Unit::getPlayer() const
 	return _player;
 }
 
-UNITTYPES Unit::getType()
+UNITTYPES Unit::getType() const
 {
 	return _type;
 }
 
-int Unit::getBaseAttack()
+int Unit::getBaseAttack() const
 {
 	return _attackvalue;
 }
@@ -123,7 +123,7 @@ int Unit::getModifiedAttack()
 	return modifiedAttack < 0 ? 0 : modifiedAttack;
 }
 
-int Unit::getBaseDefense()
+int Unit::getBaseDefense() const
 {
 	return _defensevalue;
 }
@@ -139,7 +139,7 @@ int Unit::getModifiedDefense()
 	return modifiedDefense < 0 ? 0 : modifiedDefense;
 }
 
-int Unit::getHP()
+int Unit::getHP() const
 {
 	return _hp;
 }
@@ -151,7 +151,7 @@ void Unit::setHP(int hp)
 	this->_hp = hp;
 }
 
-int Unit::getMaxHp()
+int Unit::getMaxHp() const
 {
 	return _maxhp;
 }
@@ -175,11 +175,11 @@ bool Unit::isTargetWithinAttackRange(const Coordinates &target) const
 	return getPosition().distanceTo(target) <= getAttackRange();
 }
 
-int Unit::getMovement()
+int Unit::getMovement() const
 {
 	return _movement;
 }
-int Unit::getCurrentMovement()
+int Unit::getCurrentMovement() const
 {
 	return _currentmovement;
 }
