@@ -1,6 +1,7 @@
 #ifndef QRW_STRUCTUREMETACLASS_HPP
 #define QRW_STRUCTUREMETACLASS_HPP
 
+#include <foundation/gameobject.hpp>
 #include "meta/metaclass.hpp"
 #include "meta/properties/iproperty.hpp"
 
