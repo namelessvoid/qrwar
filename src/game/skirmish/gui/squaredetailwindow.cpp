@@ -1,4 +1,4 @@
-#include "gui/squaredetailwindow.hpp"
+#include "game/skirmish/gui/squaredetailwindow.hpp"
 
 #include "gui/ng/label.hpp"
 

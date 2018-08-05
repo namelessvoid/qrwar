@@ -3,6 +3,7 @@
 #include <SFML/Graphics/Sprite.hpp>
 
 #include "game/skirmish/gui/victorydialog.hpp"
+#include "game/skirmish/gui/squaredetailwindow.hpp"
 #include "game/states/deploystate.hpp"
 #include "game/path.hpp"
 
@@ -14,7 +15,6 @@
 #include "gui/ng/label.hpp"
 #include "gui/ng/spritewidget.hpp"
 #include "gui/ng/button.hpp"
-#include "gui/squaredetailwindow.hpp"
 #include "gui/cursor.hpp"
 #include "gui/squaremarker.hpp"
 

@@ -57,6 +57,7 @@ add_library(qrwarlib
 
 	game/skirmish/gui/victorydialog.cpp
 	game/skirmish/gui/mapeditortoolbar.cpp
+	game/skirmish/gui/squaredetailwindow.cpp
 
 	game/skirmish/pathfinding/boardworldadapter.cpp
 
@@ -74,7 +75,6 @@ add_library(qrwarlib
 	gui/scene.cpp
 	gui/squaremarker.cpp
 	gui/cursor.cpp
-	gui/squaredetailwindow.cpp
 	gui/texturemanager.cpp
 	gui/guihelper.cpp
 
