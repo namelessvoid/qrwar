@@ -53,6 +53,7 @@ add_library(qrwarlib
 	game/skirmish/mapmanager.cpp
 	game/skirmish/mapvalidator.cpp
 	game/skirmish/structure.cpp
+	game/skirmish/structurefactory.cpp
 	game/skirmish/coordinates.cpp
 
 	game/skirmish/gui/victorydialog.cpp

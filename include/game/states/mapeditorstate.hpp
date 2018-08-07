@@ -7,6 +7,7 @@
 #include "game/states/scenestate.hpp"
 
 #include "game/skirmish/mapmanager.hpp"
+#include "game/skirmish/structurefactory.hpp"
 
 #include "game/skirmish/gui/skirmishguifactory.hpp"
 
@@ -60,6 +61,7 @@ private:
 	std::string mapNameForSaveConfirmation_;
 
 	MapManager& mapManager;
+	StructureFactory structureFactory_;
 
 	namelessgui::ConfirmationDialog* mapOverwriteConfirmationDialog_;
 

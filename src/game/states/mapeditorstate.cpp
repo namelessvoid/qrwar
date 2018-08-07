@@ -222,7 +222,8 @@ void MapEditorState::placeStructure(const Coordinates& position, unsigned int st
 	eraseTerrain(position);
 	eraseStructure(position);
 
-	auto structure = g_scene.spawn<Structure>();
+	auto structure = structureFactory_.createStructure(structureId);
+	g_scene.addGameObject(structure);
 	structure->setPosition(position);
 	_spBoard->setStructure(position, structure);
 }
