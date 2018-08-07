@@ -20,11 +20,11 @@ void TerrainMetaClass::serialize(const Reflectable* object, YAML::Emitter& out) 
 	assert(terrain != nullptr);
 
 	out << YAML::BeginMap
-			<< YAML::Key << "type_" << YAML::Value << static_cast<int>(terrain->getType())
+			<< YAML::Key << "type_" << YAML::Value << static_cast<int>(terrain->_type)
 			<< YAML::Key << "position_"
 			<< YAML::BeginMap
-				<< YAML::Key << "x_" << YAML::Value << terrain->getPosition().getX()
-				<< YAML::Key << "y_" << YAML::Value << terrain->getPosition().getY()
+				<< YAML::Key << "x_" << YAML::Value << terrain->_position.getX()
+				<< YAML::Key << "y_" << YAML::Value << terrain->_position.getY()
 			<< YAML::EndMap
 		<< YAML::EndMap;
 }
@@ -35,7 +35,7 @@ void TerrainMetaClass::deserialize(Reflectable* gameObject, const YAML::Node& in
 
 	Terrain* terrain = static_cast<Terrain*>(gameObject);
 	terrain->setPosition({in["position_"]["x_"].as<int>(), in["position_"]["y_"].as<int>()});
-	terrain->setType(static_cast<TERRAINTYPES>(in["type_"].as<int>()));
+	terrain->_type = static_cast<TERRAINTYPES>(in["type_"].as<int>());
 }
 
 std::type_index TerrainMetaClass::getTypeIndex() const

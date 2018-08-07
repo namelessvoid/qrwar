@@ -35,9 +35,9 @@ Terrain* Terrain::createTerrain(TERRAINTYPES terrainType)
 	}
 
 	Terrain* terrain = new Terrain();
-	terrain->setModificator(EM_ATTACK, attackModifier);
-	terrain->setModificator(EM_DEFENSE, defenseModifier);
-	terrain->setType(terrainType);
+	terrain->_modificators[EM_ATTACK] = attackModifier;
+	terrain->_modificators[EM_DEFENSE] = defenseModifier;
+	terrain->_type = terrainType;
 	return terrain;
 }
 
@@ -69,11 +69,6 @@ int Terrain::getModificator(MODIFICATORS type) const
 	return _modificators[type];
 }
 
-const int* Terrain::getModificators()
-{
-	return _modificators;
-}
-
 TERRAINTYPES Terrain::getType() const
 {
 	return _type;
@@ -90,24 +85,11 @@ const Coordinates& Terrain::getPosition() const
 	return _position;
 }
 
-void Terrain::setModificator(MODIFICATORS type, int value)
-{
-	assert(type >= 0);
-	assert(type < EM_NUMMODIFICATORS);
-
-	_modificators[type] = value;
-}
-
-void Terrain::setTexture(const sf::Texture* texture)
-{
-	_sprite->setTexture(texture);
-}
-
 void Terrain::onAddToScene()
 {
 	GameObject::onAddToScene();
 	const sf::Texture* texture = GuiHelper::getTerrainTexture(_type);
-	setTexture(texture);
+	_sprite->setTexture(texture);
 }
 
 } // namespace qrw

@@ -141,7 +141,7 @@ void SquareDetailWindow::setStructure(const Structure& structure)
 	environmentTitleLabel_->setText("Wall");
 	environmentTitleLabel_->setImage(TextureManager::getInstance()->getTexture("wall"));
 	environmentTitleLabel_->setVisible(true);
-	
+
 	environmentAttackLabel_->setVisible(false);
 	environmentDefenseLabel_->setVisible(false);
 }

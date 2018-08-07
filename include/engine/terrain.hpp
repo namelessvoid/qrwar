@@ -26,6 +26,8 @@ namespace qrw
 	class Terrain : public GameObject
 	{
 		public:
+			friend class TerrainMetaClass;
+
 			static Terrain* createTerrain(TERRAINTYPES terrainType);
 
 			static SID typeName;
@@ -38,19 +40,13 @@ namespace qrw
 			void onAddToScene() override;
 
 			int getModificator(MODIFICATORS type) const;
-			const int* getModificators();
 
-			void setType(TERRAINTYPES type) { _type = type; }
 			TERRAINTYPES getType() const;
 
 			void setPosition(const Coordinates& position);
 			const Coordinates& getPosition() const;
 
 		private:
-			void setModificator(MODIFICATORS type, int value);
-
-			void setTexture(const sf::Texture* texture);
-
 			int _modificators[2];
 			TERRAINTYPES _type;
 
