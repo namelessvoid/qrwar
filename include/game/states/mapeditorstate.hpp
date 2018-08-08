@@ -42,7 +42,7 @@ private:
 
 	void setCursorModePlaceTerrain(TERRAINTYPES terrainType);
 	void setCursorModeEraseterrain();
-	void setCursorModePlaceStructure(unsigned int);
+	void setCursorModePlaceStructure(unsigned int type);
 	void setCursorModeEraseStructure();
 	void setCursorModePlaceDeploymentZone(unsigned int playerNumber);
 	void setCursorModeEraseDeploymentZone();

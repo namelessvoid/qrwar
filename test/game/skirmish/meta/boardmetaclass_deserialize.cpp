@@ -40,6 +40,7 @@ TEST(BoardMetaClass_Deserialize, Then_all_properties_are_initialized)
 	node["structures_"][0]["key"]["_y"] = 12;
 	node["structures_"][0]["value"]["position_"]["_x"] = 11;
 	node["structures_"][0]["value"]["position_"]["_y"] = 12;
+	node["structures_"][0]["value"]["type_"] = 12;
 
 	boardMetaClass->deserialize(&board, node);
 

@@ -20,7 +20,7 @@ public:
 	std::type_index getTypeIndex() const override;
 
 private:
-	std::array<std::unique_ptr<IProperty>,1> properties_;
+	std::array<std::unique_ptr<IProperty>,2> properties_;
 };
 
 } // namespace qrw

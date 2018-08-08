@@ -138,9 +138,10 @@ void MapEditorState::setCursorModeEraseterrain()
 	cursorMode_ = CursorMode::ERASE_TERRAIN;
 }
 
-void MapEditorState::setCursorModePlaceStructure(unsigned int)
+void MapEditorState::setCursorModePlaceStructure(unsigned int type)
 {
 	cursorMode_ = CursorMode::PLACE_STRUCTURE;
+	selectedEntity_.structure = type;
 }
 
 void MapEditorState::setCursorModeEraseStructure()

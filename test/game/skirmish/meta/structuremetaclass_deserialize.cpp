@@ -19,6 +19,7 @@ TEST(StructureMetaClass_Deserialize, Then_all_properties_are_deserialized)
 	YAML::Node node;
 	node["position_"]["_x"] = 12;
 	node["position_"]["_y"] = 13;
+	node["type_"] = 1;
 
 	// Act
 	structureMetaClass.deserialize(&structure, node);

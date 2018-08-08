@@ -5,9 +5,11 @@
 namespace qrw
 {
 
-Structure* StructureFactory::createStructure(int type)
+Structure* StructureFactory::createStructure(unsigned int type)
 {
-	return new Structure();
+	auto structure = new Structure();
+	structure->setType(type);
+	return structure;
 }
 
 } // namespace qrw

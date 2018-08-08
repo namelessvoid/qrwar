@@ -8,7 +8,7 @@ class Structure;
 class StructureFactory
 {
 public:
-	Structure* createStructure(int type);
+	Structure* createStructure(unsigned int type);
 };
 
 } // namespace qrw

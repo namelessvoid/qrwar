@@ -22,9 +22,13 @@ public:
 	void setPosition(const Coordinates& position);
 	const Coordinates& getPosition() const { return position_; }
 
+	void setType(unsigned int type) { type_ = type; }
+
 private:
 	SpriteComponent* spriteComponent_;
 	Coordinates position_;
+
+	unsigned int type_;
 };
 
 } // namespace qrw
