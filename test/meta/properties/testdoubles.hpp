@@ -31,6 +31,8 @@ class ReflectableStub : public qrw::Reflectable
 public:
 	ValueStub classProperty;
 	std::map<KeyStub,ValueStub*> mapProperty;
+
+	enum class EnumType { ZERO = 0, ONE = 1 } enumProperty;
 };
 
 class KeyMetaClassMock : public qrw::MetaClass

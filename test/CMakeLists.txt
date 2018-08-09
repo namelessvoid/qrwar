@@ -53,6 +53,8 @@ add_executable(unittest
 	game/skirmish/pathfinding/boardworldadapter_getneighborlocationsfor.cpp
 
 	meta/properties/testdoubles.cpp
+	meta/properties/tproperty_serialize.cpp
+	meta/properties/tproperty_deserialize.cpp
 	meta/properties/stdmapproperty_serialize.cpp
 	meta/properties/stdmapproperty_deserialize.cpp
 	meta/properties/tclassproperty_serialize.cpp

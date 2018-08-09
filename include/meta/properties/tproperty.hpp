@@ -2,6 +2,8 @@
 #define QRW_TPROPERTY_HPP
 
 #include <cassert>
+#include <yaml-cpp/yaml.h>
+#include <functional>
 
 #include "meta/properties/iproperty.hpp"
 
@@ -24,10 +26,11 @@ public:
 	void serialize(const Reflectable* object, YAML::Emitter& out) const override
 	{
 		assert(dynamic_cast<const TClassType*>(object)!=nullptr);
-
-		const TClassType* typedObject = static_cast<const TClassType*>(object);
+		auto typedObject = static_cast<const TClassType*>(object);
 		auto binding = std::bind(TProperty<TClassType,TPropertyType>::member_, typedObject);
-		out << YAML::Key << getName() << YAML::Value << binding();
+
+		out << YAML::Key << getName() << YAML::Value;
+		serializeInternal(binding(), out);
 	}
 
 	void deserialize(Reflectable* object, const YAML::Node& in) const override
@@ -36,10 +39,38 @@ public:
 
 		TClassType* typedObject = static_cast<TClassType*>(object);
 		auto binding = std::bind(TProperty<TClassType,TPropertyType>::member_, typedObject);
-		binding() = in[getName()].as<TPropertyType>();
+		binding() = deserializeInternal(in[getName()]);
 	};
 
 private:
+	template <typename TValue = TPropertyType>
+	typename std::enable_if<!std::is_enum<TValue>::value>::type
+	serializeInternal(const TValue value, YAML::Emitter& out) const
+	{
+		out << value;
+	}
+
+	template<typename TValue = TPropertyType>
+	typename std::enable_if<std::is_enum<TValue>::value>::type
+	serializeInternal(const TValue value, YAML::Emitter& out) const
+	{
+		out << static_cast<int>(value);
+	};
+
+	template <typename TValue = TPropertyType>
+	typename std::enable_if<!std::is_enum<TValue>::value,TValue>::type
+	deserializeInternal(const YAML::Node& node) const
+	{
+		return node.as<TValue>();
+	}
+
+	template<typename TValue = TPropertyType>
+	typename std::enable_if<std::is_enum<TValue>::value,TValue>::type
+	deserializeInternal(const YAML::Node& node) const
+	{
+		return static_cast<TValue>(node.as<int>());
+	};
+
 	TPropertyType TClassType::* member_;
 };
 
