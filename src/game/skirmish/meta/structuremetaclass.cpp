@@ -12,7 +12,7 @@ StructureMetaClass::StructureMetaClass(const MetaManager& metaManager)
 	: MetaClass(metaManager)
 {
 	properties_[0] = std::make_unique<TClassProperty<Structure,Coordinates>>(&Structure::position_, "position_", metaManager);
-	properties_[1] = std::make_unique<TProperty<Structure,unsigned int>>(&Structure::type_, "type_", metaManager);
+	properties_[1] = std::make_unique<TProperty<Structure,Structure::Type>>(&Structure::type_, "type_", metaManager);
 }
 
 void StructureMetaClass::serialize(const Reflectable* object, YAML::Emitter& out) const

@@ -4,6 +4,7 @@
 #include "gui/ng/tabwidget.hpp"
 
 #include "engine/terraintypes.hpp"
+#include "game/skirmish/structure.hpp"
 
 namespace namelessgui
 {
@@ -29,7 +30,7 @@ public:
 
 	namelessgui::Signal<TERRAINTYPES> signalTerrainTypeClicked;
 	namelessgui::Signal<> signalEraseTerrainClicked;
-	namelessgui::Signal<unsigned int> signalStructureClicked;
+	namelessgui::Signal<Structure::Type> signalStructureClicked;
 	namelessgui::Signal<> signalEraseStructureClicked;
 	namelessgui::Signal<unsigned int> signalDeploymentZoneClicked;
 	namelessgui::Signal<> signalEraseDeploymentZoneClicked;

@@ -131,7 +131,7 @@ namelessgui::Window* MapEditorToolBar::createStructureToolsWindow()
 	radioButton->setSize(BUTTON_SIZE);
 	radioButton->setRelativePosition({5.0f, 1 * BUTTON_SIZE.y + BUTTON_Y_OFFSET});
 	radioButton->setImage(TextureManager::getInstance()->getTexture("wall"));
-	radioButton->signalActivated.connect([this] { signalStructureClicked.emit(0); });
+	radioButton->signalActivated.connect([this] { signalStructureClicked.emit(Structure::Type::WALL); });
 	structureWindow->addWidget(radioButton);
 
 	radioButton = new namelessgui::RadioToggleButton(structureButtonGroup, "Stairs");
@@ -139,7 +139,7 @@ namelessgui::Window* MapEditorToolBar::createStructureToolsWindow()
 	radioButton->setSize(BUTTON_SIZE);
 	radioButton->setRelativePosition({5.0f, 2 * BUTTON_SIZE.y + BUTTON_Y_OFFSET});
 	radioButton->setImage(TextureManager::getInstance()->getTexture("stairs"));
-	radioButton->signalActivated.connect([this] { signalStructureClicked.emit(1); });
+	radioButton->signalActivated.connect([this] { signalStructureClicked.emit(Structure::Type::STAIRS); });
 	structureWindow->addWidget(radioButton);
 
 	radioButton = new namelessgui::RadioToggleButton(structureButtonGroup, "Erase");

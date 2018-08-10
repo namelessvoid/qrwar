@@ -31,7 +31,7 @@ TEST(MapEditorState_PlaceStructure, Then_structure_is_on_scene_and_board)
 	mapEditorState.init(nullptr);
 
 	// Act
-	mapEditorToolBar->signalStructureClicked.emit(0);
+	mapEditorToolBar->signalStructureClicked.emit(qrw::Structure::Type::WALL);
 	mapEditorState.handleEvent(qrw::CursorLeftClickedEvent({1, 2}));
 
 	// Assert
@@ -58,7 +58,7 @@ TEST(MapEditorState_PlaceStructure, If_square_is_occupied_by_structure_Then_it_i
 	qrw::MapEditorState mapEditorState(&renderWindow, mapManagerMock, skirmishGuiFactoryMock);
 	mapEditorState.init(nullptr);
 
-	mapEditorToolBar->signalStructureClicked.emit(0);
+	mapEditorToolBar->signalStructureClicked.emit(qrw::Structure::Type::WALL);
 
 	auto board = qrw::g_scene.findSingleGameObject<qrw::Board>();
 	auto previousStructure = qrw::g_scene.spawn<qrw::Structure>();
@@ -90,7 +90,7 @@ TEST(MapEditorState_PlaceStructure, If_square_is_occupied_by_terrian_Then_it_is_
 	sf::RenderWindow renderWindow;
 	qrw::MapEditorState mapEditorState(&renderWindow, mapManagerMock, skirmishGuiFactoryMock);
 	mapEditorState.init(nullptr);
-	mapEditorToolBar->signalStructureClicked.emit(0);
+	mapEditorToolBar->signalStructureClicked.emit(qrw::Structure::Type::WALL);
 
 	auto board = qrw::g_scene.findSingleGameObject<qrw::Board>();
 	auto previousTerrain = qrw::g_scene.spawn<qrw::Terrain>();

@@ -1,6 +1,8 @@
 #ifndef QRW_STRUCTUREFACTORY_HPP
 #define QRW_STRUCTUREFACTORY_HPP
 
+#include "structure.hpp"
+
 namespace qrw
 {
 class Structure;
@@ -8,7 +10,7 @@ class Structure;
 class StructureFactory
 {
 public:
-	Structure* createStructure(unsigned int type);
+	Structure* createStructure(Structure::Type type);
 };
 
 } // namespace qrw

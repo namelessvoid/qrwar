@@ -13,6 +13,8 @@ class Structure : public GameObject
 friend class StructureMetaClass;
 
 public:
+	enum class Type { WALL, STAIRS };
+
 	static SID typeName;
 
 	Structure();
@@ -22,13 +24,13 @@ public:
 	void setPosition(const Coordinates& position);
 	const Coordinates& getPosition() const { return position_; }
 
-	void setType(unsigned int type) { type_ = type; }
+	void setType(Type type) { type_ = type; }
 
 private:
 	SpriteComponent* spriteComponent_;
 	Coordinates position_;
 
-	unsigned int type_;
+	Type type_;
 };
 
 } // namespace qrw

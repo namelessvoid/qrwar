@@ -31,7 +31,7 @@ MapEditorState::MapEditorState(sf::RenderWindow* renderWindow, MapManager& mapMa
 	mapEditorToolBar->signalBoardHeightChanged.connect([this] (unsigned int height) { slotChangeBoardHeight(height); });
 	mapEditorToolBar->signalTerrainTypeClicked.connect([this] (TERRAINTYPES terrainType) { setCursorModePlaceTerrain(terrainType); });
 	mapEditorToolBar->signalEraseTerrainClicked.connect([this] () { setCursorModeEraseterrain(); });
-	mapEditorToolBar->signalStructureClicked.connect([this] (unsigned int type) { setCursorModePlaceStructure(type); });
+	mapEditorToolBar->signalStructureClicked.connect([this] (Structure::Type type) { setCursorModePlaceStructure(type); });
 	mapEditorToolBar->signalEraseStructureClicked.connect([this] () { setCursorModeEraseStructure(); });
 	mapEditorToolBar->signalDeploymentZoneClicked.connect([this] (unsigned int playerNumber) { setCursorModePlaceDeploymentZone(playerNumber); });
 	mapEditorToolBar->signalEraseDeploymentZoneClicked.connect([this] () { setCursorModeEraseDeploymentZone(); });
@@ -138,7 +138,7 @@ void MapEditorState::setCursorModeEraseterrain()
 	cursorMode_ = CursorMode::ERASE_TERRAIN;
 }
 
-void MapEditorState::setCursorModePlaceStructure(unsigned int type)
+void MapEditorState::setCursorModePlaceStructure(Structure::Type type)
 {
 	cursorMode_ = CursorMode::PLACE_STRUCTURE;
 	selectedEntity_.structure = type;
@@ -218,7 +218,7 @@ void MapEditorState::eraseTerrain(const Coordinates& boardPosition)
 	}
 }
 
-void MapEditorState::placeStructure(const Coordinates& position, unsigned int structureId)
+void MapEditorState::placeStructure(const Coordinates& position, Structure::Type structureId)
 {
 	eraseTerrain(position);
 	eraseStructure(position);

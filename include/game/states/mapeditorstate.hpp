@@ -42,14 +42,14 @@ private:
 
 	void setCursorModePlaceTerrain(TERRAINTYPES terrainType);
 	void setCursorModeEraseterrain();
-	void setCursorModePlaceStructure(unsigned int type);
+	void setCursorModePlaceStructure(Structure::Type type);
 	void setCursorModeEraseStructure();
 	void setCursorModePlaceDeploymentZone(unsigned int playerNumber);
 	void setCursorModeEraseDeploymentZone();
 
 	void placeTerrain(const Coordinates& boardPosition, TERRAINTYPES terrainType);
 	void eraseTerrain(const Coordinates& boardPosition);
-	void placeStructure(const Coordinates& position, unsigned int structureId);
+	void placeStructure(const Coordinates& position, Structure::Type structureId);
 	void eraseStructure(const Coordinates& position);
 	void placeDeploymentZone(const Coordinates& boardPosition, unsigned int playerNumber);
 	void eraseDeploymentZone(const Coordinates& boardPosition);
@@ -87,7 +87,7 @@ private:
 	union SelectedEntity
 	{
 		TERRAINTYPES terrainType;
-		unsigned int structure;
+		Structure::Type structure;
 		unsigned int playerNumber;
 	} selectedEntity_;
 

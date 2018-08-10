@@ -13,7 +13,7 @@ namespace qrw
 SID Structure::typeName("qrw::Structure");
 
 Structure::Structure()
-	: type_(0)
+	: type_(Type::WALL)
 {
 	spriteComponent_ = new SpriteComponent(RENDER_LAYER_STRUCTURE);
 	spriteComponent_->setSize({SQUARE_DIMENSION, SQUARE_DIMENSION});
@@ -25,7 +25,7 @@ void Structure::onAddToScene()
 	GameObject::onAddToScene();
 	setPosition(getPosition());
 
-	if(type_ == 0)
+	if(type_ == Type::WALL)
 		spriteComponent_->setTexture(TextureManager::getInstance()->getTexture("wall"));
 	else
 		spriteComponent_->setTexture(TextureManager::getInstance()->getTexture("stairs"));
