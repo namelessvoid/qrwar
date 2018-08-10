@@ -215,6 +215,7 @@ void MapEditorState::eraseTerrain(const Coordinates& boardPosition)
 	if(_spBoard->isTerrainAt(boardPosition))
 	{
 		g_scene.destroy(_spBoard->getTerrain(boardPosition));
+		_spBoard->removeTerrain(boardPosition);
 	}
 }
 

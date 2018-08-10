@@ -57,13 +57,6 @@ Terrain::~Terrain()
 {
 }
 
-void Terrain::onDestroy()
-{
-	Board* board = g_scene.findSingleGameObject<Board>();
-	if(board && board->getTerrain(_position) == this)
-		board->removeTerrain(_position);
-}
-
 int Terrain::getModificator(MODIFICATORS type) const
 {
 	return _modificators[type];
