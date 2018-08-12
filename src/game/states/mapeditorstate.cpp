@@ -107,12 +107,14 @@ void MapEditorState::slotChangeBoardWidth(unsigned int width)
 {
 	_spBoard->setWidth(width);
 	despawnTerrainNotOnBoard();
+	despawnStructuresNotOnBoard();
 }
 
 void MapEditorState::slotChangeBoardHeight(unsigned int height)
 {
 	_spBoard->setHeight(height);
 	despawnTerrainNotOnBoard();
+	despawnStructuresNotOnBoard();
 }
 
 void MapEditorState::despawnTerrainNotOnBoard()
@@ -123,6 +125,18 @@ void MapEditorState::despawnTerrainNotOnBoard()
 		{
 			_spBoard->removeTerrain(terrainIter.first);
 			g_scene.destroy(terrainIter.second);
+		}
+	}
+}
+
+void MapEditorState::despawnStructuresNotOnBoard()
+{
+	for(auto& structureIter : _spBoard->getStructures())
+	{
+		if(!_spBoard->isOnBoard(structureIter.first))
+		{
+			_spBoard->removeStructureAt(structureIter.first);
+			g_scene.destroy(structureIter.second);
 		}
 	}
 }

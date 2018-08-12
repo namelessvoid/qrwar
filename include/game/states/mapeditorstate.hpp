@@ -39,6 +39,7 @@ private:
 	void slotChangeBoardWidth(unsigned int width);
 	void slotChangeBoardHeight(unsigned int height);
 	void despawnTerrainNotOnBoard();
+	void despawnStructuresNotOnBoard();
 
 	void setCursorModePlaceTerrain(TERRAINTYPES terrainType);
 	void setCursorModeEraseterrain();

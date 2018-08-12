@@ -47,6 +47,7 @@ add_executable(unittest
 	game/states/mapeditorstate_loadmap.cpp
 	game/states/mapeditorstate_placeterrain.cpp
 	game/states/mapeditorstate_placestructure.cpp
+	game/states/mapeditorstate_resizeboard.cpp
 
 	game/skirmish/mapvalidator_validate.cpp
 
