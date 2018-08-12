@@ -6,6 +6,7 @@
 
 #include "engine/terrain.hpp"
 #include "game/skirmish/structure.hpp"
+#include "game/deploymentzone.hpp"
 
 #include "__mocks__/game/skirmish/mapmanagermock.hpp"
 #include "__mocks__/game/skirmish/gui/skirmishguifactorymock.hpp"
@@ -92,4 +93,47 @@ TEST(MapEditorState_ResizeBoard, Then_structures_no_longer_on_board_are_removed)
 	EXPECT_EQ(structures.size(), 2);
 	EXPECT_THAT(structures, Contains(structureWithinBoard1));
 	EXPECT_THAT(structures, Contains(structureWithinBoard2));
+
+	// Clean up
+	qrw::g_scene.reset();
+	qrw::g_scene.update(0);
+}
+
+TEST(MapEditorState_ResizeBoard, Then_deployment_zones_are_cropped)
+{
+	// Arrange
+	sf::RenderWindow renderWindow;
+	MapManagerMock mapManagerMock;
+	SkirmishGuiFactoryMock skirmishGuiFactoryMock;
+
+	qrw::MapEditorToolBar* mapEditorToolBar = new qrw::MapEditorToolBar(10, 10);
+	EXPECT_CALL(skirmishGuiFactoryMock, createMapEditorToolBar(_, _))
+			.WillOnce(Return(mapEditorToolBar));
+
+	qrw::MapEditorState mapEditorState(&renderWindow, mapManagerMock, skirmishGuiFactoryMock);
+	mapEditorState.init(nullptr);
+
+	auto deploymentZones = qrw::g_scene.findGameObjects<qrw::DeploymentZone>();
+	qrw::DeploymentZone* zone1 = static_cast<qrw::DeploymentZone*>(*deploymentZones.begin());
+	qrw::DeploymentZone* zone2 = static_cast<qrw::DeploymentZone*>(*++deploymentZones.begin());
+
+	zone1->addSquare({0, 2});
+	zone1->addSquare({0, 3});
+	zone2->addSquare({2, 0});
+	zone2->addSquare({3, 0});
+
+	// Act (mind off-by-one errors)
+	mapEditorToolBar->signalBoardWidthChanged.emit(3);
+	mapEditorToolBar->signalBoardHeightChanged.emit(3);
+	qrw::g_scene.update(0);
+
+	// Assert
+	EXPECT_TRUE(zone1->containsSquare({0, 2}));
+	EXPECT_FALSE(zone1->containsSquare({0, 3}));
+	EXPECT_TRUE(zone2->containsSquare({2, 0}));
+	EXPECT_FALSE(zone2->containsSquare({3, 0}));
+
+	// Clean up
+	qrw::g_scene.reset();
+	qrw::g_scene.update(0);
 }

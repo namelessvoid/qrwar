@@ -60,6 +60,19 @@ bool DeploymentZone::containsSquare(const Coordinates& coordinate)
     return zone_.find(coordinate) != zone_.end();
 }
 
+void qrw::DeploymentZone::crop(const Coordinates& size)
+{
+	auto iter = zone_.begin();
+	while(iter != zone_.end())
+	{
+		Coordinates square = *iter;
+		if(square.getX() >= size.getX() || square.getY() >= size.getY())
+			iter = zone_.erase(iter);
+		else
+			++iter;
+	}
+}
+
 void DeploymentZone::setPlayerId(int playerId)
 {
     playerId_ = playerId;

@@ -30,6 +30,7 @@ public:
 	void addSquare(const Coordinates& coordinate);
 	void removeSquare(const Coordinates& coordinate);
 	bool containsSquare(const Coordinates& coordinate);
+	void crop(const Coordinates& size);
 
 	size_t getSize() const { return zone_.size(); }
 

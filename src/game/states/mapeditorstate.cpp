@@ -108,6 +108,7 @@ void MapEditorState::slotChangeBoardWidth(unsigned int width)
 	_spBoard->setWidth(width);
 	despawnTerrainNotOnBoard();
 	despawnStructuresNotOnBoard();
+	cropDeploymentZones();
 }
 
 void MapEditorState::slotChangeBoardHeight(unsigned int height)
@@ -115,6 +116,7 @@ void MapEditorState::slotChangeBoardHeight(unsigned int height)
 	_spBoard->setHeight(height);
 	despawnTerrainNotOnBoard();
 	despawnStructuresNotOnBoard();
+	cropDeploymentZones();
 }
 
 void MapEditorState::despawnTerrainNotOnBoard()
@@ -138,6 +140,14 @@ void MapEditorState::despawnStructuresNotOnBoard()
 			_spBoard->removeStructureAt(structureIter.first);
 			g_scene.destroy(structureIter.second);
 		}
+	}
+}
+
+void MapEditorState::cropDeploymentZones()
+{
+	for(auto& deploymentZone : deploymentZones_)
+	{
+		deploymentZone->crop({(int)_spBoard->getWidth(), (int)_spBoard->getHeight()});
 	}
 }
 
