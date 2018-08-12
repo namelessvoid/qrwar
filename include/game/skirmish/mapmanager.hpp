@@ -6,6 +6,7 @@
 #include <vector>
 
 #include "game/skirmish/mapvalidator.hpp"
+#include "game/skirmish/mapdto.hpp"
 #include "meta/metamanager.hpp"
 
 namespace qrw {
@@ -28,15 +29,13 @@ public:
 
     virtual bool doesMapExist(const std::string& mapName);
 
-    virtual LoadErrors loadMap(
-        const std::string& mapName,
-        Board*& board,
-        std::vector<DeploymentZone*>& deploymentZones);
+    virtual MapDto loadMap(
+		const std::string& mapName,
+		LoadErrors& error);
 
     void saveMap(
         const std::string& mapName,
-        const Board& board,
-        const std::vector<DeploymentZone*>& deploymentZones);
+        const MapDto& dto);
 
 	virtual std::vector<std::string> getMapList() const;
 

@@ -210,9 +210,13 @@ void MapEditorState::slotLoadClicked(const std::string& mapName)
 	deploymentZones_.clear();
 
 	// Load and add objects
-	MapManager::LoadErrors error = mapManager.loadMap(mapName, _spBoard, deploymentZones_);
+	MapManager::LoadErrors error;
+	MapDto dto = mapManager.loadMap(mapName, error);
 
 	// TODO error handling
+
+	_spBoard = dto.board;
+	deploymentZones_ = dto.deploymentZones;
 
 	g_scene.addGameObject(_spBoard);
 	for(auto& deploymentZone : deploymentZones_) g_scene.addGameObject(deploymentZone);
@@ -279,7 +283,8 @@ void MapEditorState::eraseDeploymentZone(const Coordinates& boardPosition)
 
 void MapEditorState::saveMap(const std::string& mapName)
 {
-	mapManager.saveMap(mapName, *_spBoard, deploymentZones_);
+	MapDto dto(_spBoard, deploymentZones_);
+	mapManager.saveMap(mapName, dto);
 }
 
 } // namespace qrw

@@ -18,13 +18,6 @@ using ::testing::ElementsAre;
 namespace MapEditorState_LoadMap
 {
 
-ACTION_P2(LoadMapStub, board, deploymentZones)
-{
-	arg1 = board;
-	arg2 = deploymentZones;
-	return qrw::MapManager::LoadErrors::SUCCESS;
-}
-
 TEST(MapEditorState_LoadMap, Then_only_loaded_game_objects_are_in_scene)
 {
 	qrw::g_scene.reset();
@@ -54,10 +47,12 @@ TEST(MapEditorState_LoadMap, Then_only_loaded_game_objects_are_in_scene)
 	auto deploymentZone2 = new qrw::DeploymentZone();
 	std::vector<qrw::DeploymentZone*> deploymentZones{deploymentZone1, deploymentZone2};
 
+	qrw::MapDto mapDto(board, deploymentZones);
+
 	EXPECT_CALL(mapManager, doesMapExist("TestMap"))
 			.WillOnce(Return(true));
-	EXPECT_CALL(mapManager, loadMap("TestMap", _, _))
-			.WillOnce(LoadMapStub(board, deploymentZones));
+	EXPECT_CALL(mapManager, loadMap("TestMap", _))
+			.WillOnce(MapManagerMock_LoadMapAction(qrw::MapManager::LoadErrors::SUCCESS, mapDto));
 
 	qrw::MapEditorState mapEditorState(&renderWindow, mapManager, guiFactory);
 	mapEditorState.init(nullptr);

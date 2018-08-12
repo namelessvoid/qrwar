@@ -24,26 +24,31 @@ MapManager::~MapManager()
 {
 }
 
-MapManager::LoadErrors MapManager::loadMap(
+MapDto MapManager::loadMap(
 	const std::string& mapName,
-	Board*& board,
-	std::vector<DeploymentZone*>& deploymentZones)
+	LoadErrors& error)
 {
-	assert(board == nullptr);
-	assert(deploymentZones.empty());
-
 	if(!doesMapExist(mapName))
-		return LoadErrors::MAP_NOT_FOUND;
+	{
+		error = LoadErrors::MAP_NOT_FOUND;
+		return MapDto();
+	}
 
 	const MetaClass* boardMetaClass = metaManager_.getMetaClassFor<Board>();
 	const MetaClass* deploymentZoneMetaClass = metaManager_.getMetaClassFor<DeploymentZone>();
 
 	std::vector<YAML::Node> documents = YAML::LoadAllFromFile(getUserMapDir() / mapNameToPath(mapName));
 	if(!mapValidator_->validate(documents))
-		return LoadErrors::MAP_VALIDATION_FAILED;
+	{
+		error = LoadErrors::MAP_VALIDATION_FAILED;
+		return MapDto();
+	}
 
 	YAML::Node gameObjectsNode = documents.at(1);
-	
+
+	std::vector<DeploymentZone*> deploymentZones;
+	Board* board = new Board();
+
 	for(auto node : gameObjectsNode)
 	{
 		const SID nodeType(node["type"].as<std::string>());
@@ -55,12 +60,12 @@ MapManager::LoadErrors MapManager::loadMap(
 		}
 		else if(nodeType == Board::typeName)
 		{
-			board = new Board();
 			boardMetaClass->deserialize(board, node);
 		}
 	}
 
-	return LoadErrors::SUCCESS;
+	error = LoadErrors::SUCCESS;
+	return MapDto(board, deploymentZones);
 }
 
 bool MapManager::doesMapExist(const std::string& mapName)
@@ -72,8 +77,7 @@ bool MapManager::doesMapExist(const std::string& mapName)
 
 void MapManager::saveMap(
 	const std::string& mapName,
-	const Board& board,
-	const std::vector<DeploymentZone*>& deploymentZones)
+	const MapDto& dto)
 {
 	const MetaClass* boardMetaClass = metaManager_.getMetaClassFor<Board>();
 	const MetaClass* deploymentZoneMetaClass = metaManager_.getMetaClassFor<DeploymentZone>();
@@ -90,8 +94,8 @@ void MapManager::saveMap(
 
 	yaml << YAML::BeginDoc
 		 << YAML::BeginSeq;
-			boardMetaClass->serialize(&board, yaml);
-			for(auto& zone : deploymentZones)
+			boardMetaClass->serialize(dto.board, yaml);
+			for(auto& zone : dto.deploymentZones)
 				deploymentZoneMetaClass->serialize(zone, yaml);
 	yaml << YAML::EndSeq;
 

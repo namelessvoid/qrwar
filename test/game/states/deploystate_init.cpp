@@ -24,13 +24,6 @@ using ::testing::Return;
 using ::testing::ElementsAreArray;
 using ::testing::Contains;
 
-ACTION_P2(LoadMapStub, board, deploymentZones)
-{
-	arg1 = board;
-	arg2 = deploymentZones;
-	return qrw::MapManager::LoadErrors::SUCCESS;
-}
-
 TEST(DeployState_Init, Then_game_objects_are_added_to_scene)
 {
 	// Arrange
@@ -55,10 +48,11 @@ TEST(DeployState_Init, Then_game_objects_are_added_to_scene)
 
 	// Assert Mocks
 	MapManagerMock mapManager(metaManager);
+	qrw::MapDto mapDto(board, deploymentZones);
 	EXPECT_CALL(mapManager, getMapList())
 		.WillOnce(Return(std::vector<std::string>{"HelloMap"}));
-	EXPECT_CALL(mapManager, loadMap("HelloMap", _, _))
-		.WillOnce(LoadMapStub(board, deploymentZones));
+	EXPECT_CALL(mapManager, loadMap("HelloMap", _))
+		.WillOnce(MapManagerMock_LoadMapAction(qrw::MapManager::LoadErrors::SUCCESS, mapDto));
 
 	sf::RenderWindow renderWindow;
 

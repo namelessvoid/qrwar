@@ -145,11 +145,8 @@ void DeployState::init(GameState* previousState)
 	SceneState::init(previousState);
 
 	// Load board
-	std::vector<DeploymentZone*> deploymentZones;
-	MapManager::LoadErrors error = mapManager_.loadMap(
-		preparationState->getMapName(),
-		board_,
-		deploymentZones);
+	MapManager::LoadErrors error;
+	MapDto dto = mapManager_.loadMap(preparationState->getMapName(), error);
 
 	// TODO show error
 	if(error != MapManager::LoadErrors::SUCCESS)
@@ -158,14 +155,15 @@ void DeployState::init(GameState* previousState)
 		return;
 	}
 
-	if(deploymentZones.size() < 2)
+	if(dto.deploymentZones.size() < 2)
 	{
 		handleMapLoadingError();
 		return;
 	}
 
+	board_ = dto.board;
 	g_scene.setBoard(board_);
-	for(auto& deploymentZone : deploymentZones)
+	for(auto& deploymentZone : dto.deploymentZones)
 	{
 		g_scene.addGameObject(deploymentZone);
 		deploymentZones_[deploymentZone->getPlayerId()] = deploymentZone;
