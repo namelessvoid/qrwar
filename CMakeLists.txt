@@ -11,10 +11,6 @@ set(EXECUTABLE_OUTPUT_PATH ${CMAKE_SOURCE_DIR}/bin)
 
 add_definitions("-Wall")
 
-# filesystem library
-add_library(stdc++fs UNKNOWN IMPORTED)
-set_property(TARGET stdc++fs PROPERTY IMPORTED_LOCATION "/usr/lib/libstdc++fs.a")
-
 # extern libraries
 find_package(SFML 2 REQUIRED graphics system window audio)
 if(SFML_FOUND)
@@ -37,23 +33,5 @@ endif(yaml-cpp_FOUND)
 # set include path
 include_directories(${QuadRuledWar_SOURCE_DIR}/include)
 
-# subdirectory with main code
 add_subdirectory(src)
-# subdirectory for tests
-enable_testing()
 add_subdirectory(test)
-
-# IDE stuff: Show headers and resources in IDEs like QtCreator or Visual Studio
-file(GLOB_RECURSE resource_files RELATIVE ${QuadRuledWar_SOURCE_DIR}
-    ${QuadRuledWar_SOURCE_DIR}/res/*
-)
-
-add_custom_target(res SOURCES
-    ${resource_files}
-)
-
-add_custom_target(travis SOURCES
-    .travis-scripts/before-install-sfml.sh
-    .travis-scripts/before-install-tinyxml2.sh
-    .travis.yml
-)
