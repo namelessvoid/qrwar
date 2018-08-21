@@ -12,11 +12,8 @@ set(EXECUTABLE_OUTPUT_PATH ${CMAKE_SOURCE_DIR}/bin)
 add_definitions("-Wall")
 
 # extern libraries
-find_package(SFML 2 REQUIRED graphics system window audio)
-if(SFML_FOUND)
-	include_directories(${SFML_INCLUDE_DIRS})
-	set(LIBS ${LIBS} ${SFML_LIBRARIES})
-endif(SFML_FOUND)
+find_package(SFML 2 REQUIRED graphics audio)
+set(LIBS ${LIBS} sfml-graphics sfml-audio)
 
 find_package(tinyxml2 REQUIRED)
 if(TINYXML2_FOUND)
