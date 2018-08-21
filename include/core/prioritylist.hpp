@@ -32,8 +32,8 @@ public:
     private:
         friend class PriorityList;
 
-        typename std::map<int,std::set<T>,std::greater<T>>::iterator mapPos_;
-        typename std::set<T>::iterator setPos_;
+        typename std::map<int,std::set<T>,std::greater<T>>::iterator positionInMap_;
+        typename std::set<T>::iterator positionInSet_;
         const PriorityList<T>& owner_;
     }; // class iterator
 
@@ -60,13 +60,13 @@ bool PriorityList<T>::iterator::operator==(const PriorityList<T>::iterator& rhs)
     if(&owner_ != &(rhs.owner_))
         return false;
     
-    if(mapPos_ != rhs.mapPos_)
+    if(positionInMap_ != rhs.positionInMap_)
         return false;
 
-    if(mapPos_ == owner_.items_.end())
+    if(positionInMap_ == owner_.items_.end())
         return true;
     
-    return setPos_ == rhs.setPos_;
+    return positionInSet_ == rhs.positionInSet_;
 }
 
 template<class T>
@@ -78,17 +78,17 @@ bool PriorityList<T>::iterator::operator!=(const PriorityList<T>::iterator& rhs)
 template<class T>
 typename PriorityList<T>::iterator& PriorityList<T>::iterator::operator++()
 {
-    ++setPos_;
+    ++positionInSet_;
 
-    if(setPos_ == mapPos_->second.end())
+    if(positionInSet_ == positionInMap_->second.end())
     {
-        ++mapPos_;
+        ++positionInMap_;
 
-        if(mapPos_ != owner_.items_.end())
+        if(positionInMap_ != owner_.items_.end())
         {
             // Sets must not be empty. This is ensured by PriorityList::erase().
-            assert(mapPos_->second.size()>0);
-            setPos_ = mapPos_->second.begin();
+            assert(positionInMap_->second.size()>0);
+            positionInSet_ = positionInMap_->second.begin();
         }
     }
 
@@ -98,7 +98,7 @@ typename PriorityList<T>::iterator& PriorityList<T>::iterator::operator++()
 template<class T>
 typename PriorityList<T>::iterator::reference PriorityList<T>::iterator::operator*() const
 {
-    return *setPos_;
+    return *positionInSet_;
 }
 
 template<class T>
@@ -140,9 +140,9 @@ template<class T>
 typename PriorityList<T>::iterator PriorityList<T>::begin()
 {
     iterator it(*this);
-    it.mapPos_ = items_.begin();
-    if(it.mapPos_ != items_.end())
-        it.setPos_ = it.mapPos_->second.begin();
+    it.positionInMap_ = items_.begin();
+    if(it.positionInMap_ != items_.end())
+        it.positionInSet_ = it.positionInMap_->second.begin();
 
     return it;
 }
@@ -151,7 +151,7 @@ template<class T>
 typename PriorityList<T>::iterator PriorityList<T>::end()
 {
     iterator it(*this);
-    it.mapPos_ = items_.end();
+    it.positionInMap_ = items_.end();
     return it;
 }
 
