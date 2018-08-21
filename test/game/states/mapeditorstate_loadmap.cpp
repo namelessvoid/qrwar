@@ -14,6 +14,7 @@ using ::testing::_;
 using ::testing::Return;
 using ::testing::ElementsAreArray;
 using ::testing::ElementsAre;
+using ::testing::Contains;
 
 namespace MapEditorState_LoadMap
 {
@@ -66,8 +67,16 @@ TEST(MapEditorState_LoadMap, Then_only_loaded_game_objects_are_in_scene)
 	// Assert
 	EXPECT_TRUE(qrw::g_scene.findSingleGameObject<qrw::Board>()!=nullptr);
 	EXPECT_THAT(qrw::g_scene.findGameObjects<qrw::DeploymentZone>(), ElementsAreArray(deploymentZones.data(), 2));
-	EXPECT_THAT(qrw::g_scene.findGameObjects<qrw::Terrain>(), ElementsAre(terrain1, terrain2));
-	EXPECT_THAT(qrw::g_scene.findGameObjects<qrw::Structure>(), ElementsAre(structure1, structure2));
+
+	auto terrains = qrw::g_scene.findGameObjects<qrw::Terrain>();
+	EXPECT_EQ(terrains.size(), 2);
+	EXPECT_THAT(terrains, Contains(terrain1));
+	EXPECT_THAT(terrains, Contains(terrain2));
+
+	auto structures = qrw::g_scene.findGameObjects<qrw::Structure>();
+	EXPECT_EQ(structures.size(), 2);
+	EXPECT_THAT(structures, Contains(structure1));
+	EXPECT_THAT(structures, Contains(structure2));
 
 	// Clean Up
 	qrw::g_scene.reset();
