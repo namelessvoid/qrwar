@@ -283,7 +283,9 @@ void MapEditorState::eraseDeploymentZone(const Coordinates& boardPosition)
 
 void MapEditorState::saveMap(const std::string& mapName)
 {
-	MapDto dto(_spBoard, deploymentZones_);
+	MapDto dto;
+	dto.board = _spBoard;
+	dto.deploymentZones = deploymentZones_;
 	mapManager.saveMap(mapName, dto);
 }
 

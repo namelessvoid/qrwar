@@ -28,10 +28,12 @@ MapDto MapManager::loadMap(
 	const std::string& mapName,
 	LoadErrors& error)
 {
+	MapDto mapDto;
+
 	if(!doesMapExist(mapName))
 	{
 		error = LoadErrors::MAP_NOT_FOUND;
-		return MapDto();
+		return mapDto;
 	}
 
 	const MetaClass* boardMetaClass = metaManager_.getMetaClassFor<Board>();
@@ -41,13 +43,12 @@ MapDto MapManager::loadMap(
 	if(!mapValidator_->validate(documents))
 	{
 		error = LoadErrors::MAP_VALIDATION_FAILED;
-		return MapDto();
+		return mapDto;
 	}
 
 	YAML::Node gameObjectsNode = documents.at(1);
 
-	std::vector<DeploymentZone*> deploymentZones;
-	Board* board = new Board();
+	mapDto.board = new Board();
 
 	for(auto node : gameObjectsNode)
 	{
@@ -56,16 +57,16 @@ MapDto MapManager::loadMap(
 		{
 			DeploymentZone* zone = new DeploymentZone();
 			deploymentZoneMetaClass->deserialize(zone, node);
-			deploymentZones.push_back(zone);
+			mapDto.deploymentZones.push_back(zone);
 		}
 		else if(nodeType == Board::typeName)
 		{
-			boardMetaClass->deserialize(board, node);
+			boardMetaClass->deserialize(mapDto.board, node);
 		}
 	}
 
 	error = LoadErrors::SUCCESS;
-	return MapDto(board, deploymentZones);
+	return mapDto;
 }
 
 bool MapManager::doesMapExist(const std::string& mapName)

@@ -47,7 +47,9 @@ TEST(MapEditorState_LoadMap, Then_only_loaded_game_objects_are_in_scene)
 	auto deploymentZone2 = new qrw::DeploymentZone();
 	std::vector<qrw::DeploymentZone*> deploymentZones{deploymentZone1, deploymentZone2};
 
-	qrw::MapDto mapDto(board, deploymentZones);
+	qrw::MapDto mapDto;
+	mapDto.board = board;
+	mapDto.deploymentZones = deploymentZones;
 
 	EXPECT_CALL(mapManager, doesMapExist("TestMap"))
 			.WillOnce(Return(true));

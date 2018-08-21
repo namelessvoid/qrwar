@@ -48,7 +48,9 @@ TEST(DeployState_Init, Then_game_objects_are_added_to_scene)
 
 	// Assert Mocks
 	MapManagerMock mapManager(metaManager);
-	qrw::MapDto mapDto(board, deploymentZones);
+	qrw::MapDto mapDto;
+	mapDto.board = board;
+	mapDto.deploymentZones = deploymentZones;
 	EXPECT_CALL(mapManager, getMapList())
 		.WillOnce(Return(std::vector<std::string>{"HelloMap"}));
 	EXPECT_CALL(mapManager, loadMap("HelloMap", _))
