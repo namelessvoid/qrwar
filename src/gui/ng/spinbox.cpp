@@ -131,7 +131,7 @@ void SpinBox::setValueFromLineInput()
 
 		signalChanged.emit(value_);
 	}
-	catch(std::invalid_argument)
+	catch(std::invalid_argument&)
 	{
 		lineInput_->setText(std::to_string(minValue_));
 	}
