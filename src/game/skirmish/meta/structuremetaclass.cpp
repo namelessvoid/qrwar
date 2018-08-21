@@ -1,5 +1,7 @@
 #include "game/skirmish/meta/structuremetaclass.hpp"
 
+#include <memory>
+
 #include "meta/properties/tclassproperty.hpp"
 #include "meta/properties/tproperty.hpp"
 

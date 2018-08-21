@@ -77,7 +77,7 @@ Path* AStar<TSpatialRepresentation>::findPath(const TSpatialRepresentation& star
 				// Coordinates are not put into openlist
 				if(_openlist.find(neighbor) == _openlist.end())
 				{
-					tmpnode = new Node(neighbor);
+					tmpnode = new Node<qrw::Coordinates>(neighbor);
 					tmpnode->setG(currentnode->getG() + 1);
 					tmpnode->setH(neighbor.distanceTo(end));
 					tmpnode->setParent(currentnode);

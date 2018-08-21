@@ -32,7 +32,7 @@ public:
     private:
         friend class PriorityList;
 
-        typename std::map<int,std::set<T>,std::greater<T>>::iterator positionInMap_;
+        typename std::map<int,std::set<T>,std::greater<int>>::iterator positionInMap_;
         typename std::set<T>::iterator positionInSet_;
         const PriorityList<T>& owner_;
     }; // class iterator

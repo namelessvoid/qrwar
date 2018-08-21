@@ -106,7 +106,7 @@ void SpinBox::validateLineInput()
 		else
 			lineInput_->setOutlineColor(DEFAULT_OUTLINE_COLOR);
 	}
-	catch(std::invalid_argument)
+	catch(std::invalid_argument&)
 	{
 		lineInput_->setOutlineColor(ERROR_OUTLINE_COLOR);
 	}
