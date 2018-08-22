@@ -20,7 +20,7 @@ MapEditorToolBar::MapEditorToolBar(unsigned int initialBoardWidth, unsigned int 
 	setButtonSize({48, 48});
 	addTab(textureManager->getTexture("wheel"), createConfigToolsWindow(initialBoardWidth, initialBoardHeight));
 	addTab(textureManager->getTexture("wood"), createTerrainToolsWindow());
-	addTab(textureManager->getTexture("wall"), createStructureToolsWindow());
+	addTab(textureManager->getTexture("wall_00000000"), createStructureToolsWindow());
 	addTab(textureManager->getTexture("default"), createDeploymentZoneToolsWindow());
 }
 
@@ -130,7 +130,7 @@ namelessgui::Window* MapEditorToolBar::createStructureToolsWindow()
 	radioButton->setText("Wall");
 	radioButton->setSize(BUTTON_SIZE);
 	radioButton->setRelativePosition({5.0f, 1 * BUTTON_SIZE.y + BUTTON_Y_OFFSET});
-	radioButton->setImage(TextureManager::getInstance()->getTexture("wall"));
+	radioButton->setImage(TextureManager::getInstance()->getTexture("wall_00000000"));
 	radioButton->signalActivated.connect([this] { signalStructureClicked.emit(Structure::Type::WALL); });
 	structureWindow->addWidget(radioButton);
 

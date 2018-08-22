@@ -26,7 +26,7 @@ void Structure::onAddToScene()
 	setPosition(getPosition());
 
 	if(type_ == Type::WALL)
-		spriteComponent_->setTexture(TextureManager::getInstance()->getTexture("wall"));
+		spriteComponent_->setTexture(TextureManager::getInstance()->getTexture("wall_00000000"));
 	else
 		spriteComponent_->setTexture(TextureManager::getInstance()->getTexture("stairs"));
 }
