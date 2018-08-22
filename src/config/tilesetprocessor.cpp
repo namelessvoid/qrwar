@@ -12,9 +12,6 @@ namespace qrw
 		setParsingErrorMsg("TilesetProcessor parsing error: ");
 	}
 
-	TilesetProcessor::~TilesetProcessor()
-	{
-	}
 
 	int TilesetProcessor::loadTileset(std::string filepath)
 	{
@@ -27,39 +24,39 @@ namespace qrw
 			return -1;
 		}
 
-		tinyxml2::XMLElement* tilesetroot = doc.FirstChildElement("tileset");
-		if(tilesetroot == NULL)
+		tinyxml2::XMLElement* tileset = doc.FirstChildElement("tileset");
+		if(tileset == nullptr)
 		{
 			std::cout << getParsingErrorMsg() << "no child element 'tileset'" << std::endl;
 			return -1;
 		}
 
-		// Get the texture file path
-		tinyxml2::XMLElement* tilesetchild = tilesetroot->FirstChildElement("file");
-		if(tilesetchild == NULL)
+		tinyxml2::XMLElement* file = tileset->FirstChildElement("file");
+		if(file == nullptr)
 		{
-			std::cout << getParsingErrorMsg() << "no child element 'file'" << std::endl;
-			return -1;
-		}
-		std::string texturefilepath = tilesetchild->Attribute("href");
-
-		// Parse tiles
-		tilesetchild = tilesetroot->FirstChildElement("tiles");
-		if(tilesetchild == NULL)
-		{
-			std::cout << getParsingErrorMsg() << "no child element 'tiles'" << std::endl;
+			std::cout << getParsingErrorMsg() << "no child element 'file' in 'tileset'" << std::endl;
 			return -1;
 		}
 
-		for(tilesetchild = tilesetchild->FirstChildElement("tile");
-			tilesetchild != NULL; tilesetchild = tilesetchild->NextSiblingElement())
+		for(file = tileset->FirstChildElement("file");
+			file != nullptr;
+			file = file->NextSiblingElement())
 		{
-			if(processTile(tilesetchild, texturefilepath) == false)
+			std::string texturefilepath = file->Attribute("path");
+
+			tinyxml2::XMLElement* tile;
+			for (tile = file->FirstChildElement("tile");
+				 tile != nullptr;
+				 tile = tile->NextSiblingElement())
 			{
-				std::cout << getParsingErrorMsg() << "failed parsing tile.\n";
-				return -1;
+				if (!processTile(tile, texturefilepath))
+				{
+					std::cout << getParsingErrorMsg() << "failed parsing tile.\n";
+					return -1;
+				}
 			}
 		}
+
 		return 0;
 	}
 
