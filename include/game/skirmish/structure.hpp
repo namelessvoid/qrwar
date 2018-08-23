@@ -20,6 +20,8 @@ public:
 	Structure();
 
 	void onAddToScene() override;
+	void initialize() override;
+	void onDestroy() override;
 
 	void setPosition(const Coordinates& position);
 	const Coordinates& getPosition() const { return position_; }
@@ -27,6 +29,9 @@ public:
 	void setType(Type type) { type_ = type; }
 
 private:
+	void computeTexture();
+	void updateNeighborTextures();
+
 	SpriteComponent* spriteComponent_;
 	Coordinates position_;
 
