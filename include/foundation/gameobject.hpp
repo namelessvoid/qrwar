@@ -19,11 +19,16 @@ class GameComponent;
 class GameObject : public Reflectable
 {
 public:
-	virtual ~GameObject();
+	GameObject();
+
+	~GameObject() override;
 
 	virtual void onDestroy() {}
 
 	virtual void onAddToScene() {}
+
+	virtual void initialize() { initialized_ = true; }
+	bool isInitialized() { return initialized_; }
 
 	void addComponent(GameComponent* component);
 
@@ -33,6 +38,8 @@ public:
 	T* getComponent();
 
 private:
+	bool initialized_;
+
 	std::map<std::type_index, GameComponent*> _components;
 };
 

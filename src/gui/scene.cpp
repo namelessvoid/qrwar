@@ -80,6 +80,7 @@ void Scene::update(float elapsedTimeInSeconds)
 	{
 		for(auto& gameObject : gameObjectsIter.second)
 		{
+			if(!gameObject->isInitialized()) gameObject->initialize();
 			gameObject->update(elapsedTimeInSeconds);
 		}
 	}

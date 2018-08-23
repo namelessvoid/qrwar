@@ -7,6 +7,11 @@
 namespace qrw
 {
 
+GameObject::GameObject()
+	: initialized_(false)
+{
+}
+
 GameObject::~GameObject()
 {
 	for(auto componentIterator : _components)
