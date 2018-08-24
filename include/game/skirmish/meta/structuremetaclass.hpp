@@ -15,7 +15,7 @@ public:
 
 	void serialize(const Reflectable* object, YAML::Emitter& out) const override;
 
-	void deserialize(Reflectable* object, const YAML::Node& in) const override;
+	Reflectable* deserialize(const YAML::Node& in) const override;
 
 	std::type_index getTypeIndex() const override;
 

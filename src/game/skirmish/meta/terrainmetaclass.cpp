@@ -29,13 +29,12 @@ void TerrainMetaClass::serialize(const Reflectable* object, YAML::Emitter& out) 
 		<< YAML::EndMap;
 }
 
-void TerrainMetaClass::deserialize(Reflectable* gameObject, const YAML::Node& in) const
+Reflectable* TerrainMetaClass::deserialize(const YAML::Node& in) const
 {
-	assert(dynamic_cast<Terrain*>(gameObject)!=nullptr);
-
-	Terrain* terrain = static_cast<Terrain*>(gameObject);
+	Terrain* terrain = new Terrain();
 	terrain->setPosition({in["position_"]["x_"].as<int>(), in["position_"]["y_"].as<int>()});
 	terrain->_type = static_cast<TERRAINTYPES>(in["type_"].as<int>());
+	return terrain;
 }
 
 std::type_index TerrainMetaClass::getTypeIndex() const

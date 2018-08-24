@@ -19,7 +19,7 @@ public:
 
 	virtual void serialize(const Reflectable* object, YAML::Emitter& out) const = 0;
 
-	virtual void deserialize(Reflectable* object, const YAML::Node& in) const = 0;
+	virtual Reflectable* deserialize(const YAML::Node& in) const = 0;
 
     virtual std::type_index getTypeIndex() const = 0;
 

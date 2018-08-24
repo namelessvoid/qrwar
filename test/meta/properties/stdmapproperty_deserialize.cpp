@@ -7,6 +7,7 @@ using testing::_;
 using testing::WhenDynamicCastTo;
 using testing::IsEmpty;
 using testing::Property;
+using testing::Return;
 
 TEST(StdMapProperty_Deserialize, Then_key_and_value_are_deserialized)
 {
@@ -29,14 +30,14 @@ TEST(StdMapProperty_Deserialize, Then_key_and_value_are_deserialized)
 	auto keyMetaClassMock = static_cast<const KeyMetaClassMock*>(metaManager.getMetaClassFor<KeyStub>());
 	auto valueMetaClassMock = static_cast<const ValueStubMetaClass*>(metaManager.getMetaClassFor<ValueStub>());
 
-	EXPECT_CALL(*keyMetaClassMock, deserialize(WhenDynamicCastTo<KeyStub*>(_), Property(&YAML::Node::as<std::string>, "firstKey")))
-		.WillOnce(DeserializeKey(1));
-	EXPECT_CALL(*keyMetaClassMock, deserialize(WhenDynamicCastTo<KeyStub*>(_), Property(&YAML::Node::as<std::string>, "secondKey")))
-		.WillOnce(DeserializeKey(2));
-	EXPECT_CALL(*valueMetaClassMock, deserialize(WhenDynamicCastTo<ValueStub*>(_), Property(&YAML::Node::as<std::string>, "firstValue")))
-		.WillOnce(DeserializeValue(1));
-	EXPECT_CALL(*valueMetaClassMock, deserialize(WhenDynamicCastTo<ValueStub*>(_), Property(&YAML::Node::as<std::string>, "secondValue")))
-		.WillOnce(DeserializeValue(2));
+	EXPECT_CALL(*keyMetaClassMock, deserialize(Property(&YAML::Node::as<std::string>, "firstKey")))
+		.WillOnce(Return(new KeyStub(1)));
+	EXPECT_CALL(*keyMetaClassMock, deserialize(Property(&YAML::Node::as<std::string>, "secondKey")))
+		.WillOnce(Return(new KeyStub(2)));
+	EXPECT_CALL(*valueMetaClassMock, deserialize(Property(&YAML::Node::as<std::string>, "firstValue")))
+		.WillOnce(Return(new ValueStub(1)));
+	EXPECT_CALL(*valueMetaClassMock, deserialize(Property(&YAML::Node::as<std::string>, "secondValue")))
+		.WillOnce(Return(new ValueStub(2)));
 
 	// Act
 	stdMapProperty.deserialize(&reflectableStub, node);

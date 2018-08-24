@@ -1,9 +1,12 @@
 #include <gtest/gtest.h>
+#include <gmock/gmock-matchers.h>
 
 #include "meta/metamanager.hpp"
 
 #include "game/skirmish/meta/deploymentzonemetaclass.hpp"
 #include "game/deploymentzone.hpp"
+
+using ::testing::NotNull;
 
 TEST(DeploymentZoneMetaClass_Deserialize, Then_all_properties_are_initialized)
 {
@@ -19,14 +22,16 @@ TEST(DeploymentZoneMetaClass_Deserialize, Then_all_properties_are_initialized)
 	qrw::MetaManager metaManager;
 	qrw::DeploymentZoneMetaClass deploymentZoneMetaClass(metaManager);
 
-	qrw::DeploymentZone deploymentZone;
-
 	// Act
-	deploymentZoneMetaClass.deserialize(&deploymentZone, node);
+	qrw::DeploymentZone* deploymentZone = dynamic_cast<qrw::DeploymentZone*>(deploymentZoneMetaClass.deserialize(node));
 
 	// Assert
-	EXPECT_EQ(deploymentZone.getPlayerId(), 2);
-	EXPECT_EQ(deploymentZone.getSize(), 2);
-	EXPECT_TRUE(deploymentZone.containsSquare({11, 12}));
-	EXPECT_TRUE(deploymentZone.containsSquare({4, 5}));
+	ASSERT_THAT(deploymentZone, NotNull());
+
+	EXPECT_EQ(deploymentZone->getPlayerId(), 2);
+	EXPECT_EQ(deploymentZone->getSize(), 2);
+	EXPECT_TRUE(deploymentZone->containsSquare({11, 12}));
+	EXPECT_TRUE(deploymentZone->containsSquare({4, 5}));
+
+	delete deploymentZone;
 }

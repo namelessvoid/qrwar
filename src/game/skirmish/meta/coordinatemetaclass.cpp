@@ -20,12 +20,13 @@ void CoordinateMetaClass::serialize(const Reflectable* in, YAML::Emitter& yaml) 
 	yaml << YAML::EndMap;
 }
 
-void CoordinateMetaClass::deserialize(Reflectable* out, const YAML::Node& yaml) const
+Reflectable* CoordinateMetaClass::deserialize(const YAML::Node& yaml) const
 {
-	assert(dynamic_cast<Coordinates*>(out)!=nullptr);
 
+	auto coordinate = new Coordinates;
 	for(auto& property : properties_)
-		property->deserialize(out, yaml);
+		property->deserialize(coordinate, yaml);
+	return coordinate;
 }
 
 std::type_index CoordinateMetaClass::getTypeIndex() const

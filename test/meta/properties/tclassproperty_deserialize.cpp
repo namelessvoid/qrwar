@@ -7,6 +7,7 @@
 using ::testing::_;
 using ::testing::WhenDynamicCastTo;
 using ::testing::Property;
+using ::testing::Return;
 
 TEST(TClassProperty_Deserialize, Then_property_is_deserialized)
 {
@@ -18,8 +19,8 @@ TEST(TClassProperty_Deserialize, Then_property_is_deserialized)
 	metaManager.registerMetaClass<ValueStubMetaClass>(ValueStub::typeName);
 
 	auto valueStubMetaClass = static_cast<const ValueStubMetaClass*>(metaManager.getMetaClassFor<ValueStub>());
-	EXPECT_CALL(*valueStubMetaClass, deserialize(WhenDynamicCastTo<ValueStub*>(_), Property(&YAML::Node::as<std::string>, propertyValue)))
-			.WillOnce(DeserializeValue(12));
+	EXPECT_CALL(*valueStubMetaClass, deserialize(Property(&YAML::Node::as<std::string>, propertyValue)))
+			.WillOnce(Return(new ValueStub(12)));
 
 	qrw::TClassProperty<ReflectableStub,ValueStub> classProperty(&ReflectableStub::classProperty, propertyName, metaManager);
 

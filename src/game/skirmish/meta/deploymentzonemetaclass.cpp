@@ -12,10 +12,6 @@ DeploymentZoneMetaClass::DeploymentZoneMetaClass(const MetaManager& metaManager)
 {
 }
 
-DeploymentZoneMetaClass::~DeploymentZoneMetaClass()
-{
-}
-
 void DeploymentZoneMetaClass::serialize(const Reflectable* object, YAML::Emitter& out) const
 {
     const DeploymentZone* deploymentZone = dynamic_cast<const DeploymentZone*>(object);
@@ -40,19 +36,18 @@ void DeploymentZoneMetaClass::serialize(const Reflectable* object, YAML::Emitter
     out << YAML::EndMap;
 }
 
-void DeploymentZoneMetaClass::deserialize(Reflectable* gameObject, const YAML::Node& in) const
+Reflectable* DeploymentZoneMetaClass::deserialize(const YAML::Node& in) const
 {
-    assert(in["type"].as<std::string>() == DeploymentZone::typeName.getStringId());
-    assert(dynamic_cast<DeploymentZone*>(gameObject) != nullptr);
-
-    auto typedObject = static_cast<DeploymentZone*>(gameObject);
+    auto deploymentZone = new DeploymentZone();
 
     YAML::Node squareNodes = in["zone_"];
     for(auto squareNode : squareNodes)
     {
-        typedObject->addSquare({squareNode["x"].as<int>(), squareNode["y"].as<int>()});
+        deploymentZone->addSquare({squareNode["x"].as<int>(), squareNode["y"].as<int>()});
     }
-    typedObject->setPlayerId(in["playerId"].as<int>());
+    deploymentZone->setPlayerId(in["playerId"].as<int>());
+
+    return deploymentZone;
 }
 
 std::type_index DeploymentZoneMetaClass::getTypeIndex() const

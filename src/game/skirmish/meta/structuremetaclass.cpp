@@ -25,10 +25,12 @@ void StructureMetaClass::serialize(const Reflectable* object, YAML::Emitter& out
 	out << YAML::EndMap;
 }
 
-void StructureMetaClass::deserialize(Reflectable* object, const YAML::Node& in) const
+Reflectable* StructureMetaClass::deserialize(const YAML::Node& in) const
 {
+	auto structure = new Structure();
 	for(auto& property : properties_)
-		property->deserialize(object, in);
+		property->deserialize(structure, in);
+	return structure;
 }
 
 std::type_index StructureMetaClass::getTypeIndex() const

@@ -33,10 +33,12 @@ void BoardMetaClass::serialize(const Reflectable* object, YAML::Emitter& out) co
 	out << YAML::EndMap;
 }
 
-void BoardMetaClass::deserialize(Reflectable* gameObject, const YAML::Node& in) const
+Reflectable* BoardMetaClass::deserialize(const YAML::Node& in) const
 {
+	auto board = new Board();
 	for(auto& property : properties_)
-		property->deserialize(gameObject, in);
+		property->deserialize(board, in);
+	return board;
 }
 
 std::type_index BoardMetaClass::getTypeIndex() const

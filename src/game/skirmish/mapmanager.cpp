@@ -48,20 +48,17 @@ MapDto MapManager::loadMap(
 
 	YAML::Node gameObjectsNode = documents.at(1);
 
-	mapDto.board = new Board();
-
 	for(auto node : gameObjectsNode)
 	{
 		const SID nodeType(node["type"].as<std::string>());
 		if(nodeType == DeploymentZone::typeName)
 		{
-			DeploymentZone* zone = new DeploymentZone();
-			deploymentZoneMetaClass->deserialize(zone, node);
+			DeploymentZone* zone = static_cast<DeploymentZone*>(deploymentZoneMetaClass->deserialize(node));
 			mapDto.deploymentZones.push_back(zone);
 		}
 		else if(nodeType == Board::typeName)
 		{
-			boardMetaClass->deserialize(mapDto.board, node);
+			mapDto.board = static_cast<Board*>(boardMetaClass->deserialize(node));
 		}
 	}
 

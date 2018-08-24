@@ -9,15 +9,13 @@ namespace qrw {
 class DeploymentZoneMetaClass final : public MetaClass
 {
 public:
-	DeploymentZoneMetaClass(const MetaManager& metaManager);
+	explicit DeploymentZoneMetaClass(const MetaManager& metaManager);
 
-	virtual ~DeploymentZoneMetaClass();
+	void serialize(const Reflectable* object, YAML::Emitter& out) const override;
 
-	virtual void serialize(const Reflectable* object, YAML::Emitter& out) const;
+	Reflectable* deserialize(const YAML::Node& in) const override;
 
-	virtual void deserialize(Reflectable* gameObject, const YAML::Node& in) const;
-
-    virtual std::type_index getTypeIndex() const;
+    std::type_index getTypeIndex() const override;
 
 private:
 	DeploymentZoneMetaClass(const DeploymentZoneMetaClass& rhs) = delete;

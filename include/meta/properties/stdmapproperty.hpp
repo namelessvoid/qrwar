@@ -9,6 +9,8 @@
 
 namespace qrw {
 
+/// Serializes an std::map<TKey,TValue> within class TClass.
+/// Note: TKey must be a non-pointer/non-reference type  and TValue must be a pointer type
 template<typename TClass, typename TKey,typename TValue>
 class StdMapProperty : public IProperty
 {
@@ -60,13 +62,12 @@ public:
 		const YAML::Node& mapNode = in[getName()];
 		for(YAML::const_iterator nodeIter = mapNode.begin(); nodeIter != mapNode.end(); ++nodeIter)
 		{
-			TKey key;
-			keyMetaClass->deserialize(&key, (*nodeIter)["key"]);
+			TKey* key = static_cast<TKey*>(keyMetaClass->deserialize((*nodeIter)["key"]));
+			TValue* value = static_cast<TValue*>(valueMetaClass->deserialize((*nodeIter)["value"]));
 
-			TValue* value = new TValue();
-			valueMetaClass->deserialize(value, (*nodeIter)["value"]);
+			binding()[*key] = value;
 
-			binding()[key] = value;
+			delete key;
 		}
 	}
 

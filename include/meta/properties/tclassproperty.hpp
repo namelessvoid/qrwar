@@ -12,6 +12,8 @@
 namespace qrw
 {
 
+/// Deserialize a property of type TPropertyClass (must not be pointer nor reference)
+/// on class TClass
 template<class TClass, class TPropertyClass>
 class TClassProperty : public IProperty
 {
@@ -43,8 +45,10 @@ public:
 		auto binding = std::bind(TClassProperty<TClass,TPropertyClass>::member_, typedObject);
 
 		auto metaClass = getMetaManager().getMetaClassFor<TPropertyClass>();
+		auto value = metaClass->deserialize(in[getName()]);
+		binding() = *static_cast<TPropertyClass*>(value);
 
-		metaClass->deserialize(&binding(), in[getName()]);
+		delete value;
 	}
 
 private:

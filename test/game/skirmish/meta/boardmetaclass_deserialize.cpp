@@ -24,8 +24,6 @@ TEST(BoardMetaClass_Deserialize, Then_all_properties_are_initialized)
 	metaManager.registerMetaClass<qrw::TerrainMetaClass>(qrw::Terrain::typeName);
 	metaManager.registerMetaClass<qrw::StructureMetaClass>(qrw::Structure::typeName);
 
-	qrw::Board board;
-
 	const qrw::MetaClass* boardMetaClass = metaManager.getMetaClassFor<qrw::Board>();
 
 	YAML::Node node;
@@ -42,10 +40,14 @@ TEST(BoardMetaClass_Deserialize, Then_all_properties_are_initialized)
 	node["structures_"][0]["value"]["position_"]["_y"] = 12;
 	node["structures_"][0]["value"]["type_"] = 12;
 
-	boardMetaClass->deserialize(&board, node);
+	qrw::Board* board = dynamic_cast<qrw::Board*>(boardMetaClass->deserialize(node));
 
-	EXPECT_EQ(board.getWidth(), 12);
-	EXPECT_EQ(board.getHeight(), 13);
-	EXPECT_EQ(board.getTerrains().size(), 1);
-	ASSERT_THAT(board.getStructure({11, 12}), NotNull());
+	ASSERT_THAT(board, NotNull());
+
+	EXPECT_EQ(board->getWidth(), 12);
+	EXPECT_EQ(board->getHeight(), 13);
+	EXPECT_EQ(board->getTerrains().size(), 1);
+	ASSERT_THAT(board->getStructure({11, 12}), NotNull());
+
+	delete board;
 }

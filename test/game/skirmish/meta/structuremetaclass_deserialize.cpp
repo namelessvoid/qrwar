@@ -1,11 +1,14 @@
 #include <gtest/gtest.h>
-#include <game/skirmish/meta/coordinatemetaclass.hpp>
+#include <gmock/gmock-matchers.h>
 
+#include "game/skirmish/meta/coordinatemetaclass.hpp"
 #include "game/skirmish/meta/structuremetaclass.hpp"
 
 #include "meta/metamanager.hpp"
 
 #include "game/skirmish/structure.hpp"
+
+using ::testing::NotNull;
 
 TEST(StructureMetaClass_Deserialize, Then_all_properties_are_deserialized)
 {
@@ -14,16 +17,17 @@ TEST(StructureMetaClass_Deserialize, Then_all_properties_are_deserialized)
 	metaManager.registerMetaClass<qrw::CoordinateMetaClass>(qrw::Coordinates::typeName);
 	qrw::StructureMetaClass structureMetaClass(metaManager);
 
-	qrw::Structure structure;
-
 	YAML::Node node;
 	node["position_"]["_x"] = 12;
 	node["position_"]["_y"] = 13;
 	node["type_"] = 1;
 
 	// Act
-	structureMetaClass.deserialize(&structure, node);
+	qrw::Structure* structure = dynamic_cast<qrw::Structure*>(structureMetaClass.deserialize(node));
 
 	// Assert
-	EXPECT_EQ(structure.getPosition(), qrw::Coordinates(12, 13));
+	ASSERT_THAT(structure, NotNull());
+	EXPECT_EQ(structure->getPosition(), qrw::Coordinates(12, 13));
+
+	delete structure;
 }

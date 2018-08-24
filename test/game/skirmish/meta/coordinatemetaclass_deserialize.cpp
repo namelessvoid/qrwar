@@ -18,12 +18,14 @@ public:
 		YAML::Node node;
 		node["_x"] = 12;
 		node["_y"] = 13;
-		qrw::Coordinates coordinates;
 
-		metaClass.deserialize(&coordinates, node);
+		auto coordinate = dynamic_cast<qrw::Coordinates*>(metaClass.deserialize(node));
 
-		CPPUNIT_ASSERT_EQUAL(12, coordinates.getX());
-		CPPUNIT_ASSERT_EQUAL(13, coordinates.getY());
+		CPPUNIT_ASSERT(coordinate != nullptr);
+		CPPUNIT_ASSERT_EQUAL(12, coordinate->getX());
+		CPPUNIT_ASSERT_EQUAL(13, coordinate->getY());
+
+		delete coordinate;
 	}
 };
 

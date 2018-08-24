@@ -14,8 +14,8 @@ namespace qrw {
 class MetaManager
 {
 public:
-    MetaManager();
-    ~MetaManager();
+    MetaManager() = default;
+    ~MetaManager() = default;
 
     template<class TMetaClass>
     void registerMetaClass(const SID& typeName);
@@ -46,7 +46,6 @@ const MetaClass* MetaManager::getMetaClassFor() const
 
     return metaClasses_.find(TClass::typeName)->second.get();
 }
-
 
 } // namespace qrw
 

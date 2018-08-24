@@ -52,7 +52,6 @@ void Structure::setPosition(const Coordinates& position)
 void Structure::computeTexture()
 {
 	std::string textureName = "wall";
-
 	Board* board = g_scene.findSingleGameObject<Board>();
 	if(board)
 	{

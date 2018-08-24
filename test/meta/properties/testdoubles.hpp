@@ -24,6 +24,9 @@ class ValueStub : public qrw::Reflectable
 public:
 	static qrw::SID typeName;
 	int id;
+
+	ValueStub(int id = 0) : id(id) {}
+	ValueStub& operator=(const ValueStub& rhs) = default;
 };
 
 class ReflectableStub : public qrw::Reflectable
@@ -40,8 +43,8 @@ class KeyMetaClassMock : public qrw::MetaClass
 public:
 	KeyMetaClassMock(qrw::MetaManager& metaManager) : qrw::MetaClass(metaManager) {}
 
-	MOCK_CONST_METHOD2(serialize, void(const qrw::Reflectable*, YAML::Emitter&));
-	MOCK_CONST_METHOD2(deserialize, void(qrw::Reflectable*, const YAML::Node&));
+	MOCK_CONST_METHOD2(serialize, void(const qrw::Reflectable* object, YAML::Emitter& out));
+	MOCK_CONST_METHOD1(deserialize, qrw::Reflectable*(const YAML::Node& in));
 	MOCK_CONST_METHOD0(getTypeIndex, std::type_index());
 };
 
@@ -51,12 +54,10 @@ public:
 	ValueStubMetaClass(const qrw::MetaManager& metaManager) : MetaClass(metaManager) {}
 
 	MOCK_CONST_METHOD2(serialize, void(const qrw::Reflectable* object, YAML::Emitter& out));
-	MOCK_CONST_METHOD2(deserialize, void(qrw::Reflectable* object, const YAML::Node& in));
+	MOCK_CONST_METHOD1(deserialize, qrw::Reflectable*(const YAML::Node& in));
 	MOCK_CONST_METHOD0(getTypeIndex, std::type_index());
 };
 
 ACTION_P(SerializeToYaml, scalar) { arg1 << scalar; }
-ACTION_P(DeserializeKey, id) { dynamic_cast<KeyStub*>(arg0)->id = id; }
-ACTION_P(DeserializeValue, id) { dynamic_cast<ValueStub*>(arg0)->id = id; }
 
 #endif //TESTDOUBLES_HPP

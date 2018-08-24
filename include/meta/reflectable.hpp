@@ -6,10 +6,6 @@ namespace qrw {
 class Reflectable
 {
 public:
-	Reflectable(const Reflectable& rhs) = delete;
-
-	Reflectable& operator=(const Reflectable& rhs) = delete;
-
 	Reflectable() = default;
 
 	virtual ~Reflectable() = default;
