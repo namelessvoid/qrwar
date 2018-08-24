@@ -20,6 +20,7 @@ StructureMetaClass::StructureMetaClass(const MetaManager& metaManager)
 void StructureMetaClass::serialize(const Reflectable* object, YAML::Emitter& out) const
 {
 	out << YAML::BeginMap;
+	serializeTypeName(Structure::typeName.getStringId(), out);
 	for(auto& property : properties_)
 		property->serialize(object, out);
 	out << YAML::EndMap;

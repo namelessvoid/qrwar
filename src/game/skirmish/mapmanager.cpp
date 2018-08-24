@@ -50,7 +50,7 @@ MapDto MapManager::loadMap(
 
 	for(auto node : gameObjectsNode)
 	{
-		const SID nodeType(node["type"].as<std::string>());
+		const SID nodeType(node[MetaClass::TYPE_NAME_YAML_KEY].as<std::string>());
 		if(nodeType == DeploymentZone::typeName)
 		{
 			DeploymentZone* zone = static_cast<DeploymentZone*>(deploymentZoneMetaClass->deserialize(node));

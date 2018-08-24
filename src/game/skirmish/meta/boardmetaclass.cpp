@@ -25,8 +25,8 @@ BoardMetaClass::BoardMetaClass(const MetaManager& metaManager)
 void BoardMetaClass::serialize(const Reflectable* object, YAML::Emitter& out) const
 {
 	out << YAML::BeginMap;
-	out << YAML::Key << "type" << YAML::Value << Board::typeName.getStringId();
 
+	serializeTypeName(Board::typeName.getStringId(), out);
 	for(auto& property : properties_)
 		property->serialize(object, out);
 

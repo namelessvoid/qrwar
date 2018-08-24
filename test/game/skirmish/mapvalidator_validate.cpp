@@ -3,6 +3,8 @@
 
 #include "core/logger.hpp"
 
+#include "meta/metaclass.hpp"
+
 #include "game/skirmish/mapvalidator.hpp"
 
 class MapValidator_validate : public CppUnit::TestFixture
@@ -61,9 +63,11 @@ public:
         qrw::MapValidator mapValidator(log);
 
         auto documents = createValidMapContent();
-        documents[1][0].remove("type");
+        documents[1][0].remove(qrw::MetaClass::TYPE_NAME_YAML_KEY);
 
-        const std::string expectedWarning = "(warn) MapValidator: Object does not contain mandatory \"type\" key\n";
+        const std::string expectedWarning = "(warn) MapValidator: Object does not contain mandatory \""
+                                            + qrw::MetaClass::TYPE_NAME_YAML_KEY
+                                            + "\" key\n";
 
         // Act
         bool validationResult = mapValidator.validate(documents);
@@ -82,9 +86,11 @@ public:
         qrw::MapValidator mapValidator(log);
 
         auto documents = createValidMapContent();
-        documents[1][0]["type"] = "qrw::Cursor";
+        documents[1][0][qrw::MetaClass::TYPE_NAME_YAML_KEY] = "qrw::Cursor";
 
-        const std::string expectedWarning = "(warn) MapValidator: Object has invalid \"type\": \"qrw::Cursor\"\n";
+        const std::string expectedWarning = "(warn) MapValidator: Object has invalid \""
+											+ qrw::MetaClass::TYPE_NAME_YAML_KEY
+											+ "\": \"qrw::Cursor\"\n";
 
         // Act
         bool validationResult = mapValidator.validate(documents);
@@ -106,8 +112,6 @@ public:
         auto objects = documents[1].as<std::vector<YAML::Node>>();
         objects.erase(objects.begin());
         documents[1] = objects;
-
-        std::cout << documents[1] << std::endl << std::flush;
 
         std::string expectedWarning = "(warn) MapValidator: Map must contain exactly one \"qrw::Board\"\n";
 
@@ -132,8 +136,6 @@ public:
         objects.erase(++objects.begin());
         documents[1] = objects;
 
-        std::cout << documents[1] << std::endl << std::flush;
-
         std::string expectedWarning = "(warn) MapValidator: Map must contain at least two \"qrw::DeploymentZone\"s\n";
 
         // Act
@@ -153,12 +155,12 @@ private:
             "short-description: This is a map to test the MapValidator\n"
             "player-count: 2\n"
             "---\n"
-            "- type: qrw::Board\n"
+            "- $type: qrw::Board\n"
             "  size:\n"
             "    width: 16\n"
             "    height: 10\n"
-            "- type: qrw::DeploymentZone\n"
-            "- type: qrw::DeploymentZone\n"
+            "- $type: qrw::DeploymentZone\n"
+            "- $type: qrw::DeploymentZone\n"
         );
     }
 };

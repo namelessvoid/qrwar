@@ -2,6 +2,12 @@
 
 #include <iostream>
 
+#include "meta/metaclass.hpp"
+#include "core/sid.hpp"
+
+#include "engine/board.hpp"
+#include "game/deploymentzone.hpp"
+
 namespace qrw
 {
 
@@ -39,20 +45,20 @@ bool MapValidator::validateObjectsDocument(const YAML::Node& objects) const
 
     for(auto& object : objects)
     {
-        if(!object["type"])
+        if(!object[MetaClass::TYPE_NAME_YAML_KEY])
         {
-            logger_->logWarning("Object does not contain mandatory \"type\" key");
+            logger_->logWarning("Object does not contain mandatory \"" + MetaClass::TYPE_NAME_YAML_KEY + "\" key");
             return false;
         }
 
-        std::string type = object["type"].as<std::string>();
-        if(type == "qrw::Board")
+        SID type(object[MetaClass::TYPE_NAME_YAML_KEY].as<std::string>());
+        if(type == Board::typeName)
             ++boardCount;
-        else if(type == "qrw::DeploymentZone")
+        else if(type == DeploymentZone::typeName)
             ++deploymentZoneCount;
         else
         {
-            logger_->logWarning("Object has invalid \"type\": \"" + type + "\"");
+            logger_->logWarning("Object has invalid \"" + MetaClass::TYPE_NAME_YAML_KEY + "\": \"" + type.getStringId() + "\"");
             return false;
         }
     }

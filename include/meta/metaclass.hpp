@@ -13,11 +13,14 @@ class MetaManager;
 class MetaClass
 {
 public:
+	const static std::string TYPE_NAME_YAML_KEY;
+
     MetaClass(const MetaManager& metaManager);
 
-    virtual ~MetaClass();
+    virtual ~MetaClass() = default;
 
 	virtual void serialize(const Reflectable* object, YAML::Emitter& out) const = 0;
+	void serializeTypeName(const std::string typeName, YAML::Emitter& out) const;
 
 	virtual Reflectable* deserialize(const YAML::Node& in) const = 0;
 

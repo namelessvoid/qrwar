@@ -19,14 +19,15 @@ void TerrainMetaClass::serialize(const Reflectable* object, YAML::Emitter& out) 
 	const Terrain* terrain = dynamic_cast<const Terrain*>(object);
 	assert(terrain != nullptr);
 
-	out << YAML::BeginMap
-			<< YAML::Key << "type_" << YAML::Value << static_cast<int>(terrain->_type)
-			<< YAML::Key << "position_"
-			<< YAML::BeginMap
-				<< YAML::Key << "x_" << YAML::Value << terrain->_position.getX()
-				<< YAML::Key << "y_" << YAML::Value << terrain->_position.getY()
-			<< YAML::EndMap
-		<< YAML::EndMap;
+	out << YAML::BeginMap;
+	serializeTypeName(Terrain::typeName.getStringId(), out);
+	out << YAML::Key << "type_" << YAML::Value << static_cast<int>(terrain->_type)
+		<< YAML::Key << "position_"
+		<< YAML::BeginMap
+			<< YAML::Key << "x_" << YAML::Value << terrain->_position.getX()
+			<< YAML::Key << "y_" << YAML::Value << terrain->_position.getY()
+		<< YAML::EndMap
+	<< YAML::EndMap;
 }
 
 Reflectable* TerrainMetaClass::deserialize(const YAML::Node& in) const

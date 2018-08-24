@@ -18,8 +18,9 @@ void DeploymentZoneMetaClass::serialize(const Reflectable* object, YAML::Emitter
     assert(deploymentZone != nullptr);
 
     out << YAML::BeginMap;
-    out << YAML::Key << "type" << YAML::Value << DeploymentZone::typeName.getStringId()
-        << YAML::Key << "playerId" << YAML::Value << deploymentZone->getPlayerId()
+    serializeTypeName(DeploymentZone::typeName.getStringId(), out);
+
+    out << YAML::Key << "playerId" << YAML::Value << deploymentZone->getPlayerId()
         << YAML::Key << "zone_"
         << YAML::Value
             << YAML::BeginSeq;
