@@ -41,12 +41,6 @@ Reflectable* BoardMetaClass::deserialize(const YAML::Node& in) const
 	return board;
 }
 
-std::type_index BoardMetaClass::getTypeIndex() const
-{
-	Board tmpInstance;
-	return typeid(tmpInstance);
-}
-
 } // namespace qrw
 
 

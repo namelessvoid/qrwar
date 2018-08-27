@@ -38,12 +38,6 @@ Reflectable* TerrainMetaClass::deserialize(const YAML::Node& in) const
 	return terrain;
 }
 
-std::type_index TerrainMetaClass::getTypeIndex() const
-{
-	Terrain tmpInstance;
-	return typeid(tmpInstance);
-}
-
 } // namespace qrw
 
 

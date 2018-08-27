@@ -51,9 +51,4 @@ Reflectable* DeploymentZoneMetaClass::deserialize(const YAML::Node& in) const
     return deploymentZone;
 }
 
-std::type_index DeploymentZoneMetaClass::getTypeIndex() const
-{
-    throw std::runtime_error("Not implemented");
-}
-
 } // namespace qrw

@@ -17,8 +17,6 @@ public:
 
 	virtual Reflectable* deserialize(const YAML::Node& in) const final override;
 
-    virtual std::type_index getTypeIndex() const override;
-
 private:
     TerrainMetaClass(const TerrainMetaClass& rhs) = delete;
 

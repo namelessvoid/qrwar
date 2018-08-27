@@ -22,9 +22,10 @@ public:
 	virtual void serialize(const Reflectable* object, YAML::Emitter& out) const = 0;
 	void serializeTypeName(const std::string& typeName, YAML::Emitter& out) const;
 
-	virtual Reflectable* deserialize(const YAML::Node& in) const = 0;
+	//virtual const std::string& getTypeName() = 0;
+	//virtual std::type_index getTypeIndex() const = 0;
 
-    virtual std::type_index getTypeIndex() const = 0;
+	virtual Reflectable* deserialize(const YAML::Node& in) const = 0;
 
     const MetaManager& getMetaManager() const { return metaManager_; }
 

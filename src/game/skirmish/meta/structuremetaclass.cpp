@@ -34,9 +34,4 @@ Reflectable* StructureMetaClass::deserialize(const YAML::Node& in) const
 	return structure;
 }
 
-std::type_index StructureMetaClass::getTypeIndex() const
-{
-	return typeid(Structure);
-}
-
 } // namespace qrw

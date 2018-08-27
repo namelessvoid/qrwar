@@ -45,7 +45,6 @@ public:
 
 	MOCK_CONST_METHOD2(serialize, void(const qrw::Reflectable* object, YAML::Emitter& out));
 	MOCK_CONST_METHOD1(deserialize, qrw::Reflectable*(const YAML::Node& in));
-	MOCK_CONST_METHOD0(getTypeIndex, std::type_index());
 };
 
 class ValueStubMetaClass : public qrw::MetaClass
@@ -55,7 +54,6 @@ public:
 
 	MOCK_CONST_METHOD2(serialize, void(const qrw::Reflectable* object, YAML::Emitter& out));
 	MOCK_CONST_METHOD1(deserialize, qrw::Reflectable*(const YAML::Node& in));
-	MOCK_CONST_METHOD0(getTypeIndex, std::type_index());
 };
 
 ACTION_P(SerializeToYaml, scalar) { arg1 << scalar; }

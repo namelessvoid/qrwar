@@ -29,10 +29,4 @@ Reflectable* CoordinateMetaClass::deserialize(const YAML::Node& yaml) const
 	return coordinate;
 }
 
-std::type_index CoordinateMetaClass::getTypeIndex() const
-{
-	Coordinates tmpInstance;
-	return typeid(tmpInstance);
-}
-
 } // namespace qrw

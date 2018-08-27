@@ -19,8 +19,6 @@ public:
 
 	virtual Reflectable* deserialize(const YAML::Node& in) const final override;
 
-    virtual std::type_index getTypeIndex() const override;
-
 private:
     std::array<std::unique_ptr<IProperty>,4> properties_;
 };

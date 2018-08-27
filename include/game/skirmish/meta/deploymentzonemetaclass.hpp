@@ -15,8 +15,6 @@ public:
 
 	Reflectable* deserialize(const YAML::Node& in) const override;
 
-    std::type_index getTypeIndex() const override;
-
 private:
 	DeploymentZoneMetaClass(const DeploymentZoneMetaClass& rhs) = delete;
 

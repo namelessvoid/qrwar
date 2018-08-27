@@ -21,8 +21,6 @@ public:
 
 	Reflectable* deserialize(const YAML::Node& yaml) const override;
 
-	std::type_index getTypeIndex() const override;
-
 	CoordinateMetaClass(const CoordinateMetaClass& rhs) = delete;
 	CoordinateMetaClass& operator=(const CoordinateMetaClass& rhs) = delete;
 
