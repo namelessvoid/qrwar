@@ -11,7 +11,9 @@ namespace qrw
 	{
 		public:
 			friend class CoordinateMetaClass;
+
 			static SID typeName;
+			const SID& getTypeName() const override { return typeName; }
 
 			Coordinates();
 
@@ -43,7 +45,7 @@ namespace qrw
 
 			int distanceTo(const Coordinates& b) const;
 
-		private:
+	private:
 			int _x;
 			int _y;
 	};

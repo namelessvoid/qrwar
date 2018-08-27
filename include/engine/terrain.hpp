@@ -31,6 +31,7 @@ namespace qrw
 			static Terrain* createTerrain(TERRAINTYPES terrainType);
 
 			static SID typeName;
+			const SID& getTypeName() const override { return typeName; }
 
 			Terrain();
 

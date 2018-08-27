@@ -12,6 +12,8 @@ namespace qrw {
 class SkirmishCamera : public GameObject, public EventHandler
 {
 public:
+	const SID& getTypeName() const override	{ throw "Not implemented"; }
+
     SkirmishCamera();
 
     ~SkirmishCamera();

@@ -18,9 +18,10 @@ class DeploymentZone : public GameObject, public Renderable
 friend class DeploymentZoneMetaClass;
 
 public:
-	DeploymentZone();
+	const static SID typeName;
+	const SID& getTypeName() const override	{ return typeName; }
 
-	~DeploymentZone() override;
+	DeploymentZone();
 
 	void render(sf::RenderTarget& renderTarget) override;
 
@@ -36,8 +37,6 @@ public:
 
 	void setPlayerId(int playerId);
 	int getPlayerId() const { return playerId_; }
-
-	static SID typeName;
 
 private:
 	int playerId_;

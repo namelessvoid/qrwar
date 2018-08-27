@@ -9,16 +9,12 @@
 namespace qrw
 {
 
-SID DeploymentZone::typeName("qrw::DeploymentZone");
+const SID DeploymentZone::typeName("qrw::DeploymentZone");
 
 DeploymentZone::DeploymentZone()
     : Renderable(RENDER_LAYER_DEPLOYMENT_ZONE),
       playerId_(-1),
       color_(sf::Color::Green)
-{
-}
-
-DeploymentZone::~DeploymentZone()
 {
 }
 

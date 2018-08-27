@@ -24,6 +24,8 @@ class Unit : public GameObject
 public:
 	static Unit* createUnit(UNITTYPES unitType, Player::Ptr player);
 
+	const SID& getTypeName() const override { throw "Not implemented"; }
+
 	Unit();
 
 	~Unit();

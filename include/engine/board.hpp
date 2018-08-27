@@ -77,6 +77,7 @@ class SpriteComponent;
 			pathfinding::Path* findPath(const Coordinates& start, const Coordinates& end);
 
 			static SID typeName;
+			const SID& getTypeName() const override { return typeName; }
 
 		private:
 			void resizeBackground();

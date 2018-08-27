@@ -16,13 +16,11 @@ class SpriteComponent;
 class SquareMarker : public GameObject
 {
 public:
+	const SID& getTypeName() const override	{ throw "Not implemented"; }
+
 	SquareMarker();
 
-	virtual ~SquareMarker() {}
-
 	void setDimensions(float dimensions);
-
-	void draw(sf::RenderTarget &target, sf::RenderStates states) const;
 
 	Coordinates getBoardPosition() const;
 

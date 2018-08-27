@@ -10,10 +10,12 @@
 class KeyStub : public qrw::Reflectable
 {
 public:
+	static qrw::SID typeName;
+	const qrw::SID& getTypeName() const override { return typeName; }
+
 	KeyStub(int id = 0) : id(id) {}
 	KeyStub(const KeyStub& rhs) { id = rhs.id; }
 
-	static qrw::SID typeName;
 	int id;
 
 	bool operator<(const KeyStub& rhs) const { return this->id < rhs.id; }
@@ -23,6 +25,8 @@ class ValueStub : public qrw::Reflectable
 {
 public:
 	static qrw::SID typeName;
+	const qrw::SID& getTypeName() const override { return typeName; }
+
 	int id;
 
 	ValueStub(int id = 0) : id(id) {}
@@ -32,6 +36,9 @@ public:
 class ReflectableStub : public qrw::Reflectable
 {
 public:
+	static qrw::SID typeName;
+	const qrw::SID& getTypeName() const override { return typeName; }
+
 	ValueStub classProperty;
 	std::map<KeyStub,ValueStub*> mapProperty;
 

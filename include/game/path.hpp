@@ -12,6 +12,8 @@ class PathRenderComponent;
 class Path : public GameObject
 {
 public:
+	const SID& getTypeName() const override	{ throw "Not implemented"; }
+
 	Path();
 
 	~Path() override;

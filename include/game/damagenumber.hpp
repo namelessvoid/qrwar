@@ -13,6 +13,8 @@ class TransformAnimationComponent;
 class DamageNumber : public GameObject
 {
 public:
+	const SID& getTypeName() const override	{ throw "Not implemented"; }
+
 	DamageNumber();
 
 	void setDamage(int damage);

@@ -26,6 +26,8 @@ class Board;
 class Cursor : public SquareMarker, public EventHandler
 {
 public:
+	const SID& getTypeName() const override	{ throw "Not implemented"; }
+
 	Cursor();
 
 	virtual ~Cursor();

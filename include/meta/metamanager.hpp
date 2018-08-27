@@ -23,7 +23,12 @@ public:
     template<class TClass>
     const MetaClass* getMetaClassFor() const;
 
+    Reflectable* deserialize(YAML::Node node) const;
+    void serialize(const Reflectable* reflectable, YAML::Emitter& out) const;
+
 private:
+    MetaClass* getMetaClassByTypeName(const std::string& typeName) const;
+
     typedef std::map<SID,std::unique_ptr<MetaClass> > MetaClassMap;
     MetaClassMap metaClasses_;
 

@@ -16,6 +16,7 @@ public:
 	enum class Type { WALL, STAIRS };
 
 	static SID typeName;
+	const SID& getTypeName() const override	{ return typeName; }
 
 	Structure();
 

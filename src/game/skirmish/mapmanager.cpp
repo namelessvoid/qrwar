@@ -77,8 +77,6 @@ void MapManager::saveMap(
 	const std::string& mapName,
 	const MapDto& dto)
 {
-	const MetaClass* boardMetaClass = metaManager_.getMetaClassFor<Board>();
-	const MetaClass* deploymentZoneMetaClass = metaManager_.getMetaClassFor<DeploymentZone>();
 	const std::string fileName = mapNameToPath(mapName);
 
 	YAML::Emitter yaml;
@@ -92,9 +90,9 @@ void MapManager::saveMap(
 
 	yaml << YAML::BeginDoc
 		 << YAML::BeginSeq;
-			boardMetaClass->serialize(dto.board, yaml);
+			metaManager_.serialize(dto.board, yaml);
 			for(auto& zone : dto.deploymentZones)
-				deploymentZoneMetaClass->serialize(zone, yaml);
+				metaManager_.serialize(zone, yaml);
 	yaml << YAML::EndSeq;
 
 	std::ofstream mapFile;
