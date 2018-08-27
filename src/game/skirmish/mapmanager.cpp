@@ -36,9 +36,6 @@ MapDto MapManager::loadMap(
 		return mapDto;
 	}
 
-	const MetaClass* boardMetaClass = metaManager_.getMetaClassFor<Board>();
-	const MetaClass* deploymentZoneMetaClass = metaManager_.getMetaClassFor<DeploymentZone>();
-
 	std::vector<YAML::Node> documents = YAML::LoadAllFromFile(getUserMapDir() / mapNameToPath(mapName));
 	if(!mapValidator_->validate(documents))
 	{
@@ -50,15 +47,21 @@ MapDto MapManager::loadMap(
 
 	for(auto node : gameObjectsNode)
 	{
-		const SID nodeType(node[MetaClass::TYPE_NAME_YAML_KEY].as<std::string>());
-		if(nodeType == DeploymentZone::typeName)
+		auto gameObject = metaManager_.deserialize(node);
+
+		if(auto zone = dynamic_cast<DeploymentZone*>(gameObject))
 		{
-			DeploymentZone* zone = static_cast<DeploymentZone*>(deploymentZoneMetaClass->deserialize(node));
 			mapDto.deploymentZones.push_back(zone);
 		}
-		else if(nodeType == Board::typeName)
+		else if(auto board = dynamic_cast<Board*>(gameObject))
 		{
-			mapDto.board = static_cast<Board*>(boardMetaClass->deserialize(node));
+			mapDto.board = board;
+		}
+		else
+		{
+			std::cerr << "Found unsupported game object in map \'"
+					<< mapName << "\': "
+				  	<< node[MetaClass::TYPE_NAME_YAML_KEY].as<std::string>() << std::endl << std::flush;
 		}
 	}
 

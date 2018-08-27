@@ -5,10 +5,9 @@ namespace qrw
 
 Reflectable* MetaManager::deserialize(YAML::Node node) const
 {
-	throw "Not implemented";
-
-	assert(node["type"]);
-	auto metaClass = getMetaClassByTypeName(node["type"].as<std::string>());
+	assert(node[MetaClass::TYPE_NAME_YAML_KEY]);
+	auto metaClass = getMetaClassByTypeName(node[MetaClass::TYPE_NAME_YAML_KEY].as<std::string>());
+	return metaClass->deserialize(node);
 }
 
 MetaClass* MetaManager::getMetaClassByTypeName(const std::string& typeName) const
