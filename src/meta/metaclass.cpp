@@ -12,7 +12,7 @@ MetaClass::MetaClass(const MetaManager& metaManager)
 {
 }
 
-void MetaClass::serializeTypeName(const std::string typeName, YAML::Emitter& out) const
+void MetaClass::serializeTypeName(const std::string& typeName, YAML::Emitter& out) const
 {
 	out << YAML::Key << TYPE_NAME_YAML_KEY << YAML::Value << typeName;
 }

@@ -20,7 +20,7 @@ public:
     virtual ~MetaClass() = default;
 
 	virtual void serialize(const Reflectable* object, YAML::Emitter& out) const = 0;
-	void serializeTypeName(const std::string typeName, YAML::Emitter& out) const;
+	void serializeTypeName(const std::string& typeName, YAML::Emitter& out) const;
 
 	virtual Reflectable* deserialize(const YAML::Node& in) const = 0;
 
