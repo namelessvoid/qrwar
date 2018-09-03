@@ -30,7 +30,6 @@ public:
 		assert(dynamic_cast<const TClass*>(object)!=nullptr);
 
 		const MetaClass* keyMetaClass = getMetaManager().getMetaClassFor<TKey>();
-		const MetaClass* valueMetaClass = getMetaManager().getMetaClassFor<TValue>();
 
 		const TClass* typedObject = static_cast<const TClass*>(object);
 		auto binding = std::bind(StdMapProperty<TClass,TKey,TValue>::member_, typedObject);
@@ -43,7 +42,7 @@ public:
 				keyMetaClass->serialize(&iter.first, out);
 
 				out << YAML::Key << "value" << YAML::Value;
-				valueMetaClass->serialize(iter.second, out);
+				getMetaManager().serialize(iter.second, out);
 			out << YAML::EndMap;
 		}
 		out << YAML::EndSeq;
@@ -54,7 +53,6 @@ public:
 		assert(dynamic_cast<TClass*>(object)!=nullptr);
 
 		const MetaClass* keyMetaClass = getMetaManager().getMetaClassFor<TKey>();
-		const MetaClass* valueMetaClass = getMetaManager().getMetaClassFor<TValue>();
 
 		TClass* typedObject = static_cast<TClass*>(object);
 		auto binding = std::bind(StdMapProperty<TClass,TKey,TValue>::member_, typedObject);
@@ -63,7 +61,7 @@ public:
 		for(YAML::const_iterator nodeIter = mapNode.begin(); nodeIter != mapNode.end(); ++nodeIter)
 		{
 			TKey* key = static_cast<TKey*>(keyMetaClass->deserialize((*nodeIter)["key"]));
-			TValue* value = static_cast<TValue*>(valueMetaClass->deserialize((*nodeIter)["value"]));
+			TValue* value = dynamic_cast<TValue*>(getMetaManager().deserialize((*nodeIter)["value"]));
 
 			binding()[*key] = value;
 

@@ -5,7 +5,7 @@
 #include "game/skirmish/gui/mapeditortoolbar.hpp"
 
 #include "engine/terrain.hpp"
-#include "game/skirmish/structure.hpp"
+#include "game/skirmish/wall.hpp"
 #include "game/deploymentzone.hpp"
 
 #include "__mocks__/game/skirmish/mapmanagermock.hpp"
@@ -72,10 +72,10 @@ TEST(MapEditorState_ResizeBoard, Then_structures_no_longer_on_board_are_removed)
 	mapEditorState.init(nullptr);
 
 	qrw::Board* board = qrw::g_scene.findSingleGameObject<qrw::Board>();
-	auto structureWithinBoard1 = qrw::g_scene.spawn<qrw::Structure>();
-	auto structureWithinBoard2 = qrw::g_scene.spawn<qrw::Structure>();
-	auto structureOutsideWidth = qrw::g_scene.spawn<qrw::Structure>();
-	auto structureOutsideHeight = qrw::g_scene.spawn<qrw::Structure>();
+	auto structureWithinBoard1 = qrw::g_scene.spawn<qrw::Wall>();
+	auto structureWithinBoard2 = qrw::g_scene.spawn<qrw::Wall>();
+	auto structureOutsideWidth = qrw::g_scene.spawn<qrw::Wall>();
+	auto structureOutsideHeight = qrw::g_scene.spawn<qrw::Wall>();
 
 	board->setStructure({0, 2}, structureWithinBoard1);
 	board->setStructure({0, 3}, structureOutsideHeight);
@@ -89,7 +89,7 @@ TEST(MapEditorState_ResizeBoard, Then_structures_no_longer_on_board_are_removed)
 	qrw::g_scene.update(0);
 
 	// Assert
-	auto structures = qrw::g_scene.findGameObjects<qrw::Structure>();
+	auto structures = qrw::g_scene.findGameObjects<qrw::Wall>();
 	EXPECT_EQ(structures.size(), 2);
 	EXPECT_THAT(structures, Contains(structureWithinBoard1));
 	EXPECT_THAT(structures, Contains(structureWithinBoard2));

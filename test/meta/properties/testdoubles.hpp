@@ -50,8 +50,20 @@ class KeyMetaClassMock : public qrw::MetaClass
 public:
 	KeyMetaClassMock(qrw::MetaManager& metaManager) : qrw::MetaClass(metaManager) {}
 
-	MOCK_CONST_METHOD2(serialize, void(const qrw::Reflectable* object, YAML::Emitter& out));
-	MOCK_CONST_METHOD1(deserialize, qrw::Reflectable*(const YAML::Node& in));
+	void serialize(const qrw::Reflectable* object, YAML::Emitter& out) const override
+	{
+		out << YAML::BeginMap
+				<< YAML::Key << qrw::MetaClass::TYPE_NAME_YAML_KEY << YAML::Value << object->getTypeName().getStringId()
+				<< YAML::Key << "id" << YAML::Value << dynamic_cast<const KeyStub*>(object)->id
+			<< YAML::EndMap;
+	}
+
+	qrw::Reflectable* deserialize(const YAML::Node& in) const override
+	{
+		return new KeyStub(in["id"].as<int>());
+	}
+
+
 };
 
 class ValueStubMetaClass : public qrw::MetaClass
@@ -59,8 +71,19 @@ class ValueStubMetaClass : public qrw::MetaClass
 public:
 	ValueStubMetaClass(const qrw::MetaManager& metaManager) : MetaClass(metaManager) {}
 
-	MOCK_CONST_METHOD2(serialize, void(const qrw::Reflectable* object, YAML::Emitter& out));
-	MOCK_CONST_METHOD1(deserialize, qrw::Reflectable*(const YAML::Node& in));
+	void serialize(const qrw::Reflectable* object, YAML::Emitter& out) const override
+	{
+		out << YAML::BeginMap
+			<< YAML::Key << qrw::MetaClass::TYPE_NAME_YAML_KEY << YAML::Value << object->getTypeName().getStringId()
+			<< YAML::Key << "id" << YAML::Value << dynamic_cast<const ValueStub*>(object)->id
+			<< YAML::EndMap;
+	}
+
+	qrw::Reflectable* deserialize(const YAML::Node& in) const override
+	{
+		return new ValueStub(in["id"].as<int>());
+	}
+
 };
 
 ACTION_P(SerializeToYaml, scalar) { arg1 << scalar; }

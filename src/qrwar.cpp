@@ -19,7 +19,8 @@
 #include "meta/metamanager.hpp"
 #include "game/skirmish/meta/boardmetaclass.hpp"
 #include "game/skirmish/meta/terrainmetaclass.hpp"
-#include "game/skirmish/meta/structuremetaclass.hpp"
+#include "game/skirmish/meta/wallmetaclass.hpp"
+#include "game/skirmish/meta/stairsmetaclass.hpp"
 #include "game/skirmish/meta/deploymentzonemetaclass.hpp"
 #include "game/skirmish/meta/coordinatemetaclass.hpp"
 
@@ -140,7 +141,8 @@ void QRWar::registerMetaTypes()
 {
 	g_metaManager.registerMetaClass<BoardMetaClass>(Board::typeName);
 	g_metaManager.registerMetaClass<TerrainMetaClass>(Terrain::typeName);
-	g_metaManager.registerMetaClass<StructureMetaClass>(Structure::typeName);
+	g_metaManager.registerMetaClass<WallMetaClass>(Wall::typeName);
+	g_metaManager.registerMetaClass<StairsMetaClass>(Stairs::typeName);
 	g_metaManager.registerMetaClass<DeploymentZoneMetaClass>(DeploymentZone::typeName);
 	g_metaManager.registerMetaClass<CoordinateMetaClass>(Coordinates::typeName);
 }

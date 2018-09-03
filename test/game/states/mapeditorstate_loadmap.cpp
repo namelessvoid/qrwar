@@ -5,7 +5,7 @@
 
 #include "game/deploymentzone.hpp"
 #include "engine/terrain.hpp"
-#include "game/skirmish/structure.hpp"
+#include "game/skirmish/wall.hpp"
 
 #include "__mocks__/game/skirmish/gui/skirmishguifactorymock.hpp"
 #include "__mocks__/game/skirmish/mapmanagermock.hpp"
@@ -40,10 +40,10 @@ TEST(MapEditorState_LoadMap, Then_only_loaded_game_objects_are_in_scene)
 	auto terrain2 = new qrw::Terrain();
 	board->setTerrain({0, 0}, terrain1);
 	board->setTerrain({1, 0}, terrain2);
-	auto structure1 = new qrw::Structure();
-	auto structure2 = new qrw::Structure();
-	board->setStructure({2, 0}, structure1);
-	board->setStructure({3, 0}, structure2);
+	auto wall1 = new qrw::Wall();
+	auto wall2 = new qrw::Wall();
+	board->setStructure({2, 0}, wall1);
+	board->setStructure({3, 0}, wall2);
 	auto deploymentZone1 = new qrw::DeploymentZone();
 	auto deploymentZone2 = new qrw::DeploymentZone();
 	std::vector<qrw::DeploymentZone*> deploymentZones{deploymentZone1, deploymentZone2};
@@ -73,10 +73,10 @@ TEST(MapEditorState_LoadMap, Then_only_loaded_game_objects_are_in_scene)
 	EXPECT_THAT(terrains, Contains(terrain1));
 	EXPECT_THAT(terrains, Contains(terrain2));
 
-	auto structures = qrw::g_scene.findGameObjects<qrw::Structure>();
+	auto structures = qrw::g_scene.findGameObjects<qrw::Wall>();
 	EXPECT_EQ(structures.size(), 2);
-	EXPECT_THAT(structures, Contains(structure1));
-	EXPECT_THAT(structures, Contains(structure2));
+	EXPECT_THAT(structures, Contains(wall1));
+	EXPECT_THAT(structures, Contains(wall2));
 
 	// Clean Up
 	qrw::g_scene.reset();

@@ -3,10 +3,11 @@
 #include <gmock/gmock-actions.h>
 
 #include "game/states/mapeditorstate.hpp"
-#include "game/skirmish/structure.hpp"
 
+#include "game/skirmish/wall.hpp"
 #include "engine/board.hpp"
 #include "engine/terrain.hpp"
+
 #include "gui/scene.hpp"
 
 #include "game/events.hpp"
@@ -35,7 +36,7 @@ TEST(MapEditorState_PlaceStructure, Then_structure_is_on_scene_and_board)
 	mapEditorState.handleEvent(qrw::CursorLeftClickedEvent({1, 2}));
 
 	// Assert
-	auto structures = qrw::g_scene.findGameObjects<qrw::Structure>();
+	auto structures = qrw::g_scene.findGameObjects<qrw::Wall>();
 	ASSERT_EQ(structures.size(), 1);
 
 	auto board = qrw::g_scene.findSingleGameObject<qrw::Board>();
@@ -61,8 +62,8 @@ TEST(MapEditorState_PlaceStructure, If_square_is_occupied_by_structure_Then_it_i
 	mapEditorToolBar->signalStructureClicked.emit(qrw::Structure::Type::WALL);
 
 	auto board = qrw::g_scene.findSingleGameObject<qrw::Board>();
-	auto previousStructure = qrw::g_scene.spawn<qrw::Structure>();
-	board->setStructure({1, 2}, previousStructure);
+	auto previousWall = qrw::g_scene.spawn<qrw::Wall>();
+	board->setStructure({1, 2}, previousWall);
 
 	// Act
 	mapEditorState.handleEvent(qrw::CursorLeftClickedEvent({1, 2}));
@@ -70,9 +71,9 @@ TEST(MapEditorState_PlaceStructure, If_square_is_occupied_by_structure_Then_it_i
 	qrw::g_scene.update(0);
 
 	// Assert
-	auto structures = qrw::g_scene.findGameObjects<qrw::Structure>();
+	auto structures = qrw::g_scene.findGameObjects<qrw::Wall>();
 	ASSERT_EQ(structures.size(), 1);
-	EXPECT_TRUE(static_cast<qrw::Structure*>(*structures.begin()) != previousStructure);
+	EXPECT_TRUE(*structures.begin() != previousWall);
 
 	// Cleanup
 	qrw::g_scene.reset();

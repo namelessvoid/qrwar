@@ -11,10 +11,7 @@
 namespace qrw
 {
 
-SID Structure::typeName("qrw::Structure");
-
 Structure::Structure()
-	: type_(Type::WALL)
 {
 	spriteComponent_ = new SpriteComponent(RENDER_LAYER_STRUCTURE);
 	spriteComponent_->setSize({SQUARE_DIMENSION, SQUARE_DIMENSION});
@@ -25,11 +22,7 @@ void Structure::onAddToScene()
 {
 	GameObject::onAddToScene();
 	setPosition(getPosition());
-
-	if(type_ == Type::WALL)
-		computeTexture();
-	else
-		spriteComponent_->setTexture(TextureManager::getInstance()->getTexture("stairs"));
+	computeTexture();
 }
 
 void Structure::initialize()
@@ -51,21 +44,6 @@ void Structure::setPosition(const Coordinates& position)
 
 void Structure::computeTexture()
 {
-	std::string textureName = "wall";
-	Board* board = g_scene.findSingleGameObject<Board>();
-	if(board)
-	{
-		if(board->getStructure(position_ + Coordinates(0, -1)))
-			textureName += 'N';
-		if(board->getStructure(position_ + Coordinates(1,  0)))
-			textureName += 'O';
-		if(board->getStructure(position_ + Coordinates(0,  1)))
-			textureName += 'S';
-		if(board->getStructure(position_ + Coordinates(-1, 0)))
-			textureName += 'W';
-	}
-
-	spriteComponent_->setTexture(TextureManager::getInstance()->getTexture(textureName));
 }
 
 void Structure::updateNeighborTextures()

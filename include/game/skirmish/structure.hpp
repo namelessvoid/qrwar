@@ -15,9 +15,6 @@ friend class StructureMetaClass;
 public:
 	enum class Type { WALL, STAIRS };
 
-	static SID typeName;
-	const SID& getTypeName() const override	{ return typeName; }
-
 	Structure();
 
 	void onAddToScene() override;
@@ -27,16 +24,13 @@ public:
 	void setPosition(const Coordinates& position);
 	const Coordinates& getPosition() const { return position_; }
 
-	void setType(Type type) { type_ = type; }
+	virtual void computeTexture();
 
-private:
-	void computeTexture();
+protected:
 	void updateNeighborTextures();
 
 	SpriteComponent* spriteComponent_;
 	Coordinates position_;
-
-	Type type_;
 };
 
 } // namespace qrw

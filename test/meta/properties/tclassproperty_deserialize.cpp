@@ -13,20 +13,15 @@ TEST(TClassProperty_Deserialize, Then_property_is_deserialized)
 {
 	// Arrange
 	std::string propertyName = "classProperty";
-	std::string propertyValue = "ValueStubMetaClass::deserialize called";
 
 	qrw::MetaManager metaManager;
 	metaManager.registerMetaClass<ValueStubMetaClass>(ValueStub::typeName);
-
-	auto valueStubMetaClass = static_cast<const ValueStubMetaClass*>(metaManager.getMetaClassFor<ValueStub>());
-	EXPECT_CALL(*valueStubMetaClass, deserialize(Property(&YAML::Node::as<std::string>, propertyValue)))
-			.WillOnce(Return(new ValueStub(12)));
 
 	qrw::TClassProperty<ReflectableStub,ValueStub> classProperty(&ReflectableStub::classProperty, propertyName, metaManager);
 
 	ReflectableStub reflectableStub;
 	YAML::Node node;
-	node[propertyName] = propertyValue;
+	node[propertyName]["id"] = 12;
 
 	// Act
 	classProperty.deserialize(&reflectableStub, node);

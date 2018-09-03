@@ -3,7 +3,7 @@
 #include "game/states/mapeditorstate.hpp"
 
 #include "engine/terrain.hpp"
-#include "game/skirmish/structure.hpp"
+#include "game/skirmish/wall.hpp"
 #include "gui/scene.hpp"
 #include "game/events.hpp"
 
@@ -59,8 +59,8 @@ TEST(MapEditorState_PlaceTerrain, If_square_is_occupied_by_structure_Then_it_is_
 	mapEditorToolBar->signalTerrainTypeClicked.emit(qrw::TERRAINTYPES::ET_HILL);
 
 	auto board = qrw::g_scene.findSingleGameObject<qrw::Board>();
-	auto structure = qrw::g_scene.spawn<qrw::Structure>();
-	board->setStructure({1, 2}, structure);
+	auto wall = qrw::g_scene.spawn<qrw::Wall>();
+	board->setStructure({1, 2}, wall);
 
 	// Act
 	mapEditorState.handleEvent(qrw::CursorLeftClickedEvent({1, 2}));

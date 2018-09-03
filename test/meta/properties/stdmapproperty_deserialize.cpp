@@ -13,10 +13,12 @@ TEST(StdMapProperty_Deserialize, Then_key_and_value_are_deserialized)
 {
 	// Arrange
 	YAML::Node node;
-	node["mapProperty"][0]["key"] = "firstKey";
-	node["mapProperty"][0]["value"] = "firstValue";
-	node["mapProperty"][1]["key"] = "secondKey";
-	node["mapProperty"][1]["value"] = "secondValue";
+	node["mapProperty"][0]["key"]["id"] = 1;
+	node["mapProperty"][0]["value"]["id"] = 11;
+	node["mapProperty"][0]["value"][qrw::MetaClass::TYPE_NAME_YAML_KEY] = ValueStub::typeName.getStringId();
+	node["mapProperty"][1]["key"]["id"] = 2;
+	node["mapProperty"][1]["value"]["id"] = 22;
+	node["mapProperty"][1]["value"][qrw::MetaClass::TYPE_NAME_YAML_KEY] = ValueStub::typeName.getStringId();
 
 	qrw::MetaManager metaManager;
 	metaManager.registerMetaClass<KeyMetaClassMock>(KeyStub::typeName);
@@ -26,26 +28,13 @@ TEST(StdMapProperty_Deserialize, Then_key_and_value_are_deserialized)
 
 	qrw::StdMapProperty<ReflectableStub,KeyStub,ValueStub> stdMapProperty(&ReflectableStub::mapProperty, "mapProperty", metaManager);
 
-	// Assert Mocks
-	auto keyMetaClassMock = static_cast<const KeyMetaClassMock*>(metaManager.getMetaClassFor<KeyStub>());
-	auto valueMetaClassMock = static_cast<const ValueStubMetaClass*>(metaManager.getMetaClassFor<ValueStub>());
-
-	EXPECT_CALL(*keyMetaClassMock, deserialize(Property(&YAML::Node::as<std::string>, "firstKey")))
-		.WillOnce(Return(new KeyStub(1)));
-	EXPECT_CALL(*keyMetaClassMock, deserialize(Property(&YAML::Node::as<std::string>, "secondKey")))
-		.WillOnce(Return(new KeyStub(2)));
-	EXPECT_CALL(*valueMetaClassMock, deserialize(Property(&YAML::Node::as<std::string>, "firstValue")))
-		.WillOnce(Return(new ValueStub(1)));
-	EXPECT_CALL(*valueMetaClassMock, deserialize(Property(&YAML::Node::as<std::string>, "secondValue")))
-		.WillOnce(Return(new ValueStub(2)));
-
 	// Act
 	stdMapProperty.deserialize(&reflectableStub, node);
 
 	// Assert Result
 	ASSERT_EQ(reflectableStub.mapProperty.size(), 2);
-	EXPECT_EQ(reflectableStub.mapProperty.at(KeyStub(1))->id, 1);
-	EXPECT_EQ(reflectableStub.mapProperty.at(KeyStub(2))->id, 2);
+	EXPECT_EQ(reflectableStub.mapProperty.at(KeyStub(1))->id, 11);
+	EXPECT_EQ(reflectableStub.mapProperty.at(KeyStub(2))->id, 22);
 }
 
 TEST(StdMapProperty_Deserialize, If_yaml_node_is_empty_Then_property_is_empty)

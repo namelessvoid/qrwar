@@ -11,14 +11,17 @@ namespace qrw
 class StructureMetaClass : public MetaClass
 {
 public:
-	StructureMetaClass(const MetaManager& metaManager);
+	explicit StructureMetaClass(const MetaManager& metaManager);
 
 	void serialize(const Reflectable* object, YAML::Emitter& out) const override;
 
 	Reflectable* deserialize(const YAML::Node& in) const override;
 
+protected:
+	virtual Reflectable* createInstance() const = 0;
+
 private:
-	std::array<std::unique_ptr<IProperty>,2> properties_;
+	std::array<std::unique_ptr<IProperty>,1> properties_;
 };
 
 } // namespace qrw

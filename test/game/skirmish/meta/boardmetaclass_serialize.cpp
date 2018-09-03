@@ -1,4 +1,5 @@
 #include <gtest/gtest.h>
+#include <game/skirmish/meta/wallmetaclass.hpp>
 
 #include "game/skirmish/meta/boardmetaclass.hpp"
 #include "game/skirmish/meta/coordinatemetaclass.hpp"
@@ -13,7 +14,7 @@
 #include "engine/terrain.hpp"
 #include "engine/terraintypes.hpp"
 #include "game/skirmish/coordinates.hpp"
-#include "game/skirmish/structure.hpp"
+#include "game/skirmish/wall.hpp"
 
 TEST(BoardMetaClass_Serialize, Then_all_properties_are_included)
 {
@@ -21,13 +22,13 @@ TEST(BoardMetaClass_Serialize, Then_all_properties_are_included)
 	metaManager.registerMetaClass<qrw::BoardMetaClass>(qrw::Board::typeName);
 	metaManager.registerMetaClass<qrw::CoordinateMetaClass>(qrw::Coordinates::typeName);
 	metaManager.registerMetaClass<qrw::TerrainMetaClass>(qrw::Terrain::typeName);
-	metaManager.registerMetaClass<qrw::StructureMetaClass>(qrw::Structure::typeName);
+	metaManager.registerMetaClass<qrw::WallMetaClass>(qrw::Wall::typeName);
 
 	qrw::Board board(100, 200);
 	board.setTerrain({0, 0}, qrw::Terrain::createTerrain(qrw::TERRAINTYPES::ET_HILL));
-	auto structure = new qrw::Structure();
-	structure->setPosition({1, 2});
-	board.setStructure({1, 2}, structure);
+	auto wall = new qrw::Wall();
+	wall->setPosition({1, 2});
+	board.setStructure({1, 2}, wall);
 	const qrw::MetaClass* boardMetaClass = metaManager.getMetaClassFor<qrw::Board>();
 	YAML::Emitter emitter;
 
