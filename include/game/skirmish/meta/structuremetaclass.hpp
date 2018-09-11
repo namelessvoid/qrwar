@@ -1,7 +1,8 @@
 #ifndef QRW_STRUCTUREMETACLASS_HPP
 #define QRW_STRUCTUREMETACLASS_HPP
 
-#include <foundation/gameobject.hpp>
+#include "foundation/gameobject.hpp"
+
 #include "meta/metaclass.hpp"
 #include "meta/properties/iproperty.hpp"
 
@@ -20,8 +21,7 @@ public:
 protected:
 	virtual Reflectable* createInstance() const = 0;
 
-private:
-	std::array<std::unique_ptr<IProperty>,1> properties_;
+	std::vector<std::unique_ptr<IProperty>> properties_;
 };
 
 } // namespace qrw

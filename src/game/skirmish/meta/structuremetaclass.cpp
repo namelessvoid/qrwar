@@ -13,7 +13,7 @@ namespace qrw
 StructureMetaClass::StructureMetaClass(const MetaManager& metaManager)
 	: MetaClass(metaManager)
 {
-	properties_[0] = std::make_unique<TClassProperty<Structure,Coordinates>>(&Structure::position_, "position_", metaManager);
+	properties_.push_back(std::make_unique<TClassProperty<Structure,Coordinates>>(&Structure::position_, "position_", metaManager));
 }
 
 void StructureMetaClass::serialize(const Reflectable* object, YAML::Emitter& out) const

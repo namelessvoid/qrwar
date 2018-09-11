@@ -11,6 +11,8 @@ namespace qrw
 class Stairs : public Structure
 {
 public:
+	friend class StairsMetaClass;
+
 	static SID typeName;
 	const SID& getTypeName() const override	{ return typeName; }
 
