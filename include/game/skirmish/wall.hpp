@@ -13,6 +13,8 @@ public:
 	static SID typeName;
 	const SID& getTypeName() const override	{ return typeName; }
 
+	Wall();
+
 	void computeTexture() override;
 
 private:

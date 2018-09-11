@@ -10,7 +10,8 @@ namespace qrw
 SID Stairs::typeName("qrw::Stairs");
 
 Stairs::Stairs()
-	: face_(Directions::NORTH)
+	: height_(1),
+	  face_(Directions::NORTH)
 {
 	spriteComponent_->setTexture(TextureManager::getInstance()->getTexture("stairs"));
 	spriteComponent_->setOrigin(0.5f * SQUARE_DIMENSION, 0.5f * SQUARE_DIMENSION);

@@ -31,6 +31,7 @@ protected:
 
 	SpriteComponent* spriteComponent_;
 	Coordinates position_;
+	unsigned int height_;
 };
 
 } // namespace qrw

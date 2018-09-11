@@ -13,6 +13,10 @@ namespace qrw
 
 SID Wall::typeName("qrw::Wall");
 
+Wall::Wall()
+	: height_(2)
+{}
+
 void Wall::computeTexture()
 {
 	std::string textureName = "wall";
