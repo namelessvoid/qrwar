@@ -21,7 +21,7 @@ public:
 	void initialize() override;
 	void onDestroy() override;
 
-	void setPosition(const Coordinates& position);
+	virtual void setPosition(const Coordinates& position);
 	const Coordinates& getPosition() const { return position_; }
 
 	virtual void computeTexture();

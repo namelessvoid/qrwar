@@ -8,6 +8,7 @@
 #include "game/deploymentzone.hpp"
 #include "game/constants.hpp"
 #include "game/skirmish/structure.hpp"
+#include "game/skirmish/stairs.hpp"
 #include "game/skirmish/gui/mapeditortoolbar.hpp"
 
 #include "foundation/spritecomponent.hpp"
@@ -101,6 +102,9 @@ void MapEditorState::slotCursorRightClicked(const Coordinates& boardPosition)
 {
 	if(Terrain* terrain = _spBoard->getTerrain(boardPosition))
 		g_scene.destroy(terrain);
+
+	if(Stairs* stairs = dynamic_cast<Stairs*>(_spBoard->getStructure(boardPosition)))
+		stairs->rotate();
 }
 
 void MapEditorState::slotChangeBoardWidth(unsigned int width)

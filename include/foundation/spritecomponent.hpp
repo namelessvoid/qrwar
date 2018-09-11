@@ -2,6 +2,7 @@
 #define QRW_SPRITECOMPONENT_HPP
 
 #include <SFML/System/Vector2.hpp>
+#include <SFML/Graphics/RectangleShape.hpp>
 
 #include "foundation/gamecomponent.hpp"
 #include "rendering/renderable.hpp"
@@ -35,6 +36,16 @@ public:
 	void setPosition(const sf::Vector2f& position) override;
 
 	const sf::Vector2f& getPosition() const override;
+
+	void setRotation(const float degrees)
+	{
+		_rectangle->setRotation(degrees);
+	}
+
+	void setOrigin(float x, float y)
+	{
+		_rectangle->setOrigin(x, y);
+	}
 
 	sf::Vector2f getCenter();
 

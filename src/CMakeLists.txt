@@ -57,6 +57,7 @@ add_library(qrwarlib
 	game/skirmish/wall.cpp
 	game/skirmish/structurefactory.cpp
 	game/skirmish/coordinates.cpp
+	game/skirmish/directions.cpp
 
 	game/skirmish/gui/victorydialog.cpp
 	game/skirmish/gui/mapeditortoolbar.cpp
