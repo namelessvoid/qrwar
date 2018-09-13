@@ -8,6 +8,7 @@
 #include "engine/unit.hpp"
 #include "engine/terrain.hpp"
 #include "game/skirmish/structure.hpp"
+#include "game/skirmish/wall.hpp"
 
 namespace qrw
 {
@@ -138,7 +139,8 @@ void SquareDetailWindow::setTerrain(const Terrain& terrain)
 
 void SquareDetailWindow::setStructure(const Structure& structure)
 {
-	environmentTitleLabel_->setText("Wall");
+	std::string text = dynamic_cast<const Wall*>(&structure) != nullptr ? "Wall" : "Stairs";
+	environmentTitleLabel_->setText(text);
 	environmentTitleLabel_->setImage(structure.getTexture());
 	environmentTitleLabel_->setVisible(true);
 
