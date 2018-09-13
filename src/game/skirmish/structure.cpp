@@ -42,8 +42,9 @@ void Structure::setPosition(const Coordinates& position)
 	spriteComponent_->setPosition({SQUARE_DIMENSION * position_.getX(), SQUARE_DIMENSION * position.getY()});
 }
 
-void Structure::computeTexture()
+const sf::Texture* qrw::Structure::getTexture() const
 {
+	return spriteComponent_->getTexture();
 }
 
 void Structure::updateNeighborTextures()

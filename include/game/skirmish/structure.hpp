@@ -4,6 +4,11 @@
 #include "game/skirmish/coordinates.hpp"
 #include "foundation/gameobject.hpp"
 
+namespace sf
+{
+class Texture;
+}
+
 namespace qrw
 {
 class SpriteComponent;
@@ -24,7 +29,8 @@ public:
 	virtual void setPosition(const Coordinates& position);
 	const Coordinates& getPosition() const { return position_; }
 
-	virtual void computeTexture();
+	virtual void computeTexture() {}
+	const sf::Texture* getTexture() const;
 
 protected:
 	void updateNeighborTextures();

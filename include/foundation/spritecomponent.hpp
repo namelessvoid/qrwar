@@ -47,6 +47,11 @@ public:
 		_rectangle->setOrigin(x, y);
 	}
 
+	const sf::Texture* getTexture()
+	{
+		return _rectangle->getTexture();
+	}
+
 	sf::Vector2f getCenter();
 
 	void setFillColor(const sf::Color& color);

@@ -70,7 +70,7 @@ SquareDetailWindow::SquareDetailWindow()
     label = new namelessgui::Label();
     label->setSize({100, labelHeight});
     label->setText("Wall");
-    label->setImage(TextureManager::getInstance()->getTexture("wall_00000000"));
+    label->setImage(TextureManager::getInstance()->getTexture("wall"));
     label->setParentAnchor({1, 0});
     label->setRelativePosition({-200, 0});
     environmentTitleLabel_ = label;
@@ -139,7 +139,7 @@ void SquareDetailWindow::setTerrain(const Terrain& terrain)
 void SquareDetailWindow::setStructure(const Structure& structure)
 {
 	environmentTitleLabel_->setText("Wall");
-	environmentTitleLabel_->setImage(TextureManager::getInstance()->getTexture("wall_00000000"));
+	environmentTitleLabel_->setImage(structure.getTexture());
 	environmentTitleLabel_->setVisible(true);
 
 	environmentAttackLabel_->setVisible(false);
