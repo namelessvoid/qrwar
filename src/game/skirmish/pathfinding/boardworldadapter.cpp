@@ -16,7 +16,7 @@ struct StructureAccessibilityDecisionTree
 	bool plainToStairsAccess(const Coordinates& plainPosition, const Stairs& stairs) { return stairs.getPosition() + stairs.getFace() != plainPosition; }
 	bool plainToWallAccess() { return false; }
 
-	bool stairsToStairsAccess() { return false; }
+	bool stairsToStairsAccess() { return true; }
 	bool stairsToWallAccess(const Stairs& stairs, const Wall& wall) { return wall.getPosition() - stairs.getPosition() == stairs.getFace(); }
 
 	bool wallToWallAccess() { return true; }
@@ -36,7 +36,7 @@ struct StructureAccessibilityDecisionTree
 			{
 				return plainToStairsAccess(position1, *stairs2);
 			}
-			else if (auto wall2 = dynamic_cast<const Wall*>(structure2))
+			else if (dynamic_cast<const Wall*>(structure2))
 			{
 				return plainToWallAccess();
 			}
@@ -47,7 +47,7 @@ struct StructureAccessibilityDecisionTree
 			{
 				return plainToStairsAccess(position2, *stairs1);
 			}
-			else if (auto stairs2 = dynamic_cast<const Stairs*>(structure2))
+			else if (dynamic_cast<const Stairs*>(structure2))
 			{
 				return stairsToStairsAccess();
 			}
@@ -66,7 +66,7 @@ struct StructureAccessibilityDecisionTree
 			{
 				return stairsToWallAccess(*stairs2, *wall1);
 			}
-			else if (auto wall2 = dynamic_cast<const Wall*>(structure2))
+			else if (dynamic_cast<const Wall*>(structure2))
 			{
 				return wallToWallAccess();
 			}
@@ -86,8 +86,8 @@ bool BoardWorldAdapter::isAccessibleFrom(const Coordinates& position1, const Coo
 	if(!board_.isOnBoard(position2)) return false;
 	if(board_.isUnitAt(position2)) return false;
 
-	StructureAccessibilityDecisionTree structureAccesibilityDecisionTree;
-	return structureAccesibilityDecisionTree.isAccessible(position1, position2, board_);
+	StructureAccessibilityDecisionTree structureAccessibilityDecisionTree;
+	return structureAccessibilityDecisionTree.isAccessible(position1, position2, board_);
 }
 
 std::vector<Coordinates> BoardWorldAdapter::getNeighborLocationsFor(const Coordinates& location) const
