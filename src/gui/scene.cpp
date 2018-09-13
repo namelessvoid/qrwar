@@ -6,7 +6,7 @@
 #include "gui/texturemanager.hpp"
 
 #include "engine/terrain.hpp"
-#include "engine/unit.hpp"
+#include "game/skirmish/unit.hpp"
 
 #include "eventsystem/eventsystem.hpp"
 #include "eventsystem/inputevents.hpp"

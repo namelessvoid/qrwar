@@ -6,7 +6,7 @@
 
 #include <SFML/Graphics/RectangleShape.hpp>
 
-#include "engine/unittypes.hpp"
+#include "unittypes.hpp"
 #include "engine/board.hpp"
 #include "engine/player.hpp"
 #include "game/skirmish/coordinates.hpp"

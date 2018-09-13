@@ -5,7 +5,7 @@
 #include "gui/texturemanager.hpp"
 #include "gui/guihelper.hpp"
 
-#include "engine/unit.hpp"
+#include "game/skirmish/unit.hpp"
 #include "engine/terrain.hpp"
 #include "game/skirmish/structure.hpp"
 #include "game/skirmish/wall.hpp"

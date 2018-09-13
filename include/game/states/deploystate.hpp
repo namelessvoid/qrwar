@@ -8,7 +8,7 @@
 
 #include "engine/board.hpp"
 #include "engine/player.hpp"
-#include "engine/unittypes.hpp"
+#include "game/skirmish/unittypes.hpp"
 
 #include "gui/ng/messagedialog.hpp"
 

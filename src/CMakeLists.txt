@@ -15,7 +15,6 @@ add_library(qrwarlib
 	engine/board.cpp
 	engine/player.cpp
 	engine/terrain.cpp
-	engine/unit.cpp
 
 	engine/pathfinding/path.cpp
 
@@ -52,6 +51,7 @@ add_library(qrwarlib
 
 	game/skirmish/mapmanager.cpp
 	game/skirmish/mapvalidator.cpp
+	game/skirmish/unit.cpp
 	game/skirmish/structure.cpp
 	game/skirmish/stairs.cpp
 	game/skirmish/wall.cpp

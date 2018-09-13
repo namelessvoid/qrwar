@@ -1,7 +1,7 @@
 #include <cppunit/extensions/HelperMacros.h>
 #include <cppunit/TestFixture.h>
 
-#include "engine/unit.hpp"
+#include "game/skirmish/unit.hpp"
 #include "engine/board.hpp"
 #include "engine/player.hpp"
 #include "engine/terrain.hpp"

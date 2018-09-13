@@ -3,7 +3,7 @@
 
 #include <string>
 
-#include "engine/unit.hpp"
+#include "game/skirmish/unit.hpp"
 #include "engine/terrain.hpp"
 
 namespace sf

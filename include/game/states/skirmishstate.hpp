@@ -4,7 +4,7 @@
 #include "game/states/scenestate.hpp"
 
 #include "engine/board.hpp"
-#include "engine/unit.hpp"
+#include "game/skirmish/unit.hpp"
 #include "engine/player.hpp"
 
 #include <vector>

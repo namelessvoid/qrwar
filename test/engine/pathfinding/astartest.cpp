@@ -2,7 +2,7 @@
 #include <gmock/gmock-matchers.h>
 
 #include "engine/board.hpp"
-#include "engine/unit.hpp"
+#include "game/skirmish/unit.hpp"
 #include "engine/pathfinding/node.hpp"
 #include "engine/pathfinding/path.hpp"
 

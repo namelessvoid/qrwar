@@ -1,6 +1,6 @@
 #include <cstdio>
 
-#include "engine/unit.hpp"
+#include "game/skirmish/unit.hpp"
 #include "engine/board.hpp"
 #include "engine/terrain.hpp"
 #include "engine/player.hpp"

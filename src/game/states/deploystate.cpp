@@ -3,7 +3,7 @@
 #include <memory>
 #include <cassert>
 
-#include "engine/unit.hpp"
+#include "game/skirmish/unit.hpp"
 #include "engine/terrain.hpp"
 #include "game/skirmish/structure.hpp"
 
