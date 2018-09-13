@@ -116,7 +116,7 @@ TEST(AStar_FindPath, If_end_is_not_accessible_Then_null_is_returned)
 		explicit BoardWorldAdapterMock(const qrw::Board& board) : BoardWorldAdapter(board)
 		{}
 
-		bool isAccessible(const qrw::Coordinates& location) const override
+		bool isAccessibleFrom(const qrw::Coordinates& source, const qrw::Coordinates& destination) const override
 		{ return false; }
 	};
 

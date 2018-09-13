@@ -13,10 +13,6 @@ namespace qrw
 
 SID Wall::typeName("qrw::Wall");
 
-Wall::Wall()
-	: height_(2)
-{}
-
 void Wall::computeTexture()
 {
 	std::string textureName = "wall";
@@ -45,7 +41,7 @@ bool Wall::isConnectedTo(const Coordinates& direction, const Board& board) const
 
 	if(dynamic_cast<Wall*>(structure))
 		return true;
-	else if(Stairs* stairs = dynamic_cast<Stairs*>(structure))
+	else if(auto stairs = dynamic_cast<Stairs*>(structure))
 	{
 		if(stairs->getFace() == position_ - stairs->getPosition())
 			return true;

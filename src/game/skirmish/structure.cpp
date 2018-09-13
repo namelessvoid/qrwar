@@ -49,6 +49,8 @@ void Structure::computeTexture()
 void Structure::updateNeighborTextures()
 {
 	Board* board = g_scene.findSingleGameObject<Board>();
+	if(!board) return;
+
 	if(auto structure = board->getStructure(position_ + Coordinates(0, -1)))
 		structure->computeTexture();
 	if(auto structure = board->getStructure(position_ + Coordinates(1,  0)))

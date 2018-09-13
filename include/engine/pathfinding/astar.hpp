@@ -37,9 +37,6 @@ private:
 template<class TSpatialRepresentation>
 Path* AStar<TSpatialRepresentation>::findPath(const TSpatialRepresentation& start, const TSpatialRepresentation& end)
 {
-	if(!this->worldAdapter_->isAccessible(end))
-		return nullptr;
-
 	if(start == end)
 		return nullptr;
 
@@ -72,7 +69,7 @@ Path* AStar<TSpatialRepresentation>::findPath(const TSpatialRepresentation& star
 		{
 			// If the sqare is accessible but was not added to closedlist yet
 			if(_closedlist.find(neighbor) == _closedlist.end()
-			   && this->worldAdapter_->isAccessible(neighbor))
+			   && this->worldAdapter_->isAccessibleFrom(currentcoords, neighbor))
 			{
 				// Coordinates are not put into openlist
 				if(_openlist.find(neighbor) == _openlist.end())

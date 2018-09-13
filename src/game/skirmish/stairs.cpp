@@ -10,8 +10,7 @@ namespace qrw
 SID Stairs::typeName("qrw::Stairs");
 
 Stairs::Stairs()
-	: height_(1),
-	  face_(Directions::NORTH)
+	: face_(Directions::NORTH)
 {
 	spriteComponent_->setTexture(TextureManager::getInstance()->getTexture("stairs"));
 	spriteComponent_->setOrigin(0.5f * SQUARE_DIMENSION, 0.5f * SQUARE_DIMENSION);
@@ -21,11 +20,11 @@ void Stairs::computeTexture()
 {
 	float rotation = 0;
 	if(face_ == Directions::EAST)
-		rotation = 90;//texture = TextureManager::getInstance()->getTexture("wallE");
+		rotation = 90;
 	else if(face_ == Directions::SOUTH)
-		rotation = 180;//texture = TextureManager::getInstance()->getTexture("wallS");
+		rotation = 180;
 	else if(face_ == Directions::WEST)
-		rotation = 270;//texture = TextureManager::getInstance()->getTexture("wallW");
+		rotation = 270;
 
 	spriteComponent_->setRotation(rotation);
 }

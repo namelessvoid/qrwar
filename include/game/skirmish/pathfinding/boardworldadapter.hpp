@@ -16,14 +16,12 @@ class BoardWorldAdapter : public IWorldAdapter<Coordinates>
 public:
 	explicit BoardWorldAdapter(const Board& board);
 
-	bool isAccessible(const Coordinates& location) const override;
+	bool isAccessibleFrom(const Coordinates& source, const Coordinates& position2) const override;
 
 	std::vector<Coordinates> getNeighborLocationsFor(const Coordinates& location) const override;
 
 private:
 	const Board& board_;
-
-	static const std::array<const Coordinates,4> directions_;
 };
 
 } // namespace qrw

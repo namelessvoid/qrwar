@@ -12,7 +12,7 @@ class IWorldAdapter
 public:
 	virtual ~IWorldAdapter() = default;
 
-	virtual bool isAccessible(const TSpatialRepresentation& location) const = 0;
+	virtual bool isAccessibleFrom(const TSpatialRepresentation& source, const TSpatialRepresentation& destination) const = 0;
 	virtual std::vector<TSpatialRepresentation> getNeighborLocationsFor(const TSpatialRepresentation& location) const = 0;
 };
 
