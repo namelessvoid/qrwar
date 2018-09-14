@@ -120,6 +120,12 @@ sf::Vector2f ListWidget::computeItemPosition(int index)
 	return {getPosition().x, getPosition().y + index * ITEM_HEIGHT};
 }
 
+void ListWidget::setSize(const sf::Vector2f& size)
+{
+	RectangularWidget::setSize(size);
+	scrollBar_->setSize({scrollBar_->getSize().x, size.y});
+}
+
 } // namespace namelessgui
 
 

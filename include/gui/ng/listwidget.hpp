@@ -13,19 +13,21 @@ class ListWidget : public RectangularWidget, public WidgetEventMixin
 public:
     ListWidget();
 
-    ~ListWidget();
+    ~ListWidget() override;
 
     void addItem(const std::string& content);
 
-    virtual void render(sf::RenderTarget&, sf::RenderStates) const override;
+    void render(sf::RenderTarget&, sf::RenderStates) const override;
 
-	virtual bool handleEvent(const qrw::IEvent& event) override;
+	bool handleEvent(const qrw::IEvent& event) override;
 
-    virtual bool isVisible() const override;
+    bool isVisible() const override;
 
-	virtual void setPosition(const sf::Vector2f& position) override;
+	void setPosition(const sf::Vector2f& position) override;
 
-    virtual sf::FloatRect getWidgetArea() const override;
+	void setSize(const sf::Vector2f& size) override;
+
+	sf::FloatRect getWidgetArea() const override;
 
 	Signal<const std::string&> signalItemSelected;
 
