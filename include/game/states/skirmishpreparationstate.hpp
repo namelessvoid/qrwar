@@ -5,6 +5,8 @@
 
 #include "game/skirmish/mapmanager.hpp"
 
+#include "game/skirmish/gui/skirmishguifactory.hpp"
+
 namespace namelessgui {
 class ConfirmationDialog;
 class LineInput;
@@ -16,19 +18,17 @@ class SkirmishPreparationState : public GameState, public EventHandler
 
 {
 public:
-    SkirmishPreparationState(sf::RenderWindow* renderWindow, MapManager& mapManager);
+    SkirmishPreparationState(sf::RenderWindow* renderWindow, MapManager& mapManager, const SkirmishGuiFactory& guiFactory);
 
-    virtual ~SkirmishPreparationState();
+    ~SkirmishPreparationState() override;
 
-    virtual EGameStateId update() override;
-    virtual void draw() override;
+    EGameStateId update() override;
+    void draw() override;
 
-	virtual bool handleEvent(const IEvent &event) override;
+	bool handleEvent(const IEvent &event) override;
 
-	const std::string& getMapName() const { return selectedMap_; }
-
+	const std::string& getMapName() const;
 	const std::string& getPlayerOneName() const;
-
 	const std::string& getPlayerTwoName() const;
 
 private:
@@ -36,22 +36,17 @@ private:
 
     SkirmishPreparationState& operator=(const SkirmishPreparationState& rhs) = delete;
 
-	void slotMapSelected(const std::string& mapName) { selectedMap_ = mapName; }
-
 	void slotToSkirmishStateClicked() { nextState_ = EGSID_DEPLOY_STATE; }
 
     void slotBackToMainMenuClicked() { nextState_ = EGSID_MAIN_MENU_STATE; }
 
     MapManager& mapManager_;
 
-	std::string selectedMap_;
-
     namelessgui::ConfirmationDialog* backToMainMenuDialog_;
 
     EGameStateId nextState_;
 
-	namelessgui::LineInput* playerOneName_;
-	namelessgui::LineInput* playerTwoName_;
+    SkirmishPreparationGui* skirmishPreparationWindow_;
 };
 
 

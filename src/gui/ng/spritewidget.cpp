@@ -43,7 +43,7 @@ void RectangularWidget::render(sf::RenderTarget& target, sf::RenderStates states
 	Widget::render(target, states);
 }
 
-void RectangularWidget::setSize(const sf::Vector2f& size)
+void RectangularWidget:: setSize(const sf::Vector2f& size)
 {
 	sf::RectangleShape::setSize(size);
 }

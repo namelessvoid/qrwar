@@ -2,6 +2,7 @@
 #define QRW_SKIRMISHGUIFACTORY_HPP
 
 #include "mapeditortoolbar.hpp"
+#include "skirmishpreparationgui.hpp"
 
 namespace qrw
 {
@@ -13,8 +14,13 @@ public:
 	{
 		return new MapEditorToolBar(initialBoardWidth, initialBoardHeight);
 	}
+
+	virtual SkirmishPreparationGui* createSkirmishPreparationGui() const
+	{
+		return new SkirmishPreparationGui();
+	}
 };
 
-}
+} // namespace qrw
 
 #endif //QRW_SKIRMISHGUIFACTORY_HPP
