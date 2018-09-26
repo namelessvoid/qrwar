@@ -26,7 +26,7 @@ SkirmishPreparationState::SkirmishPreparationState(sf::RenderWindow* renderWindo
 	_guiUptr->addWidget(skirmishPreparationWindow_);
 
 	backToMainMenuDialog_ = new namelessgui::ConfirmationDialog("Really go back to main menu?");
-	backToMainMenuDialog_->signalYesClicked.connect(std::bind(&SkirmishPreparationState::slotBackToMainMenuClicked, this));
+	backToMainMenuDialog_->signalYesClicked.connect([this] { slotBackToMainMenuClicked(); });
 	_guiUptr->addWidget(backToMainMenuDialog_);
 
 	_guiUptr->setVisible(true);
