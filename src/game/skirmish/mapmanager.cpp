@@ -123,8 +123,11 @@ std::vector<std::string> MapManager::getMapList() const
 {
 	std::vector<std::string> mapNames;
 
-	for(auto& p: fs::directory_iterator(getUserMapDir()))
-		mapNames.push_back(convertPathToMapName(p));
+	for(auto& p : fs::directory_iterator(getUserMapDir()))
+	{
+		if(p.path().extension().compare(".map") == 0)
+			mapNames.push_back(convertPathToMapName(p));
+	}
 
 	return mapNames;
 }
