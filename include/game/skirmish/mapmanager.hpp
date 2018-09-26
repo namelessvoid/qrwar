@@ -9,6 +9,10 @@
 #include "game/skirmish/mapdto.hpp"
 #include "meta/metamanager.hpp"
 
+namespace sf {
+class Texture;
+}
+
 namespace qrw {
 
 class Board;
@@ -33,6 +37,8 @@ public:
 		const std::string& mapName,
 		LoadErrors& error);
 
+    sf::Texture* loadMapPreview(const std::string& mapName);
+
     void saveMap(
         const std::string& mapName,
         const MapDto& dto);
@@ -42,6 +48,8 @@ public:
 private:
 	std::string mapNameToPath(const std::string& mapName) const;
 	std::string pathToMapName(const std::experimental::filesystem::path& fileName) const;
+
+	void createAndSaveMapPreview(const std::string mapName, const MapDto& dto);
 
 	std::experimental::filesystem::path getUserMapDir() const;
 

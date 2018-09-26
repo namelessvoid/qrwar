@@ -4,10 +4,18 @@
 #include <fstream>
 #include <regex>
 
+#include <SFML/Graphics/Texture.hpp>
+#include <SFML/Graphics/RenderTexture.hpp>
+
+#include "foundation/spritecomponent.hpp"
+
 #include "meta/metamanager.hpp"
 
 #include "engine/board.hpp"
+#include "game/constants.hpp"
 #include "game/deploymentzone.hpp"
+#include "game/skirmish/structure.hpp"
+#include "engine/terrain.hpp"
 
 namespace fs = std::experimental::filesystem;
 
@@ -107,6 +115,8 @@ void MapManager::saveMap(
 	mapFile.open(userMapDir / fileName, std::ofstream::out | std::ofstream::trunc);
 	mapFile << yaml.c_str() << std::endl;
 	mapFile.close();
+
+	createAndSaveMapPreview(mapName, dto);
 }
 
 std::vector<std::string> MapManager::getMapList() const
@@ -131,9 +141,37 @@ std::string MapManager::pathToMapName(const fs::path& filePath) const
 	return std::regex_replace(filePath.stem().string(), dashMatcher, " ");
 }
 
+void MapManager::createAndSaveMapPreview(const std::string mapName, const MapDto& dto)
+{
+	sf::RenderTexture renderTexture;
+	renderTexture.create(
+			static_cast<unsigned int>(dto.board->getWidth() * SQUARE_DIMENSION),
+			static_cast<unsigned int>(dto.board->getHeight() * SQUARE_DIMENSION));
+	dto.board->getComponent<SpriteComponent>()->render(renderTexture);
+	for(auto& structureIter : dto.board->getStructures())
+		structureIter.second->getComponent<SpriteComponent>()->render(renderTexture);
+	for(auto& terrainIter : dto.board->getTerrains())
+		terrainIter.second->getComponent<SpriteComponent>()->render(renderTexture);
+	for(auto& deploymentZone : dto.deploymentZones)
+		deploymentZone->render(renderTexture);
+	renderTexture.display();
+	renderTexture.getTexture().copyToImage().saveToFile(getUserMapDir() / (mapNameToPath(mapName) + ".png"));
+}
+
 fs::path MapManager::getUserMapDir() const
 {
 	return std::string(getenv("HOME")) + "/.qrw/maps";
+}
+
+sf::Texture* MapManager::loadMapPreview(const std::string& mapName)
+{
+	sf::Texture* image = new sf::Texture();
+	fs::path previewPath = getUserMapDir() / (mapNameToPath(mapName) + ".png");
+	std::cerr << "Loading map preview from " << previewPath << std::endl << std::flush;
+	if(!image->loadFromFile(previewPath))
+		std::cerr << "Failed to load map preview\n" << std::flush;
+
+	return image;
 }
 
 } // namespace qrw
