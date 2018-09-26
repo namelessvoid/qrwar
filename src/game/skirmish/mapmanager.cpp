@@ -44,7 +44,7 @@ MapDto MapManager::loadMap(
 		return mapDto;
 	}
 
-	std::vector<YAML::Node> documents = YAML::LoadAllFromFile(getUserMapDir() / mapNameToPath(mapName));
+	std::vector<YAML::Node> documents = YAML::LoadAllFromFile(getUserMapDir() / convertMapNameToPath(mapName, ".map"));
 	if(!mapValidator_->validate(documents))
 	{
 		error = LoadErrors::MAP_VALIDATION_FAILED;
@@ -79,7 +79,7 @@ MapDto MapManager::loadMap(
 
 bool MapManager::doesMapExist(const std::string& mapName)
 {
-	fs::path mapFilePath = getUserMapDir() / mapNameToPath(mapName);
+	fs::path mapFilePath = getUserMapDir() / convertMapNameToPath(mapName, ".map");
 
 	return fs::exists(mapFilePath);
 }
@@ -88,7 +88,7 @@ void MapManager::saveMap(
 	const std::string& mapName,
 	const MapDto& dto)
 {
-	const std::string fileName = mapNameToPath(mapName);
+	const std::string fileName = convertMapNameToPath(mapName, ".map");
 
 	YAML::Emitter yaml;
 	yaml << YAML::BeginDoc
@@ -124,18 +124,18 @@ std::vector<std::string> MapManager::getMapList() const
 	std::vector<std::string> mapNames;
 
 	for(auto& p: fs::directory_iterator(getUserMapDir()))
-		mapNames.push_back(pathToMapName(p));
+		mapNames.push_back(convertPathToMapName(p));
 
 	return mapNames;
 }
 
-std::string MapManager::mapNameToPath(const std::string& mapName) const
+std::string MapManager::convertMapNameToPath(const std::string& mapName, const std::string& extension) const
 {
 	std::regex whitespaceMatcher("\\s+");
-	return std::regex_replace(mapName, whitespaceMatcher, "-") += ".map";
+	return std::regex_replace(mapName, whitespaceMatcher, "-") += extension;
 }
 
-std::string MapManager::pathToMapName(const fs::path& filePath) const
+std::string MapManager::convertPathToMapName(const fs::path& filePath) const
 {
 	std::regex dashMatcher("-");
 	return std::regex_replace(filePath.stem().string(), dashMatcher, " ");
@@ -147,6 +147,7 @@ void MapManager::createAndSaveMapPreview(const std::string mapName, const MapDto
 	renderTexture.create(
 			static_cast<unsigned int>(dto.board->getWidth() * SQUARE_DIMENSION),
 			static_cast<unsigned int>(dto.board->getHeight() * SQUARE_DIMENSION));
+
 	dto.board->getComponent<SpriteComponent>()->render(renderTexture);
 	for(auto& structureIter : dto.board->getStructures())
 		structureIter.second->getComponent<SpriteComponent>()->render(renderTexture);
@@ -154,24 +155,25 @@ void MapManager::createAndSaveMapPreview(const std::string mapName, const MapDto
 		terrainIter.second->getComponent<SpriteComponent>()->render(renderTexture);
 	for(auto& deploymentZone : dto.deploymentZones)
 		deploymentZone->render(renderTexture);
-	renderTexture.display();
-	renderTexture.getTexture().copyToImage().saveToFile(getUserMapDir() / (mapNameToPath(mapName) + ".png"));
-}
 
-fs::path MapManager::getUserMapDir() const
-{
-	return std::string(getenv("HOME")) + "/.qrw/maps";
+	renderTexture.display();
+	renderTexture.getTexture().copyToImage().saveToFile(getUserMapDir() / (convertMapNameToPath(mapName, ".png")));
 }
 
 sf::Texture* MapManager::loadMapPreview(const std::string& mapName)
 {
 	sf::Texture* image = new sf::Texture();
-	fs::path previewPath = getUserMapDir() / (mapNameToPath(mapName) + ".png");
-	std::cerr << "Loading map preview from " << previewPath << std::endl << std::flush;
+	fs::path previewPath = getUserMapDir() / (convertMapNameToPath(mapName, ".png"));
+	std::cerr << "Loading map preview from '" << previewPath << "'" << std::endl << std::flush;
 	if(!image->loadFromFile(previewPath))
-		std::cerr << "Failed to load map preview\n" << std::flush;
+		std::cerr << "Failed to load map preview from '" << previewPath << "'" << std::endl << std::flush;
 
 	return image;
+}
+
+fs::path MapManager::getUserMapDir() const
+{
+	return std::string(getenv("HOME")) + "/.qrw/maps";
 }
 
 } // namespace qrw

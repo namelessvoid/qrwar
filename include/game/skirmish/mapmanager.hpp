@@ -46,8 +46,8 @@ public:
 	virtual std::vector<std::string> getMapList() const;
 
 private:
-	std::string mapNameToPath(const std::string& mapName) const;
-	std::string pathToMapName(const std::experimental::filesystem::path& fileName) const;
+	std::string convertMapNameToPath(const std::string& mapName, const std::string& extension) const;
+	std::string convertPathToMapName(const std::experimental::filesystem::path& fileName) const;
 
 	void createAndSaveMapPreview(const std::string mapName, const MapDto& dto);
 
