@@ -38,7 +38,9 @@ void MapSelectionWindow::setSize(const sf::Vector2f& size)
 {
 	RectangularWidget::setSize(size);
 	mapNameList_->setSize({size.x * 0.4f, size.y - 5.0f});
-	mapPreview_->setSize({size.x * 0.6f - 10.0f, size.y - 10.0f});
+
+	maxMapPreviewSize_ = {size.x * 0.6f - 10.0f, size.y - 10.0f};
+	updateMapPreviewSize();
 }
 
 void MapSelectionWindow::slotMapSelectionChanged(const std::string& mapName)
@@ -47,6 +49,28 @@ void MapSelectionWindow::slotMapSelectionChanged(const std::string& mapName)
 
 	sf::Texture* texture = mapManager_.loadMapPreview(selectedMapName_);
 	mapPreview_->setTexture(texture);
+
+	updateMapPreviewSize();
+}
+
+void MapSelectionWindow::updateMapPreviewSize()
+{
+	sf::Vector2f sizeMapPreview = maxMapPreviewSize_;
+	sf::Vector2f sizeTexture(mapPreview_->getTexture()->getSize().x, mapPreview_->getTexture()->getSize().y);
+
+	// Only resize if texture is valid and possible preview size is > zero
+	if(sizeTexture.x != 0 && sizeTexture.y != 0 && maxMapPreviewSize_.x != 0 && maxMapPreviewSize_.y != 0)
+	{
+		float aspectRatioTexture = sizeTexture.x / sizeTexture.y;
+		float aspectRatioMapPreview = maxMapPreviewSize_.x / maxMapPreviewSize_.y;
+
+		if(aspectRatioTexture < aspectRatioMapPreview)
+			sizeMapPreview.x = maxMapPreviewSize_.y * aspectRatioTexture;
+		else if(aspectRatioTexture > aspectRatioMapPreview)
+			sizeMapPreview.y = maxMapPreviewSize_.x / aspectRatioTexture;
+	}
+
+	mapPreview_->setSize(sizeMapPreview);
 }
 
 } // namespace qrw

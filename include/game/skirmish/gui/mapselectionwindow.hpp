@@ -26,9 +26,11 @@ public:
 
 private:
 	void slotMapSelectionChanged(const std::string& mapName);
+	void updateMapPreviewSize();
 
 	namelessgui::ListWidget* mapNameList_;
 	namelessgui::RectangularWidget* mapPreview_;
+	sf::Vector2f maxMapPreviewSize_;
 
 	std::string selectedMapName_;
 
