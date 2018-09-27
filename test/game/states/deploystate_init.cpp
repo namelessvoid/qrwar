@@ -57,10 +57,11 @@ TEST(DeployState_Init, Then_game_objects_are_added_to_scene)
 		.WillOnce(MapManagerMock_LoadMapAction(qrw::MapManager::LoadErrors::SUCCESS, mapDto));
 
 	sf::RenderWindow renderWindow;
+	qrw::SkirmishGuiFactory skirmishGuiFactory(mapManager);
 
 	auto deployState = new qrw::DeployState(&renderWindow, mapManager);
 
-	qrw::SkirmishPreparationState skirmishPreparationState(&renderWindow, mapManager);
+	qrw::SkirmishPreparationState skirmishPreparationState(&renderWindow, mapManager, skirmishGuiFactory);
 
 	// Act
 	deployState->init(&skirmishPreparationState);

@@ -170,7 +170,7 @@ sf::Texture* MapManager::loadMapPreview(const std::string& mapName)
 	if(!image->loadFromFile(previewPath))
 	{
 		// TODO: Use Logger
-		std::cerr << "Failed to load map preview from '" << previewPath << "'" << std::endl << std::flush;
+		std::cerr << "Failed to load map preview from " << previewPath << std::endl << std::flush;
 	}
 
 	return image;
