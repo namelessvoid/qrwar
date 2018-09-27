@@ -49,11 +49,6 @@ const std::string& SkirmishPreparationGui::getPlayerTwoName() const
 	return playerTwoOptions_->getPlayerName();
 }
 
-void SkirmishPreparationGui::setMaps(const std::vector<std::string>& mapNames)
-{
-	mapSelectionWindow_->setMaps(mapNames);
-}
-
 void SkirmishPreparationGui::setSize(const sf::Vector2f& size)
 {
 	RectangularWidget::setSize(size);

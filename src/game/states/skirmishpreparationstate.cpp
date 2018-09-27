@@ -32,10 +32,6 @@ SkirmishPreparationState::SkirmishPreparationState(sf::RenderWindow* renderWindo
 	_guiUptr->setVisible(true);
 
 	backToMainMenuDialog_->setVisible(false);
-
-	// Init map list widget
-	std::vector<std::string> mapNames = mapManager_.getMapList();
-	skirmishPreparationWindow_->setMaps(mapNames);
 }
 
 EGameStateId SkirmishPreparationState::update()

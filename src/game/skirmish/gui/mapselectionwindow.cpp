@@ -22,10 +22,9 @@ MapSelectionWindow::MapSelectionWindow(MapManager& mapManager)
 	mapPreview_->setRelativePosition({-5, 5});
 	mapPreview_->setVisible(true);
 	addWidget(mapPreview_);
-}
 
-void MapSelectionWindow::setMaps(const std::vector<std::string>& mapNames)
-{
+	// Initialize map list
+	auto mapNames = mapManager_.getMapList();
 	for(auto& mapName : mapNames)
 		mapNameList_->addItem(mapName);
 }

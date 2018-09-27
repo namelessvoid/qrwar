@@ -24,8 +24,6 @@ public:
 
 	void setSize(const sf::Vector2f& size) override;
 
-	void setMaps(const std::vector<std::string>& mapNames);
-
 	const std::string& getPlayerOneName() const;
 	const std::string& getPlayerTwoName() const;
 

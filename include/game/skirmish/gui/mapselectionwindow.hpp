@@ -22,7 +22,6 @@ public:
 	MapSelectionWindow(MapSelectionWindow& rhs) = delete;
 	MapSelectionWindow& operator=(MapSelectionWindow& rhs) = delete;
 
-	void setMaps(const std::vector<std::string>& mapNames);
 	const std::string& getSelectedMapName() const;
 
 private:
