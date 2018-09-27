@@ -17,9 +17,9 @@ MapSelectionWindow::MapSelectionWindow(MapManager& mapManager)
 
 	mapPreview_ = new namelessgui::RectangularWidget();
 	mapPreview_->setFillColor(sf::Color::White);
-	mapPreview_->setAnchor({1, 0});
-	mapPreview_->setParentAnchor({1, 0});
-	mapPreview_->setRelativePosition({-5, 5});
+	mapPreview_->setAnchor({0, 0});
+	mapPreview_->setParentAnchor({0.4, 0});
+	mapPreview_->setRelativePosition({5, 5});
 	mapPreview_->setVisible(true);
 	addWidget(mapPreview_);
 
