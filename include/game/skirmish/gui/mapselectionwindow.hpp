@@ -10,13 +10,14 @@ class ListWidget;
 
 namespace qrw
 {
+class MapManager;
 
 class MapSelectionWindow : public namelessgui::Window
 {
 public:
 	void setSize(const sf::Vector2f& size) override;
 
-	MapSelectionWindow();
+	explicit MapSelectionWindow(MapManager& mapManager);
 
 	MapSelectionWindow(MapSelectionWindow& rhs) = delete;
 	MapSelectionWindow& operator=(MapSelectionWindow& rhs) = delete;
@@ -25,8 +26,14 @@ public:
 	const std::string& getSelectedMapName() const;
 
 private:
+	void slotMapSelectionChanged(const std::string& mapName);
+
 	namelessgui::ListWidget* mapNameList_;
+	namelessgui::RectangularWidget* mapPreview_;
+
 	std::string selectedMapName_;
+
+	MapManager& mapManager_;
 };
 
 }

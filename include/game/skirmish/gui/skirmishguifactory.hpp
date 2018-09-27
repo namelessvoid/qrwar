@@ -3,6 +3,9 @@
 
 #include "mapeditortoolbar.hpp"
 #include "skirmishpreparationgui.hpp"
+#include "mapselectionwindow.hpp"
+
+#include "game/skirmish/mapmanager.hpp"
 
 namespace qrw
 {
@@ -10,6 +13,10 @@ namespace qrw
 class SkirmishGuiFactory
 {
 public:
+	explicit SkirmishGuiFactory(MapManager& mapManager)
+		: mapManager_(mapManager)
+	{}
+
 	virtual MapEditorToolBar* createMapEditorToolBar(unsigned int initialBoardWidth, unsigned initialBoardHeight) const
 	{
 		return new MapEditorToolBar(initialBoardWidth, initialBoardHeight);
@@ -17,8 +24,16 @@ public:
 
 	virtual SkirmishPreparationGui* createSkirmishPreparationGui() const
 	{
-		return new SkirmishPreparationGui();
+		return new SkirmishPreparationGui(*this);
 	}
+
+	virtual MapSelectionWindow* createMapSelectionWindow() const
+	{
+		return new MapSelectionWindow(mapManager_);
+	}
+
+private:
+	MapManager& mapManager_;
 };
 
 } // namespace qrw

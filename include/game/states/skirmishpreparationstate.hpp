@@ -20,8 +20,6 @@ class SkirmishPreparationState : public GameState, public EventHandler
 public:
     SkirmishPreparationState(sf::RenderWindow* renderWindow, MapManager& mapManager, const SkirmishGuiFactory& guiFactory);
 
-    ~SkirmishPreparationState() override;
-
     EGameStateId update() override;
     void draw() override;
 

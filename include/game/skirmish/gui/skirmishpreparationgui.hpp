@@ -13,11 +13,12 @@ namespace qrw
 {
 class SkirmishPreparationPlayerOptions;
 class MapSelectionWindow;
+class SkirmishGuiFactory;
 
 class SkirmishPreparationGui : public namelessgui::Window
 {
 public:
-	SkirmishPreparationGui();
+	explicit SkirmishPreparationGui(const SkirmishGuiFactory& skirmishGuiFactory);
 
 	SkirmishPreparationGui(const SkirmishPreparationGui& rhs) = delete;
 

@@ -149,7 +149,7 @@ void QRWar::registerMetaTypes()
 
 GameState* QRWar::createGameState(EGameStateId id)
 {
-	SkirmishGuiFactory guiFactory;
+	SkirmishGuiFactory guiFactory(mapManager);
 
 	switch(id)
 	{

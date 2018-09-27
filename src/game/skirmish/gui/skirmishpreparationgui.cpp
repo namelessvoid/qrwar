@@ -4,13 +4,14 @@
 #include "gui/ng/lineinput.hpp"
 #include "gui/ng/listwidget.hpp"
 
+#include "game/skirmish/gui/skirmishguifactory.hpp"
 #include "game/skirmish/gui/mapselectionwindow.hpp"
 #include "game/skirmish/gui/skirmishpreparationplayeroptions.hpp"
 
 namespace qrw
 {
 
-SkirmishPreparationGui::SkirmishPreparationGui()
+SkirmishPreparationGui::SkirmishPreparationGui(const SkirmishGuiFactory& skirmishGuiFactory)
 {
 	namelessgui::Button* toSkirmisStateButton = new namelessgui::Button();
 	toSkirmisStateButton->signalClicked.connect([this] { signalBeginSkirmishClicked.emit(); });
@@ -21,7 +22,7 @@ SkirmishPreparationGui::SkirmishPreparationGui()
 	toSkirmisStateButton->setRelativePosition({-5, -5});
 	addWidget(toSkirmisStateButton);
 
-	mapSelectionWindow_ = new MapSelectionWindow();
+	mapSelectionWindow_ = skirmishGuiFactory.createMapSelectionWindow();
 	mapSelectionWindow_->setRelativePosition({5, 5});
 	addWidget(mapSelectionWindow_);
 

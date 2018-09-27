@@ -167,9 +167,11 @@ sf::Texture* MapManager::loadMapPreview(const std::string& mapName)
 {
 	sf::Texture* image = new sf::Texture();
 	fs::path previewPath = getUserMapDir() / (convertMapNameToPath(mapName, ".png"));
-	std::cerr << "Loading map preview from '" << previewPath << "'" << std::endl << std::flush;
 	if(!image->loadFromFile(previewPath))
+	{
+		// TODO: Use Logger
 		std::cerr << "Failed to load map preview from '" << previewPath << "'" << std::endl << std::flush;
+	}
 
 	return image;
 }

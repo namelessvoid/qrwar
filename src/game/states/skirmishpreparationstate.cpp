@@ -38,10 +38,6 @@ SkirmishPreparationState::SkirmishPreparationState(sf::RenderWindow* renderWindo
 	skirmishPreparationWindow_->setMaps(mapNames);
 }
 
-SkirmishPreparationState::~SkirmishPreparationState()
-{
-}
-
 EGameStateId SkirmishPreparationState::update()
 {
 	return nextState_;
