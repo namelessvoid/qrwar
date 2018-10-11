@@ -25,57 +25,6 @@ std::string Unit::UNITNAMES[] =
 	"Swordman", "Archer", "Spearman"
 };
 
-Unit* Unit::createUnit(UNITTYPES unitType, Player::Ptr player)
-{
-	const sf::Texture* texture = GuiHelper::getUnitTexture(unitType, player);
-
-	int maxHp = 0;
-	int attack = 0;
-	int defense = 0;
-	int range = 0;
-	int movement = 0;
-
-	switch(unitType)
-	{
-	case EUT_SWORDMAN:
-		maxHp    = 5;
-		attack   = 2;
-		defense  = 1;
-		range    = 1;
-		movement = 3;
-		break;
-	case EUT_ARCHER:
-		maxHp    = 5;
-		attack   = 2;
-		defense  = 1;
-		range    = 2;
-		movement = 2;
-		break;
-	case EUT_SPEARMAN:
-		maxHp    = 5;
-		attack   = 2;
-		defense  = 1;
-		range    = 1;
-		movement = 2;
-		break;
-	default:
-		assert(false);
-	}
-
-	Unit* unit = g_scene.spawn<Unit>();
-	unit->setType(unitType);
-	unit->setMaxHp(maxHp);
-	unit->setHP(maxHp);
-	unit->setAttack(attack);
-	unit->setDefense(defense);
-	unit->setRange(range);
-	unit->setMovement(movement);
-	unit->setCurrentMovement(movement);
-	unit->setPlayer(player);
-	unit->setTexture(texture);
-	return unit;
-}
-
 Unit::Unit()
 {
 	_sprite = new SpriteComponent(RENDER_LAYER_UNIT);

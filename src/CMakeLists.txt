@@ -52,6 +52,7 @@ add_library(qrwarlib
 	game/skirmish/mapmanager.cpp
 	game/skirmish/mapvalidator.cpp
 	game/skirmish/unit.cpp
+	game/skirmish/unitfactory.cpp
 	game/skirmish/structure.cpp
 	game/skirmish/stairs.cpp
 	game/skirmish/wall.cpp
@@ -61,6 +62,7 @@ add_library(qrwarlib
 
 	game/skirmish/gui/victorydialog.cpp
 	game/skirmish/gui/mapeditortoolbar.cpp
+	game/skirmish/gui/mapselectionwindow.cpp
 	game/skirmish/gui/skirmishpreparationgui.cpp
 	game/skirmish/gui/skirmishpreparationplayeroptions.cpp
 	game/skirmish/gui/squaredetailwindow.cpp
@@ -85,7 +87,7 @@ add_library(qrwarlib
 	gui/guihelper.cpp
 
 	meta/metamanager.cpp
-	meta/metaclass.cpp game/skirmish/gui/mapselectionwindow.cpp ../include/game/skirmish/gui/mapselectionwindow.hpp)
+	meta/metaclass.cpp)
 set_target_properties(qrwarlib PROPERTIES OUTPUT_NAME qrwar)
 target_link_libraries(qrwarlib ${LIBS} stdc++fs namelessgui)
 

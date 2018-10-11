@@ -3,7 +3,7 @@
 #include <memory>
 #include <cassert>
 
-#include "game/skirmish/unit.hpp"
+#include "game/skirmish/unitfactory.hpp"
 #include "engine/terrain.hpp"
 #include "game/skirmish/structure.hpp"
 
@@ -108,7 +108,7 @@ DeployState::DeployState(sf::RenderWindow* renderWindow, MapManager& mapManager)
 	nextStepButton->setAnchor({0.5f, 1.0f});
 	nextStepButton->setParentAnchor({0.5f, 1.0f});
 	nextStepButton->setRelativePosition({0.0f, -5.0f});
-    nextStepButton->signalClicked.connect(std::bind(&DeployState::slotToSkirmishButtonClicked, this));
+    nextStepButton->signalClicked.connect([this] { slotToSkirmishButtonClicked(); });
 	_toolBar->addWidget(nextStepButton);
 
 	// Error dialog
@@ -231,7 +231,7 @@ void DeployState::slotCursorLeftClicked(const Coordinates& boardPosition)
 	if(Unit* unit = board_->getUnit(boardPosition))
 		g_scene.destroy(unit);
 
-	Unit* unit = Unit::createUnit(_selectedUnitType, _selectedPlayer);
+	Unit* unit = UnitFactory::createUnit(_selectedUnitType, _selectedPlayer);
 	unit->setPosition(boardPosition);
 	g_scene.addGameObject(unit);
 }

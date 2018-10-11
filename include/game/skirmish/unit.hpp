@@ -22,7 +22,7 @@ class FollowRouteAnimationComponent;
 class Unit : public GameObject
 {
 public:
-	static Unit* createUnit(UNITTYPES unitType, Player::Ptr player);
+	friend class UnitFactory;
 
 	const SID& getTypeName() const override { throw "Not implemented"; }
 
