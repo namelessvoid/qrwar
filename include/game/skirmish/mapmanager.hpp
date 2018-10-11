@@ -9,6 +9,8 @@
 #include "game/skirmish/mapdto.hpp"
 #include "meta/metamanager.hpp"
 
+#include "core/logger.hpp"
+
 namespace sf {
 class Texture;
 }
@@ -28,8 +30,11 @@ public:
         MAP_VALIDATION_FAILED
     };
 
-	MapManager(MetaManager& metaManager);
-    virtual ~MapManager();
+	explicit MapManager(MetaManager& metaManager);
+    virtual ~MapManager() = default;
+
+	MapManager(const MapManager& rhs) = delete;
+	MapManager& operator=(const MapManager& rhs) = delete;
 
     virtual bool doesMapExist(const std::string& mapName);
 
@@ -49,18 +54,14 @@ private:
 	std::string convertMapNameToPath(const std::string& mapName, const std::string& extension) const;
 	std::string convertPathToMapName(const std::experimental::filesystem::path& fileName) const;
 
-	void createAndSaveMapPreview(const std::string mapName, const MapDto& dto);
+	void createAndSaveMapPreview(const std::string& mapName, const MapDto& dto);
 
 	std::experimental::filesystem::path getUserMapDir() const;
 
 	MetaManager& metaManager_;
-
     std::unique_ptr<MapValidator> mapValidator_;
-
-    MapManager(const MapManager& rhs) = delete;
-    MapManager& operator=(const MapManager& rhs) = delete;
+    std::unique_ptr<Logger> logger_;
 };
-
 
 } // namespace qrw
 

@@ -26,10 +26,8 @@ MapManager::MapManager(MetaManager& metaManager)
   : metaManager_(metaManager),
 	mapValidator_(new MapValidator())
 {
-}
-
-MapManager::~MapManager()
-{
+	logger_ = std::make_unique<Logger>();
+	logger_->setPrefix("MapManager");
 }
 
 MapDto MapManager::loadMap(
@@ -67,9 +65,9 @@ MapDto MapManager::loadMap(
 		}
 		else
 		{
-			std::cerr << "Found unsupported game object in map \'"
-					<< mapName << "\': "
-				  	<< node[MetaClass::TYPE_NAME_YAML_KEY].as<std::string>() << std::endl << std::flush;
+			logger_->logError("Found unsupported game object in map '"
+				  + mapName + "': "
+				  + node[MetaClass::TYPE_NAME_YAML_KEY].as<std::string>());
 		}
 	}
 
@@ -144,7 +142,7 @@ std::string MapManager::convertPathToMapName(const fs::path& filePath) const
 	return std::regex_replace(filePath.stem().string(), dashMatcher, " ");
 }
 
-void MapManager::createAndSaveMapPreview(const std::string mapName, const MapDto& dto)
+void MapManager::createAndSaveMapPreview(const std::string& mapName, const MapDto& dto)
 {
 	sf::RenderTexture renderTexture;
 	renderTexture.create(
@@ -169,8 +167,7 @@ sf::Texture* MapManager::loadMapPreview(const std::string& mapName)
 	fs::path previewPath = getUserMapDir() / (convertMapNameToPath(mapName, ".png"));
 	if(!image->loadFromFile(previewPath))
 	{
-		// TODO: Use Logger
-		std::cerr << "Failed to load map preview from " << previewPath << std::endl << std::flush;
+		logger_->logError("Failed to load map preview from '" + previewPath.string() + "'");
 	}
 
 	return image;
