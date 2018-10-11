@@ -31,7 +31,7 @@ DeployState::DeployState(sf::RenderWindow* renderWindow, MapManager& mapManager)
       _toSkirmish(false)
 {
 	// Initialize tool bar
-	sf::Vector2f buttonSize(140.0f, 50.0f);
+	sf::Vector2f buttonSize(200.0f, 50.0f);
 	namelessgui::RadioToggleButton* radioButton = nullptr;
 	std::shared_ptr<namelessgui::ButtonGroup> unitButtonGroup = std::make_shared<namelessgui::ButtonGroup>();
 	TextureManager* textureManager = TextureManager::getInstance();
@@ -67,6 +67,14 @@ DeployState::DeployState(sf::RenderWindow* renderWindow, MapManager& mapManager)
 	radioButton->signalActivated.connect([this] { slotUnitButtonChanged(UNITTYPES::EUT_SPEARMAN, 0); });
 	_toolBar->addWidget(radioButton);
 
+	radioButton = new namelessgui::RadioToggleButton(unitButtonGroup, "p1laddercarrier");
+	radioButton->setText("Ladder Carrier");
+	radioButton->setSize(buttonSize);
+	radioButton->setRelativePosition({0.5f, 4 * buttonSize.y});
+	radioButton->setImage(textureManager->getTexture("p1laddercarrier"));
+	radioButton->signalActivated.connect([this] { slotUnitButtonChanged(UNITTYPES::EUT_LADDERCARRIER, 0); });
+	_toolBar->addWidget(radioButton);
+
 	// Player two tools
 	playerTwoNameLabel_ = new namelessgui::Text();
 	playerTwoNameLabel_->setText("Player Two");
@@ -99,6 +107,15 @@ DeployState::DeployState(sf::RenderWindow* renderWindow, MapManager& mapManager)
 	radioButton->setRelativePosition({5.0f, 3 * buttonSize.y});
 	radioButton->setImage(textureManager->getTexture("p2spearman"));
 	radioButton->signalActivated.connect([this] { slotUnitButtonChanged(UNITTYPES::EUT_SPEARMAN, 1); });
+	_toolBar->addWidget(radioButton);
+
+	radioButton = new namelessgui::RadioToggleButton(unitButtonGroup, "p2laddercarrier");
+	radioButton->setText("Ladder Carrier");
+	radioButton->setSize(buttonSize);
+	radioButton->setParentAnchor({0.0f, 0.4f});
+	radioButton->setRelativePosition({0.5f, 4 * buttonSize.y});
+	radioButton->setImage(textureManager->getTexture("p2laddercarrier"));
+	radioButton->signalActivated.connect([this] { slotUnitButtonChanged(UNITTYPES::EUT_LADDERCARRIER, 1); });
 	_toolBar->addWidget(radioButton);
 
 	// Next step button

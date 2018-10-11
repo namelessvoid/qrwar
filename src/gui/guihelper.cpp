@@ -20,6 +20,9 @@ const sf::Texture* GuiHelper::getUnitTexture(UNITTYPES type, Player::Ptr player)
     case EUT_SPEARMAN:
         textureName += "spearman";
         break;
+    case EUT_LADDERCARRIER:
+        textureName += "laddercarrier";
+        break;
     default:
         textureName = "";
         break;
@@ -40,6 +43,8 @@ std::string GuiHelper::getUnitName(const Unit* unit)
         return "Archer";
     case EUT_SPEARMAN:
         return "Spearman";
+    case EUT_LADDERCARRIER:
+        return "Ladder Carrier";
     default:
         return "Unknown Unit Type";
     }

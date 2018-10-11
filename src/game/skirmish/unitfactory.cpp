@@ -3,11 +3,20 @@
 #include "gui/guihelper.hpp"
 #include "gui/scene.hpp"
 
+#include "game/skirmish/laddercarrier.hpp"
+
 namespace qrw
 {
 
 Unit* UnitFactory::createUnit(UNITTYPES unitType, Player::Ptr player)
 {
+	if(unitType == EUT_LADDERCARRIER)
+	{
+		Unit* unit = new LadderCarrier();
+		unit->setPlayer(player);
+		return unit;
+	}
+
 	const sf::Texture* texture = GuiHelper::getUnitTexture(unitType, player);
 
 	int maxHp = 0;

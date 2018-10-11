@@ -28,7 +28,7 @@ public:
 
 	Unit();
 
-	~Unit();
+	virtual ~Unit();
 
 	virtual void onDestroy() override;
 
@@ -80,8 +80,8 @@ public:
 
 	static std::string UNITNAMES[EUT_NUMBEROFUNITTYPES];
 
-private:
-	void setPosition_(const Coordinates& position);
+protected:
+	SpriteComponent* _sprite;
 
 	void setType(UNITTYPES type) { _type = type; }
 
@@ -94,6 +94,9 @@ private:
 	void setRange(int range) { _range = range; }
 
 	void setMovement(int movement) { _movement = movement; }
+
+private:
+	void setPosition_(const Coordinates& position);
 
 	void setPlayer(Player::Ptr player) { _player = player; }
 
@@ -113,7 +116,6 @@ private:
 
 	Coordinates _position;
 
-	SpriteComponent* _sprite;
 	FollowRouteAnimationComponent* followRouteAnimationComponent_;
 };
 
