@@ -14,7 +14,7 @@
 #include "game/skirmish/mapmanager.hpp"
 #include "game/deploymentzone.hpp"
 
-#include "gui/texturemanager.hpp"
+#include "gui/guihelper.hpp"
 
 #include "gui/ng/radiotogglebutton.hpp"
 #include "gui/ng/buttongroup.hpp"
@@ -34,7 +34,6 @@ DeployState::DeployState(sf::RenderWindow* renderWindow, MapManager& mapManager)
 	sf::Vector2f buttonSize(200.0f, 50.0f);
 	namelessgui::RadioToggleButton* radioButton = nullptr;
 	std::shared_ptr<namelessgui::ButtonGroup> unitButtonGroup = std::make_shared<namelessgui::ButtonGroup>();
-	TextureManager* textureManager = TextureManager::getInstance();
 
 	// Player one tools
 	playerOneNameLabel_ = new namelessgui::Text();
@@ -44,34 +43,34 @@ DeployState::DeployState(sf::RenderWindow* renderWindow, MapManager& mapManager)
 	_toolBar->addWidget(playerOneNameLabel_);
 
 	radioButton = new namelessgui::RadioToggleButton(unitButtonGroup, "p1swordman");
-	radioButton->setText("Swordman");
+	radioButton->setText(GuiHelper::getUnitName(EUT_SWORDMAN));
 	radioButton->setSize(buttonSize);
 	radioButton->setRelativePosition({5.0f, buttonSize.y});
-	radioButton->setImage(textureManager->getTexture("p1swordman"));
+	radioButton->setImage(GuiHelper::getUnitTexture(UNITTYPES::EUT_SWORDMAN, 1));
 	radioButton->signalActivated.connect([this] { slotUnitButtonChanged(UNITTYPES::EUT_SWORDMAN, 0); });
 	_toolBar->addWidget(radioButton);
 
 	radioButton = new namelessgui::RadioToggleButton(unitButtonGroup, "p1archer");
-	radioButton->setText("Archer");
+	radioButton->setText(GuiHelper::getUnitName(EUT_ARCHER));
 	radioButton->setSize(buttonSize);
 	radioButton->setRelativePosition({5.0f, 2 * buttonSize.y});
-	radioButton->setImage(textureManager->getTexture("p1archer"));
+	radioButton->setImage(GuiHelper::getUnitTexture(UNITTYPES::EUT_ARCHER, 1));
 	radioButton->signalActivated.connect([this] { slotUnitButtonChanged(UNITTYPES::EUT_ARCHER, 0); });
 	_toolBar->addWidget(radioButton);
 
 	radioButton = new namelessgui::RadioToggleButton(unitButtonGroup, "p1spearman");
-	radioButton->setText("Spearman");
+	radioButton->setText(GuiHelper::getUnitName(EUT_SPEARMAN));
 	radioButton->setSize(buttonSize);
 	radioButton->setRelativePosition({5.0f, 3 * buttonSize.y});
-	radioButton->setImage(textureManager->getTexture("p1spearman"));
+	radioButton->setImage(GuiHelper::getUnitTexture(UNITTYPES::EUT_SPEARMAN, 1));
 	radioButton->signalActivated.connect([this] { slotUnitButtonChanged(UNITTYPES::EUT_SPEARMAN, 0); });
 	_toolBar->addWidget(radioButton);
 
 	radioButton = new namelessgui::RadioToggleButton(unitButtonGroup, "p1laddercarrier");
-	radioButton->setText("Ladder Carrier");
+	radioButton->setText(GuiHelper::getUnitName(EUT_LADDERCARRIER));
 	radioButton->setSize(buttonSize);
 	radioButton->setRelativePosition({0.5f, 4 * buttonSize.y});
-	radioButton->setImage(textureManager->getTexture("p1laddercarrier"));
+	radioButton->setImage(GuiHelper::getUnitTexture(UNITTYPES::EUT_LADDERCARRIER, 1));
 	radioButton->signalActivated.connect([this] { slotUnitButtonChanged(UNITTYPES::EUT_LADDERCARRIER, 0); });
 	_toolBar->addWidget(radioButton);
 
@@ -83,38 +82,38 @@ DeployState::DeployState(sf::RenderWindow* renderWindow, MapManager& mapManager)
 	_toolBar->addWidget(playerTwoNameLabel_);
 
 	radioButton = new namelessgui::RadioToggleButton(unitButtonGroup, "p2swordman");
-	radioButton->setText("Swordman");
+	radioButton->setText(GuiHelper::getUnitName(EUT_SWORDMAN));
 	radioButton->setSize(buttonSize);
 	radioButton->setParentAnchor({0.0f, 0.4f});
 	radioButton->setRelativePosition({5.0f, buttonSize.y});
-	radioButton->setImage(textureManager->getTexture("p2swordman"));
+	radioButton->setImage(GuiHelper::getUnitTexture(UNITTYPES::EUT_SWORDMAN, 2));
 	radioButton->signalActivated.connect([this] { slotUnitButtonChanged(UNITTYPES::EUT_SWORDMAN, 1); });
 	_toolBar->addWidget(radioButton);
 
 	radioButton = new namelessgui::RadioToggleButton(unitButtonGroup, "p2archer");
-	radioButton->setText("Archer");
+	radioButton->setText(GuiHelper::getUnitName(EUT_ARCHER));
 	radioButton->setSize(buttonSize);
 	radioButton->setParentAnchor({0.0f, 0.4f});
 	radioButton->setRelativePosition({5.0f, 2 * buttonSize.y});
-	radioButton->setImage(textureManager->getTexture("p2archer"));
+	radioButton->setImage(GuiHelper::getUnitTexture(UNITTYPES::EUT_ARCHER, 2));
 	radioButton->signalActivated.connect([this] { slotUnitButtonChanged(UNITTYPES::EUT_ARCHER, 1); });
 	_toolBar->addWidget(radioButton);
 
 	radioButton = new namelessgui::RadioToggleButton(unitButtonGroup, "p2spearman");
-	radioButton->setText("Spearman");
+	radioButton->setText(GuiHelper::getUnitName(EUT_SPEARMAN));
 	radioButton->setSize(buttonSize);
 	radioButton->setParentAnchor({0.0f, 0.4f});
 	radioButton->setRelativePosition({5.0f, 3 * buttonSize.y});
-	radioButton->setImage(textureManager->getTexture("p2spearman"));
+	radioButton->setImage(GuiHelper::getUnitTexture(UNITTYPES::EUT_SPEARMAN, 2));
 	radioButton->signalActivated.connect([this] { slotUnitButtonChanged(UNITTYPES::EUT_SPEARMAN, 1); });
 	_toolBar->addWidget(radioButton);
 
 	radioButton = new namelessgui::RadioToggleButton(unitButtonGroup, "p2laddercarrier");
-	radioButton->setText("Ladder Carrier");
+	radioButton->setText(GuiHelper::getUnitName(EUT_LADDERCARRIER));
 	radioButton->setSize(buttonSize);
 	radioButton->setParentAnchor({0.0f, 0.4f});
 	radioButton->setRelativePosition({0.5f, 4 * buttonSize.y});
-	radioButton->setImage(textureManager->getTexture("p2laddercarrier"));
+	radioButton->setImage(GuiHelper::getUnitTexture(UNITTYPES::EUT_LADDERCARRIER, 2));
 	radioButton->signalActivated.connect([this] { slotUnitButtonChanged(UNITTYPES::EUT_LADDERCARRIER, 1); });
 	_toolBar->addWidget(radioButton);
 

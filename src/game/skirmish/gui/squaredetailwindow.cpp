@@ -99,8 +99,8 @@ SquareDetailWindow::SquareDetailWindow()
 void SquareDetailWindow::setUnit(const Unit& unit)
 {
 	unitTitleLabel_->setVisible(true);
-	unitTitleLabel_->setImage(GuiHelper::getUnitTexture(unit.getType(), unit.getPlayer()));
-	unitTitleLabel_->setText(GuiHelper::getUnitName(&unit));
+	unitTitleLabel_->setImage(GuiHelper::getUnitTexture(unit.getType(), unit.getPlayer()->getId()));
+	unitTitleLabel_->setText(GuiHelper::getUnitName(unit.getType()));
 
 	unitHealthLabel_->setVisible(true);
 	unitHealthLabel_->setText(std::to_string(unit.getHP()) + "/" + std::to_string(unit.getMaxHp()));

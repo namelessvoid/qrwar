@@ -17,7 +17,7 @@ Unit* UnitFactory::createUnit(UNITTYPES unitType, Player::Ptr player)
 		return unit;
 	}
 
-	const sf::Texture* texture = GuiHelper::getUnitTexture(unitType, player);
+	const sf::Texture* texture = GuiHelper::getUnitTexture(unitType, player->getId());
 
 	int maxHp = 0;
 	int attack = 0;
