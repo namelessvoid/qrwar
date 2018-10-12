@@ -9,9 +9,7 @@ class IEvent;
 class EventHandler
 {
 public:
-	EventHandler();
-
-	EventHandler(int priority);
+	explicit EventHandler(int priority);
 
 	virtual ~EventHandler();
 
