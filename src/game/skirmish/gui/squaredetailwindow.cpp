@@ -14,8 +14,9 @@ namespace qrw
 {
 
 SquareDetailWindow::SquareDetailWindow()
+	: selectedUnitSpecialAbility_(nullptr)
 {
-    setSize({400.0f, 150.0f});
+    setSize({800.0f, 150.0f});
     setAnchor({0.0f, 1.0f});
     setParentAnchor({0.0f, 1.0f});
 
@@ -113,6 +114,21 @@ void SquareDetailWindow::setUnit(const Unit& unit)
 
 	unitDefenseLabel_->setVisible(true);
 	unitDefenseLabel_->setText(std::to_string(unit.getBaseDefense()));
+
+	clearUnitSpecialAbilities();
+	unitSpecialAbilitiesButtonGroup_ = std::make_shared<namelessgui::ButtonGroup>();
+	for(auto& specialAbility : unit.getSpecialAbilities())
+	{
+		namelessgui::RadioToggleButton* specialAbilityButton = new namelessgui::RadioToggleButton(unitSpecialAbilitiesButtonGroup_);
+		specialAbilityButton->setText(specialAbility->getName());
+		addWidget(specialAbilityButton);
+
+		unitSpecialAbilityButtons_.push_back(nullptr);
+		unitSpecialAbilityButtons_.back().reset(specialAbilityButton);
+
+		UnitSpecialAbility* specialAbilityPlainPointer = specialAbility.get();
+		specialAbilityButton->signalActivated.connect([this,specialAbilityPlainPointer] { selectedUnitSpecialAbility_ = specialAbilityPlainPointer; });
+	}
 }
 
 void SquareDetailWindow::hideUnitWidgets()
@@ -122,6 +138,7 @@ void SquareDetailWindow::hideUnitWidgets()
 	unitMovementLabel_->setVisible(false);
 	unitAttackLabel_->setVisible(false);
 	unitDefenseLabel_->setVisible(false);
+	clearUnitSpecialAbilities();
 }
 
 void SquareDetailWindow::setTerrain(const Terrain& terrain)
@@ -168,6 +185,29 @@ void SquareDetailWindow::display(const Coordinates& position, Board& board)
 		setStructure(*structure);
 	else
 		hideEnvironmentWidgets();
+}
+
+void SquareDetailWindow::clearUnitSpecialAbilities()
+{
+	selectedUnitSpecialAbility_ = nullptr;
+	for(auto& specialAbilityButton : unitSpecialAbilityButtons_)
+		removeWidget(specialAbilityButton.get());
+	unitSpecialAbilityButtons_.clear();
+	unitSpecialAbilitiesButtonGroup_.reset();
+}
+
+void SquareDetailWindow::clear()
+{
+	hideUnitWidgets();
+	clearUnitSpecialAbilities();
+	hideEnvironmentWidgets();
+}
+
+void SquareDetailWindow::deselectSelectedUnitSpecialAbility()
+{
+	selectedUnitSpecialAbility_ = nullptr;
+	for(auto& button : unitSpecialAbilityButtons_)
+		button->deactivate();
 }
 
 } // namespace qrw

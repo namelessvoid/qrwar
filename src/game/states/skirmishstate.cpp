@@ -90,7 +90,7 @@ bool SkirmishState::handleEvent(const IEvent &event)
 	SceneState::handleEvent(event);
 
 	if(event.getName() == RightMouseButtonPressedEvent::name)
-		deselectUnit();
+		deselectSquare();
 
 	return false;
 }
@@ -105,15 +105,22 @@ EGameStateId SkirmishState::update()
 
 void SkirmishState::slotCursorMoved(const Coordinates &boardPosition)
 {
-	_squareDetailWindow->display(boardPosition, *_board);
+	Cursor* cursor = g_scene.findSingleGameObject<Cursor>();
 
 	if(_board->isOnBoard(boardPosition))
 	{
-		if(_selectedUnit)
+		if(UnitSpecialAbility* specialAbility = _squareDetailWindow->getSelectedUnitSpecialAbility())
+		{
+			if(specialAbility->canBeExecutedOn(boardPosition))
+				cursor->markValid();
+			else
+				cursor->markInvalid();
+			path_->reset();
+		}
+		else if(_selectedUnit)
 		{
 			path_->setStartAndEnd(_selectedUnit->getPosition(), boardPosition);
 
-			Cursor* cursor = g_scene.findSingleGameObject<Cursor>();
 			Unit* unitUnderCursor = _board->getUnit(boardPosition);
 
 			if(_selectedUnit && unitUnderCursor && unitUnderCursor->getPlayer() != _selectedUnit->getPlayer()
@@ -210,41 +217,44 @@ void SkirmishState::replenishTroops()
 	}
 }
 
-void SkirmishState::slotCursorLeftClicked(const Coordinates &boardPosition)
+void SkirmishState::slotCursorLeftClicked(const Coordinates& boardPosition)
 {
-	_squareDetailWindow->display(boardPosition, *_board);
-
 	Unit* unitUnderCursor = _board->getUnit(boardPosition);
 
-	// Case 1: Unit is selected and instructed to move.
-	if(_selectedUnit && !unitUnderCursor)
+	// Case 1: A special ability is activated
+	if(UnitSpecialAbility* specialAbility = _squareDetailWindow->getSelectedUnitSpecialAbility())
+	{
+		if(specialAbility->canBeExecutedOn(boardPosition))
+		{
+			specialAbility->executeOn(boardPosition);
+			_squareDetailWindow->deselectSelectedUnitSpecialAbility();
+		}
+	}
+	// Case 2: Unit is selected and instructed to move.
+	else if(_selectedUnit && !unitUnderCursor)
 	{
 		moveUnit();
-		deselectUnit();
-		return;
+		deselectSquare();
 	}
 
-	// Case 2: Unit is selected and instructed to attack enemy.
-	if(_selectedUnit && unitUnderCursor && unitUnderCursor->getPlayer() != _selectedUnit->getPlayer())
+	// Case 3: Unit is selected and instructed to attack enemy.
+	else if(_selectedUnit && unitUnderCursor && unitUnderCursor->getPlayer() != _selectedUnit->getPlayer())
 	{
 		performAttack(unitUnderCursor);
-		deselectUnit();
+		deselectSquare();
 		checkVictory();
-		return;
 	}
 
-	// Select unit if it belongs to current player
-	if(unitUnderCursor && unitUnderCursor->getPlayer() == _players[_currentPlayer])
+	// Case 4: Select unit if it belongs to current player
+	else if(unitUnderCursor && unitUnderCursor->getPlayer() == _players[_currentPlayer])
 	{
 		// Select unit
 		_selectedUnit = unitUnderCursor;
 		_squareMarker->setBoardPosition(boardPosition);
 		_squareMarker->setVisible(true);
-
-		return;
 	}
 
-	deselectUnit();
+	_squareDetailWindow->display(boardPosition, *_board);
 }
 
 void SkirmishState::endTurn()
@@ -252,16 +262,17 @@ void SkirmishState::endTurn()
 	_currentPlayer = (_currentPlayer + 1) % _players.size();
 	_playerNameText->setText(_players[_currentPlayer]->getName());
 
-	deselectUnit();
+	deselectSquare();
 	replenishTroops();
 }
 
-void SkirmishState::deselectUnit()
+void SkirmishState::deselectSquare()
 {
 	_selectedUnit = nullptr;
 	_squareMarker->setVisible(false);
 	g_scene.findSingleGameObject<Cursor>()->markValid();
 	path_->reset();
+	_squareDetailWindow->clear();
 }
 
 } // namespace qrw

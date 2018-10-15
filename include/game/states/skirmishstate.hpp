@@ -38,7 +38,7 @@ private:
 	// Triggerd via signal of end turn button.
 	void endTurn();
 
-	void deselectUnit();
+	void deselectSquare();
 
 	void moveUnit();
 

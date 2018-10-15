@@ -2,6 +2,10 @@
 #define QRW_SQUAREDETAILWINDOW_HPP
 
 #include "gui/ng/window.hpp"
+#include "gui/ng/radiotogglebutton.hpp"
+#include "gui/ng/buttongroup.hpp"
+
+#include "game/skirmish/unitspecialability.hpp"
 
 namespace namelessgui
 {
@@ -23,8 +27,14 @@ public:
 
 	void display(const Coordinates& position, Board& board);
 
+	void clear();
+
+	void deselectSelectedUnitSpecialAbility();
+	inline UnitSpecialAbility* getSelectedUnitSpecialAbility() const { return selectedUnitSpecialAbility_; }
+
 private:
 	void setUnit(const Unit& unit);
+	void clearUnitSpecialAbilities();
 	void hideUnitWidgets();
 
 	void setTerrain(const Terrain& terrain);
@@ -36,10 +46,14 @@ private:
 	namelessgui::Label* unitMovementLabel_;
 	namelessgui::Label* unitAttackLabel_;
 	namelessgui::Label* unitDefenseLabel_;
+	std::vector<std::unique_ptr<namelessgui::RadioToggleButton>> unitSpecialAbilityButtons_;
+	std::shared_ptr<namelessgui::ButtonGroup> unitSpecialAbilitiesButtonGroup_;
 
 	namelessgui::Label* environmentTitleLabel_;
 	namelessgui::Label* environmentAttackLabel_;
 	namelessgui::Label* environmentDefenseLabel_;
+
+	UnitSpecialAbility* selectedUnitSpecialAbility_;
 };
 
 } // namespace qrw
