@@ -23,6 +23,7 @@ SpriteComponent::~SpriteComponent()
 void SpriteComponent::setTexture(const sf::Texture* texture)
 {
 	_rectangle->setTexture(texture);
+	_rectangle->setTextureRect(sf::IntRect(0, 0, texture->getSize().x, texture->getSize().y));
 }
 
 void SpriteComponent::setRepeateTexture(bool repeate, float scale)
