@@ -41,10 +41,15 @@ namespace namelessgui
 		widget->setParent(this);
 	}
 
+void Widget::removeWidget(const Widget* widget)
+{
+	children_.remove(const_cast<Widget*>(widget));
+}
+
 	void Widget::setVisible(bool visible)
 	{
 		this->visible_ = visible;
-		for(std::vector<Widget*>::iterator iter = children_.begin(); iter != children_.end(); ++iter)
+		for(auto iter = children_.begin(); iter != children_.end(); ++iter)
 		{
 			(*iter)->setVisible(visible);
 		}

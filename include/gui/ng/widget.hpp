@@ -1,7 +1,7 @@
 #ifndef NAMELESSGUI_WIDGET_HPP
 #define NAMELESSGUI_WIDGET_HPP
 
-#include <vector>
+#include <list>
 
 #include <SFML/Graphics/RenderTarget.hpp>
 #include <SFML/Window/Event.hpp>
@@ -24,7 +24,7 @@ class Widget
 			 * @param id The ID assigned to the widget which can be used to identify the widget.
 			 *           Defaults to empty string.
 			 */
-			Widget(std::string id = "");
+			explicit Widget(std::string id = "");
 
 			virtual ~Widget();
 
@@ -37,6 +37,7 @@ class Widget
 			void setParent(const Widget* parent);
 
 			void addWidget(Widget* widget);
+			void removeWidget(const Widget* widget);
 
             void setVisible(bool visibility = true);
 			bool isVisible() const;
@@ -60,7 +61,7 @@ class Widget
         protected:
 			const Widget* parent_;
 			bool visible_;
-			std::vector<Widget*> children_;
+			std::list<Widget*> children_;
 
         private:
 			/**
