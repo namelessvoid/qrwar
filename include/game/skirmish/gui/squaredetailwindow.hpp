@@ -25,6 +25,7 @@ class SquareDetailWindow : public namelessgui::Window
 {
 public:
 	SquareDetailWindow();
+	~SquareDetailWindow() override;
 
 	void display(const Coordinates& position, Board& board, Player& currentPlayer);
 

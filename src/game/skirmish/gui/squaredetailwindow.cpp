@@ -98,6 +98,11 @@ SquareDetailWindow::SquareDetailWindow()
     addWidget(environmentDefenseLabel_);
 }
 
+SquareDetailWindow::~SquareDetailWindow()
+{
+	clearUnitSpecialAbilities();
+}
+
 void SquareDetailWindow::setUnit(const Unit& unit)
 {
 	unitTitleLabel_->setVisible(true);
