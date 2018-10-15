@@ -20,11 +20,6 @@
 namespace qrw
 {
 
-std::string Unit::UNITNAMES[] =
-{
-	"Swordman", "Archer", "Spearman"
-};
-
 Unit::Unit()
 {
 	_sprite = new SpriteComponent(RENDER_LAYER_UNIT);
@@ -33,10 +28,6 @@ Unit::Unit()
 
 	followRouteAnimationComponent_ = new FollowRouteAnimationComponent(_sprite);
 	addComponent(followRouteAnimationComponent_);
-}
-
-Unit::~Unit()
-{
 }
 
 void Unit::onDestroy()
@@ -131,10 +122,6 @@ int Unit::getMovement() const
 int Unit::getCurrentMovement() const
 {
 	return _currentmovement;
-}
-std::string Unit::getName()
-{
-	return UNITNAMES[_type];
 }
 
 const Coordinates& Unit::getPosition() const

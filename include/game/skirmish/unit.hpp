@@ -10,6 +10,7 @@
 #include "engine/board.hpp"
 #include "engine/player.hpp"
 #include "game/skirmish/coordinates.hpp"
+#include "game/skirmish/unitspecialability.hpp"
 
 #include "foundation/gameobject.hpp"
 
@@ -28,7 +29,7 @@ public:
 
 	Unit();
 
-	virtual ~Unit();
+	virtual ~Unit() = default;
 
 	virtual void onDestroy() override;
 
@@ -71,14 +72,13 @@ public:
 	int getMovement() const;
 	int getCurrentMovement() const;
 	void setCurrentMovement(int movement);
-	std::string getName();
 
 	const Coordinates& getPosition() const;
 
 	void setPosition(const Coordinates& position);
 	void move(const Path& path);
 
-	static std::string UNITNAMES[EUT_NUMBEROFUNITTYPES];
+	inline const std::vector<std::unique_ptr<UnitSpecialAbility>>& getSpecialAbilities() const { return specialAbilities_; }
 
 protected:
 	SpriteComponent* _sprite;
@@ -94,6 +94,12 @@ protected:
 	void setRange(int range) { _range = range; }
 
 	void setMovement(int movement) { _movement = movement; }
+
+	void addSpecialAbility(UnitSpecialAbility* ability)
+	{
+		specialAbilities_.push_back(nullptr);
+		specialAbilities_.back().reset(ability);
+	}
 
 private:
 	void setPosition_(const Coordinates& position);
@@ -117,6 +123,8 @@ private:
 	Coordinates _position;
 
 	FollowRouteAnimationComponent* followRouteAnimationComponent_;
+
+	std::vector<std::unique_ptr<UnitSpecialAbility>> specialAbilities_;
 };
 
 } // namespace qrw
