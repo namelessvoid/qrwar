@@ -4,6 +4,8 @@
 
 #include "foundation/spritecomponent.hpp"
 
+#include "game/skirmish/deployladderability.hpp"
+
 namespace qrw
 {
 
@@ -20,6 +22,8 @@ LadderCarrier::LadderCarrier()
 
 	setMovement(3);
 	setCurrentMovement(3);
+
+	addSpecialAbility(new DeployLadderAbility(this));
 }
 
 void LadderCarrier::onAddToScene()
