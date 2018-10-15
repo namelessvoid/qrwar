@@ -120,6 +120,7 @@ void SquareDetailWindow::setUnit(const Unit& unit)
 	for(auto& specialAbility : unit.getSpecialAbilities())
 	{
 		namelessgui::RadioToggleButton* specialAbilityButton = new namelessgui::RadioToggleButton(unitSpecialAbilitiesButtonGroup_);
+		specialAbilityButton->setRelativePosition({200.0f, 50 + specialAbilityButton->getSize().y * unitSpecialAbilityButtons_.size()});
 		specialAbilityButton->setText(specialAbility->getName());
 		addWidget(specialAbilityButton);
 
