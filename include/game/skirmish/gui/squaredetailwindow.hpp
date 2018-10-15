@@ -16,6 +16,7 @@ namespace qrw
 {
 class Coordinates;
 class Board;
+class Player;
 class Unit;
 class Terrain;
 class Structure;
@@ -25,7 +26,7 @@ class SquareDetailWindow : public namelessgui::Window
 public:
 	SquareDetailWindow();
 
-	void display(const Coordinates& position, Board& board);
+	void display(const Coordinates& position, Board& board, Player& currentPlayer);
 
 	void clear();
 
@@ -34,6 +35,7 @@ public:
 
 private:
 	void setUnit(const Unit& unit);
+	void showUnitSpecialAbilities(const Unit& unit);
 	void clearUnitSpecialAbilities();
 	void hideUnitWidgets();
 

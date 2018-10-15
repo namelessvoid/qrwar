@@ -76,7 +76,7 @@ void SkirmishState::init(GameState *previousState)
 
     // Initialize square detail window.
 	const Coordinates& cursorPosition = g_scene.findSingleGameObject<Cursor>()->getBoardPosition();
-	_squareDetailWindow->display(cursorPosition, *_board);
+	_squareDetailWindow->display(cursorPosition, *_board, *_players[_currentPlayer]);
 }
 
 void SkirmishState::draw()
@@ -185,7 +185,7 @@ void SkirmishState::performAttack(Unit* attackedUnit)
 		}
 	}
 
-	_squareDetailWindow->display(positionOfAttackedUnit, *_board);
+	_squareDetailWindow->display(positionOfAttackedUnit, *_board, *_players[_currentPlayer]);
 }
 
 void SkirmishState::checkVictory()
@@ -254,7 +254,7 @@ void SkirmishState::slotCursorLeftClicked(const Coordinates& boardPosition)
 		_squareMarker->setVisible(true);
 	}
 
-	_squareDetailWindow->display(boardPosition, *_board);
+	_squareDetailWindow->display(boardPosition, *_board, *_players[_currentPlayer]);
 }
 
 void SkirmishState::endTurn()

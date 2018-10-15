@@ -5,6 +5,7 @@
 #include "gui/texturemanager.hpp"
 #include "gui/guihelper.hpp"
 
+#include "engine/player.hpp"
 #include "game/skirmish/unit.hpp"
 #include "engine/terrain.hpp"
 #include "game/skirmish/structure.hpp"
@@ -114,7 +115,10 @@ void SquareDetailWindow::setUnit(const Unit& unit)
 
 	unitDefenseLabel_->setVisible(true);
 	unitDefenseLabel_->setText(std::to_string(unit.getBaseDefense()));
+}
 
+void SquareDetailWindow::showUnitSpecialAbilities(const Unit& unit)
+{
 	clearUnitSpecialAbilities();
 	unitSpecialAbilitiesButtonGroup_ = std::make_shared<namelessgui::ButtonGroup>();
 	for(auto& specialAbility : unit.getSpecialAbilities())
@@ -173,10 +177,14 @@ void SquareDetailWindow::hideEnvironmentWidgets()
 	environmentDefenseLabel_->setVisible(false);
 }
 
-void SquareDetailWindow::display(const Coordinates& position, Board& board)
+void SquareDetailWindow::display(const Coordinates& position, Board& board, Player& currentPlayer)
 {
 	if(Unit* unit = board.getUnit(position))
+	{
 		setUnit(*unit);
+		if(*unit->getPlayer() == currentPlayer) showUnitSpecialAbilities(*unit);
+		else clearUnitSpecialAbilities();
+	}
 	else
 		hideUnitWidgets();
 

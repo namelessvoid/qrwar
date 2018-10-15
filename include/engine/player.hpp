@@ -19,6 +19,8 @@ namespace qrw
 			int getId() const;
 			void setId(int id);
 
+			bool operator==(const Player& rhs) { return _id == rhs._id; }
+
 			/**
 			 * @brief Return if player is active or not.
 			 * @return True if player is active otherwise false.
