@@ -56,6 +56,7 @@ add_library(qrwarlib
 	game/skirmish/unitfactory.cpp
 	game/skirmish/structure.cpp
 	game/skirmish/stairs.cpp
+	game/skirmish/ladder.cpp
 	game/skirmish/wall.cpp
 	game/skirmish/structurefactory.cpp
 	game/skirmish/coordinates.cpp

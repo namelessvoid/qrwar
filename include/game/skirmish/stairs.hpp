@@ -23,7 +23,7 @@ public:
 	void setPosition(const Coordinates& position) override;
 
 	void rotate();
-
+	void setFace(const Coordinates& face);
 	const Coordinates& getFace() const { return face_; }
 
 private:

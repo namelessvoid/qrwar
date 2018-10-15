@@ -50,4 +50,11 @@ void Stairs::setPosition(const Coordinates& position)
 	spriteComponent_->setPosition({SQUARE_DIMENSION * (0.5f + position.getX()), SQUARE_DIMENSION * (0.5f + position.getY())});
 }
 
+void Stairs::setFace(const Coordinates& face)
+{
+	face_ = face;
+	computeTexture();
+	updateNeighborTextures();
+}
+
 }
