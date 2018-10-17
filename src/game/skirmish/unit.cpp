@@ -1,6 +1,7 @@
 #include <cstdio>
 
 #include "game/skirmish/unit.hpp"
+
 #include "engine/board.hpp"
 #include "engine/terrain.hpp"
 #include "engine/player.hpp"
@@ -16,6 +17,8 @@
 #include "game/constants.hpp"
 #include "game/damagenumber.hpp"
 #include "game/path.hpp"
+#include "game/skirmish/unitmovementability.hpp"
+#include "game/skirmish/unitattackability.hpp"
 
 namespace qrw
 {
@@ -28,6 +31,9 @@ Unit::Unit()
 
 	followRouteAnimationComponent_ = new FollowRouteAnimationComponent(_sprite);
 	addComponent(followRouteAnimationComponent_);
+
+	addSpecialAbility(new UnitMovementAbility(this));
+	addSpecialAbility(new UnitAttackAbility(this));
 }
 
 void Unit::onDestroy()
@@ -35,6 +41,9 @@ void Unit::onDestroy()
 	Board* board = g_scene.findSingleGameObject<Board>();
 	if(board && board->getUnit(_position) == this)
 		board->removeUnit(_position);
+
+	// Trigger destruction of abilities
+	specialAbilities_.clear();
 }
 
 Player::Ptr Unit::getPlayer() const
@@ -99,6 +108,7 @@ int Unit::getMaxHp() const
 void Unit::damage(int inflictedDamage)
 {
 	setHP(getHP() - inflictedDamage);
+	if(getHP() <= 0) g_scene.destroy(this);
 
 	DamageNumber* damageNumber = g_scene.spawn<DamageNumber>();
 	damageNumber->setPosition(_sprite->getPosition() + sf::Vector2f{16, -16});
@@ -169,6 +179,47 @@ void Unit::move(const Path& path)
 		followRouteAnimationComponent_->addEdge(sf::Vector2f{step.getX() * SQUARE_DIMENSION, step.getY() * SQUARE_DIMENSION});
 	}
 	followRouteAnimationComponent_->start();
+}
+
+UnitSpecialAbility* Unit::updateAbilitiesToTarget(const Coordinates& boardPosition)
+{
+	UnitSpecialAbility* activeAbility = nullptr;
+	for(auto& ability : specialAbilities_)
+	{
+		if(!activeAbility && ability->canBeExecutedOn(boardPosition))
+		{
+			ability->activate();
+			activeAbility = ability.get();
+		}
+		else
+			ability->deactivate();
+	}
+	return activeAbility;
+}
+
+void Unit::deactivateAllAbilities()
+{
+	for(auto& ability : specialAbilities_)
+		ability->deactivate();
+}
+
+bool Unit::tryExecuteAbility(const Coordinates& boardPosition)
+{
+	for(auto& ability : specialAbilities_)
+	{
+		if(ability->canBeExecutedOn(boardPosition))
+		{
+			ability->executeOn(boardPosition);
+			return true;
+		}
+	}
+	return false;
+}
+
+void Unit::addSpecialAbility(UnitSpecialAbility* ability)
+{
+	specialAbilities_.push_front(nullptr);
+	specialAbilities_.front().reset(ability);
 }
 
 } // namespace qrw

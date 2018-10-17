@@ -3,6 +3,7 @@
 
 #include <string>
 #include <memory>
+#include <list>
 
 #include <SFML/Graphics/RectangleShape.hpp>
 
@@ -31,7 +32,7 @@ public:
 
 	virtual ~Unit() = default;
 
-	virtual void onDestroy() override;
+	void onDestroy() override;
 
 	Player::Ptr getPlayer() const;
 	UNITTYPES getType() const;
@@ -78,7 +79,10 @@ public:
 	void setPosition(const Coordinates& position);
 	void move(const Path& path);
 
-	inline const std::vector<std::unique_ptr<UnitSpecialAbility>>& getSpecialAbilities() const { return specialAbilities_; }
+	inline const std::list<std::unique_ptr<UnitSpecialAbility>>& getSpecialAbilities() const { return specialAbilities_; }
+	UnitSpecialAbility* updateAbilitiesToTarget(const Coordinates& boardPosition);
+	void deactivateAllAbilities();
+	bool tryExecuteAbility(const Coordinates& boardPosition);
 
 protected:
 	SpriteComponent* _sprite;
@@ -95,16 +99,12 @@ protected:
 
 	void setMovement(int movement) { _movement = movement; }
 
-	void addSpecialAbility(UnitSpecialAbility* ability)
-	{
-		specialAbilities_.push_back(nullptr);
-		specialAbilities_.back().reset(ability);
-	}
+	void addSpecialAbility(UnitSpecialAbility* ability);
 
 private:
 	void setPosition_(const Coordinates& position);
 
-	void setPlayer(Player::Ptr player) { _player = player; }
+	void setPlayer(Player::Ptr& player) { _player = player; }
 
 	void setTexture(const sf::Texture* texture);
 
@@ -118,13 +118,11 @@ private:
 	int _currentmovement;
 	Player::Ptr _player;
 
-	static const float _dimension;
-
 	Coordinates _position;
 
 	FollowRouteAnimationComponent* followRouteAnimationComponent_;
 
-	std::vector<std::unique_ptr<UnitSpecialAbility>> specialAbilities_;
+	std::list<std::unique_ptr<UnitSpecialAbility>> specialAbilities_;
 };
 
 } // namespace qrw
