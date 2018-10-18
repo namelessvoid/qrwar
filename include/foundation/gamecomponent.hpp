@@ -8,6 +8,8 @@ class GameComponent
 {
 public:
 	virtual ~GameComponent() {}
+
+	virtual void onDestroy() {}
 };
 
 } // namespace qrw

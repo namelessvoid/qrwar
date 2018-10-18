@@ -23,7 +23,7 @@ public:
 
 	~GameObject() override;
 
-	virtual void onDestroy() {}
+	virtual void onDestroy();
 
 	virtual void onAddToScene() {}
 
@@ -40,14 +40,14 @@ public:
 private:
 	bool initialized_;
 
-	std::map<std::type_index, GameComponent*> _components;
+	std::map<std::type_index, GameComponent*> components_;
 };
 
 template<class T>
 T* GameObject::getComponent()
 {
-	assert(_components.find(typeid(T))!=_components.end());
-	return dynamic_cast<T*>(_components.at(typeid(T)));
+	assert(components_.find(typeid(T))!=components_.end());
+	return dynamic_cast<T*>(components_.at(typeid(T)));
 }
 
 } // namespace qrw
