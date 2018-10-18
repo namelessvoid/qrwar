@@ -23,6 +23,8 @@ SkirmishPreparationState::SkirmishPreparationState(sf::RenderWindow* renderWindo
 	skirmishPreparationWindow_ = guiFactory.createSkirmishPreparationGui();
 	skirmishPreparationWindow_->setSize({(float)renderWindow->getSize().x, (float)renderWindow->getSize().y});
 	skirmishPreparationWindow_->signalBeginSkirmishClicked.connect([this] { slotToSkirmishStateClicked(); });
+	skirmishPreparationWindow_->setPlayerOneName("Player I.");
+	skirmishPreparationWindow_->setPlayerTwoName("Player II.");
 	_guiUptr->addWidget(skirmishPreparationWindow_);
 
 	backToMainMenuDialog_ = new namelessgui::ConfirmationDialog("Really go back to main menu?");

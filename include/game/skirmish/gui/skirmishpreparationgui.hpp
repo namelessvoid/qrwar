@@ -25,7 +25,9 @@ public:
 	void setSize(const sf::Vector2f& size) override;
 
 	const std::string& getPlayerOneName() const;
+	void setPlayerOneName(const std::string& name);
 	const std::string& getPlayerTwoName() const;
+	void setPlayerTwoName(const std::string& name);
 
 	const std::string& getSelectedMapName() const;
 

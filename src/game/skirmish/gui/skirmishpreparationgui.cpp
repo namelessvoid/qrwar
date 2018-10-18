@@ -62,4 +62,14 @@ const std::string& SkirmishPreparationGui::getSelectedMapName() const
 	return mapSelectionWindow_->getSelectedMapName();
 }
 
+void SkirmishPreparationGui::setPlayerOneName(const std::string& name)
+{
+	playerOneOptions_->setPlayerName(name);
+}
+
+void SkirmishPreparationGui::setPlayerTwoName(const std::string& name)
+{
+	playerTwoOptions_->setPlayerName(name);
+}
+
 } // namespace qrw

@@ -2,16 +2,26 @@
 
 #include "gui/ng/lineinput.hpp"
 
-qrw::SkirmishPreparationPlayerOptions::SkirmishPreparationPlayerOptions()
+namespace qrw
+{
+
+SkirmishPreparationPlayerOptions::SkirmishPreparationPlayerOptions()
 {
 	playerNameInput_ = new namelessgui::LineInput();
-	playerNameInput_->setText("Player I.");
+	playerNameInput_->setText("Player Name");
 	playerNameInput_->setSize({200, 30});
 	playerNameInput_->setRelativePosition({0, 0});
 	addWidget(playerNameInput_);
 }
 
-const std::string& qrw::SkirmishPreparationPlayerOptions::getPlayerName()
+const std::string& SkirmishPreparationPlayerOptions::getPlayerName()
 {
 	return playerNameInput_->getText();
 }
+
+void SkirmishPreparationPlayerOptions::setPlayerName(const std::string& name)
+{
+	{ playerNameInput_->setText(name); }
+}
+
+} //namespace qrw

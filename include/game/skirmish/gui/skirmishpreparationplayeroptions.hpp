@@ -22,6 +22,7 @@ public:
 	SkirmishPreparationPlayerOptions& operator=(const SkirmishPreparationPlayerOptions&) = delete;
 
 	const std::string& getPlayerName();
+	void setPlayerName(const std::string& name);
 
 private:
 	namelessgui::LineInput* playerNameInput_;
