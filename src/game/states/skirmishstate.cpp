@@ -206,11 +206,14 @@ void SkirmishState::slotCursorLeftClicked(const Coordinates& boardPosition)
 	// Case 4: Select unit if it belongs to current player
 	if(_selectedUnit)
 	{
-		unitAbilityExecuted =_selectedUnit->tryExecuteAbility(boardPosition);
+		bool abilityExecuted = _selectedUnit->tryExecuteAbility(boardPosition);
 		_squareMarker->setBoardPosition(_selectedUnit->getPosition());
 
 		if(_selectedUnit->getHP() == 0)
 			deselectSquare();
+
+		if(abilityExecuted)
+			checkVictory();
 	}
 
 	if(!unitAbilityExecuted && unitUnderCursor && unitUnderCursor->getPlayer() == _players[_currentPlayer])
