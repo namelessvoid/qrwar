@@ -33,9 +33,20 @@ void LadderCarrier::onAddToScene()
 	assert(getPlayer() != nullptr);
 
 	GameObject::onAddToScene();
+	updateTexture();
+}
 
+void LadderCarrier::updateTexture()
+{
 	std::string playerNumber = std::to_string(getPlayer()->getId());
-	_sprite->setTexture(TextureManager::getInstance()->getTexture("p" + playerNumber + "laddercarrier"));
+	const sf::Texture* texture;
+
+	if(!deployLadderAbility_->isDepleted())
+		texture = TextureManager::getInstance()->getTexture("p" + playerNumber + "laddercarrier");
+	else
+		texture = TextureManager::getInstance()->getTexture("p" + playerNumber + "laddercarrier_noladder");
+
+	_sprite->setTexture(texture);
 }
 
 } // namespace qrw

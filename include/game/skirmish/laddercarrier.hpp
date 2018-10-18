@@ -13,6 +13,8 @@ public:
 
 	void onAddToScene() override;
 
+	void updateTexture();
+
 private:
 	class DeployLadderAbility* deployLadderAbility_;
 };
