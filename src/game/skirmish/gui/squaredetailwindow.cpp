@@ -135,9 +135,7 @@ void SquareDetailWindow::showUnitSpecialAbilities(const Unit& unit)
 
 		unitSpecialAbilityButtons_.push_back(nullptr);
 		unitSpecialAbilityButtons_.back().reset(specialAbilityButton);
-
-		UnitSpecialAbility* specialAbilityPlainPointer = specialAbility.get();
-		specialAbilityButton->signalActivated.connect([this,specialAbilityPlainPointer] { selectedUnitSpecialAbility_ = specialAbilityPlainPointer; });
+		specialAbilityButton->signalActivated.connect([this,specialAbility] { selectedUnitSpecialAbility_ = specialAbility; });
 	}
 }
 

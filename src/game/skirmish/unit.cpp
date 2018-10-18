@@ -32,8 +32,13 @@ Unit::Unit()
 	followRouteAnimationComponent_ = new FollowRouteAnimationComponent(_sprite);
 	addComponent(followRouteAnimationComponent_);
 
-	addSpecialAbility(new UnitMovementAbility(this));
-	addSpecialAbility(new UnitAttackAbility(this));
+	movementAbility_ = new UnitMovementAbility(this);
+	addComponent(movementAbility_);
+	addSpecialAbility(movementAbility_);
+
+	attackAbility_ = new UnitAttackAbility(this);
+	addComponent(attackAbility_);
+	addSpecialAbility(attackAbility_);
 }
 
 void Unit::onDestroy()
@@ -189,7 +194,7 @@ UnitSpecialAbility* Unit::updateAbilitiesToTarget(const Coordinates& boardPositi
 		if(!activeAbility && ability->canBeExecutedOn(boardPosition))
 		{
 			ability->activate();
-			activeAbility = ability.get();
+			activeAbility = ability;
 		}
 		else
 			ability->deactivate();
@@ -218,8 +223,7 @@ bool Unit::tryExecuteAbility(const Coordinates& boardPosition)
 
 void Unit::addSpecialAbility(UnitSpecialAbility* ability)
 {
-	specialAbilities_.push_front(nullptr);
-	specialAbilities_.front().reset(ability);
+	specialAbilities_.push_front(ability);
 }
 
 } // namespace qrw

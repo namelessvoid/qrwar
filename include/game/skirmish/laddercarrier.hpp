@@ -12,6 +12,9 @@ public:
 	LadderCarrier();
 
 	void onAddToScene() override;
+
+private:
+	class DeployLadderAbility* deployLadderAbility_;
 };
 
 } // namespace qrw

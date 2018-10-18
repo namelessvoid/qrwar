@@ -79,7 +79,7 @@ public:
 	void setPosition(const Coordinates& position);
 	void move(const Path& path);
 
-	inline const std::list<std::unique_ptr<UnitSpecialAbility>>& getSpecialAbilities() const { return specialAbilities_; }
+	inline const std::list<UnitSpecialAbility*>& getSpecialAbilities() const { return specialAbilities_; }
 	UnitSpecialAbility* updateAbilitiesToTarget(const Coordinates& boardPosition);
 	void deactivateAllAbilities();
 	bool tryExecuteAbility(const Coordinates& boardPosition);
@@ -121,8 +121,10 @@ private:
 	Coordinates _position;
 
 	FollowRouteAnimationComponent* followRouteAnimationComponent_;
+	class UnitMovementAbility* movementAbility_;
+	class UnitAttackAbility* attackAbility_;
 
-	std::list<std::unique_ptr<UnitSpecialAbility>> specialAbilities_;
+	std::list<UnitSpecialAbility*> specialAbilities_;
 };
 
 } // namespace qrw

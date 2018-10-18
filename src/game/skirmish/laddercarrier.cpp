@@ -23,7 +23,9 @@ LadderCarrier::LadderCarrier()
 	setMovement(3);
 	setCurrentMovement(3);
 
-	addSpecialAbility(new DeployLadderAbility(this));
+	deployLadderAbility_ = new DeployLadderAbility(this);
+	addComponent(deployLadderAbility_);
+	addSpecialAbility(deployLadderAbility_);
 }
 
 void LadderCarrier::onAddToScene()
