@@ -18,6 +18,7 @@ public:
 
     void setText(const std::string& text);
     void setFillColor(const sf::Color& color);
+    void setCharacterSize(int size);
 
     virtual void render(sf::RenderTarget &renderTarget) override;
     virtual void setPosition(const sf::Vector2f &position) override;

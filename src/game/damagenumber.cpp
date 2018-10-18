@@ -15,6 +15,7 @@ DamageNumber::DamageNumber()
 	m_textComponent = new TextComponent(RENDER_LAYER_BILLBOARD);
 	addComponent(m_textComponent);
 	m_textComponent->setPosition({50, 50});
+	m_textComponent->setCharacterSize(55);
 	m_textComponent->setFillColor(sf::Color::Red);
 
 	m_animation = new TransformAnimationComponent(m_textComponent);

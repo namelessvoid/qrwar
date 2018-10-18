@@ -8,13 +8,19 @@ qrw::TextComponent::TextComponent(Layer layer)
 {
 	m_font.loadFromFile("./res/font/Knigqst.ttf");
 	m_text.setFont(m_font);
+	m_text.setStyle(sf::Text::S)
 	m_text.setCharacterSize(20);
 	m_text.setString("DUMMY_TEXT");
 }
 
-void qrw::TextComponent::setText(const std::string &text)
+void TextComponent::setText(const std::string &text)
 {
 	m_text.setString(text);
+}
+
+void TextComponent::setCharacterSize(int size)
+{
+	m_text.setCharacterSize(size);
 }
 
 void TextComponent::setFillColor(const sf::Color& color)
