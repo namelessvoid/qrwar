@@ -21,28 +21,24 @@ namespace qrw
 class SkirmishState : public SceneState
 {
 public:
-    SkirmishState(class sf::RenderWindow* renderWindow);
+    explicit SkirmishState(class sf::RenderWindow* renderWindow);
 
-    virtual EGameStateId update() override;
+    EGameStateId update() override;
 
-    virtual void init(GameState* previousState) override;
+    void init(GameState* previousState) override;
 
-	virtual void draw() override;
+	void draw() override;
 
-	virtual bool handleEvent(const IEvent &event) override;
+	bool handleEvent(const IEvent &event) override;
 
 private:
-	virtual void slotCursorMoved(const Coordinates& boardPosition) override;
-    virtual void slotCursorLeftClicked(const Coordinates& boardPosition) override;
+	void slotCursorMoved(const Coordinates& boardPosition) override;
+	void slotCursorLeftClicked(const Coordinates& boardPosition) override;
 
 	// Triggerd via signal of end turn button.
 	void endTurn();
 
 	void deselectSquare();
-
-	void moveUnit();
-
-	void performAttack(Unit* attackedUnit);
 
 	void checkVictory();
 
@@ -55,9 +51,6 @@ private:
     Board* _board;
 
 	Unit* _selectedUnit;
-
-	// For visualizing the movement path of a unit
-	class Path* path_;
 
     class SquareDetailWindow* _squareDetailWindow;
 

@@ -109,42 +109,6 @@ void SkirmishState::slotCursorMoved(const Coordinates &boardPosition)
 	}
 }
 
-void SkirmishState::performAttack(Unit* attackedUnit)
-{
-	const Coordinates& positionOfAttackedUnit = attackedUnit->getPosition();
-
-	if(!_selectedUnit->isTargetWithinAttackRange(positionOfAttackedUnit))
-		return;
-
-	if(_selectedUnit->getCurrentMovement() == 0)
-		return;
-	_selectedUnit->setCurrentMovement(0);
-
-	int inflictedDamage = _selectedUnit->getModifiedAttack() - attackedUnit->getModifiedDefense();
-	inflictedDamage = inflictedDamage < 0 ? 0 : inflictedDamage;
-	attackedUnit->damage(inflictedDamage);
-
-	if(attackedUnit->getHP() == 0)
-	{
-		g_scene.destroy(attackedUnit);
-		_selectedUnit->setPosition(positionOfAttackedUnit);
-	}
-	else
-	{
-		inflictedDamage = attackedUnit->getModifiedAttack() - _selectedUnit->getModifiedDefense();
-		inflictedDamage = inflictedDamage < 0 ? 0 : inflictedDamage;
-		_selectedUnit->damage(inflictedDamage);
-
-		if(_selectedUnit->getHP() == 0)
-		{
-			g_scene.destroy(_selectedUnit);
-			_selectedUnit = nullptr;
-		}
-	}
-
-	_squareDetailWindow->display(positionOfAttackedUnit, *_board, *_players[_currentPlayer]);
-}
-
 void SkirmishState::checkVictory()
 {
 	bool playersHaveUnits[] = {false, false};
@@ -177,33 +141,7 @@ void SkirmishState::replenishTroops()
 void SkirmishState::slotCursorLeftClicked(const Coordinates& boardPosition)
 {
 	Unit* unitUnderCursor = _board->getUnit(boardPosition);
-	bool unitAbilityExecuted = false;
 
-	// Case 1: A special ability is activated
-//	if(UnitSpecialAbility* specialAbility = _squareDetailWindow->getSelectedUnitSpecialAbility())
-//	{
-//		if(specialAbility->canBeExecutedOn(boardPosition))
-//		{
-//			specialAbility->executeOn(boardPosition);
-//			_squareDetailWindow->deselectSelectedUnitSpecialAbility();
-//		}
-//	}
-	// Case 2: Unit is selected and instructed to move.
-//	else if(_selectedUnit && !unitUnderCursor)
-//	{
-//		moveUnit();
-//		deselectSquare();
-//	}
-
-	// Case 3: Unit is selected and instructed to attack enemy.
-//	else if(_selectedUnit && unitUnderCursor && unitUnderCursor->getPlayer() != _selectedUnit->getPlayer())
-//	{
-//		performAttack(unitUnderCursor);
-//		deselectSquare();
-//		checkVictory();
-//	}
-
-	// Case 4: Select unit if it belongs to current player
 	if(_selectedUnit)
 	{
 		bool abilityExecuted = _selectedUnit->tryExecuteAbility(boardPosition);
@@ -216,7 +154,7 @@ void SkirmishState::slotCursorLeftClicked(const Coordinates& boardPosition)
 			checkVictory();
 	}
 
-	if(!unitAbilityExecuted && unitUnderCursor && unitUnderCursor->getPlayer() == _players[_currentPlayer])
+	if(unitUnderCursor && unitUnderCursor->getPlayer() == _players[_currentPlayer])
 	{
 		// Select unit
 		_selectedUnit = unitUnderCursor;
