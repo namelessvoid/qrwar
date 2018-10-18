@@ -24,6 +24,7 @@ namespace qrw
 {
 
 Unit::Unit()
+	: EventHandler(EventHandlerPriority::DEFAULT)
 {
 	_sprite = new SpriteComponent(RENDER_LAYER_UNIT);
 	addComponent(_sprite);
@@ -224,6 +225,11 @@ bool Unit::tryExecuteAbility(const Coordinates& boardPosition)
 void Unit::addSpecialAbility(UnitSpecialAbility* ability)
 {
 	specialAbilities_.push_front(ability);
+}
+
+bool Unit::handleEvent(const IEvent& event)
+{
+	return false;
 }
 
 } // namespace qrw

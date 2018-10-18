@@ -21,7 +21,7 @@ class Path;
 class SpriteComponent;
 class FollowRouteAnimationComponent;
 
-class Unit : public GameObject
+class Unit : public GameObject, public EventHandler
 {
 public:
 	friend class UnitFactory;
@@ -83,6 +83,8 @@ public:
 	UnitSpecialAbility* updateAbilitiesToTarget(const Coordinates& boardPosition);
 	void deactivateAllAbilities();
 	bool tryExecuteAbility(const Coordinates& boardPosition);
+
+	bool handleEvent(const IEvent& event) override;
 
 protected:
 	SpriteComponent* _sprite;

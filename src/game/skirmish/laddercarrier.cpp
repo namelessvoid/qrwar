@@ -49,4 +49,16 @@ void LadderCarrier::updateTexture()
 	_sprite->setTexture(texture);
 }
 
+bool LadderCarrier::handleEvent(const IEvent& event)
+{
+	if(Unit::handleEvent(event))
+		return true;
+
+	if(event.getName() == LadderDeployedEvent::name) {
+		updateTexture();
+		return true;
+	}
+	return false;
+}
+
 } // namespace qrw

@@ -13,9 +13,11 @@ public:
 
 	void onAddToScene() override;
 
-	void updateTexture();
+	bool handleEvent(const IEvent& event) override;
 
 private:
+	void updateTexture();
+
 	class DeployLadderAbility* deployLadderAbility_;
 };
 

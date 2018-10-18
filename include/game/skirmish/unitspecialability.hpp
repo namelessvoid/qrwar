@@ -23,17 +23,9 @@ public:
 
 	~UnitSpecialAbility() override = default;
 
-	void activate()
-	{
-		std::cout << "Special ability '" << getName() << "' is activated\n" << std::flush;
-		isActive_ = true;
-	}
+	void activate()	{ isActive_ = true; }
 
-	virtual void deactivate()
-	{
-		std::cout << "Ability '" << getName() << "' is deactivated\n" << std::flush;
-		isActive_ = false;
-	}
+	virtual void deactivate() { isActive_ = false; }
 
 	virtual void executeOn(const Coordinates& position) = 0;
 

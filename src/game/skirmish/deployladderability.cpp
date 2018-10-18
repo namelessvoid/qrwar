@@ -28,8 +28,8 @@ void DeployLadderAbility::executeOn(const Coordinates& position)
 
 	depleted_ = true;
 
-	if(LadderCarrier* ladderCarrier = dynamic_cast<LadderCarrier*>(owner_))
-		ladderCarrier->updateTexture();
+	LadderDeployedEvent ladderDeployedEvent;
+	owner_->handleEvent(ladderDeployedEvent);
 }
 
 bool DeployLadderAbility::canBeExecutedOn(const Coordinates& position)
@@ -43,5 +43,8 @@ bool DeployLadderAbility::canBeExecutedOn(const Coordinates& position)
 	&& board->getStructure(owner_->getPosition()) == nullptr
 	&& dynamic_cast<Wall*>(board->getStructure(position)) != nullptr;
 }
+
+template<>
+const SID EventBase<LadderDeployedEvent>::name("SKIRMISH_LADDER_DEPLOYED");
 
 } // namespace qrw

@@ -24,6 +24,10 @@ private:
 	bool depleted_;
 };
 
+class LadderDeployedEvent : public EventBase<LadderDeployedEvent>
+{
+};
+
 } // namespace qrw
 
 #endif //QRW_DEPLOYLADDERABILITY_HPP
