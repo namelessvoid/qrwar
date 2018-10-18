@@ -22,9 +22,11 @@ public:
 	bool canBeExecutedOn(const Coordinates& position) override;
 
 protected:
-	void counterAttack(Unit* opponent);
+	void counterAttack(Unit& opponent);
 
 private:
+	void inflictDamage(Unit& opponent);
+
 	Unit* getOpponentAt(const Coordinates& position);
 };
 

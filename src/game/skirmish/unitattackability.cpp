@@ -20,15 +20,24 @@ void UnitAttackAbility::executeOn(const Coordinates& position)
 
 	owner_->setCurrentMovement(0);
 
-	int inflictedDamage = owner_->getModifiedAttack() - opponent->getModifiedDefense();
-	inflictedDamage = inflictedDamage < 0 ? 0 : inflictedDamage;
-	opponent->damage(inflictedDamage);
-
+	inflictDamage(*opponent);
 	if(opponent->getHP() <= 0)
 		return;
 
 	UnitAttackAbility* opponentAttackAbility = opponent->getComponent<UnitAttackAbility>();
-	opponentAttackAbility->counterAttack(owner_);
+	opponentAttackAbility->counterAttack(*owner_);
+}
+
+void UnitAttackAbility::counterAttack(Unit& opponent)
+{
+	inflictDamage(opponent);
+}
+
+void UnitAttackAbility::inflictDamage(Unit& opponent)
+{
+	int inflictedDamage = owner_->getModifiedAttack() - opponent.getModifiedDefense();
+	inflictedDamage = inflictedDamage < 0 ? 0 : inflictedDamage;
+	opponent.damage(inflictedDamage);
 }
 
 bool UnitAttackAbility::canBeExecutedOn(const Coordinates& position)
@@ -50,11 +59,6 @@ Unit* UnitAttackAbility::getOpponentAt(const Coordinates& position)
 		return nullptr;
 
 	return opponent;
-}
-
-void UnitAttackAbility::counterAttack(Unit* opponent)
-{
-
 }
 
 } // namespace qrw
