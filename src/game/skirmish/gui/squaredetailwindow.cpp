@@ -15,7 +15,7 @@ namespace qrw
 {
 
 SquareDetailWindow::SquareDetailWindow()
-	: selectedUnitSpecialAbility_(nullptr)
+	: selectedUnitAbility_(nullptr)
 {
     setSize({800.0f, 150.0f});
     setAnchor({0.0f, 1.0f});
@@ -125,17 +125,17 @@ void SquareDetailWindow::setUnit(const Unit& unit)
 void SquareDetailWindow::showUnitSpecialAbilities(const Unit& unit)
 {
 	clearUnitSpecialAbilities();
-	unitSpecialAbilitiesButtonGroup_ = std::make_shared<namelessgui::ButtonGroup>();
-	for(auto& specialAbility : unit.getSpecialAbilities())
+	unitAbilitiesButtonGroup_ = std::make_shared<namelessgui::ButtonGroup>();
+	for(auto& ability : unit.getAbilities())
 	{
-		namelessgui::RadioToggleButton* specialAbilityButton = new namelessgui::RadioToggleButton(unitSpecialAbilitiesButtonGroup_);
-		specialAbilityButton->setRelativePosition({200.0f, 50 + specialAbilityButton->getSize().y * unitSpecialAbilityButtons_.size()});
-		specialAbilityButton->setText(specialAbility->getName());
-		addWidget(specialAbilityButton);
+		namelessgui::RadioToggleButton* abilityButton = new namelessgui::RadioToggleButton(unitAbilitiesButtonGroup_);
+		abilityButton->setRelativePosition({200.0f, 50 + abilityButton->getSize().y * unitAbilityButtons_.size()});
+		abilityButton->setText(ability->getName());
+		addWidget(abilityButton);
 
-		unitSpecialAbilityButtons_.push_back(nullptr);
-		unitSpecialAbilityButtons_.back().reset(specialAbilityButton);
-		specialAbilityButton->signalActivated.connect([this,specialAbility] { selectedUnitSpecialAbility_ = specialAbility; });
+		unitAbilityButtons_.push_back(nullptr);
+		unitAbilityButtons_.back().reset(abilityButton);
+		abilityButton->signalActivated.connect([this,ability] { selectedUnitAbility_ = ability; });
 	}
 }
 
@@ -201,11 +201,11 @@ void SquareDetailWindow::display(const Coordinates& position, Board& board, Play
 
 void SquareDetailWindow::clearUnitSpecialAbilities()
 {
-	selectedUnitSpecialAbility_ = nullptr;
-	for(auto& specialAbilityButton : unitSpecialAbilityButtons_)
-		removeWidget(specialAbilityButton.get());
-	unitSpecialAbilityButtons_.clear();
-	unitSpecialAbilitiesButtonGroup_.reset();
+	selectedUnitAbility_ = nullptr;
+	for(auto& abilityButton : unitAbilityButtons_)
+		removeWidget(abilityButton.get());
+	unitAbilityButtons_.clear();
+	unitAbilitiesButtonGroup_.reset();
 }
 
 void SquareDetailWindow::clear()
@@ -215,10 +215,10 @@ void SquareDetailWindow::clear()
 	hideEnvironmentWidgets();
 }
 
-void SquareDetailWindow::deselectSelectedUnitSpecialAbility()
+void SquareDetailWindow::deselectSelectedUnitAbility()
 {
-	selectedUnitSpecialAbility_ = nullptr;
-	for(auto& button : unitSpecialAbilityButtons_)
+	selectedUnitAbility_ = nullptr;
+	for(auto& button : unitAbilityButtons_)
 		button->deactivate();
 }
 

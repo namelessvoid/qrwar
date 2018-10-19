@@ -5,7 +5,7 @@
 #include "gui/ng/radiotogglebutton.hpp"
 #include "gui/ng/buttongroup.hpp"
 
-#include "game/skirmish/unitspecialability.hpp"
+#include "game/skirmish/unitability.hpp"
 
 namespace namelessgui
 {
@@ -31,8 +31,8 @@ public:
 
 	void clear();
 
-	void deselectSelectedUnitSpecialAbility();
-	inline UnitSpecialAbility* getSelectedUnitSpecialAbility() const { return selectedUnitSpecialAbility_; }
+	void deselectSelectedUnitAbility();
+	inline UnitAbility* getSelectedUnitAbility() const { return selectedUnitAbility_; }
 
 private:
 	void setUnit(const Unit& unit);
@@ -49,14 +49,14 @@ private:
 	namelessgui::Label* unitMovementLabel_;
 	namelessgui::Label* unitAttackLabel_;
 	namelessgui::Label* unitDefenseLabel_;
-	std::vector<std::unique_ptr<namelessgui::RadioToggleButton>> unitSpecialAbilityButtons_;
-	std::shared_ptr<namelessgui::ButtonGroup> unitSpecialAbilitiesButtonGroup_;
+	std::vector<std::unique_ptr<namelessgui::RadioToggleButton>> unitAbilityButtons_;
+	std::shared_ptr<namelessgui::ButtonGroup> unitAbilitiesButtonGroup_;
 
 	namelessgui::Label* environmentTitleLabel_;
 	namelessgui::Label* environmentAttackLabel_;
 	namelessgui::Label* environmentDefenseLabel_;
 
-	UnitSpecialAbility* selectedUnitSpecialAbility_;
+	UnitAbility* selectedUnitAbility_;
 };
 
 } // namespace qrw

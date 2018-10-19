@@ -8,7 +8,7 @@
 namespace qrw
 {
 
-UnitAttackAbility::UnitAttackAbility(Unit* owner) : UnitSpecialAbility(owner)
+UnitAttackAbility::UnitAttackAbility(Unit* owner) : UnitAbility(owner)
 {
 	setName("Attack");
 }
@@ -44,7 +44,7 @@ void UnitAttackAbility::inflictDamage(Unit& opponent)
 
 bool UnitAttackAbility::canBeExecutedOn(const Coordinates& position)
 {
-	if(!UnitSpecialAbility::canBeExecutedOn(position)) return false;
+	if(!UnitAbility::canBeExecutedOn(position)) return false;
 
 	return getOpponentAt(position) != nullptr &&
 		   owner_->getCurrentMovement() > 0 &&

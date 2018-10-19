@@ -1,12 +1,12 @@
 #ifndef QRW_UNITMOVEMENTABILITY_HPP
 #define QRW_UNITMOVEMENTABILITY_HPP
 
-#include "unitspecialability.hpp"
+#include "unitability.hpp"
 
 namespace qrw
 {
 
-class UnitMovementAbility : public UnitSpecialAbility
+class UnitMovementAbility : public UnitAbility
 {
 public:
 	void deactivate() override;

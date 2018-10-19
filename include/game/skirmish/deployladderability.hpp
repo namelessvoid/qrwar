@@ -1,14 +1,14 @@
 #ifndef QRW_DEPLOYLADDERABILITY_HPP
 #define QRW_DEPLOYLADDERABILITY_HPP
 
-#include "unitspecialability.hpp"
+#include "unitability.hpp"
 
 namespace qrw
 {
 class Unit;
 class Coordinates;
 
-class DeployLadderAbility : public UnitSpecialAbility
+class DeployLadderAbility : public UnitAbility
 {
 public:
 	explicit DeployLadderAbility(Unit* owner);

@@ -11,7 +11,7 @@
 #include "engine/board.hpp"
 #include "engine/player.hpp"
 #include "game/skirmish/coordinates.hpp"
-#include "game/skirmish/unitspecialability.hpp"
+#include "game/skirmish/unitability.hpp"
 
 #include "foundation/gameobject.hpp"
 
@@ -79,8 +79,8 @@ public:
 	void setPosition(const Coordinates& position);
 	void move(const Path& path);
 
-	inline const std::list<UnitSpecialAbility*>& getSpecialAbilities() const { return specialAbilities_; }
-	UnitSpecialAbility* updateAbilitiesToTarget(const Coordinates& boardPosition);
+	inline const std::list<UnitAbility*>& getAbilities() const { return specialAbilities_; }
+	UnitAbility* updateAbilitiesToTarget(const Coordinates& boardPosition);
 	void deactivateAllAbilities();
 	bool tryExecuteAbility(const Coordinates& boardPosition);
 
@@ -101,7 +101,7 @@ protected:
 
 	void setMovement(int movement) { _movement = movement; }
 
-	void addSpecialAbility(UnitSpecialAbility* ability);
+	void addAbility(UnitAbility* ability);
 
 	class UnitMovementAbility* movementAbility_;
 	class UnitAttackAbility* attackAbility_;
@@ -127,7 +127,7 @@ private:
 
 	FollowRouteAnimationComponent* followRouteAnimationComponent_;
 
-	std::list<UnitSpecialAbility*> specialAbilities_;
+	std::list<UnitAbility*> specialAbilities_;
 };
 
 } // namespace qrw

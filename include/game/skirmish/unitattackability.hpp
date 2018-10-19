@@ -1,12 +1,12 @@
 #ifndef QRW_UNITATTACKABILITY_HPP
 #define QRW_UNITATTACKABILITY_HPP
 
-#include "unitspecialability.hpp"
+#include "unitability.hpp"
 
 namespace qrw
 {
 
-class UnitAttackAbility : public UnitSpecialAbility
+class UnitAttackAbility : public UnitAbility
 {
 public:
 	explicit UnitAttackAbility(Unit* owner);

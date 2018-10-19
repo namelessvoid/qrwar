@@ -26,7 +26,7 @@ LadderCarrier::LadderCarrier()
 
 	deployLadderAbility_ = new DeployLadderAbility(this);
 	addComponent(deployLadderAbility_);
-	addSpecialAbility(deployLadderAbility_);
+	addAbility(deployLadderAbility_);
 
 	attackAbility_->setEnabled(false);
 }

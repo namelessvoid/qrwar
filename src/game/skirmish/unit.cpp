@@ -35,11 +35,11 @@ Unit::Unit()
 
 	movementAbility_ = new UnitMovementAbility(this);
 	addComponent(movementAbility_);
-	addSpecialAbility(movementAbility_);
+	addAbility(movementAbility_);
 
 	attackAbility_ = new UnitAttackAbility(this);
 	addComponent(attackAbility_);
-	addSpecialAbility(attackAbility_);
+	addAbility(attackAbility_);
 }
 
 void Unit::onDestroy()
@@ -187,9 +187,9 @@ void Unit::move(const Path& path)
 	followRouteAnimationComponent_->start();
 }
 
-UnitSpecialAbility* Unit::updateAbilitiesToTarget(const Coordinates& boardPosition)
+UnitAbility* Unit::updateAbilitiesToTarget(const Coordinates& boardPosition)
 {
-	UnitSpecialAbility* activeAbility = nullptr;
+	UnitAbility* activeAbility = nullptr;
 	for(auto& ability : specialAbilities_)
 	{
 		if(!activeAbility && ability->canBeExecutedOn(boardPosition))
@@ -222,7 +222,7 @@ bool Unit::tryExecuteAbility(const Coordinates& boardPosition)
 	return false;
 }
 
-void Unit::addSpecialAbility(UnitSpecialAbility* ability)
+void Unit::addAbility(UnitAbility* ability)
 {
 	specialAbilities_.push_front(ability);
 }

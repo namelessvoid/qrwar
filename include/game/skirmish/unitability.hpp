@@ -1,5 +1,5 @@
-#ifndef QRW_UNITSPECIALABILITY_HPP
-#define QRW_UNITSPECIALABILITY_HPP
+#ifndef QRW_UNITABILITY_HPP
+#define QRW_UNITABILITY_HPP
 
 #include "foundation/gamecomponent.hpp"
 
@@ -12,17 +12,17 @@ namespace qrw
 {
 class Unit;
 
-class UnitSpecialAbility : public GameComponent
+class UnitAbility : public GameComponent
 {
 public:
-	explicit UnitSpecialAbility(Unit* owner)
+	explicit UnitAbility(Unit* owner)
 		: owner_(owner),
 		  isActive_(false),
 		  enabled_(true)
 	{
 	}
 
-	~UnitSpecialAbility() override = default;
+	~UnitAbility() override = default;
 
 	void activate()	{ isActive_ = true; }
 
@@ -54,4 +54,4 @@ private:
 
 } // namespace qrw
 
-#endif //QRW_UNITSPECIALABILITY_HPP
+#endif //QRW_UNITABILITY_HPP

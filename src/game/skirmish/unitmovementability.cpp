@@ -8,7 +8,7 @@ namespace qrw
 {
 
 UnitMovementAbility::UnitMovementAbility(Unit* owner)
-	: UnitSpecialAbility(owner)
+	: UnitAbility(owner)
 {
 	setName("Move");
 	path_ = g_scene.spawn<Path>();
@@ -27,7 +27,7 @@ void UnitMovementAbility::executeOn(const Coordinates& position)
 
 bool UnitMovementAbility::canBeExecutedOn(const Coordinates& position)
 {
-	if(!UnitSpecialAbility::canBeExecutedOn(position)) return false;
+	if(!UnitAbility::canBeExecutedOn(position)) return false;
 
 	Board* board = g_scene.findSingleGameObject<Board>();
 	if(!board) return false;
@@ -40,7 +40,7 @@ bool UnitMovementAbility::canBeExecutedOn(const Coordinates& position)
 
 void UnitMovementAbility::deactivate()
 {
-	UnitSpecialAbility::deactivate();
+	UnitAbility::deactivate();
 	path_->reset();
 }
 

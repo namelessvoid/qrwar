@@ -10,7 +10,7 @@ namespace qrw
 {
 
 DeployLadderAbility::DeployLadderAbility(Unit* owner)
-	: UnitSpecialAbility(owner)
+	: UnitAbility(owner)
 {
 		setName("Deploy Ladder");
 }
@@ -33,7 +33,7 @@ void DeployLadderAbility::executeOn(const Coordinates& position)
 
 bool DeployLadderAbility::canBeExecutedOn(const Coordinates& position)
 {
-	if(!UnitSpecialAbility::canBeExecutedOn(position)) return false;
+	if(!UnitAbility::canBeExecutedOn(position)) return false;
 
 	Board* board = g_scene.findSingleGameObject<Board>();
 	if(!board) return false;
