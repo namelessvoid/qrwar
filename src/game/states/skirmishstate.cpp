@@ -102,11 +102,59 @@ EGameStateId SkirmishState::update()
 
 void SkirmishState::slotCursorMoved(const Coordinates &boardPosition)
 {
-	if(_board->isOnBoard(boardPosition) && _selectedUnit)
+	if(UnitAbility* selectedAbility = _squareDetailWindow->getSelectedUnitAbility())
+	{
+		selectedAbility->updateVisualization(boardPosition);
+	}
+	else if(_board->isOnBoard(boardPosition) && _selectedUnit)
 	{
 		UnitAbility* ability = _selectedUnit->updateAbilitiesToTarget(boardPosition);
 		if(ability) ability->updateVisualization(boardPosition);
 	}
+}
+
+void SkirmishState::slotCursorLeftClicked(const Coordinates& boardPosition)
+{
+	Unit* unitUnderCursor = _board->getUnit(boardPosition);
+
+	if(_selectedUnit)
+	{
+		bool abilityExecuted = false;
+
+		if(UnitAbility* selectedAbility = _squareDetailWindow->getSelectedUnitAbility())
+		{
+			if(selectedAbility->canBeExecutedOn(boardPosition))
+			{
+				selectedAbility->executeOn(boardPosition);
+				abilityExecuted = true;
+			}
+		}
+		else
+		{
+			abilityExecuted = _selectedUnit->tryExecuteAbility(boardPosition);
+		}
+
+		_squareMarker->setBoardPosition(_selectedUnit->getPosition());
+
+		if(_selectedUnit->getHP() == 0)
+			deselectSquare();
+
+		if(abilityExecuted)
+			checkVictory();
+	}
+
+	if(unitUnderCursor && unitUnderCursor->getPlayer() == _players[_currentPlayer])
+	{
+		// Select unit
+		_selectedUnit = unitUnderCursor;
+		_squareMarker->setBoardPosition(boardPosition);
+		_squareMarker->setVisible(true);
+	}
+
+	if(_selectedUnit)
+		_squareDetailWindow->display(_selectedUnit->getPosition(), *_board, *_players[_currentPlayer]);
+	else
+		_squareDetailWindow->display(boardPosition, *_board, *_players[_currentPlayer]);
 }
 
 void SkirmishState::checkVictory()
@@ -136,36 +184,6 @@ void SkirmishState::replenishTroops()
 		unit = unitIter.second;
 		unit->setCurrentMovement(unit->getMovement());
 	}
-}
-
-void SkirmishState::slotCursorLeftClicked(const Coordinates& boardPosition)
-{
-	Unit* unitUnderCursor = _board->getUnit(boardPosition);
-
-	if(_selectedUnit)
-	{
-		bool abilityExecuted = _selectedUnit->tryExecuteAbility(boardPosition);
-		_squareMarker->setBoardPosition(_selectedUnit->getPosition());
-
-		if(_selectedUnit->getHP() == 0)
-			deselectSquare();
-
-		if(abilityExecuted)
-			checkVictory();
-	}
-
-	if(unitUnderCursor && unitUnderCursor->getPlayer() == _players[_currentPlayer])
-	{
-		// Select unit
-		_selectedUnit = unitUnderCursor;
-		_squareMarker->setBoardPosition(boardPosition);
-		_squareMarker->setVisible(true);
-	}
-
-	if(_selectedUnit)
-		_squareDetailWindow->display(_selectedUnit->getPosition(), *_board, *_players[_currentPlayer]);
-	else
-		_squareDetailWindow->display(boardPosition, *_board, *_players[_currentPlayer]);
 }
 
 void SkirmishState::endTurn()
