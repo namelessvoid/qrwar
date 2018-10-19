@@ -27,6 +27,8 @@ void UnitMovementAbility::executeOn(const Coordinates& position)
 
 bool UnitMovementAbility::canBeExecutedOn(const Coordinates& position)
 {
+	if(!UnitSpecialAbility::canBeExecutedOn(position)) return false;
+
 	Board* board = g_scene.findSingleGameObject<Board>();
 	if(!board) return false;
 

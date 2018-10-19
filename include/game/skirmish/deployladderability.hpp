@@ -18,10 +18,6 @@ public:
 	bool canBeExecutedOn(const Coordinates& position) override;
 
 	void updateVisualization(const Coordinates& position) override {}
-
-	bool isDepleted() const { return depleted_; }
-private:
-	bool depleted_;
 };
 
 class LadderDeployedEvent : public EventBase<LadderDeployedEvent>

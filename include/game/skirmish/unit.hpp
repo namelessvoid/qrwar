@@ -103,6 +103,9 @@ protected:
 
 	void addSpecialAbility(UnitSpecialAbility* ability);
 
+	class UnitMovementAbility* movementAbility_;
+	class UnitAttackAbility* attackAbility_;
+
 private:
 	void setPosition_(const Coordinates& position);
 
@@ -123,8 +126,6 @@ private:
 	Coordinates _position;
 
 	FollowRouteAnimationComponent* followRouteAnimationComponent_;
-	class UnitMovementAbility* movementAbility_;
-	class UnitAttackAbility* attackAbility_;
 
 	std::list<UnitSpecialAbility*> specialAbilities_;
 };

@@ -10,8 +10,7 @@ namespace qrw
 {
 
 DeployLadderAbility::DeployLadderAbility(Unit* owner)
-	: UnitSpecialAbility(owner),
-	  depleted_(false)
+	: UnitSpecialAbility(owner)
 {
 		setName("Deploy Ladder");
 }
@@ -26,7 +25,7 @@ void DeployLadderAbility::executeOn(const Coordinates& position)
 	ladder->setFace(position - ladder->getPosition());
 	board->setStructure(ladder->getPosition(), ladder);
 
-	depleted_ = true;
+	setEnabled(false);
 
 	LadderDeployedEvent ladderDeployedEvent;
 	owner_->handleEvent(ladderDeployedEvent);
@@ -34,7 +33,7 @@ void DeployLadderAbility::executeOn(const Coordinates& position)
 
 bool DeployLadderAbility::canBeExecutedOn(const Coordinates& position)
 {
-	if(depleted_) return false;
+	if(!UnitSpecialAbility::canBeExecutedOn(position)) return false;
 
 	Board* board = g_scene.findSingleGameObject<Board>();
 	if(!board) return false;

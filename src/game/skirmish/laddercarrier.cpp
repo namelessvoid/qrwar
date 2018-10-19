@@ -5,6 +5,7 @@
 #include "foundation/spritecomponent.hpp"
 
 #include "game/skirmish/deployladderability.hpp"
+#include "game/skirmish/unitattackability.hpp"
 
 namespace qrw
 {
@@ -26,6 +27,8 @@ LadderCarrier::LadderCarrier()
 	deployLadderAbility_ = new DeployLadderAbility(this);
 	addComponent(deployLadderAbility_);
 	addSpecialAbility(deployLadderAbility_);
+
+	attackAbility_->setEnabled(false);
 }
 
 void LadderCarrier::onAddToScene()
@@ -41,7 +44,7 @@ void LadderCarrier::updateTexture()
 	std::string playerNumber = std::to_string(getPlayer()->getId());
 	const sf::Texture* texture;
 
-	if(!deployLadderAbility_->isDepleted())
+	if(deployLadderAbility_->isEnabled())
 		texture = TextureManager::getInstance()->getTexture("p" + playerNumber + "laddercarrier");
 	else
 		texture = TextureManager::getInstance()->getTexture("p" + playerNumber + "laddercarrier_noladder");
@@ -56,6 +59,7 @@ bool LadderCarrier::handleEvent(const IEvent& event)
 
 	if(event.getName() == LadderDeployedEvent::name) {
 		updateTexture();
+		attackAbility_->setEnabled(true);
 		return true;
 	}
 	return false;

@@ -30,6 +30,8 @@ void UnitAttackAbility::executeOn(const Coordinates& position)
 
 void UnitAttackAbility::counterAttack(Unit& opponent)
 {
+	if(!isEnabled()) return;
+
 	inflictDamage(opponent);
 }
 
@@ -42,6 +44,8 @@ void UnitAttackAbility::inflictDamage(Unit& opponent)
 
 bool UnitAttackAbility::canBeExecutedOn(const Coordinates& position)
 {
+	if(!UnitSpecialAbility::canBeExecutedOn(position)) return false;
+
 	return getOpponentAt(position) != nullptr &&
 		   owner_->getCurrentMovement() > 0 &&
 		   owner_->isTargetWithinAttackRange(position);

@@ -17,7 +17,8 @@ class UnitSpecialAbility : public GameComponent
 public:
 	explicit UnitSpecialAbility(Unit* owner)
 		: owner_(owner),
-		  isActive_(false)
+		  isActive_(false),
+		  enabled_(true)
 	{
 	}
 
@@ -29,11 +30,14 @@ public:
 
 	virtual void executeOn(const Coordinates& position) = 0;
 
-	virtual bool canBeExecutedOn(const Coordinates& position) = 0;
+	virtual bool canBeExecutedOn(const Coordinates& position) { return enabled_; };
 
 	virtual void updateVisualization(const Coordinates& position) = 0;
 
 	inline const std::string& getName() { return name_; }
+
+	bool isEnabled() const { return enabled_; }
+	void setEnabled(bool enabled) { enabled_ = enabled; }
 
 protected:
 	inline void setName(const std::string& name) { name_ = name; }
@@ -42,6 +46,8 @@ protected:
 
 private:
 	bool isActive_;
+
+	bool enabled_;
 
 	std::string name_;
 };
