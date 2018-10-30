@@ -1,0 +1,17 @@
+FROM ubuntu:18.10
+
+COPY CMakeLists.txt /qrw/CMakeLists.txt
+COPY cmake /qrw/cmake
+COPY src /qrw/src
+COPY include /qrw/include
+COPY test /qrw/test
+
+WORKDIR /qrw/build
+
+RUN apt update && apt install -y cmake g++ libsfml-dev libtinyxml2-dev libyaml-cpp-dev libgtest-dev libgmock-dev
+
+RUN cmake ..
+RUN make
+
+WORKDIR /qrw
+ENTRYPOINT ["./bin/test"]
