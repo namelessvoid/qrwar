@@ -11,7 +11,7 @@ RUN wget https://github.com/jbeder/yaml-cpp/archive/yaml-cpp-0.6.2.tar.gz && \
     mkdir build && \
     cd build && \
     cmake -DYAML_CPP_BUILD_TESTS=OFF -DBUILD_SHARED_LIBS=ON .. && \
-    make -j 8 && \
+    make && \
     make install
 
 # Copy source
@@ -24,7 +24,7 @@ COPY test /qrw/test
 # Build qrwar
 WORKDIR /qrw/build
 RUN cmake ..
-RUN make -j 8
+RUN make
 
 # Setup test
 COPY res /qrw/res
