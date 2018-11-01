@@ -21,7 +21,6 @@
 
 using ::testing::_;
 using ::testing::Return;
-using ::testing::ElementsAreArray;
 using ::testing::Contains;
 
 TEST(DeployState_Init, Then_game_objects_are_added_to_scene)
@@ -68,7 +67,11 @@ TEST(DeployState_Init, Then_game_objects_are_added_to_scene)
 
 	// Assert
 	EXPECT_EQ(qrw::g_scene.findSingleGameObject<qrw::Board>(), board);
-	EXPECT_THAT(qrw::g_scene.findGameObjects<qrw::DeploymentZone>(), ElementsAreArray(deploymentZones.data(), 2));
+
+	std::set<qrw::GameObject*> deploymentZonesInScene = qrw::g_scene.findGameObjects<qrw::DeploymentZone>();
+	EXPECT_EQ(deploymentZonesInScene.size(), 2);
+	EXPECT_THAT(deploymentZonesInScene, Contains(deploymentZone1));
+	EXPECT_THAT(deploymentZonesInScene, Contains(deploymentZone2));
 
 	std::set<qrw::GameObject*> terrainsInScene = qrw::g_scene.findGameObjects<qrw::Terrain>();
 	EXPECT_EQ(terrainsInScene.size(), 2);
