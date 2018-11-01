@@ -1,25 +1,8 @@
+sudo: required
 language: c++
-compiler:
-    - gcc
+services: docker
 
-before_install:
-    - sudo add-apt-repository ppa:ubuntu-toolchain-r/test -y
-    - sudo apt-get update -qq
-    - if [ "$CXX" = "g++" ]; then sudo apt-get install -qq g++-6; fi
-    - if [ "$CXX" = "g++" ]; then export CXX="g++-6" CC="gcc-6"; fi
-    - sudo apt-get install libcppunit-dev libyaml-cpp-dev
-
-    - $CXX --version
-    - cmake --version
-
-    - chmod +x ".travis-scripts/before-install-sfml.sh"
-    - chmod +x ".travis-scripts/before-install-tinyxml2.sh"
-
-    - wget http://raw.github.com/Kitware/CMake/master/Modules/FindGLEW.cmake -O cmake/Modules/FindGLEW.cmake
-
-install:
-    - .travis-scripts/before-install-sfml.sh
-    - .travis-scripts/before-install-tinyxml2.sh
-
-script: cmake . && make
+script:
+    - docker build -f ci/Dockerfile-ubuntu18.10 -t qrwar:ubuntu18.10 .
+    - docker run qrwar:ubuntu18.10
 
