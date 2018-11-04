@@ -60,6 +60,7 @@ QRWar::QRWar()
 	g_scene.setRenderTarget(&_renderWindow);
 	g_eventSystem.startUp(new SfEventSource(_renderWindow));
 	Mouse::setWindow(_renderWindow);
+	mapManager.ensureUserMapDir();
 
 	// Set and initialize start state
 	_currentState = createGameState(EGSID_INTRO_STATE);

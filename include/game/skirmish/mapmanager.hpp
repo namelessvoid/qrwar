@@ -33,6 +33,8 @@ public:
 	explicit MapManager(MetaManager& metaManager);
     virtual ~MapManager() = default;
 
+	void ensureUserMapDir();
+
 	MapManager(const MapManager& rhs) = delete;
 	MapManager& operator=(const MapManager& rhs) = delete;
 

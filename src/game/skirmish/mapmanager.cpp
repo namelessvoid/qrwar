@@ -30,6 +30,12 @@ MapManager::MapManager(MetaManager& metaManager)
 	logger_->setPrefix("MapManager");
 }
 
+void MapManager::ensureUserMapDir()
+{
+	if(!fs::exists(getUserMapDir()))
+		fs::create_directories(getUserMapDir());
+}
+
 MapDto MapManager::loadMap(
 	const std::string& mapName,
 	LoadErrors& error)
