@@ -55,6 +55,8 @@ void MapSelectionWindow::slotMapSelectionChanged(const std::string& mapName)
 
 void MapSelectionWindow::updateMapPreviewSize()
 {
+	if(mapPreview_->getTexture() == nullptr) return;
+
 	sf::Vector2f sizeMapPreview = maxMapPreviewSize_;
 	sf::Vector2f sizeTexture(mapPreview_->getTexture()->getSize().x, mapPreview_->getTexture()->getSize().y);
 
