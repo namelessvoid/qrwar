@@ -19,6 +19,8 @@ find_package(tinyxml2 REQUIRED)
 if(TINYXML2_FOUND)
 	include_directories(${TINYXML2_INCLUDE_DIR})
 	set(LIBS ${LIBS} ${TINYXML2_LIBRARIES})
+else(TINYXML2_FOUND)
+	message(FATAL_ERROR "Required library tinyxml2 could not be found")
 endif(TINYXML2_FOUND)
 
 find_package(yaml-cpp REQUIRED)
