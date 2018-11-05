@@ -16,7 +16,7 @@ MapSelectionWindow::MapSelectionWindow(MapManager& mapManager)
 	addWidget(mapNameList_);
 
 	mapPreview_ = new namelessgui::RectangularWidget();
-	mapPreview_->setFillColor(sf::Color::White);
+	mapPreview_->setFillColor(sf::Color::Transparent);
 	mapPreview_->setAnchor({0, 0});
 	mapPreview_->setParentAnchor({0.4, 0});
 	mapPreview_->setRelativePosition({5, 5});
@@ -49,7 +49,7 @@ void MapSelectionWindow::slotMapSelectionChanged(const std::string& mapName)
 
 	sf::Texture* texture = mapManager_.loadMapPreview(selectedMapName_);
 	mapPreview_->setTexture(texture);
-
+	mapPreview_->setFillColor(sf::Color::White);
 	updateMapPreviewSize();
 }
 
