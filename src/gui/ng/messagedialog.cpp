@@ -21,10 +21,6 @@ MessageDialog::MessageDialog()
     setSize({300.0, 200.0});
 }
 
-MessageDialog::~MessageDialog()
-{
-}
-
 void MessageDialog::setSize(const sf::Vector2f& size)
 {
     Window::setSize(size);

@@ -12,9 +12,9 @@ class MessageDialog : public Window
 public:
 	MessageDialog();
 
-	~MessageDialog();
+	~MessageDialog() override = default;
 
-	virtual void setSize(const sf::Vector2f& size) override;
+	void setSize(const sf::Vector2f& size) override;
 
 	inline void setMessage(const std::string& message) { label_->setText(message); }
 	inline void setButtonText(const std::string& text) { closeButton_->setText(text); }
