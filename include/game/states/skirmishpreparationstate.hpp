@@ -9,7 +9,7 @@
 
 namespace namelessgui {
 class ConfirmationDialog;
-class LineInput;
+class MessageDialog;
 }
 
 namespace qrw {
@@ -29,6 +29,8 @@ public:
 	const std::string& getPlayerOneName() const;
 	const std::string& getPlayerTwoName() const;
 
+	void init(GameState* previousState) override;
+
 private:
     SkirmishPreparationState(const SkirmishPreparationState& rhs) = delete;
 
@@ -41,6 +43,7 @@ private:
     MapManager& mapManager_;
 
     namelessgui::ConfirmationDialog* backToMainMenuDialog_;
+    namelessgui::MessageDialog* noMapsDialog_;
 
     EGameStateId nextState_;
 

@@ -1,10 +1,7 @@
 #include "game/states/skirmishpreparationstate.hpp"
 
-#include "gui/ng/window.hpp"
-#include "gui/ng/button.hpp"
-#include "gui/ng/lineinput.hpp"
 #include "gui/ng/confirmationdialog.hpp"
-#include "gui/ng/listwidget.hpp"
+#include "gui/ng/messagedialog.hpp"
 
 #include "eventsystem/inputevents.hpp"
 
@@ -31,9 +28,19 @@ SkirmishPreparationState::SkirmishPreparationState(sf::RenderWindow* renderWindo
 	backToMainMenuDialog_->signalYesClicked.connect([this] { slotBackToMainMenuClicked(); });
 	_guiUptr->addWidget(backToMainMenuDialog_);
 
+	noMapsDialog_ = new namelessgui::MessageDialog();
+	noMapsDialog_->setMessage("There are no maps available!\n\nTo create maps, choos the map editor from the main menu.");
+	noMapsDialog_->setButtonText("Back to main menu");
+	noMapsDialog_->signalClosed.connect([this] { slotBackToMainMenuClicked(); });
+	noMapsDialog_->setAnchor({0.5f, 0.5f});
+	noMapsDialog_->setParentAnchor({0.5f, 0.5f});
+	noMapsDialog_->setSize({300.0f, 250.0f});
+	_guiUptr->addWidget(noMapsDialog_);
+
 	_guiUptr->setVisible(true);
 
 	backToMainMenuDialog_->setVisible(false);
+	noMapsDialog_->setVisible(false);
 }
 
 EGameStateId SkirmishPreparationState::update()
@@ -73,6 +80,17 @@ const std::string& SkirmishPreparationState::getPlayerTwoName() const
 const std::string& SkirmishPreparationState::getMapName() const
 {
 	return skirmishPreparationWindow_->getSelectedMapName();
+}
+
+void SkirmishPreparationState::init(GameState* previousState)
+{
+	GameState::init(previousState);
+
+	if(mapManager_.getMapList().empty())
+	{
+		skirmishPreparationWindow_->setVisible(false);
+		noMapsDialog_->setVisible(true);
+	}
 }
 
 } // namespace qrw
