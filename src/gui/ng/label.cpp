@@ -97,13 +97,18 @@ std::string Label::applyWordWrap(const std::string& original)
 
     std::string wrapped = original;
     float currentLineLength = 0;
-    size_t lastSpacePos = wrapped.find(" ");
+    size_t lastSpacePos = wrapped.find(' ');
 
     for(size_t currentIndex = lastSpacePos; currentIndex < wrapped.size(); ++currentIndex)
     {
         char currentCharacter = wrapped[currentIndex];
         if(currentCharacter == ' ')
             lastSpacePos = currentIndex;
+        else if(currentCharacter == '\n')
+        {
+            lastSpacePos = currentIndex;
+            currentLineLength = 0;
+        }
 
         const sf::Glyph& glyph = font->getGlyph(currentCharacter, _text->getCharacterSize(), false);
         currentLineLength += glyph.advance;
