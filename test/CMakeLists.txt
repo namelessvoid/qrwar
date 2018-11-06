@@ -53,7 +53,7 @@ add_executable(unittest
 	game/states/mapeditorstate_resizeboard.cpp
 
 	game/skirmish/mapvalidator_validate.cpp
-
+	game/skirmish/wallaccessstructurebase_rotate.cpp
 	game/skirmish/pathfinding/boardworldadapter_getneighborlocationsfor.cpp
 	game/skirmish/pathfinding/boardworldadapter_isaccessiblefrom.cpp
 

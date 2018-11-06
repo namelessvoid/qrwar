@@ -121,7 +121,6 @@ TEST(FollowRouteAnimationComponent_Animate, If_not_started_Then_nothing_is_anima
 
 	// Assert
 	EXPECT_EQ(renderableMock.setPositionCalls.size(), 0);
-
 }
 
 } // namespace FollowRouteAnimationComponent_Animate
