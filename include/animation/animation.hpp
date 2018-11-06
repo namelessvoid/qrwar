@@ -49,6 +49,7 @@ public:
 	virtual void stop()
 	{
 		m_isRunning = false;
+		m_currentRunTime = 0;
 	}
 
 	bool isRunning() const

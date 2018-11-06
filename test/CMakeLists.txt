@@ -28,6 +28,7 @@ add_executable(unittest
 
 	animation/animation_start.cpp
 	animation/animation_animate.cpp
+	animation/animation_stop.cpp
 
 	foundation/followrouteanimationcomponent_animate.cpp
 	foundation/followrouteanimationcomponent_stop.cpp

@@ -2,7 +2,7 @@
 
 #include "animation/animation.hpp"
 
-TEST(Animation_Start, Then_current_run_time_is_reset)
+TEST(Animation_Stop, Then_current_run_time_is_reset)
 {
 	qrw::Animation animation;
 	animation.setDuration(1);
@@ -12,7 +12,7 @@ TEST(Animation_Start, Then_current_run_time_is_reset)
 	EXPECT_EQ(animation.getCurrentRunTime(), 0.5);
 
 	// Act
-	animation.start();
+	animation.stop();
 
 	// Assert
 	EXPECT_EQ(animation.getCurrentRunTime(), 0);
