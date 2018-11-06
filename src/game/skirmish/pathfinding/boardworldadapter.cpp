@@ -4,22 +4,22 @@
 
 #include "game/skirmish/structure.hpp"
 #include "game/skirmish/wall.hpp"
-#include "game/skirmish/stairs.hpp"
 #include "game/skirmish/directions.hpp"
+#include "game/skirmish/imakewallaccessible.hpp"
 
 namespace qrw
 {
 
 struct StructureAccessibilityDecisionTree
 {
-	bool plainToPlainAccess() { return true; }
-	bool plainToStairsAccess(const Coordinates& plainPosition, const Stairs& stairs) { return stairs.getPosition() + stairs.getFace() != plainPosition; }
-	bool plainToWallAccess() { return false; }
+	bool plainToPlain() { return true; }
+	bool plainToWallAccess(const Coordinates& plainPosition, const IMakeWallAccessible& wallAccess) { return wallAccess.getPosition() + wallAccess.getFace() != plainPosition; }
+	bool plainToWall() { return false; }
 
-	bool stairsToStairsAccess() { return true; }
-	bool stairsToWallAccess(const Stairs& stairs, const Wall& wall) { return wall.getPosition() - stairs.getPosition() == stairs.getFace(); }
+	bool wallAccessToWallAccess() { return true; }
+	bool wallAccessToWall(const IMakeWallAccessible& wallAccess, const Wall& wall) { return wall.getPosition() - wallAccess.getPosition() == wallAccess.getFace(); }
 
-	bool wallToWallAccess() { return true; }
+	bool wallToWall() { return true; }
 
 	bool isAccessible(const Coordinates& position1, const Coordinates& position2, const Board& board)
 	{
@@ -30,45 +30,45 @@ struct StructureAccessibilityDecisionTree
 		{
 			if (!structure2)
 			{
-				return plainToPlainAccess();
+				return plainToPlain();
 			}
-			else if (auto stairs2 = dynamic_cast<const Stairs*>(structure2))
+			else if (auto wallAccess2 = dynamic_cast<const IMakeWallAccessible*>(structure2))
 			{
-				return plainToStairsAccess(position1, *stairs2);
+				return plainToWallAccess(position1, *wallAccess2);
 			}
 			else if (dynamic_cast<const Wall*>(structure2))
 			{
-				return plainToWallAccess();
+				return plainToWall();
 			}
 		}
-		else if (auto stairs1 = dynamic_cast<const Stairs*>(structure1))
+		else if (auto wallAccess1 = dynamic_cast<const IMakeWallAccessible*>(structure1))
 		{
 			if (!structure2)
 			{
-				return plainToStairsAccess(position2, *stairs1);
+				return plainToWallAccess(position2, *wallAccess1);
 			}
-			else if (dynamic_cast<const Stairs*>(structure2))
+			else if (dynamic_cast<const IMakeWallAccessible*>(structure2))
 			{
-				return stairsToStairsAccess();
+				return wallAccessToWallAccess();
 			}
 			else if (auto wall2 = dynamic_cast<const Wall*>(structure2))
 			{
-				return stairsToWallAccess(*stairs1, *wall2);
+				return wallAccessToWall(*wallAccess1, *wall2);
 			}
 		}
 		else if (auto wall1 = dynamic_cast<const Wall*>(structure1))
 		{
 			if (!structure2)
 			{
-				return plainToWallAccess();
+				return plainToWall();
 			}
-			else if (auto stairs2 = dynamic_cast<const Stairs*>(structure2))
+			else if (auto wallAccess2 = dynamic_cast<const IMakeWallAccessible*>(structure2))
 			{
-				return stairsToWallAccess(*stairs2, *wall1);
+				return wallAccessToWall(*wallAccess2, *wall1);
 			}
 			else if (dynamic_cast<const Wall*>(structure2))
 			{
-				return wallToWallAccess();
+				return wallToWall();
 			}
 		}
 

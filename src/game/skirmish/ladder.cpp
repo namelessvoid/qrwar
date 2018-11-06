@@ -12,4 +12,9 @@ Ladder::Ladder()
 	spriteComponent_->setTexture(TextureManager::getInstance()->getTexture("ladder"));
 }
 
+const SID& Ladder::getTypeName() const
+{
+	throw "Not implemented";
+}
+
 } // namespace qrw

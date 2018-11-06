@@ -1,6 +1,7 @@
 #include <gtest/gtest.h>
-#include <game/skirmish/stairs.hpp>
-#include <game/skirmish/wall.hpp>
+
+#include "game/skirmish/stairs.hpp"
+#include "game/skirmish/wall.hpp"
 
 #include "engine/board.hpp"
 
