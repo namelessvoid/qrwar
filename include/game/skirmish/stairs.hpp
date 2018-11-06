@@ -1,12 +1,12 @@
 #ifndef QRW_STAIRS_HPP
 #define QRW_STAIRS_HPP
 
-#include "imakewallaccessible.hpp"
+#include "wallaccessstructurebase.hpp"
 
 namespace qrw
 {
 
-class Stairs : public IMakeWallAccessible
+class Stairs : public WallAccessStructureBase
 {
 public:
 	friend class StairsMetaClass;

@@ -1,16 +1,16 @@
 #include "game/constants.hpp"
-#include "game/skirmish/imakewallaccessible.hpp"
+#include "game/skirmish/wallaccessstructurebase.hpp"
 
 namespace qrw
 {
 
-IMakeWallAccessible::IMakeWallAccessible()
+WallAccessStructureBase::WallAccessStructureBase()
 	: face_(Directions::NORTH)
 {
 	spriteComponent_->setOrigin(0.5f * SQUARE_DIMENSION, 0.5f * SQUARE_DIMENSION);
 }
 
-void IMakeWallAccessible::computeTexture()
+void WallAccessStructureBase::computeTexture()
 {
 	float rotation = 0;
 	if(face_ == qrw::Directions::EAST)
@@ -23,7 +23,7 @@ void IMakeWallAccessible::computeTexture()
 	spriteComponent_->setRotation(rotation);
 }
 
-void IMakeWallAccessible::rotate()
+void WallAccessStructureBase::rotate()
 {
 	if(face_ == qrw::Directions::NORTH)
 		face_ = qrw::Directions::EAST;
@@ -38,14 +38,14 @@ void IMakeWallAccessible::rotate()
 	qrw::Structure::updateNeighborTextures();
 }
 
-void IMakeWallAccessible::setFace(const qrw::Coordinates& face)
+void WallAccessStructureBase::setFace(const qrw::Coordinates& face)
 {
 	face_ = face;
 	computeTexture();
 	qrw::Structure::updateNeighborTextures();
 }
 
-void IMakeWallAccessible::setPosition(const Coordinates& position)
+void WallAccessStructureBase::setPosition(const Coordinates& position)
 {
 	position_ = position;
 	spriteComponent_->setPosition({SQUARE_DIMENSION * (0.5f + position.getX()), SQUARE_DIMENSION * (0.5f + position.getY())});

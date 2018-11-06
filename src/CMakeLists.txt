@@ -55,7 +55,7 @@ add_library(qrwarlib
 	game/skirmish/laddercarrier.cpp
 	game/skirmish/unitfactory.cpp
 	game/skirmish/structure.cpp
-	game/skirmish/imakewallaccessible.cpp
+	game/skirmish/wallaccessstructurebase.cpp
 	game/skirmish/stairs.cpp
 	game/skirmish/ladder.cpp
 	game/skirmish/wall.cpp

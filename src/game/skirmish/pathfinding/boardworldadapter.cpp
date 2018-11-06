@@ -5,7 +5,7 @@
 #include "game/skirmish/structure.hpp"
 #include "game/skirmish/wall.hpp"
 #include "game/skirmish/directions.hpp"
-#include "game/skirmish/imakewallaccessible.hpp"
+#include "game/skirmish/wallaccessstructurebase.hpp"
 
 namespace qrw
 {
@@ -13,11 +13,11 @@ namespace qrw
 struct StructureAccessibilityDecisionTree
 {
 	bool plainToPlain() { return true; }
-	bool plainToWallAccess(const Coordinates& plainPosition, const IMakeWallAccessible& wallAccess) { return wallAccess.getPosition() + wallAccess.getFace() != plainPosition; }
+	bool plainToWallAccess(const Coordinates& plainPosition, const WallAccessStructureBase& wallAccess) { return wallAccess.getPosition() + wallAccess.getFace() != plainPosition; }
 	bool plainToWall() { return false; }
 
 	bool wallAccessToWallAccess() { return true; }
-	bool wallAccessToWall(const IMakeWallAccessible& wallAccess, const Wall& wall) { return wall.getPosition() - wallAccess.getPosition() == wallAccess.getFace(); }
+	bool wallAccessToWall(const WallAccessStructureBase& wallAccess, const Wall& wall) { return wall.getPosition() - wallAccess.getPosition() == wallAccess.getFace(); }
 
 	bool wallToWall() { return true; }
 
@@ -32,7 +32,7 @@ struct StructureAccessibilityDecisionTree
 			{
 				return plainToPlain();
 			}
-			else if (auto wallAccess2 = dynamic_cast<const IMakeWallAccessible*>(structure2))
+			else if (auto wallAccess2 = dynamic_cast<const WallAccessStructureBase*>(structure2))
 			{
 				return plainToWallAccess(position1, *wallAccess2);
 			}
@@ -41,13 +41,13 @@ struct StructureAccessibilityDecisionTree
 				return plainToWall();
 			}
 		}
-		else if (auto wallAccess1 = dynamic_cast<const IMakeWallAccessible*>(structure1))
+		else if (auto wallAccess1 = dynamic_cast<const WallAccessStructureBase*>(structure1))
 		{
 			if (!structure2)
 			{
 				return plainToWallAccess(position2, *wallAccess1);
 			}
-			else if (dynamic_cast<const IMakeWallAccessible*>(structure2))
+			else if (dynamic_cast<const WallAccessStructureBase*>(structure2))
 			{
 				return wallAccessToWallAccess();
 			}
@@ -62,7 +62,7 @@ struct StructureAccessibilityDecisionTree
 			{
 				return plainToWall();
 			}
-			else if (auto wallAccess2 = dynamic_cast<const IMakeWallAccessible*>(structure2))
+			else if (auto wallAccess2 = dynamic_cast<const WallAccessStructureBase*>(structure2))
 			{
 				return wallAccessToWall(*wallAccess2, *wall1);
 			}

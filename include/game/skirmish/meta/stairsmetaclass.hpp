@@ -15,7 +15,7 @@ class StairsMetaClass : public StructureMetaClass
 public:
 	StairsMetaClass(MetaManager& metaManager) : StructureMetaClass(metaManager)
 	{
-		properties_.push_back(std::make_unique<TClassProperty<Stairs,Coordinates>>(&IMakeWallAccessible::face_, "face_", metaManager));
+		properties_.push_back(std::make_unique<TClassProperty<Stairs,Coordinates>>(&WallAccessStructureBase::face_, "face_", metaManager));
 	}
 
 protected:

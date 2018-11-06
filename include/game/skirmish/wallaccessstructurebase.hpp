@@ -10,16 +10,14 @@ namespace qrw
 {
 
 /**
- * Marker interface (primarily intended for structures). Marks objects
- * as being intende to grant access from ground to a wall, e.g. stairs,
- * and ladders.
+ * Base class for structures which grant access to walls (e.g. stairs, ladders).
  */
-class IMakeWallAccessible : public Structure
+class WallAccessStructureBase : public Structure
 {
 public:
 	friend class StairsMetaClass;
 
-	IMakeWallAccessible();
+	WallAccessStructureBase();
 
 	void computeTexture() override;
 

@@ -6,7 +6,7 @@
 namespace qrw
 {
 
-class Ladder : public IMakeWallAccessible
+class Ladder : public WallAccessStructureBase
 {
 public:
 	const SID& getTypeName() const override;
