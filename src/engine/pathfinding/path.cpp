@@ -26,7 +26,7 @@ namespace pathfinding
 		return steps_.end();
 	};
 
-	const Coordinates &Path::getStep(int n) const
+	const Coordinates& Path::getStep(int n) const
 	{
 		return steps_.at(n);
 	}

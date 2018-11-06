@@ -180,11 +180,18 @@ void Unit::move(const Path& path)
 {
 	setPosition_(path.last());
 
-	for(auto& step : path)
+	for(int i = 0; i < path.getLength(); ++i)
 	{
+		// Skip current start position on running animation since it is already
+		// part of the animation (animation.last_step == path.first_step)
+		if(followRouteAnimationComponent_->isRunning() && i == 0) continue;
+
+		const Coordinates& step = path.getStep(i);
 		followRouteAnimationComponent_->addEdge(sf::Vector2f{step.getX() * SQUARE_DIMENSION, step.getY() * SQUARE_DIMENSION});
 	}
-	followRouteAnimationComponent_->start();
+
+	if(!followRouteAnimationComponent_->isRunning())
+		followRouteAnimationComponent_->start();
 }
 
 UnitAbility* Unit::updateAbilitiesToTarget(const Coordinates& boardPosition)

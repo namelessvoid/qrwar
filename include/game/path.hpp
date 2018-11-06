@@ -28,6 +28,9 @@ public:
 
 	const Coordinates& last() const;
 
+	int getLength() const { return path_->getLength(); }
+	const Coordinates& getStep(int n) const { return path_->getStep(n); }
+
 	pathfinding::Path::const_iterator begin() const { return path_->begin(); };
 	pathfinding::Path::const_iterator end() const { return path_->end(); };
 
