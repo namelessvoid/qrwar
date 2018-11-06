@@ -27,8 +27,8 @@ TEST(FollowRouteAnimationComponent_Animate, If_two_corners_are_added_Then_animat
 	// Arrange
 	RenderableMock renderableMock;
 	auto followRouteAnimationComponent = new qrw::FollowRouteAnimationComponent(&renderableMock);
-	followRouteAnimationComponent->addEdge({ 0.0f, 10.0f});
-	followRouteAnimationComponent->addEdge({10.0f, 20.0f});
+	followRouteAnimationComponent->addCorner({0.0f, 10.0f});
+	followRouteAnimationComponent->addCorner({10.0f, 20.0f});
 	followRouteAnimationComponent->start();
 
 	// Act
@@ -52,9 +52,9 @@ TEST(FollowRouteAnimationComponent_Animate, If_three_corners_are_added_Then_anim
 {
 	RenderableMock renderableMock;
 	auto followRouteAnimationComponent = new qrw::FollowRouteAnimationComponent(&renderableMock);
-	followRouteAnimationComponent->addEdge({ 0.0f, 10.0f});
-	followRouteAnimationComponent->addEdge({10.0f, 20.0f});
-	followRouteAnimationComponent->addEdge({30.0f, 40.0f});
+	followRouteAnimationComponent->addCorner({0.0f, 10.0f});
+	followRouteAnimationComponent->addCorner({10.0f, 20.0f});
+	followRouteAnimationComponent->addCorner({30.0f, 40.0f});
 	followRouteAnimationComponent->start();
 
 	// Act
@@ -87,8 +87,8 @@ TEST(FollowRouteAnimationComponent_Animate, If_time_step_is_not_one_Then_animati
 	RenderableMock renderableMock;
 	auto followRouteAnimationComponent = new qrw::FollowRouteAnimationComponent(&renderableMock);
 	followRouteAnimationComponent->setDuration(0.5);
-	followRouteAnimationComponent->addEdge({ 0.0f, 10.0f});
-	followRouteAnimationComponent->addEdge({10.0f, 20.0f});
+	followRouteAnimationComponent->addCorner({0.0f, 10.0f});
+	followRouteAnimationComponent->addCorner({10.0f, 20.0f});
 	followRouteAnimationComponent->start();
 
 	// Act
@@ -113,8 +113,8 @@ TEST(FollowRouteAnimationComponent_Animate, If_not_started_Then_nothing_is_anima
 	// Arrange
 	RenderableMock renderableMock;
 	qrw::FollowRouteAnimationComponent followRouteAnimationComponent(&renderableMock);
-	followRouteAnimationComponent.addEdge({0, 0});
-	followRouteAnimationComponent.addEdge({1, 1});
+	followRouteAnimationComponent.addCorner({0, 0});
+	followRouteAnimationComponent.addCorner({1, 1});
 
 	// Act
 	followRouteAnimationComponent.animate(1);

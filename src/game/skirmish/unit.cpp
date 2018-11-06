@@ -187,7 +187,7 @@ void Unit::move(const Path& path)
 		if(followRouteAnimationComponent_->isRunning() && i == 0) continue;
 
 		const Coordinates& step = path.getStep(i);
-		followRouteAnimationComponent_->addEdge(sf::Vector2f{step.getX() * SQUARE_DIMENSION, step.getY() * SQUARE_DIMENSION});
+		followRouteAnimationComponent_->addCorner(sf::Vector2f{step.getX() * SQUARE_DIMENSION, step.getY() * SQUARE_DIMENSION});
 	}
 
 	if(!followRouteAnimationComponent_->isRunning())

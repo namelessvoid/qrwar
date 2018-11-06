@@ -20,14 +20,14 @@ TEST(FollowRouteAnimationComponent_Stop, Then_corners_are_reset)
 	RenderableMock renderableMock;
 
 	qrw::FollowRouteAnimationComponent followRouteAnimationComponent(&renderableMock);
-	followRouteAnimationComponent.addEdge({10, 10});
-	followRouteAnimationComponent.addEdge({20, 20});
+	followRouteAnimationComponent.addCorner({10, 10});
+	followRouteAnimationComponent.addCorner({20, 20});
 	followRouteAnimationComponent.start();
 
 	// Act
 	followRouteAnimationComponent.stop();
-	followRouteAnimationComponent.addEdge({9, 9});
-	followRouteAnimationComponent.addEdge({9, 9});
+	followRouteAnimationComponent.addCorner({9, 9});
+	followRouteAnimationComponent.addCorner({9, 9});
 	followRouteAnimationComponent.start();
 	followRouteAnimationComponent.animate(0);
 
