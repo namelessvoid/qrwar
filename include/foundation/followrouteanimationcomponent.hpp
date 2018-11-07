@@ -23,7 +23,7 @@ public:
 
 	void animate(float deltaTime) override;
 
-	void addCorner(const sf::Vector2f corner) { corners_.push_back(corner); }
+	void addCorner(const sf::Vector2f edge) { corners_.push_back(edge); }
 
 private:
 	Renderable* renderable_;
