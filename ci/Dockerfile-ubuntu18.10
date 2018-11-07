@@ -6,7 +6,7 @@ RUN apt update > /dev/null && apt install -y wget cmake g++ libsfml-dev libtinyx
                                  xserver-xorg-video-dummy x11-apps > /dev/null
 
 RUN wget https://github.com/jbeder/yaml-cpp/archive/yaml-cpp-0.6.2.tar.gz && \
-    tar -xzvf yaml-cpp-0.6.2.tar.gz && \
+    tar -xzf yaml-cpp-0.6.2.tar.gz && \
     cd yaml-cpp-yaml-cpp-0.6.2 && \
     mkdir build && \
     cd build && \
