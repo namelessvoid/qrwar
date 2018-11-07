@@ -1,9 +1,9 @@
 FROM ubuntu:18.10
 
 # Install dependencies
-RUN apt update && apt install -y wget cmake g++ libsfml-dev libtinyxml2-dev \
+RUN apt update > /dev/null && apt install -y wget cmake g++ libsfml-dev libtinyxml2-dev \
                                  libcppunit-dev libgtest-dev libgmock-dev \
-                                 xserver-xorg-video-dummy x11-apps
+                                 xserver-xorg-video-dummy x11-apps > /dev/null
 
 RUN wget https://github.com/jbeder/yaml-cpp/archive/yaml-cpp-0.6.2.tar.gz && \
     tar -xzvf yaml-cpp-0.6.2.tar.gz && \
