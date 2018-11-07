@@ -53,6 +53,9 @@ add_library(qrwarlib
 	game/skirmish/mapvalidator.cpp
 	game/skirmish/unit.cpp
 	game/skirmish/laddercarrier.cpp
+	game/skirmish/unitmovementability.cpp
+	game/skirmish/unitattackability.cpp
+	game/skirmish/deployladderability.cpp
 	game/skirmish/unitfactory.cpp
 	game/skirmish/structure.cpp
 	game/skirmish/wallaccessstructurebase.cpp
@@ -60,11 +63,9 @@ add_library(qrwarlib
 	game/skirmish/ladder.cpp
 	game/skirmish/wall.cpp
 	game/skirmish/structurefactory.cpp
+	game/skirmish/structureaccessibilitychecker.cpp
 	game/skirmish/coordinates.cpp
 	game/skirmish/directions.cpp
-	game/skirmish/unitmovementability.cpp
-	game/skirmish/unitattackability.cpp
-	game/skirmish/deployladderability.cpp
 
 	game/skirmish/gui/victorydialog.cpp
 	game/skirmish/gui/mapeditortoolbar.cpp
