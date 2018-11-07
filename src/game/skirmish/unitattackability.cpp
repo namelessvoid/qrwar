@@ -1,3 +1,4 @@
+#include <game/skirmish/structureaccessibilitychecker.hpp>
 #include "game/skirmish/unitattackability.hpp"
 
 #include "gui/scene.hpp"
@@ -46,9 +47,13 @@ bool UnitAttackAbility::canBeExecutedOn(const Coordinates& position)
 {
 	if(!UnitAbility::canBeExecutedOn(position)) return false;
 
-	return getOpponentAt(position) != nullptr &&
-		   owner_->getCurrentMovement() > 0 &&
-		   owner_->isTargetWithinAttackRange(position);
+	if(!getOpponentAt(position)) return false;
+	if(owner_->getCurrentMovement() <= 0) return false;
+
+	StructureAccessibilityChecker structureAccessibilityChecker;
+	return structureAccessibilityChecker.isAccessible(owner_->getPosition(),
+													  position,
+													  *g_scene.findSingleGameObject<qrw::Board>());
 }
 
 Unit* UnitAttackAbility::getOpponentAt(const Coordinates& position)
