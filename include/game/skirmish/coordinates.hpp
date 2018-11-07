@@ -43,7 +43,7 @@ namespace qrw
 			Coordinates operator+(const Coordinates& rhs) const;
 			Coordinates operator-(const Coordinates& rhs) const;
 
-			int distanceTo(const Coordinates& b) const;
+			unsigned int distanceTo(const Coordinates& b) const;
 
 	private:
 			int _x;

@@ -57,10 +57,10 @@ SID Coordinates::typeName("qrw::Coordinates");
 		return Coordinates(getX() - rhs.getX(), getY() - rhs.getY());
 	}
 
-	int Coordinates::distanceTo(const Coordinates& b) const
+	unsigned int Coordinates::distanceTo(const Coordinates& b) const
 	{
 		int dx = std::abs(getX()) - std::abs(b.getX());
 		int dy = std::abs(getY()) - std::abs(b.getY());
-		return ceilf(sqrt(dx * dx + dy * dy));
+		return static_cast<unsigned int>(ceilf(sqrtf(dx * dx + dy * dy)));
 	}
 }

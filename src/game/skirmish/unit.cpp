@@ -121,16 +121,6 @@ void Unit::damage(int inflictedDamage)
 	damageNumber->setDamage(inflictedDamage);
 }
 
-int Unit::getAttackRange() const
-{
-	return _range;
-}
-
-bool Unit::isTargetWithinAttackRange(const Coordinates &target) const
-{
-	return getPosition().distanceTo(target) <= getAttackRange();
-}
-
 int Unit::getMovement() const
 {
 	return _movement;

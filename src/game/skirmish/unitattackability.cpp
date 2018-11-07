@@ -49,6 +49,7 @@ bool UnitAttackAbility::canBeExecutedOn(const Coordinates& position)
 
 	if(!getOpponentAt(position)) return false;
 	if(owner_->getCurrentMovement() <= 0) return false;
+	if(owner_->getPosition().distanceTo(position) > getAttackRange()) return false;
 
 	StructureAccessibilityChecker structureAccessibilityChecker;
 	return structureAccessibilityChecker.isAccessible(owner_->getPosition(),

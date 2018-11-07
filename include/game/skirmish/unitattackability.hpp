@@ -26,6 +26,7 @@ protected:
 
 private:
 	void inflictDamage(Unit& opponent);
+	inline unsigned int getAttackRange() { return 1; }
 
 	Unit* getOpponentAt(const Coordinates& position);
 };
