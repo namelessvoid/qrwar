@@ -1,18 +1,18 @@
-#ifndef QRW_UNITATTACKABILITY_HPP
-#define QRW_UNITATTACKABILITY_HPP
+#ifndef QRW_UNITMEELEATTACKABILITY_HPP
+#define QRW_UNITMEELEATTACKABILITY_HPP
 
 #include "unitability.hpp"
 
 namespace qrw
 {
 
-class UnitAttackAbility : public UnitAbility
+class UnitMeleeAttackAbility : public UnitAbility
 {
 public:
-	explicit UnitAttackAbility(Unit* owner);
+	explicit UnitMeleeAttackAbility(Unit* owner);
 
-	UnitAttackAbility(const UnitAttackAbility& rhs) = delete;
-	UnitAttackAbility& operator=(const UnitAttackAbility& rhs) = delete;
+	UnitMeleeAttackAbility(const UnitMeleeAttackAbility& rhs) = delete;
+	UnitMeleeAttackAbility& operator=(const UnitMeleeAttackAbility& rhs) = delete;
 
 	void updateVisualization(const Coordinates& position) override
 	{}
@@ -33,4 +33,4 @@ private:
 
 } // namespace qrw
 
-#endif //QRW_UNITATTACKABILITY_HPP
+#endif //QRW_UNITMEELEATTACKABILITY_HPP

@@ -1,5 +1,5 @@
 #include <game/skirmish/structureaccessibilitychecker.hpp>
-#include "game/skirmish/unitattackability.hpp"
+#include "game/skirmish/unitmeleeattackability.hpp"
 
 #include "gui/scene.hpp"
 
@@ -9,12 +9,12 @@
 namespace qrw
 {
 
-UnitAttackAbility::UnitAttackAbility(Unit* owner) : UnitAbility(owner)
+UnitMeleeAttackAbility::UnitMeleeAttackAbility(Unit* owner) : UnitAbility(owner)
 {
 	setName("Attack");
 }
 
-void UnitAttackAbility::executeOn(const Coordinates& position)
+void UnitMeleeAttackAbility::executeOn(const Coordinates& position)
 {
 	Unit* opponent = getOpponentAt(position);
 	if(!opponent) return;
@@ -25,25 +25,25 @@ void UnitAttackAbility::executeOn(const Coordinates& position)
 	if(opponent->getHP() <= 0)
 		return;
 
-	UnitAttackAbility* opponentAttackAbility = opponent->getComponent<UnitAttackAbility>();
+	UnitMeleeAttackAbility* opponentAttackAbility = opponent->getComponent<UnitMeleeAttackAbility>();
 	opponentAttackAbility->counterAttack(*owner_);
 }
 
-void UnitAttackAbility::counterAttack(Unit& opponent)
+void UnitMeleeAttackAbility::counterAttack(Unit& opponent)
 {
 	if(!isEnabled()) return;
 
 	inflictDamage(opponent);
 }
 
-void UnitAttackAbility::inflictDamage(Unit& opponent)
+void UnitMeleeAttackAbility::inflictDamage(Unit& opponent)
 {
 	int inflictedDamage = owner_->getModifiedAttack() - opponent.getModifiedDefense();
 	inflictedDamage = inflictedDamage < 0 ? 0 : inflictedDamage;
 	opponent.damage(inflictedDamage);
 }
 
-bool UnitAttackAbility::canBeExecutedOn(const Coordinates& position)
+bool UnitMeleeAttackAbility::canBeExecutedOn(const Coordinates& position)
 {
 	if(!UnitAbility::canBeExecutedOn(position)) return false;
 
@@ -57,7 +57,7 @@ bool UnitAttackAbility::canBeExecutedOn(const Coordinates& position)
 													  *g_scene.findSingleGameObject<qrw::Board>());
 }
 
-Unit* UnitAttackAbility::getOpponentAt(const Coordinates& position)
+Unit* UnitMeleeAttackAbility::getOpponentAt(const Coordinates& position)
 {
 	Board* board = g_scene.findSingleGameObject<Board>();
 	if(!board) return nullptr;

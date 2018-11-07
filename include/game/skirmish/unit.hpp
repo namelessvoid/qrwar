@@ -101,7 +101,7 @@ protected:
 	void addAbility(UnitAbility* ability);
 
 	class UnitMovementAbility* movementAbility_;
-	class UnitAttackAbility* attackAbility_;
+	class UnitMeleeAttackAbility* attackAbility_;
 
 private:
 	void setPosition_(const Coordinates& position);

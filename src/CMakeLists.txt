@@ -54,7 +54,7 @@ add_library(qrwarlib
 	game/skirmish/unit.cpp
 	game/skirmish/laddercarrier.cpp
 	game/skirmish/unitmovementability.cpp
-	game/skirmish/unitattackability.cpp
+	game/skirmish/unitmeleeattackability.cpp
 	game/skirmish/deployladderability.cpp
 	game/skirmish/unitfactory.cpp
 	game/skirmish/structure.cpp

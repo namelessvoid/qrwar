@@ -18,7 +18,7 @@
 #include "game/damagenumber.hpp"
 #include "game/path.hpp"
 #include "game/skirmish/unitmovementability.hpp"
-#include "game/skirmish/unitattackability.hpp"
+#include "game/skirmish/unitmeleeattackability.hpp"
 
 namespace qrw
 {
@@ -37,7 +37,7 @@ Unit::Unit()
 	addComponent(movementAbility_);
 	addAbility(movementAbility_);
 
-	attackAbility_ = new UnitAttackAbility(this);
+	attackAbility_ = new UnitMeleeAttackAbility(this);
 	addComponent(attackAbility_);
 	addAbility(attackAbility_);
 }

@@ -5,7 +5,7 @@
 #include "foundation/spritecomponent.hpp"
 
 #include "game/skirmish/deployladderability.hpp"
-#include "game/skirmish/unitattackability.hpp"
+#include "game/skirmish/unitmeleeattackability.hpp"
 
 namespace qrw
 {
