@@ -100,13 +100,13 @@ protected:
 
 	void addAbility(UnitAbility* ability);
 
+	virtual void setPlayer(Player::Ptr& player) { _player = player; }
+
 	class UnitMovementAbility* movementAbility_;
 	class UnitMeleeAttackAbility* attackAbility_;
 
 private:
 	void setPosition_(const Coordinates& position);
-
-	void setPlayer(Player::Ptr& player) { _player = player; }
 
 	void setTexture(const sf::Texture* texture);
 
