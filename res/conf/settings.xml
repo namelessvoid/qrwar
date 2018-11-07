@@ -1,0 +1,8 @@
+<settings>
+    <video>
+        <fullscreen enabled="0"/>
+        <resolution w="1024" h="768"/>
+        <entitytileset path="res/defaulttileset.xml"/>
+        <guitileset path="res/defaultguitileset.xml"/>
+    </video>
+</settings>
