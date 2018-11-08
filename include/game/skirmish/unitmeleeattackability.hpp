@@ -11,15 +11,17 @@ class UnitMeleeAttackAbility : public UnitAbility
 public:
 	explicit UnitMeleeAttackAbility(Unit* owner);
 
-	UnitMeleeAttackAbility(const UnitMeleeAttackAbility& rhs) = delete;
-	UnitMeleeAttackAbility& operator=(const UnitMeleeAttackAbility& rhs) = delete;
+	void activate() override;
+	void deactivate() override;
 
-	void updateActiveVisualization(const Coordinates& position) override
-	{}
+	void updateActiveVisualization(const Coordinates& position) override;
 
 	void executeOn(const Coordinates& position) override;
 
 	bool canBeExecutedOn(const Coordinates& position) override;
+
+	UnitMeleeAttackAbility(const UnitMeleeAttackAbility& rhs) = delete;
+	UnitMeleeAttackAbility& operator=(const UnitMeleeAttackAbility& rhs) = delete;
 
 protected:
 	void counterAttack(Unit& opponent);
@@ -29,6 +31,8 @@ private:
 	inline unsigned int getAttackRange() { return 1; }
 
 	Unit* getOpponentAt(const Coordinates& position);
+
+	class SquareMarker* attackSymbol_;
 };
 
 } // namespace qrw

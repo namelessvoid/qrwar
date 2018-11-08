@@ -24,7 +24,7 @@ public:
 
 	~UnitAbility() override = default;
 
-	void activate()	{ isActive_ = true; }
+	virtual void activate()	{ isActive_ = true; }
 
 	virtual void deactivate() { isActive_ = false; }
 

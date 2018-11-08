@@ -2,6 +2,7 @@
 #include "game/skirmish/unitmeleeattackability.hpp"
 
 #include "gui/scene.hpp"
+#include "gui/squaremarker.hpp"
 
 #include "engine/board.hpp"
 #include "game/skirmish/unit.hpp"
@@ -12,6 +13,27 @@ namespace qrw
 UnitMeleeAttackAbility::UnitMeleeAttackAbility(Unit* owner) : UnitAbility(owner)
 {
 	setName("Attack");
+
+	attackSymbol_ = g_scene.spawn<SquareMarker>();
+	attackSymbol_->setVisible(false);
+	attackSymbol_->markAttackable();
+}
+
+void UnitMeleeAttackAbility::activate()
+{
+	UnitAbility::activate();
+	attackSymbol_->setVisible(true);
+}
+
+void UnitMeleeAttackAbility::deactivate()
+{
+	UnitAbility::deactivate();
+	attackSymbol_->setVisible(false);
+}
+
+void UnitMeleeAttackAbility::updateActiveVisualization(const Coordinates& position)
+{
+	attackSymbol_->setBoardPosition(position);
 }
 
 void UnitMeleeAttackAbility::executeOn(const Coordinates& position)
