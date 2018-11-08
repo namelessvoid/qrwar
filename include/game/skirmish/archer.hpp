@@ -12,7 +12,6 @@ public:
 	Archer();
 
 	void onAddToScene() override;
-
 };
 
 } // namespace qrw
