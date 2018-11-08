@@ -59,7 +59,7 @@ Unit* UnitFactory::createUnit(UNITTYPES unitType, Player::Ptr player)
 	unit->setAttack(attack);
 	unit->setDefense(defense);
 	unit->setRange(range);
-	unit->setMovement(movement);
+	unit->setMaxMovement(movement);
 	unit->setCurrentMovement(movement);
 	unit->setPlayer(player);
 	unit->setTexture(texture);

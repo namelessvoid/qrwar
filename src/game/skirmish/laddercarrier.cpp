@@ -21,7 +21,7 @@ LadderCarrier::LadderCarrier()
 	setDefense(0);
 	setRange(1);
 
-	setMovement(3);
+	setMaxMovement(3);
 	setCurrentMovement(3);
 
 	deployLadderAbility_ = new DeployLadderAbility(this);

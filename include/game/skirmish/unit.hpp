@@ -96,7 +96,7 @@ protected:
 
 	void setRange(int range) { _range = range; }
 
-	void setMovement(int movement) { _movement = movement; }
+	void setMaxMovement(int movement) { _movement = movement; }
 
 	void addAbility(UnitAbility* ability);
 
