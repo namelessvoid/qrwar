@@ -14,7 +14,7 @@ public:
 	UnitMeleeAttackAbility(const UnitMeleeAttackAbility& rhs) = delete;
 	UnitMeleeAttackAbility& operator=(const UnitMeleeAttackAbility& rhs) = delete;
 
-	void updateVisualization(const Coordinates& position) override
+	void updateActiveVisualization(const Coordinates& position) override
 	{}
 
 	void executeOn(const Coordinates& position) override;

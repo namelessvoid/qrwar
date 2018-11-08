@@ -17,7 +17,7 @@ public:
 
 	bool canBeExecutedOn(const Coordinates& position) override;
 
-	void updateVisualization(const Coordinates& position) override {}
+	void updateActiveVisualization(const Coordinates& position) override {}
 };
 
 class LadderDeployedEvent : public EventBase<LadderDeployedEvent>

@@ -104,12 +104,12 @@ void SkirmishState::slotCursorMoved(const Coordinates &boardPosition)
 {
 	if(UnitAbility* selectedAbility = _squareDetailWindow->getSelectedUnitAbility())
 	{
-		selectedAbility->updateVisualization(boardPosition);
+		selectedAbility->updateActiveVisualization(boardPosition);
 	}
 	else if(_board->isOnBoard(boardPosition) && _selectedUnit)
 	{
 		UnitAbility* ability = _selectedUnit->updateAbilitiesToTarget(boardPosition);
-		if(ability) ability->updateVisualization(boardPosition);
+		if(ability) ability->updateActiveVisualization(boardPosition);
 	}
 }
 

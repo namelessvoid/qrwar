@@ -32,7 +32,7 @@ public:
 
 	virtual bool canBeExecutedOn(const Coordinates& position) { return enabled_; };
 
-	virtual void updateVisualization(const Coordinates& position) = 0;
+	virtual void updateActiveVisualization(const Coordinates& position) = 0;
 
 	inline const std::string& getName() { return name_; }
 

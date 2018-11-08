@@ -44,7 +44,7 @@ void UnitMovementAbility::deactivate()
 	path_->reset();
 }
 
-void UnitMovementAbility::updateVisualization(const Coordinates& position)
+void UnitMovementAbility::updateActiveVisualization(const Coordinates& position)
 {
 	path_->setStartAndEnd(owner_->getPosition(), position);
 }
