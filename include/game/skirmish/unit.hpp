@@ -61,7 +61,7 @@ public:
 	 */
 	int getModifiedDefense();
 
-	int getHP() const;
+	int getCurrentHp() const;
 	void setCurrentHp(int hp);
 	int getMaxHp() const;
 

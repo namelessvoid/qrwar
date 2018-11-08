@@ -110,7 +110,7 @@ void SquareDetailWindow::setUnit(const Unit& unit)
 	unitTitleLabel_->setText(GuiHelper::getUnitName(unit.getType()));
 
 	unitHealthLabel_->setVisible(true);
-	unitHealthLabel_->setText(std::to_string(unit.getHP()) + "/" + std::to_string(unit.getMaxHp()));
+	unitHealthLabel_->setText(std::to_string(unit.getCurrentHp()) + "/" + std::to_string(unit.getMaxHp()));
 
 	unitMovementLabel_->setVisible(true);
 	unitMovementLabel_->setText(std::to_string(unit.getCurrentMovement()) + "/" + std::to_string(unit.getMovement()));
