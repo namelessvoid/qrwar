@@ -55,7 +55,7 @@ Unit* UnitFactory::createUnit(UNITTYPES unitType, Player::Ptr player)
 	Unit* unit = g_scene.spawn<Unit>();
 	unit->setType(unitType);
 	unit->setMaxHp(maxHp);
-	unit->setHP(maxHp);
+	unit->setCurrentHp(maxHp);
 	unit->setAttack(attack);
 	unit->setDefense(defense);
 	unit->setRange(range);

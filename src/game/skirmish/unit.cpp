@@ -99,7 +99,7 @@ int Unit::getHP() const
 	return _hp;
 }
 
-void Unit::setHP(int hp)
+void Unit::setCurrentHp(int hp)
 {
 	// Prevent hp falling below 0.
 	hp = hp < 0 ? 0 : hp;
@@ -113,7 +113,7 @@ int Unit::getMaxHp() const
 
 void Unit::damage(int inflictedDamage)
 {
-	setHP(getHP() - inflictedDamage);
+	setCurrentHp(getHP() - inflictedDamage);
 	if(getHP() <= 0) g_scene.destroy(this);
 
 	DamageNumber* damageNumber = g_scene.spawn<DamageNumber>();

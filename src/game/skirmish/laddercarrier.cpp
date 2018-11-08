@@ -15,7 +15,7 @@ LadderCarrier::LadderCarrier()
 	setType(EUT_LADDERCARRIER);
 
 	setMaxHp(4);
-	setHP(4);
+	setCurrentHp(4);
 
 	setAttack(2);
 	setDefense(0);

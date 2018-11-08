@@ -62,7 +62,7 @@ public:
 	int getModifiedDefense();
 
 	int getHP() const;
-	void setHP(int hp);
+	void setCurrentHp(int hp);
 	int getMaxHp() const;
 
 	void damage(int inflictedDamage);
