@@ -4,6 +4,8 @@
 
 #include "foundation/spritecomponent.hpp"
 
+#include "game/skirmish/unitrangeattackability.hpp"
+
 namespace qrw
 {
 
@@ -15,11 +17,15 @@ Archer::Archer()
 	setMaxHp(5);
 	setCurrentHp(5);
 
-	setAttack(2);
+	setAttack(1);
 	setDefense(1);
 	setRange(2);
 	setMaxMovement(2);
 	setCurrentMovement(2);
+
+	UnitRangeAttackAbility* rangeAttackAbility = new UnitRangeAttackAbility(this);
+	addComponent(rangeAttackAbility);
+	addAbility(rangeAttackAbility);
 }
 
 void Archer::onAddToScene()

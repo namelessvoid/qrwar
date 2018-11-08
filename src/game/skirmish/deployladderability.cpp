@@ -36,7 +36,7 @@ bool DeployLadderAbility::canBeExecutedOn(const Coordinates& position)
 	if(!UnitAbility::canBeExecutedOn(position)) return false;
 
 	Board* board = g_scene.findSingleGameObject<Board>();
-	if(!board) return false;
+	assert(board != nullptr);
 
 	return owner_->getPosition().distanceTo(position) == 1
 	&& board->getStructure(owner_->getPosition()) == nullptr

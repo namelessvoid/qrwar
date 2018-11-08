@@ -17,7 +17,7 @@ UnitMeleeAttackAbility::UnitMeleeAttackAbility(Unit* owner) : UnitAbility(owner)
 void UnitMeleeAttackAbility::executeOn(const Coordinates& position)
 {
 	Unit* opponent = getOpponentAt(position);
-	if(!opponent) return;
+	assert(opponent);
 
 	owner_->setCurrentMovement(0);
 
