@@ -53,6 +53,7 @@ add_library(qrwarlib
 	game/skirmish/mapvalidator.cpp
 	game/skirmish/unit.cpp
 	game/skirmish/laddercarrier.cpp
+	game/skirmish/archer.cpp
 	game/skirmish/unitmovementability.cpp
 	game/skirmish/unitmeleeattackability.cpp
 	game/skirmish/deployladderability.cpp

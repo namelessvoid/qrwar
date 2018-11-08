@@ -136,7 +136,7 @@ void SkirmishState::slotCursorLeftClicked(const Coordinates& boardPosition)
 
 		_squareMarker->setBoardPosition(_selectedUnit->getPosition());
 
-		if(_selectedUnit->getHP() == 0)
+		if(_selectedUnit->getCurrentHp() == 0)
 			deselectSquare();
 
 		if(abilityExecuted)

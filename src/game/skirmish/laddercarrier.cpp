@@ -15,13 +15,13 @@ LadderCarrier::LadderCarrier()
 	setType(EUT_LADDERCARRIER);
 
 	setMaxHp(4);
-	setHP(4);
+	setCurrentHp(4);
 
 	setAttack(2);
 	setDefense(0);
 	setRange(1);
 
-	setMovement(3);
+	setMaxMovement(3);
 	setCurrentMovement(3);
 
 	deployLadderAbility_ = new DeployLadderAbility(this);

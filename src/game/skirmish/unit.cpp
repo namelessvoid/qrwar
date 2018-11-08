@@ -94,12 +94,12 @@ int Unit::getModifiedDefense()
 	return modifiedDefense < 0 ? 0 : modifiedDefense;
 }
 
-int Unit::getHP() const
+int Unit::getCurrentHp() const
 {
 	return _hp;
 }
 
-void Unit::setHP(int hp)
+void Unit::setCurrentHp(int hp)
 {
 	// Prevent hp falling below 0.
 	hp = hp < 0 ? 0 : hp;
@@ -113,8 +113,8 @@ int Unit::getMaxHp() const
 
 void Unit::damage(int inflictedDamage)
 {
-	setHP(getHP() - inflictedDamage);
-	if(getHP() <= 0) g_scene.destroy(this);
+	setCurrentHp(getCurrentHp() - inflictedDamage);
+	if(getCurrentHp() <= 0) g_scene.destroy(this);
 
 	DamageNumber* damageNumber = g_scene.spawn<DamageNumber>();
 	damageNumber->setPosition(_sprite->getPosition() + sf::Vector2f{16, -16});

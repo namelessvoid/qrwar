@@ -22,7 +22,7 @@ void UnitMeleeAttackAbility::executeOn(const Coordinates& position)
 	owner_->setCurrentMovement(0);
 
 	inflictDamage(*opponent);
-	if(opponent->getHP() <= 0)
+	if(opponent->getCurrentHp() <= 0)
 		return;
 
 	UnitMeleeAttackAbility* opponentAttackAbility = opponent->getComponent<UnitMeleeAttackAbility>();

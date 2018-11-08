@@ -4,6 +4,7 @@
 #include "gui/scene.hpp"
 
 #include "game/skirmish/laddercarrier.hpp"
+#include "game/skirmish/archer.hpp"
 
 namespace qrw
 {
@@ -13,6 +14,12 @@ Unit* UnitFactory::createUnit(UNITTYPES unitType, Player::Ptr player)
 	if(unitType == EUT_LADDERCARRIER)
 	{
 		Unit* unit = new LadderCarrier();
+		unit->setPlayer(player);
+		return unit;
+	}
+	else if(unitType == EUT_ARCHER)
+	{
+		Unit* unit = new Archer();
 		unit->setPlayer(player);
 		return unit;
 	}
@@ -34,13 +41,6 @@ Unit* UnitFactory::createUnit(UNITTYPES unitType, Player::Ptr player)
 			range    = 1;
 			movement = 3;
 			break;
-		case EUT_ARCHER:
-			maxHp    = 5;
-			attack   = 2;
-			defense  = 1;
-			range    = 2;
-			movement = 2;
-			break;
 		case EUT_SPEARMAN:
 			maxHp    = 5;
 			attack   = 2;
@@ -55,11 +55,11 @@ Unit* UnitFactory::createUnit(UNITTYPES unitType, Player::Ptr player)
 	Unit* unit = g_scene.spawn<Unit>();
 	unit->setType(unitType);
 	unit->setMaxHp(maxHp);
-	unit->setHP(maxHp);
+	unit->setCurrentHp(maxHp);
 	unit->setAttack(attack);
 	unit->setDefense(defense);
 	unit->setRange(range);
-	unit->setMovement(movement);
+	unit->setMaxMovement(movement);
 	unit->setCurrentMovement(movement);
 	unit->setPlayer(player);
 	unit->setTexture(texture);

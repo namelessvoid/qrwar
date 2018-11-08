@@ -61,8 +61,8 @@ public:
 	 */
 	int getModifiedDefense();
 
-	int getHP() const;
-	void setHP(int hp);
+	int getCurrentHp() const;
+	void setCurrentHp(int hp);
 	int getMaxHp() const;
 
 	void damage(int inflictedDamage);
@@ -96,7 +96,7 @@ protected:
 
 	void setRange(int range) { _range = range; }
 
-	void setMovement(int movement) { _movement = movement; }
+	void setMaxMovement(int movement) { _movement = movement; }
 
 	void addAbility(UnitAbility* ability);
 
