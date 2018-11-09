@@ -102,15 +102,21 @@ EGameStateId SkirmishState::update()
 
 void SkirmishState::slotCursorMoved(const Coordinates &boardPosition)
 {
+	bool isAbilityApplicable = false;
 	if(UnitAbility* selectedAbility = _squareDetailWindow->getSelectedUnitAbility())
 	{
 		selectedAbility->updateActiveVisualization(boardPosition);
+		isAbilityApplicable = selectedAbility->canBeExecutedOn(boardPosition);
 	}
 	else if(_board->isOnBoard(boardPosition) && _selectedUnit)
 	{
 		UnitAbility* ability = _selectedUnit->updateAbilitiesToTarget(boardPosition);
-		if(ability) ability->updateActiveVisualization(boardPosition);
+		isAbilityApplicable = ability != nullptr;
 	}
+
+	Cursor* cursor = g_scene.findSingleGameObject<Cursor>();
+	if(!_selectedUnit || isAbilityApplicable) cursor->markValid();
+	else cursor->markInvalid();
 }
 
 void SkirmishState::slotCursorLeftClicked(const Coordinates& boardPosition)

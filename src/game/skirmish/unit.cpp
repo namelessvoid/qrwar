@@ -192,6 +192,7 @@ UnitAbility* Unit::updateAbilitiesToTarget(const Coordinates& boardPosition)
 		if(!activeAbility && ability->canBeExecutedOn(boardPosition))
 		{
 			ability->activate();
+			ability->updateActiveVisualization(boardPosition);
 			activeAbility = ability;
 		}
 		else
