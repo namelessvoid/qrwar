@@ -105,6 +105,7 @@ void SkirmishState::slotCursorMoved(const Coordinates &boardPosition)
 	bool isAbilityApplicable = false;
 	if(UnitAbility* selectedAbility = _squareDetailWindow->getSelectedUnitAbility())
 	{
+		selectedAbility->activate();
 		selectedAbility->updateActiveVisualization(boardPosition);
 		isAbilityApplicable = selectedAbility->canBeExecutedOn(boardPosition);
 	}
