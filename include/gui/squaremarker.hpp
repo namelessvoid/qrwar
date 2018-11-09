@@ -20,8 +20,6 @@ public:
 
 	SquareMarker();
 
-	void setDimensions(float dimensions);
-
 	Coordinates getBoardPosition() const;
 
 	void setBoardPosition(const Coordinates& boardPosition);

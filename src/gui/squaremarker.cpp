@@ -21,11 +21,6 @@ SquareMarker::SquareMarker()
 	addComponent(m_spriteComponent);
 }
 
-void SquareMarker::setDimensions(float dimensions)
-{
-	m_spriteComponent->setSize({dimensions, dimensions});
-}
-
 Coordinates SquareMarker::getBoardPosition() const
 {
 	return m_boardPosition;
