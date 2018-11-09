@@ -13,11 +13,16 @@ class DeployLadderAbility : public UnitAbility
 public:
 	explicit DeployLadderAbility(Unit* owner);
 
+	void activate() override;
+	void deactivate() override;
+	void updateActiveVisualization(const Coordinates& position) override;
+
 	void executeOn(const Coordinates& position) override;
 
 	bool canBeExecutedOn(const Coordinates& position) override;
 
-	void updateActiveVisualization(const Coordinates& position) override {}
+protected:
+	class SquareMarker* deploySymbol_;
 };
 
 class LadderDeployedEvent : public EventBase<LadderDeployedEvent>

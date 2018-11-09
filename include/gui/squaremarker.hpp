@@ -32,6 +32,7 @@ public:
 	void markValid();
 	void markAttackable();
 	void markRangeAttackable();
+	void markDeployLadder();
 
 protected:
 	sf::Color m_color;
