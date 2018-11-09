@@ -31,6 +31,7 @@ public:
 	void markInvalid();
 	void markValid();
 	void markAttackable();
+	void markRangeAttackable();
 
 protected:
 	sf::Color m_color;

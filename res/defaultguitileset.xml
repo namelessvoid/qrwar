@@ -16,5 +16,6 @@
 		<tile name="squaremarker"        x="128" y="64"  width="64" height="64" />
 		<tile name="squaremarkerinvalid" x="192" y="64"  width="64" height="64" />
 		<tile name="squaremarkerattack"  x="192" y="128" width="64" height="64" />
+		<tile name="squaremarkerrangeattack" x="192" y="0" width="64" height="64" />
 	</file>
 </tileset>

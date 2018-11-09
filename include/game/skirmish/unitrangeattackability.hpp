@@ -3,6 +3,8 @@
 
 #include "unitability.hpp"
 
+#include "gui/squaremarker.hpp"
+
 namespace qrw
 {
 
@@ -15,12 +17,17 @@ public:
 
 	bool canBeExecutedOn(const Coordinates& position) override;
 
+	void activate() override;
+	void deactivate() override;
+
 	void updateActiveVisualization(const Coordinates& position) override;
 
 private:
 	unsigned int minRange_;
 	unsigned int maxRange_;
 	unsigned int damage_;
+
+	SquareMarker* squareMarker_;
 };
 
 } // namespace qrw

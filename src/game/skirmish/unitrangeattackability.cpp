@@ -14,6 +14,10 @@ UnitRangeAttackAbility::UnitRangeAttackAbility(Unit* owner)
 	  damage_(2)
 {
 	setName("Ranged Attack");
+
+	squareMarker_ = g_scene.spawn<SquareMarker>();
+	squareMarker_->markRangeAttackable();
+	squareMarker_->setVisible(false);
 }
 
 void UnitRangeAttackAbility::executeOn(const Coordinates& position)
@@ -29,9 +33,21 @@ void UnitRangeAttackAbility::executeOn(const Coordinates& position)
 	owner_->setCurrentMovement(0);
 }
 
+void UnitRangeAttackAbility::activate()
+{
+	UnitAbility::activate();
+	squareMarker_->setVisible(true);
+}
+
+void UnitRangeAttackAbility::deactivate()
+{
+	UnitAbility::deactivate();
+	squareMarker_->setVisible(false);
+}
+
 void UnitRangeAttackAbility::updateActiveVisualization(const Coordinates& position)
 {
-
+	squareMarker_->setBoardPosition(position);
 }
 
 bool UnitRangeAttackAbility::canBeExecutedOn(const Coordinates& position)
