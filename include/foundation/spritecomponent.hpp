@@ -27,8 +27,6 @@ public:
 
 	void setTexture(const sf::Texture* texture);
 
-	void setRepeateTexture(bool repeate, float scale = 1);
-
 	void setSize(const sf::Vector2f& size);
 
 	const sf::Vector2f& getSize();
