@@ -11,6 +11,8 @@
 #include "game/renderlayers.hpp"
 #include "game/constants.hpp"
 
+#include "game/skirmish/boardbackgroundcomponent.hpp"
+
 namespace qrw
 {
 
@@ -25,8 +27,12 @@ SID Board::typeName("qrw::Board");
 		_pathfinder = new pathfinding::AStar<Coordinates>;
 		_pathfinder->setWorldAdapter(pathfindingAdapter_);
 
-		backgroundComponent_ = new SpriteComponent(RENDER_LAYER_BACKGROUND);
-		backgroundComponent_->setTexture(TextureManager::getInstance()->getTexture("plainsquare"));
+		backgroundSpriteComponent_ = new SpriteComponent(RENDER_LAYER_BACKGROUND);
+		backgroundSpriteComponent_->setTexture(TextureManager::getInstance()->getTexture("plainsquare"));
+		backgroundSpriteComponent_->setVisible(false);
+		addComponent(backgroundSpriteComponent_);
+
+		backgroundComponent_ = new BoardBackgroundComponent(*this);
 		addComponent(backgroundComponent_);
 
 		resizeBackground();
@@ -151,8 +157,10 @@ std::map<Coordinates, Structure*> Board::getStructures()
 
 	void Board::resizeBackground()
 	{
-		backgroundComponent_->setSize({SQUARE_DIMENSION * _width, SQUARE_DIMENSION * _height});
-		backgroundComponent_->setRepeateTexture(true, 2.0f);
+//		backgroundSpriteComponent_->setSize({SQUARE_DIMENSION * _width, SQUARE_DIMENSION * 0.5f * _height});
+//		backgroundSpriteComponent_->setRepeateTexture(true, 1.0f);
+//		backgroundSpriteComponent_->setRotation(45.0f);
+		backgroundSpriteComponent_->setSize({SQUARE_DIMENSION * _width, SQUARE_DIMENSION * 0.5f * _height});
 	}
 
 	void Board::onAddToScene()

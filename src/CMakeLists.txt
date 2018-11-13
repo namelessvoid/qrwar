@@ -51,6 +51,7 @@ add_library(qrwarlib
 
 	game/skirmish/mapmanager.cpp
 	game/skirmish/mapvalidator.cpp
+	game/skirmish/boardbackgroundcomponent.cpp
 	game/skirmish/unit.cpp
 	game/skirmish/laddercarrier.cpp
 	game/skirmish/archer.cpp

@@ -82,7 +82,9 @@ class SpriteComponent;
 		private:
 			void resizeBackground();
 
-			SpriteComponent* backgroundComponent_;
+			SpriteComponent* backgroundSpriteComponent_;
+
+			class BoardBackgroundComponent* backgroundComponent_;
 
 			std::map<Coordinates, Unit*> _units;
 			std::map<Coordinates, Terrain*> _terrains;
