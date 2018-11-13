@@ -23,6 +23,8 @@ public:
 
 	const sf::Vector2f& getPosition() const override;
 
+	sf::Vector2f getCenter() const;
+
 private:
 	sf::Sprite plainSquareSprite_;
 

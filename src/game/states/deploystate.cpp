@@ -4,6 +4,7 @@
 #include <cassert>
 
 #include "game/skirmish/unitfactory.hpp"
+#include "game/skirmish/boardbackgroundcomponent.hpp"
 #include "engine/terrain.hpp"
 #include "game/skirmish/structure.hpp"
 
@@ -198,7 +199,7 @@ void DeployState::init(GameState* previousState)
 	g_scene.spawn<Cursor>();
 
 	SkirmishCamera* camera = g_scene.spawn<SkirmishCamera>();
-	camera->setCenter(board_->getComponent<SpriteComponent>()->getCenter());
+	camera->setCenter(board_->getComponent<BoardBackgroundComponent>()->getCenter());
 
 	// Create new players
 	_players.clear();

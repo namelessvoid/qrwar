@@ -41,8 +41,6 @@ class SpriteComponent;
 			Board(unsigned int width, unsigned int height);
 			~Board() override;
 
-			void onAddToScene() override;
-
 			void setUnit(const Coordinates& position, Unit* unit);
 			void removeUnit(const Coordinates& position);
 			bool isUnitAt(const Coordinates& position) const;
@@ -80,10 +78,6 @@ class SpriteComponent;
 			const SID& getTypeName() const override { return typeName; }
 
 		private:
-			void resizeBackground();
-
-			SpriteComponent* backgroundSpriteComponent_;
-
 			class BoardBackgroundComponent* backgroundComponent_;
 
 			std::map<Coordinates, Unit*> _units;
