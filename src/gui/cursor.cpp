@@ -6,6 +6,7 @@
 #include <SFML/Graphics/RenderTarget.hpp>
 #include <SFML/Window/Event.hpp>
 
+#include "game/constants.hpp"
 #include "gui/cursor.hpp"
 #include "gui/scene.hpp"
 
@@ -18,6 +19,7 @@
 
 #include "game/events.hpp"
 #include "game/eventhandlerpriority.hpp"
+#include "game/skirmish/isometricconversion.hpp"
 
 namespace qrw
 {
@@ -37,11 +39,11 @@ bool Cursor::handleEvent(const IEvent& event)
     {
 		const MouseMovedEvent& moveEvent = static_cast<const MouseMovedEvent&>(event);
 
-		sf::Vector2f size = m_spriteComponent->getSize();
+		sf::Vector2f worldPosition = isoToWorld(sf::Vector2f(moveEvent.worldCoordinates));
 
         Coordinates newBoardPosition(
-			floor(moveEvent.worldCoordinates.x / size.x),
-			floor(moveEvent.worldCoordinates.y / size.y));
+			floor(worldPosition.x / SQUARE_DIMENSION),
+			floor(worldPosition.y / SQUARE_DIMENSION));
 
 		if(newBoardPosition != m_boardPosition)
         {

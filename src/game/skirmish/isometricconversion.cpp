@@ -13,4 +13,12 @@ sf::Vector2f worldToIso(sf::Vector2f worldPosition)
 	};
 }
 
+sf::Vector2f isoToWorld(sf::Vector2f isometricPosition)
+{
+	return {
+		(2 * isometricPosition.y + isometricPosition.x) / 2,
+		(2 * isometricPosition.y - isometricPosition.x) / 2
+	};
+}
+
 } // namespace qrw

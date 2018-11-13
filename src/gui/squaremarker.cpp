@@ -8,6 +8,7 @@
 
 #include "game/renderlayers.hpp"
 #include "game/constants.hpp"
+#include "game/skirmish/isometricconversion.hpp"
 
 namespace qrw
 {
@@ -16,7 +17,7 @@ SquareMarker::SquareMarker()
 	: m_boardPosition(0, 0)
 {
 	m_spriteComponent = new SpriteComponent(RENDER_LAYER_CURSOR);
-	m_spriteComponent->setSize({SQUARE_DIMENSION, SQUARE_DIMENSION});
+	m_spriteComponent->setSize({2.0f * SQUARE_DIMENSION, SQUARE_DIMENSION});
 	markValid();
 	addComponent(m_spriteComponent);
 }
@@ -30,9 +31,8 @@ void SquareMarker::setBoardPosition(const Coordinates& boardPosition)
 {
 	m_boardPosition = boardPosition;
 
-	float dimension = m_spriteComponent->getSize().x;
-
-	m_spriteComponent->setPosition({dimension * m_boardPosition.getX(), dimension * m_boardPosition.getY()});
+	m_spriteComponent->setOrigin(SQUARE_DIMENSION, 0.0f);
+	m_spriteComponent->setPosition(worldToIso({SQUARE_DIMENSION * m_boardPosition.getX(), SQUARE_DIMENSION * m_boardPosition.getY()}));
 }
 
 bool SquareMarker::isVisible() const

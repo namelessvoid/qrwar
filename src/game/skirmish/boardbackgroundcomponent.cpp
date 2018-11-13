@@ -17,6 +17,7 @@ BoardBackgroundComponent::BoardBackgroundComponent(Board& owner)
 	  owner_(owner)
 {
 	plainSquareSprite_.setTexture(*TextureManager::getInstance()->getTexture("plainsquare"));
+	plainSquareSprite_.setOrigin({SQUARE_DIMENSION, 0});
 }
 
 void BoardBackgroundComponent::render(sf::RenderTarget& renderTarget)

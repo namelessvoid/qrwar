@@ -7,6 +7,7 @@ namespace qrw
 {
 
 sf::Vector2f worldToIso(sf::Vector2f worldPosition);
+sf::Vector2f isoToWorld(sf::Vector2f isometricPosition);
 
 }
 
