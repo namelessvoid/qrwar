@@ -15,6 +15,7 @@
 #include "game/constants.hpp"
 #include "game/deploymentzone.hpp"
 #include "game/skirmish/structure.hpp"
+#include "game/skirmish/boardbackgroundcomponent.hpp"
 #include "engine/terrain.hpp"
 
 namespace fs = std::experimental::filesystem;
@@ -155,7 +156,7 @@ void MapManager::createAndSaveMapPreview(const std::string& mapName, const MapDt
 			static_cast<unsigned int>(dto.board->getWidth() * SQUARE_DIMENSION),
 			static_cast<unsigned int>(dto.board->getHeight() * SQUARE_DIMENSION));
 
-	dto.board->getComponent<SpriteComponent>()->render(renderTexture);
+	dto.board->getComponent<BoardBackgroundComponent>()->render(renderTexture);
 	for(auto& structureIter : dto.board->getStructures())
 		structureIter.second->getComponent<SpriteComponent>()->render(renderTexture);
 	for(auto& terrainIter : dto.board->getTerrains())
