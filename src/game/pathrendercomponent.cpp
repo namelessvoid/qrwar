@@ -3,13 +3,13 @@
 #include <SFML/Graphics/RectangleShape.hpp>
 #include <SFML/Graphics/RenderTarget.hpp>
 
-#include "game/renderlayers.hpp"
-
 #include "engine/pathfinding/path.hpp"
 
 #include "gui/texturemanager.hpp"
 
+#include "game/renderlayers.hpp"
 #include "game/constants.hpp"
+#include "game/skirmish/isometricconversion.hpp"
 
 namespace qrw
 {
@@ -80,10 +80,10 @@ void qrw::PathRenderComponent::render(sf::RenderTarget &renderTarget)
 			}
 		}
 
-		_rectangle->setPosition(
+		_rectangle->setPosition(worldToIso({
 			SQUARE_DIMENSION * (0.5f + current->getX()),
 			SQUARE_DIMENSION * (0.5f + current->getY())
-		);
+		}));
 
 		renderTarget.draw(*_rectangle);
 	} // for(step in path)
