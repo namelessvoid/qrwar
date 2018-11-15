@@ -4,6 +4,7 @@
 
 #include "game/renderlayers.hpp"
 #include "game/constants.hpp"
+#include "game/skirmish/isometricconversion.hpp"
 
 #include "gui/texturemanager.hpp"
 #include "gui/scene.hpp"
@@ -15,6 +16,7 @@ Structure::Structure()
 {
 	spriteComponent_ = new SpriteComponent(RENDER_LAYER_STRUCTURE);
 	spriteComponent_->setSize({SQUARE_DIMENSION, SQUARE_DIMENSION});
+	spriteComponent_->setOrigin(SQUARE_DIMENSION * 0.5f, 0);
 	addComponent(spriteComponent_);
 }
 
@@ -39,7 +41,7 @@ void Structure::onDestroy()
 void Structure::setPosition(const Coordinates& position)
 {
 	position_ = position;
-	spriteComponent_->setPosition({SQUARE_DIMENSION * position_.getX(), SQUARE_DIMENSION * position.getY()});
+	spriteComponent_->setPosition(worldToIso({SQUARE_DIMENSION * position_.getX(), SQUARE_DIMENSION * position.getY()}));
 }
 
 const sf::Texture* qrw::Structure::getTexture() const
