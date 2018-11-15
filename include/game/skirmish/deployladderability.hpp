@@ -1,7 +1,11 @@
 #ifndef QRW_DEPLOYLADDERABILITY_HPP
 #define QRW_DEPLOYLADDERABILITY_HPP
 
+#include <memory>
+
 #include "unitability.hpp"
+
+#include "foundation/spritecomponent.hpp"
 
 namespace qrw
 {
@@ -22,7 +26,7 @@ public:
 	bool canBeExecutedOn(const Coordinates& position) override;
 
 protected:
-	class SquareMarker* deploySymbol_;
+	std::unique_ptr<SpriteComponent> deploySymbol_;
 };
 
 class LadderDeployedEvent : public EventBase<LadderDeployedEvent>

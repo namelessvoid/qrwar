@@ -15,8 +15,8 @@
 		<tile name="wheel"               x="128" y="0"  width="64" height="64" />
 		<tile name="squaremarker"        x="320" y="0"  width="100" height="50" />
 		<tile name="squaremarkerinvalid" x="320" y="50" width="100" height="50" />
-		<tile name="squaremarkerattack"  x="128" y="64" width="64" height="64" />
-		<tile name="squaremarkerrangeattack"  x="192" y="0" width="64" height="64" />
-		<tile name="squaremarkerdeployladder" x="256" y="0" width="64" height="64" />
+		<tile name="squaremarkerattack"  x="100" y="75" width="50" height="50" />
+		<tile name="squaremarkerrangeattack"  x="150" y="75" width="50" height="50" />
+		<tile name="squaremarkerdeployladder" x="200" y="75" width="50" height="50" />
 	</file>
 </tileset>

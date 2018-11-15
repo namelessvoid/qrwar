@@ -1,8 +1,13 @@
 #include "game/skirmish/deployladderability.hpp"
 
 #include "engine/board.hpp"
+
 #include "gui/scene.hpp"
-#include "gui/squaremarker.hpp"
+#include "gui/texturemanager.hpp"
+
+#include "game/renderlayers.hpp"
+#include "game/constants.hpp"
+#include "game/skirmish/isometricconversion.hpp"
 #include "game/skirmish/laddercarrier.hpp"
 #include "game/skirmish/wall.hpp"
 #include "game/skirmish/ladder.hpp"
@@ -13,11 +18,13 @@ namespace qrw
 DeployLadderAbility::DeployLadderAbility(Unit* owner)
 	: UnitAbility(owner)
 {
-		setName("Deploy Ladder");
+	setName("Deploy Ladder");
 
-		deploySymbol_ = g_scene.spawn<SquareMarker>();
-		deploySymbol_->setVisible(false);
-		deploySymbol_->markDeployLadder();
+	deploySymbol_ = std::make_unique<SpriteComponent>(RENDER_LAYER_CURSOR);
+	deploySymbol_->setTexture(TextureManager::getInstance()->getTexture("squaremarkerdeployladder"));
+	deploySymbol_->setSize({SQUARE_DIMENSION, SQUARE_DIMENSION});
+	deploySymbol_->setOrigin(0.5f * SQUARE_DIMENSION, 0.0f);
+	deploySymbol_->setVisible(false);
 }
 
 void DeployLadderAbility::activate()
@@ -34,7 +41,7 @@ void DeployLadderAbility::deactivate()
 
 void DeployLadderAbility::updateActiveVisualization(const Coordinates& position)
 {
-	deploySymbol_->setBoardPosition(position);
+	deploySymbol_->setPosition(worldToIso({SQUARE_DIMENSION * position.getX(), SQUARE_DIMENSION * position.getY()}));
 }
 
 void DeployLadderAbility::executeOn(const Coordinates& position)
