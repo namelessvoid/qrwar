@@ -63,7 +63,7 @@ void MapEditorState::init(GameState* previousState)
 	deploymentZones_.at(1)->setPlayerId(2);
 
 	SkirmishCamera* camera = g_scene.spawn<SkirmishCamera>();
-	camera->setCenter(_spBoard->getComponent<BoardBackgroundComponent>()->getCenter());
+	camera->setCenter(_spBoard->getComponent<BoardBackgroundComponent>()->getViewCenter());
 }
 
 EGameStateId MapEditorState::update()

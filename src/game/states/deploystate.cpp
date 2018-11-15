@@ -199,7 +199,7 @@ void DeployState::init(GameState* previousState)
 	g_scene.spawn<Cursor>();
 
 	SkirmishCamera* camera = g_scene.spawn<SkirmishCamera>();
-	camera->setCenter(board_->getComponent<BoardBackgroundComponent>()->getCenter());
+	camera->setCenter(board_->getComponent<BoardBackgroundComponent>()->getViewCenter());
 
 	// Create new players
 	_players.clear();
