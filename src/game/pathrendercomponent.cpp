@@ -22,10 +22,6 @@ PathRenderComponent::PathRenderComponent()
 	setSize({SQUARE_DIMENSION, SQUARE_DIMENSION});
 }
 
-PathRenderComponent::~PathRenderComponent()
-{
-}
-
 void qrw::PathRenderComponent::render(sf::RenderTarget &renderTarget)
 {
 	if(!isVisible())
