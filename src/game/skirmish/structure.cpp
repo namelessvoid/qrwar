@@ -15,8 +15,8 @@ namespace qrw
 Structure::Structure()
 {
 	spriteComponent_ = new SpriteComponent(RENDER_LAYER_STRUCTURE);
-	spriteComponent_->setSize({SQUARE_DIMENSION, SQUARE_DIMENSION});
-	spriteComponent_->setOrigin(SQUARE_DIMENSION * 0.5f, 0);
+	spriteComponent_->setSize({2.0f * SQUARE_DIMENSION, SQUARE_DIMENSION});
+	spriteComponent_->setOrigin(SQUARE_DIMENSION, 0);
 	addComponent(spriteComponent_);
 }
 
