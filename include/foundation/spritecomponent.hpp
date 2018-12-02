@@ -27,8 +27,6 @@ public:
 
 	void setTexture(const sf::Texture* texture);
 
-	void setRepeateTexture(bool repeate, float scale = 1);
-
 	void setSize(const sf::Vector2f& size);
 
 	const sf::Vector2f& getSize();
@@ -37,9 +35,9 @@ public:
 
 	const sf::Vector2f& getPosition() const override;
 
-	void setRotation(const float degrees)
+	void setScale(sf::Vector2f scale)
 	{
-		_rectangle->setRotation(degrees);
+		_rectangle->setScale(scale);
 	}
 
 	void setOrigin(float x, float y)

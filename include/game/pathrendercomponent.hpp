@@ -14,7 +14,7 @@ class PathRenderComponent : public SpriteComponent
 public:
     PathRenderComponent();
 
-    virtual ~PathRenderComponent();
+    virtual ~PathRenderComponent() = default;
 
 	virtual void render(sf::RenderTarget &renderTarget) override;
 

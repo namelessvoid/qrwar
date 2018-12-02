@@ -9,6 +9,7 @@
 #include "game/constants.hpp"
 #include "game/skirmish/structure.hpp"
 #include "game/skirmish/stairs.hpp"
+#include "game/skirmish/boardbackgroundcomponent.hpp"
 #include "game/skirmish/gui/mapeditortoolbar.hpp"
 
 #include "foundation/spritecomponent.hpp"
@@ -62,7 +63,7 @@ void MapEditorState::init(GameState* previousState)
 	deploymentZones_.at(1)->setPlayerId(2);
 
 	SkirmishCamera* camera = g_scene.spawn<SkirmishCamera>();
-	camera->setCenter(_spBoard->getComponent<SpriteComponent>()->getCenter());
+	camera->setCenter(_spBoard->getComponent<BoardBackgroundComponent>()->getViewCenter());
 }
 
 EGameStateId MapEditorState::update()

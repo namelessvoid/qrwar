@@ -27,7 +27,7 @@ private:
 	unsigned int maxRange_;
 	unsigned int damage_;
 
-	SquareMarker* squareMarker_;
+	std::unique_ptr<SpriteComponent> squareMarker_;
 };
 
 } // namespace qrw

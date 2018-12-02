@@ -15,6 +15,8 @@
 #include "game/constants.hpp"
 #include "game/deploymentzone.hpp"
 #include "game/skirmish/structure.hpp"
+#include "game/skirmish/boardbackgroundcomponent.hpp"
+#include "game/skirmish/isometricconversion.hpp"
 #include "engine/terrain.hpp"
 
 namespace fs = std::experimental::filesystem;
@@ -150,12 +152,18 @@ std::string MapManager::convertPathToMapName(const fs::path& filePath) const
 
 void MapManager::createAndSaveMapPreview(const std::string& mapName, const MapDto& dto)
 {
-	sf::RenderTexture renderTexture;
-	renderTexture.create(
-			static_cast<unsigned int>(dto.board->getWidth() * SQUARE_DIMENSION),
-			static_cast<unsigned int>(dto.board->getHeight() * SQUARE_DIMENSION));
+	BoardBackgroundComponent* boardBackroundComponent = dto.board->getComponent<BoardBackgroundComponent>();
 
-	dto.board->getComponent<SpriteComponent>()->render(renderTexture);
+	sf::FloatRect boardBounds = boardBackroundComponent->getViewBounds();
+	sf::Vector2f viewCenter(boardBackroundComponent->getViewCenter());
+	sf::Vector2f textureSize(boardBounds.width, boardBounds.height);
+
+	sf::RenderTexture renderTexture;
+	renderTexture.create(static_cast<unsigned int>(textureSize.x), static_cast<unsigned int>(textureSize.y));
+	sf::View view(viewCenter, textureSize);
+	renderTexture.setView(view);
+
+	boardBackroundComponent->render(renderTexture);
 	for(auto& structureIter : dto.board->getStructures())
 		structureIter.second->getComponent<SpriteComponent>()->render(renderTexture);
 	for(auto& terrainIter : dto.board->getTerrains())

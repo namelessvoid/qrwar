@@ -19,6 +19,7 @@
 #include "game/path.hpp"
 #include "game/skirmish/unitmovementability.hpp"
 #include "game/skirmish/unitmeleeattackability.hpp"
+#include "game/skirmish/isometricconversion.hpp"
 
 namespace qrw
 {
@@ -29,6 +30,7 @@ Unit::Unit()
 	_sprite = new SpriteComponent(RENDER_LAYER_UNIT);
 	addComponent(_sprite);
 	_sprite->setSize({SQUARE_DIMENSION, SQUARE_DIMENSION});
+	_sprite->setOrigin(SQUARE_DIMENSION * 0.5f, 0);
 
 	followRouteAnimationComponent_ = new FollowRouteAnimationComponent(_sprite);
 	addComponent(followRouteAnimationComponent_);
@@ -117,7 +119,7 @@ void Unit::damage(int inflictedDamage)
 	if(getCurrentHp() <= 0) g_scene.destroy(this);
 
 	DamageNumber* damageNumber = g_scene.spawn<DamageNumber>();
-	damageNumber->setPosition(_sprite->getPosition() + sf::Vector2f{16, -16});
+	damageNumber->setPosition(_sprite->getPosition());
 	damageNumber->setDamage(inflictedDamage);
 }
 
@@ -138,7 +140,7 @@ const Coordinates& Unit::getPosition() const
 void Unit::setPosition(const Coordinates& position)
 {
 	setPosition_(position);
-	_sprite->setPosition({SQUARE_DIMENSION * _position.getX(), SQUARE_DIMENSION * _position.getY()});
+	_sprite->setPosition(worldToIso({SQUARE_DIMENSION * _position.getX(), SQUARE_DIMENSION * _position.getY()}));
 }
 
 void Unit::setTexture(const sf::Texture *texture)
@@ -177,7 +179,9 @@ void Unit::move(const Path& path)
 		if(followRouteAnimationComponent_->isRunning() && i == 0) continue;
 
 		const Coordinates& step = path.getStep(i);
-		followRouteAnimationComponent_->addCorner(sf::Vector2f{step.getX() * SQUARE_DIMENSION, step.getY() * SQUARE_DIMENSION});
+		followRouteAnimationComponent_->addCorner(
+			worldToIso(sf::Vector2f{step.getX() * SQUARE_DIMENSION, step.getY() * SQUARE_DIMENSION})
+		);
 	}
 
 	if(!followRouteAnimationComponent_->isRunning())

@@ -1,7 +1,11 @@
 #ifndef QRW_UNITMEELEATTACKABILITY_HPP
 #define QRW_UNITMEELEATTACKABILITY_HPP
 
+#include <memory>
+
 #include "unitability.hpp"
+
+#include "foundation/spritecomponent.hpp"
 
 namespace qrw
 {
@@ -32,7 +36,7 @@ private:
 
 	Unit* getOpponentAt(const Coordinates& position);
 
-	class SquareMarker* attackSymbol_;
+	std::unique_ptr<SpriteComponent> attackSymbol_;
 };
 
 } // namespace qrw

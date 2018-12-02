@@ -3,6 +3,7 @@
 #include <SFML/Graphics/RectangleShape.hpp>
 #include <SFML/Graphics/RenderTarget.hpp>
 #include <SFML/Graphics/Texture.hpp>
+#include <SFML/Graphics/Sprite.hpp>
 
 #include "rendering/rendersystem.hpp"
 
@@ -24,12 +25,6 @@ void SpriteComponent::setTexture(const sf::Texture* texture)
 {
 	_rectangle->setTexture(texture);
 	_rectangle->setTextureRect(sf::IntRect(0, 0, texture->getSize().x, texture->getSize().y));
-}
-
-void SpriteComponent::setRepeateTexture(bool repeate, float scale)
-{
-	const sf::Vector2f& size = repeate ? _rectangle->getSize() / scale : static_cast<sf::Vector2f>(_rectangle->getTexture()->getSize());
-	_rectangle->setTextureRect(sf::IntRect(0, 0, size.x, size.y));
 }
 
 void SpriteComponent::setSize(const sf::Vector2f& size)

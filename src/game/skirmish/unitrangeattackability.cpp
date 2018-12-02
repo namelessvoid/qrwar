@@ -1,8 +1,14 @@
 #include "game/skirmish/unitrangeattackability.hpp"
 
-#include "game/skirmish/unit.hpp"
-
 #include "gui/scene.hpp"
+#include "gui/texturemanager.hpp"
+
+#include "foundation/spritecomponent.hpp"
+
+#include "game/skirmish/unit.hpp"
+#include "game/skirmish/isometricconversion.hpp"
+#include "game/renderlayers.hpp"
+#include "game/constants.hpp"
 
 namespace qrw
 {
@@ -15,8 +21,10 @@ UnitRangeAttackAbility::UnitRangeAttackAbility(Unit* owner)
 {
 	setName("Ranged Attack");
 
-	squareMarker_ = g_scene.spawn<SquareMarker>();
-	squareMarker_->markRangeAttackable();
+	squareMarker_ = std::make_unique<SpriteComponent>(RENDER_LAYER_CURSOR);
+	squareMarker_->setTexture(TextureManager::getInstance()->getTexture("squaremarkerrangeattack"));
+	squareMarker_->setSize({SQUARE_DIMENSION, SQUARE_DIMENSION});
+	squareMarker_->setOrigin(0.5f * SQUARE_DIMENSION, 0.0f);
 	squareMarker_->setVisible(false);
 }
 
@@ -47,7 +55,7 @@ void UnitRangeAttackAbility::deactivate()
 
 void UnitRangeAttackAbility::updateActiveVisualization(const Coordinates& position)
 {
-	squareMarker_->setBoardPosition(position);
+	squareMarker_->setPosition(worldToIso({SQUARE_DIMENSION * position.getX(), SQUARE_DIMENSION * position.getY()}));
 }
 
 bool UnitRangeAttackAbility::canBeExecutedOn(const Coordinates& position)

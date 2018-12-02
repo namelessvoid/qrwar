@@ -51,6 +51,7 @@ add_library(qrwarlib
 
 	game/skirmish/mapmanager.cpp
 	game/skirmish/mapvalidator.cpp
+	game/skirmish/boardbackgroundcomponent.cpp
 	game/skirmish/unit.cpp
 	game/skirmish/laddercarrier.cpp
 	game/skirmish/archer.cpp
@@ -68,6 +69,7 @@ add_library(qrwarlib
 	game/skirmish/structureaccessibilitychecker.cpp
 	game/skirmish/coordinates.cpp
 	game/skirmish/directions.cpp
+	game/skirmish/isometricconversion.cpp
 
 	game/skirmish/gui/victorydialog.cpp
 	game/skirmish/gui/mapeditortoolbar.cpp

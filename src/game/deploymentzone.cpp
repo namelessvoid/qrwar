@@ -1,10 +1,11 @@
 #include "game/deploymentzone.hpp"
 
-#include <SFML/Graphics/RectangleShape.hpp>
+#include <SFML/Graphics/CircleShape.hpp>
 #include <SFML/Graphics/RenderTarget.hpp>
 
 #include "game/renderlayers.hpp"
 #include "game/constants.hpp"
+#include "game/skirmish/isometricconversion.hpp"
 
 namespace qrw
 {
@@ -20,13 +21,15 @@ DeploymentZone::DeploymentZone()
 
 void DeploymentZone::render(sf::RenderTarget& renderTarget)
 {
-    sf::RectangleShape rectangle;
-    rectangle.setSize({SQUARE_DIMENSION, SQUARE_DIMENSION});
+    sf::CircleShape rectangle(SQUARE_DIMENSION, 4);
+    rectangle.scale({1.0f, 0.5f});
+    rectangle.setOrigin({SQUARE_DIMENSION, 0.0f});
+
     rectangle.setFillColor(color_);
 
     for(auto& coordinate : zone_)
     {
-        rectangle.setPosition({SQUARE_DIMENSION * coordinate.getX(), SQUARE_DIMENSION * coordinate.getY()});
+        rectangle.setPosition(worldToIso({SQUARE_DIMENSION * coordinate.getX(), SQUARE_DIMENSION * coordinate.getY()}));
         renderTarget.draw(rectangle);
     }
 }
