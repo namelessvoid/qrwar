@@ -35,9 +35,9 @@ public:
 
 	const sf::Vector2f& getPosition() const override;
 
-	void setRotation(const float degrees)
+	void setScale(sf::Vector2f scale)
 	{
-		_rectangle->setRotation(degrees);
+		_rectangle->setScale(scale);
 	}
 
 	void setOrigin(float x, float y)

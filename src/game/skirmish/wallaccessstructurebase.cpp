@@ -9,20 +9,20 @@ namespace qrw
 WallAccessStructureBase::WallAccessStructureBase()
 	: face_(Directions::NORTH)
 {
-	spriteComponent_->setOrigin(0.5f * SQUARE_DIMENSION, 0.5f * SQUARE_DIMENSION);
+	spriteComponent_->setOrigin(SQUARE_DIMENSION, 0.5f * SQUARE_DIMENSION);
 }
 
 void WallAccessStructureBase::computeTexture()
 {
-	float rotation = 0;
+	sf::Vector2f scale(1, 1);
 	if(face_ == qrw::Directions::EAST)
-		rotation = 90;
+		scale = sf::Vector2f(1, -1);
 	else if(face_ == qrw::Directions::SOUTH)
-		rotation = 180;
+		scale = sf::Vector2f(-1, -1);
 	else if(face_ == qrw::Directions::WEST)
-		rotation = 270;
+		scale = sf::Vector2f(-1, 1);
 
-	spriteComponent_->setRotation(rotation);
+	spriteComponent_->setScale(scale);
 }
 
 void WallAccessStructureBase::rotate()
