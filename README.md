@@ -21,6 +21,21 @@ If you've got any problems building the game feel free to create an issue.
 
 Note: Installation is not yet supported.
 
+### Windows
+
+Prerequisites:
+
+- Visual Studio 2017
+- CMake 3.13.2
+
+Instructions:
+
+1. Open CLI (e.g. git bash) and navigate to source directory
+2. Create build directory: `mkdir build64`
+3. `cd build64`
+4. Generate solution: `cmake -G "Visual Studio 15 2017 Win64"`
+5. Build: `cmake --build build64 --config Release`
+
 ## Game
 
 ### Skirmish
