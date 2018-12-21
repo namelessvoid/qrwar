@@ -12,12 +12,13 @@ SET( TinyXML2_FIND_QUIETLY TRUE )
 ENDIF( TINYXML2_INCLUDE_DIR )
 
 FIND_PATH( TINYXML2_INCLUDE_DIR "tinyxml2.h"
-PATH_SUFFIXES "tinyxml" )
+HINTS "thirdparty/tinyxml2/"
+PATH_SUFFIXES "tinyxml" "tinyxml2")
 
 FIND_LIBRARY( TINYXML2_LIBRARIES
 NAMES "tinyxml2"
 PATH_SUFFIXES "tinyxml"
-HINTS /usr/lib64 )
+HINTS /usr/lib64 thirdparty/tinyxml2/lib)
 
 # handle the QUIETLY and REQUIRED arguments and set TINYXML_FOUND to TRUE if
 # all listed variables are TRUE

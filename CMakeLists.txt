@@ -1,6 +1,9 @@
 cmake_minimum_required(VERSION 2.8)
 project(QuadRuledWar)
 
+# options
+option(BUILD_TESTS "If set to true, tests will build as well" FALSE)
+
 # set cmake stuff
 set(CMAKE_BUILD_TYPE Debug)
 set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} ${QuadRuledWar_SOURCE_DIR}/cmake/Modules)
@@ -12,6 +15,10 @@ set(EXECUTABLE_OUTPUT_PATH ${CMAKE_SOURCE_DIR}/bin)
 add_definitions("-Wall")
 
 # extern libraries
+if(WIN32)
+  set(SFML_DIR ${CMAKE_SOURCE_DIR}/thirdparty/SFML/lib/cmake/SFML)
+endif(WIN32)
+
 find_package(SFML 2.5 REQUIRED graphics audio)
 set(LIBS ${LIBS} sfml-graphics sfml-audio)
 
@@ -31,6 +38,10 @@ endif(yaml-cpp_FOUND)
 
 # set include path
 include_directories(${QuadRuledWar_SOURCE_DIR}/include)
+include_directories(${QuadRuledWar_SOURCE_DIR}/thirdparty/SFML/include)
 
 add_subdirectory(src)
-add_subdirectory(test)
+
+if(BUILD_TESTS)
+  add_subdirectory(test)
+endif(BUILD_TESTS)
