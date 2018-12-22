@@ -2,7 +2,7 @@ cmake_minimum_required(VERSION 2.8)
 project(QuadRuledWar)
 
 # options
-option(BUILD_TESTS "If set to true, tests will build as well" FALSE)
+option(BUILD_TESTS "If set to true, tests will build as well" ON)
 
 # set cmake stuff
 set(CMAKE_BUILD_TYPE Debug)
