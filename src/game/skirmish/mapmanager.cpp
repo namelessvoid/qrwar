@@ -50,7 +50,7 @@ MapDto MapManager::loadMap(
 		return mapDto;
 	}
 
-	std::vector<YAML::Node> documents = YAML::LoadAllFromFile(getUserMapDir() / convertMapNameToPath(mapName, ".map"));
+	std::vector<YAML::Node> documents = YAML::LoadAllFromFile((getUserMapDir() / convertMapNameToPath(mapName, ".map")).string());
 	if(!mapValidator_->validate(documents))
 	{
 		error = LoadErrors::MAP_VALIDATION_FAILED;
@@ -172,14 +172,14 @@ void MapManager::createAndSaveMapPreview(const std::string& mapName, const MapDt
 		deploymentZone->render(renderTexture);
 
 	renderTexture.display();
-	renderTexture.getTexture().copyToImage().saveToFile(getUserMapDir() / (convertMapNameToPath(mapName, ".png")));
+	renderTexture.getTexture().copyToImage().saveToFile((getUserMapDir() / convertMapNameToPath(mapName, ".png")).string());
 }
 
 sf::Texture* MapManager::loadMapPreview(const std::string& mapName)
 {
 	sf::Texture* image = new sf::Texture();
 	fs::path previewPath = getUserMapDir() / (convertMapNameToPath(mapName, ".png"));
-	if(!image->loadFromFile(previewPath))
+	if(!image->loadFromFile(previewPath.string()))
 	{
 		logger_->logError("Failed to load map preview from '" + previewPath.string() + "'");
 	}
