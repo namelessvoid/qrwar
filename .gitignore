@@ -22,3 +22,5 @@ CMakeLists.txt.user
 .vscode/
 cmake-build-debug/
 
+# DLLs in main directory which are required when running on windows
+*.dll
