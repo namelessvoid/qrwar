@@ -100,7 +100,7 @@ add_library(qrwarlib
 	meta/metamanager.cpp
 	meta/metaclass.cpp)
 set_target_properties(qrwarlib PROPERTIES OUTPUT_NAME qrwar)
-target_link_libraries(qrwarlib ${LIBS} stdc++fs namelessgui)
+target_link_libraries(qrwarlib ${LIBS} namelessgui)
 
 add_executable(qrwar main.cpp)
 target_link_libraries(qrwar qrwarlib)
