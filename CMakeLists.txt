@@ -17,37 +17,8 @@ set(EXECUTABLE_OUTPUT_PATH ${CMAKE_SOURCE_DIR}/bin)
 
 # SFML
 if(WIN32)
-  set(SFML_DIR ${CMAKE_SOURCE_DIR}/thirdparty/SFML/lib/cmake/SFML)
+  set(SFML_DIR ${CMAKE_SOURCE_DIR}/thirdparty/src/SFML/lib/cmake/SFML)
 endif(WIN32)
-
-find_package(SFML 2.5 REQUIRED graphics audio)
-set(LIBS ${LIBS} sfml-graphics sfml-audio)
-
-# TinyXml2
-find_package(tinyxml2 REQUIRED)
-if(TINYXML2_FOUND)
-	include_directories(${TINYXML2_INCLUDE_DIR})
-	set(LIBS ${LIBS} ${TINYXML2_LIBRARIES})
-else(TINYXML2_FOUND)
-	message(FATAL_ERROR "Required library tinyxml2 could not be found")
-endif(TINYXML2_FOUND)
-
-# yaml-cpp
-find_package(yaml-cpp REQUIRED)
-if(yaml-cpp_FOUND)
-    include_directories(${YAML_CPP_INCLUDE_DIR})
-    set(LIBS ${LIBS} ${YAML_CPP_LIBRARIES})
-endif(yaml-cpp_FOUND)
-
-# c++ file system
-set(CXX_FILESYSTEM_LIB
-  $<$<CXX_COMPILER_ID:GNU>:stdc++fs>
-)
-set(LIBS ${LIBS} ${CXX_FILESYSTEM_LIB})
-
-# set include path
-include_directories(${QuadRuledWar_SOURCE_DIR}/include)
-include_directories(${QuadRuledWar_SOURCE_DIR}/thirdparty/SFML/include)
 
 add_subdirectory(src)
 
