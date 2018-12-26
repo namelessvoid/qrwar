@@ -1,11 +1,6 @@
 add_subdirectory(gui/ng)
 
-# TinyXml2
 find_package(tinyxml2 REQUIRED)
-if(NOT TINYXML2_FOUND)
-	message(FATAL_ERROR "Required library tinyxml2 could not be found")
-endif()
-
 find_package(yaml-cpp REQUIRED)
 find_package(SFML 2.5 REQUIRED graphics audio)
 
@@ -114,12 +109,8 @@ target_link_libraries(qrwarlib
 	sfml-graphics
 	namelessgui
 	$<$<CXX_COMPILER_ID:GNU>:stdc++fs>
-	${TINYXML2_LIBRARIES}
+	tinyxml2
 	yaml-cpp
-)
-target_include_directories(qrwarlib
-	PUBLIC
-		${TINYXML2_INCLUDE_DIR}
 )
 
 add_executable(qrwar main.cpp)
