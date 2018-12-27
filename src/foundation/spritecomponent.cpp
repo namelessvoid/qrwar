@@ -47,11 +47,6 @@ const sf::Vector2f& SpriteComponent::getPosition() const
 	return _rectangle->getPosition();
 }
 
-sf::Vector2f SpriteComponent::getCenter()
-{
-	return getPosition() + getSize() * 0.5f;
-}
-
 void SpriteComponent::setFillColor(const sf::Color &color)
 {
 	_rectangle->setFillColor(color);

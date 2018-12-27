@@ -50,8 +50,6 @@ public:
 		return _rectangle->getTexture();
 	}
 
-	sf::Vector2f getCenter();
-
 	void setFillColor(const sf::Color& color);
 
 	virtual void render(sf::RenderTarget& renderTarget) override;
