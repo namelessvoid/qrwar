@@ -8,6 +8,7 @@
 
 using ::testing::_;
 using ::testing::Sequence;
+using ::testing::Return;
 
 TEST(RenderSystem_RenderAll, Then_z_index_of_renderables_are_accounted_for)
 {
@@ -17,11 +18,13 @@ TEST(RenderSystem_RenderAll, Then_z_index_of_renderables_are_accounted_for)
 	renderSystem.startUp(texture);
 
 	RenderableMock a(0);
-	a.setZIndex(13);
+	EXPECT_CALL(a, getZIndex())
+		.WillRepeatedly(Return(13));
 	renderSystem.registerRenderable(&a);
 
 	RenderableMock b(0);
-	b.setZIndex(12);
+	EXPECT_CALL(b, getZIndex())
+		.WillRepeatedly(Return(12));
 	renderSystem.registerRenderable(&b);
 
 	// Assert

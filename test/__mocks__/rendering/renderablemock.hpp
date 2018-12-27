@@ -13,6 +13,7 @@ public:
 	{}
 
 	MOCK_CONST_METHOD0(getPosition, const sf::Vector2f&());
+	MOCK_CONST_METHOD0(getZIndex, float());
 	MOCK_METHOD1(setPosition, void(const sf::Vector2f&));
 	MOCK_METHOD1(render, void(sf::RenderTarget&));
 };

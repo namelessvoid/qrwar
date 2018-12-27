@@ -30,7 +30,7 @@ public:
 	virtual void setPosition(const sf::Vector2f& position) = 0;
 	virtual const sf::Vector2f& getPosition() const = 0;
 
-	float getZIndex() const { return getPosition().y; }
+	virtual float getZIndex() const { return getPosition().y; }
 
 private:
 	Layer m_layer;
