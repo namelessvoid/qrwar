@@ -30,7 +30,7 @@ public:
 private:
 	RenderSystem(const RenderSystem&) = delete;
 
-	PriorityList<Renderable*> renderables_;
+	std::map<Layer,std::set<Renderable*>> renderables_;
 
 	sf::RenderTarget* renderTarget_;
 
