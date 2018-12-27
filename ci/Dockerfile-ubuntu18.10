@@ -28,7 +28,6 @@ RUN wget https://github.com/leethomason/tinyxml2/archive/7.0.0.tar.gz && \
 # Copy source
 WORKDIR /
 COPY CMakeLists.txt /qrw/CMakeLists.txt
-COPY cmake /qrw/cmake
 COPY src /qrw/src
 COPY include /qrw/include
 COPY test /qrw/test
