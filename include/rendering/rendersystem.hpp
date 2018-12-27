@@ -15,7 +15,7 @@ namespace qrw
 class RenderSystem
 {
 public:
-	RenderSystem() {}
+	RenderSystem() = default;
 
 	void startUp(sf::RenderTarget& renderTarget);
 	void shutDown();
