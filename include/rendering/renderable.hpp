@@ -30,12 +30,10 @@ public:
 	virtual void setPosition(const sf::Vector2f& position) = 0;
 	virtual const sf::Vector2f& getPosition() const = 0;
 
-	float getZIndex() const { return zIndex_; }
-	void setZIndex(float zIndex) { zIndex_ = zIndex; }
+	float getZIndex() const { return getPosition().y; }
 
 private:
 	Layer m_layer;
-	float zIndex_;
 	bool m_visible;
 };
 
