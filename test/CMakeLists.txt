@@ -12,6 +12,8 @@ add_executable(unittest
 
 	core/logger_log.cpp
 
+	rendering/renderablezindexcomparer_compare.cpp
+
 	engine/boardtest.cpp
 	engine/unittest.cpp
 	engine/coordinatestest.cpp
