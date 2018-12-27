@@ -1,10 +1,11 @@
 FROM ubuntu:18.10
 
 # Install dependencies
-RUN apt update > /dev/null && apt install -y wget cmake g++ libsfml-dev libtinyxml2-dev \
+RUN apt update > /dev/null && apt install -y wget cmake g++ libsfml-dev  \
                                  libcppunit-dev libgtest-dev libgmock-dev \
                                  xserver-xorg-video-dummy x11-apps > /dev/null
 
+WORKDIR /
 RUN wget https://github.com/jbeder/yaml-cpp/archive/yaml-cpp-0.6.2.tar.gz && \
     tar -xzf yaml-cpp-0.6.2.tar.gz && \
     cd yaml-cpp-yaml-cpp-0.6.2 && \
@@ -14,7 +15,18 @@ RUN wget https://github.com/jbeder/yaml-cpp/archive/yaml-cpp-0.6.2.tar.gz && \
     make && \
     make install
 
+WORKDIR /
+RUN wget https://github.com/leethomason/tinyxml2/archive/7.0.0.tar.gz && \
+    tar -xzf 7.0.0.tar.gz && \
+    cd tinyxml2-7.0.0/ && \
+    mkdir build && \
+    cd build && \
+    cmake .. && \
+    make && \
+    make install
+
 # Copy source
+WORKDIR /
 COPY CMakeLists.txt /qrw/CMakeLists.txt
 COPY cmake /qrw/cmake
 COPY src /qrw/src

@@ -1,5 +1,9 @@
 add_subdirectory(gui/ng)
 
+find_package(tinyxml2 REQUIRED)
+find_package(yaml-cpp REQUIRED)
+find_package(SFML 2.5 REQUIRED graphics audio)
+
 add_library(qrwarlib
 	qrwar.cpp
 
@@ -100,7 +104,14 @@ add_library(qrwarlib
 	meta/metamanager.cpp
 	meta/metaclass.cpp)
 set_target_properties(qrwarlib PROPERTIES OUTPUT_NAME qrwar)
-target_link_libraries(qrwarlib ${LIBS} stdc++fs namelessgui)
+target_link_libraries(qrwarlib
+	sfml-audio
+	sfml-graphics
+	namelessgui
+	$<$<CXX_COMPILER_ID:GNU>:stdc++fs>
+	tinyxml2
+	yaml-cpp
+)
 
 add_executable(qrwar main.cpp)
-target_link_libraries(qrwar qrwarlib)
+target_link_libraries(qrwar	qrwarlib)
