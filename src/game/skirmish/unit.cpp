@@ -27,7 +27,7 @@ namespace qrw
 Unit::Unit()
 	: EventHandler(EventHandlerPriority::DEFAULT)
 {
-	_sprite = new SpriteComponent(RENDER_LAYER_UNIT);
+	_sprite = new SpriteComponent(RENDER_LAYER_GAME);
 	addComponent(_sprite);
 	_sprite->setSize({SQUARE_DIMENSION, SQUARE_DIMENSION});
 	_sprite->setOrigin(SQUARE_DIMENSION * 0.5f, 0);

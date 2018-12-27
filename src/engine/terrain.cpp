@@ -46,7 +46,7 @@ Terrain::Terrain()
 	: _type(TERRAINTYPES::ET_NUMBEROFTERRAINTYPES),
 	  _position(0, 0)
 {
-	_sprite = new SpriteComponent(RENDER_LAYER_TERRAIN);
+	_sprite = new SpriteComponent(RENDER_LAYER_GAME);
 	addComponent(_sprite);
 	_sprite->setOrigin(SQUARE_DIMENSION * 0.5f, 0);
 	_sprite->setSize(sf::Vector2f(SQUARE_DIMENSION, SQUARE_DIMENSION));

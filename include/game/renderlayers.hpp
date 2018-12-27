@@ -4,10 +4,8 @@
 #include "rendering/rendersystem.hpp"
 
 #define RENDER_LAYER_BACKGROUND Layer(0)
-#define RENDER_LAYER_TERRAIN    Layer(10)
-#define RENDER_LAYER_STRUCTURE  Layer(10)
+#define RENDER_LAYER_GAME       Layer(10)
 #define RENDER_LAYER_DEPLOYMENT_ZONE Layer(11)
-#define RENDER_LAYER_UNIT       Layer(20)
 #define RENDER_LAYER_PATH       Layer(21)
 #define RENDER_LAYER_CURSOR     Layer(22)
 #define RENDER_LAYER_BILLBOARD  Layer(50)
