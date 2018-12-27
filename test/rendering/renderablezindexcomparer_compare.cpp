@@ -5,7 +5,7 @@
 
 #include "__mocks__/rendering/renderablemock.hpp"
 
-using testing::ElementsAre;
+using ::testing::ElementsAre;
 
 TEST(RenderableZIndexComparer_Compare, If_first_z_index_is_less_than_second_z_index_Then_true_is_returned)
 {
