@@ -2,7 +2,7 @@ add_subdirectory(gui/ng)
 
 find_package(tinyxml2 REQUIRED)
 find_package(yaml-cpp REQUIRED)
-find_package(SFML 2.5 REQUIRED graphics audio)
+find_package(SFML 2.5 COMPONENTS graphics audio REQUIRED)
 
 add_library(qrwarlib
 	qrwar.cpp

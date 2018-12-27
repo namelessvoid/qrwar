@@ -1,8 +1,4 @@
-find_package(GTest REQUIRED)
-include_directories(${GTEST_INCLUDE_DIR})
-
-find_package(GMock REQUIRED)
-include_directories(${GMOCK_INCLUDE_DIR})
+find_package(GTest COMPONENTS gtest gmock REQUIRED)
 
 include_directories(${CMAKE_CURRENT_SOURCE_DIR})
 
@@ -66,4 +62,4 @@ add_executable(unittest
 	meta/properties/tclassproperty_serialize.cpp
 	meta/properties/tclassproperty_deserialize.cpp)
 
-target_link_libraries(unittest ${GTEST_LIBRARIES} ${GMOCK_LIBRARIES} cppunit pthread qrwarlib)
+target_link_libraries(unittest gtest gmock cppunit pthread qrwarlib)
