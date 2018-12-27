@@ -1,5 +1,6 @@
 #include "game/skirmish/wall.hpp"
 
+#include "game/constants.hpp"
 #include "game/skirmish/stairs.hpp"
 #include "game/skirmish/directions.hpp"
 
@@ -12,6 +13,13 @@ namespace qrw
 {
 
 SID Wall::typeName("qrw::Wall");
+
+Wall::Wall()
+  : Structure()
+{
+	spriteComponent_->setSize({2.0f * SQUARE_DIMENSION, 3.0f * SQUARE_DIMENSION});
+	spriteComponent_->setOrigin(SQUARE_DIMENSION, 2.0f * SQUARE_DIMENSION);
+}
 
 void Wall::computeTexture()
 {

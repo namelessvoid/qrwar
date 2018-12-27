@@ -13,7 +13,7 @@ public:
 	static SID typeName;
 	const SID& getTypeName() const override	{ return typeName; }
 
-	Wall() = default;
+	Wall();
 
 	void computeTexture() override;
 
