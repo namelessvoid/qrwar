@@ -58,4 +58,35 @@ bool Wall::isConnectedTo(const Coordinates& direction, const Board& board) const
 	return false;
 }
 
+void Wall::update(float elapsedTimeInSeconds)
+{
+	GameObject::update(elapsedTimeInSeconds);
+
+	bool makeTransparent = false;
+	if(auto board = g_scene.findSingleGameObject<Board>())
+	{
+		makeTransparent = blocksVisibilityOn(getPosition() + Coordinates(-1, -1), *board)
+				|| blocksVisibilityOn(getPosition() + Coordinates(-2, -2), *board)
+				|| blocksVisibilityOn(getPosition() + Coordinates(0, -1), *board)
+				|| blocksVisibilityOn(getPosition() + Coordinates(-1, -2), *board)
+				|| blocksVisibilityOn(getPosition() + Coordinates(-1, 0), *board)
+				|| blocksVisibilityOn(getPosition() + Coordinates(-2, -1), *board);
+	}
+
+	spriteComponent_->setFillColor(makeTransparent ? sf::Color(255, 255, 255, 127) : sf::Color::White);
+}
+
+bool Wall::blocksVisibilityOn(const Coordinates& position, const Board& board)
+{
+	if(board.isTerrainAt(position)) return true;
+	if(board.isUnitAt(position)) return true;
+
+	if(auto structure = board.getStructure(position))
+	{
+		return dynamic_cast<Wall*>(structure) == nullptr;
+	}
+
+	return false;
+}
+
 }

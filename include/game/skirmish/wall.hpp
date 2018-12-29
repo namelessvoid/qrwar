@@ -13,12 +13,15 @@ public:
 	static SID typeName;
 	const SID& getTypeName() const override	{ return typeName; }
 
+	void update(float elapsedTimeInSeconds) override;
+
 	Wall();
 
 	void computeTexture() override;
 
 private:
 	bool isConnectedTo(const Coordinates& direction, const Board& board) const;
+	bool blocksVisibilityOn(const Coordinates& position, const Board& board);
 };
 
 } // namespace qrw
