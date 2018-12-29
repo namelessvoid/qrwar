@@ -78,7 +78,7 @@ SID Board::typeName("qrw::Board");
 		_terrains.erase(position);
 	}
 
-	bool Board::isTerrainAt(const Coordinates &position)
+	bool Board::isTerrainAt(const Coordinates &position) const
 	{
 		return _terrains.find(position) != _terrains.end();
 	}

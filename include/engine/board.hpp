@@ -49,7 +49,7 @@ class SpriteComponent;
 
 			void setTerrain(const Coordinates& position, Terrain* terrain);
 			void removeTerrain(const Coordinates& position);
-			bool isTerrainAt(const Coordinates& position);
+			bool isTerrainAt(const Coordinates& position) const;
 			Terrain* getTerrain(const Coordinates& position);
 			std::map<Coordinates, Terrain*>& getTerrains();
 
