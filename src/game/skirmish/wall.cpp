@@ -3,11 +3,14 @@
 #include "game/constants.hpp"
 #include "game/skirmish/stairs.hpp"
 #include "game/skirmish/directions.hpp"
+#include "game/skirmish/isometricconversion.hpp"
 
 #include "gui/scene.hpp"
 #include "gui/texturemanager.hpp"
 #include "engine/board.hpp"
 #include "foundation/spritecomponent.hpp"
+
+#include "game/renderlayers.hpp"
 
 namespace qrw
 {
@@ -17,27 +20,16 @@ SID Wall::typeName("qrw::Wall");
 Wall::Wall()
   : Structure()
 {
-	spriteComponent_->setSize({2.0f * SQUARE_DIMENSION, 3.0f * SQUARE_DIMENSION});
-	spriteComponent_->setOrigin(SQUARE_DIMENSION, 2.0f * SQUARE_DIMENSION);
-}
+	eastWallSprite_ = new SpriteComponent(RENDER_LAYER_GAME);
+	eastWallSprite_->setSize({SQUARE_DIMENSION, 2.5f * SQUARE_DIMENSION});
+	eastWallSprite_->setOrigin(0, 1.5f * SQUARE_DIMENSION);
+	eastWallSprite_->setTexture(TextureManager::getInstance()->getTexture("wall_east"));
+	addComponent(eastWallSprite_);
 
-void Wall::computeTexture()
-{
-	std::string textureName = "wall";
-	Board* board = g_scene.findSingleGameObject<Board>();
-	if(board)
-	{
-		if(isConnectedTo(Directions::NORTH, *board))
-			textureName += 'N';
-		if(isConnectedTo(Directions::EAST, *board))
-			textureName += 'O';
-		if(isConnectedTo(Directions::SOUTH, *board))
-			textureName += 'S';
-		if(isConnectedTo(Directions::WEST, *board))
-			textureName += 'W';
-	}
-
-	spriteComponent_->setTexture(TextureManager::getInstance()->getTexture(textureName));
+	southWallSprite_ = new SpriteComponent(RENDER_LAYER_GAME);
+	southWallSprite_->setSize({SQUARE_DIMENSION, 2.5f * SQUARE_DIMENSION});
+	southWallSprite_->setOrigin(SQUARE_DIMENSION, 1.5f * SQUARE_DIMENSION);
+	southWallSprite_->setTexture(TextureManager::getInstance()->getTexture("wall_south"));
 }
 
 bool Wall::isConnectedTo(const Coordinates& direction, const Board& board) const
@@ -73,7 +65,9 @@ void Wall::update(float elapsedTimeInSeconds)
 				|| blocksVisibilityOn(getPosition() + Coordinates(-2, -1), *board);
 	}
 
-	spriteComponent_->setFillColor(makeTransparent ? sf::Color(255, 255, 255, 127) : sf::Color::White);
+	sf::Color color = makeTransparent ? sf::Color(255, 255, 255, 128) : sf::Color::White;
+	southWallSprite_->setFillColor(color);
+	eastWallSprite_->setFillColor(color);
 }
 
 bool Wall::blocksVisibilityOn(const Coordinates& position, const Board& board)
@@ -87,6 +81,20 @@ bool Wall::blocksVisibilityOn(const Coordinates& position, const Board& board)
 	}
 
 	return false;
+}
+
+void Wall::setPosition(const Coordinates& position)
+{
+	Structure::setPosition(position);
+
+	sf::Vector2f isometricPosition = worldToIso({SQUARE_DIMENSION * position_.getX(), SQUARE_DIMENSION * position.getY()});
+	eastWallSprite_->setPosition(isometricPosition);
+	southWallSprite_->setPosition(isometricPosition);
+}
+
+const sf::Texture* Wall::getTexture() const
+{
+	return TextureManager::getInstance()->getTexture("wall_south");
 }
 
 }

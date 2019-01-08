@@ -12,14 +12,6 @@
 namespace qrw
 {
 
-Structure::Structure()
-{
-	spriteComponent_ = new SpriteComponent(RENDER_LAYER_GAME);
-	spriteComponent_->setSize({2.0f * SQUARE_DIMENSION, SQUARE_DIMENSION});
-	spriteComponent_->setOrigin(SQUARE_DIMENSION, 0);
-	addComponent(spriteComponent_);
-}
-
 void Structure::onAddToScene()
 {
 	GameObject::onAddToScene();
@@ -41,12 +33,6 @@ void Structure::onDestroy()
 void Structure::setPosition(const Coordinates& position)
 {
 	position_ = position;
-	spriteComponent_->setPosition(worldToIso({SQUARE_DIMENSION * position_.getX(), SQUARE_DIMENSION * position.getY()}));
-}
-
-const sf::Texture* qrw::Structure::getTexture() const
-{
-	return spriteComponent_->getTexture();
 }
 
 void Structure::updateNeighborTextures()

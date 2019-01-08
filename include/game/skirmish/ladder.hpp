@@ -12,6 +12,11 @@ public:
 	const SID& getTypeName() const override;
 
 	Ladder();
+
+	const sf::Texture* getTexture() const override;
+
+private:
+	SpriteComponent* spriteComponent_;
 };
 
 } // namespace qrw

@@ -11,10 +11,15 @@ class Stairs : public WallAccessStructureBase
 public:
 	friend class StairsMetaClass;
 
+	const sf::Texture* getTexture() const override;
+
 	static SID typeName;
 	const SID& getTypeName() const override	{ return typeName; }
 
 	Stairs();
+
+private:
+	SpriteComponent* spriteComponent_;
 };
 
 } // namespace qrw

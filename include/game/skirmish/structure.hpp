@@ -20,7 +20,7 @@ friend class StructureMetaClass;
 public:
 	enum class Type { WALL, STAIRS };
 
-	Structure();
+	Structure() = default;
 
 	void onAddToScene() override;
 	void initialize() override;
@@ -30,12 +30,11 @@ public:
 	const Coordinates& getPosition() const { return position_; }
 
 	virtual void computeTexture() {}
-	const sf::Texture* getTexture() const;
+	virtual const sf::Texture* getTexture() const = 0;
 
 protected:
 	void updateNeighborTextures();
 
-	SpriteComponent* spriteComponent_;
 	Coordinates position_;
 };
 

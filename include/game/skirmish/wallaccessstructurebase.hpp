@@ -19,15 +19,11 @@ public:
 
 	WallAccessStructureBase();
 
-	void computeTexture() override;
-
 	const Coordinates& getFace() const { return face_; }
 
 	void rotate();
 
 	void setFace(const Coordinates& face);
-
-	void setPosition(const Coordinates& position) override;
 
 private:
 	Coordinates face_;
