@@ -52,7 +52,7 @@ void UnitMeleeAttackAbility::executeOn(const Coordinates& position)
 	if(opponent->getCurrentHp() <= 0)
 		return;
 
-	UnitMeleeAttackAbility* opponentAttackAbility = opponent->getComponent<UnitMeleeAttackAbility>();
+	UnitMeleeAttackAbility* opponentAttackAbility = opponent->getFirstComponent<UnitMeleeAttackAbility>();
 	opponentAttackAbility->counterAttack(*owner_);
 }
 

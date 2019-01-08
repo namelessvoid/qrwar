@@ -18,11 +18,10 @@ GameObject::~GameObject()
 		delete componentIterator.second;
 }
 
-void GameObject::addComponent(qrw::GameComponent* component)
+void GameObject::addComponent(GameComponent* component)
 {
 	assert(component!=nullptr);
-	assert(components_.find(typeid(*component))==components_.end());
-	components_[typeid(*component)] = component;
+	components_.insert(std::pair<std::type_index,GameComponent*>(typeid(*component), component));
 }
 
 void GameObject::onDestroy()

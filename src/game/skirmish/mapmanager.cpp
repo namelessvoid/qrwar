@@ -152,7 +152,7 @@ std::string MapManager::convertPathToMapName(const fs::path& filePath) const
 
 void MapManager::createAndSaveMapPreview(const std::string& mapName, const MapDto& dto)
 {
-	BoardBackgroundComponent* boardBackroundComponent = dto.board->getComponent<BoardBackgroundComponent>();
+	BoardBackgroundComponent* boardBackroundComponent = dto.board->getFirstComponent<BoardBackgroundComponent>();
 
 	sf::FloatRect boardBounds = boardBackroundComponent->getViewBounds();
 	sf::Vector2f viewCenter(boardBackroundComponent->getViewCenter());
@@ -165,9 +165,9 @@ void MapManager::createAndSaveMapPreview(const std::string& mapName, const MapDt
 
 	boardBackroundComponent->render(renderTexture);
 	for(auto& structureIter : dto.board->getStructures())
-		structureIter.second->getComponent<SpriteComponent>()->render(renderTexture);
+		structureIter.second->getFirstComponent<SpriteComponent>()->render(renderTexture);
 	for(auto& terrainIter : dto.board->getTerrains())
-		terrainIter.second->getComponent<SpriteComponent>()->render(renderTexture);
+		terrainIter.second->getFirstComponent<SpriteComponent>()->render(renderTexture);
 	for(auto& deploymentZone : dto.deploymentZones)
 		deploymentZone->render(renderTexture);
 

@@ -35,19 +35,19 @@ public:
 	virtual void update(float elapsedTimeInSeconds) {}
 
 	template<class T>
-	T* getComponent();
+	T* getFirstComponent();
 
 private:
 	bool initialized_;
 
-	std::map<std::type_index, GameComponent*> components_;
+	std::multimap<std::type_index, GameComponent*> components_;
 };
 
 template<class T>
-T* GameObject::getComponent()
+T* GameObject::getFirstComponent()
 {
 	assert(components_.find(typeid(T))!=components_.end());
-	return dynamic_cast<T*>(components_.at(typeid(T)));
+	return dynamic_cast<T*>(components_.find(typeid(T))->second);
 }
 
 } // namespace qrw
