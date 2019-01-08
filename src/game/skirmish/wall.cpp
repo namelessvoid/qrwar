@@ -30,6 +30,13 @@ Wall::Wall()
 	southWallSprite_->setSize({SQUARE_DIMENSION, 2.5f * SQUARE_DIMENSION});
 	southWallSprite_->setOrigin(SQUARE_DIMENSION, 1.5f * SQUARE_DIMENSION);
 	southWallSprite_->setTexture(TextureManager::getInstance()->getTexture("wall_south"));
+	addComponent(southWallSprite_);
+
+	topFloorSprite_ = new SpriteComponent(RENDER_LAYER_GAME);
+	topFloorSprite_->setSize({2.0f * SQUARE_DIMENSION, SQUARE_DIMENSION});
+	topFloorSprite_->setOrigin(SQUARE_DIMENSION, 0.5f * SQUARE_DIMENSION);
+	topFloorSprite_->setTexture(TextureManager::getInstance()->getTexture("wall_top"));
+	addComponent(topFloorSprite_);
 }
 
 bool Wall::isConnectedTo(const Coordinates& direction, const Board& board) const
@@ -90,6 +97,7 @@ void Wall::setPosition(const Coordinates& position)
 	sf::Vector2f isometricPosition = worldToIso({SQUARE_DIMENSION * position_.getX(), SQUARE_DIMENSION * position.getY()});
 	eastWallSprite_->setPosition(isometricPosition);
 	southWallSprite_->setPosition(isometricPosition);
+	topFloorSprite_->setPosition(isometricPosition - sf::Vector2f(0, 1.5f * SQUARE_DIMENSION));
 }
 
 const sf::Texture* Wall::getTexture() const

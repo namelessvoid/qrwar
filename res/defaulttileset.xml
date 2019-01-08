@@ -25,6 +25,7 @@
 	<file path="./res/img/structures/wall.png">
 		<tile name="wall_south" x="0"   y="200" width="50" height="125" />
 		<tile name="wall_east"  x="50"  y="200" width="50" height="125" />
+		<tile name="wall_top"   x="100" y="200" width="100" height="50" />
 
 		<tile name="wallN" x="0" y="200" width="100" height="150" />
 		<tile name="wallO" x="0" y="200" width="100" height="150" />

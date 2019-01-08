@@ -29,6 +29,7 @@ private:
 
 	SpriteComponent* southWallSprite_;
 	SpriteComponent* eastWallSprite_;
+	SpriteComponent* topFloorSprite_;
 };
 
 } // namespace qrw
