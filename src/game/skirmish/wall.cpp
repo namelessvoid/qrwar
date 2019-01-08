@@ -98,6 +98,7 @@ void Wall::setPosition(const Coordinates& position)
 	eastWallSprite_->setPosition(isometricPosition);
 	southWallSprite_->setPosition(isometricPosition);
 	topFloorSprite_->setPosition(isometricPosition - sf::Vector2f(0, 1.5f * SQUARE_DIMENSION));
+	topFloorSprite_->setZIndex(isometricPosition.y);
 }
 
 const sf::Texture* Wall::getTexture() const

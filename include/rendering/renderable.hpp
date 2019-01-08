@@ -24,17 +24,19 @@ public:
 
 	Layer getLayer();
 
-	inline bool isVisible() const { return m_visible; }
-	void setVisible(bool visible) { m_visible = visible; }
+	inline bool isVisible() const { return visible_; }
+	void setVisible(bool visible) { visible_ = visible; }
 
 	virtual void setPosition(const sf::Vector2f& position) = 0;
 	virtual const sf::Vector2f& getPosition() const = 0;
 
-	virtual float getZIndex() const { return getPosition().y; }
+	void setZIndex(float zIndex) { zIndex_ = zIndex; }
+	float getZIndex() const { return zIndex_; }
 
 private:
-	Layer m_layer;
-	bool m_visible;
+	Layer layer_;
+	float zIndex_;
+	bool visible_;
 };
 
 } // namespace qrw

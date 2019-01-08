@@ -40,6 +40,7 @@ const sf::Vector2f &SpriteComponent::getSize()
 void SpriteComponent::setPosition(const sf::Vector2f& position)
 {
 	_rectangle->setPosition(position);
+	setZIndex(position.y);
 }
 
 const sf::Vector2f& SpriteComponent::getPosition() const
