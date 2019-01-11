@@ -18,13 +18,11 @@ TEST(RenderSystem_RenderAll, Then_z_index_of_renderables_are_accounted_for)
 	renderSystem.startUp(texture);
 
 	RenderableMock a(0);
-	EXPECT_CALL(a, getZIndex())
-		.WillRepeatedly(Return(13));
+	a.setZIndex(13);
 	renderSystem.registerRenderable(&a);
 
 	RenderableMock b(0);
-	EXPECT_CALL(b, getZIndex())
-		.WillRepeatedly(Return(12));
+	b.setZIndex(12);
 	renderSystem.registerRenderable(&b);
 
 	// Assert
