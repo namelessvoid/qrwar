@@ -57,26 +57,6 @@ bool Wall::isConnectedTo(const Coordinates& direction, const Board& board) const
 	return false;
 }
 
-void Wall::update(float elapsedTimeInSeconds)
-{
-	GameObject::update(elapsedTimeInSeconds);
-
-	bool makeTransparent = false;
-	if(auto board = g_scene.findSingleGameObject<Board>())
-	{
-		makeTransparent = blocksVisibilityOn(getPosition() + Coordinates(-1, -1), *board)
-				|| blocksVisibilityOn(getPosition() + Coordinates(-2, -2), *board)
-				|| blocksVisibilityOn(getPosition() + Coordinates(0, -1), *board)
-				|| blocksVisibilityOn(getPosition() + Coordinates(-1, -2), *board)
-				|| blocksVisibilityOn(getPosition() + Coordinates(-1, 0), *board)
-				|| blocksVisibilityOn(getPosition() + Coordinates(-2, -1), *board);
-	}
-
-	sf::Color color = makeTransparent ? sf::Color(255, 255, 255, 128) : sf::Color::White;
-	southWallSprite_->setFillColor(color);
-	eastWallSprite_->setFillColor(color);
-}
-
 bool Wall::blocksVisibilityOn(const Coordinates& position, const Board& board)
 {
 	if(board.isTerrainAt(position)) return true;
@@ -88,6 +68,37 @@ bool Wall::blocksVisibilityOn(const Coordinates& position, const Board& board)
 	}
 
 	return false;
+}
+
+void Wall::update(float elapsedTimeInSeconds)
+{
+	Structure::update(elapsedTimeInSeconds);
+
+	if(auto board = g_scene.findSingleGameObject<Board>())
+	{
+		sf::Color translucentColor = sf::Color(255, 255, 255, 150);
+
+		bool hasNeighborInSouth = dynamic_cast<Wall*>(board->getStructure(getPosition() + Coordinates(0, 1))) != nullptr;
+		bool southWallOccludesEnvironment =
+				   blocksVisibilityOn(getPosition() + Coordinates(-1, 0), *board)
+				|| blocksVisibilityOn(getPosition() + Coordinates(-1, -1), *board)
+				|| blocksVisibilityOn(getPosition() + Coordinates(-2, -1), *board);
+
+		southWallSprite_->setVisible(!hasNeighborInSouth);
+		southWallSprite_->setFillColor(southWallOccludesEnvironment ? translucentColor : sf::Color::White);
+
+		bool hasNeighborInEast = dynamic_cast<Wall*>(board->getStructure(getPosition() + Coordinates(1, 0))) != nullptr;
+		bool eastWallOccludesEnvironment =
+				blocksVisibilityOn(getPosition() + Coordinates(0, -1), *board)
+				|| blocksVisibilityOn(getPosition() + Coordinates(-1, -1), *board)
+				|| blocksVisibilityOn(getPosition() + Coordinates(-1, -2), *board);
+
+		eastWallSprite_->setVisible(!hasNeighborInEast);
+		eastWallSprite_->setFillColor(eastWallOccludesEnvironment ? translucentColor : sf::Color::White);
+
+		bool topFloorOccludesEnvironment =  blocksVisibilityOn(getPosition() + Coordinates(-2, -2), *board);
+		topFloorSprite_->setFillColor(topFloorOccludesEnvironment ? translucentColor : sf::Color::White);
+	}
 }
 
 void Wall::setPosition(const Coordinates& position)
