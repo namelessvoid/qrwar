@@ -18,7 +18,8 @@ namespace qrw
 SID Wall::typeName("qrw::Wall");
 
 Wall::Wall()
-  : Structure()
+  : Structure(),
+	isFlatMode_(false)
 {
 	eastWallSprite_ = new SpriteComponent(RENDER_LAYER_GAME);
 	eastWallSprite_->setSize({SQUARE_DIMENSION, 2.5f * SQUARE_DIMENSION});
@@ -34,7 +35,7 @@ Wall::Wall()
 
 	topFloorSprite_ = new SpriteComponent(RENDER_LAYER_GAME);
 	topFloorSprite_->setSize({2.0f * SQUARE_DIMENSION, SQUARE_DIMENSION});
-	topFloorSprite_->setOrigin(SQUARE_DIMENSION, 0.5f * SQUARE_DIMENSION);
+	topFloorSprite_->setOrigin(SQUARE_DIMENSION, SQUARE_DIMENSION);
 	topFloorSprite_->setTexture(TextureManager::getInstance()->getTexture("wall_top"));
 	addComponent(topFloorSprite_);
 }
@@ -84,7 +85,7 @@ void Wall::update(float elapsedTimeInSeconds)
 				|| blocksVisibilityOn(getPosition() + Coordinates(-1, -1), *board)
 				|| blocksVisibilityOn(getPosition() + Coordinates(-2, -1), *board);
 
-		southWallSprite_->setVisible(!hasNeighborInSouth);
+		southWallSprite_->setVisible(!hasNeighborInSouth && !isFlatMode_);
 		southWallSprite_->setFillColor(southWallOccludesEnvironment ? translucentColor : sf::Color::White);
 
 		bool hasNeighborInEast = dynamic_cast<Wall*>(board->getStructure(getPosition() + Coordinates(1, 0))) != nullptr;
@@ -93,7 +94,7 @@ void Wall::update(float elapsedTimeInSeconds)
 				|| blocksVisibilityOn(getPosition() + Coordinates(-1, -1), *board)
 				|| blocksVisibilityOn(getPosition() + Coordinates(-1, -2), *board);
 
-		eastWallSprite_->setVisible(!hasNeighborInEast);
+		eastWallSprite_->setVisible(!hasNeighborInEast && !isFlatMode_);
 		eastWallSprite_->setFillColor(eastWallOccludesEnvironment ? translucentColor : sf::Color::White);
 
 		bool topFloorOccludesEnvironment =  blocksVisibilityOn(getPosition() + Coordinates(-2, -2), *board);
@@ -108,13 +109,22 @@ void Wall::setPosition(const Coordinates& position)
 	sf::Vector2f isometricPosition = worldToIso({SQUARE_DIMENSION * position_.getX(), SQUARE_DIMENSION * position.getY()});
 	eastWallSprite_->setPosition(isometricPosition);
 	southWallSprite_->setPosition(isometricPosition);
-	topFloorSprite_->setPosition(isometricPosition - sf::Vector2f(0, 1.5f * SQUARE_DIMENSION));
+	topFloorSprite_->setPosition(isometricPosition - sf::Vector2f(0, (float)(!isFlatMode_) * 2.0f * SQUARE_DIMENSION));
 	topFloorSprite_->setZIndex(isometricPosition.y);
 }
 
 const sf::Texture* Wall::getTexture() const
 {
 	return TextureManager::getInstance()->getTexture("wall_south");
+}
+
+void Wall::setFlatMode(bool isFlatMode)
+{
+	isFlatMode_ = isFlatMode;
+
+	sf::Vector2f isometricPosition = worldToIso({SQUARE_DIMENSION * position_.getX(), SQUARE_DIMENSION * position_.getY()});
+	topFloorSprite_->setPosition(isometricPosition - sf::Vector2f(0, (float)(!isFlatMode_) * 2.0f * SQUARE_DIMENSION));
+	topFloorSprite_->setZIndex(isometricPosition.y);
 }
 
 }

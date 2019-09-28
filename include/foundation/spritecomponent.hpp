@@ -21,9 +21,9 @@ namespace qrw
 class SpriteComponent : public GameComponent, public Renderable
 {
 public:
-	SpriteComponent(Layer layer);
+	explicit SpriteComponent(Layer layer);
 
-	virtual ~SpriteComponent();
+	~SpriteComponent() override;
 
 	void setTexture(const sf::Texture* texture);
 

@@ -55,6 +55,8 @@ void SpriteComponent::setFillColor(const sf::Color &color)
 
 void SpriteComponent::render(sf::RenderTarget &renderTarget)
 {
+	if(!isVisible()) return;
+
 	renderTarget.draw(*_rectangle);
 }
 

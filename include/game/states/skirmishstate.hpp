@@ -4,6 +4,7 @@
 #include "game/states/scenestate.hpp"
 
 #include "engine/board.hpp"
+#include "game/skirmish/toggleflatmodehandler.hpp"
 #include "game/skirmish/unit.hpp"
 #include "engine/player.hpp"
 
@@ -32,6 +33,7 @@ public:
 	bool handleEvent(const IEvent &event) override;
 
 private:
+	ToggleFlatModeHandler toggleFlatModeHandler_;
 	void slotCursorMoved(const Coordinates& boardPosition) override;
 	void slotCursorLeftClicked(const Coordinates& boardPosition) override;
 

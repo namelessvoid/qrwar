@@ -18,6 +18,8 @@ public:
 
 	Stairs();
 
+	void setFlatMode(bool isFlatMode) override {}
+
 private:
 	SpriteComponent* spriteComponent_;
 };

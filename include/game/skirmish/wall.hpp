@@ -23,9 +23,13 @@ public:
 
 	void setPosition(const Coordinates& position) override;
 
+	void setFlatMode(bool isFlatMode);
+
 private:
 	bool isConnectedTo(const Coordinates& direction, const Board& board) const;
 	bool blocksVisibilityOn(const Coordinates& position, const Board& board);
+
+	bool isFlatMode_;
 
 	SpriteComponent* southWallSprite_;
 	SpriteComponent* eastWallSprite_;

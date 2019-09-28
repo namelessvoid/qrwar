@@ -15,6 +15,8 @@ public:
 
 	const sf::Texture* getTexture() const override;
 
+	void setFlatMode(bool isFlatMode) override {}
+
 private:
 	SpriteComponent* spriteComponent_;
 };

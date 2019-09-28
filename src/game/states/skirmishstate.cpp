@@ -25,6 +25,7 @@ namespace qrw
 
 SkirmishState::SkirmishState(sf::RenderWindow* renderWindow)
 	: SceneState(renderWindow, EGameStateId::EGSID_SKIRMISH_STATE),
+	  toggleFlatModeHandler_(),
 	  _selectedUnit(nullptr),
 	  m_victoryGui(new namelessgui::Gui(renderWindow))
 {

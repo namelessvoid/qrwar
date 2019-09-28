@@ -19,6 +19,7 @@ namespace qrw
 
 MapEditorState::MapEditorState(sf::RenderWindow* renderWindow, MapManager& mapManager, SkirmishGuiFactory& guiFactory)
 	: SceneState(renderWindow, EGameStateId::EGSID_MAP_EDITOR_STATE),
+	  toggleFlatModeHandler_(),
 	  mapManager(mapManager)
 {
 	cursorMode_ = CursorMode::PLACE_TERRAIN;
@@ -259,6 +260,7 @@ void MapEditorState::placeStructure(const Coordinates& position, Structure::Type
 
 	auto structure = structureFactory_.createStructure(structureId);
 	structure->setPosition(position);
+	structure->setFlatMode(toggleFlatModeHandler_.isFlatMode());
 	g_scene.addGameObject(structure);
 	_spBoard->setStructure(position, structure);
 }

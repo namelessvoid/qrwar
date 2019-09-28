@@ -27,6 +27,7 @@ namespace qrw
 
 DeployState::DeployState(sf::RenderWindow* renderWindow, MapManager& mapManager)
     : SceneState(renderWindow, EGameStateId::EGSID_DEPLOY_STATE),
+	  toggleFlatModeHandler_(),
 	  mapManager_(mapManager),
 	  board_(nullptr),
       _toSkirmish(false)
