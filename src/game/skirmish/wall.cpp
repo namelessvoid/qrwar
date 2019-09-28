@@ -58,50 +58,6 @@ bool Wall::isConnectedTo(const Coordinates& direction, const Board& board) const
 	return false;
 }
 
-bool Wall::blocksVisibilityOn(const Coordinates& position, const Board& board)
-{
-	if(board.isTerrainAt(position)) return true;
-	if(board.isUnitAt(position)) return true;
-
-	if(auto structure = board.getStructure(position))
-	{
-		return dynamic_cast<Wall*>(structure) == nullptr;
-	}
-
-	return false;
-}
-
-void Wall::update(float elapsedTimeInSeconds)
-{
-	Structure::update(elapsedTimeInSeconds);
-
-	if(auto board = g_scene.findSingleGameObject<Board>())
-	{
-		sf::Color translucentColor = sf::Color(255, 255, 255, 155);
-
-		bool hasNeighborInSouth = dynamic_cast<Wall*>(board->getStructure(getPosition() + Coordinates(0, 1))) != nullptr;
-		bool southWallOccludesEnvironment =
-				   blocksVisibilityOn(getPosition() + Coordinates(-1, 0), *board)
-				|| blocksVisibilityOn(getPosition() + Coordinates(-1, -1), *board)
-				|| blocksVisibilityOn(getPosition() + Coordinates(-2, -1), *board);
-
-		southWallSprite_->setVisible(!hasNeighborInSouth && !isFlatMode_);
-		southWallSprite_->setFillColor(southWallOccludesEnvironment ? translucentColor : sf::Color::White);
-
-		bool hasNeighborInEast = dynamic_cast<Wall*>(board->getStructure(getPosition() + Coordinates(1, 0))) != nullptr;
-		bool eastWallOccludesEnvironment =
-				blocksVisibilityOn(getPosition() + Coordinates(0, -1), *board)
-				|| blocksVisibilityOn(getPosition() + Coordinates(-1, -1), *board)
-				|| blocksVisibilityOn(getPosition() + Coordinates(-1, -2), *board);
-
-		eastWallSprite_->setVisible(!hasNeighborInEast && !isFlatMode_);
-		eastWallSprite_->setFillColor(eastWallOccludesEnvironment ? translucentColor : sf::Color::White);
-
-		bool topFloorOccludesEnvironment =  blocksVisibilityOn(getPosition() + Coordinates(-2, -2), *board);
-		topFloorSprite_->setFillColor(topFloorOccludesEnvironment ? translucentColor : sf::Color::White);
-	}
-}
-
 void Wall::setPosition(const Coordinates& position)
 {
 	Structure::setPosition(position);
@@ -125,6 +81,9 @@ void Wall::setFlatMode(bool isFlatMode)
 	sf::Vector2f isometricPosition = worldToIso({SQUARE_DIMENSION * position_.getX(), SQUARE_DIMENSION * position_.getY()});
 	topFloorSprite_->setPosition(isometricPosition - sf::Vector2f(0, (float)(!isFlatMode_) * 2.0f * SQUARE_DIMENSION));
 	topFloorSprite_->setZIndex(isometricPosition.y);
+
+	southWallSprite_->setVisible(!isFlatMode_);
+	eastWallSprite_->setVisible(!isFlatMode_);
 }
 
 }

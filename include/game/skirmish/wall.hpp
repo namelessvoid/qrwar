@@ -13,8 +13,6 @@ public:
 	static SID typeName;
 	const SID& getTypeName() const override	{ return typeName; }
 
-	void update(float elapsedTimeInSeconds) override;
-
 	const sf::Texture* getTexture() const override;
 
 	Wall();
@@ -23,11 +21,10 @@ public:
 
 	void setPosition(const Coordinates& position) override;
 
-	void setFlatMode(bool isFlatMode);
+	void setFlatMode(bool isFlatMode) override;
 
 private:
 	bool isConnectedTo(const Coordinates& direction, const Board& board) const;
-	bool blocksVisibilityOn(const Coordinates& position, const Board& board);
 
 	bool isFlatMode_;
 
