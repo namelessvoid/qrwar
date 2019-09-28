@@ -16,7 +16,7 @@ namespace qrw
 SquareMarker::SquareMarker()
 	: m_boardPosition(0, 0)
 {
-	m_spriteComponent = new SpriteComponent(RENDER_LAYER_CURSOR);
+	m_spriteComponent = new SpriteComponent(RENDER_LAYER_GAME);
 	m_spriteComponent->setSize({2.0f * SQUARE_DIMENSION, SQUARE_DIMENSION});
 	markValid();
 	addComponent(m_spriteComponent);
@@ -31,8 +31,11 @@ void SquareMarker::setBoardPosition(const Coordinates& boardPosition)
 {
 	m_boardPosition = boardPosition;
 
+	auto isoPosition = worldToIso({SQUARE_DIMENSION * m_boardPosition.getX(), SQUARE_DIMENSION * m_boardPosition.getY()});
+
 	m_spriteComponent->setOrigin(SQUARE_DIMENSION, 0.0f);
-	m_spriteComponent->setPosition(worldToIso({SQUARE_DIMENSION * m_boardPosition.getX(), SQUARE_DIMENSION * m_boardPosition.getY()}));
+	m_spriteComponent->setPosition(isoPosition);
+	m_spriteComponent->setZIndex(isoPosition.y);
 }
 
 bool SquareMarker::isVisible() const
