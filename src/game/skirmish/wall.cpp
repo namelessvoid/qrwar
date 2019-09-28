@@ -35,7 +35,7 @@ Wall::Wall()
 
 	topFloorSprite_ = new SpriteComponent(RENDER_LAYER_GAME);
 	topFloorSprite_->setSize({2.0f * SQUARE_DIMENSION, SQUARE_DIMENSION});
-	topFloorSprite_->setOrigin(SQUARE_DIMENSION, SQUARE_DIMENSION);
+	topFloorSprite_->setOrigin(SQUARE_DIMENSION, 0.0f);
 	topFloorSprite_->setTexture(TextureManager::getInstance()->getTexture("wall_top"));
 	addComponent(topFloorSprite_);
 }
@@ -77,7 +77,7 @@ void Wall::update(float elapsedTimeInSeconds)
 
 	if(auto board = g_scene.findSingleGameObject<Board>())
 	{
-		sf::Color translucentColor = sf::Color(255, 255, 255, 150);
+		sf::Color translucentColor = sf::Color(255, 255, 255, 155);
 
 		bool hasNeighborInSouth = dynamic_cast<Wall*>(board->getStructure(getPosition() + Coordinates(0, 1))) != nullptr;
 		bool southWallOccludesEnvironment =
