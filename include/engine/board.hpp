@@ -51,7 +51,7 @@ class SpriteComponent;
 			void removeTerrain(const Coordinates& position);
 			bool isTerrainAt(const Coordinates& position) const;
 			Terrain* getTerrain(const Coordinates& position);
-			std::map<Coordinates, Terrain*>& getTerrains();
+			std::map<Coordinates, Terrain*> getTerrains();
 
 			void setStructure(const Coordinates& position, Structure* structure);
 			Structure* getStructure(const Coordinates& position) const;

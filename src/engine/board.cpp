@@ -89,7 +89,7 @@ SID Board::typeName("qrw::Board");
 		return iterator == _terrains.end() ? nullptr : iterator->second;
 	}
 
-	std::map<Coordinates, Terrain*>& Board::getTerrains()
+	std::map<Coordinates, Terrain*> Board::getTerrains()
 	{
 		return _terrains;
 	}
