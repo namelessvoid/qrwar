@@ -22,6 +22,7 @@ void WallAccessStructureBase::rotate()
 	else if(face_ == qrw::Directions::WEST)
 		face_ = qrw::Directions::NORTH;
 
+	computeTexture();
 	qrw::Structure::updateNeighborTextures();
 }
 

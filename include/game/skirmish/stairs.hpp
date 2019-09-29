@@ -20,6 +20,10 @@ public:
 
 	void setFlatMode(bool isFlatMode) override {}
 
+	void setPosition(const Coordinates& position) override;
+
+	void computeTexture() override;
+
 private:
 	SpriteComponent* spriteComponent_;
 };
