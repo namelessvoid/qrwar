@@ -7,13 +7,9 @@
 #include "game/skirmish/unitmeleeattackability.hpp"
 #include "game/skirmish/wall.hpp"
 
-using namespace qrw;
+#include "__mocks__/game/skirmish/unitmock.hpp"
 
-class UnitMock : public Unit
-{
-public:
-	void setPlayer(std::shared_ptr<Player>& player) override { Unit::setPlayer(player); }
-};
+using namespace qrw;
 
 TEST(UnitMeleeAttackAbility_CanBeExecutedOn, If_there_is_no_opponent_Then_false_is_returned)
 {

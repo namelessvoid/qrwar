@@ -24,7 +24,14 @@ namespace qrw
 {
 
 Unit::Unit()
-	: EventHandler(EventHandlerPriority::DEFAULT)
+	: EventHandler(EventHandlerPriority::DEFAULT),
+	  _type(EUT_NUMBEROFUNITTYPES),
+	  _hp(0),
+	  _maxhp(0),
+	  _attackvalue(0),
+	  _defensevalue(0),
+	  _movement(0),
+	  _currentmovement(0)
 {
 	_sprite = new SpriteComponent(RENDER_LAYER_GAME);
 	addComponent(_sprite);

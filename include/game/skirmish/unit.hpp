@@ -71,7 +71,7 @@ public:
 	int getCurrentMovement() const;
 	void setCurrentMovement(int movement);
 
-	void setWorldPosition(const sf::Vector2f& worldPosition);
+	virtual void setWorldPosition(const sf::Vector2f& worldPosition);
 	const sf::Vector2f& getWorldPosition() const;
 
 	const Coordinates& getBoardPosition() const;
