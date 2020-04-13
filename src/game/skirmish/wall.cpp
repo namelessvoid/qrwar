@@ -4,6 +4,7 @@
 #include "game/skirmish/stairs.hpp"
 #include "game/skirmish/directions.hpp"
 #include "game/skirmish/isometricconversion.hpp"
+#include "game/skirmish/boardtoworldconversion.hpp"
 
 #include "gui/scene.hpp"
 #include "gui/texturemanager.hpp"
@@ -62,7 +63,7 @@ void Wall::setPosition(const Coordinates& position)
 {
 	Structure::setPosition(position);
 
-	sf::Vector2f isometricPosition = worldToIso({SQUARE_DIMENSION * position_.getX(), SQUARE_DIMENSION * position.getY()});
+	sf::Vector2f isometricPosition = worldToIso(boardToWorld(position));
 	eastWallSprite_->setPosition(isometricPosition);
 	southWallSprite_->setPosition(isometricPosition);
 	topFloorSprite_->setPosition(isometricPosition - sf::Vector2f(0, (float)(!isFlatMode_) * 2.0f * SQUARE_DIMENSION));
@@ -78,7 +79,7 @@ void Wall::setFlatMode(bool isFlatMode)
 {
 	isFlatMode_ = isFlatMode;
 
-	sf::Vector2f isometricPosition = worldToIso({SQUARE_DIMENSION * position_.getX(), SQUARE_DIMENSION * position_.getY()});
+	sf::Vector2f isometricPosition = worldToIso(boardToWorld(position_));
 	topFloorSprite_->setPosition(isometricPosition - sf::Vector2f(0, (float)(!isFlatMode_) * 2.0f * SQUARE_DIMENSION));
 	topFloorSprite_->setZIndex(isometricPosition.y);
 
