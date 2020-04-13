@@ -15,7 +15,7 @@ class Renderable;
 class FollowRouteAnimationComponent : public GameComponent, public Animation
 {
 public:
-	explicit FollowRouteAnimationComponent(Renderable* renderable);
+	explicit FollowRouteAnimationComponent(class Unit* unit);
 
 	void start() override;
 
@@ -23,10 +23,11 @@ public:
 
 	void animate(float deltaTime) override;
 
-	void addCorner(const sf::Vector2f edge) { corners_.push_back(edge); }
+	// Add a new corner to the animation path. Note that this has to be in world coordinates.
+	void addCorner(const sf::Vector2f worldPosition) { corners_.push_back(worldPosition); }
 
 private:
-	Renderable* renderable_;
+	class Unit* unit_;
 
 	std::vector<sf::Vector2f> corners_;
 };

@@ -1,5 +1,3 @@
-#include <cstdio>
-
 #include "game/skirmish/unit.hpp"
 
 #include "engine/board.hpp"
@@ -20,6 +18,7 @@
 #include "game/skirmish/unitmovementability.hpp"
 #include "game/skirmish/unitmeleeattackability.hpp"
 #include "game/skirmish/isometricconversion.hpp"
+#include "game/skirmish/boardtoworldconversion.hpp"
 
 namespace qrw
 {
@@ -32,7 +31,7 @@ Unit::Unit()
 	_sprite->setSize({SQUARE_DIMENSION, SQUARE_DIMENSION});
 	_sprite->setOrigin(SQUARE_DIMENSION * 0.5f, 0);
 
-	followRouteAnimationComponent_ = new FollowRouteAnimationComponent(_sprite);
+	followRouteAnimationComponent_ = new FollowRouteAnimationComponent(this);
 	addComponent(followRouteAnimationComponent_);
 
 	movementAbility_ = new UnitMovementAbility(this);
@@ -132,6 +131,30 @@ int Unit::getCurrentMovement() const
 	return _currentmovement;
 }
 
+void Unit::setWorldPosition(const sf::Vector2f& worldPosition)
+{
+	auto isoPosition = worldToIso(worldPosition);
+	auto zIndex = isoPosition.y;
+
+	// Account structures at provided worldPosition
+	Coordinates boardPosition = worldToBoard(worldPosition);
+	Board* board = g_scene.findSingleGameObject<Board>();
+	if(auto structure = board->getStructure(boardPosition)) {
+		if(dynamic_cast<Wall*>(structure) != nullptr) {
+			isoPosition.y -= 2.0f * SQUARE_DIMENSION;
+			zIndex += 0.1;
+		}
+	}
+
+	_sprite->setPosition(isoPosition);
+	_sprite->setZIndex(zIndex);
+}
+
+const sf::Vector2f& Unit::getWorldPosition() const
+{
+	return worldPosition_;
+}
+
 const Coordinates& Unit::getBoardPosition() const
 {
 	return _boardPosition;
@@ -166,16 +189,13 @@ void Unit::move(const Path& path)
 {
 	setBoardPosition_(path.last());
 
-	for(int i = 0; i < path.getLength(); ++i)
-	{
+	for(int i = 0; i < path.getLength(); ++i) {
 		// Skip current start position on running animation since it is already
 		// part of the animation (animation.last_step == path.first_step)
-		if(followRouteAnimationComponent_->isRunning() && i == 0) continue;
+		if (followRouteAnimationComponent_->isRunning() && i == 0) continue;
 
 		const Coordinates& step = path.getStep(i);
-		followRouteAnimationComponent_->addCorner(
-			worldToIso(sf::Vector2f{step.getX() * SQUARE_DIMENSION, step.getY() * SQUARE_DIMENSION})
-		);
+		followRouteAnimationComponent_->addCorner(boardToWorld(step));
 	}
 
 	if(!followRouteAnimationComponent_->isRunning())
@@ -186,19 +206,8 @@ void Unit::deploy(const Coordinates& boardPosition)
 {
 	setBoardPosition_(boardPosition);
 
-	auto isoPosition = worldToIso({SQUARE_DIMENSION * _boardPosition.getX(), SQUARE_DIMENSION * _boardPosition.getY()});
-	auto zIndex = isoPosition.y;
-
-	auto board = g_scene.findSingleGameObject<Board>();
-	if(auto structure = board->getStructure(_boardPosition)) {
-		if(auto wall = dynamic_cast<Wall*>(structure)) {
-			isoPosition.y -= 2.0f * SQUARE_DIMENSION;
-			zIndex += 0.1f;
-		}
-	}
-
-	_sprite->setPosition(isoPosition);
-	_sprite->setZIndex(zIndex);
+	auto worldPosition = boardToWorld(boardPosition);
+	setWorldPosition(worldPosition);
 }
 
 UnitAbility* Unit::updateAbilitiesToTarget(const Coordinates& boardPosition)

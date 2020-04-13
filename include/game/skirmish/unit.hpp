@@ -71,6 +71,9 @@ public:
 	int getCurrentMovement() const;
 	void setCurrentMovement(int movement);
 
+	void setWorldPosition(const sf::Vector2f& worldPosition);
+	const sf::Vector2f& getWorldPosition() const;
+
 	const Coordinates& getBoardPosition() const;
 
 	void deploy(const Coordinates& boardPosition);
@@ -117,7 +120,14 @@ private:
 	int _currentmovement;
 	Player::Ptr _player;
 
+	// Defines the position on the board used mainly for game rules. This is not affected by
+	// animations.
 	Coordinates _boardPosition;
+
+	// In contrast to the _boardPosition, worldPosition_ defines the current placement
+	// of the unit in world coordinates. These are used for visually representing the unit
+	// and not for the game logic per se.
+	sf::Vector2f worldPosition_;
 
 	FollowRouteAnimationComponent* followRouteAnimationComponent_;
 

@@ -74,6 +74,7 @@ add_library(qrwarlib
 	game/skirmish/coordinates.cpp
 	game/skirmish/directions.cpp
 	game/skirmish/isometricconversion.cpp
+	game/skirmish/boardtoworldconversion.cpp
 	game/skirmish/toggleflatmodehandler.cpp
 
 	game/skirmish/gui/victorydialog.cpp
