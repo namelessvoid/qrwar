@@ -250,7 +250,7 @@ void DeployState::slotCursorLeftClicked(const Coordinates& boardPosition)
 		g_scene.destroy(unit);
 
 	Unit* unit = UnitFactory::createUnit(_selectedUnitType, _selectedPlayer);
-	unit->setPosition(boardPosition);
+	unit->deploy(boardPosition);
 	g_scene.addGameObject(unit);
 }
 

@@ -19,7 +19,6 @@ Archer::Archer()
 
 	setAttack(1);
 	setDefense(1);
-	setRange(2);
 	setMaxMovement(2);
 	setCurrentMovement(2);
 

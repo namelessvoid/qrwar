@@ -10,13 +10,13 @@
 #include "foundation/followrouteanimationcomponent.hpp"
 #include "gui/scene.hpp"
 
-#include "gui/guihelper.hpp"
 #include "gui/texturemanager.hpp"
 
 #include "game/renderlayers.hpp"
 #include "game/constants.hpp"
 #include "game/damagenumber.hpp"
 #include "game/path.hpp"
+#include "game/skirmish/wall.hpp"
 #include "game/skirmish/unitmovementability.hpp"
 #include "game/skirmish/unitmeleeattackability.hpp"
 #include "game/skirmish/isometricconversion.hpp"
@@ -47,8 +47,8 @@ Unit::Unit()
 void Unit::onDestroy()
 {
 	Board* board = g_scene.findSingleGameObject<Board>();
-	if(board && board->getUnit(_position) == this)
-		board->removeUnit(_position);
+	if(board && board->getUnit(_boardPosition) == this)
+		board->removeUnit(_boardPosition);
 
 	// Trigger destruction of abilities
 	specialAbilities_.clear();
@@ -74,8 +74,8 @@ int Unit::getModifiedAttack()
 	int modifiedAttack = getBaseAttack();
 
 	Board* board = g_scene.findSingleGameObject<Board>();
-	if(board && board->isTerrainAt(getPosition()))
-		modifiedAttack += board->getTerrain(getPosition())->getModificator(EM_ATTACK);
+	if(board && board->isTerrainAt(getBoardPosition()))
+		modifiedAttack += board->getTerrain(getBoardPosition())->getModificator(EM_ATTACK);
 
 	return modifiedAttack < 0 ? 0 : modifiedAttack;
 }
@@ -90,8 +90,8 @@ int Unit::getModifiedDefense()
 	int modifiedDefense = getBaseDefense();
 
 	Board* board = g_scene.findSingleGameObject<Board>();
-	if(board && board->isTerrainAt(getPosition()))
-		modifiedDefense += board->getTerrain(getPosition())->getModificator(EM_DEFENSE);
+	if(board && board->isTerrainAt(getBoardPosition()))
+		modifiedDefense += board->getTerrain(getBoardPosition())->getModificator(EM_DEFENSE);
 
 	return modifiedDefense < 0 ? 0 : modifiedDefense;
 }
@@ -132,15 +132,9 @@ int Unit::getCurrentMovement() const
 	return _currentmovement;
 }
 
-const Coordinates& Unit::getPosition() const
+const Coordinates& Unit::getBoardPosition() const
 {
-	return _position;
-}
-
-void Unit::setPosition(const Coordinates& position)
-{
-	setPosition_(position);
-	_sprite->setPosition(worldToIso({SQUARE_DIMENSION * _position.getX(), SQUARE_DIMENSION * _position.getY()}));
+	return _boardPosition;
 }
 
 void Unit::setTexture(const sf::Texture *texture)
@@ -158,19 +152,19 @@ void Unit::setCurrentMovement(int movement)
 		_currentmovement = movement;
 }
 
-void Unit::setPosition_(const Coordinates& position)
+void Unit::setBoardPosition_(const Coordinates& boardPosition)
 {
 	Board* board = g_scene.findSingleGameObject<Board>();
-	if (board->getUnit(_position) == this)
-		board->removeUnit(_position);
+	if (board->getUnit(_boardPosition) == this)
+		board->removeUnit(_boardPosition);
 
-	_position = position;
-	board->setUnit(_position, this);
+	_boardPosition = boardPosition;
+	board->setUnit(_boardPosition, this);
 }
 
 void Unit::move(const Path& path)
 {
-	setPosition_(path.last());
+	setBoardPosition_(path.last());
 
 	for(int i = 0; i < path.getLength(); ++i)
 	{
@@ -186,6 +180,25 @@ void Unit::move(const Path& path)
 
 	if(!followRouteAnimationComponent_->isRunning())
 		followRouteAnimationComponent_->start();
+}
+
+void Unit::deploy(const Coordinates& boardPosition)
+{
+	setBoardPosition_(boardPosition);
+
+	auto isoPosition = worldToIso({SQUARE_DIMENSION * _boardPosition.getX(), SQUARE_DIMENSION * _boardPosition.getY()});
+	auto zIndex = isoPosition.y;
+
+	auto board = g_scene.findSingleGameObject<Board>();
+	if(auto structure = board->getStructure(_boardPosition)) {
+		if(auto wall = dynamic_cast<Wall*>(structure)) {
+			isoPosition.y -= 2.0f * SQUARE_DIMENSION;
+			zIndex += 0.1f;
+		}
+	}
+
+	_sprite->setPosition(isoPosition);
+	_sprite->setZIndex(zIndex);
 }
 
 UnitAbility* Unit::updateAbilitiesToTarget(const Coordinates& boardPosition)

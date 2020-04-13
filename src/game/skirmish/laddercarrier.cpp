@@ -19,7 +19,6 @@ LadderCarrier::LadderCarrier()
 
 	setAttack(2);
 	setDefense(0);
-	setRange(1);
 
 	setMaxMovement(3);
 	setCurrentMovement(3);

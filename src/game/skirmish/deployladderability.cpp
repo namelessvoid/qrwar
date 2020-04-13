@@ -50,7 +50,7 @@ void DeployLadderAbility::executeOn(const Coordinates& position)
 	if(!board) return;
 
 	Ladder* ladder = g_scene.spawn<Ladder>();
-	ladder->setPosition(owner_->getPosition());
+	ladder->setPosition(owner_->getBoardPosition());
 	ladder->setFace(position - ladder->getPosition());
 	board->setStructure(ladder->getPosition(), ladder);
 
@@ -68,8 +68,8 @@ bool DeployLadderAbility::canBeExecutedOn(const Coordinates& position)
 	Board* board = g_scene.findSingleGameObject<Board>();
 	assert(board != nullptr);
 
-	return owner_->getPosition().distanceTo(position) == 1
-	&& board->getStructure(owner_->getPosition()) == nullptr
+	return owner_->getBoardPosition().distanceTo(position) == 1
+	&& board->getStructure(owner_->getBoardPosition()) == nullptr
 	&& dynamic_cast<Wall*>(board->getStructure(position)) != nullptr;
 }
 

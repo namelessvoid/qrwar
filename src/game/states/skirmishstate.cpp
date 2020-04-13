@@ -142,7 +142,7 @@ void SkirmishState::slotCursorLeftClicked(const Coordinates& boardPosition)
 			abilityExecuted = _selectedUnit->tryExecuteAbility(boardPosition);
 		}
 
-		_squareMarker->setBoardPosition(_selectedUnit->getPosition());
+		_squareMarker->setBoardPosition(_selectedUnit->getBoardPosition());
 
 		if(_selectedUnit->getCurrentHp() == 0)
 			deselectSquare();
@@ -160,7 +160,7 @@ void SkirmishState::slotCursorLeftClicked(const Coordinates& boardPosition)
 	}
 
 	if(_selectedUnit)
-		_squareDetailWindow->display(_selectedUnit->getPosition(), *_board, *_players[_currentPlayer]);
+		_squareDetailWindow->display(_selectedUnit->getBoardPosition(), *_board, *_players[_currentPlayer]);
 	else
 		_squareDetailWindow->display(boardPosition, *_board, *_players[_currentPlayer]);
 }

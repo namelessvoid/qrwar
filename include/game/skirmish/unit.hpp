@@ -71,9 +71,9 @@ public:
 	int getCurrentMovement() const;
 	void setCurrentMovement(int movement);
 
-	const Coordinates& getPosition() const;
+	const Coordinates& getBoardPosition() const;
 
-	void setPosition(const Coordinates& position);
+	void deploy(const Coordinates& boardPosition);
 	void move(const Path& path);
 
 	inline const std::list<UnitAbility*>& getAbilities() const { return specialAbilities_; }
@@ -94,8 +94,6 @@ protected:
 
 	void setDefense(int defense) { _defensevalue = defense; }
 
-	void setRange(int range) { _range = range; }
-
 	void setMaxMovement(int movement) { _movement = movement; }
 
 	void addAbility(UnitAbility* ability);
@@ -106,7 +104,7 @@ protected:
 	class UnitMeleeAttackAbility* attackAbility_;
 
 private:
-	void setPosition_(const Coordinates& position);
+	void setBoardPosition_(const Coordinates& boardPosition);
 
 	void setTexture(const sf::Texture* texture);
 
@@ -115,12 +113,11 @@ private:
 	int _maxhp;
 	int _attackvalue;
 	int _defensevalue;
-	int _range;
 	int _movement;
 	int _currentmovement;
 	Player::Ptr _player;
 
-	Coordinates _position;
+	Coordinates _boardPosition;
 
 	FollowRouteAnimationComponent* followRouteAnimationComponent_;
 

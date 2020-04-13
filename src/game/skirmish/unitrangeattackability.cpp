@@ -62,7 +62,7 @@ bool UnitRangeAttackAbility::canBeExecutedOn(const Coordinates& position)
 {
 	if(!UnitAbility::canBeExecutedOn(position)) return false;
 
-	unsigned int distanceToTarget = owner_->getPosition().distanceTo(position);
+	unsigned int distanceToTarget = owner_->getBoardPosition().distanceTo(position);
 	if(distanceToTarget < minRange_ || distanceToTarget > maxRange_) return false;
 
 	if(owner_->getCurrentMovement() <= 0) return false;

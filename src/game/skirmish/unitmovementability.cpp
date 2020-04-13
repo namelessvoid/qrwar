@@ -16,7 +16,7 @@ UnitMovementAbility::UnitMovementAbility(Unit* owner)
 
 void UnitMovementAbility::executeOn(const Coordinates& position)
 {
-	path_->setStartAndEnd(owner_->getPosition(), position);
+	path_->setStartAndEnd(owner_->getBoardPosition(), position);
 
 	int remainingMovement = owner_->getCurrentMovement() - path_->getMovementCosts();
 	owner_->setCurrentMovement(remainingMovement);
@@ -32,7 +32,7 @@ bool UnitMovementAbility::canBeExecutedOn(const Coordinates& position)
 	Board* board = g_scene.findSingleGameObject<Board>();
 	if(!board) return false;
 
-	std::unique_ptr<pathfinding::Path> intermediatePath(board->findPath(owner_->getPosition(), position));
+	std::unique_ptr<pathfinding::Path> intermediatePath(board->findPath(owner_->getBoardPosition(), position));
 	if(!intermediatePath) return false;
 
 	return intermediatePath->getMovementCosts() <= owner_->getCurrentMovement();
@@ -46,7 +46,7 @@ void UnitMovementAbility::deactivate()
 
 void UnitMovementAbility::updateActiveVisualization(const Coordinates& position)
 {
-	path_->setStartAndEnd(owner_->getPosition(), position);
+	path_->setStartAndEnd(owner_->getBoardPosition(), position);
 }
 
 void UnitMovementAbility::onDestroy()

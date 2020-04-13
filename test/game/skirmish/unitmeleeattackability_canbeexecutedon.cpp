@@ -24,7 +24,7 @@ TEST(UnitMeleeAttackAbility_CanBeExecutedOn, If_there_is_no_opponent_Then_false_
 	g_scene.addGameObject(board);
 
 	UnitMock unit;
-	unit.setPosition({0, 0});
+	unit.deploy({0, 0});
 	UnitMeleeAttackAbility meleeAttackAbility(&unit);
 
 	// Act
@@ -43,7 +43,7 @@ TEST(UnitMeleeAttackAbility_CanBeExecutedOn, If_there_is_a_friendly_unit_Then_fa
 	g_scene.addGameObject(board);
 
 	UnitMock unit;
-	unit.setPosition({0, 0});
+	unit.deploy({0, 0});
 	auto player1 = std::make_shared<Player>();
 	unit.setPlayer(player1);
 	UnitMeleeAttackAbility meleeAttackAbility(&unit);
@@ -68,7 +68,7 @@ TEST(UnitMeleeAttackAbility_CanBeExecutedOn, If_there_is_an_opponent_Then_true_i
 	g_scene.addGameObject(board);
 
 	UnitMock unit;
-	unit.setPosition({0, 0});
+	unit.deploy({0, 0});
 	auto player1 = std::make_shared<Player>();
 	unit.setPlayer(player1);
 	UnitMeleeAttackAbility meleeAttackAbility(&unit);
@@ -94,7 +94,7 @@ TEST(UnitMeleeAttackAbility_CanBeExecutedOn, If_opponent_is_out_of_range_Then_fa
 	g_scene.addGameObject(board);
 
 	UnitMock unit;
-	unit.setPosition({0, 0});
+	unit.deploy({0, 0});
 	auto player1 = std::make_shared<Player>();
 	unit.setPlayer(player1);
 	UnitMeleeAttackAbility meleeAttackAbility(&unit);
@@ -120,7 +120,7 @@ TEST(UnitMeleeAttackAbility_CanBeExecutedOn, If_unit_as_no_movement_left_Then_fa
 	g_scene.addGameObject(board);
 
 	UnitMock unit;
-	unit.setPosition({0, 0});
+	unit.deploy({0, 0});
 	auto player1 = std::make_shared<Player>();
 	unit.setPlayer(player1);
 	unit.setCurrentMovement(0);
@@ -147,7 +147,7 @@ TEST(UnitMeleeAttackAbility_CanBeExecutedOn, If_attack_is_prevented_by_structure
 	g_scene.addGameObject(board);
 
 	UnitMock unit;
-	unit.setPosition({0, 0});
+	unit.deploy({0, 0});
 	auto player1 = std::make_shared<Player>();
 	unit.setPlayer(player1);
 	UnitMeleeAttackAbility meleeAttackAbility(&unit);
