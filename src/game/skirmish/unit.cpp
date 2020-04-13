@@ -134,7 +134,7 @@ int Unit::getCurrentMovement() const
 void Unit::setWorldPosition(const sf::Vector2f& worldPosition)
 {
 	auto isoPosition = worldToIso(worldPosition);
-	auto zIndex = isoPosition.y;
+	auto zIndex = worldToIso(boardToWorld(worldToBoard(worldPosition))).y;
 
 	// Account structures at provided worldPosition
 	Coordinates boardPosition = worldToBoard(worldPosition);
@@ -142,7 +142,10 @@ void Unit::setWorldPosition(const sf::Vector2f& worldPosition)
 	if(auto structure = board->getStructure(boardPosition)) {
 		if(dynamic_cast<Wall*>(structure) != nullptr) {
 			isoPosition.y -= 2.0f * SQUARE_DIMENSION;
-			zIndex += 0.1;
+
+			// Rather hacky way to get unit rendered before walls when moving from one wall to the other.
+			// This will probably break as soon as merlons are added to walls.
+			zIndex += 0.2f + SQUARE_DIMENSION;
 		}
 	}
 

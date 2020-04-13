@@ -14,8 +14,8 @@ sf::Vector2f boardToWorld(const Coordinates& boardPosition)
 Coordinates worldToBoard(const sf::Vector2f& worldPosition)
 {
 	sf::Vector2f boardCoordinates = worldPosition / SQUARE_DIMENSION;
-	boardCoordinates.x = std::ceil(boardCoordinates.x);
-	boardCoordinates.y = std::ceil(boardCoordinates.y);
+	boardCoordinates.x = std::floor(boardCoordinates.x);
+	boardCoordinates.y = std::floor(boardCoordinates.y);
 
 	return Coordinates(boardCoordinates.x, boardCoordinates.y);
 }
