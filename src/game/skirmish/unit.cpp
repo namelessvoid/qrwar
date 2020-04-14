@@ -140,15 +140,19 @@ int Unit::getCurrentMovement() const
 
 void Unit::setWorldPosition(const sf::Vector2f& worldPosition)
 {
+	worldPosition_ = worldPosition;
+
 	auto isoPosition = worldToIso(worldPosition);
 	auto zIndex = worldToIso(boardToWorld(worldToBoard(worldPosition))).y;
 
 	// Account structures at provided worldPosition
 	Coordinates boardPosition = worldToBoard(worldPosition);
 	Board* board = g_scene.findSingleGameObject<Board>();
-	if(auto structure = board->getStructure(boardPosition)) {
-		if(dynamic_cast<Wall*>(structure) != nullptr) {
-			isoPosition.y -= 2.0f * SQUARE_DIMENSION;
+	if (auto structure = board->getStructure(boardPosition)) {
+		if (dynamic_cast<Wall*>(structure) != nullptr) {
+			// If not in flat mode, account the height of the wall
+			if(!isFlatMode())
+				isoPosition.y -= 2.0f * SQUARE_DIMENSION;
 
 			// Rather hacky way to get unit rendered before walls when moving from one wall to the other.
 			// This will probably break as soon as merlons are added to walls.
@@ -264,6 +268,13 @@ void Unit::addAbility(UnitAbility* ability)
 bool Unit::handleEvent(const IEvent& event)
 {
 	return false;
+}
+
+void Unit::flatModeChanged()
+{
+	// Retrigger sprite update by setting the world position to current position.
+	// Should maybe be placed in a more appropriate method (cf. Wall::updateSprites()).
+	setWorldPosition(worldPosition_);
 }
 
 } // namespace qrw

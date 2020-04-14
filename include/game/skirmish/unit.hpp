@@ -14,6 +14,7 @@
 #include "game/skirmish/unitability.hpp"
 
 #include "foundation/gameobject.hpp"
+#include "flatmodeawaremixin.hpp"
 
 namespace qrw
 {
@@ -21,7 +22,7 @@ class Path;
 class SpriteComponent;
 class FollowRouteAnimationComponent;
 
-class Unit : public GameObject, public EventHandler
+class Unit : public GameObject, public FlatModeAwareMixin, public EventHandler
 {
 public:
 	friend class UnitFactory;
@@ -102,6 +103,8 @@ protected:
 	void addAbility(UnitAbility* ability);
 
 	virtual void setPlayer(Player::Ptr& player) { _player = player; }
+
+	void flatModeChanged() override;
 
 	class UnitMovementAbility* movementAbility_;
 	class UnitMeleeAttackAbility* attackAbility_;

@@ -1,5 +1,6 @@
 #include "eventsystem/inputevents.hpp"
 #include "game/skirmish/wall.hpp"
+#include "game/skirmish/unit.hpp"
 #include "game/skirmish/toggleflatmodehandler.hpp"
 
 namespace qrw
@@ -19,15 +20,23 @@ bool ToggleFlatModeHandler::handleEvent(const IEvent& event)
 	return false;
 }
 
+template<class T>
+void toggleFlatModeFor(bool isFlatMode)
+{
+	auto gameObjects = g_scene.findGameObjects<T>();
+
+	for(auto& gameObject : gameObjects) {
+		auto* flatModeAwareGameObject = dynamic_cast<FlatModeAwareMixin*>(gameObject);
+		assert(flatModeAwareGameObject != nullptr);
+		flatModeAwareGameObject->setFlatMode(isFlatMode);
+	}
+}
+
 void ToggleFlatModeHandler::toggleFlatMode()
 {
 	isFlatMode_ = !isFlatMode_;
-	auto wallGameObjects = g_scene.findGameObjects<Wall>();
-
-	for(auto& wallGameObject : wallGameObjects) {
-		Wall* wall = static_cast<Wall*>(wallGameObject);
-		wall->setFlatMode(isFlatMode_);
-	}
+	toggleFlatModeFor<Wall>(isFlatMode_);
+	toggleFlatModeFor<Unit>(isFlatMode_);
 }
 
 } // namespace qrw
