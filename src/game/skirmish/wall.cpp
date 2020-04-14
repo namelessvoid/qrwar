@@ -61,12 +61,7 @@ bool Wall::isConnectedTo(const Coordinates& direction, const Board& board) const
 void Wall::setPosition(const Coordinates& position)
 {
 	Structure::setPosition(position);
-
-	sf::Vector2f isometricPosition = worldToIso(boardToWorld(position));
-	eastWallSprite_->setPosition(isometricPosition);
-	southWallSprite_->setPosition(isometricPosition);
-	topFloorSprite_->setPosition(isometricPosition - sf::Vector2f(0, (float)(!isFlatMode()) * 2.0f * SQUARE_DIMENSION));
-	topFloorSprite_->setZIndex(isometricPosition.y);
+	updateSprites();
 }
 
 const sf::Texture* Wall::getTexture() const
@@ -76,12 +71,21 @@ const sf::Texture* Wall::getTexture() const
 
 void Wall::flatModeChanged()
 {
+	updateSprites();
+}
+
+void Wall::updateSprites()
+{
 	sf::Vector2f isometricPosition = worldToIso(boardToWorld(position_));
+
+	eastWallSprite_->setPosition(isometricPosition);
+	eastWallSprite_->setVisible(!isFlatMode());
+
+	southWallSprite_->setPosition(isometricPosition);
+	southWallSprite_->setVisible(!isFlatMode());
+
 	topFloorSprite_->setPosition(isometricPosition - sf::Vector2f(0, (float)(!isFlatMode()) * 2.0f * SQUARE_DIMENSION));
 	topFloorSprite_->setZIndex(isometricPosition.y);
-
-	southWallSprite_->setVisible(!isFlatMode());
-	eastWallSprite_->setVisible(!isFlatMode());
 }
 
 

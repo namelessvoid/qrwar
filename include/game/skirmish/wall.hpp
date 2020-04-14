@@ -28,6 +28,8 @@ public:
 private:
 	bool isConnectedTo(const Coordinates& direction, const Board& board) const;
 
+	void updateSprites();
+
 	SpriteComponent* southWallSprite_;
 	SpriteComponent* eastWallSprite_;
 	SpriteComponent* topFloorSprite_;
