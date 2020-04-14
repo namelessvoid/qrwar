@@ -3,6 +3,6 @@ language: c++
 services: docker
 
 script:
-    - docker build -f ci/Dockerfile-ubuntu18.10 -t qrwar:ubuntu18.10 .
-    - docker run qrwar:ubuntu18.10
+    - docker build -f ci/Dockerfile-ubuntu19.10 -t qrwar:ubuntu19.10 .
+    - docker run qrwar:ubuntu19.10
 
