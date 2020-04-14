@@ -2,12 +2,13 @@
 #define QRW_WALL_HPP
 
 #include "structure.hpp"
+#include "flatmodeawaremixin.hpp"
 
 namespace qrw
 {
 class Board;
 
-class Wall : public Structure
+class Wall : public Structure, public FlatModeAwareMixin
 {
 public:
 	static SID typeName;
@@ -21,12 +22,11 @@ public:
 
 	void setPosition(const Coordinates& position) override;
 
-	void setFlatMode(bool isFlatMode) override;
+	// From FlatModeAwareMixin interface
+	void flatModeChanged() override;
 
 private:
 	bool isConnectedTo(const Coordinates& direction, const Board& board) const;
-
-	bool isFlatMode_;
 
 	SpriteComponent* southWallSprite_;
 	SpriteComponent* eastWallSprite_;

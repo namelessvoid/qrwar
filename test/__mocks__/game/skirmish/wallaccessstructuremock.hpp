@@ -11,10 +11,6 @@ public:
 		throw "Not implemented";
 	}
 
-	void setFlatMode(bool isFlatMode) override {
-		throw "Not implemented";
-	}
-
 public:
 	const qrw::SID& getTypeName() const override
 	{

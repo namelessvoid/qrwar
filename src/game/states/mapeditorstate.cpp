@@ -6,13 +6,10 @@
 
 #include "game/cameras/skirmishcamera.hpp"
 #include "game/deploymentzone.hpp"
-#include "game/constants.hpp"
 #include "game/skirmish/structure.hpp"
 #include "game/skirmish/stairs.hpp"
 #include "game/skirmish/boardbackgroundcomponent.hpp"
-#include "game/skirmish/gui/mapeditortoolbar.hpp"
-
-#include "foundation/spritecomponent.hpp"
+#include "game/skirmish/flatmodeawaremixin.hpp"
 
 namespace qrw
 {
@@ -260,7 +257,11 @@ void MapEditorState::placeStructure(const Coordinates& position, Structure::Type
 
 	auto structure = structureFactory_.createStructure(structureId);
 	structure->setPosition(position);
-	structure->setFlatMode(toggleFlatModeHandler_.isFlatMode());
+
+	if(auto flatModeAwareStructure = dynamic_cast<FlatModeAwareMixin*>(structure)) {
+		flatModeAwareStructure->setFlatMode(toggleFlatModeHandler_.isFlatMode());
+	}
+
 	g_scene.addGameObject(structure);
 	_spBoard->setStructure(position, structure);
 }

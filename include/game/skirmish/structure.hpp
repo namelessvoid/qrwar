@@ -32,8 +32,6 @@ public:
 	virtual void computeTexture() {}
 	virtual const sf::Texture* getTexture() const = 0;
 
-	virtual void setFlatMode(bool isFlatMode) = 0;
-
 protected:
 	void updateNeighborTextures();
 
