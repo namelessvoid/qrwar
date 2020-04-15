@@ -2,18 +2,17 @@
 #define QRW_DEPLOYMENTZONE_HPP
 
 #include <set>
-
-#include <SFML/Graphics/Color.hpp>
+#include <map>
 
 #include "core/sid.hpp"
 #include "foundation/gameobject.hpp"
-#include "rendering/renderable.hpp"
+#include "foundation/spritecomponent.hpp"
 
 #include "game/skirmish/coordinates.hpp"
 
 namespace qrw {
 
-class DeploymentZone : public GameObject, public Renderable
+class DeploymentZone : public GameObject
 {
 friend class DeploymentZoneMetaClass;
 
@@ -23,10 +22,7 @@ public:
 
 	DeploymentZone();
 
-	void render(sf::RenderTarget& renderTarget) override;
-
-	void setPosition(const sf::Vector2f& position) override;
-	const sf::Vector2f& getPosition() const override;
+//	void render(sf::RenderTarget& renderTarget) override;
 
 	void addSquare(const Coordinates& coordinate);
 	void removeSquare(const Coordinates& coordinate);
@@ -41,9 +37,8 @@ public:
 private:
 	int playerId_;
 
-	sf::Vector2f position_;
-
 	std::set<Coordinates> zone_;
+	std::map<Coordinates, SpriteComponent*> sprites_;
 
 	sf::Color color_;
 

@@ -4,7 +4,6 @@
 #include "rendering/rendersystem.hpp"
 
 #define RENDER_LAYER_BACKGROUND Layer(0)
-#define RENDER_LAYER_DEPLOYMENT_ZONE Layer(9)
 #define RENDER_LAYER_GAME       Layer(10)
 #define RENDER_LAYER_PATH       Layer(21)
 #define RENDER_LAYER_CURSOR     Layer(22)

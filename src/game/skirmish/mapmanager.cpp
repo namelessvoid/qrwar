@@ -168,8 +168,8 @@ void MapManager::createAndSaveMapPreview(const std::string& mapName, const MapDt
 		structureIter.second->getFirstComponent<SpriteComponent>()->render(renderTexture);
 	for(auto& terrainIter : dto.board->getTerrains())
 		terrainIter.second->getFirstComponent<SpriteComponent>()->render(renderTexture);
-	for(auto& deploymentZone : dto.deploymentZones)
-		deploymentZone->render(renderTexture);
+//	for(auto& deploymentZone : dto.deploymentZones)
+//		deploymentZone->render(renderTexture);
 
 	renderTexture.display();
 	renderTexture.getTexture().copyToImage().saveToFile((getUserMapDir() / convertMapNameToPath(mapName, ".png")).string());

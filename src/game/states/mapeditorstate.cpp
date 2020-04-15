@@ -285,7 +285,8 @@ void MapEditorState::eraseDeploymentZone(const Coordinates& boardPosition)
 {
 	for(auto& deploymentZone : deploymentZones_)
 	{
-		deploymentZone->removeSquare(boardPosition);
+		if(deploymentZone->containsSquare(boardPosition))
+			deploymentZone->removeSquare(boardPosition);
 	}
 }
 

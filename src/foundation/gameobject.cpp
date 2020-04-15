@@ -24,11 +24,22 @@ void GameObject::addComponent(GameComponent* component)
 	components_.insert(std::pair<std::type_index,GameComponent*>(typeid(*component), component));
 }
 
+void GameObject::removeComponent(GameComponent* component)
+{
+	assert(component!=nullptr);
+	auto componentRange = components_.equal_range(typeid(*component));
+	for(auto iter = componentRange.first; iter != componentRange.second; ++iter) {
+		if(iter->second == component) {
+			components_.erase(iter);
+			return;
+		}
+	}
+}
+
 void GameObject::onDestroy()
 {
 	for(auto& component : components_)
 		component.second->onDestroy();
 }
-
 
 } // namespace qrw

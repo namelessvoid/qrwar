@@ -31,6 +31,7 @@ public:
 	bool isInitialized() { return initialized_; }
 
 	void addComponent(GameComponent* component);
+	void removeComponent(GameComponent* component);
 
 	virtual void update(float elapsedTimeInSeconds) {}
 
