@@ -23,10 +23,19 @@ public:
 
 	~GameObject() override;
 
+	// Called by Scene::destroy(GameObject*).
+	// This is useful to clean up resources which have to call other game objects in the cleanup process.
+	// The GameObject is not destroyed immediately but is scheduled for deletion on the
+	// next frame.
 	virtual void onDestroy();
 
+	// Called by Scene::addtoScene(GameObject*).
 	virtual void onAddToScene() {}
 
+	// Called by Scene::update() right before the GameObject's update method would
+	// be called for the first time.
+	// This is useful for e.g. initializing resources which depend on other game objects and therefore
+	// cannot be initialized in the constructor since not all scene objects my be created yet.
 	virtual void initialize() { initialized_ = true; }
 	bool isInitialized() { return initialized_; }
 
