@@ -48,6 +48,12 @@ DeploymentZone::DeploymentZone()
 //    }
 //}
 
+void DeploymentZone::initialize()
+{
+	GameObject::initialize();
+	updateSprites();
+}
+
 void DeploymentZone::addSquare(const Coordinates& coordinates)
 {
 	assert(zone_.find(coordinates) == zone_.end());
@@ -59,10 +65,13 @@ void DeploymentZone::addSquare(const Coordinates& coordinates)
     sprite->setFillColor(color_);
     sprite->setOrigin(SQUARE_DIMENSION, 0.0f);
     sprite->setSize({2.0f * SQUARE_DIMENSION, SQUARE_DIMENSION});
-    sprite->setPosition(worldToIso(boardToWorld(coordinates)));
+	addComponent(sprite);
+	sprites_[coordinates] = sprite;
 
-    addComponent(sprite);
-    sprites_[coordinates] = sprite;
+	// Only update sprite when we are sure that the scene has a Board instance.
+	if(isInitialized()) {
+		updateSprite(coordinates, sprite);
+	}
 }
 
 void DeploymentZone::removeSquare(const Coordinates& coordinates)
@@ -105,6 +114,32 @@ void DeploymentZone::setPlayerId(int playerId)
         case 2: color_ = PLAYER_TWO_COLOR; break;
         default: assert(playerId == 1 || playerId == 2);
     }
+}
+
+void DeploymentZone::updateSprites()
+{
+	for(const auto& iter : sprites_) {
+		updateSprite(iter.first, iter.second);
+	}
+}
+
+void DeploymentZone::updateSprite(const Coordinates& coordinates, SpriteComponent* sprite)
+{
+	auto* board = g_scene.findSingleGameObject<Board>();
+	assert(board != nullptr);
+
+	sprite->setPosition(worldToIso(boardToWorld(coordinates)));
+	float zIndex = sprite->getZIndex();
+
+	float heightOffset = 0;
+	if(auto* structure = board->getStructure(coordinates)) {
+		if(dynamic_cast<Wall*>(structure) != nullptr) {
+			heightOffset = -2.0f * SQUARE_DIMENSION;
+			zIndex += 0.02f;
+		}
+	}
+	sprite->setPosition(sprite->getPosition() + sf::Vector2f(0, heightOffset));
+	sprite->setZIndex(zIndex);
 }
 
 } // namespace qrw

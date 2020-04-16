@@ -34,7 +34,12 @@ public:
 	void setPlayerId(int playerId);
 	int getPlayerId() const { return playerId_; }
 
+	void initialize() override;
+
 private:
+	void updateSprites();
+	void updateSprite(const Coordinates& coordinates, SpriteComponent* sprite);
+
 	int playerId_;
 
 	std::set<Coordinates> zone_;
