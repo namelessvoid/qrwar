@@ -116,6 +116,11 @@ void DeploymentZone::setPlayerId(int playerId)
     }
 }
 
+void DeploymentZone::flatModeChanged()
+{
+	updateSprites();
+}
+
 void DeploymentZone::updateSprites()
 {
 	for(const auto& iter : sprites_) {
@@ -134,7 +139,10 @@ void DeploymentZone::updateSprite(const Coordinates& coordinates, SpriteComponen
 	float heightOffset = 0;
 	if(auto* structure = board->getStructure(coordinates)) {
 		if(dynamic_cast<Wall*>(structure) != nullptr) {
-			heightOffset = -2.0f * SQUARE_DIMENSION;
+			if(!isFlatMode()) {
+				heightOffset = -2.0f * SQUARE_DIMENSION;
+			}
+
 			zIndex += 0.02f;
 		}
 	}

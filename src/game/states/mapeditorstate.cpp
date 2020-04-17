@@ -264,6 +264,11 @@ void MapEditorState::placeStructure(const Coordinates& position, Structure::Type
 
 	g_scene.addGameObject(structure);
 	_spBoard->setStructure(position, structure);
+
+	// Update deployment zones visuals to make sure they are displayed on top of newly placed structure.
+	for(auto deploymentZone : deploymentZones_) {
+		deploymentZone->updateSprites();
+	}
 }
 
 void MapEditorState::eraseStructure(const Coordinates& position)
@@ -272,6 +277,11 @@ void MapEditorState::eraseStructure(const Coordinates& position)
 	{
 		_spBoard->removeStructureAt(position);
 		g_scene.destroy(structure);
+
+		// Update deployment zones visuals to make sure they are displayed on top of newly placed structure.
+		for(auto deploymentZone : deploymentZones_) {
+			deploymentZone->updateSprites();
+		}
 	}
 }
 

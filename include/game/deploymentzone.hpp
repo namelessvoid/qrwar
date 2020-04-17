@@ -9,10 +9,11 @@
 #include "foundation/spritecomponent.hpp"
 
 #include "game/skirmish/coordinates.hpp"
+#include "game/skirmish/flatmodeawaremixin.hpp"
 
 namespace qrw {
 
-class DeploymentZone : public GameObject
+class DeploymentZone : public GameObject, public FlatModeAwareMixin
 {
 friend class DeploymentZoneMetaClass;
 
@@ -36,8 +37,13 @@ public:
 
 	void initialize() override;
 
-private:
+	// Used to update all sprite components.
 	void updateSprites();
+
+protected:
+	void flatModeChanged() override;
+
+private:
 	void updateSprite(const Coordinates& coordinates, SpriteComponent* sprite);
 
 	int playerId_;
