@@ -39,15 +39,28 @@ void Stairs::computeTexture()
 	Structure::computeTexture();
 	auto face = getFace();
 
+	std::string textureName = "stairs_";
+
 	if(face == Directions::EAST) {
-		spriteComponent_->setTexture(TextureManager::getInstance()->getTexture("stairs_east"));
+		textureName += "east";
 	} else if(face == Directions::NORTH) {
-		spriteComponent_->setTexture(TextureManager::getInstance()->getTexture("stairs_north"));
+		textureName +=  "north";
 	} else if(face == Directions::WEST) {
-		spriteComponent_->setTexture(TextureManager::getInstance()->getTexture("stairs_west"));
+		textureName += "west";
 	} else if(face == Directions::SOUTH) {
-		spriteComponent_->setTexture(TextureManager::getInstance()->getTexture("stairs_south"));
+		textureName += "south";
 	}
+
+	if(isFlatMode()) {
+		textureName += "_flat";
+	}
+
+	spriteComponent_->setTexture(TextureManager::getInstance()->getTexture(textureName));
+}
+
+void Stairs::flatModeChanged()
+{
+	computeTexture();
 }
 
 }

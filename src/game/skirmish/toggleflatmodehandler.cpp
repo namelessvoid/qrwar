@@ -4,6 +4,7 @@
 #include "game/deploymentzone.hpp"
 #include "game/skirmish/wall.hpp"
 #include "game/skirmish/unit.hpp"
+#include "game/skirmish/stairs.hpp"
 
 namespace qrw
 {
@@ -37,8 +38,9 @@ void ToggleFlatModeHandler::toggleFlatMode()
 {
 	isFlatMode_ = !isFlatMode_;
 	toggleFlatModeFor<Wall>(isFlatMode_);
-	toggleFlatModeFor<Unit>(isFlatMode_);
+	toggleFlatModeFor<Stairs>(isFlatMode_);
 	toggleFlatModeFor<DeploymentZone>(isFlatMode_);
+	toggleFlatModeFor<Unit>(isFlatMode_);
 }
 
 } // namespace qrw
