@@ -142,9 +142,9 @@ void DeploymentZone::updateSprite(const Coordinates& coordinates, SpriteComponen
 			if(!isFlatMode()) {
 				heightOffset = -2.0f * SQUARE_DIMENSION;
 			}
-
-			zIndex += 0.02f;
 		}
+
+		zIndex += 0.02f;
 	}
 	sprite->setPosition(sprite->getPosition() + sf::Vector2f(0, heightOffset));
 	sprite->setZIndex(zIndex);
