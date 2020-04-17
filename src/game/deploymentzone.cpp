@@ -8,6 +8,7 @@
 #include "game/renderlayers.hpp"
 #include "game/constants.hpp"
 #include "game/skirmish/wall.hpp"
+#include "game/skirmish/stairs.hpp"
 #include "game/skirmish/isometricconversion.hpp"
 #include "game/skirmish/boardtoworldconversion.hpp"
 
@@ -23,31 +24,6 @@ DeploymentZone::DeploymentZone()
 {
 }
 
-//void DeploymentZone::render(sf::RenderTarget& renderTarget)
-//{
-//    sf::CircleShape rectangle(SQUARE_DIMENSION, 4);
-//    rectangle.scale({1.0f, 0.5f});
-//    rectangle.setOrigin({SQUARE_DIMENSION, 0.0f});
-//
-//    rectangle.setFillColor(color_);
-//
-//    for(auto& coordinate : zone_)
-//    {
-//    	float heightOffset = 0;
-//
-//    	Board* board = g_scene.findSingleGameObject<Board>();
-//    	if(auto* structure = board->getStructure(coordinate)) {
-//    		if(dynamic_cast<Wall*>(structure) != nullptr) {
-//    			heightOffset = -2.0f * SQUARE_DIMENSION;
-//    		}
-//    	}
-//
-//        rectangle.setPosition(worldToIso(boardToWorld(coordinate)));
-//        rectangle.move({0, heightOffset});
-//        renderTarget.draw(rectangle);
-//    }
-//}
-
 void DeploymentZone::initialize()
 {
 	GameObject::initialize();
@@ -61,10 +37,7 @@ void DeploymentZone::addSquare(const Coordinates& coordinates)
     zone_.insert(coordinates);
 
     auto* sprite = new SpriteComponent(RENDER_LAYER_GAME);
-    sprite->setTexture(TextureManager::getInstance()->getTexture("deploymentzone"));
     sprite->setFillColor(color_);
-    sprite->setOrigin(SQUARE_DIMENSION, 0.0f);
-    sprite->setSize({2.0f * SQUARE_DIMENSION, SQUARE_DIMENSION});
 	addComponent(sprite);
 	sprites_[coordinates] = sprite;
 
@@ -134,18 +107,38 @@ void DeploymentZone::updateSprite(const Coordinates& coordinates, SpriteComponen
 	assert(board != nullptr);
 
 	sprite->setPosition(worldToIso(boardToWorld(coordinates)));
-	float zIndex = sprite->getZIndex();
+	float zIndex = sprite->getZIndex() + 0.02f;
 
+	std::string textureName = "deploymentzone";
+	sf::Vector2f spriteOrigin(SQUARE_DIMENSION, 0.0f);
+	sf::Vector2f spriteSize(2.0f * SQUARE_DIMENSION, SQUARE_DIMENSION);
 	float heightOffset = 0;
-	if(auto* structure = board->getStructure(coordinates)) {
-		if(dynamic_cast<Wall*>(structure) != nullptr) {
-			if(!isFlatMode()) {
+
+	if(!isFlatMode()) {
+		if (auto* structure = board->getStructure(coordinates)) {
+			if (dynamic_cast<Wall*>(structure) != nullptr) {
 				heightOffset = -2.0f * SQUARE_DIMENSION;
+			} else if (auto stairs = dynamic_cast<Stairs*>(structure)) {
+				textureName += "_stairs_";
+				if (stairs->getFace() == Directions::WEST) {
+					textureName += "west";
+				} else if (stairs->getFace() == Directions::NORTH) {
+					textureName += "north";
+				} else if (stairs->getFace() == Directions::EAST) {
+					textureName += "east";
+				} else if (stairs->getFace() == Directions::SOUTH) {
+					textureName += "south";
+				}
+
+				spriteOrigin = sf::Vector2f(SQUARE_DIMENSION, 40.0f);
+				spriteSize = sf::Vector2f(2.0f * SQUARE_DIMENSION, 91.0f);
 			}
 		}
-
-		zIndex += 0.02f;
 	}
+
+	sprite->setTexture(TextureManager::getInstance()->getTexture(textureName));
+	sprite->setSize(spriteSize);
+	sprite->setOrigin(spriteOrigin.x, spriteOrigin.y);
 	sprite->setPosition(sprite->getPosition() + sf::Vector2f(0, heightOffset));
 	sprite->setZIndex(zIndex);
 }

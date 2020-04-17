@@ -23,6 +23,11 @@
 	</file>
 	<file path="./res/img/deploymentzone.png">
 		<tile name="deploymentzone" x="0" y="0" width="100" height="50" />
+
+		<tile name="deploymentzone_stairs_west"  x="0"   y="50"  width="100" height="91" />
+		<tile name="deploymentzone_stairs_north" x="100" y="50"  width="100" height="91" />
+		<tile name="deploymentzone_stairs_east"  x="0"   y="141" width="100" height="91" />
+		<tile name="deploymentzone_stairs_south" x="100" y="141" width="100" height="91" />
 	</file>
 	<file path="./res/img/structures/wall.png">
 		<tile name="wall_south" x="0"   y="200" width="50" height="125" />
