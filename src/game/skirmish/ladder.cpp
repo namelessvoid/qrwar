@@ -38,13 +38,16 @@ void Ladder::setFace(const Coordinates& face)
 	WallAccessStructureBase::setFace(face);
 	if(getFace() == Directions::NORTH) {
 		texture = TextureManager::getInstance()->getTexture("ladder_north");
-		origin = sf::Vector2f(10, 94);
+		origin = sf::Vector2f(10, 69);
 	} else if(getFace() == Directions::EAST) {
 		texture = TextureManager::getInstance()->getTexture("ladder_east");
+		origin = sf::Vector2f(12, 42);
 	} else if(getFace() == Directions::SOUTH) {
-		texture= TextureManager::getInstance()->getTexture("ladder_south");
+		texture = TextureManager::getInstance()->getTexture("ladder_south");
+		origin = sf::Vector2f(34, 42);
 	} else if(getFace() == Directions::WEST) {
 		texture = TextureManager::getInstance()->getTexture("ladder_west");
+		origin = sf::Vector2f(34, 69);
 	}
 
 	spriteComponent_->setSize(sf::Vector2f(texture->getSize()));
@@ -55,7 +58,7 @@ void Ladder::setFace(const Coordinates& face)
 void Ladder::setPosition(const Coordinates& position)
 {
 	Structure::setPosition(position);
-	spriteComponent_->setPosition(worldToIso(boardToWorld(position) + sf::Vector2f(0.5f * SQUARE_DIMENSION, 0.5f * SQUARE_DIMENSION)));
+	spriteComponent_->setPosition(worldToIso(boardToWorld(position)));
 }
 
 } // namespace qrw
