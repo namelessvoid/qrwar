@@ -251,6 +251,7 @@ void DeployState::slotCursorLeftClicked(const Coordinates& boardPosition)
 
 	Unit* unit = UnitFactory::createUnit(_selectedUnitType, _selectedPlayer);
 	unit->deploy(boardPosition);
+	unit->setFlatMode(toggleFlatModeHandler_.isFlatMode());
 	g_scene.addGameObject(unit);
 }
 
