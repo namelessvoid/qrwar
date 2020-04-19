@@ -18,6 +18,7 @@
 #include "game/skirmish/boardbackgroundcomponent.hpp"
 #include "game/skirmish/isometricconversion.hpp"
 #include "engine/terrain.hpp"
+#include "game/skirmish/minimapgenerator.hpp"
 
 namespace fs = std::experimental::filesystem;
 
@@ -152,27 +153,8 @@ std::string MapManager::convertPathToMapName(const fs::path& filePath) const
 
 void MapManager::createAndSaveMapPreview(const std::string& mapName, const MapDto& dto)
 {
-	BoardBackgroundComponent* boardBackroundComponent = dto.board->getFirstComponent<BoardBackgroundComponent>();
-
-	sf::FloatRect boardBounds = boardBackroundComponent->getViewBounds();
-	sf::Vector2f viewCenter(boardBackroundComponent->getViewCenter());
-	sf::Vector2f textureSize(boardBounds.width, boardBounds.height);
-
-	sf::RenderTexture renderTexture;
-	renderTexture.create(static_cast<unsigned int>(textureSize.x), static_cast<unsigned int>(textureSize.y));
-	sf::View view(viewCenter, textureSize);
-	renderTexture.setView(view);
-
-	boardBackroundComponent->render(renderTexture);
-	for(auto& structureIter : dto.board->getStructures())
-		structureIter.second->getFirstComponent<SpriteComponent>()->render(renderTexture);
-	for(auto& terrainIter : dto.board->getTerrains())
-		terrainIter.second->getFirstComponent<SpriteComponent>()->render(renderTexture);
-//	for(auto& deploymentZone : dto.deploymentZones)
-//		deploymentZone->render(renderTexture);
-
-	renderTexture.display();
-	renderTexture.getTexture().copyToImage().saveToFile((getUserMapDir() / convertMapNameToPath(mapName, ".png")).string());
+	auto image = std::unique_ptr<sf::Image>(generateMiniMap(dto));
+	image->saveToFile((getUserMapDir() / convertMapNameToPath(mapName, ".png")).string());
 }
 
 sf::Texture* MapManager::loadMapPreview(const std::string& mapName)
