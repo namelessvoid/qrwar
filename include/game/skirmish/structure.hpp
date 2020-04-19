@@ -30,6 +30,8 @@ public:
 	const Coordinates& getPosition() const { return position_; }
 
 	virtual void computeTexture() {}
+
+	// Used to display an icon for this structure in the SquareDetailWindow.
 	virtual const sf::Texture* getTexture() const = 0;
 
 protected:

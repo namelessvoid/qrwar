@@ -23,7 +23,7 @@ public:
 
 	void rotate();
 
-	void setFace(const Coordinates& face);
+	virtual void setFace(const Coordinates& face);
 
 private:
 	Coordinates face_;

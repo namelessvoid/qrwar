@@ -15,6 +15,10 @@ public:
 
 	const sf::Texture* getTexture() const override;
 
+	void setFace(const Coordinates& face) override;
+
+	void setPosition(const Coordinates& position) override;
+
 private:
 	SpriteComponent* spriteComponent_;
 };

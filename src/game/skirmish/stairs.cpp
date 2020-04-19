@@ -1,6 +1,7 @@
 #include "game/skirmish/stairs.hpp"
 
 #include "game/skirmish/isometricconversion.hpp"
+#include "game/skirmish/boardtoworldconversion.hpp"
 #include "gui/texturemanager.hpp"
 #include "foundation/spritecomponent.hpp"
 #include "game/constants.hpp"
