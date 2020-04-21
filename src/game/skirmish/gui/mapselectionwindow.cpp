@@ -49,6 +49,8 @@ void MapSelectionWindow::slotMapSelectionChanged(const std::string& mapName)
 
 	sf::Texture* texture = mapManager_.loadMapPreview(selectedMapName_);
 	mapPreview_->setTexture(texture);
+	mapPreview_->setRotation(45.0f);
+	mapPreview_->setSize(sf::Vector2f(texture->getSize().x, texture->getSize().y));
 
 	updateMapPreviewSize();
 }
@@ -56,23 +58,21 @@ void MapSelectionWindow::slotMapSelectionChanged(const std::string& mapName)
 void MapSelectionWindow::updateMapPreviewSize()
 {
 	if(mapPreview_->getTexture() == nullptr) return;
+	mapPreview_->setScale(1, 1);
 
 	sf::Vector2f sizeMapPreview = maxMapPreviewSize_;
-	sf::Vector2f sizeTexture(mapPreview_->getTexture()->getSize().x, mapPreview_->getTexture()->getSize().y);
+	sf::FloatRect spriteBounds = mapPreview_->getGlobalBounds();
+	float scale = 1;
 
 	// Only resize if texture is valid and possible preview size is > zero
-	if(sizeTexture.x != 0 && sizeTexture.y != 0 && maxMapPreviewSize_.x != 0 && maxMapPreviewSize_.y != 0)
+	if(spriteBounds.width != 0 && spriteBounds.height != 0 && maxMapPreviewSize_.x != 0 && maxMapPreviewSize_.y != 0)
 	{
-		float aspectRatioTexture = sizeTexture.x / sizeTexture.y;
-		float aspectRatioMapPreview = maxMapPreviewSize_.x / maxMapPreviewSize_.y;
-
-		if(aspectRatioTexture < aspectRatioMapPreview)
-			sizeMapPreview.x = maxMapPreviewSize_.y * aspectRatioTexture;
-		else if(aspectRatioTexture > aspectRatioMapPreview)
-			sizeMapPreview.y = maxMapPreviewSize_.x / aspectRatioTexture;
+		float scaleX = maxMapPreviewSize_.x / spriteBounds.width;
+		float scaleY = maxMapPreviewSize_.y / spriteBounds.height;
+		scale = std::min(scaleX, scaleY);
 	}
 
-	mapPreview_->setSize(sizeMapPreview);
+	mapPreview_->setScale(scale, scale);
 }
 
 } // namespace qrw
