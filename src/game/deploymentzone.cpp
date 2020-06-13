@@ -36,7 +36,7 @@ void DeploymentZone::addSquare(const Coordinates& coordinates)
 
     zone_.insert(coordinates);
 
-    auto* sprite = new SpriteComponent(RENDER_LAYER_GAME);
+    auto* sprite = new SpriteComponent(*this, RENDER_LAYER_GAME);
     sprite->setFillColor(color_);
 	addComponent(sprite);
 	sprites_[coordinates] = sprite;

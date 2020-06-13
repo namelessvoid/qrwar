@@ -14,7 +14,7 @@ SID Stairs::typeName("qrw::Stairs");
 
 Stairs::Stairs()
 {
-	spriteComponent_ = new SpriteComponent(RENDER_LAYER_GAME);
+	spriteComponent_ = new SpriteComponent(*this, RENDER_LAYER_GAME);
 	spriteComponent_->setSize({2.0f * SQUARE_DIMENSION, 91.0f});
 	//spriteComponent_->setScale({2.0f, 2.0f});
 	spriteComponent_->setOrigin(SQUARE_DIMENSION, 40.0f);

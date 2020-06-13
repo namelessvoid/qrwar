@@ -16,7 +16,7 @@ namespace qrw
 SquareMarker::SquareMarker()
 	: m_boardPosition(0, 0)
 {
-	m_spriteComponent = new SpriteComponent(RENDER_LAYER_GAME);
+	m_spriteComponent = new SpriteComponent(*this, RENDER_LAYER_GAME);
 	m_spriteComponent->setSize({2.0f * SQUARE_DIMENSION, SQUARE_DIMENSION});
 	markValid();
 	addComponent(m_spriteComponent);

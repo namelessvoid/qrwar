@@ -14,7 +14,7 @@ namespace qrw
 
 Ladder::Ladder()
 {
-	spriteComponent_ = new SpriteComponent(RENDER_LAYER_GAME);
+	spriteComponent_ = new SpriteComponent(*this, RENDER_LAYER_GAME);
 	spriteComponent_->setSize({2.0f * SQUARE_DIMENSION, SQUARE_DIMENSION});
 	spriteComponent_->setOrigin(SQUARE_DIMENSION, 0);
 	addComponent(spriteComponent_);

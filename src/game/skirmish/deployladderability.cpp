@@ -20,7 +20,7 @@ DeployLadderAbility::DeployLadderAbility(Unit* owner)
 {
 	setName("Deploy Ladder");
 
-	deploySymbol_ = std::make_unique<SpriteComponent>(RENDER_LAYER_CURSOR);
+	deploySymbol_ = std::make_unique<SpriteComponent>(*owner, RENDER_LAYER_CURSOR);
 	deploySymbol_->setTexture(TextureManager::getInstance()->getTexture("squaremarkerdeployladder"));
 	deploySymbol_->setSize({SQUARE_DIMENSION, SQUARE_DIMENSION});
 	deploySymbol_->setOrigin(0.5f * SQUARE_DIMENSION, 0.0f);
@@ -50,7 +50,7 @@ void DeployLadderAbility::executeOn(const Coordinates& position)
 	if(!board) return;
 
 	Ladder* ladder = g_scene.spawn<Ladder>();
-	ladder->setPosition(owner_->getBoardPosition());
+	ladder->setPosition(unit_->getBoardPosition());
 	ladder->setFace(position - ladder->getPosition());
 	board->setStructure(ladder->getPosition(), ladder);
 
@@ -58,7 +58,7 @@ void DeployLadderAbility::executeOn(const Coordinates& position)
 	deactivate();
 
 	LadderDeployedEvent ladderDeployedEvent;
-	owner_->handleEvent(ladderDeployedEvent);
+	unit_->handleEvent(ladderDeployedEvent);
 }
 
 bool DeployLadderAbility::canBeExecutedOn(const Coordinates& position)
@@ -68,8 +68,8 @@ bool DeployLadderAbility::canBeExecutedOn(const Coordinates& position)
 	Board* board = g_scene.findSingleGameObject<Board>();
 	assert(board != nullptr);
 
-	return owner_->getBoardPosition().distanceTo(position) == 1
-	&& board->getStructure(owner_->getBoardPosition()) == nullptr
+	return unit_->getBoardPosition().distanceTo(position) == 1
+	&& board->getStructure(unit_->getBoardPosition()) == nullptr
 	&& dynamic_cast<Wall*>(board->getStructure(position)) != nullptr;
 }
 

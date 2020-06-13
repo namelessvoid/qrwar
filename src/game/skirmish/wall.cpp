@@ -21,19 +21,19 @@ SID Wall::typeName("qrw::Wall");
 Wall::Wall()
   : Structure()
 {
-	eastWallSprite_ = new SpriteComponent(RENDER_LAYER_GAME);
+	eastWallSprite_ = new SpriteComponent(*this, RENDER_LAYER_GAME);
 	eastWallSprite_->setSize({SQUARE_DIMENSION, 2.5f * SQUARE_DIMENSION});
 	eastWallSprite_->setOrigin(0, 1.5f * SQUARE_DIMENSION);
 	eastWallSprite_->setTexture(TextureManager::getInstance()->getTexture("wall_east"));
 	addComponent(eastWallSprite_);
 
-	southWallSprite_ = new SpriteComponent(RENDER_LAYER_GAME);
+	southWallSprite_ = new SpriteComponent(*this, RENDER_LAYER_GAME);
 	southWallSprite_->setSize({SQUARE_DIMENSION, 2.5f * SQUARE_DIMENSION});
 	southWallSprite_->setOrigin(SQUARE_DIMENSION, 1.5f * SQUARE_DIMENSION);
 	southWallSprite_->setTexture(TextureManager::getInstance()->getTexture("wall_south"));
 	addComponent(southWallSprite_);
 
-	topFloorSprite_ = new SpriteComponent(RENDER_LAYER_GAME);
+	topFloorSprite_ = new SpriteComponent(*this, RENDER_LAYER_GAME);
 	topFloorSprite_->setSize({2.0f * SQUARE_DIMENSION, SQUARE_DIMENSION});
 	topFloorSprite_->setOrigin(SQUARE_DIMENSION, 0.0f);
 	topFloorSprite_->setTexture(TextureManager::getInstance()->getTexture("wall_top"));

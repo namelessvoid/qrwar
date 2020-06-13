@@ -10,10 +10,11 @@
 namespace qrw
 {
 
-SpriteComponent::SpriteComponent(Layer layer)
-	: Renderable(layer)
+SpriteComponent::SpriteComponent(GameObject& owner, Layer layer)
+	: GameComponent(owner),
+	  Renderable(layer),
+	  _rectangle(new sf::RectangleShape())
 {
-	_rectangle = new sf::RectangleShape();
 }
 
 SpriteComponent::~SpriteComponent()

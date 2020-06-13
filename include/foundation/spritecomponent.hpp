@@ -21,7 +21,7 @@ namespace qrw
 class SpriteComponent : public GameComponent, public Renderable
 {
 public:
-	explicit SpriteComponent(Layer layer);
+	explicit SpriteComponent(GameObject& owner, Layer layer);
 
 	~SpriteComponent() override;
 

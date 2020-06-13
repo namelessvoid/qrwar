@@ -17,7 +17,7 @@ UnitMeleeAttackAbility::UnitMeleeAttackAbility(Unit* owner) : UnitAbility(owner)
 {
 	setName("Attack");
 
-	attackSymbol_ = std::make_unique<SpriteComponent>(RENDER_LAYER_CURSOR);
+	attackSymbol_ = std::make_unique<SpriteComponent>(*owner, RENDER_LAYER_CURSOR);
 	attackSymbol_->setVisible(false);
 	attackSymbol_->setTexture(TextureManager::getInstance()->getTexture("squaremarkerattack"));
 	attackSymbol_->setSize({SQUARE_DIMENSION, SQUARE_DIMENSION});
@@ -46,14 +46,14 @@ void UnitMeleeAttackAbility::executeOn(const Coordinates& position)
 	Unit* opponent = getOpponentAt(position);
 	assert(opponent);
 
-	owner_->setCurrentMovement(0);
+	unit_->setCurrentMovement(0);
 
 	inflictDamage(*opponent);
 	if(opponent->getCurrentHp() <= 0)
 		return;
 
 	UnitMeleeAttackAbility* opponentAttackAbility = opponent->getFirstComponent<UnitMeleeAttackAbility>();
-	opponentAttackAbility->counterAttack(*owner_);
+	opponentAttackAbility->counterAttack(*unit_);
 }
 
 void UnitMeleeAttackAbility::counterAttack(Unit& opponent)
@@ -65,7 +65,7 @@ void UnitMeleeAttackAbility::counterAttack(Unit& opponent)
 
 void UnitMeleeAttackAbility::inflictDamage(Unit& opponent)
 {
-	int inflictedDamage = owner_->getModifiedAttack() - opponent.getModifiedDefense();
+	int inflictedDamage = unit_->getModifiedAttack() - opponent.getModifiedDefense();
 	inflictedDamage = inflictedDamage < 0 ? 0 : inflictedDamage;
 	opponent.damage(inflictedDamage);
 }
@@ -75,11 +75,11 @@ bool UnitMeleeAttackAbility::canBeExecutedOn(const Coordinates& position)
 	if(!UnitAbility::canBeExecutedOn(position)) return false;
 
 	if(!getOpponentAt(position)) return false;
-	if(owner_->getCurrentMovement() <= 0) return false;
-	if(owner_->getBoardPosition().distanceTo(position) > getAttackRange()) return false;
+	if(unit_->getCurrentMovement() <= 0) return false;
+	if(unit_->getBoardPosition().distanceTo(position) > getAttackRange()) return false;
 
 	StructureAccessibilityChecker structureAccessibilityChecker;
-	return structureAccessibilityChecker.isAccessible(owner_->getBoardPosition(),
+	return structureAccessibilityChecker.isAccessible(unit_->getBoardPosition(),
 													  position,
 													  *g_scene.findSingleGameObject<qrw::Board>());
 }
@@ -92,7 +92,7 @@ Unit* UnitMeleeAttackAbility::getOpponentAt(const Coordinates& position)
 	Unit* opponent = board->getUnit(position);
 	if(!opponent) return nullptr;
 
-	if(opponent->getPlayer() == owner_->getPlayer())
+	if(opponent->getPlayer() == unit_->getPlayer())
 		return nullptr;
 
 	return opponent;

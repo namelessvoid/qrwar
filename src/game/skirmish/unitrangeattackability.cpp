@@ -21,7 +21,7 @@ UnitRangeAttackAbility::UnitRangeAttackAbility(Unit* owner)
 {
 	setName("Ranged Attack");
 
-	squareMarker_ = std::make_unique<SpriteComponent>(RENDER_LAYER_CURSOR);
+	squareMarker_ = std::make_unique<SpriteComponent>(*owner, RENDER_LAYER_CURSOR);
 	squareMarker_->setTexture(TextureManager::getInstance()->getTexture("squaremarkerrangeattack"));
 	squareMarker_->setSize({SQUARE_DIMENSION, SQUARE_DIMENSION});
 	squareMarker_->setOrigin(0.5f * SQUARE_DIMENSION, 0.0f);
@@ -38,7 +38,7 @@ void UnitRangeAttackAbility::executeOn(const Coordinates& position)
 
 	opponent->damage(damage_);
 
-	owner_->setCurrentMovement(0);
+	unit_->setCurrentMovement(0);
 }
 
 void UnitRangeAttackAbility::activate()
@@ -62,16 +62,16 @@ bool UnitRangeAttackAbility::canBeExecutedOn(const Coordinates& position)
 {
 	if(!UnitAbility::canBeExecutedOn(position)) return false;
 
-	unsigned int distanceToTarget = owner_->getBoardPosition().distanceTo(position);
+	unsigned int distanceToTarget = unit_->getBoardPosition().distanceTo(position);
 	if(distanceToTarget < minRange_ || distanceToTarget > maxRange_) return false;
 
-	if(owner_->getCurrentMovement() <= 0) return false;
+	if(unit_->getCurrentMovement() <= 0) return false;
 
 	Board* board = g_scene.findSingleGameObject<Board>();
 	assert(board != nullptr);
 
 	Unit* opponent = board->getUnit(position);
-	if(!opponent || owner_->getPlayer() == opponent->getPlayer()) return false;
+	if(!opponent || unit_->getPlayer() == opponent->getPlayer()) return false;
 
 	return true;
 }

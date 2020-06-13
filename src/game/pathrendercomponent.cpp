@@ -7,6 +7,7 @@
 
 #include "gui/texturemanager.hpp"
 
+#include "game/path.hpp"
 #include "game/renderlayers.hpp"
 #include "game/constants.hpp"
 #include "game/skirmish/isometricconversion.hpp"
@@ -14,8 +15,8 @@
 namespace qrw
 {
 
-PathRenderComponent::PathRenderComponent()
-	: SpriteComponent(RENDER_LAYER_PATH)
+PathRenderComponent::PathRenderComponent(Path& owner)
+	: SpriteComponent(owner, RENDER_LAYER_PATH)
 {
 	setPath(nullptr);
 	setTexture(TextureManager::getInstance()->getTexture("footstep"));

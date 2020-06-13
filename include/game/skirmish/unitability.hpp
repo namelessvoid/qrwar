@@ -15,12 +15,7 @@ class Unit;
 class UnitAbility : public GameComponent
 {
 public:
-	explicit UnitAbility(Unit* owner)
-		: owner_(owner),
-		  isActive_(false),
-		  enabled_(true)
-	{
-	}
+	explicit UnitAbility(Unit* owner);
 
 	~UnitAbility() override = default;
 
@@ -42,7 +37,7 @@ public:
 protected:
 	inline void setName(const std::string& name) { name_ = name; }
 
-	Unit* owner_;
+	Unit* unit_;
 
 private:
 	bool isActive_;

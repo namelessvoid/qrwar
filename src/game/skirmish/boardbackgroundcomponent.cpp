@@ -13,8 +13,9 @@ namespace qrw
 {
 
 BoardBackgroundComponent::BoardBackgroundComponent(Board& owner)
-	: Renderable(RENDER_LAYER_BACKGROUND),
-	  owner_(owner)
+	: GameComponent(owner),
+	  Renderable(RENDER_LAYER_BACKGROUND),
+	  board_(owner)
 {
 	plainSquareSprite_.setTexture(*TextureManager::getInstance()->getTexture("plainsquare"));
 	plainSquareSprite_.setOrigin({SQUARE_DIMENSION, 0});
@@ -22,9 +23,9 @@ BoardBackgroundComponent::BoardBackgroundComponent(Board& owner)
 
 void BoardBackgroundComponent::render(sf::RenderTarget& renderTarget)
 {
-	for(unsigned int x = 0; x < owner_.getWidth(); ++x)
+	for(unsigned int x = 0; x < board_.getWidth(); ++x)
 	{
-		for(unsigned int y = 0; y < owner_.getHeight(); ++y)
+		for(unsigned int y = 0; y < board_.getHeight(); ++y)
 		{
 			sf::Vector2f isoPosition = worldToIso(sf::Vector2f(x, y) * SQUARE_DIMENSION);
 			plainSquareSprite_.setPosition(isoPosition);
@@ -45,7 +46,7 @@ const sf::Vector2f& BoardBackgroundComponent::getPosition() const
 
 sf::Vector2f BoardBackgroundComponent::getViewCenter() const
 {
-	return worldToIso(sf::Vector2f(owner_.getWidth(), owner_.getHeight()) * 0.5f * SQUARE_DIMENSION);
+	return worldToIso(sf::Vector2f(board_.getWidth(), board_.getHeight()) * 0.5f * SQUARE_DIMENSION);
 }
 
 sf::FloatRect BoardBackgroundComponent::getViewBounds() const
@@ -56,9 +57,9 @@ sf::FloatRect BoardBackgroundComponent::getViewBounds() const
 	//    \/ c
 
 	sf::Vector2f a(0, 0);
-	sf::Vector2f b(worldToIso({owner_.getWidth() * SQUARE_DIMENSION, 0}));
-	sf::Vector2f c(worldToIso(sf::Vector2f(owner_.getWidth(), owner_.getHeight()) * SQUARE_DIMENSION));
-	sf::Vector2f d(worldToIso({0, owner_.getHeight() * SQUARE_DIMENSION}));
+	sf::Vector2f b(worldToIso({board_.getWidth() * SQUARE_DIMENSION, 0}));
+	sf::Vector2f c(worldToIso(sf::Vector2f(board_.getWidth(), board_.getHeight()) * SQUARE_DIMENSION));
+	sf::Vector2f d(worldToIso({0, board_.getHeight() * SQUARE_DIMENSION}));
 
 	return sf::FloatRect(d.x, a.y, -d.x + b.x, c.y);
 }

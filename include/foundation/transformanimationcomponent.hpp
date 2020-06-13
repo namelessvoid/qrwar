@@ -11,7 +11,8 @@ namespace qrw
 class TransformAnimationComponent : public Animation, public GameComponent
 {
 public:
-    TransformAnimationComponent(Renderable* animationTarget)
+    TransformAnimationComponent(GameObject& owner, Renderable* animationTarget)
+    	: GameComponent(owner)
     {
         assert(animationTarget!=nullptr);
         m_animationTarget = animationTarget;

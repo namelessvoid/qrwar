@@ -33,7 +33,7 @@ Unit::Unit()
 	  _movement(0),
 	  _currentmovement(0)
 {
-	_sprite = new SpriteComponent(RENDER_LAYER_GAME);
+	_sprite = new SpriteComponent(*this, RENDER_LAYER_GAME);
 	addComponent(_sprite);
 	_sprite->setSize({SQUARE_DIMENSION, SQUARE_DIMENSION});
 	_sprite->setOrigin(SQUARE_DIMENSION * 0.5f, 0);

@@ -10,7 +10,8 @@ namespace qrw
 {
 
 FollowRouteAnimationComponent::FollowRouteAnimationComponent(Unit* unit)
-	: Animation(),
+	: GameComponent(*unit),
+	  Animation(),
 	  unit_(unit)
 {
 	setDuration(1);

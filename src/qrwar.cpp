@@ -1,8 +1,6 @@
 #include "qrwar.hpp"
 
 #include <SFML/Graphics/RenderWindow.hpp>
-#include <SFML/Window/Event.hpp>
-#include <SFML/System/Time.hpp>
 
 #include "config/settings.hpp"
 #include "config/tilesetprocessor.hpp"

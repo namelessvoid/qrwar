@@ -4,12 +4,19 @@
 namespace qrw
 {
 
+class GameObject;
+
 class GameComponent
 {
 public:
-	virtual ~GameComponent() {}
+	explicit GameComponent(GameObject& owner);
+
+	virtual ~GameComponent() = default;
 
 	virtual void onDestroy() {}
+
+private:
+	GameObject* owner_;
 };
 
 } // namespace qrw

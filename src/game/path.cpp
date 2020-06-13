@@ -13,7 +13,7 @@ namespace qrw
 Path::Path()
 	: path_(nullptr)
 {
-	pathRenderComponent_ = new PathRenderComponent();
+	pathRenderComponent_ = new PathRenderComponent(*this);
 	addComponent(pathRenderComponent_);
 }
 

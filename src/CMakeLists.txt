@@ -60,6 +60,7 @@ add_library(qrwarlib
 	game/skirmish/unit.cpp
 	game/skirmish/laddercarrier.cpp
 	game/skirmish/archer.cpp
+	game/skirmish/unitability.cpp
 	game/skirmish/unitmovementability.cpp
 	game/skirmish/unitmeleeattackability.cpp
 	game/skirmish/unitrangeattackability.cpp
