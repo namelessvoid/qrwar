@@ -15,6 +15,8 @@ public:
 
 	virtual void onDestroy() {}
 
+	inline GameObject* getOwner() const { return owner_; }
+
 private:
 	GameObject* owner_;
 };

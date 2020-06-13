@@ -12,7 +12,7 @@ add_executable(unittest
 
 	core/logger_log.cpp
 
-	rendering/renderablezindexcomparer_compare.cpp
+	rendering/renderablezindexcomparerless_compare.cpp
 	rendering/rendersystem_renderall.cpp
 
 	engine/boardtest.cpp

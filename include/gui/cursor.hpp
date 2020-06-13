@@ -34,6 +34,7 @@ public:
 
 	virtual bool handleEvent(const qrw::IEvent& event) override;
 };
+
 } // namespace qrw
 
 #endif

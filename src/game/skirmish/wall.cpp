@@ -38,6 +38,11 @@ Wall::Wall()
 	topFloorSprite_->setOrigin(SQUARE_DIMENSION, 0.0f);
 	topFloorSprite_->setTexture(TextureManager::getInstance()->getTexture("wall_top"));
 	addComponent(topFloorSprite_);
+
+	// Make sprites clickable
+	eastWallSprite_->enablePhysics();
+	southWallSprite_->enablePhysics();
+	topFloorSprite_->enablePhysics();
 }
 
 bool Wall::isConnectedTo(const Coordinates& direction, const Board& board) const

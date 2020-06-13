@@ -6,9 +6,9 @@
 
 using ::testing::ElementsAre;
 
-TEST(RenderableZIndexComparer_Compare, If_first_z_index_is_less_than_second_z_index_Then_true_is_returned)
+TEST(RenderableZIndexComparerLess_Compare, If_first_z_index_is_less_than_second_z_index_Then_true_is_returned)
 {
-	qrw::RenderableZIndexComparer comparer;
+	qrw::RenderableZIndexComparerLess comparer;
 
 	RenderableMock a(0);
 	a.setZIndex(12);
@@ -20,10 +20,10 @@ TEST(RenderableZIndexComparer_Compare, If_first_z_index_is_less_than_second_z_in
 	ASSERT_FALSE(comparer(&b, &a));
 }
 
-TEST(RenderableZIndexComparer_Compare, Is_compatible_to_std_sort)
+TEST(RenderableZIndexComparerLess_Compare, Is_compatible_to_std_sort)
 {
 	// Arrange
-	qrw::RenderableZIndexComparer comparer;
+	qrw::RenderableZIndexComparerLess comparer;
 
 	RenderableMock a(0);
 	a.setZIndex(12);

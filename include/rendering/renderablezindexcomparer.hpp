@@ -6,13 +6,21 @@
 namespace qrw
 {
 
-struct RenderableZIndexComparer
+struct RenderableZIndexComparerLess
 {
 	bool operator()(const Renderable* a, const Renderable* b) const
 	{
 		return a->getZIndex() < b->getZIndex();
 	}
 };
+
+struct
+{
+	bool operator()(const Renderable* a, const Renderable* b) const
+	{
+		return a->getZIndex() > b->getZIndex();
+	}
+} RenderableZIndexComparerGreater;
 
 }
 

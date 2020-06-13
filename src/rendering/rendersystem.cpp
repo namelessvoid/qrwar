@@ -39,7 +39,7 @@ void RenderSystem::renderAll()
 {
 	camera_->applyTo(*renderTarget_);
 
-	RenderableZIndexComparer zIndexComparer;
+	RenderableZIndexComparerLess zIndexComparer;
 	for(auto& layer : renderables_)
 	{
 		if(layer.second.empty()) continue;

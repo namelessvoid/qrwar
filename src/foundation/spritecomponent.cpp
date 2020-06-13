@@ -3,9 +3,9 @@
 #include <SFML/Graphics/RectangleShape.hpp>
 #include <SFML/Graphics/RenderTarget.hpp>
 #include <SFML/Graphics/Texture.hpp>
-#include <SFML/Graphics/Sprite.hpp>
 
 #include "rendering/rendersystem.hpp"
+#include "physics/physicsengine.hpp"
 
 namespace qrw
 {
@@ -13,12 +13,16 @@ namespace qrw
 SpriteComponent::SpriteComponent(GameObject& owner, Layer layer)
 	: GameComponent(owner),
 	  Renderable(layer),
-	  _rectangle(new sf::RectangleShape())
+	  _rectangle(new sf::RectangleShape()),
+	  physicsEnabled_(false)
 {
 }
 
 SpriteComponent::~SpriteComponent()
 {
+	if(physicsEnabled_)
+		disablePhysics();
+
 	delete _rectangle;
 }
 
@@ -59,6 +63,25 @@ void SpriteComponent::render(sf::RenderTarget &renderTarget)
 	if(!isVisible()) return;
 
 	renderTarget.draw(*_rectangle);
+}
+
+sf::FloatRect SpriteComponent::getGlobalBounds() const
+{
+	return _rectangle->getGlobalBounds();
+}
+
+void SpriteComponent::enablePhysics()
+{
+	assert(!physicsEnabled_);
+	physicsEnabled_ = true;
+	g_physicsEngine.registerSpriteComponent(*this);
+}
+
+void SpriteComponent::disablePhysics()
+{
+	assert(physicsEnabled_);
+	g_physicsEngine.deregisterSpriteCompnent(*this);
+	physicsEnabled_ = false;
 }
 
 } // namespace qrw

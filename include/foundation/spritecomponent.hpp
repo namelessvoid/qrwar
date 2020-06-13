@@ -54,8 +54,15 @@ public:
 
 	virtual void render(sf::RenderTarget& renderTarget) override;
 
+	sf::FloatRect getGlobalBounds() const override;
+
+	void enablePhysics();
+	void disablePhysics();
+
 protected:
 	sf::RectangleShape* _rectangle;
+
+	bool physicsEnabled_;
 };
 
 } // namespace qrw

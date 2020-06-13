@@ -106,7 +106,11 @@ add_library(qrwarlib
 	gui/guihelper.cpp
 
 	meta/metamanager.cpp
-	meta/metaclass.cpp)
+	meta/metaclass.cpp
+
+	physics/physicsengine.cpp
+)
+
 set_target_properties(qrwarlib PROPERTIES OUTPUT_NAME qrwar)
 target_link_libraries(qrwarlib
 	sfml-audio
