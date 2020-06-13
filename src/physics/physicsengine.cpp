@@ -17,7 +17,6 @@ void PhysicsEngine::registerSpriteComponent(const SpriteComponent& component)
 	}
 
 	registeredSpriteComponents_.push_back(&component);
-	std::sort(registeredSpriteComponents_.begin(), registeredSpriteComponents_.end(), RenderableZIndexComparerGreater);
 }
 
 void PhysicsEngine::deregisterSpriteCompnent(const qrw::SpriteComponent& component)
@@ -36,6 +35,8 @@ GameObject* PhysicsEngine::pixelPerfectRaycast(float originX, float originY)
 	// - Reverse transform
 
 	std::cout << "alpha masks size: " << textureAlphaMasks_.size() << std::endl << std::flush;
+
+	std::sort(registeredSpriteComponents_.begin(), registeredSpriteComponents_.end(), RenderableZIndexComparerGreater);
 
 	for(auto& spriteComponent : registeredSpriteComponents_) {
 		if(!spriteComponent->isVisible())
