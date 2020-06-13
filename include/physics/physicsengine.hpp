@@ -2,8 +2,14 @@
 #define QRW_PHYSICSENGINE_HPP
 
 #include <vector>
+#include <map>
+#include <memory>
+
+#include <SFML/Graphics/Texture.hpp>
 
 #include "foundation/spritecomponent.hpp"
+
+#include "physics/texturealphamask.hpp"
 
 namespace qrw {
 
@@ -35,6 +41,8 @@ public:
 
 private:
 	std::vector<const SpriteComponent*> registeredSpriteComponents_;
+
+	std::map<const sf::Texture*, std::unique_ptr<TextureAlphaMask>> textureAlphaMasks_;
 };
 
 extern PhysicsEngine g_physicsEngine;

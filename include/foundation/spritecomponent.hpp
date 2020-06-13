@@ -35,6 +35,11 @@ public:
 
 	const sf::Vector2f& getPosition() const override;
 
+	const sf::Transform& getInverseTransform() const
+	{
+		return _rectangle->getInverseTransform();
+	}
+
 	void setScale(sf::Vector2f scale)
 	{
 		_rectangle->setScale(scale);
@@ -45,9 +50,14 @@ public:
 		_rectangle->setOrigin(x, y);
 	}
 
-	const sf::Texture* getTexture()
+	const sf::Texture* getTexture() const
 	{
 		return _rectangle->getTexture();
+	}
+
+	const sf::IntRect& getTextureRect() const
+	{
+		return _rectangle->getTextureRect();
 	}
 
 	void setFillColor(const sf::Color& color);

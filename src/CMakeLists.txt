@@ -109,6 +109,7 @@ add_library(qrwarlib
 	meta/metaclass.cpp
 
 	physics/physicsengine.cpp
+	physics/texturealphamask.cpp
 )
 
 set_target_properties(qrwarlib PROPERTIES OUTPUT_NAME qrwar)
