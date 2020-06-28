@@ -16,7 +16,7 @@ TextureAlphaMask::TextureAlphaMask(const sf::Texture& texture)
 	}
 }
 
-bool TextureAlphaMask::isPixelSet(unsigned int x, unsigned int y)
+bool TextureAlphaMask::isPixelSet(unsigned int x, unsigned int y) const
 {
 	if (x > size_.x || y > size_.y)
 		return false;

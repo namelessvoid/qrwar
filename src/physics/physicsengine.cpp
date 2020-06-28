@@ -11,11 +11,6 @@ void PhysicsEngine::registerSpriteComponent(const SpriteComponent& component)
 {
 	assert(std::find(registeredSpriteComponents_.begin(), registeredSpriteComponents_.end(), &component) == registeredSpriteComponents_.end());
 
-	const sf::Texture* texture = component.getTexture();
-	if(textureAlphaMasks_.find(texture) == textureAlphaMasks_.end()) {
-		textureAlphaMasks_.insert(std::make_pair(texture, std::make_unique<TextureAlphaMask>(*texture)));
-	}
-
 	registeredSpriteComponents_.push_back(&component);
 }
 
@@ -46,10 +41,10 @@ GameObject* PhysicsEngine::pixelPerfectRaycast(float originX, float originY)
 		if(!bounds.contains(originX, originY))
 			continue;
 
-		std::unique_ptr<TextureAlphaMask>& textureAlphaMask = textureAlphaMasks_[spriteComponent->getTexture()];
+		const TextureAlphaMask& textureAlphaMask = getOrCreateAlphaMaskForTexture(*spriteComponent->getTexture());
 		sf::IntRect textureRect = spriteComponent->getTextureRect();
 		sf::Vector2f originInSpriteCoordinates = spriteComponent->getInverseTransform().transformPoint(originX, originY);
-		bool isPixel = textureAlphaMask->isPixelSet(
+		bool isPixel = textureAlphaMask.isPixelSet(
 				(int)(originInSpriteCoordinates.x) + textureRect.left,
 				(int)(originInSpriteCoordinates.y) + textureRect.top);
 		if(!isPixel)
@@ -59,6 +54,16 @@ GameObject* PhysicsEngine::pixelPerfectRaycast(float originX, float originY)
 	}
 
 	return nullptr;
+}
+
+const TextureAlphaMask& PhysicsEngine::getOrCreateAlphaMaskForTexture(const sf::Texture& texture)
+{
+	auto iter = textureAlphaMasks_.find(&texture);
+	if(iter == textureAlphaMasks_.end()) {
+		iter = textureAlphaMasks_.insert(std::make_pair(&texture, std::make_unique<TextureAlphaMask>(texture))).first;
+	}
+
+	return *iter->second;
 }
 
 } // namespace qrw

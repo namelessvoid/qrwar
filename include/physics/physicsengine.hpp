@@ -27,6 +27,13 @@ public:
 	void deregisterSpriteCompnent(const SpriteComponent& component);
 
 	/**
+	 * Adds a alpha mask for the provided texture if it does not yet exist. If it already exists, the
+	 * method does nothing.
+	 * @param texture
+	 */
+	const TextureAlphaMask& getOrCreateAlphaMaskForTexture(const sf::Texture& texture);
+
+	/**
 	 * Performs ray cast like pixel-perfect collision detection for a given point.
 	 *
 	 * Since this is pixel perfect, the cast is performed

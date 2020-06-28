@@ -24,7 +24,7 @@ public:
 	TextureAlphaMask(const TextureAlphaMask& rhs) = delete;
 	TextureAlphaMask& operator=(const TextureAlphaMask& rhs) = delete;
 
-	bool isPixelSet(unsigned int x, unsigned int y);
+	bool isPixelSet(unsigned int x, unsigned int y) const;
 
 private:
 	std::vector<sf::Uint8> pixels_;
