@@ -19,6 +19,8 @@ public:
 
 	void setPosition(const Coordinates& position) override;
 
+	float getCurrentVisualHeightForUnits() const override;
+
 private:
 	SpriteComponent* spriteComponent_;
 };

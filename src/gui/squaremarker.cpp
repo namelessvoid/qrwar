@@ -3,12 +3,14 @@
 #include <SFML/Graphics/RenderTarget.hpp>
 
 #include "foundation/spritecomponent.hpp"
+#include "gui/scene.hpp"
 
 #include "gui/texturemanager.hpp"
 
 #include "game/renderlayers.hpp"
 #include "game/constants.hpp"
 #include "game/skirmish/isometricconversion.hpp"
+#include "game/skirmish/structure.hpp"
 
 namespace qrw
 {
@@ -31,11 +33,18 @@ void SquareMarker::setBoardPosition(const Coordinates& boardPosition)
 {
 	m_boardPosition = boardPosition;
 
+	float yOffset = 0;
+	if(auto board = g_scene.findSingleGameObject<Board>()) {
+		if(auto structure = board->getStructure(m_boardPosition)) {
+			yOffset = structure->getCurrentVisualHeightForUnits();
+		}
+	}
+
 	auto isoPosition = worldToIso({SQUARE_DIMENSION * m_boardPosition.getX(), SQUARE_DIMENSION * m_boardPosition.getY()});
 
 	m_spriteComponent->setOrigin(SQUARE_DIMENSION, 0.0f);
-	m_spriteComponent->setPosition(isoPosition);
-	m_spriteComponent->setZIndex(isoPosition.y);
+	m_spriteComponent->setPosition(isoPosition + sf::Vector2f(0, yOffset));
+	m_spriteComponent->setZIndex(isoPosition.y + 0.2f);
 }
 
 bool SquareMarker::isVisible() const
@@ -56,21 +65,6 @@ void SquareMarker::markValid()
 void SquareMarker::markInvalid()
 {
 	m_spriteComponent->setTexture(TextureManager::getInstance()->getTexture("squaremarkerinvalid"));
-}
-
-void SquareMarker::markAttackable()
-{
-	m_spriteComponent->setTexture(TextureManager::getInstance()->getTexture("squaremarkerattack"));
-}
-
-void SquareMarker::markRangeAttackable()
-{
-	m_spriteComponent->setTexture(TextureManager::getInstance()->getTexture("squaremarkerrangeattack"));
-}
-
-void SquareMarker::markDeployLadder()
-{
-	m_spriteComponent->setTexture(TextureManager::getInstance()->getTexture("squaremarkerdeployladder"));
 }
 
 } // namespace qrw

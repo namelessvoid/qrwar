@@ -1,15 +1,18 @@
 #include "game/pathrendercomponent.hpp"
 
-#include <SFML/Graphics/RectangleShape.hpp>
 #include <SFML/Graphics/RenderTarget.hpp>
 
+#include "engine/board.hpp"
 #include "engine/pathfinding/path.hpp"
 
 #include "gui/texturemanager.hpp"
+#include "gui/scene.hpp"
 
 #include "game/path.hpp"
 #include "game/renderlayers.hpp"
 #include "game/constants.hpp"
+#include "game/skirmish/structure.hpp"
+#include "game/skirmish/boardtoworldconversion.hpp"
 #include "game/skirmish/isometricconversion.hpp"
 
 namespace qrw
@@ -34,6 +37,8 @@ void qrw::PathRenderComponent::render(sf::RenderTarget &renderTarget)
 	const Coordinates* current  = &path_->getStep(0);
 	const Coordinates* next     = &path_->getStep(1);
 
+	auto board = g_scene.findSingleGameObject<Board>();
+
 	// Do not render first step.
 	for(int i = 1; i < pathLength; ++i)
 	{
@@ -41,7 +46,8 @@ void qrw::PathRenderComponent::render(sf::RenderTarget &renderTarget)
 		current  = next;
 
 		// Reset the previously applied transformations.
-		_rectangle->setOrigin(0.5f * SQUARE_DIMENSION, 0.5f * SQUARE_DIMENSION);
+		//_rectangle->setOrigin(SQUARE_DIMENSION, SQUARE_DIMENSION);
+		_rectangle->setOrigin(0, 0);
 		_rectangle->setScale(1, 1);
 		_rectangle->setRotation(0);
 
@@ -77,10 +83,15 @@ void qrw::PathRenderComponent::render(sf::RenderTarget &renderTarget)
 			}
 		}
 
-		_rectangle->setPosition(worldToIso({
-			SQUARE_DIMENSION * (0.5f + current->getX()),
-			SQUARE_DIMENSION * (0.5f + current->getY())
-		}));
+		float yOffset{0.0f};
+		if(board) {
+			if(auto structure = board->getStructure(*current)) {
+				yOffset = structure->getCurrentVisualHeightForUnits();
+			}
+		}
+
+		sf::Vector2f isoPosition = worldToIso(boardToWorld(*current)) + sf::Vector2f(0, yOffset);
+		_rectangle->setPosition(isoPosition);
 
 		renderTarget.draw(*_rectangle);
 	} // for(step in path)

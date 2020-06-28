@@ -66,4 +66,10 @@ void Stairs::flatModeChanged()
 	computeTexture();
 }
 
+float Stairs::getCurrentVisualHeightForUnits() const
+{
+	if(isFlatMode()) return 0;
+	return -0.75f * SQUARE_DIMENSION;
+}
+
 }

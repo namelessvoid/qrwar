@@ -149,24 +149,15 @@ void Unit::setWorldPosition(const sf::Vector2f& worldPosition)
 	Coordinates boardPosition = worldToBoard(worldPosition);
 	Board* board = g_scene.findSingleGameObject<Board>();
 	if (auto structure = board->getStructure(boardPosition)) {
-		if (dynamic_cast<Wall*>(structure) != nullptr) {
-			// If not in flat mode, account the height of the wall
-			if(!isFlatMode())
-				isoPosition.y -= 2.0f * SQUARE_DIMENSION;
+		isoPosition.y += structure->getCurrentVisualHeightForUnits();
 
-			// Rather hacky way to get unit rendered before walls when moving from one wall to the other.
-			// This will probably break as soon as merlons are added to walls.
-			zIndex += 0.2f + SQUARE_DIMENSION;
-		}
+		// Rather hacky way to get unit rendered before walls when moving from one wall to the other.
+		// This will probably break as soon as merlons are added to walls.
+		zIndex += 0.2f + SQUARE_DIMENSION;
 	}
 
 	_sprite->setPosition(isoPosition);
 	_sprite->setZIndex(zIndex);
-}
-
-const sf::Vector2f& Unit::getWorldPosition() const
-{
-	return worldPosition_;
 }
 
 const Coordinates& Unit::getBoardPosition() const

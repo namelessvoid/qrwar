@@ -25,6 +25,8 @@ public:
 
 	void flatModeChanged() override;
 
+	float getCurrentVisualHeightForUnits() const override;
+
 private:
 	SpriteComponent* spriteComponent_;
 };

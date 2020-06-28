@@ -61,4 +61,9 @@ void Ladder::setPosition(const Coordinates& position)
 	spriteComponent_->setPosition(worldToIso(boardToWorld(position)));
 }
 
+float Ladder::getCurrentVisualHeightForUnits() const
+{
+	return 0.0f;
+}
+
 } // namespace qrw

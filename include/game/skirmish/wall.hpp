@@ -25,6 +25,8 @@ public:
 	// From FlatModeAwareMixin interface
 	void flatModeChanged() override;
 
+	float getCurrentVisualHeightForUnits() const override;
+
 private:
 	bool isConnectedTo(const Coordinates& direction, const Board& board) const;
 

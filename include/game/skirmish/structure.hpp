@@ -34,6 +34,15 @@ public:
 	// Used to display an icon for this structure in the SquareDetailWindow.
 	virtual const sf::Texture* getTexture() const = 0;
 
+	/**
+	 * The current visible height for unit is used to visually place units on top of accessible
+	 * structures. This can be used for e.g. walls and returns the negative y-axis displacement
+	 * which has to be applied to the unit sprite to make it visually stand on top of the structure.
+	 * This respects flat mode, so you should not cache this value.
+	 * @return The y-axis offset which is always negative to move units "up".
+	 */
+	virtual float getCurrentVisualHeightForUnits() const = 0;
+
 protected:
 	void updateNeighborTextures();
 

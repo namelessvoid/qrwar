@@ -93,5 +93,12 @@ void Wall::updateSprites()
 	topFloorSprite_->setZIndex(isometricPosition.y);
 }
 
+float Wall::getCurrentVisualHeightForUnits() const
+{
+	if(isFlatMode()) return 0;
+
+	return -2.0f * SQUARE_DIMENSION;
+}
+
 
 }
