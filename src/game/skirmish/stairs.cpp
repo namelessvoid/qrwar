@@ -20,6 +20,8 @@ Stairs::Stairs()
 	spriteComponent_->setOrigin(SQUARE_DIMENSION, 40.0f);
 	spriteComponent_->setTexture(TextureManager::getInstance()->getTexture("stairs_west"));
 	addComponent(spriteComponent_);
+
+	spriteComponent_->enablePhysics();
 }
 
 const sf::Texture* Stairs::getTexture() const
