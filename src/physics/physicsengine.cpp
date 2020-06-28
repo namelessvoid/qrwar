@@ -1,5 +1,4 @@
 #include <cassert>
-#include <iostream>
 
 #include "physics/physicsengine.hpp"
 #include "rendering/renderablezindexcomparer.hpp"
@@ -23,14 +22,6 @@ void PhysicsEngine::deregisterSpriteCompnent(const qrw::SpriteComponent& compone
 
 GameObject* PhysicsEngine::pixelPerfectRaycast(float originX, float originY)
 {
-	// required:
-	// - Texture
-	// - Texture Rect
-	// - GlobalBounds
-	// - Reverse transform
-
-	std::cout << "alpha masks size: " << textureAlphaMasks_.size() << std::endl << std::flush;
-
 	std::sort(registeredSpriteComponents_.begin(), registeredSpriteComponents_.end(), RenderableZIndexComparerGreater);
 
 	for(auto& spriteComponent : registeredSpriteComponents_) {
