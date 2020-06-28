@@ -64,7 +64,7 @@ public:
 
 	virtual void render(sf::RenderTarget& renderTarget) override;
 
-	sf::FloatRect getGlobalBounds() const override;
+	sf::FloatRect getGlobalBounds() const;
 
 	void enablePhysics();
 	void disablePhysics();
