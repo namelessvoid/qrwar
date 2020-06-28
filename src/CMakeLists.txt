@@ -82,6 +82,7 @@ add_library(qrwarlib
 	game/skirmish/gui/victorydialog.cpp
 	game/skirmish/gui/mapeditortoolbar.cpp
 	game/skirmish/gui/mapselectionwindow.cpp
+	game/skirmish/gui/mappreview.cpp
 	game/skirmish/gui/skirmishpreparationgui.cpp
 	game/skirmish/gui/skirmishpreparationplayeroptions.cpp
 	game/skirmish/gui/squaredetailwindow.cpp
