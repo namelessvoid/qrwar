@@ -46,8 +46,7 @@ void qrw::PathRenderComponent::render(sf::RenderTarget &renderTarget)
 		current  = next;
 
 		// Reset the previously applied transformations.
-		//_rectangle->setOrigin(SQUARE_DIMENSION, SQUARE_DIMENSION);
-		_rectangle->setOrigin(0, 0);
+		_rectangle->setOrigin(0.5f * SQUARE_DIMENSION, 0.5f * SQUARE_DIMENSION);
 		_rectangle->setScale(1, 1);
 		_rectangle->setRotation(0);
 
@@ -90,7 +89,8 @@ void qrw::PathRenderComponent::render(sf::RenderTarget &renderTarget)
 			}
 		}
 
-		sf::Vector2f isoPosition = worldToIso(boardToWorld(*current)) + sf::Vector2f(0, yOffset);
+		sf::Vector2f worldPosition{SQUARE_DIMENSION * (0.5f + current->getX()), SQUARE_DIMENSION * (0.5f + current->getY())};
+		sf::Vector2f isoPosition = worldToIso(worldPosition) + sf::Vector2f(0, yOffset);
 		_rectangle->setPosition(isoPosition);
 
 		renderTarget.draw(*_rectangle);
