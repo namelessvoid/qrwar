@@ -21,7 +21,6 @@ private:
 	DeploymentZoneMetaClass& operator=(const DeploymentZoneMetaClass& rhs) = delete;
 };
 
-
 } // namespace qrw
 
 #endif // QRW_DEPLOYMENTZONEMETACLASS_HPP

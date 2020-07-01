@@ -15,8 +15,6 @@ struct MapDto
 
 	Board* board = nullptr;
 	std::vector<DeploymentZone*> deploymentZones;
-//	std::set<Terrain*> terrains;
-//	std::set<Structure*> structures;
 };
 
 }

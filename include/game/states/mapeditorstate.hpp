@@ -6,6 +6,7 @@
 
 #include "game/states/scenestate.hpp"
 
+#include "game/skirmish/toggleflatmodehandler.hpp"
 #include "game/skirmish/mapmanager.hpp"
 #include "game/skirmish/structurefactory.hpp"
 
@@ -58,6 +59,8 @@ private:
 
 	void slotSaveClicked(const std::string& mapName);
 	void slotLoadClicked(const std::string& mapName);
+
+	ToggleFlatModeHandler toggleFlatModeHandler_;
 
 	void saveMap(const std::string(&mapName));
 	std::string mapNameForSaveConfirmation_;

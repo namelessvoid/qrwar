@@ -27,6 +27,7 @@ namespace qrw
 
 DeployState::DeployState(sf::RenderWindow* renderWindow, MapManager& mapManager)
     : SceneState(renderWindow, EGameStateId::EGSID_DEPLOY_STATE),
+	  toggleFlatModeHandler_(),
 	  mapManager_(mapManager),
 	  board_(nullptr),
       _toSkirmish(false)
@@ -199,7 +200,7 @@ void DeployState::init(GameState* previousState)
 	g_scene.spawn<Cursor>();
 
 	SkirmishCamera* camera = g_scene.spawn<SkirmishCamera>();
-	camera->setCenter(board_->getComponent<BoardBackgroundComponent>()->getViewCenter());
+	camera->setCenter(board_->getFirstComponent<BoardBackgroundComponent>()->getViewCenter());
 
 	// Create new players
 	_players.clear();
@@ -249,7 +250,8 @@ void DeployState::slotCursorLeftClicked(const Coordinates& boardPosition)
 		g_scene.destroy(unit);
 
 	Unit* unit = UnitFactory::createUnit(_selectedUnitType, _selectedPlayer);
-	unit->setPosition(boardPosition);
+	unit->deploy(boardPosition);
+	unit->setFlatMode(toggleFlatModeHandler_.isFlatMode());
 	g_scene.addGameObject(unit);
 }
 

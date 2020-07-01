@@ -6,7 +6,18 @@
 class WallAccessStructureMock : public qrw::WallAccessStructureBase
 {
 public:
+	const sf::Texture* getTexture() const override
+	{
+		throw "Not implemented";
+	}
+
+public:
 	const qrw::SID& getTypeName() const override
+	{
+		throw "Not implemented";
+	}
+
+	float getCurrentVisualHeightForUnits() const override
 	{
 		throw "Not implemented";
 	}

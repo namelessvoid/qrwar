@@ -58,7 +58,6 @@ Unit* UnitFactory::createUnit(UNITTYPES unitType, Player::Ptr player)
 	unit->setCurrentHp(maxHp);
 	unit->setAttack(attack);
 	unit->setDefense(defense);
-	unit->setRange(range);
 	unit->setMaxMovement(movement);
 	unit->setCurrentMovement(movement);
 	unit->setPlayer(player);

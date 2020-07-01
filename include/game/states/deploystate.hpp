@@ -3,6 +3,7 @@
 
 #include <vector>
 
+#include "game/skirmish/toggleflatmodehandler.hpp"
 #include "game/skirmish/mapmanager.hpp"
 #include "game/states/scenestate.hpp"
 
@@ -46,6 +47,8 @@ public:
     std::vector<Player::Ptr> getPlayers() const;
 
 private:
+	ToggleFlatModeHandler toggleFlatModeHandler_;
+
 	void slotUnitButtonChanged(UNITTYPES unittype, unsigned int playerNumber);
     void slotToSkirmishButtonClicked();
 

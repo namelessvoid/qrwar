@@ -78,7 +78,7 @@ SID Board::typeName("qrw::Board");
 		_terrains.erase(position);
 	}
 
-	bool Board::isTerrainAt(const Coordinates &position)
+	bool Board::isTerrainAt(const Coordinates &position) const
 	{
 		return _terrains.find(position) != _terrains.end();
 	}
@@ -89,7 +89,7 @@ SID Board::typeName("qrw::Board");
 		return iterator == _terrains.end() ? nullptr : iterator->second;
 	}
 
-	std::map<Coordinates, Terrain*>& Board::getTerrains()
+	std::map<Coordinates, Terrain*> Board::getTerrains()
 	{
 		return _terrains;
 	}

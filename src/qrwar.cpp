@@ -1,8 +1,6 @@
 #include "qrwar.hpp"
 
 #include <SFML/Graphics/RenderWindow.hpp>
-#include <SFML/Window/Event.hpp>
-#include <SFML/System/Time.hpp>
 
 #include "config/settings.hpp"
 #include "config/tilesetprocessor.hpp"
@@ -15,6 +13,7 @@
 #include "eventsystem/eventsystem.hpp"
 #include "eventsystem/sfeventsource.hpp"
 #include "animation/animationsystem.hpp"
+#include "physics/physicsengine.hpp"
 
 #include "meta/metamanager.hpp"
 #include "game/skirmish/meta/boardmetaclass.hpp"
@@ -47,6 +46,7 @@ Scene g_scene;
 EventSystem g_eventSystem;
 AnimationSystem g_animationSystem;
 MetaManager g_metaManager;
+PhysicsEngine g_physicsEngine;
 
 // Globals within this file
 MapManager mapManager(g_metaManager);

@@ -13,6 +13,7 @@ SfEventSource::SfEventSource(sf::RenderWindow& window)
 	keyMap_[sf::Keyboard::Escape]    = KeyboardKey::Esc;
 	keyMap_[sf::Keyboard::BackSpace] = KeyboardKey::Backspace;
 	keyMap_[sf::Keyboard::Return]    = KeyboardKey::Return;
+	keyMap_[sf::Keyboard::Space]     = KeyboardKey::Space;
 
 	keyMap_[sf::Keyboard::W] = KeyboardKey::W;
 	keyMap_[sf::Keyboard::A] = KeyboardKey::A;

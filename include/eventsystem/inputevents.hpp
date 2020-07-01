@@ -13,6 +13,7 @@ enum class KeyboardKey
 	Esc,
 	Backspace,
 	Return,
+	Space,
 	A, D, S, W,
 	Left, Right, Up, Down
 };

@@ -6,19 +6,17 @@
 
 #include "game/cameras/skirmishcamera.hpp"
 #include "game/deploymentzone.hpp"
-#include "game/constants.hpp"
 #include "game/skirmish/structure.hpp"
 #include "game/skirmish/stairs.hpp"
 #include "game/skirmish/boardbackgroundcomponent.hpp"
-#include "game/skirmish/gui/mapeditortoolbar.hpp"
-
-#include "foundation/spritecomponent.hpp"
+#include "game/skirmish/flatmodeawaremixin.hpp"
 
 namespace qrw
 {
 
 MapEditorState::MapEditorState(sf::RenderWindow* renderWindow, MapManager& mapManager, SkirmishGuiFactory& guiFactory)
 	: SceneState(renderWindow, EGameStateId::EGSID_MAP_EDITOR_STATE),
+	  toggleFlatModeHandler_(),
 	  mapManager(mapManager)
 {
 	cursorMode_ = CursorMode::PLACE_TERRAIN;
@@ -63,7 +61,7 @@ void MapEditorState::init(GameState* previousState)
 	deploymentZones_.at(1)->setPlayerId(2);
 
 	SkirmishCamera* camera = g_scene.spawn<SkirmishCamera>();
-	camera->setCenter(_spBoard->getComponent<BoardBackgroundComponent>()->getViewCenter());
+	camera->setCenter(_spBoard->getFirstComponent<BoardBackgroundComponent>()->getViewCenter());
 }
 
 EGameStateId MapEditorState::update()
@@ -259,8 +257,18 @@ void MapEditorState::placeStructure(const Coordinates& position, Structure::Type
 
 	auto structure = structureFactory_.createStructure(structureId);
 	structure->setPosition(position);
+
+	if(auto flatModeAwareStructure = dynamic_cast<FlatModeAwareMixin*>(structure)) {
+		flatModeAwareStructure->setFlatMode(toggleFlatModeHandler_.isFlatMode());
+	}
+
 	g_scene.addGameObject(structure);
 	_spBoard->setStructure(position, structure);
+
+	// Update deployment zones visuals to make sure they are displayed on top of newly placed structure.
+	for(auto deploymentZone : deploymentZones_) {
+		deploymentZone->updateSprites();
+	}
 }
 
 void MapEditorState::eraseStructure(const Coordinates& position)
@@ -269,6 +277,11 @@ void MapEditorState::eraseStructure(const Coordinates& position)
 	{
 		_spBoard->removeStructureAt(position);
 		g_scene.destroy(structure);
+
+		// Update deployment zones visuals to make sure they are displayed on top of newly placed structure.
+		for(auto deploymentZone : deploymentZones_) {
+			deploymentZone->updateSprites();
+		}
 	}
 }
 
@@ -282,7 +295,8 @@ void MapEditorState::eraseDeploymentZone(const Coordinates& boardPosition)
 {
 	for(auto& deploymentZone : deploymentZones_)
 	{
-		deploymentZone->removeSquare(boardPosition);
+		if(deploymentZone->containsSquare(boardPosition))
+			deploymentZone->removeSquare(boardPosition);
 	}
 }
 

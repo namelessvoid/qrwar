@@ -14,6 +14,7 @@
 #include "game/skirmish/unitability.hpp"
 
 #include "foundation/gameobject.hpp"
+#include "flatmodeawaremixin.hpp"
 
 namespace qrw
 {
@@ -21,7 +22,7 @@ class Path;
 class SpriteComponent;
 class FollowRouteAnimationComponent;
 
-class Unit : public GameObject, public EventHandler
+class Unit : public GameObject, public FlatModeAwareMixin, public EventHandler
 {
 public:
 	friend class UnitFactory;
@@ -71,9 +72,11 @@ public:
 	int getCurrentMovement() const;
 	void setCurrentMovement(int movement);
 
-	const Coordinates& getPosition() const;
+	virtual void setWorldPosition(const sf::Vector2f& worldPosition);
 
-	void setPosition(const Coordinates& position);
+	const Coordinates& getBoardPosition() const;
+
+	void deploy(const Coordinates& boardPosition);
 	void move(const Path& path);
 
 	inline const std::list<UnitAbility*>& getAbilities() const { return specialAbilities_; }
@@ -94,19 +97,19 @@ protected:
 
 	void setDefense(int defense) { _defensevalue = defense; }
 
-	void setRange(int range) { _range = range; }
-
 	void setMaxMovement(int movement) { _movement = movement; }
 
 	void addAbility(UnitAbility* ability);
 
 	virtual void setPlayer(Player::Ptr& player) { _player = player; }
 
+	void flatModeChanged() override;
+
 	class UnitMovementAbility* movementAbility_;
 	class UnitMeleeAttackAbility* attackAbility_;
 
 private:
-	void setPosition_(const Coordinates& position);
+	void setBoardPosition_(const Coordinates& boardPosition);
 
 	void setTexture(const sf::Texture* texture);
 
@@ -115,12 +118,18 @@ private:
 	int _maxhp;
 	int _attackvalue;
 	int _defensevalue;
-	int _range;
 	int _movement;
 	int _currentmovement;
 	Player::Ptr _player;
 
-	Coordinates _position;
+	// Defines the position on the board used mainly for game rules. This is not affected by
+	// animations.
+	Coordinates _boardPosition;
+
+	// In contrast to the _boardPosition, worldPosition_ defines the current placement
+	// of the unit in world coordinates. These are used for visually representing the unit
+	// and not for the game logic per se.
+	sf::Vector2f worldPosition_;
 
 	FollowRouteAnimationComponent* followRouteAnimationComponent_;
 

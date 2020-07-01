@@ -6,7 +6,6 @@ option(BUILD_TESTS "If set to true, tests will build as well" ON)
 
 # set cmake stuff
 set(CMAKE_BUILD_TYPE Debug)
-set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} ${QuadRuledWar_SOURCE_DIR}/cmake/Modules)
 
 set(CMAKE_CXX_FLAGS "-g")
 #add_definitions("-Wall")

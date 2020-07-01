@@ -21,9 +21,9 @@ namespace qrw
 class SpriteComponent : public GameComponent, public Renderable
 {
 public:
-	SpriteComponent(Layer layer);
+	explicit SpriteComponent(GameObject& owner, Layer layer);
 
-	virtual ~SpriteComponent();
+	~SpriteComponent() override;
 
 	void setTexture(const sf::Texture* texture);
 
@@ -35,6 +35,11 @@ public:
 
 	const sf::Vector2f& getPosition() const override;
 
+	const sf::Transform& getInverseTransform() const
+	{
+		return _rectangle->getInverseTransform();
+	}
+
 	void setScale(sf::Vector2f scale)
 	{
 		_rectangle->setScale(scale);
@@ -45,19 +50,29 @@ public:
 		_rectangle->setOrigin(x, y);
 	}
 
-	const sf::Texture* getTexture()
+	const sf::Texture* getTexture() const
 	{
 		return _rectangle->getTexture();
 	}
 
-	sf::Vector2f getCenter();
+	const sf::IntRect& getTextureRect() const
+	{
+		return _rectangle->getTextureRect();
+	}
 
 	void setFillColor(const sf::Color& color);
 
 	virtual void render(sf::RenderTarget& renderTarget) override;
 
+	sf::FloatRect getGlobalBounds() const;
+
+	void enablePhysics();
+	void disablePhysics();
+
 protected:
 	sf::RectangleShape* _rectangle;
+
+	bool physicsEnabled_;
 };
 
 } // namespace qrw

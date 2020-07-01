@@ -41,12 +41,12 @@ Reflectable* DeploymentZoneMetaClass::deserialize(const YAML::Node& in) const
 {
     auto deploymentZone = new DeploymentZone();
 
+    deploymentZone->setPlayerId(in["playerId"].as<int>());
     YAML::Node squareNodes = in["zone_"];
     for(auto squareNode : squareNodes)
     {
         deploymentZone->addSquare({squareNode["x"].as<int>(), squareNode["y"].as<int>()});
     }
-    deploymentZone->setPlayerId(in["playerId"].as<int>());
 
     return deploymentZone;
 }

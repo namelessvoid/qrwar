@@ -9,14 +9,14 @@ namespace pathfinding {
 class Path;
 }
 
+class Path;
+
 class PathRenderComponent : public SpriteComponent
 {
 public:
-    PathRenderComponent();
+    explicit PathRenderComponent(Path& owner);
 
-    virtual ~PathRenderComponent() = default;
-
-	virtual void render(sf::RenderTarget &renderTarget) override;
+    void render(sf::RenderTarget &renderTarget) override;
 
 	void setPath(const pathfinding::Path* path);
 

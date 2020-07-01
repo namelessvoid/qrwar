@@ -1,11 +1,16 @@
 #include "game/deploymentzone.hpp"
 
-#include <SFML/Graphics/CircleShape.hpp>
+#include <SFML/Graphics/Color.hpp>
 #include <SFML/Graphics/RenderTarget.hpp>
 
+#include "gui/texturemanager.hpp"
+#include "gui/scene.hpp"
 #include "game/renderlayers.hpp"
 #include "game/constants.hpp"
+#include "game/skirmish/wall.hpp"
+#include "game/skirmish/stairs.hpp"
 #include "game/skirmish/isometricconversion.hpp"
+#include "game/skirmish/boardtoworldconversion.hpp"
 
 namespace qrw
 {
@@ -13,45 +18,45 @@ namespace qrw
 const SID DeploymentZone::typeName("qrw::DeploymentZone");
 
 DeploymentZone::DeploymentZone()
-    : Renderable(RENDER_LAYER_DEPLOYMENT_ZONE),
+    : GameObject(),
       playerId_(-1),
       color_(sf::Color::Green)
 {
 }
 
-void DeploymentZone::render(sf::RenderTarget& renderTarget)
+void DeploymentZone::initialize()
 {
-    sf::CircleShape rectangle(SQUARE_DIMENSION, 4);
-    rectangle.scale({1.0f, 0.5f});
-    rectangle.setOrigin({SQUARE_DIMENSION, 0.0f});
-
-    rectangle.setFillColor(color_);
-
-    for(auto& coordinate : zone_)
-    {
-        rectangle.setPosition(worldToIso({SQUARE_DIMENSION * coordinate.getX(), SQUARE_DIMENSION * coordinate.getY()}));
-        renderTarget.draw(rectangle);
-    }
+	GameObject::initialize();
+	updateSprites();
 }
 
-void DeploymentZone::setPosition(const sf::Vector2f& position)
+void DeploymentZone::addSquare(const Coordinates& coordinates)
 {
-    position_ = position;
+	assert(zone_.find(coordinates) == zone_.end());
+
+    zone_.insert(coordinates);
+
+    auto* sprite = new SpriteComponent(*this, RENDER_LAYER_GAME);
+    sprite->setFillColor(color_);
+	addComponent(sprite);
+	sprites_[coordinates] = sprite;
+
+	// Only update sprite when we are sure that the scene has a Board instance.
+	if(isInitialized()) {
+		updateSprite(coordinates, sprite);
+	}
 }
 
-const sf::Vector2f& DeploymentZone::getPosition() const
+void DeploymentZone::removeSquare(const Coordinates& coordinates)
 {
-    return position_;
-}
+	assert(zone_.find(coordinates) != zone_.end());
 
-void DeploymentZone::addSquare(const Coordinates& coordinate)
-{
-    zone_.insert(coordinate);
-}
+    zone_.erase(coordinates);
 
-void DeploymentZone::removeSquare(const Coordinates& coordinate)
-{
-    zone_.erase(coordinate);
+    auto* sprite = sprites_[coordinates];
+    removeComponent(sprite);
+    sprites_.erase(coordinates);
+    delete sprite;
 }
 
 bool DeploymentZone::containsSquare(const Coordinates& coordinate)
@@ -82,6 +87,60 @@ void DeploymentZone::setPlayerId(int playerId)
         case 2: color_ = PLAYER_TWO_COLOR; break;
         default: assert(playerId == 1 || playerId == 2);
     }
+}
+
+void DeploymentZone::flatModeChanged()
+{
+	updateSprites();
+}
+
+void DeploymentZone::updateSprites()
+{
+	for(const auto& iter : sprites_) {
+		updateSprite(iter.first, iter.second);
+	}
+}
+
+void DeploymentZone::updateSprite(const Coordinates& coordinates, SpriteComponent* sprite)
+{
+	auto* board = g_scene.findSingleGameObject<Board>();
+	assert(board != nullptr);
+
+	sprite->setPosition(worldToIso(boardToWorld(coordinates)));
+	float zIndex = sprite->getZIndex() + 0.02f;
+
+	std::string textureName = "deploymentzone";
+	sf::Vector2f spriteOrigin(SQUARE_DIMENSION, 0.0f);
+	sf::Vector2f spriteSize(2.0f * SQUARE_DIMENSION, SQUARE_DIMENSION);
+	float heightOffset = 0;
+
+	if(!isFlatMode()) {
+		if (auto* structure = board->getStructure(coordinates)) {
+			if (dynamic_cast<Wall*>(structure) != nullptr) {
+				heightOffset = -2.0f * SQUARE_DIMENSION;
+			} else if (auto stairs = dynamic_cast<Stairs*>(structure)) {
+				textureName += "_stairs_";
+				if (stairs->getFace() == Directions::WEST) {
+					textureName += "west";
+				} else if (stairs->getFace() == Directions::NORTH) {
+					textureName += "north";
+				} else if (stairs->getFace() == Directions::EAST) {
+					textureName += "east";
+				} else if (stairs->getFace() == Directions::SOUTH) {
+					textureName += "south";
+				}
+
+				spriteOrigin = sf::Vector2f(SQUARE_DIMENSION, 40.0f);
+				spriteSize = sf::Vector2f(2.0f * SQUARE_DIMENSION, 91.0f);
+			}
+		}
+	}
+
+	sprite->setTexture(TextureManager::getInstance()->getTexture(textureName));
+	sprite->setSize(spriteSize);
+	sprite->setOrigin(spriteOrigin.x, spriteOrigin.y);
+	sprite->setPosition(sprite->getPosition() + sf::Vector2f(0, heightOffset));
+	sprite->setZIndex(zIndex);
 }
 
 } // namespace qrw

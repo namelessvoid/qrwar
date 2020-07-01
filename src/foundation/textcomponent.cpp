@@ -3,8 +3,9 @@
 namespace qrw
 {
 
-qrw::TextComponent::TextComponent(Layer layer)
-	: Renderable(layer)
+qrw::TextComponent::TextComponent(GameObject& owner, Layer layer)
+	: GameComponent(owner),
+	  Renderable(layer)
 {
 	m_font.loadFromFile("./res/font/Knigqst.ttf");
 	m_text.setFont(m_font);

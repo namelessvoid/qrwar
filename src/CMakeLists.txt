@@ -2,7 +2,7 @@ add_subdirectory(gui/ng)
 
 find_package(tinyxml2 REQUIRED)
 find_package(yaml-cpp REQUIRED)
-find_package(SFML 2.5 REQUIRED graphics audio)
+find_package(SFML 2.5 COMPONENTS graphics audio REQUIRED)
 
 add_library(qrwarlib
 	qrwar.cpp
@@ -55,10 +55,12 @@ add_library(qrwarlib
 
 	game/skirmish/mapmanager.cpp
 	game/skirmish/mapvalidator.cpp
+	game/skirmish/minimapgenerator.cpp
 	game/skirmish/boardbackgroundcomponent.cpp
 	game/skirmish/unit.cpp
 	game/skirmish/laddercarrier.cpp
 	game/skirmish/archer.cpp
+	game/skirmish/unitability.cpp
 	game/skirmish/unitmovementability.cpp
 	game/skirmish/unitmeleeattackability.cpp
 	game/skirmish/unitrangeattackability.cpp
@@ -74,10 +76,13 @@ add_library(qrwarlib
 	game/skirmish/coordinates.cpp
 	game/skirmish/directions.cpp
 	game/skirmish/isometricconversion.cpp
+	game/skirmish/boardtoworldconversion.cpp
+	game/skirmish/toggleflatmodehandler.cpp
 
 	game/skirmish/gui/victorydialog.cpp
 	game/skirmish/gui/mapeditortoolbar.cpp
 	game/skirmish/gui/mapselectionwindow.cpp
+	game/skirmish/gui/mappreview.cpp
 	game/skirmish/gui/skirmishpreparationgui.cpp
 	game/skirmish/gui/skirmishpreparationplayeroptions.cpp
 	game/skirmish/gui/squaredetailwindow.cpp
@@ -102,7 +107,12 @@ add_library(qrwarlib
 	gui/guihelper.cpp
 
 	meta/metamanager.cpp
-	meta/metaclass.cpp)
+	meta/metaclass.cpp
+
+	physics/physicsengine.cpp
+	physics/texturealphamask.cpp
+)
+
 set_target_properties(qrwarlib PROPERTIES OUTPUT_NAME qrwar)
 target_link_libraries(qrwarlib
 	sfml-audio

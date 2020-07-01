@@ -14,7 +14,7 @@ namespace qrw
 class TextComponent : public GameComponent, public Renderable
 {
 public:
-    TextComponent(Layer layer);
+    TextComponent(GameObject& owner, Layer layer);
 
     void setText(const std::string& text);
     void setFillColor(const sf::Color& color);

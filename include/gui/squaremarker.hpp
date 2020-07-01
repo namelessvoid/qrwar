@@ -30,13 +30,8 @@ public:
 
 	void markInvalid();
 	void markValid();
-	void markAttackable();
-	void markRangeAttackable();
-	void markDeployLadder();
 
 protected:
-	sf::Color m_color;
-
 	Coordinates m_boardPosition;
 
 	SpriteComponent* m_spriteComponent;

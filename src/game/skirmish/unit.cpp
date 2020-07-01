@@ -1,5 +1,3 @@
-#include <cstdio>
-
 #include "game/skirmish/unit.hpp"
 
 #include "engine/board.hpp"
@@ -10,29 +8,37 @@
 #include "foundation/followrouteanimationcomponent.hpp"
 #include "gui/scene.hpp"
 
-#include "gui/guihelper.hpp"
 #include "gui/texturemanager.hpp"
 
 #include "game/renderlayers.hpp"
 #include "game/constants.hpp"
 #include "game/damagenumber.hpp"
 #include "game/path.hpp"
+#include "game/skirmish/wall.hpp"
 #include "game/skirmish/unitmovementability.hpp"
 #include "game/skirmish/unitmeleeattackability.hpp"
 #include "game/skirmish/isometricconversion.hpp"
+#include "game/skirmish/boardtoworldconversion.hpp"
 
 namespace qrw
 {
 
 Unit::Unit()
-	: EventHandler(EventHandlerPriority::DEFAULT)
+	: EventHandler(EventHandlerPriority::DEFAULT),
+	  _type(EUT_NUMBEROFUNITTYPES),
+	  _hp(0),
+	  _maxhp(0),
+	  _attackvalue(0),
+	  _defensevalue(0),
+	  _movement(0),
+	  _currentmovement(0)
 {
-	_sprite = new SpriteComponent(RENDER_LAYER_UNIT);
+	_sprite = new SpriteComponent(*this, RENDER_LAYER_GAME);
 	addComponent(_sprite);
 	_sprite->setSize({SQUARE_DIMENSION, SQUARE_DIMENSION});
 	_sprite->setOrigin(SQUARE_DIMENSION * 0.5f, 0);
 
-	followRouteAnimationComponent_ = new FollowRouteAnimationComponent(_sprite);
+	followRouteAnimationComponent_ = new FollowRouteAnimationComponent(this);
 	addComponent(followRouteAnimationComponent_);
 
 	movementAbility_ = new UnitMovementAbility(this);
@@ -47,8 +53,8 @@ Unit::Unit()
 void Unit::onDestroy()
 {
 	Board* board = g_scene.findSingleGameObject<Board>();
-	if(board && board->getUnit(_position) == this)
-		board->removeUnit(_position);
+	if(board && board->getUnit(_boardPosition) == this)
+		board->removeUnit(_boardPosition);
 
 	// Trigger destruction of abilities
 	specialAbilities_.clear();
@@ -74,8 +80,8 @@ int Unit::getModifiedAttack()
 	int modifiedAttack = getBaseAttack();
 
 	Board* board = g_scene.findSingleGameObject<Board>();
-	if(board && board->isTerrainAt(getPosition()))
-		modifiedAttack += board->getTerrain(getPosition())->getModificator(EM_ATTACK);
+	if(board && board->isTerrainAt(getBoardPosition()))
+		modifiedAttack += board->getTerrain(getBoardPosition())->getModificator(EM_ATTACK);
 
 	return modifiedAttack < 0 ? 0 : modifiedAttack;
 }
@@ -90,8 +96,8 @@ int Unit::getModifiedDefense()
 	int modifiedDefense = getBaseDefense();
 
 	Board* board = g_scene.findSingleGameObject<Board>();
-	if(board && board->isTerrainAt(getPosition()))
-		modifiedDefense += board->getTerrain(getPosition())->getModificator(EM_DEFENSE);
+	if(board && board->isTerrainAt(getBoardPosition()))
+		modifiedDefense += board->getTerrain(getBoardPosition())->getModificator(EM_DEFENSE);
 
 	return modifiedDefense < 0 ? 0 : modifiedDefense;
 }
@@ -132,15 +138,31 @@ int Unit::getCurrentMovement() const
 	return _currentmovement;
 }
 
-const Coordinates& Unit::getPosition() const
+void Unit::setWorldPosition(const sf::Vector2f& worldPosition)
 {
-	return _position;
+	worldPosition_ = worldPosition;
+
+	auto isoPosition = worldToIso(worldPosition);
+	auto zIndex = worldToIso(boardToWorld(worldToBoard(worldPosition))).y;
+
+	// Account structures at provided worldPosition
+	Coordinates boardPosition = worldToBoard(worldPosition);
+	Board* board = g_scene.findSingleGameObject<Board>();
+	if (auto structure = board->getStructure(boardPosition)) {
+		isoPosition.y += structure->getCurrentVisualHeightForUnits();
+
+		// Rather hacky way to get unit rendered before walls when moving from one wall to the other.
+		// This will probably break as soon as merlons are added to walls.
+		zIndex += 0.2f + SQUARE_DIMENSION;
+	}
+
+	_sprite->setPosition(isoPosition);
+	_sprite->setZIndex(zIndex);
 }
 
-void Unit::setPosition(const Coordinates& position)
+const Coordinates& Unit::getBoardPosition() const
 {
-	setPosition_(position);
-	_sprite->setPosition(worldToIso({SQUARE_DIMENSION * _position.getX(), SQUARE_DIMENSION * _position.getY()}));
+	return _boardPosition;
 }
 
 void Unit::setTexture(const sf::Texture *texture)
@@ -158,34 +180,39 @@ void Unit::setCurrentMovement(int movement)
 		_currentmovement = movement;
 }
 
-void Unit::setPosition_(const Coordinates& position)
+void Unit::setBoardPosition_(const Coordinates& boardPosition)
 {
 	Board* board = g_scene.findSingleGameObject<Board>();
-	if (board->getUnit(_position) == this)
-		board->removeUnit(_position);
+	if (board->getUnit(_boardPosition) == this)
+		board->removeUnit(_boardPosition);
 
-	_position = position;
-	board->setUnit(_position, this);
+	_boardPosition = boardPosition;
+	board->setUnit(_boardPosition, this);
 }
 
 void Unit::move(const Path& path)
 {
-	setPosition_(path.last());
+	setBoardPosition_(path.last());
 
-	for(int i = 0; i < path.getLength(); ++i)
-	{
+	for(int i = 0; i < path.getLength(); ++i) {
 		// Skip current start position on running animation since it is already
 		// part of the animation (animation.last_step == path.first_step)
-		if(followRouteAnimationComponent_->isRunning() && i == 0) continue;
+		if (followRouteAnimationComponent_->isRunning() && i == 0) continue;
 
 		const Coordinates& step = path.getStep(i);
-		followRouteAnimationComponent_->addCorner(
-			worldToIso(sf::Vector2f{step.getX() * SQUARE_DIMENSION, step.getY() * SQUARE_DIMENSION})
-		);
+		followRouteAnimationComponent_->addCorner(boardToWorld(step));
 	}
 
 	if(!followRouteAnimationComponent_->isRunning())
 		followRouteAnimationComponent_->start();
+}
+
+void Unit::deploy(const Coordinates& boardPosition)
+{
+	setBoardPosition_(boardPosition);
+
+	auto worldPosition = boardToWorld(boardPosition);
+	setWorldPosition(worldPosition);
 }
 
 UnitAbility* Unit::updateAbilitiesToTarget(const Coordinates& boardPosition)
@@ -232,6 +259,13 @@ void Unit::addAbility(UnitAbility* ability)
 bool Unit::handleEvent(const IEvent& event)
 {
 	return false;
+}
+
+void Unit::flatModeChanged()
+{
+	// Retrigger sprite update by setting the world position to current position.
+	// Should maybe be placed in a more appropriate method (cf. Wall::updateSprites()).
+	setWorldPosition(worldPosition_);
 }
 
 } // namespace qrw

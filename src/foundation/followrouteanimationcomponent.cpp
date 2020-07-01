@@ -1,15 +1,18 @@
 #include "foundation/followrouteanimationcomponent.hpp"
 
-#include <math.h>
+#include <cmath>
 
 #include "rendering/renderable.hpp"
+
+#include "game/skirmish/unit.hpp"
 
 namespace qrw
 {
 
-FollowRouteAnimationComponent::FollowRouteAnimationComponent(qrw::Renderable* renderable)
-	: Animation(),
-	  renderable_(renderable)
+FollowRouteAnimationComponent::FollowRouteAnimationComponent(Unit* unit)
+	: GameComponent(*unit),
+	  Animation(),
+	  unit_(unit)
 {
 	setDuration(1);
 }
@@ -51,7 +54,7 @@ void FollowRouteAnimationComponent::animate(float deltaTime)
 	float currentEdgePercentage =  currentEdgeTime / timePerEdge;
 
 	sf::Vector2f newPosition = start + currentEdgePercentage * direction;
-	renderable_->setPosition(newPosition);
+	unit_->setWorldPosition(newPosition);
 }
 
 } // namespace qrw

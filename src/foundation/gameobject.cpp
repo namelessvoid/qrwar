@@ -18,11 +18,22 @@ GameObject::~GameObject()
 		delete componentIterator.second;
 }
 
-void GameObject::addComponent(qrw::GameComponent* component)
+void GameObject::addComponent(GameComponent* component)
 {
 	assert(component!=nullptr);
-	assert(components_.find(typeid(*component))==components_.end());
-	components_[typeid(*component)] = component;
+	components_.insert(std::pair<std::type_index,GameComponent*>(typeid(*component), component));
+}
+
+void GameObject::removeComponent(GameComponent* component)
+{
+	assert(component!=nullptr);
+	auto componentRange = components_.equal_range(typeid(*component));
+	for(auto iter = componentRange.first; iter != componentRange.second; ++iter) {
+		if(iter->second == component) {
+			components_.erase(iter);
+			return;
+		}
+	}
 }
 
 void GameObject::onDestroy()
@@ -30,6 +41,5 @@ void GameObject::onDestroy()
 	for(auto& component : components_)
 		component.second->onDestroy();
 }
-
 
 } // namespace qrw

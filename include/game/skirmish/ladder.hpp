@@ -12,6 +12,17 @@ public:
 	const SID& getTypeName() const override;
 
 	Ladder();
+
+	const sf::Texture* getTexture() const override;
+
+	void setFace(const Coordinates& face) override;
+
+	void setPosition(const Coordinates& position) override;
+
+	float getCurrentVisualHeightForUnits() const override;
+
+private:
+	SpriteComponent* spriteComponent_;
 };
 
 } // namespace qrw

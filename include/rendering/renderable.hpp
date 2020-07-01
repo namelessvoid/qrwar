@@ -16,7 +16,7 @@ typedef unsigned int Layer;
 class Renderable
 {
 public:
-	Renderable(Layer layer);
+	explicit Renderable(Layer layer);
 
 	virtual ~Renderable();
 
@@ -24,16 +24,19 @@ public:
 
 	Layer getLayer();
 
-	inline bool isVisible() const { return m_visible; }
-	void setVisible(bool visible) { m_visible = visible; }
+	inline bool isVisible() const { return visible_; }
+	void setVisible(bool visible) { visible_ = visible; }
 
 	virtual void setPosition(const sf::Vector2f& position) = 0;
 	virtual const sf::Vector2f& getPosition() const = 0;
 
-private:
-	Layer m_layer;
+	void setZIndex(float zIndex) { zIndex_ = zIndex; }
+	float getZIndex() const { return zIndex_; }
 
-	bool m_visible;
+private:
+	Layer layer_;
+	float zIndex_;
+	bool visible_;
 };
 
 } // namespace qrw

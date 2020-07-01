@@ -15,7 +15,7 @@ namespace qrw
 class RenderSystem
 {
 public:
-	RenderSystem() {}
+	RenderSystem() = default;
 
 	void startUp(sf::RenderTarget& renderTarget);
 	void shutDown();
@@ -30,7 +30,7 @@ public:
 private:
 	RenderSystem(const RenderSystem&) = delete;
 
-	PriorityList<Renderable*> renderables_;
+	std::map<Layer,std::set<Renderable*>> renderables_;
 
 	sf::RenderTarget* renderTarget_;
 

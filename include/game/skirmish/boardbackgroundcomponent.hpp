@@ -29,7 +29,7 @@ public:
 private:
 	sf::Sprite plainSquareSprite_;
 
-	Board& owner_;
+	Board& board_;
 };
 
 } // namespace qrw

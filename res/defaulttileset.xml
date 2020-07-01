@@ -18,31 +18,55 @@
 
 		<tile name="wood" x="0" y="96" width="32" height="32" />
 		<tile name="hill" x="32" y="96" width="32" height="32" />
+	</file>
+	<file path="./res/img/deploymentzone.png">
+		<tile name="deploymentzone" x="0" y="0" width="100" height="50" />
 
-		<tile name="ladder" x="150" y="100" width="100" height="50" />
-		<tile name="stairs" x="150" y="150" width="100" height="50" />
+		<tile name="deploymentzone_stairs_west"  x="0"   y="50"  width="100" height="91" />
+		<tile name="deploymentzone_stairs_north" x="100" y="50"  width="100" height="91" />
+		<tile name="deploymentzone_stairs_east"  x="0"   y="141" width="100" height="91" />
+		<tile name="deploymentzone_stairs_south" x="100" y="141" width="100" height="91" />
 	</file>
 	<file path="./res/img/structures/wall.png">
-		<tile name="wall" x="300"   y="50" width="100" height="50" />
+		<tile name="wall_south" x="0"   y="200" width="50" height="125" />
+		<tile name="wall_east"  x="50"  y="200" width="50" height="125" />
+		<tile name="wall_top"   x="100" y="200" width="100" height="50" />
 
-		<tile name="wallN" x="0"  y="0" width="100" height="50" />
-		<tile name="wallO" x="100" y="0" width="100" height="50" />
-		<tile name="wallS" x="200" y="0" width="100" height="50" />
-		<tile name="wallW" x="300" y="0" width="100" height="50" />
+		<tile name="wallN" x="0" y="200" width="100" height="150" />
+		<tile name="wallO" x="0" y="200" width="100" height="150" />
+		<tile name="wallS" x="0" y="200" width="100" height="150" />
+		<tile name="wallW" x="0" y="200" width="100" height="150" />
 
-		<tile name="wallNO" x="0"   y="50"  width="100" height="50" />
-		<tile name="wallOS" x="0"   y="100" width="100" height="50" />
-		<tile name="wallSW" x="200" y="100" width="100" height="50" />
-		<tile name="wallNW" x="200" y="50"  width="100" height="50" />
+		<tile name="wallNO" x="0"  y="200" width="100" height="150" />
+		<tile name="wallOS" x="0"  y="200" width="100" height="150" />
+		<tile name="wallSW" x="0" y="200" width="100" height="150" />
+		<tile name="wallNW" x="0" y="200" width="100" height="150" />
 
-		<tile name="wallNS" x="100" y="50"  width="100" height="50" />
-		<tile name="wallOW" x="100" y="100" width="100" height="50" />
+		<tile name="wallNS" x="0" y="200" width="100" height="150" />
+		<tile name="wallOW" x="0" y="200" width="100" height="150" />
 
-		<tile name="wallNOS" x="0"   y="150" width="100" height="50" />
-		<tile name="wallOSW" x="300" y="150" width="100" height="50" />
-		<tile name="wallNSW" x="200" y="150" width="100" height="50" />
-		<tile name="wallNOW" x="100" y="150" width="100" height="50" />
+		<tile name="wallNOS" x="0" y="200" width="100" height="150" />
+		<tile name="wallOSW" x="0" y="200" width="100" height="150" />
+		<tile name="wallNSW" x="0" y="200" width="100" height="150" />
+		<tile name="wallNOW" x="0" y="200" width="100" height="150" />
 
-		<tile name="wallNOSW" x="300" y="100" width="100" height="50" />
+		<tile name="wallNOSW" x="0" y="200" width="100" height="150" />
+	</file>
+	<file path="./res/img/structures/stairs.png">
+		<tile name="stairs_west"  x="0"   y="0"  width="100" height="91" />
+		<tile name="stairs_north" x="100" y="0"  width="100" height="91" />
+		<tile name="stairs_east"  x="0"   y="91" width="100" height="91" />
+		<tile name="stairs_south" x="100" y="91" width="100" height="91" />
+
+		<tile name="stairs_west_flat"  x="200" y="0"  width="100" height="91" />
+		<tile name="stairs_north_flat" x="300" y="0"  width="100" height="91" />
+		<tile name="stairs_east_flat"  x="200" y="91" width="100" height="91" />
+		<tile name="stairs_south_flat" x="300" y="91" width="100" height="91" />
+	</file>
+	<file path="./res/img/structures/ladder.png">
+		<tile name="ladder_west"  x="0"  y="0"  width="44" height="99" />
+		<tile name="ladder_north" x="44" y="0"  width="44" height="99" />
+		<tile name="ladder_east"  x="88" y="0"  width="46" height="72" />
+		<tile name="ladder_south" x="134" y="0" width="46" height="72" />
 	</file>
 </tileset>
