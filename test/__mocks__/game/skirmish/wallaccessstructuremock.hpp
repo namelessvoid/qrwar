@@ -16,6 +16,11 @@ public:
 	{
 		throw "Not implemented";
 	}
+
+	float getCurrentVisualHeightForUnits() const override
+	{
+		throw "Not implemented";
+	}
 };
 
 #endif //QRW_TEST_WALLACCESSSTRUCTUREMOCK_HPP
