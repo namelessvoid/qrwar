@@ -7,9 +7,12 @@ Quad Ruled War (qrw) is a turn based strategy game taking place on a board seper
 
 # Game
 
+Controls:
+- `Space`: Toggle flat mode (to reveal stuff occluded by walls)
+
 ## Skirmish
 
-The game has a single game mode "skirmish" in which to players compete in a hot-seat match against each other. At first, units are deployed in the marked areas known as deployment zones. Afterwards, the the turn-based battle begins and both move and attack until all units of one player have been eliminated.
+The game has a single game mode "skirmish" in which to players compete in a hot-seat match against each other. At first, units are deployed in the marked areas known as deployment zones. Afterwards, the turn-based battle begins and both move and attack until all units of one player have been eliminated.
 
 ## Mapeditor
 
