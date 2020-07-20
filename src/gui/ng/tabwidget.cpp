@@ -36,8 +36,8 @@ void TabWidget::addTab(const sf::Texture* buttonImage, Widget* widget)
 
 	widget->setAnchor({0, 0});
 	widget->setParentAnchor({0, 0});
-	widget->setSize({getSize().x, getSize().y - buttonSize_.y - 5});
-	widget->setRelativePosition({0, buttonSize_.y + 5 });
+	widget->setSize({getSize().x - 12.0f, getSize().y - buttonSize_.y - 4});
+	widget->setRelativePosition({4.0, buttonSize_.y + 4 });
 	addWidget(widget);
 	widgets_.push_back(widget);
 	widget->setVisible(false);
@@ -98,7 +98,7 @@ void TabWidget::setPosition(const sf::Vector2f &position)
 
 sf::Vector2f TabWidget::getButtonRelativePosition(int index)
 {
-	return { index * buttonSize_.x, 0 };
+	return { index * (buttonSize_.x + 1.0f), 2.0f };
 }
 
 } // namespace namelessgui

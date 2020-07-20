@@ -17,16 +17,17 @@ MapEditorToolBar::MapEditorToolBar(unsigned int initialBoardWidth, unsigned int 
 {
 	TextureManager* textureManager = TextureManager::getInstance();
 
-	setButtonSize({48, 48});
+	setButtonSize({64, 64});
 	addTab(textureManager->getTexture("wheel"), createConfigToolsWindow(initialBoardWidth, initialBoardHeight));
 	addTab(textureManager->getTexture("wood"), createTerrainToolsWindow());
-	addTab(textureManager->getTexture("wall"), createStructureToolsWindow());
+	addTab(textureManager->getTexture("mapeditor_structure"), createStructureToolsWindow());
 	addTab(textureManager->getTexture("default"), createDeploymentZoneToolsWindow());
 }
 
 namelessgui::Window* MapEditorToolBar::createConfigToolsWindow(unsigned int initialBoardWidth, unsigned int initialBoardHeight)
 {
 	namelessgui::Window* configWindow = new namelessgui::Window("configToolsWindow");
+	configWindow->setOutlineColor(configWindow->getFillColor());
 
 	namelessgui::Text* heading = new namelessgui::Text();
 	heading->setText("Settings");
@@ -34,14 +35,28 @@ namelessgui::Window* MapEditorToolBar::createConfigToolsWindow(unsigned int init
 	configWindow->addWidget(heading);
 
 	mapNameInput_ = new namelessgui::LineInput();
-	mapNameInput_->setSize({198, 30});
+	mapNameInput_->setSize({252, 30});
 	mapNameInput_->setText("Map Name");
 	mapNameInput_->setRelativePosition({0, 50});
 	configWindow->addWidget(mapNameInput_);
 
+	namelessgui::Button* loadButton = new namelessgui::Button();
+	loadButton->setText("Load");
+	loadButton->setRelativePosition({0, 84});
+	loadButton->setSize({124, 30});
+	loadButton->signalClicked.connect([this] { signalLoadClicked.emit(mapNameInput_->getText()); });
+	configWindow->addWidget(loadButton);
+
+	namelessgui::Button* saveButton = new namelessgui::Button();
+	saveButton->setText("Save");
+	saveButton->setSize({124, 30.0f});
+	saveButton->setRelativePosition({126.0f, 84.0f});
+	saveButton->signalClicked.connect([this] () { signalSaveClicked.emit(mapNameInput_->getText()); });
+	configWindow->addWidget(saveButton);
+
 	namelessgui::SpinBox* mapWidthBox = new namelessgui::SpinBox();
-	mapWidthBox->setSize({100.0f, 30.0f});
-	mapWidthBox->setRelativePosition({0, 100});
+	mapWidthBox->setSize({120.0f, 30.0f});
+	mapWidthBox->setRelativePosition({0, 130});
 	mapWidthBox->setMinValue(10);
 	mapWidthBox->setMaxValue(128);
 	mapWidthBox->setValue(initialBoardWidth);
@@ -49,8 +64,8 @@ namelessgui::Window* MapEditorToolBar::createConfigToolsWindow(unsigned int init
 	configWindow->addWidget(mapWidthBox);
 
 	namelessgui::SpinBox* mapHeightBox = new namelessgui::SpinBox();
-	mapHeightBox->setSize({100.0f, 30.0f});
-	mapHeightBox->setRelativePosition({0, 100});
+	mapHeightBox->setSize({120.0f, 30.0f});
+	mapHeightBox->setRelativePosition({-8, 130});
 	mapHeightBox->setMinValue(10);
 	mapHeightBox->setMaxValue(128);
 	mapHeightBox->setValue(initialBoardHeight);
@@ -59,28 +74,13 @@ namelessgui::Window* MapEditorToolBar::createConfigToolsWindow(unsigned int init
 	mapHeightBox->signalChanged.connect([this] (unsigned int height) { signalBoardHeightChanged.emit(height); });
 	configWindow->addWidget(mapHeightBox);
 
-	namelessgui::Button* saveButton = new namelessgui::Button();
-	saveButton->setText("Save");
-	saveButton->setSize({BUTTON_SIZE.x, 30.0f});
-	saveButton->setAnchor({0.5f, 1.0f});
-	saveButton->setParentAnchor({0.5f, 1.0f});
-	saveButton->setRelativePosition({0.0f, -5.0f});
-	saveButton->signalClicked.connect([this] () { signalSaveClicked.emit(mapNameInput_->getText()); });
-	configWindow->addWidget(saveButton);
-
-	namelessgui::Button* loadButton = new namelessgui::Button();
-	loadButton->setText("Load");
-	loadButton->setRelativePosition({0, 150});
-	loadButton->setSize({150, 30});
-	loadButton->signalClicked.connect([this] { signalLoadClicked.emit(mapNameInput_->getText()); });
-	configWindow->addWidget(loadButton);
-
 	return configWindow;
 }
 
 namelessgui::Window* MapEditorToolBar::createTerrainToolsWindow()
 {
 	namelessgui::Window* terrainWindow = new namelessgui::Window("terrainToolsWindow");
+	terrainWindow->setOutlineColor(terrainWindow->getFillColor());
 
 	namelessgui::Text* heading = new namelessgui::Text();
 	heading->setText("Terrain");
@@ -118,6 +118,7 @@ namelessgui::Window* MapEditorToolBar::createTerrainToolsWindow()
 namelessgui::Window* MapEditorToolBar::createStructureToolsWindow()
 {
 	namelessgui::Window* structureWindow = new namelessgui::Window("structureToolsWindow");
+	structureWindow->setOutlineColor(structureWindow->getFillColor());
 
 	namelessgui::Text* heading = new namelessgui::Text();
 	heading->setText("Structures");
@@ -159,6 +160,7 @@ namelessgui::Window* MapEditorToolBar::createDeploymentZoneToolsWindow()
 	float buttonYOffset = 45;
 
 	namelessgui::Window* zoneWindow = new namelessgui::Window("deploymentZoneToolsWindow");
+	zoneWindow->setOutlineColor(zoneWindow->getFillColor());
 
 	namelessgui::Text* heading = new namelessgui::Text();
 	heading->setText("Deployment Zones");
