@@ -20,8 +20,8 @@ MapEditorToolBar::MapEditorToolBar(unsigned int initialBoardWidth, unsigned int 
 	setButtonSize({64, 64});
 	addTab(textureManager->getTexture("wheel"), createConfigToolsWindow(initialBoardWidth, initialBoardHeight));
 	addTab(textureManager->getTexture("wood"), createTerrainToolsWindow());
-	addTab(textureManager->getTexture("mapeditor_structure"), createStructureToolsWindow());
-	addTab(textureManager->getTexture("default"), createDeploymentZoneToolsWindow());
+	addTab(textureManager->getTexture("mapeditor_structures"), createStructureToolsWindow());
+	addTab(textureManager->getTexture("mapeditor_deploymentzones"), createDeploymentZoneToolsWindow());
 }
 
 namelessgui::Window* MapEditorToolBar::createConfigToolsWindow(unsigned int initialBoardWidth, unsigned int initialBoardHeight)
